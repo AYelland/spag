@@ -21,7 +21,7 @@ def read(filename):
 # Get the version information.
 here = path.abspath(path.dirname(__file__))
 vre = re_compile("__version__ = \"(.*?)\"")
-version = vre.findall(read(path.join(here, "__init__.py")))[0]
+version = vre.findall(read(path.join(here, "spag", "__init__.py")))[0]
 
 setup(
     name="spag",
@@ -46,7 +46,7 @@ setup(
         "Topic :: Scientific/Engineering :: Physics"
     ],
     keywords="astronomy",
-    packages=find_packages(exclude=["test"]),
+    packages=find_packages(exclude=["tests"]),
     install_requires=[
         "numpy","pandas","astropy","scipy",
         "six","seaborn","pyyaml"#,"astro-gala"
@@ -55,7 +55,9 @@ setup(
         #"test": ["coverage"]
     },
     package_data={
-        "": ["LICENSE"]
+        "": ["LICENSE"],
+        "spag": ["data/*"],
+        "spag": ["linelists/*"]
     },
     include_package_data=True,
     data_files=None,
