@@ -1,0 +1,10 @@
+/Volumes/Elements/20230625_MIKE/data/10reduced/Final-Products/sgr459_____.fits
+/Volumes/Elements/20230625_MIKE/data/10reduced/Final-Products/sgr440_____.fits
+/Volumes/Elements/20230625_MIKE/data/10reduced/Final-Products/sgr471_____.fits
+/Volumes/Elements/20230625_MIKE/data/10reduced/Final-Products/sgr434_____.fits
+/Volumes/Elements/20230625_MIKE/data/10reduced/Final-Products/sgr492_____.fits
+/Volumes/Elements/20230625_MIKE/data/10reduced/Final-Products/sgr453_____.fits
+/Volumes/Elements/20230625_MIKE/data/10reduced/Final-Products/sgr443_____.fits
+/Volumes/Elements/20230625_MIKE/data/10reduced/Final-Products/sgr431_____.fits
+/Volumes/Elements/20230625_MIKE/data/10reduced/Final-Products/sgr504_____.fits
+/Volumes/Elements/20230625_MIKE/data/10reduced/Final-Products/sgr505_____.fits

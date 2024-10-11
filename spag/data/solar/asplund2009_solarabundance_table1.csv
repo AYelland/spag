@@ -1,4 +1,4 @@
-Z,element,photosphere_abundance,photosphere_abundance_error,meteorite_abundance,meteorite_abundance_error
+Z,elem,photosphere_logeps,photosphere_logeps_err,meteorite_logeps,meteorite_logeps_err
 1,H,12.00,,8.22,0.04
 2,He,10.93,0.01,1.29,
 3,Li,1.05,0.10,3.26,0.05
