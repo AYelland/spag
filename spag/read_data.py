@@ -4,6 +4,7 @@
 from __future__ import (division, print_function, absolute_import,
                         unicode_literals)
 
+import pkg_resources
 import  sys, os, glob, time, IPython
 import matplotlib.pyplot as plt
 # import matplotlib.gridspec as gridspec
@@ -19,6 +20,7 @@ sns_palette = sns.color_palette()
 
 # script_dir = "/".join(IPython.extract_module_locals()[1]["__vsc_ipynb_file__"].split("/")[:-1]) + "/" # use this if in ipython
 script_dir = os.path.dirname(os.path.realpath(__file__))+"/" # use this if not in ipython (i.e. terminal script)
+# script_dir = pkg_resources.resource_filename(__name__)
 data_dir = script_dir+"data/"
 plots_dir = script_dir+"plots/"
 linelist_dir = script_dir+"linelists/"
