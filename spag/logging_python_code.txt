@@ -1,0 +1,30 @@
+################################################################################
+## Logging setup
+# Set up the logging configuration by creating a logger object and setting the
+# directory to save the log file. 
+# 
+# The log file name will be the name of the script that is being run
+# with the extension '.log'. The log file will be saved in the directory
+# '.smh' in the user's home directory. If the directory does not exist, it will
+# be created. 
+
+# logger = logging.getLogger(__name__)
+
+# def mkdtemp(**kwargs):
+#     if not os.path.exists(os.environ["HOME"]+"/.smh"):
+#         logger.info("Making "+os.environ["HOME"]+"/.smh")
+#         os.mkdir(os.environ["HOME"]+"/.smh")
+#     if 'dir' not in kwargs:
+#         kwargs['dir'] = os.environ["HOME"]+"/.smh"
+#     return tempfile.mkdtemp(**kwargs)
+
+# def mkstemp(**kwargs):
+#     if not os.path.exists(os.environ["HOME"]+"/.smh"):
+#         logger.info("Making "+os.environ["HOME"]+"/.smh")
+#         os.mkdir(os.environ["HOME"]+"/.smh")
+#     if 'dir' not in kwargs:
+#         kwargs['dir'] = os.environ["HOME"]+"/.smh"
+#     return tempfile.mkstemp(**kwargs)
+
+# def random_string(N=10):
+#     return ''.join(choice(string.ascii_uppercase + string.digits) for _ in range(N))
