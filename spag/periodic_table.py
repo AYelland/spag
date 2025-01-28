@@ -13,6 +13,7 @@ from sqlalchemy.orm import declarative_base
 
 ################################################################################
 ## Periodic Table & Dictionary
+# ------------------------------------------------------------------------------
 # The periodic table ('pt') defined below is a list of the elemental symbols in the
 # periodic table. The list then used to generate a dictionary, 
 # `pt_dict`. These can be useful when imported into other scripts
@@ -30,7 +31,7 @@ pt_str = """H                                                  He
                         K  Ca Sc Ti V  Cr Mn Fe Co Ni Cu Zn Ga Ge As Se Br Kr
                         Rb Sr Y  Zr Nb Mo Tc Ru Rh Pd Ag Cd In Sn Sb Te I  Xe
                         Cs Ba Lu Hf Ta W  Re Os Ir Pt Au Hg Tl Pb Bi Po At Rn
-                        Fr Ra Lr Rf Db Sg Bh Hs Mt Ds Rg Cn Nh Fl Mc Lv Ts Og"""
+                        Fr Ra Lr Rf""" # Db Sg Bh Hs Mt Ds Rg Cn Nh Fl Mc Lv Ts Og"""
 
 lanthanoids    =   "La Ce Pr Nd Pm Sm Eu Gd Tb Dy Ho Er Tm Yb"
 actinoids      =   "Ac Th Pa U  Np Pu Am Cm Bk Cf Es Fm Md No"
