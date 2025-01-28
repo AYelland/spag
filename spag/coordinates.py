@@ -7,9 +7,17 @@ from __future__ import (division, print_function, absolute_import,
                         unicode_literals)
 
 from six import string_types
+from astropy.coordinates import SkyCoord
+import astropy.units as u
+from gala.coordinates import SagittariusLaw10
+
+# Ignore AstropyDeprecationWarning for SagittariusLaw10
+from astropy.utils.exceptions import AstropyDeprecationWarning
+import warnings
+warnings.filterwarnings("ignore", category=AstropyDeprecationWarning)
 
 ################################################################################
-## Coordinate Conversion Functions
+## RA & Decl Coordinate Functions
 
 def ra_hms2deg(ra_str, precision=5):
     """
@@ -18,7 +26,6 @@ def ra_hms2deg(ra_str, precision=5):
     
     Converts a right ascension string to degrees.
     """
-    
     ra_str = ra_str.split(':')
     ra_deg = round(15.0 * (float(ra_str[0]) + float(ra_str[1])/60.0 + float(ra_str[2])/3600.0), precision)
     return ra_deg
@@ -30,40 +37,100 @@ def ra_deg2hms(ra_deg, precision=2):
     
     Converts right ascension in degrees to a string.
     """
-    
     ra_h = int(ra_deg / 15.0)
     ra_m = int((ra_deg - ra_h * 15.0) * 4.0)
     ra_s = round((ra_deg - ra_h * 15.0 - ra_m / 4.0) * 240.0, precision)
     return "{:02d}:{:02d}:{:05.2f}".format(ra_h, ra_m, ra_s)
 
-def decl_deg2dms(dec_deg, precision=2):
+def dec_deg2dms(dec_deg, precision=2):
     """
     dec_deg: float
         Declination in degrees.
     
     Converts declination in degrees to a string.
     """
-    
     if dec_deg < 0:
         sign = '-'
         dec_deg = -dec_deg
     else:
         sign = '+'
-    
     dec_d = int(dec_deg)
     dec_m = int((dec_deg - dec_d) * 60.0)
     dec_s = round((dec_deg - dec_d - dec_m / 60.0) * 3600.0, precision)
     return "{}{:02d}:{:02d}:{:05.2f}".format(sign, dec_d, dec_m, dec_s)
 
-def decl_dms2deg(dec_str, precision=5):
+def dec_dms2deg(dec_str, precision=5):
     """
     dec_str: str
         Declination in the form '+dd:mm:ss.ss'
     
     Converts a declination string to degrees.
     """
-    
     sign = -1 if dec_str[0] == '-' else 1
     dec_str = dec_str[1:].split(':')
     dec_deg = sign * round((float(dec_str[0]) + float(dec_str[1])/60.0 + float(dec_str[2])/3600.0), precision)
     return dec_deg
+
+def round_hms(hms_str, precision=1):
+    """
+    hms_str: str ('hh:mm:ss.ss')
+        Right ascension in the form 'hh:mm:ss.ss'
+    precision: int (default=1)
+        Number of decimal places to round to.
+    
+    Rounds the seconds component of a right ascension string.
+    """
+    h, m, s = hms_str.split(':')
+    s = f"{float(s):.{precision}f}"  # Convert to float and round to the specified number of decimals
+    return f"{h}:{m}:{s.zfill(4 if precision > 0 else 2)}"  # Ensure consistent padding
+
+def round_dms(dms_str, precision=1):
+    """
+    dms_str: str ('+dd:mm:ss.ss')
+        Declination in the form '+dd:mm:ss.ss'
+    precision: int (default=1)
+        Number of decimal places to round to.
+        
+    Rounds the seconds component of a declination string.
+    """
+    d, m, s = dms_str.split(':')
+    s = f"{float(s):.{precision}f}"  # Convert to float and round to the specified number of decimals
+    return f"{d}:{m}:{s.zfill(4 if precision > 0 else 2)}"  # Ensure consistent padding
+
+
+################################################################################
+## Special Coordinate System Conversions
+
+def sgr_LambdaBeta(ra, dec):
+    """
+    ra_deg: float or str
+        Right Ascension in degrees or in the form 'hh:mm:ss.ss'
+    dec_deg: float or str
+        Declination in degrees or in the form '+dd:mm:ss.ss'
+        
+    Converts from RA, Dec coordinates into the Sagittarius (Sgr) heliocentric 
+    spherical coordinates (Lambda, Beta), where Lambda is the longitude along 
+    the Sgr stream and Beta is the latitude. Lambda is defined to be 0 degrees 
+    at the center Sgr core and increases along the stream.
+    
+    Majewski et al. 2003: http://adsabs.harvard.edu/abs/2003ApJ...599.1082M
+    Law & Majewski 2010: http://adsabs.harvard.edu/abs/2010ApJ...714..229L
+    
+    https://gala.adrian.pw/en/v1.9.1/api/gala.coordinates.SagittariusLaw10.html
+    """
+   
+    ra_deg = ra_hms2deg(ra) if isinstance(ra, string_types) else ra
+    dec_deg = dec_dms2deg(dec) if isinstance(dec, string_types) else dec 
+    
+    ## RA, Dec to ICRS Coordinates
+    icrs_coord = SkyCoord(ra=ra_deg*u.degree, dec=dec_deg*u.degree, frame='icrs')
+    
+    ## ICRS to Galactic Coordinates
+    galactic_coord = icrs_coord.transform_to('galactic')
+    
+    ## Galactic to Sgr Coordinates (l, b) by Law & Majewski 2010
+    sgr_coord = galactic_coord.transform_to(SagittariusLaw10)
+    sgr_l = sgr_coord.Lambda.wrap_at(360 * u.deg) # wrap at 360 degrees
+    sgr_b = sgr_coord.Beta
+
+    return sgr_l, sgr_b

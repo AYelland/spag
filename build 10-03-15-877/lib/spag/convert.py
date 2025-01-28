@@ -5,46 +5,93 @@
 from __future__ import (division, print_function, absolute_import,
                         unicode_literals)
 
-from six import string_types
-import numpy as np
+# Standard library
+import os
+import logging
+import platform
+import string
+import sys
+import traceback
+import tempfile
 
-from spag.periodic_table import pt_list, pt_dict
+from collections import Counter
+
+from six import string_types
+
+from hashlib import sha1 as sha
+from random import choice
+from socket import gethostname, gethostbyname
+
+# Third party imports
+import numpy as np
+import astropy.table
+
+# spag imports
+from .periodic_table import periodic_table, periodic_table_dict
 
 # Functions to import when using 'from spag.utils_smh import *'
-# __all__ =  ["element_to_species", "element_to_atomic_number",
-#             "species_to_element", "species_to_atomic_number",
-#             "atomic_number_to_species", "atomic_number_to_element",
-#             "element_matches_atomic_number",
-#             "elems_isotopes_ion_to_species", "species_to_elems_isotopes_ion"]
+__all__ =  ["element_to_species", "element_to_atomic_number",
+            "species_to_element", "species_to_atomic_number",
+            "atomic_number_to_species", "atomic_number_to_element",
+            "element_matches_atomic_number",
+            "elems_isotopes_ion_to_species", "species_to_elems_isotopes_ion"]
+
+################################################################################
+## Logging setup
+# Set up the logging configuration by creating a logger object and setting the
+# directory to save the log file. 
+# 
+# The log file name will be the name of the script that is being run
+# with the extension '.log'. The log file will be saved in the directory
+# '.smh' in the user's home directory. If the directory does not exist, it will
+# be created. 
+
+# logger = logging.getLogger(__name__)
+
+# def mkdtemp(**kwargs):
+#     if not os.path.exists(os.environ["HOME"]+"/.smh"):
+#         logger.info("Making "+os.environ["HOME"]+"/.smh")
+#         os.mkdir(os.environ["HOME"]+"/.smh")
+#     if 'dir' not in kwargs:
+#         kwargs['dir'] = os.environ["HOME"]+"/.smh"
+#     return tempfile.mkdtemp(**kwargs)
+
+# def mkstemp(**kwargs):
+#     if not os.path.exists(os.environ["HOME"]+"/.smh"):
+#         logger.info("Making "+os.environ["HOME"]+"/.smh")
+#         os.mkdir(os.environ["HOME"]+"/.smh")
+#     if 'dir' not in kwargs:
+#         kwargs['dir'] = os.environ["HOME"]+"/.smh"
+#     return tempfile.mkstemp(**kwargs)
+
+# def random_string(N=10):
+#     return ''.join(choice(string.ascii_uppercase + string.digits) for _ in range(N))
 
 ################################################################################
 ## Roman numeral conversion functions
 
 def int_to_roman(n):
     """ Convert an integer to Roman numerals. """
-    roman_int_dict = {'I': 1, 'IV': 4, 'V': 5, 'IX': 9, 'X': 10, 'XL': 40, \
-                      'L': 50, 'XC': 90, 'C': 100, 'CD': 400, 'D': 500, \
-                      'CM': 900, 'M': 1000}
+    val = [1, 4, 5, 9, 10, 40, 50, 90, 100, 400, 500, 900, 1000][::-1]
+    syb = ["I", "IV", "V", "IX", "X", "XL", "L", "XC", "C", "CD", "D", "CM", "M"]
     roman_numeral = ''
-    for numeral, value in sorted(roman_int_dict.items(), key=lambda x: x[1], reverse=True):
-        while n >= value:
-            roman_numeral += numeral
-            n -= value
-    
+    i = 0
+    while n > 0:
+        for _ in range(n // val[i]):
+            roman_numeral += syb[i]
+            n -= val[i]
+        i += 1
     return roman_numeral
 
 def roman_to_int(roman):
     """ Convert a Roman numeral to an integer, up to several thousand. """
-    roman = roman.upper()
-    roman_int_dict = {'I': 1, 'IV': 4, 'V': 5, 'IX': 9, 'X': 10, 'XL': 40, \
-                      'L': 50, 'XC': 90, 'C': 100, 'CD': 400, 'D': 500, \
-                      'CM': 900, 'M': 1000}
+    roman_numerals = {'I': 1, 'V': 5, 'X': 10, 'L': 50, 'C': 100, 'D': 500, 'M': 1000}
     value = 0
     for i in range(len(roman)):
-        if i > 0 and roman_int_dict[roman[i]] > roman_int_dict[roman[i - 1]]:
-            value += roman_int_dict[roman[i]] - 2 * roman_int_dict[roman[i - 1]]
+        if i > 0 and roman_numerals[roman[i]] > roman_numerals[roman[i - 1]]:
+            value += roman_numerals[roman[i]] - 2 * roman_numerals[roman[i - 1]]
         else:
-            value += roman_int_dict[roman[i]]
+            value += roman_numerals[roman[i]]
     return value
 
 
@@ -107,29 +154,48 @@ def element_to_species(element_repr):
     if not isinstance(element_repr, string_types):
         raise TypeError("element must be represented by a string-type.")
     
-    # If first character is lowercase, capitalize it
-    element_repr = element_repr.capitalize()
+    # # if first character is lowercase, capitalize it
     # if element_repr[0].islower():
     #     element_repr = element_repr.title()
+
+    # if element_repr.count(" ") > 0:
+    #     element, ionization = element_repr.split()[:2]
+    # else:
+    #     element, ionization = element_repr, "I"
+    
+    # if element not in periodic_table:
+    #     try:
+    #         return common_molecule_name_to_species[element]
+    #     except KeyError:
+    #         # Don't know what this element is
+    #         return float(element_repr)
+    
+    # ionization = max([0, ionization.upper().count("I") - 1]) /10.
+    # transition = periodic_table.index(element) + 1 + ionization
+    # return transition
+    
+    
+    # If first character is lowercase, capitalize it
+    element_repr = element_repr.capitalize()
 
     # Separate the element and the ionization state
     if " " in element_repr:
         element, ionization_str = element_repr.split()[:2]
     else:
         element, ionization_str = element_repr, "I"  # Default to neutral atom if no ionization state is provided
-        
+
     # Handle unknown elements or molecules
-    if element not in pt_list:
+    if element not in periodic_table:
         try:
             return common_molecule_name_to_species[element]
         except KeyError:
             return float(element_repr) # Don't know what this element is
-    
+
     # Convert Roman numeral ionization to integer
-    ionization = max([0, roman_to_int(ionization_str) - 1, 0]) * 0.1
+    ionization = max(roman_to_int(ionization_str) - 1, 0) / 10.0
     
     # Find the atomic number of the element and add the ionization
-    transition = pt_list.index(element) + 1 + ionization
+    transition = periodic_table.index(element) + 1 + ionization
     return transition
 
 
@@ -148,7 +214,7 @@ def element_to_atomic_number(element_repr):
     
     element = element_repr.title().strip().split()[0]
     try:
-        index = pt_list.index(element)
+        index = periodic_table.index(element)
     except IndexError:
         raise ValueError("unrecognized element '{}'".format(element_repr))
     except ValueError:
@@ -169,13 +235,13 @@ def species_to_element(species):
     """
 
     if not isinstance(species, (float, int)):
-        raise TypeError(f"species must be represented by a floating point-type: {species}, {type(species)}")
+        raise TypeError("species must be represented by a floating point-type")
     
     if round(species, 1) != species:
         # Then you have isotopes, but we will ignore that
         species = int(species * 10) / 10.
 
-    if species + 1 >= len(pt_list) or 1 > species:
+    if species + 1 >= len(periodic_table) or 1 > species:
         # Don't know what this element is. It's probably a molecule.
         try:
             elems = common_molecule_species_to_elems[species]
@@ -185,8 +251,8 @@ def species_to_element(species):
             return str(species)
         
     atomic_number = int(species)
-    element = pt_list[atomic_number - 1]
-    ionization = int(round(10 * (species - atomic_number) + 1))
+    element = periodic_table[atomic_number - 1]
+    ionization = int(round(10 * (species - atomic_number)) + 1)
 
     if element in ("C", "H", "He"):
         # Special cases where no ionization state is usually shown
@@ -212,7 +278,7 @@ def species_to_atomic_number(species):
         # Then you have isotopes, but we will ignore that
         species = int(species*10)/10.
 
-    if species + 1 >= len(pt_list) or 1 > species:
+    if species + 1 >= len(periodic_table) or 1 > species:
         # Don"t know what this element is. It"s probably a molecule.
         try:
             elems = common_molecule_species_to_elems[species]
@@ -239,7 +305,7 @@ def atomic_number_to_element(Z, species=None):
     if species is not None:
         return species_to_element(int(Z) + (species*0.1))
     else:
-        return pt_dict[int(Z)]
+        return periodic_table_dict[int(Z)]
 
 
 def atomic_number_to_species(Z, species=None):
@@ -381,7 +447,7 @@ def species_to_elems_isotopes_ion(species):
     return elem1,elem2,isotope1,isotope2,ion
 
 
-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-
+################################################################################
 ## Validation/Testing Functions
 
 def element_matches_atomic_number(elem, Z):
@@ -395,32 +461,8 @@ def element_matches_atomic_number(elem, Z):
     otherwise.    
     """
     
-    if elem != pt_dict[Z]:
+    if elem != periodic_table_dict[Z]:
         return False
     else:
         return True
 
-################################################################################
-## Random Conversion Functions
-
-def struct2array(x):
-    """
-    x : np.ndarray
-        A structured array where all columns must have the same data type.
-
-    Converts a structured array to a 2D array with the same data as the input, 
-    but without columns names.
-    """
-    
-    # Number of columns
-    num_columns = len(x.dtype)
-    
-    # Data type of the first column
-    first_col_type = x.dtype[0].type
-
-    # Ensure all columns have the same data type
-    all_same_type = np.all([x.dtype[i].type == first_col_type for i in range(num_columns)])
-    assert all_same_type, "All columns in the structured array must have the same data type."
-
-    # Convert to a regular 2D array
-    return x.view(first_col_type).reshape((-1, num_columns))

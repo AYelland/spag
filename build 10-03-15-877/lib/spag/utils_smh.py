@@ -5,48 +5,65 @@
 from __future__ import (division, print_function, absolute_import,
                         unicode_literals)
 
-from six import string_types
-import numpy as np
+# Standard library
+import os
+import logging
+import platform
+import string
+import sys
+import traceback
+import tempfile
+from functools import reduce
 
-from spag.periodic_table import pt_list, pt_dict
+from collections import Counter
+
+from six import string_types
+
+from hashlib import sha1 as sha
+from random import choice
+from socket import gethostname, gethostbyname
+
+# Third party imports
+import numpy as np
+import astropy.table
 
 # Functions to import when using 'from spag.utils_smh import *'
-# __all__ =  ["element_to_species", "element_to_atomic_number",
-#             "species_to_element", "species_to_atomic_number",
-#             "atomic_number_to_species", "atomic_number_to_element",
-#             "element_matches_atomic_number",
-#             "elems_isotopes_ion_to_species", "species_to_elems_isotopes_ion"]
+__all__ =  ["element_to_species", "element_to_atomic_number",
+            "species_to_element", "species_to_atomic_number",
+            "atomic_number_to_species", "atomic_number_to_element",
+            "elems_isotopes_ion_to_species", "species_to_elems_isotopes_ion",
+            "get_common_letters", "find_common_start"]
 
 ################################################################################
-## Roman numeral conversion functions
+## Logging setup
+# Set up the logging configuration by creating a logger object and setting the
+# directory to save the log file. 
+# 
+# The log file name will be the name of the script that is being run
+# with the extension '.log'. The log file will be saved in the directory
+# '.smh' in the user's home directory. If the directory does not exist, it will
+# be created. 
 
-def int_to_roman(n):
-    """ Convert an integer to Roman numerals. """
-    roman_int_dict = {'I': 1, 'IV': 4, 'V': 5, 'IX': 9, 'X': 10, 'XL': 40, \
-                      'L': 50, 'XC': 90, 'C': 100, 'CD': 400, 'D': 500, \
-                      'CM': 900, 'M': 1000}
-    roman_numeral = ''
-    for numeral, value in sorted(roman_int_dict.items(), key=lambda x: x[1], reverse=True):
-        while n >= value:
-            roman_numeral += numeral
-            n -= value
-    
-    return roman_numeral
+logger = logging.getLogger(__name__)
 
-def roman_to_int(roman):
-    """ Convert a Roman numeral to an integer, up to several thousand. """
-    roman = roman.upper()
-    roman_int_dict = {'I': 1, 'IV': 4, 'V': 5, 'IX': 9, 'X': 10, 'XL': 40, \
-                      'L': 50, 'XC': 90, 'C': 100, 'CD': 400, 'D': 500, \
-                      'CM': 900, 'M': 1000}
-    value = 0
-    for i in range(len(roman)):
-        if i > 0 and roman_int_dict[roman[i]] > roman_int_dict[roman[i - 1]]:
-            value += roman_int_dict[roman[i]] - 2 * roman_int_dict[roman[i - 1]]
-        else:
-            value += roman_int_dict[roman[i]]
-    return value
+def mkdtemp(**kwargs):
+    if not os.path.exists(os.environ["HOME"]+"/.smh"):
+        logger.info("Making "+os.environ["HOME"]+"/.smh")
+        os.mkdir(os.environ["HOME"]+"/.smh")
+    if 'dir' not in kwargs:
+        kwargs['dir'] = os.environ["HOME"]+"/.smh"
+    return tempfile.mkdtemp(**kwargs)
 
+def mkstemp(**kwargs):
+    if not os.path.exists(os.environ["HOME"]+"/.smh"):
+        logger.info("Making "+os.environ["HOME"]+"/.smh")
+        os.mkdir(os.environ["HOME"]+"/.smh")
+    if 'dir' not in kwargs:
+        kwargs['dir'] = os.environ["HOME"]+"/.smh"
+    return tempfile.mkstemp(**kwargs)
+
+# def random_string(N=10):
+#     return ''.join(choice(string.ascii_uppercase + string.digits) for _ in range(N))
 
 ################################################################################
 ## SMH Molecular Species Identification by Atomic Number (Z)
@@ -91,6 +108,57 @@ common_molecule_species_to_elems = {
     840: ["Zr", "O"]
     }
 
+
+################################################################################
+## Periodic Table & Dictionary
+# List the periodic table here so that we can use it below, since its delcared 
+# outside of a single function scope. With an import, we can also use in other 
+# python scripts. (e.g., 'from spag.utils_smh import periodic_table as pt')
+
+periodic_table = """H                                                  He
+                    Li Be                               B  C  N  O  F  Ne
+                    Na Mg                               Al Si P  S  Cl Ar
+                    K  Ca Sc Ti V  Cr Mn Fe Co Ni Cu Zn Ga Ge As Se Br Kr
+                    Rb Sr Y  Zr Nb Mo Tc Ru Rh Pd Ag Cd In Sn Sb Te I  Xe
+                    Cs Ba Lu Hf Ta W  Re Os Ir Pt Au Hg Tl Pb Bi Po At Rn
+                    Fr Ra Lr Rf"""
+
+lanthanoids    =   "La Ce Pr Nd Pm Sm Eu Gd Tb Dy Ho Er Tm Yb"
+actinoids      =   "Ac Th Pa U  Np Pu Am Cm Bk Cf Es Fm Md No"
+
+periodic_table = periodic_table.replace(" Ba ", " Ba " + lanthanoids + " ") \
+    .replace(" Ra ", " Ra " + actinoids + " ").split()
+del actinoids, lanthanoids
+
+
+# Periodic table dictionary, useful for converting atomic numbers to elements
+periodic_table_dict = {
+    1: "H", 2: "He", 3: "Li", 4: "Be", 5: "B",
+    6: "C", 7: "N", 8: "O", 9: "F", 10: "Ne",
+    11: "Na", 12: "Mg", 13: "Al", 14: "Si", 15: "P",
+    16: "S", 17: "Cl", 18: "Ar", 19: "K", 20: "Ca",
+    21: "Sc", 22: "Ti", 23: "V", 24: "Cr", 25: "Mn",
+    26: "Fe", 27: "Co", 28: "Ni", 29: "Cu", 30: "Zn",
+    31: "Ga", 32: "Ge", 33: "As", 34: "Se", 35: "Br",
+    36: "Kr", 37: "Rb", 38: "Sr", 39: "Y", 40: "Zr",
+    41: "Nb", 42: "Mo", 43: "Tc", 44: "Ru", 45: "Rh",
+    46: "Pd", 47: "Ag", 48: "Cd", 49: "In", 50: "Sn",
+    51: "Sb", 52: "Te", 53: "I", 54: "Xe", 55: "Cs",
+    56: "Ba", 57: "La", 58: "Ce", 59: "Pr", 60: "Nd",
+    61: "Pm", 62: "Sm", 63: "Eu", 64: "Gd", 65: "Tb",
+    66: "Dy", 67: "Ho", 68: "Er", 69: "Tm", 70: "Yb",
+    71: "Lu", 72: "Hf", 73: "Ta", 74: "W", 75: "Re",
+    76: "Os", 77: "Ir", 78: "Pt", 79: "Au", 80: "Hg",
+    81: "Tl", 82: "Pb", 83: "Bi", 84: "Po", 85: "At",
+    86: "Rn", 87: "Fr", 88: "Ra", 89: "Ac", 90: "Th",
+    91: "Pa", 92: "U", 93: "Np", 94: "Pu", 95: "Am",
+    96: "Cm", 97: "Bk", 98: "Cf", 99: "Es", 100: "Fm",
+    101: "Md", 102: "No", 103: "Lr", 104: "Rf", 105: "Db",
+    106: "Sg", 107: "Bh", 108: "Hs", 109: "Mt", 110: "Ds",
+    111: "Rg", 112: "Cn", 113: "Nh", 114: "Fl", 115: "Mc",
+    116: "Lv", 117: "Ts", 118: "Og"
+}
+
 ################################################################################
 ## Element, atomic number, and species conversion functions
 
@@ -105,33 +173,27 @@ def element_to_species(element_repr):
     """
     
     if not isinstance(element_repr, string_types):
-        raise TypeError("element must be represented by a string-type.")
+        raise TypeError("element must be represented by a string-type")
     
-    # If first character is lowercase, capitalize it
-    element_repr = element_repr.capitalize()
-    # if element_repr[0].islower():
-    #     element_repr = element_repr.title()
+    # if first character is lowercase, capitalize it
+    if element_repr[0].islower():
+        element_repr = element_repr.title()
 
-    # Separate the element and the ionization state
-    if " " in element_repr:
-        element, ionization_str = element_repr.split()[:2]
+    if element_repr.count(" ") > 0:
+        element, ionization = element_repr.split()[:2]
     else:
-        element, ionization_str = element_repr, "I"  # Default to neutral atom if no ionization state is provided
-        
-    # Handle unknown elements or molecules
-    if element not in pt_list:
+        element, ionization = element_repr, "I"
+    
+    if element not in periodic_table:
         try:
             return common_molecule_name_to_species[element]
         except KeyError:
-            return float(element_repr) # Don't know what this element is
+            # Don't know what this element is
+            return float(element_repr)
     
-    # Convert Roman numeral ionization to integer
-    ionization = max([0, roman_to_int(ionization_str) - 1, 0]) * 0.1
-    
-    # Find the atomic number of the element and add the ionization
-    transition = pt_list.index(element) + 1 + ionization
+    ionization = max([0, ionization.upper().count("I") - 1]) /10.
+    transition = periodic_table.index(element) + 1 + ionization
     return transition
-
 
 def element_to_atomic_number(element_repr):
     """
@@ -148,7 +210,7 @@ def element_to_atomic_number(element_repr):
     
     element = element_repr.title().strip().split()[0]
     try:
-        index = pt_list.index(element)
+        index = periodic_table.index(element)
     except IndexError:
         raise ValueError("unrecognized element '{}'".format(element_repr))
     except ValueError:
@@ -167,15 +229,28 @@ def species_to_element(species):
     Converts a floating point representation of a species to the astronomical 
     string representation of the element and its ionization state.
     """
+    
+    def int_to_roman(n):
+        """Convert an integer to Roman numerals."""
+        val = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1]
+        syb = ["M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"]
+        roman_numeral = ''
+        i = 0
+        while n > 0:
+            for _ in range(n // val[i]):
+                roman_numeral += syb[i]
+                n -= val[i]
+            i += 1
+        return roman_numeral
 
     if not isinstance(species, (float, int)):
-        raise TypeError(f"species must be represented by a floating point-type: {species}, {type(species)}")
+        raise TypeError("species must be represented by a floating point-type")
     
     if round(species, 1) != species:
         # Then you have isotopes, but we will ignore that
         species = int(species * 10) / 10.
 
-    if species + 1 >= len(pt_list) or 1 > species:
+    if species + 1 >= len(periodic_table) or 1 > species:
         # Don't know what this element is. It's probably a molecule.
         try:
             elems = common_molecule_species_to_elems[species]
@@ -185,8 +260,8 @@ def species_to_element(species):
             return str(species)
         
     atomic_number = int(species)
-    element = pt_list[atomic_number - 1]
-    ionization = int(round(10 * (species - atomic_number) + 1))
+    element = periodic_table[atomic_number - 1]
+    ionization = int(round(10 * (species - atomic_number)) + 1)
 
     if element in ("C", "H", "He"):
         # Special cases where no ionization state is usually shown
@@ -212,7 +287,7 @@ def species_to_atomic_number(species):
         # Then you have isotopes, but we will ignore that
         species = int(species*10)/10.
 
-    if species + 1 >= len(pt_list) or 1 > species:
+    if species + 1 >= len(periodic_table) or 1 > species:
         # Don"t know what this element is. It"s probably a molecule.
         try:
             elems = common_molecule_species_to_elems[species]
@@ -239,7 +314,7 @@ def atomic_number_to_element(Z, species=None):
     if species is not None:
         return species_to_element(int(Z) + (species*0.1))
     else:
-        return pt_dict[int(Z)]
+        return periodic_table_dict[int(Z)]
 
 
 def atomic_number_to_species(Z, species=None):
@@ -258,7 +333,6 @@ def atomic_number_to_species(Z, species=None):
         return int(Z) + (species * 0.1)
     else:
         return float(Z)
-
 
 ################################################################################
 ## Molecule Species Identification by Elements, Isotopes, and Ionization State
@@ -380,47 +454,36 @@ def species_to_elems_isotopes_ion(species):
         isotope2 = 0
     return elem1,elem2,isotope1,isotope2,ion
 
-
-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-
-## Validation/Testing Functions
-
-def element_matches_atomic_number(elem, Z):
-    """
-    elem: str
-        Element symbol.
-    Z: int
-        Atomic number.
-        
-    Returns True if the element symbol matches the atomic number, and False
-    otherwise.    
-    """
-    
-    if elem != pt_dict[Z]:
-        return False
-    else:
-        return True
-
 ################################################################################
-## Random Conversion Functions
+## String manipulation functions
 
-def struct2array(x):
+def get_common_letters(strlist):
     """
-    x : np.ndarray
-        A structured array where all columns must have the same data type.
-
-    Converts a structured array to a 2D array with the same data as the input, 
-    but without columns names.
+    strlist: list
+        A list of strings (e.g., ['str1', 'str2',' 'str3'])
+    
+    Returns the common letters in the strings in the list, each in the same 
+    position of the string. If there are no common letters, an empty string is
+    returned. (e.g., ['Horse', 'House',' Harse'] -> 'Hse')
     """
-    
-    # Number of columns
-    num_columns = len(x.dtype)
-    
-    # Data type of the first column
-    first_col_type = x.dtype[0].type
+    return "".join([x[0] for x in zip(*strlist) \
+        if reduce(lambda a,b:(a == b) and a or None,x)])
 
-    # Ensure all columns have the same data type
-    all_same_type = np.all([x.dtype[i].type == first_col_type for i in range(num_columns)])
-    assert all_same_type, "All columns in the structured array must have the same data type."
-
-    # Convert to a regular 2D array
-    return x.view(first_col_type).reshape((-1, num_columns))
+def find_common_start(strlist):
+    """
+    strlist: list
+        A list of strings (e.g., ['str1', 'str2',' 'str3'])
+        
+    Returns the common letters at the start of the strings in the list. If there
+    are no common letters, an empty string is returned. 
+    (e.g., ['Horse', 'House', 'Harse'] -> 'H')
+    """
+    strlist = strlist[:]
+    prev = None
+    while True:
+        common = get_common_letters(strlist)
+        if common == prev:
+            break
+        strlist.append(common)
+        prev = common
+    return get_common_letters(strlist)

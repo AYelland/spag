@@ -26,14 +26,10 @@ import re
 m_XH = re.compile('\[(\D+)/H\]')
 m_XFe= re.compile('\[(\D+)/Fe\]')
 
-# SPAG imports
-from spag.convert import *
-import spag.periodic_table  as pt
-import spag.read_data as rd
-
 
 ################################################################################
 # Utility functions for column names
+################################################################################
 
 def _getcolnames(df,prefix):
     """
@@ -48,13 +44,12 @@ def _getcolnames(df,prefix):
         if this_prefix==prefix: allnames.append(col)
     return allnames
 
-def getelem(elem, lower=False, keep_species=False):
+def getelem(elem,lower=False,keep_species=False):
     """
     Converts an element's common name to a standard formatted chemical symbol
     """
     common_molecules = {'CH':'C','NH':'N'}
     special_ions = ['Ti I','Cr II']
-    
     if isinstance(elem, string_types):
         prefix = None
         try:
@@ -63,8 +58,8 @@ def getelem(elem, lower=False, keep_species=False):
         except ValueError:
             pass
 
-        if pt.element_query(elem) != None: # No ionization, e.g. Ti
-            elem = pt.element_query(elem).symbol
+        if PTelement(elem) != None: # No ionization, e.g. Ti
+            elem = PTelement(elem).symbol
         elif elem in common_molecules:
             elem = common_molecules[elem]
         elif prefix != None and '.' in elem:
@@ -90,15 +85,13 @@ def getelem(elem, lower=False, keep_species=False):
             species = element_to_species(elem)
             elem = species_to_element(species)
             elem = elem.split()[0]
-            
     elif isinstance(elem, (int, np.integer)):
         elem = int(elem)
-        elem = pt.element_query(elem)
+        elem = PTelement(elem)
         ## TODO common molecules
         assert elem != None
         elem = elem.symbol
         if keep_species: raise NotImplementedError()
-    
     elif isinstance(elem, float):
         species = elem
         elem = species_to_element(species)
@@ -336,10 +329,10 @@ def XH_from_eps(df):
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")
         epscols = epscolnames(df)
-        asplund = rd.get_solar(epscols)
+        asplund = get_solar(epscols)
         for col in epscols:
             if XHcol(col) in df: warnings.warn("{} already in DataFrame, replacing".format(XHcol(col)))
-            df[XHcol(col)] = df[col].astype(float) - float(asplund[col])
+            df[XHcol(col)] = df[col] - float(asplund[col])
 
 def XFe_from_eps(df):
     """
@@ -349,12 +342,12 @@ def XFe_from_eps(df):
         warnings.simplefilter("ignore")
         epscols = epscolnames(df)
         assert 'epsfe' in epscols
-        asplund = rd.get_solar(epscols)
-        feh = df['epsfe'].astype(float) - float(asplund['epsfe'])
+        asplund = get_solar(epscols)
+        feh = df['epsfe'] - float(asplund['epsfe'])
         for col in epscols:
             if col=='epsfe': continue
             if XFecol(col) in df: warnings.warn("{} already in DataFrame, replacing".format(XFecol(col)))
-            XH = df[col].astype(float) - float(asplund[col])
+            XH = df[col]-float(asplund[col])
             df[XFecol(col)] = XH - feh
 
 def eps_from_XH(df):
@@ -364,7 +357,7 @@ def eps_from_XH(df):
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")
         XHcols = XHcolnames(df)
-        asplund = rd.get_solar(XHcols)
+        asplund = get_solar(XHcols)
         for col in XHcols:
             if epscol(col) in df: warnings.warn("{} already in DataFrame, replacing".format(epscol(col)))
             df[epscol(col)] = df[col] + float(asplund[col])
@@ -391,7 +384,7 @@ def eps_from_XFe(df):
         warnings.simplefilter("ignore")
         XFecols = XFecolnames(df)
         assert '[Fe/H]' in df
-        asplund = rd.get_solar(XFecols)
+        asplund = get_solar(XFecols)
         feh = df['[Fe/H]']
         for col in XFecols:
             df[epscol(col)] = df[col] + feh + float(asplund[col])
@@ -404,75 +397,8 @@ def XH_from_XFe(df):
         warnings.simplefilter("ignore")
         XFecols = XFecolnames(df)
         assert '[Fe/H]' in df
-        asplund = rd.get_solar(XFecols)
+        asplund = get_solar(XFecols)
         feh = df['[Fe/H]']
         for col in XFecols:
             if XHcol(col) in df: warnings.warn("{} already in DataFrame, replacing".format(XHcol(col)))
             df[XHcol(col)] = df[col] + feh
-
-
-################################################################################
-## Formatting and converting datafiles
-
-def align_ampersands(filename, start_line, end_line):
-    # Read the file and split lines into a list
-    with open(filename, 'r') as file:
-        lines = file.readlines()
-    
-    # Process only the lines in the specified range
-    selected_lines = lines[start_line-1:end_line]
-    
-    # Split each line by "&" and calculate max widths for each column
-    split_lines = [line.split('&') for line in selected_lines]
-    max_col_widths = [max(len(col.strip()) for col in column) for column in zip(*split_lines)]
-    
-    # Reformat each line with aligned "&"
-    aligned_lines = []
-    for line_parts in split_lines:
-        aligned_line = ' & '.join(col.strip().ljust(width) for col, width in zip(line_parts, max_col_widths))
-        aligned_lines.append(aligned_line + '\n')
-    
-    # Replace original lines in range with aligned lines
-    lines[start_line-1:end_line] = aligned_lines
-    
-    # Write the modified lines back to the file
-    with open(filename, 'w') as file:
-        file.writelines(lines)
-
-
-################################################################################
-## Rounding functions
-
-from decimal import Decimal, ROUND_HALF_UP
-
-def normal_round(value, decimals=2):
-    """
-    value: float
-        The value to round.
-    decimals: int
-        The number of decimal places to round to.
-    
-    Rounds a value to a specified number of decimal places using half-up rounding.
-
-    Returns:
-        float: The rounded value.
-    """
-    value = Decimal(str(value)) # Convert to string first to avoid floating point precision issues
-    multiplier = Decimal('1.' + '0' * decimals)  # Decimal precision
-    return float(value.quantize(multiplier, rounding=ROUND_HALF_UP))
-
-def pad_and_round(value, decimals):
-    """
-    value: float
-        The value to round.
-    decimals: int
-        The number of decimal places to round to.
-    
-    Rounds a value to a specified number of decimal places using half-up rounding,
-    and pads the resulting string with zeros to the specified number of decimal places
-    (if the rounded value has fewer decimal places).
-
-    Returns:
-        str: The rounded and padded value as a string.
-    """
-    return f"{normal_round(value, decimals):.{decimals}f}"
