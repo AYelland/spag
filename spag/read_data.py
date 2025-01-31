@@ -11,7 +11,7 @@ import pandas as pd
 import seaborn as sns
 
 from spag.convert import *
-from spag.utils_data import *
+from spag.utils import *
 
 sns.set_palette("colorblind")
 sns_palette = sns.color_palette()
@@ -55,7 +55,7 @@ def solar_logepsX_asplund09(Z=None, elem=None, return_error=False):
         if asplund09[col].dtype == "object":
             asplund09[col] = asplund09[col].str.strip()
         asplund09.rename(columns={col:col.strip()}, inplace=True)
-    print("Loading Datafile: ", datafile_path)
+    # print("Loading Datafile: ", datafile_path)
     
     if (elem is None) and (Z is None):
         return asplund09
@@ -422,6 +422,14 @@ def jinabase_create_the_upperlimits_file():
 
 
 def jinabase_assign_ids_and_priorities():
+    """
+    Assign JINA_ID and Priority to the JINAbase data, updated in 2021.
+    The JINA_ID is assigned to rows where it is missing, and the Priority is
+    assigned based on the number of non-NaN values in the element abundance
+    columns. Rows with a Simbad_Identifier are given Priority 1.0, and rows
+    without a Simbad_Identifier are given Priority 2.0.
+    """
+
     # Read the data into a DataFrame
     jinabase_df = pd.read_csv(data_dir + "abundance_tables/JINAbase-updated/JINAbase_2021.csv", na_values=["*"])
 
@@ -461,7 +469,7 @@ def jinabase_assign_ids_and_priorities():
     jinabase_df = jinabase_df.sort_values('JINA_ID')
 
     # Save the updated DataFrame to a new file
-    jinabase_df.to_csv(data_dir + "abundance_tables/JINAbase-updated/JINAbase_2021_ay.csv", index=False)
+    jinabase_df.to_csv(data_dir + "abundance_tables/JINAbase-updated/JINAbase_2021_yelland.csv", index=False)
 
     return jinabase_df
 
@@ -469,7 +477,7 @@ def jinabase_assign_ids_and_priorities():
 ################################################################################
 ## Specific System's Data Read-in
 
-def load_MW_halo(**kwargs):
+def load_mw_halo(**kwargs):
     """
     Loads JINAbase and removes stars with loc='DW' or loc='UF' such that only halo stars remain
     Note: DW = dwarf galaxy, UF = ultra-faint galaxy
@@ -495,38 +503,40 @@ def load_classical_dwarf_galaxies(add_all=False, **kwargs):
     cldw = load_jinabase(**kwargs)
     cldw = cldw[cldw["Loc"] == "DW"]
     
-    def get_gal(row):
+    # def get_gal(row):
         
-        ## These are papers from a single galaxy
-        refgalmap = {"AOK07b":"UMi","COH10":"UMi","URA15":"UMi",
-                     "FRE10a":"Scl","GEI05":"Scl","JAB15":"Scl","SIM15":"Scl","SKU15":"Scl",
-                     "AOK09":"Sex",
-                     "FUL04":"Dra","COH09":"Dra","TSU15":"Dra","TSU17":"Dra",
-                     "NOR17":"Car","VEN12":"Car",
-                     "HAN18":"Sgr"}
-        ref = row["Reference"]
-        if ref in refgalmap:
-            return refgalmap[ref]
+    #     ## These are papers from a single galaxy
+    #     refgalmap = {"AOK07b":"UMi","COH10":"UMi","URA15":"UMi",
+    #                  "FRE10a":"Scl","GEI05":"Scl","JAB15":"Scl","SIM15":"Scl","SKU15":"Scl",
+    #                  "AOK09":"Sex",
+    #                  "FUL04":"Dra","COH09":"Dra","TSU15":"Dra","TSU17":"Dra",
+    #                  "NOR17":"Car","VEN12":"Car",
+    #                  "HAN18":"Sgr"}
+    #     ref = row["Reference"]
+    #     if ref in refgalmap:
+    #         return refgalmap[ref]
         
-        ## These are papers with multiple galaxies
-        assert ref in ["SHE01","SHE03","TAF10","KIR12"], ref
-        name = row["Name"]
-        name = name[0].upper() + name[1:3].lower()
-        if name == "Umi": return "UMi"
+    #     ## These are papers with multiple galaxies
+    #     assert ref in ["SHE01","SHE03","TAF10","KIR12"], ref
+    #     name = row["Name"]
+    #     name = name[0].upper() + name[1:3].lower()
+    #     if name == "Umi": return "UMi"
         
-        return name
+    #     return name
     
-    #allrefs = np.unique(cldw["Reference"])
-    #multirefs = ["SHE01","SHE03","TAF10","KIR12"]
-    gals = [get_gal(x) for i,x in cldw.iterrows()]
-    cldw["galaxy"] = gals
+    # #allrefs = np.unique(cldw["Reference"])
+    # #multirefs = ["SHE01","SHE03","TAF10","KIR12"]
+    # gals = [get_gal(x) for i,x in cldw.iterrows()]
+    # cldw["galaxy"] = gals
 
-    if add_all:
-        fnx = load_letarte10_fornax()
-        fnx2 = load_lemasle14_fornax()
-        car = load_lemasle12_carina()
-        sex = load_theler20_sextans()
-        sgr = load_apogee_sgr()
-        cldw = pd.concat([cldw,fnx,fnx2,scl,car,sex,sgr],axis=0)
+    # if add_all:
+    #     fnx = load_letarte10_fornax()
+    #     fnx2 = load_lemasle14_fornax()
+    #     car = load_lemasle12_carina()
+    #     sex = load_theler20_sextans()
+    #     sgr = load_apogee_sgr()
+    #     cldw = pd.concat([cldw,fnx,fnx2,scl,car,sex,sgr],axis=0)
     
     return cldw
+
+

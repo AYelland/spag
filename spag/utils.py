@@ -445,11 +445,11 @@ def align_ampersands(filename, start_line, end_line):
 
 from decimal import Decimal, ROUND_HALF_UP
 
-def normal_round(value, decimals=2):
+def normal_round(value, precision=2):
     """
     value: float
         The value to round.
-    decimals: int
+    precision: int
         The number of decimal places to round to.
     
     Rounds a value to a specified number of decimal places using half-up rounding.
@@ -458,14 +458,50 @@ def normal_round(value, decimals=2):
         float: The rounded value.
     """
     value = Decimal(str(value)) # Convert to string first to avoid floating point precision issues
-    multiplier = Decimal('1.' + '0' * decimals)  # Decimal precision
+    multiplier = Decimal('1.' + '0' * precision)  # Decimal precision
     return float(value.quantize(multiplier, rounding=ROUND_HALF_UP))
 
-def pad_and_round(value, decimals):
+def round_to_nearest(x, base=0.5, how="normal"):
+    """
+    x: float or array-like
+        The number or numbers to be rounded.
+    base: float (default: 0.5)
+        The base value to which the number should be rounded.
+    how: str (default: "normal")
+        The method by which the number should be rounded. Options are:
+        - "normal": round to the nearest multiple of the base value.
+        - "ceiling": round up to the nearest multiple of the base value.
+        - "floor": round down to the nearest multiple of the base value.
+        
+    Rounds a number or array-like set of numbers to the nearest multiple of the
+    given `base` value. The `how` parameter can be used to specify whether the 
+    number(s) should be rounded up, down, or to the nearest multiple.
+    """
+    
+    if how == "normal":
+        if isinstance(x, (list, np.ndarray)):
+            return np.array([base * round(xi / base) for xi in x])
+        else:
+            return base * round(x / base)
+    elif how == "ceiling":
+        if isinstance(x, (list, np.ndarray)):
+            return np.array([base * np.ceil(xi / base) for xi in x])
+        else:
+            return base * np.ceil(x / base)
+    elif how == "floor":
+        if isinstance(x, (list, np.ndarray)):
+            return np.array([base * np.floor(xi / base) for xi in x])
+        else:
+            return base * np.floor(x / base)
+    else:
+        raise ValueError(f"Invalid rounding method: {how}")
+
+
+def pad_and_round(value, precision):
     """
     value: float
         The value to round.
-    decimals: int
+    precision: int
         The number of decimal places to round to.
     
     Rounds a value to a specified number of decimal places using half-up rounding,
@@ -475,4 +511,97 @@ def pad_and_round(value, decimals):
     Returns:
         str: The rounded and padded value as a string.
     """
-    return f"{normal_round(value, decimals):.{decimals}f}"
+    return f"{normal_round(value, precision):.{precision}f}"
+
+################################################################################
+## String manipulation functions
+
+from functools import reduce
+from six import string_types
+
+def get_common_letters(strlist):
+    """
+    strlist: list
+        A list of strings (e.g., ['str1', 'str2',' 'str3'])
+    
+    Returns the common letters in the strings in the list, each in the same 
+    position of the string. If there are no common letters, an empty string is
+    returned. (e.g., ['Horse', 'House',' Harse'] -> 'Hse')
+    """
+    return "".join([x[0] for x in zip(*strlist) \
+        if reduce(lambda a,b:(a == b) and a or None,x)])
+
+def find_common_start(strlist):
+    """
+    strlist: list
+        A list of strings (e.g., ['str1', 'str2',' 'str3'])
+        
+    Returns the common letters at the start of the strings in the list. If there
+    are no common letters, an empty string is returned. 
+    (e.g., ['Horse', 'House', 'Harse'] -> 'H')
+    """
+    strlist = strlist[:]
+    prev = None
+    while True:
+        common = get_common_letters(strlist)
+        if common == prev:
+            break
+        strlist.append(common)
+        prev = common
+    return get_common_letters(strlist)
+
+
+################################################################################
+## Plotting functions
+
+def extend_limits(values, fraction=0.10, tolerance=1e-2, round_to_val=None):
+    """
+    values: list
+        A list of data values, of which the minimum and maximum values will be
+        used to extend the range covered by the values.
+    fraction: float (default: 0.10)
+        The fraction of the range by which to extend the values.
+    tolerance: float (default: 1e-2)
+        The tolerance for the difference between the new limits.
+    round_to_val: float (default: None)
+        If provided, the new limits will be rounded to the nearest multiple of
+        this value.
+        
+    Extend viewable range covered by a list of values. This is done by finding
+    the minimum and maximum values in the list, and extending the range by a
+    fraction of the peak-to-peak (ptp) value. If the difference between the new
+    limits is less than the tolerance, the values are extended by the tolerance.
+    
+    This is useful for plotting data, where the limits of the plot are extended
+    slightly to ensure that all data points are visible.
+    """
+    values = np.array(values)
+    finite_indices = np.isfinite(values)
+
+    if np.sum(finite_indices) == 0:
+        raise ValueError("no finite values provided")
+
+    lower_limit, upper_limit = np.min(values[finite_indices]), np.max(values[finite_indices])
+    ptp_value = np.ptp([lower_limit, upper_limit])
+
+    if round_to_val is None:
+        new_limits = lower_limit - fraction * ptp_value, upper_limit + fraction * ptp_value
+    else:
+        new_limits = round_to_nearest(lower_limit - fraction * ptp_value, round_to_val, how="floor"), \
+                     round_to_nearest(upper_limit + fraction * ptp_value, round_to_val, how="ceiling")
+
+    if np.abs(new_limits[0] - new_limits[1]) < tolerance:
+        print("Extending limits by tolerance, instead of fraction.")
+        if np.abs(new_limits[0]) < tolerance:
+            # Arbitrary limits, since we"ve just been passed zeros
+            offset = 1
+        else:
+            offset = np.abs(new_limits[0]) * fraction
+        
+        if round_to_val is None:
+            new_limits = new_limits[0] - offset, new_limits[0] + offset
+        else:
+            new_limits = round_to_nearest(new_limits[0] - offset, round_to_val, how="floor"), \
+                         round_to_nearest(new_limits[0] + offset, round_to_val, how="ceiling")
+
+    return np.array(new_limits)
