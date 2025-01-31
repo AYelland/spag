@@ -17,20 +17,36 @@ import warnings
 warnings.filterwarnings("ignore", category=AstropyDeprecationWarning)
 
 ################################################################################
+## Utility Functions
+
+def replace_non_ascii(text):
+    """
+    Replaces non-ASCII characters using a given replacement dictionary.
+    """
+    # Build a dictionary of problematic Unicode characters
+    replacement_map = {
+        "\u2212": "-",  # Unicode minus (−) → ASCII hyphen (-)
+        "\u2013": "-",  # En dash (–) → ASCII hyphen (-)
+        "\u2014": "-",  # Em dash (—) → ASCII hyphen (-)
+    }
+    return ''.join(replacement_map.get(char, char) for char in text)
+
+################################################################################
 ## RA & Decl Coordinate Functions
 
-def ra_hms2deg(ra_str, precision=5):
+def ra_hms_to_deg(ra_str, precision=5):
     """
     ra_str: str
         Right ascension in the form 'hh:mm:ss.ss'
     
     Converts a right ascension string to degrees.
     """
+    ra_str = replace_non_ascii(ra_str)
     ra_str = ra_str.split(':')
     ra_deg = round(15.0 * (float(ra_str[0]) + float(ra_str[1])/60.0 + float(ra_str[2])/3600.0), precision)
     return ra_deg
 
-def ra_deg2hms(ra_deg, precision=2):
+def ra_deg_to_hms(ra_deg, precision=2):
     """
     ra_deg: float
         Right ascension in degrees.
@@ -42,7 +58,24 @@ def ra_deg2hms(ra_deg, precision=2):
     ra_s = round((ra_deg - ra_h * 15.0 - ra_m / 4.0) * 240.0, precision)
     return "{:02d}:{:02d}:{:05.2f}".format(ra_h, ra_m, ra_s)
 
-def dec_deg2dms(dec_deg, precision=2):
+def dec_dms_to_deg(dec_str, precision=5):
+    """
+    dec_str: str
+        Declination in the form '+dd:mm:ss.ss'
+    
+    Converts a declination string to degrees.
+    """
+    dec_str = replace_non_ascii(dec_str)
+    if dec_str[0] == '-':
+        sign = -1
+        dec_str = dec_str[1:].split(':')
+    else:
+        sign = 1
+        dec_str = dec_str.split(':')
+    dec_deg = sign * round((float(dec_str[0]) + float(dec_str[1])/60.0 + float(dec_str[2])/3600.0), precision)
+    return dec_deg
+
+def dec_deg_to_dms(dec_deg, precision=2):
     """
     dec_deg: float
         Declination in degrees.
@@ -58,18 +91,6 @@ def dec_deg2dms(dec_deg, precision=2):
     dec_m = int((dec_deg - dec_d) * 60.0)
     dec_s = round((dec_deg - dec_d - dec_m / 60.0) * 3600.0, precision)
     return "{}{:02d}:{:02d}:{:05.2f}".format(sign, dec_d, dec_m, dec_s)
-
-def dec_dms2deg(dec_str, precision=5):
-    """
-    dec_str: str
-        Declination in the form '+dd:mm:ss.ss'
-    
-    Converts a declination string to degrees.
-    """
-    sign = -1 if dec_str[0] == '-' else 1
-    dec_str = dec_str[1:].split(':')
-    dec_deg = sign * round((float(dec_str[0]) + float(dec_str[1])/60.0 + float(dec_str[2])/3600.0), precision)
-    return dec_deg
 
 def round_hms(hms_str, precision=1):
     """

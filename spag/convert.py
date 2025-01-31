@@ -10,7 +10,7 @@ import numpy as np
 
 from spag.periodic_table import pt_list, pt_dict
 
-# Functions to import when using 'from spag.utils_smh import *'
+# Functions to import when using 'from spag.utils import *'
 # __all__ =  ["element_to_species", "element_to_atomic_number",
 #             "species_to_element", "species_to_atomic_number",
 #             "atomic_number_to_species", "atomic_number_to_element",
