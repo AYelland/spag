@@ -12,6 +12,7 @@ import seaborn as sns
 
 from spag.convert import *
 from spag.utils import *
+import spag.coordinates as coord
 
 sns.set_palette("colorblind")
 sns_palette = sns.color_palette()
@@ -276,14 +277,23 @@ def solar_r_s_abundances():
 
     solar_logeps_r
 
-
 ################################################################################
 ## JINAbase Data Read-in
 
 def load_jinabase(sci_key=None, priority=1, load_eps=True, load_ul=True, load_XH=True, load_XFe=True, load_aux=True, name_as_index=True):
     """
     sci_key: str or None
-        A label used for interesting stars in the JINAbase database. (nan, 'R2', 'R1', 'S', 'I')
+        A label used for interesting stars in the JINAbase database. There are four different types of keys.
+        ('Ncap_key', 'C_key', 'MP_key', 'alpha_key') Use the value from one of the following keys to filter the data:
+        - CE: Carbon-enhanced stars (C_key)
+        - NO: Carbon-enhanced stars, neutron-capture-normal (C_key)
+        - R1: rI-rich (Ncap_key)
+        - R2: rII-rich (Ncap_key)
+        - S: s-rich (Ncap_key)
+        - RS: r/s-rich (Ncap_key)
+        - I: i-process rich (Ncap_key)
+        - alpha: Alpha-enhanced stars (alpha_key)
+        - _MP: ________ metal-poor stars (MP_key) (e.g MP, VMP, EMP, UMP, etc.)
     priority: int
         The priority level of the sources in the JINAbase database for duplicate entries. (1, 2)
     load_eps: bool
@@ -305,15 +315,15 @@ def load_jinabase(sci_key=None, priority=1, load_eps=True, load_ul=True, load_XH
     """
 
     ## Read data
-    data = pd.read_csv(data_dir+"abundance_tables/JINAbase-updated/JINAbase_2021_yelland.csv", header=0, na_values=["*"]) #index_col=0
-    uls  = pd.read_csv(data_dir+"abundance_tables/JINAbase-updated/JINAbase_2021_ulimits.csv", header=0, na_values=["*"]) #index_col=0
+    data = pd.read_csv(data_dir+"abundance_tables/JINAbase-yelland/JINAbase-yelland25.csv", header=0, na_values=["*"]) #index_col=0
+    uls  = pd.read_csv(data_dir+"abundance_tables/JINAbase-yelland/JINAbase-yelland25-ulimits.csv", header=0, na_values=["*"]) #index_col=0
     Nstars = len(data)
 
     ## Get the list of elements & create the corresponding column names for the element abundance columns
     ## NOTE: The ionization state columns are dropped and not used in this analysis. Hence, the -7 
     ##       in the column slicing. Every application of elems, ul_elems, and epscolnames now 
     ##       excludes the ionization state columns.
-    elems = data.columns[26:-7]
+    elems = data.columns[31:-7]
     ul_elems = list(map(lambda x: "ul"+x, elems))
     epscolnames = list(map(lambda x: "eps"+x.lower(), elems))
     print("WARNING: Dropped the CaII, TiII, VII, CrII, MnII, FeII columns.")
@@ -322,7 +332,7 @@ def load_jinabase(sci_key=None, priority=1, load_eps=True, load_ul=True, load_XH
     data.rename(columns=dict(zip(elems, epscolnames)), inplace=True)
 
     ## Separate the auxiliary columns (JINA_ID, Priority, etc.) from the element abundance columns (epsX) in 'data' and 'uls'
-    auxdata_cols = data.columns[0:26].append(pd.Index([data.columns[-1]]))
+    auxdata_cols = data.columns[0:31].append(pd.Index([data.columns[-1]]))
     auxdata = data[auxdata_cols]
     data = data[epscolnames]
 
@@ -346,35 +356,39 @@ def load_jinabase(sci_key=None, priority=1, load_eps=True, load_ul=True, load_XH
 
     ## Convert the element abundance and add the [X/H] and [X/Fe] columns
     if load_XH:
-        XH_from_eps(data)
+        XHcol_from_epscol(data)
     if load_XFe:
-        XFe_from_eps(data)
-
-    ## Use a specific `Sci_key` to filter the data
-    if sci_key != None:
-        assert sci_key in auxdata["Sci_key"].unique(), auxdata["Sci_key"].unique() #if sci_key is not in the list of unique Sci_keys, print the list of unique Sci_keys
-        auxdata = auxdata[auxdata["Sci_key"]==sci_key]
-    else:
-        assert len(data) == Nstars, (len(data), Nstars)
-
+        XFecol_from_epscol(data)
+            
     ## Combine the auxiliary columns with the element abundance columns
     if load_aux:
         data = pd.concat([data, auxdata],axis=1)
-        # Remove duplicate entries by using the "Priority" column (1=high, 2=low)
-        # (dupicates entries originate from two papers referencing the same source)
-        if priority==1 or priority==2:
-            pmask = data["Priority"] == priority
-            data = data[pmask]
-            uls = uls[pmask]
     else:
-        data = pd.concat([data, auxdata[["Name","Ref","Priority"]]], axis=1)
-        # Remove duplicate entries by using the "Priority" column (1=high, 2=low)
-        # (dupicates entries originate from two papers referencing the same source)
-        if priority==1 or priority==2:
-            pmask = data["Priority"] == priority
-            data = data[pmask]
-            uls = uls[pmask]
-        data.drop("Priority", axis=1, inplace=True)
+        data = pd.concat([data, auxdata[['Name','Ref','Priority','Ncap_key','C_key','MP_key','alpha_key']]], axis=1)
+
+    ## Remove duplicate entries by using the 'Priority' column (1=high, 2=low)
+    ## (dupicates entries originate from two papers referencing the same source)
+    if priority==1 or priority==2:
+        pmask = data['Priority'] == priority
+        data = data[pmask]
+        uls = uls[pmask]
+
+    ## If a specific science key ('Ncap_key', 'C_key', 'MP_key', 'alpha_key') was provided, apply the mask to filter the data
+    if sci_key is not None:
+        sci_key_cols = ['MP_key', 'Ncap_key', 'C_key', 'alpha_key']
+        sci_mask = None
+        for key_col in sci_key_cols:
+            if sci_key in data[key_col].dropna().unique():
+                sci_mask = data[key_col] == sci_key
+                break
+        if sci_mask is None:
+            raise ValueError(f"The provided sci_key '{sci_key}' is not valid. Choose from ('_MP', 'R1', 'R2', 'S', 'RS', 'I', 'CE', 'NO', 'alpha').")
+        data = data[sci_mask]
+        uls = uls[sci_mask]
+
+    ## Finalize the DataFrame by dropping columns in the auxiliary columns
+    if not load_aux:
+        data.drop({'Priority','Ncap_key','C_key','MP_key','alpha_key'}, axis=1, inplace=True)
 
     ## Drop the log(eps) columns if not needed
     if not load_eps:
@@ -384,95 +398,8 @@ def load_jinabase(sci_key=None, priority=1, load_eps=True, load_ul=True, load_XH
     if name_as_index:
         data.index = data["Name"]
 
+    data.to_csv(data_dir+"abundance_tables/JINAbase-yelland/JINAbase-yelland25-processed.csv", index=False)
     return data
-
-def jinabase_create_the_upperlimits_file():
-    """
-    Create a Jinabase upper limits file from the JINAbase data, updated in 2021.
-    The file is effectively a mask of the JINAbase abundances, where each upper
-    limit is marked with a 1 (identified by the '<'), and all other values are 
-    marked with a *.
-    """
-
-    # Load and make a copy of the JINAbase data
-    jinabase_df = pd.read_csv(data_dir+"abundance_tables/JINAbase-updated/JINAbase_2021_yelland.csv", na_values=["*"])
-    ul_jinabase_df = jinabase_df.copy()
-
-    # Remove unnecessary columns
-    ul_jinabase_df = ul_jinabase_df.drop(columns=[
-        'NLTE','Sci_key','C_key','Loc','Type','RA','DEC','Vel','Vel_bibcode',
-        'U_mag','B_mag','V_mag','R_mag','I_mag','J_mag','H_mag','K_mag',
-        'Teff','logg','Fe/H','Vmic','Added_by'
-        ])
-
-    # At the 'ul' prefix to the columns with element symbols (e.g. Fe -> ulFe)
-    for col in ul_jinabase_df.columns:
-        if col in pt_list+['CaII', 'TiII', 'VII', 'CrII', 'MnII', 'FeII']:
-            ul_jinabase_df.rename(columns={col: 'ul'+col}, inplace=True)
-
-    # Replace values containing "<" with 1, and replace all other values with *
-    ul_columns = [col for col in ul_jinabase_df.columns if col.startswith('ul')]
-
-    ul_jinabase_df[ul_columns] = ul_jinabase_df[ul_columns].applymap(
-        lambda x: 1 if isinstance(x, str) and "<" in x else "*"
-    )
-
-    # save the dataframe to a csv file
-    ul_jinabase_df.to_csv(data_dir+"abundance_tables/JINAbase-updated/JINAbase_2021_ulimits.csv", index=False)
-
-
-def jinabase_assign_ids_and_priorities():
-    """
-    Assign JINA_ID and Priority to the JINAbase data, updated in 2021.
-    The JINA_ID is assigned to rows where it is missing, and the Priority is
-    assigned based on the number of non-NaN values in the element abundance
-    columns. Rows with a Simbad_Identifier are given Priority 1.0, and rows
-    without a Simbad_Identifier are given Priority 2.0.
-    """
-
-    # Read the data into a DataFrame
-    jinabase_df = pd.read_csv(data_dir + "abundance_tables/JINAbase-updated/JINAbase_2021.csv", na_values=["*"])
-
-    # Assign JINA_ID to rows where it is missing
-    jinabase_df['JINA_ID'] = jinabase_df['JINA_ID'].fillna(pd.Series(jinabase_df.index.map(lambda x: x+1), index=jinabase_df.index))
-
-    # Columns containing element abundances (starting from 'Li' to the last element column)
-    abundance_columns = jinabase_df.columns[jinabase_df.columns.get_loc('Li'):-1]
-
-    # Count non-NaN values in element abundance columns for each row
-    jinabase_df['nonNaN_abundances'] = jinabase_df[abundance_columns].notna().sum(axis=1)
-
-    # Separate rows with NaN in Simbad_Identifier
-    rows_with_simbad_identifier = jinabase_df[jinabase_df['Simbad_Identifier'].notna()]
-    rows_without_simbad_identifier = jinabase_df[jinabase_df['Simbad_Identifier'].isna()]
-
-    # Assign Priority to rows with Simbad_Identifier
-    def assign_priority(group):
-        # Sort the group by the number of non-NaN abundances (descending order)
-        group = group.sort_values('nonNaN_abundances', ascending=False)
-        # Assign Priority 1.0 to the row with the most non-NaN values, others get 2.0
-        group['Priority'] = [1.0] + [2.0] * (len(group) - 1)
-        return group
-
-    rows_with_simbad_identifier = rows_with_simbad_identifier.groupby('Simbad_Identifier', group_keys=False).apply(assign_priority)
-
-    # Assign default Priority (1.0) to rows without Simbad_Identifier
-    rows_without_simbad_identifier.loc[:, 'Priority'] = 1.0
-
-    # Combine both parts back together
-    jinabase_df = pd.concat([rows_with_simbad_identifier, rows_without_simbad_identifier], ignore_index=True)
-
-    # Drop the helper column 'nonNaN_abundances'
-    jinabase_df = jinabase_df.drop(columns=['nonNaN_abundances'])
-
-    # Sort by JINA_ID
-    jinabase_df = jinabase_df.sort_values('JINA_ID')
-
-    # Save the updated DataFrame to a new file
-    jinabase_df.to_csv(data_dir + "abundance_tables/JINAbase-updated/JINAbase_2021_yelland.csv", index=False)
-
-    return jinabase_df
-
 
 ################################################################################
 ## Specific System's Data Read-in
@@ -486,6 +413,24 @@ def load_mw_halo(**kwargs):
     halo = halo[halo["Loc"] != "DW"]
     halo = halo[halo["Loc"] != "UF"]
     return halo
+
+def load_atari_disk(**kwargs):
+    """
+    Atari Disk Stars
+
+    Loads the data from Mardini et al. 2022 where they present the [Fe/H] metallicity
+    and [C/Fe] abundance ratios of sources from various JINAbase references.
+    """
+
+    ## Manually add specific references
+    # -------------------------------------------------- #
+    ## Load Mardini+2022
+    mardini2022_df = load_mardini2022()
+
+    ## Combine the DataFrames
+    atari_df = pd.concat([mardini2022_df], ignore_index=True, sort=False)
+
+    return atari_df
 
 def load_classical_dwarf_galaxies(add_all=False, **kwargs):
     """
@@ -539,4 +484,938 @@ def load_classical_dwarf_galaxies(add_all=False, **kwargs):
     
     return cldw
 
+def load_carina(**kwargs):
+    """
+    Loads Carina data from JINAbase and adds data from specific references. All data
+    is stored in a single DataFrame. Find datasets in SPAG directories.
+    """
 
+    carina_refs = [
+        'SHE03','LEM12','NOR17','SUS17','VEN12','LUH24'#,'REI20'
+        # 'REI20' could be included, but it lacks carbon abundances and does not have DW identifiers in jinabase
+    ]
+
+    ## JINAbase
+    # -------------------------------------------------- #
+    jinabase = rd.load_jinabase(**kwargs)
+
+    ## Filter JINAbase for Carina (by Reference) for References with single systems
+    carina_refs1 = ['NOR17']#,'VEN12']
+    jinabase_carina1 = jinabase[jinabase['Ref'].isin(carina_refs1)]
+
+    ## Filter JINAbase for Carina (by Star Name) for References with multiple systems, including Carina 
+    carina_refs2 = ['SHE03'] # 'REI20' could be included, but it lacks carbon abundances and does not have DW identifiers in jinabase
+    jinabase_nan = jinabase[jinabase['Name'].isna()]  # Rows where 'Name' is NaN
+    jinabase_non_nan = jinabase[jinabase['Name'].notna()]  # Rows where 'Name' is not NaN
+    jinabase_carina2 = jinabase_non_nan[jinabase_non_nan['Name'].str.lower().str.contains('car')]
+    for ref in jinabase_carina2['Ref'].unique():
+        if ref in carina_refs1:
+            # drop rows from jinabase_carina2 that are already in jinabase_carina1
+            jinabase_carina2 = jinabase_carina2[jinabase_carina2['Ref'] != ref]
+
+    ## Concatenate the DataFrames
+    carina_refs = carina_refs1 + carina_refs2
+    jinabase_carina = pd.concat([jinabase_carina1, jinabase_carina2], ignore_index=True)
+
+    ## Manually add specific references
+    # -------------------------------------------------- #
+
+    ## Lemasle 2012 (LEM12) -- no carbon abundances
+    # data collected in SPAG, but function not created yet
+
+    ## Susmitha 2017 (SUS17)
+    # susmitha2017 = rd.load_susmitha2017()
+
+    ## Lucchetti 2024 (LUCC24)
+    lucchetti2024 = rd.load_lucchetti2024()
+    lucchetti2024_carina = lucchetti2024[~lucchetti2024['Name'].str.lower().str.contains('fnx')]
+    
+    ## Combine the DataFrames
+    # -------------------------------------------------- #
+    carina_df = pd.concat([jinabase_carina, lucchetti2024_carina], ignore_index=True)
+
+    if '[C/Fe]_ul' not in carina_df.columns:
+        carina_df = pd.concat([carina_df, pd.Series(np.nan, index=carina_df.index, name='[C/Fe]_ul')], axis=1)
+
+    return carina_df
+
+def load_sculptor(**kwargs):
+    """
+    Loads Sculptor data from JINAbase and adds data from specific references. All data
+    is stored in a single DataFrame. Find datasets in SPAG directories.
+    """
+
+    sculptor_refs = [
+        'CHI18','GEI05','HIL19','JAB15','KIR12',#'REI20',
+        'SIM15','SKU15','SKU17','SKU19','SKU24','SHE03',
+        'TAF10'
+        # 'REI20' could be included, but it lacks carbon abundances and does not have DW identifiers in jinabase
+    ]
+
+    ## JINAbase
+    # -------------------------------------------------- #
+    jinabase = rd.load_jinabase(**kwargs)
+
+    ## Filter JINAbase for Sculptor (by Star Name)
+    jinabase_nan = jinabase[jinabase['Name'].isna()]  # Rows where 'Name' is NaN
+    jinabase_non_nan = jinabase[jinabase['Name'].notna()]  # Rows where 'Name' is not NaN
+    jinabase_sculptor1 = jinabase_non_nan[jinabase_non_nan['Name'].str.lower().str.contains('scl')]
+    sculptor_refs = [ref for ref in sculptor_refs if ref not in jinabase_sculptor1['Ref'].unique()]
+
+    ## Filter JINAbase for Sculptor (by Reference)
+    jinabase_sculptor2 = jinabase[jinabase['Ref'].isin(sculptor_refs)]
+    sculptor_refs = [ref for ref in sculptor_refs if ref not in jinabase_sculptor2['Ref'].unique()]
+
+    ## Concatenate the DataFrames
+    jinabase_sculptor = pd.concat([jinabase_sculptor1, jinabase_sculptor2], ignore_index=True)
+
+
+    ## Manually add specific references
+    # -------------------------------------------------- #
+
+    ## Chiti+2018
+    chiti2018_df = load_chiti2018(combine_tables=True)
+    chiti2018_df['epsc'] = chiti2018_df['A(C)']
+    chiti2018_df['ulc'] = chiti2018_df['A(C)_ul']
+    chiti2018_df['llc'] = chiti2018_df['A(C)_ll']
+    chiti2018_df['e_epsc'] = chiti2018_df['A(C)_ul']
+    chiti2018_df.drop(columns=['logg','[Ba/H]','Slit','A(C)','A(C)_ll','A(C)_ul','e_A(C)'], inplace=True)
+
+    ## Skuladottir 2017 (SKU17)
+    # have not collected the data for SPAG yet
+
+    ## Skuladottir 2024 (SKU24)
+    # have not collected the data for SPAG yet
+
+    ## Sestito 2023 (SES03)
+    # have not collected the data for SPAG yet
+
+    ## Frebel+2010b
+    frebel2010b_df = load_frebel2010b()
+
+    ## Combine the DataFrames
+    # -------------------------------------------------- #
+    sculptor_df = pd.concat([jinabase_sculptor, chiti2018_df, frebel2010b_df], ignore_index=True, sort=False)
+
+    return sculptor_df
+
+def load_fornax(**kwargs):
+    """
+    Loads Fornax data from JINAbase and adds data from specific references. All data
+    is stored in a single DataFrame. Find datasets in SPAG directories.
+    """
+
+    fornax_refs = [
+        'LEM14','LET07','LET10',#'REI20',
+        'SHE03','TAF10'
+        # 'REI20' could be included, but it lacks carbon abundances and does not have DW identifiers in jinabase
+    ]
+
+    ## JINAbase
+    # -------------------------------------------------- #
+    jinabase = rd.load_jinabase(**kwargs)
+
+    ## Filter JINAbase for Fornax (by Star Name)
+    jinabase_nan = jinabase[jinabase['Name'].isna()]  # Rows where 'Name' is NaN
+    jinabase_non_nan = jinabase[jinabase['Name'].notna()]  # Rows where 'Name' is not NaN
+    jinabase_fornax1 = jinabase_non_nan[jinabase_non_nan['Name'].str.lower().str.contains('fnx')]
+    fornax_refs = [ref for ref in fornax_refs if ref not in jinabase_fornax1['Ref'].unique()]
+    
+    ## Filter JINAbase for Fornax (by Reference)
+    jinabase_fornax2 = jinabase[jinabase['Ref'].isin(fornax_refs)]
+    fornax_refs = [ref for ref in fornax_refs if ref not in jinabase_fornax2['Ref'].unique()]
+
+    ## Concatenate the DataFrames
+    jinabase_fornax = pd.concat([jinabase_fornax1, jinabase_fornax2], ignore_index=True)
+
+
+    ## Manually add specific references
+    # -------------------------------------------------- #
+    ## Lemasle 2014 (LEM14)
+    lemasle2014 = load_lemasle2014()
+
+    ## Letarte 2007 (LET07) -- no carbon abundances
+    # thesis work, have not collected the data for SPAG yet
+
+    ## Letarte 2010 (LET10)
+    letarte2010 = load_letarte2010()
+
+    ## Lucchetti 2024 (LUCC24)
+    lucchetti2024 = rd.load_lucchetti2024()
+    lucchetti2024_fornax = lucchetti2024[lucchetti2024['Name'].str.lower().str.contains('fnx')]
+    
+    ## Combine the DataFrames
+    # -------------------------------------------------- #
+    fornax_df = pd.concat([jinabase_fornax, lucchetti2024_fornax, lemasle2014, letarte2010], ignore_index=True)
+
+    if '[C/Fe]_ul' not in fornax_df.columns:
+        fornax_df = pd.concat([fornax_df, pd.Series(np.nan, index=fornax_df.index, name='[C/Fe]_ul')], axis=1)
+
+    return fornax_df
+
+def load_gse(**kwargs):
+    """
+    Gaia Sausage/Enceladus (GSE) Dwarf Galaxy Stars 
+
+    Loads the data from Ou et al. (2024) for the Gaia Sausage/Enceladus (GSE) stars.
+    This function reads in the data from the table and returns it as a pandas DataFrame.
+    """
+
+    ## Manually add specific references
+    # -------------------------------------------------- #
+    ## Load Ou+2024
+    ou2024_df = load_ou2024()
+
+    ## Combine the DataFrames
+    gse_df = pd.concat([ou2024_df], ignore_index=True, sort=False)
+
+    return gse_df
+
+def load_sagittarius(include_lowres=False, include_apogee=False, **kwargs):
+    """
+    Sagittarius (Sgr) Dwarf Galaxy Stars 
+
+    Loads the data from various references for the Sagittarius (Sgr) stars.
+    """
+
+    ## JINAbase
+    # -------------------------------------------------- #
+    jinabase = rd.load_jinabase(**kwargs)
+
+    sagittarius_refs = [
+        'HANc18','SBO20',''#'REI20'
+        # 'REI20' could be included, but it lacks carbon abundances and does not have DW identifiers in jinabase
+    ]
+
+    ## Filter JINAbase for Sagittarius (by Star Name)
+    jinabase_nan = jinabase[jinabase['Name'].isna()]  # Rows where 'Name' is NaN
+    jinabase_non_nan = jinabase[jinabase['Name'].notna()]  # Rows where 'Name' is not NaN
+    jinabase_sagittarius1 = jinabase_non_nan[jinabase_non_nan['Name'].str.lower().str.contains('fnx')]
+    sagittarius_refs = [ref for ref in sagittarius_refs if ref not in jinabase_sagittarius1['Ref'].unique()]
+    
+    ## Filter JINAbase for Sagittarius (by Reference)
+    jinabase_sagittarius2 = jinabase[jinabase['Ref'].isin(sagittarius_refs)]
+    sagittarius_refs = [ref for ref in sagittarius_refs if ref not in jinabase_sagittarius2['Ref'].unique()]
+
+    ## Concatenate the DataFrames
+    jinabase_sagittarius = pd.concat([jinabase_sagittarius1, jinabase_sagittarius2], ignore_index=True)
+
+    ## Manually add specific references
+    # -------------------------------------------------- #
+    df_list = []
+    ## APOGEE
+    if include_apogee:
+        apogee_df = load_apogee_sgr()   
+        df_list.append(apogee_df)
+
+    ## Ou+2025
+    ou2025_df = load_ou2025()
+    df_list.append(ou2025_df)
+
+    ## Sestito+2024
+    sestito2024_df = load_sestito2024()
+    df_list.append(sestito2024_df)
+
+    ## Sestito+2024b -- low/med resolution
+    if include_lowres:
+        sestito2024b_df = load_sestito2024b()
+        df_list.append(sestito2024b_df)
+
+    ## Sbordone+2007
+    # sbordone2007_df = load_sbordone2007()
+    # df_list.append(sbordone2007_df)
+
+    ## Combine the DataFrames
+    sagittarius_df = pd.concat(df_list, ignore_index=True, sort=False)
+
+    return sagittarius_df
+
+################################################################################
+## Reference Read-in (Abundance Data)
+
+def load_chiti2018(combine_tables=True):
+    """
+    Sculptor (Scl) Dwarf Galaxy Stars
+
+    Loads the data from Chiti et al. (2018) for the MagE and M2FS measurements.
+    This function reads in the data from the two tables (table5/MagE and table6/M2FS) and
+    returns them as pandas DataFrames. By default, the two tables are combined into a single
+    DataFrame.
+    """
+
+    # Extract the limit columns
+    def separate_limit_columns(df):
+        """
+        Separate the limit columns from the value columns in the given DataFrame.
+        """
+        limit_cols = [col for col in df.columns if col.startswith('l_')]
+        for l_col in limit_cols:
+            value_col = l_col.replace('l_', '')  # Corresponding value column
+
+            mask_actual = (df[l_col] != '<') & (df[l_col] != '>')
+            mask_lower = df[l_col] == '>'
+            mask_upper = df[l_col] == '<'
+
+            df[f"{value_col}_real"] = np.where(mask_actual, df[value_col], np.nan) # Actual values
+            df[f"{value_col}_ll"] = np.where(mask_lower, df[value_col], np.nan) # Lower limit
+            df[f"{value_col}_ul"] = np.where(mask_upper, df[value_col], np.nan) # Upper limit
+
+            # Drop the original limit column & value column
+            df = df.drop(columns=[value_col])
+            df = df.drop(columns=[l_col])
+            df = df.rename(columns={f"{value_col}_real": value_col})
+        return df
+
+    if combine_tables:
+
+        ## Load the combined table (created by Alex Yelland)
+        chiti2018_df = pd.read_csv(data_dir+'abundance_tables/chiti2018/chiti2018_sculptor.csv', comment='#', header=0)
+        
+        ## Add columns and extract the limit columns
+        chiti2018_df = separate_limit_columns(chiti2018_df)
+        df_cols_reorder = [
+            'Reference','Ref','Name','Loc','Type','Sci_key','RA_hms','DEC_dms','RA_deg','DEC_deg',
+            'logg','Teff','[Ba/H]','Slit',
+            'A(C)','A(C)_ll','A(C)_ul','e_A(C)',
+            '[Fe/H]','[Fe/H]_ll','[Fe/H]_ul','e_[Fe/H]',
+            '[C/Fe]','[C/Fe]_ll','[C/Fe]_ul','e_[C/Fe]','[C/Fe]c',
+            '[C/Fe]f','[C/Fe]f_ll','[C/Fe]f_ul','e_[C/Fe]f',
+        ]
+        chiti2018_df = chiti2018_df[df_cols_reorder]
+        chiti2018_df = chiti2018_df.rename(columns={'Sci_key': 'Ncap_key'})  # Rename 'Sci_key' to 'Ncap_key' for consistency
+
+        ## Fill the NaN values in the RA and DEC columns
+        for idx, row in chiti2018_df.iterrows():
+            if pd.isna(row['RA_deg']) and pd.notna(row['RA_hms']):  # Ensure RA_hms is not NaN
+                row['RA_deg'] = coord.ra_hms_to_deg(str(row['RA_hms']), precision=6)
+                chiti2018_df.at[idx, 'RA_deg'] = row['RA_deg']
+
+            if pd.isna(row['DEC_deg']) and pd.notna(row['DEC_dms']):  # Ensure DEC_dms is not NaN
+                row['DEC_deg'] = coord.dec_dms_to_deg(str(row['DEC_dms']), precision=6)
+                chiti2018_df.at[idx, 'DEC_deg'] = row['DEC_deg']
+
+            if pd.isna(row['RA_hms']) and pd.notna(row['RA_deg']):  # Ensure RA_deg is not NaN
+                row['RA_hms'] = coord.ra_deg_to_hms(row['RA_deg'], precision=2)
+                chiti2018_df.at[idx, 'RA_hms'] = row['RA_hms']
+
+            if pd.isna(row['DEC_dms']) and pd.notna(row['DEC_deg']):  # Ensure DEC_deg is not NaN
+                row['DEC_dms'] = coord.dec_deg_to_dms(row['DEC_deg'], precision=2)
+                chiti2018_df.at[idx, 'DEC_dms'] = row['DEC_dms']
+
+        return chiti2018_df
+
+    else:
+        ## Table 5: MagE Measurements
+        mage_df = pd.read_csv(data_dir+'abundance_tables/chiti2018/table5.csv', comment='#', header=None)
+        mage_df.columns = [
+            'ID', 'f5_ID', 'Slit', 'logg', 'Teff', 'l_[Fe/H]KP', '[Fe/H]KP', 'e_[Fe/H]KP', 
+            'l_A(C)', 'A(C)', 'e_A(C)', 'l_[C/Fe]', '[C/Fe]', 'e_[C/Fe]', '[C/Fe]c',
+            'l_[C/Fe]f','[C/Fe]f', 'e_[C/Fe]f', '[Ba/H]', 'RA_deg', 'DEC_deg'
+        ]
+        mage_df['Reference'] = 'Chiti+2018_MagE'
+        mage_df['Ref'] = 'CHI18'
+        mage_df = separate_limit_columns(mage_df)
+        mage_cols_reorder = [
+            'Reference','Ref','ID','f5_ID','RA_deg','DEC_deg','Slit','logg','Teff',
+            '[Fe/H]KP','[Fe/H]KP_ll','[Fe/H]KP_ul','e_[Fe/H]KP',
+            'A(C)','A(C)_ll','A(C)_ul','e_A(C)',
+            '[C/Fe]','[C/Fe]_ll','[C/Fe]_ul','e_[C/Fe]',
+            '[C/Fe]c','[C/Fe]f','[C/Fe]f_ll','[C/Fe]f_ul','e_[C/Fe]f','[Ba/H]']
+        mage_df = mage_df[mage_cols_reorder]
+
+        ## Table 6: M2FS Measurements
+        m2fs_df = pd.read_csv(data_dir+'abundance_tables/chiti2018/table6.csv', comment='#', header=None)
+        m2fs_df.columns = [
+            'Type', 'ID', 'f6_ID', 'RA_hms', 'DEC_dms', 'logg', 'Teff',
+            'l_[Fe/H]', '[Fe/H]', 'e_[Fe/H]', 
+            'l_[C/Fe]', '[C/Fe]', 'e_[C/Fe]', '[C/Fe]c', 'l_[C/Fe]f', '[C/Fe]f'
+        ]
+        m2fs_df['Reference'] = 'Chiti+2018_M2FS'
+        m2fs_df['Ref'] = 'CHI18'
+        m2fs_df = separate_limit_columns(m2fs_df)
+        m2fs_cols_reorder = [
+            'Reference','Ref','ID','f6_ID','RA_hms','DEC_dms','Type','logg','Teff',
+            '[Fe/H]','[Fe/H]_ll','[Fe/H]_ul','e_[Fe/H]',
+            '[C/Fe]','[C/Fe]_ll','[C/Fe]_ul','e_[C/Fe]',
+            '[C/Fe]c','[C/Fe]f','[C/Fe]f_ll','[C/Fe]f_ul']
+        m2fs_df = m2fs_df[m2fs_cols_reorder]
+
+        return mage_df, m2fs_df
+
+def load_frebel2010b():
+    """
+    Sculptor (Scl) Dwarf Galaxy Star
+
+    Load the data from Frebel+2010b, Table 1, for star S1020549.
+    """
+    
+    csv_df = pd.read_csv(data_dir+'abundance_tables/frebel2010b/table1_S1020549.csv', comment='#')
+
+    ## Column names
+    species = []
+    for ion in csv_df["Species"].unique():
+        species_i = ion_to_species(ion)
+        elem_i = ion_to_element(ion)
+        # default_ion = f"{elem_i} {int_to_roman(get_default_ion(elem_i))}"
+        
+        if species_i not in species:
+            species.append(species_i)
+
+    epscols = [make_epscol(s) for s in species]
+    ulcols = [make_ulcol(s) for s in species]
+    XHcols = [make_XHcol(s) for s in species]
+    XFecols = [make_XFecol(s) for s in species]
+    errcols = [make_errcol(s) for s in species]
+
+    ## New dataframe with proper columns
+    frebel2010_df = pd.DataFrame(columns=['Name','Reference','Ref','Loc','RA_hms','RA_deg','DEC_dms','DEC_deg'] + epscols + ulcols + XHcols + XFecols + errcols)
+    frebel2010_df.loc[0,'Name'] = 'S1020549'
+    frebel2010_df.loc[0,'Reference'] = 'Frebel+2010b'
+    frebel2010_df.loc[0,'Ref'] = 'FRE10b'
+    frebel2010_df.loc[0,'Loc'] = 'DW'
+    frebel2010_df.loc[0,'RA_hms'] = '01:00:47.80'
+    frebel2010_df.loc[0,'RA_deg'] = coord.ra_hms_to_deg(frebel2010_df.loc[0,'RA_hms'])
+    frebel2010_df.loc[0,'DEC_dms'] = '-33:41:03.0'
+    frebel2010_df.loc[0,'DEC_deg'] = coord.dec_dms_to_deg(frebel2010_df.loc[0,'DEC_dms'])
+
+    ## Fill in data
+    for idx, row in csv_df.iterrows():
+        ion = row["Species"]
+        species_i = ion_to_species(ion)
+        elem_i = ion_to_element(ion)
+
+        ## Assign eps values
+        col = make_epscol(species_i)
+        if col in epscols:
+            frebel2010_df.loc[0, col] = row["logepsX"] if pd.isna(row["l_logepsX"]) else np.nan
+
+        ## Assign upper limit values
+        col = make_ulcol(species_i)
+        if col in ulcols:
+            frebel2010_df.loc[0, col] = row["logepsX"] if pd.notna(row["l_logepsX"]) else np.nan
+
+        ## Assign [X/H] values
+        col = make_XHcol(species_i)
+        if col in XHcols:
+            if pd.isna(row["l_[X/H]"]):
+                frebel2010_df.loc[0, col] = row["[X/H]"]
+                # frebel2010_df.loc[0, col+'_ul'] = np.nan
+            else:
+                frebel2010_df.loc[0, col] = np.nan
+                frebel2010_df.loc[0, col+'_ul'] = row["[X/H]"]
+
+        ## Assign [X/Fe] values
+        col = make_XFecol(species_i)
+        if col in XFecols:
+            if pd.isna(row["l_[X/Fe]"]):
+                frebel2010_df.loc[0, col] = row["[X/Fe]"]
+                # frebel2010_df.loc[0, col+'_ul'] = np.nan
+            else:
+                frebel2010_df.loc[0, col] = np.nan
+                frebel2010_df.loc[0, col+'_ul'] = row["[X/Fe]"]
+
+        ## Assign error values
+        col = make_errcol(species_i)
+        if col in errcols:
+            err_random = row.get("e_random", np.nan)
+            err_systematic = row.get("e_systematic", np.nan)
+            
+            if pd.notna(err_random) and pd.notna(err_systematic):
+                frebel2010_df.loc[0, col] = np.sqrt(err_random**2 + err_systematic**2)
+            elif pd.notna(err_random):
+                frebel2010_df.loc[0, col] = err_random
+            elif pd.notna(err_systematic):
+                frebel2010_df.loc[0, col] = err_systematic
+            else:
+                frebel2010_df.loc[0, col] = np.nan
+
+    return frebel2010_df
+
+def load_lemasle2014():
+    """
+    Fornax (Fnx) Dwarf Galaxy Stars
+
+    Loads the data from Lemasle et al. (2014) for the Fornax stars.
+    """
+    ## Read FITS file and strip units
+    tab = Table.read(data_dir+"abundance_tables/lemasle2014/lemasle14_fnx.txt",format='ascii.fixed_width')
+    tab["Star"] = tab["Star"].astype(str)
+
+    ## Remove all column units (prevents UnitsWarning)
+    for col in tab.colnames:
+        tab[col].unit = None
+
+    ## Remove unwanted columns
+    # tab.remove_columns(["[TiI/H]","e_ti1","fe2_h","e_fe2"])
+    for col in tab.colnames:
+        if col.startswith("N"): tab.remove_column(col)
+
+    ## Rename the Star column
+    tab.rename_column("Star","Name")
+
+    elems = ["Na","Mg","Si","Ca","Sc","Ti","Cr","Ni","Y","Ba","La","Nd","Eu"]
+    tab["ulfe"] = False
+    for elem in elems:
+        tab[XFecol(elem)] = tab[XHcol(elem)] - tab["[Fe/H]"]
+        tab[ulcol(elem)] = False
+    
+    ## Convert to Pandas DataFrame
+    lemasle2014_df = tab.to_pandas()
+    epscol_from_XHcol(lemasle2014_df)
+
+    lemasle2014_df["Loc"] = "DW"
+    lemasle2014_df["Reference"] = "Lemasle+2014"
+    lemasle2014_df["Ref"] = "LEM14"
+
+    ## Reorder the columns
+    cols = ["Name", "Reference", "Ref", "Loc"] + epscolnames(lemasle2014_df) + ulcolnames(lemasle2014_df) + XHcolnames(lemasle2014_df) + XFecolnames(lemasle2014_df) + errcolnames(lemasle2014_df)
+    cols_missing = [col for col in cols if col not in lemasle2014_df.columns]
+    lemasle2014_df = lemasle2014_df[cols + cols_missing]
+
+    return lemasle2014_df
+
+def load_letarte2010():
+    """
+    Fornax (Fnx) Dwarf Galaxy Stars
+
+    Loads the data from Letarte et al. (2010) for the Fornax stars.
+    """
+    # Read FITS file and strip units
+    tab = Table.read(data_dir+"abundance_tables/letarte2010/letarte10_fornax.fits")
+    tab["Star"] = tab["Star"].astype(str)
+    tab.rename_column("Star", "Name")
+
+    ## Remove all column units (prevents UnitsWarning)
+    for col in tab.colnames:
+        tab[col].unit = None  
+
+    ## Remove unwanted columns
+    for col in tab.colnames:
+        if col.startswith("o__"): 
+            tab.remove_column(col)
+
+    ## Rename element columns
+    elemmap = {"NaI": "Na", "MgI": "Mg", "SiI": "Si", "CaI": "Ca", "TiII": "Ti",
+               "CrI": "Cr", "NiI": "Ni", "YII": "Y",
+               "BaII": "Ba", "LaII": "La", "NdII": "Nd", "EuII": "Eu"}
+
+    for e1, e2 in elemmap.items():
+        tab.rename_column(f"__{e1}_Fe_", f"[{e2}/Fe]")
+        tab.rename_column(f"e__{e1}_Fe_", f"e_{e2.lower()}")
+        tab[ulcol(e2)] = False
+
+    tab["ulfe"] = False
+    tab.rename_column("__FeI_H_", "[Fe/H]")
+    tab.rename_column("e__FeI_H_", "e_fe")
+
+    ## Convert to Pandas DataFrame
+    letarte2010_df = tab.to_pandas()
+    XHcol_from_XFecol(letarte2010_df)
+    epscol_from_XHcol(letarte2010_df)
+
+    letarte2010_df.rename(columns={"__FeII_H_": "[Fe II/H]",
+                       "e__FeII_H_": "e_fe2",
+                       "__TiI_Fe_": "[Ti I/Fe]",
+                       "e__TiI_Fe_": "e_ti1"},
+              inplace=True)
+
+    letarte2010_df["Loc"] = "DW"
+    letarte2010_df["Reference"] = "Letarte+2010"
+    letarte2010_df["Ref"] = "LET10"
+
+    ## Reorder the columns
+    cols = ["Name", "Reference", "Ref", "Loc"] + epscolnames(letarte2010_df) + ulcolnames(letarte2010_df) + XHcolnames(letarte2010_df) + XFecolnames(letarte2010_df) + errcolnames(letarte2010_df)
+    cols_missing = [col for col in cols if col not in letarte2010_df.columns]
+    letarte2010_df = letarte2010_df[cols + cols_missing]
+
+    return letarte2010_df
+
+def load_lucchetti2024():
+    """
+    Carina (Car) and Fornax (Fnx) Dwarf Galaxy Stars
+
+    Loads the data from Lucchetti et al. (2024) for the Carina and Fornax stars. There
+    are 4 stars in Carina and 2 stars in Fornax. The data is stored in a single table.
+    This function reads in the data from the table and returns it as a pandas DataFrame.
+    """
+    
+    csv_df = pd.read_csv(data_dir + 'abundance_tables/lucchesi2024/lucchesi2024_carina_fornax.csv')
+
+    ## Extract element species from column headers (ignoring first two columns)
+    ions = csv_df.columns[2:]
+    species = [ion_to_species(ion) for ion in ions]
+
+    ## Generate column names dynamically
+    epscols = [make_epscol(s) for s in species]
+    ulcols = [make_ulcol(s) for s in species]
+    XHcols = [make_XHcol(s) for s in species]
+    XFecols = [make_XFecol(s) for s in species]
+    errcols = [make_errcol(s) for s in species]
+
+    ## Create new DataFrame for final output
+    lucchetti2024_df = pd.DataFrame(columns=['Name', 'Reference', 'Ref', 'Loc', 'RA_hms', 'RA_deg', 'DEC_dms', 'DEC_deg']
+                                    + epscols + ulcols + XHcols + XFecols + errcols)
+
+    ## Process each unique star
+    star_data = []
+    
+    for star_name in csv_df["Star"].unique():
+        star_df = csv_df[csv_df["Star"] == star_name].copy()  # Filter rows for this star
+        
+        ## Transpose data to make elements rows instead of columns
+        species_df = star_df.copy()
+        species_df.drop("Star", axis=1, inplace=True) # Drop the 'Star' column
+        species_df = species_df.transpose().reset_index() # Transpose and reset index
+        species_df.columns = species_df.iloc[0] # Set first row as header
+        species_df = species_df[1:].reset_index(drop=True) # drop first row
+        species_df.rename(columns={'Measure': 'Species'}, inplace=True) # Rename 'Measure' column to 'Species'
+
+        ## Prepare row data for bulk assignment
+        star_row = {'Name': star_name, 'Reference': 'Lucchetti+2024', 'Ref': 'LUH24', 'Loc': 'DW'}
+
+        ## Fill in abundance data
+        for _, row in species_df.iterrows():
+            ion = row["Species"]
+            species_i = ion_to_species(ion)
+
+            ## Assign logepsX values
+            col = make_epscol(species_i)
+            if col in epscols and pd.notna(row["logepsX"]):
+                star_row[col] = row["logepsX"] if "<" not in str(row["logepsX"]) else np.nan
+
+            ## Assign upper limit values
+            col = make_ulcol(species_i)
+            if col in ulcols and pd.notna(row["logepsX"]):
+                star_row[col] = row["logepsX"].split("<")[1] if "<" in str(row["logepsX"]) else np.nan
+
+            ## Assign [X/H] values
+            col = make_XHcol(species_i)
+            if col in XHcols and pd.notna(row["[X/H]"]):
+                if "<" in str(row["[X/H]"]):
+                    star_row[col+'_ul'] = row["[X/H]"].split("<")[1]
+                else:
+                    star_row[col] = row["[X/H]"]
+
+            ## Assign [X/Fe] values
+            col = make_XFecol(species_i)
+            if col in XFecols and pd.notna(row["[X/Fe]"]):
+                if "<" in str(row["[X/Fe]"]):
+                    star_row[col+'_ul'] = row["[X/Fe]"].split("<")[1]
+                else:
+                    star_row[col] = row["[X/Fe]"]
+
+            ## Assign error values
+            col = make_errcol(species_i)
+            if col in errcols and pd.notna(row["e_[X/Fe]"]):
+                star_row[col] = row["e_[X/Fe]"]
+
+        ## Collect processed star data for bulk insertion
+        star_data.append(star_row)
+
+    ## Convert list of dicts to DataFrame (efficient bulk operation)
+    lucchetti2024_df = pd.DataFrame(star_data)
+
+    ## Add coordinates efficiently using a DataFrame merge
+    coord_data = pd.DataFrame({
+        'Name': ['fnx_06_019', 'fnx0579x-1', 'car1_t174', 'car1_t194', 'car1_t200', 'LG04c_0008'],
+        'RA_hms': ['02:37:00.91', '02:40:47.79', '06:41:58.72', '06:41:42.87', '06:41:49.67', '06:40:49.14'],
+        'DEC_dms': ['-34:10:43.10', '-34:26:46.50', '-51:06:40.30', '-51:05:30.10', '-51:01:31.30', '-51:00:33.00']
+    })
+
+    ## Convert RA/DEC to degrees
+    coord_data['RA_deg'] = coord_data['RA_hms'].apply(coord.ra_hms_to_deg)
+    coord_data['DEC_deg'] = coord_data['DEC_dms'].apply(coord.dec_dms_to_deg)
+
+    ## Merge coordinates into the main DataFrame (fast operation)
+    lucchetti2024_df = lucchetti2024_df.merge(coord_data, on='Name', how='left')
+
+    ## Reorder columns to match original DataFrame
+    cols = ['Name', 'Reference', 'Ref', 'Loc', 'RA_hms', 'RA_deg', 'DEC_dms', 'DEC_deg'] + epscols + ulcols + XHcols + XFecols + errcols
+    cols_new = [col for col in lucchetti2024_df.columns if col not in cols]
+    lucchetti2024_df = lucchetti2024_df[cols + cols_new]
+    
+    return lucchetti2024_df
+
+def load_mardini2022():
+
+    mardini2022_df = pd.read_csv(data_dir+'abundance_tables/mardini2022/tab5.csv', comment='#')
+
+    ## Add and rename the necessary columns
+    # mardini2022_df.rename(columns={'source_id':'Name', 'ra':'RA_hms', 'dec':'DEC_deg', 'teff':'Teff'}, inplace=True)
+    mardini2022_df['Name'] = mardini2022_df['Simbad_Identifier']
+    mardini2022_df['Ref'] = mardini2022_df['Reference'].str[:3].str.upper() + mardini2022_df['Reference'].str[-2:]
+    mardini2022_df['Ncap_key'] = ''
+    mardini2022_df['C_key'] = mardini2022_df['[C/Fe]'].apply(lambda cfe: classify_carbon_enhancement(cfe) if pd.notna(cfe) else np.nan)
+    mardini2022_df['MP_key'] = mardini2022_df['[Fe/H]'].apply(lambda feh: classify_metallicity(feh) if pd.notna(feh) else np.nan)
+    mardini2022_df['Loc'] = 'DS'
+    mardini2022_df['RA_deg'] = np.nan
+    mardini2022_df['DEC_deg'] = np.nan
+
+    ## Manually added datafields
+    mardini2022_df.loc[mardini2022_df['Name'] == 'SDSS J124502.68-073847.0', 'Ncap_key'] = 'S'  # [C/Fe] = 2.54
+    mardini2022_df.loc[mardini2022_df['Name'] == 'UCAC4 233-000355', 'Ncap_key'] = 'S'          # [C/Fe] = 3.02
+    mardini2022_df.loc[mardini2022_df['Name'] == '2MASS J14160471-208540', 'C_key'] = 'NO'    # [C/Fe] = 1.44
+    mardini2022_df.loc[mardini2022_df['Name'] == 'UCAC4 459-050836', 'C_key'] = 'NO'            # (HE 1300+0157, https://www.aanda.org/articles/aa/pdf/2019/03/aa34601-18.pdf)
+
+    ## Fill the NaN values in the RA and DEC columns
+    for idx, row in mardini2022_df.iterrows():
+        if pd.isna(row['RA_hms']) and pd.notna(row['RA_deg']):
+            row['RA_hms'] = coord.ra_deg_to_hms(row['RA_deg'], precision=2)
+            mardini2022_df.at[idx, 'RA_hms'] = row['RA_hms']
+
+        if pd.isna(row['DEC_deg']) and pd.notna(row['DEC_dms']):
+            row['DEC_deg'] = coord.dec_dms_to_deg(row['DEC_dms'], precision=2)
+            mardini2022_df.at[idx, 'DEC_deg'] = row['DEC_deg']
+
+        if pd.isna(row['RA_deg']) and pd.notna(row['RA_hms']):
+            row['RA_deg'] = coord.ra_hms_to_deg(row['RA_hms'], precision=6)
+            mardini2022_df.at[idx, 'RA_deg'] = row['RA_deg']
+
+        if pd.isna(row['DEC_dms']) and pd.notna(row['DEC_deg']):
+            row['DEC_dms'] = coord.dec_deg_to_dms(row['DEC_deg'], precision=2)
+            mardini2022_df.at[idx, 'DEC_dms'] = row['DEC_dms']
+
+    return mardini2022_df
+
+def load_ou2024():
+    """
+    Gaia Sausage Enceladus (GSE) Dwarf Galaxy Stars
+
+    Load the data from Ou+2024, Table 1, for stars in the GSE dwarf galaxy.
+    """
+    ou2024_df = pd.read_csv(data_dir+'abundance_tables/ou2024/full_tab.csv', comment='#')
+
+    ## Add and rename the necessary columns
+    ou2024_df.rename(columns={'source_id':'Name', 'ra':'RA_hms', 'dec':'DEC_deg', 'teff':'Teff'}, inplace=True)
+    ou2024_df['Reference'] = 'Ou+2024'
+    ou2024_df['Ref'] = 'OU24'
+    ou2024_df['Loc'] = 'DW'
+    ou2024_df['RA_deg'] = np.nan
+    ou2024_df['DEC_dms'] = np.nan
+
+    ## Fill the NaN values in the RA and DEC columns
+    for idx, row in ou2024_df.iterrows():
+        if pd.isna(row['RA_hms']) and pd.notna(row['RA_deg']):
+            row['RA_hms'] = coord.ra_deg_to_hms(row['RA_deg'], precision=2)
+            ou2024_df.at[idx, 'RA_hms'] = row['RA_hms']
+
+        if pd.isna(row['DEC_deg']) and pd.notna(row['DEC_dms']):
+            row['DEC_deg'] = coord.dec_dms_to_deg(row['DEC_dms'], precision=2)
+            ou2024_df.at[idx, 'DEC_deg'] = row['DEC_deg']
+
+        if pd.isna(row['RA_deg']) and pd.notna(row['RA_hms']):
+            row['RA_deg'] = coord.ra_hms_to_deg(row['RA_hms'], precision=6)
+            ou2024_df.at[idx, 'RA_deg'] = row['RA_deg']
+
+        if pd.isna(row['DEC_dms']) and pd.notna(row['DEC_deg']):
+            row['DEC_dms'] = coord.dec_deg_to_dms(row['DEC_deg'], precision=2)
+            ou2024_df.at[idx, 'DEC_dms'] = row['DEC_dms']
+
+    return ou2024_df
+
+def load_ou2025():
+    """
+    Sagittarius (Sag) Dwarf Galaxy Stars
+
+    Load the data from Ou+2025 for stars in the Sagittarius dwarf galaxy.
+    """
+    ou2025_df = pd.read_csv(data_dir+'abundance_tables/ou2025/full_tab_v4.csv', comment='#')
+
+    ## Add and rename the necessary columns
+    ou2025_df.rename(columns={'name':'Name', 'teff':'Teff'}, inplace=True)
+    ou2025_df['Reference'] = 'Ou+2025'
+    ou2025_df['Ref'] = 'OU25'
+    ou2025_df['Loc'] = 'DW'
+    ou2025_df['RA_deg'] = np.nan
+    ou2025_df['DEC_dms'] = np.nan
+
+    ## Fill the NaN values in the RA and DEC columns
+    for idx, row in ou2025_df.iterrows():
+        if pd.isna(row['RA_hms']) and pd.notna(row['RA_deg']):
+            row['RA_hms'] = coord.ra_deg_to_hms(float(row['RA_deg']), precision=2)
+            ou2025_df.at[idx, 'RA_hms'] = row['RA_hms']
+
+        if pd.isna(row['DEC_deg']) and pd.notna(row['DEC_dms']):
+            row['DEC_deg'] = coord.dec_dms_to_deg(row['DEC_dms'], precision=2)
+            ou2025_df.at[idx, 'DEC_deg'] = row['DEC_deg']
+
+        if pd.isna(row['RA_deg']) and pd.notna(row['RA_hms']):
+            row['RA_deg'] = coord.ra_hms_to_deg(row['RA_hms'], precision=6)
+            ou2025_df.at[idx, 'RA_deg'] = row['RA_deg']
+
+        if pd.isna(row['DEC_dms']) and pd.notna(row['DEC_deg']):
+            row['DEC_dms'] = coord.dec_deg_to_dms(float(row['DEC_deg']), precision=2)
+            ou2025_df.at[idx, 'DEC_dms'] = row['DEC_dms']
+
+    return ou2025_df
+
+def load_placco2014():
+    file_path = data_dir+"abundance_tables/placco2014/table3.txt"
+    placco2014_df = pd.read_fwf(file_path, skiprows=6, delimiter="|", header=None, skipinitialspace=True)
+
+    ## Manually specify column names
+    placco2014_df.columns = [
+        "Name", "Teff", "log_g", "log_L", "[Fe/H]", "l_[N/Fe]", "[N/Fe]", "[C/Fe]", "Del[C/Fe]",
+        "[C/Fe]c", "l_[Sr/Fe]", "[Sr/Fe]", "l_[Ba/Fe]", "[Ba/Fe]", "Class", "I/O", "Ref"
+    ]
+
+    ## Remove last row
+    placco2014_df.drop(placco2014_df.index[-1], inplace=True)
+
+    ## Remove leading and trailing whitespace from all string entries
+    placco2014_df = placco2014_df.applymap(lambda x: x.strip() if isinstance(x, str) else x)
+
+    ## Modifying and Renaming Columns
+    placco2014_df.rename(columns={"Ref": "Reference"}, inplace=True)
+    placco2014_df["Reference"] = placco2014_df["Reference"].str.replace(r' et al\. \(', r'+', regex=True) \
+                                                           .str.replace(r'\)', '', regex=True) \
+                                                           .str.replace(r' and [^ ]+ \((\d{4})', r'+\1', regex=True)
+    placco2014_df['Ref'] = placco2014_df['Reference'].str[:3].str.upper() + placco2014_df['Reference'].str[-2:]
+
+    placco2014_df.rename(columns={"l_[N/Fe]": "[N/Fe]_ul"}, inplace=True)
+    placco2014_df.loc[placco2014_df['[N/Fe]_ul'] == '{<=}', '[N/Fe]_ul'] = placco2014_df['[N/Fe]']
+    placco2014_df.loc[placco2014_df['[N/Fe]_ul'] == placco2014_df['[N/Fe]'], '[N/Fe]'] = ''
+    
+    placco2014_df.rename(columns={"l_[Sr/Fe]": "[Sr/Fe]_ul"}, inplace=True)
+    placco2014_df.loc[placco2014_df['[Sr/Fe]_ul'] == '{<=}', '[Sr/Fe]_ul'] = placco2014_df['[Sr/Fe]']
+    placco2014_df.loc[placco2014_df['[Sr/Fe]_ul'] == placco2014_df['[Sr/Fe]'], '[Sr/Fe]'] = ''
+    
+    placco2014_df.rename(columns={"l_[Ba/Fe]": "[Ba/Fe]_ul"}, inplace=True)
+    placco2014_df.loc[placco2014_df['[Ba/Fe]_ul'] == '{<=}', '[Ba/Fe]_ul'] = placco2014_df['[Ba/Fe]']
+    placco2014_df.loc[placco2014_df['[Ba/Fe]_ul'] == placco2014_df['[Ba/Fe]'], '[Ba/Fe]'] = ''
+
+    placco2014_df.rename(columns={'[C/Fe]c': '[C/Fe]f'}, inplace=True)
+    placco2014_df.rename(columns={'Del[C/Fe]': '[C/Fe]c'}, inplace=True)
+
+    placco2014_df.rename(columns={'log_g': 'logg'}, inplace=True)
+
+    placco2014_df['MP_key'] = placco2014_df['[Fe/H]'].apply(lambda feh: classify_metallicity(float(feh)) if pd.notna(feh) else np.nan)
+    placco2014_df['Ncap_key'] = ''
+    placco2014_df['C_key'] = ''
+
+    for name in placco2014_df['Name']:
+        if placco2014_df.loc[placco2014_df['Name'] == name, 'Class'].values[0] == 'CEMP-no':
+            placco2014_df.loc[placco2014_df['Name'] == name, 'C_key'] = 'NO'
+        if placco2014_df.loc[placco2014_df['Name'] == name, 'Class'].values[0] == 'CEMP-s/rs':
+            placco2014_df.loc[placco2014_df['Name'] == name, 'C_key'] = 'CE'
+            placco2014_df.loc[placco2014_df['Name'] == name, 'Ncap_key'] = 'RS'
+        if placco2014_df.loc[placco2014_df['Name'] == name, 'Class'].values[0] == 'CEMP':
+            placco2014_df.loc[placco2014_df['Name'] == name, 'C_key'] = 'CE'
+    
+    ## Remove unnecessary columns
+    placco2014_df.drop(columns=['Class'], inplace=True)
+    # placco2014_df.drop(columns=['log_L'], inplace=True)    
+    # placco2014_df.drop(columns=['I/O'], inplace=True)
+
+    ## Convert columns to appropriate data types
+    numeric_cols = ['Teff', 'logg', 'log_L', '[Fe/H]', '[N/Fe]', '[N/Fe]_ul', '[C/Fe]', 
+                    '[C/Fe]f', '[C/Fe]c','[Sr/Fe]', '[Sr/Fe]_ul', '[Ba/Fe]', '[Ba/Fe]_ul']
+    for col in numeric_cols:
+        placco2014_df[col] = pd.to_numeric(placco2014_df[col], errors='coerce')
+
+    return placco2014_df
+
+def load_sestito2024():
+    """
+    Sagittarius (Sag) Dwarf Galaxy Stars
+
+    Load the data from Sestito for stars in the Sagittarius dwarf galaxy, focused on Carbon.
+    PIGS IX (Table 4) is used for this dataset.
+    """
+    sestito2024_df = pd.read_csv(data_dir+'abundance_tables/sestito2024/pigs_ix_tab4.csv', comment='#')
+
+    ## Add and rename the necessary columns
+    sestito2024_df.rename(columns={'PIGS':'Name'}, inplace=True)
+    sestito2024_df['Reference'] = 'Sestito+2024'
+    sestito2024_df['Ref'] = 'SES24'
+    sestito2024_df['Loc'] = 'DW'
+
+    return sestito2024_df
+
+def load_sestito2024b():
+    """
+    Sagittarius (Sag) Dwarf Galaxy Stars
+
+    Load the data from Sestito et al. 2024b for stars in the Sagittarius dwarf galaxy. This is low/med-resolution 
+    photometry from the PIGS X survey.
+    """
+    sestito2024b_df = pd.read_csv(data_dir+'abundance_tables/sestito2024b/membpara.csv', comment='#')
+
+    ## Add and rename the necessary columns
+    sestito2024b_df.rename(columns={'PIGS':'Name', 'RAdeg':'RA_deg', 'DEdeg':'DEC_deg'}, inplace=True)
+    sestito2024b_df['Reference'] = 'Sestito+2024b'
+    sestito2024b_df['Ref'] = 'SES24b'
+    sestito2024b_df['Loc'] = 'DW'
+    sestito2024b_df['RA_hms'] = np.nan
+    sestito2024b_df['DEC_dms'] = np.nan
+
+    ## Fill the NaN values in the RA and DEC columns
+    for idx, row in sestito2024b_df.iterrows():
+        if pd.isna(row['RA_hms']) and pd.notna(row['RA_deg']):
+            row['RA_hms'] = coord.ra_deg_to_hms(float(row['RA_deg']), precision=2)
+            sestito2024b_df.at[idx, 'RA_hms'] = row['RA_hms']
+
+        if pd.isna(row['DEC_deg']) and pd.notna(row['DEC_dms']):
+            row['DEC_deg'] = coord.dec_dms_to_deg(row['DEC_dms'], precision=2)
+            sestito2024b_df.at[idx, 'DEC_deg'] = row['DEC_deg']
+
+        if pd.isna(row['RA_deg']) and pd.notna(row['RA_hms']):
+            row['RA_deg'] = coord.ra_hms_to_deg(row['RA_hms'], precision=6)
+            sestito2024b_df.at[idx, 'RA_deg'] = row['RA_deg']
+
+        if pd.isna(row['DEC_dms']) and pd.notna(row['DEC_deg']):
+            row['DEC_dms'] = coord.dec_deg_to_dms(float(row['DEC_deg']), precision=2)
+            sestito2024b_df.at[idx, 'DEC_dms'] = row['DEC_dms']
+
+
+    return sestito2024b_df
+
+
+################################################################################
+## Dataset Read-in (Abundance Data)
+
+def load_apogee_sgr():
+    """
+    Loads the APOGEE data for Sgr from APOGEE_DR16
+    
+    STARFLAG == 0, ASPCAPFLAG == 0, VERR < 0.2, SNR > 70
+    TEFF > 3700, LOGG < 3.5
+    (142775 STARS)
+    
+    Within 1.5*342.7 arcmin of (RA, Dec) = (283.747, -30.4606)
+    (2601 STARS)
+
+    100 < VHELIO_AVG < 180
+    -3.2 < GAIA_PMRA < -2.25
+    -1.9 < GAIA_PMDEC < -0.9
+    (400 STARS)
+    """
+    tab = Table.read(data_dir+"abundance_tables/APOGEE/apogee_sgr.fits")
+    tab.rename_column("APOGEE_ID","Name")
+    cols_to_keep = ["Name","RA","DEC","M_H_ERR","ALPHA_M","ALPHA_M_ERR","TEFF_ERR","LOGG_ERR"]
+    tab.rename_columns(["TEFF","LOGG","VMICRO","M_H"], ["Teff","logg","vturb","Z"])
+    cols_to_keep.extend(["Teff","logg","vturb","Z"])
+    tab.rename_column("FE_H","[Fe/H]"); cols_to_keep.append("[Fe/H]")
+    tab.rename_column("FE_H_ERR","e_fe"); cols_to_keep.append("e_fe")
+    tab["ulfe"] = False; cols_to_keep.append("ulfe")
+    
+    for el in ["C","N","O","NA","MG","AL","SI","P","S","K","CA","TI","V","CR","MN","CO","NI","CU","CE"]:
+        elem = getelem(el)
+        tab["{}_FE_ERR".format(el)][tab["{}_FE".format(el)] < -9000] = np.nan
+        tab["{}_FE".format(el)][tab["{}_FE".format(el)] < -9000] = np.nan
+        tab.rename_column("{}_FE".format(el),"[{}/Fe]".format(elem))
+        tab.rename_column("{}_FE_ERR".format(el),"e_{}".format(elem.lower()))
+        tab[ulcol(elem)] = False
+        cols_to_keep.extend(["[{}/Fe]".format(elem),"e_{}".format(elem.lower()),ulcol(elem)])
+    
+    df = tab[cols_to_keep].to_pandas()
+
+    XHcol_from_XFecol(df)
+    epscol_from_XHcol(df)
+
+    df["Galaxy"] = "Sgr"
+    df["Loc"] = "DW"
+    df["Reference"] = "APOGEE_DR16"
+    df["Ref"] = "APOGEE"
+
+    return df

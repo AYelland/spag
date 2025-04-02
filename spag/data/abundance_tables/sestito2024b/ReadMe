@@ -1,0 +1,119 @@
+J/A+A/690/A333      Pristine Inner Galaxy Survey. X.            (Sestito+, 2024)
+================================================================================
+The Pristine Inner Galaxy Survey (PIGS).
+X. Probing the early chemical evolution of the Sagittarius dwarf galaxy with
+carbon abundances.
+    Sestito F., Ardern-Arentsen A., Vitali S., Montelius M., Lucchesi R.,
+    Venn K.A., Martin N.F., Navarro J.F., Starkenburg E.
+    <Astron. Astrophys. 690, A333 (2024)>
+    =2024A&A...690A.333S        (SIMBAD/NED BibCode)
+================================================================================
+ADC_Keywords: Galaxies, nearby ; Stars, metal-deficient ; Abundances ; Optical ;
+              Radial velocities ; Effective temperatures
+Keywords: stars: abundances - stars: Population II - galaxies: abundances -
+          galaxies: dwarf - galaxies: individual: Sagittarius
+
+Abstract:
+    We aim to constrain the chemo-dynamical properties of the Sagittarius
+    (Sgr) dwarf galaxy using carbon abundances. At low metallicities in
+    particular, these properties reveal the early chemical evolution of a
+    system, tracing the contributing supernovae (SNe) and how much of
+    their ejecta eventually made it into the next stellar generation. Our
+    sample from the Pristine Inner Galaxy Survey (PIGS) includes ~350
+    metal-poor ([Fe/H]<-1.5) stars in the main body of Sgr with good
+    quality spectroscopic observations. Our metalpoor Sgr population has a
+    larger velocity dispersion than metal-rich Sgr from the literature,
+    which could be explained by outside-in star formation, extreme
+    Galactic tidal perturbations, and/or the presence of a metal-rich disc
+    and bar + metal-poor halo. The average carbon abundance [C/Fe] in Sgr
+    is similar to that of other classical dwarf galaxies (DGs) and
+    consistently lower than in the Milky Way by ~0.2-0.3dex at low
+    metallicities. The interstellar medium in DGs, including Sgr, may have
+    retained yields from more energetic Population III and II supernovae
+    (SNe), thereby reducing the average [C/Fe]. Additionally, SNe Ia
+    producing more Fe than C would start to contribute at lower
+    metallicity in DGs/Sgr than in the Galaxy. The presence of a [C/Fe]
+    gradient for Sgr stars with [Fe/H]>~-2.0 (~6.8x10^-4^dex/ arcmin)
+    suggests that SNe Ia contributed to the system at those metallicities,
+    especially in its inner regions. There is a low frequency of
+    carbon-enhanced metal-poor (CEMP) stars in our Sgr sample. At higher
+    metallicities and carbon abundances (i.e. mostly CEMPs), this may be
+    due to photometric selection effects, but those are less likely to
+    affect non-CEMP stars. Given the lower average [C/Fe] in DGs, we
+    propose using the same CEMP definition ([C/Fe]>+0.7) as that applied
+    to the Galaxy at large ends up underpredicting the number of CEMP
+    stars in DGs. Burthermore, for Sgr, a cut at [C/Fe]~+0.35 may be more
+    appropriate, which brings the frequency of CEMP stars in agreement
+    with that of the whole Galaxy.
+
+Description:
+    The chemo-dynamical properties of the low-metallicity regime
+    of the Sagittarius dwarf galaxy are explored using the low- and
+    medium-resolution AAT spectra observed by the Pristine Inner Galaxy
+    Survey (PIGS). The PIGS dataset contains measurements of RVs, stellar
+    parameters, [Fe/H], and [C/Fe] for stars towards the inner Galaxy and
+    Sgr.
+
+File Summary:
+--------------------------------------------------------------------------------
+ FileName      Lrecl  Records   Explanations
+--------------------------------------------------------------------------------
+ReadMe            80        .   This file
+memb.dat         201      834  *Sgr members using a kinematical selection based
+                                 on Gaia
+membpara.dat     201      356   Sgr members from PIGS/AAT that have reliable
+                                 measurements of metallicity, [C/Fe], and
+                                 stellar parameters
+--------------------------------------------------------------------------------
+Note on memb.dat: some of the stars do not have reliable measurements of
+     metallicity and [C/Fe].
+--------------------------------------------------------------------------------
+
+See also:
+            I/355 : Gaia DR3 Part 1. Main source (Gaia Collaboration, 2022)
+ J/MNRAS/530/3391 : Pristine Inner Galaxy Survey. VIII. (Ardern-Arentsen+, 2024)
+ J/A+A/689/A201   : Pristine Inner Galaxy Survey. IX. (Sestito+, 2024)
+
+Byte-by-byte Description of file: memb.dat membpara.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units     Label       Explanations
+--------------------------------------------------------------------------------
+   1- 27  A27   ---       PIGS        Starname with PIGS nomenclature
+                                       (Pristine_HHMMSS.ss+DDMMSS.s)
+  29- 47  A19   ---       Field       PIGS fieldname (FieldLLL.l+BB.b)
+  49- 67  I19   ---       GaiaDR3     Gaia DR3 source ID
+  69- 83 F15.11 deg       RAdeg       Right ascension (J2000)
+  85- 99 F15.11 deg       DEdeg       Declination (J2000)
+ 101-108  F8.4  km/s      RV          Radial velocity
+ 110-115  F6.3  km/s    e_RV          Radial velocity error
+ 117-124  F8.3  K         Teff        Effective temperature from FERRE
+ 126-133  F8.3  K       e_Teff        Effective temperature error from FERRE
+ 135-139  F5.3  [cm/s2]   logg        Surface gravity from FERRE
+ 141-146  F6.4  [cm/s2] e_logg        Surface gravity error from FERRE
+ 148-153  F6.3  [-]       [Fe/H]      Metallicity from FERRE
+ 155-160  F6.4  [-]     e_[Fe/H]      Metallicity error from FERRE
+ 162-167  F6.3  [-]       [C/Fe]      Abundance [C/Fe] from FERRE
+ 169-174  F6.4  [-]     e_[C/Fe]      Abundance [C/Fe] error from FERRE
+ 176-181  F6.4  [-]       [C/Fe]corr  ?=- Correction to [C/Fe] as in
+                                       Placco et al., 2014ApJ...797...21P,
+                                       Cat. J/ApJ/797/21)
+ 183-191  F9.3  mas/yr    pmRAred     Reduced proper motion on right ascension
+ 193-201  F9.3  mas/yr    pmDEred     Reduced proper motion on declination
+--------------------------------------------------------------------------------
+
+Acknowledgements:
+   Federico Sestito, f.sestito(at)herts.ac.uk
+
+References:
+ Arentsen et al.,        Paper I     2020MNRAS.491L..11A
+ Arentsen et al.,        Paper II    2020MNRAS.496.4964A
+ Arentsen et al.,        Paper III   2021MNRAS.505.1239A
+ Vitali et al.,          Paper IV    2022MNRAS.517.6121V
+ Sestito et al.,         Paper V     2023MNRAS.518.4557S
+ Zhao et al.,            Paper VI    2023MNRAS.519..754Z
+ Mashonkina et al.,      Paper VII   2023MNRAS.523.2111M
+ Ardern-Arentsen et al., Paper VIII  2024MNRAS.530.3391A, Cat. J/MNRAS/530/3391
+ Sestito et al.,         Paper IX    2024A&A...689A.201S, Cat. J/A+A/689/A201
+
+================================================================================
+(End)                                        Patricia Vannier [CDS]  27-Sep-2024

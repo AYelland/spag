@@ -1,0 +1,178 @@
+J/ApJ/856/142     Abundances of metal-poor stars in Sculptor     (Chiti+, 2018)
+================================================================================
+Detection of a population of carbon-enhanced metal-poor stars in the Sculptor
+dwarf spheroidal galaxy.
+    Chiti A., Simon J.D., Frebel A., Thompson I.B., Shectman S.A., Mateo M.,
+    Bailey J.I., Crane J.D., Walker M.
+   <Astrophys. J., 856, 142 (2018)>
+   =2018ApJ...856..142C
+================================================================================
+ADC_Keywords: Stars, metal-deficient; Abundances; Spectra, optical;
+              Effective temperatures
+Keywords: galaxies: dwarf ; galaxies: individual (Sculptor dSph) ;
+          galaxies: stellar content ; stars: abundances ; stars: carbon
+
+Abstract:
+    The study of the chemical abundances of metal-poor stars in dwarf
+    galaxies provides a venue to constrain paradigms of chemical
+    enrichment and galaxy formation. Here we present metallicity and
+    carbon abundance measurements of 100 stars in Sculptor from
+    medium-resolution (R~2000) spectra taken with the Magellan/Michigan
+    Fiber System mounted on the Magellan-Clay 6.5m telescope at Las
+    Campanas Observatory. We identify 24 extremely metal-poor star
+    candidates ([Fe/H]{<}-3.0) and 21 carbon-enhanced metal-poor (CEMP)
+    star candidates. Eight carbon-enhanced stars are classified with at
+    least 2{sigma} confidence, and five are confirmed as such with
+    follow-up R~6000 observations using the Magellan Echellette
+    Spectrograph on the Magellan-Baade 6.5m telescope. We measure a CEMP
+    fraction of 36% for stars below [Fe/H]=-3.0, indicating that the
+    prevalence of carbon-enhanced stars in Sculptor is similar to that of
+    the halo (~43%) after excluding likely CEMP-s and CEMP-r/s stars from
+    our sample. However, we do not detect that any CEMP stars are strongly
+    enhanced in carbon ([C/Fe]>1.0). The existence of a large number of
+    CEMP stars both in the halo and in Sculptor suggests that some halo
+    CEMP stars may have originated from accreted early analogs of dwarf
+    galaxies.
+
+Description:
+    We first obtained low-resolution (R~700) spectroscopy of eight fields
+    in Sculptor using the IMACS spectrograph at the Magellan-Baade
+    telescope at Las Campanas Observatory.
+    IMACS targets were selected from the photometric catalog of Coleman+
+    (2005, J/AJ/130/1065 ; <[CDB2005] FF-N-NNNN> in Simbad).
+
+    We then obtained R~4000 and 6000 optical spectra of 22 of the best
+    candidates using the MagE spectrograph at the Magellan telescopes.
+    We observed an additional 10 Sculptor stars using the MagE
+    spectrograph on the Magellan-Baade telescope in 2016 September.
+
+    We also observed two partially overlapping 29.5' diameter fields in
+    Sculptor using the Michigan/Magellan Fiber System (M2FS) on the
+    Magellan-Clay telescope. We employed the low-resolution mode of M2FS,
+    producing R=2000 spectra covering 3700-5700{AA}.
+
+File Summary:
+--------------------------------------------------------------------------------
+ FileName   Lrecl  Records   Explanations
+--------------------------------------------------------------------------------
+ReadMe         80        .   This file
+table5.dat    131       27   Stellar parameters and abundances
+                              from Magellan/MagE spectra
+table6.dat     99      100   Magellan-Clay/M2FS measurements
+--------------------------------------------------------------------------------
+
+See also:
+ V/65 : Spectroscopically Selected Halo K Giants (Ratnatunga+ 1989)
+ J/AJ/103/1987    : Stars of very low metal abundance (Beers+ 1992)
+ J/AJ/117/981     : Estimation of stellar metal abundance. II. (Beers+, 1999)
+ J/AJ/130/1065    : Sculptor dwarf spheroidal galaxy members (Coleman+, 2005)
+ J/AJ/130/2804    : Carbon abundances in metal-poor stars (Rossi+, 2005)
+ J/ApJ/655/492    : Equivalent widths of 26 metal-poor stars (Aoki+, 2007)
+ J/ApJ/682/1217   : Abundances in red giants in 7 GCs (Kirby+, 2008)
+ J/ApJ/705/328    : Abundance measurements in Sculptor dSph (Kirby+, 2009)
+ J/ApJS/182/80    : Rare earth abundances (Sneden+, 2009)
+ J/AJ/137/3100    : Radial velocities of 4 dSph galaxies (Walker+, 2009)
+ J/ApJ/724/341    : Nucleosynthesis of massive metal-free stars (Heger+, 2010)
+ J/ApJS/191/352   : Abundances in stars of MW dwarf satellites (Kirby+, 2010)
+ J/ApJ/711/350    : Metal-poor giant Boo-1137 abundances (Norris+, 2010)
+ J/AJ/144/168     : Spectroscopy of Scl 1019417 and UMi 20103 (Kirby+, 2012)
+ J/ApJ/779/102    : Metallicities of RGB stars in dwarf galaxies (Kirby+, 2013)
+ J/ApJS/210/23    : Line intensities in CN transitions (Brooke+, 2014)
+ J/A+A/571/A47    : Linelist of CH in stellar atmospheres (Masseron+, 2014)
+ J/ApJ/797/21     : Carbon-enhanced metal-poor stars (Placco+, 2014)
+ J/MNRAS/440/2665 : SDSS J021933.13+200830.2 spectroscopy (Roederer+, 2014)
+ J/AJ/147/136     : Stars of very low metal abundance. VI. (Roederer+, 2014)
+ J/ApJS/214/26    : Line lists for CN isotopes transitions (Sneden+, 2014)
+ J/ApJ/807/171    : SkyMapper Survey metal-poor star spectro. (Jacobson+, 2015)
+ J/ApJ/801/125    : Carbon in red giants in GCs and dSph galaxies (Kirby+, 2015)
+ J/ApJ/802/93     : Abundance analysis of 5 stars in Sculptor (Simon+, 2015)
+ J/A+A/580/A129   : Sulphur in the Sculptor dSph (Skuladottir+, 2015)
+ J/A+A/574/A129   : First CEMP star in the Sculptor dSph (Skuladottir+, 2015)
+ J/ApJ/817/53     : Fe-group abundance analysis in HD84937 (Sneden+, 2016)
+ J/ApJ/833/20     : Carbon-enhanced metal-poor star abundances (Yoon+, 2016)
+ J/A+A/606/A71    : dSph RGB abundance and velocities (Skuladottir+, 2017)
+
+Byte-by-byte Description of file: table5.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units     Label    Explanations
+--------------------------------------------------------------------------------
+   1- 11 A11    ---       ID       Source name
+  13- 17 A5     ---     f_ID       [abd, ] Flag(s) on ID (1)
+  19- 21 F3.1   arcsec    Slit     [0.7/1.0] Slit width
+  23- 26 F4.2   [cm/s2]   log(g)   [1/3.6] log surface gravity
+  28- 31 I4     K         Teff     [4513/5518] Effective temperature
+      33 A1     ---     l_[Fe/H]KP Limit flag on [Fe/H]KP
+  35- 39 F5.2   [Sun]     [Fe/H]KP [-4/-2.1]? log Fe/H number abundance
+                                   from the KP index
+  41- 44 F4.2   [Sun]   e_[Fe/H]KP [0.1/0.4]? Uncertainty in [Fe/H]KP
+      46 A1     ---     l_A(C)     Limit flag on A(C)
+  48- 51 F4.2   [Sun]     A(C)     [4.8/8.3] Absolute carbon abundance
+  53- 56 F4.2   [Sun]   e_A(C)     [0.1/0.4]? Uncertainty in A(C)
+      58 A1     ---     l_[C/Fe]   Limit flag on [C/Fe]
+  59- 63 F5.2   [Sun]     [C/Fe]   [-0.6/2.6]? log C/Fe number abundance
+  65- 68 F4.2   [Sun]   e_[C/Fe]   [0.1/0.3]? Uncertainty in [C/Fe]
+  70- 73 F4.2   [Sun]     [C/Fe]c  [0/0.8]? log Fe/H number abundance correction
+      75 A1     ---     l_[C/Fe]c  Limit flag on [C/Fe]corr
+  76- 80 F5.2   [Sun]     [C/Fe]f  [-0.5/2.7]? Final log C/Fe number abundance
+  82- 85 F4.2   [Sun]   e_[C/Fe]f  [0.1/0.3]? Uncertainty in [C/Fe]final
+  87- 91 F5.2   [Sun]     [Ba/H]   [-0.7/0.8]? log Ba/H number abundance
+      92 A1     ---     u_[Ba/H]   Uncertainty flag on [Ba/H] (2)
+  94-111 F18.15 deg       RAdeg    Right ascension (J2000) (3)
+ 113-131 F19.15 deg       DEdeg    Declination (J2000) (3)
+--------------------------------------------------------------------------------
+Note (1): Flag as follows:
+    a = Stellar parameters and [Fe/H] for CS29497-034 are from
+        Aoki+ (2007, J/ApJ/655/492).
+    b = The first 11 stars were observed as a follow-up to M2FS observations to
+        confirm [C/Fe] measurements; and stars without this flag were observed
+        immediately after the initial IMACS observations as EMP candidates.
+    d = The S/N over the Ca II K feature was too low to estimate a [Fe/H]
+        from the KP index. The M2FS [Fe/H] was assumed when calculating
+        [C/Fe] (See Table 6).
+Note (2): Indicates large and uncertain error bars.
+Note (3): Coordinates sent by the author, except for CS29497-034 from SIMBAD.
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table6.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units     Label    Explanations
+--------------------------------------------------------------------------------
+   1- 15 A15    ---       Type     Object type (1)
+  17- 25 A9     ---       ID       Source name
+      27 A1     ---     f_ID       [d] Flag on ID (2)
+  29- 30 I2     h         RAh      [0/1] Hour of Right Ascension (J2000)
+  32- 33 I2     min       RAm      Minute of Right Ascension (J2000)
+  35- 39 F5.2   s         RAs      Second of Right Ascension (J2000)
+  41- 41 A1     ---       DE-      [-] Sign of the Declination (J2000)
+  42- 43 I2     deg       DEd      [33] Degree of Declination (J2000)
+  45- 46 I2     arcmin    DEm      [31/59] Arcminute of Declination (J2000)
+  48- 52 F5.2   arcsec    DEs      Arcsecond of Declination (J2000)
+  54- 57 F4.2   [cm/s2]   log(g)   [0.9/3.6] log surface gravity
+  59- 62 I4     K         Teff     [4451/5493] Effective temperature
+      64 A1     ---     l_[Fe/H]   Limit flag on [Fe/H]
+  66- 70 F5.2   [Sun]     [Fe/H]   [-3.8/-0.6] log Fe/H number abundance
+  72- 75 F4.2   [Sun]   e_[Fe/H]   [0.1/0.9]? Uncertainty in [Fe/H]
+      77 A1     ---     l_[C/Fe]   Limit flag on [C/Fe]
+  78- 82 F5.2   [Sun]     [C/Fe]   [-1.4/0.9]? log C/Fe number abundance
+  84- 87 F4.2   [Sun]   e_[C/Fe]   [0.2/0.7]? Uncertainty in [C/Fe]
+  89- 92 F4.2   [Sun]     [C/Fe]c  [0/0.8]? log Fe/H number abundance correction
+      94 A1     ---     l_[C/Fe]f  Limit flag on [C/Fe]final
+  95- 99 F5.2   [Sun]     [C/Fe]f  [-0.9/1.1]? Final log C/Fe number abundance
+--------------------------------------------------------------------------------
+Note (1): The "RGB" stars lie on the RGB of Sculptor and stars in the "Blueward
+          of RGB" lie blueward of the RGB (see Figure 1).
+Note (2):
+    d = The star is classified as likely CH-strong, Ba-strong, or CEMP-s star
+         due to the presence of saturated carbon features
+         (see Sections 4.6 and 5.1).
+--------------------------------------------------------------------------------
+
+History:
+    From electronic version of the journal -
+    Coordinates of Table 5 sent by the author (except for BPS CS29497-034).
+
+Acknowledgements:
+    Ani Chiti [Massachusetts Institute of Technology, Cambridge]
+
+================================================================================
+(End)                     Prepared by [AAS], Emmanuelle Perret [CDS] 13-Feb-2019
