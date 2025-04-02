@@ -8,7 +8,19 @@ from __future__ import (division, print_function, absolute_import,
 from six import string_types
 import numpy as np
 
+import warnings
+
+## Regular expressions
+import re
+m_XH = re.compile('\[(\D+)/H\]')
+m_XFe= re.compile('\[(\D+)/Fe\]')
+
+## SPAG imports
+import spag.periodic_table  as pt
 from spag.periodic_table import pt_list, pt_dict
+from spag.convert import *
+import spag.read_data as rd
+
 
 # Functions to import when using 'from spag.utils import *'
 # __all__ =  ["element_to_species", "element_to_atomic_number",
@@ -108,29 +120,30 @@ def element_to_species(element_repr):
         raise TypeError("element must be represented by a string-type.")
     
     # If first character is lowercase, capitalize it
-    element_repr = element_repr.capitalize()
-    # if element_repr[0].islower():
-    #     element_repr = element_repr.title()
+    element = element_repr.capitalize()
+    # if element[0].islower():
+    #     element = element.title()
 
     # Separate the element and the ionization state
     if " " in element_repr:
-        element, ionization_str = element_repr.split()[:2]
+        element, ionization_str = element.split()[:2]
     else:
-        element, ionization_str = element_repr, "I"  # Default to neutral atom if no ionization state is provided
+        element, ionization_str = element, "I"  # Default to neutral atom if no ionization state is provided
         
     # Handle unknown elements or molecules
     if element not in pt_list:
         try:
-            return common_molecule_name_to_species[element]
+            return common_molecule_name_to_species[element_repr]
         except KeyError:
-            return float(element_repr) # Don't know what this element is
+            print(f"Unknown element: {element_repr}")
+            return str(element_repr) # Don't know what this element is
     
     # Convert Roman numeral ionization to integer
     ionization = max([0, roman_to_int(ionization_str) - 1, 0]) * 0.1
     
     # Find the atomic number of the element and add the ionization
-    transition = pt_list.index(element) + 1 + ionization
-    return transition
+    species = pt_list.index(element) + 1 + ionization
+    return species
 
 
 def element_to_atomic_number(element_repr):
@@ -157,6 +170,43 @@ def element_to_atomic_number(element_repr):
         except KeyError:
             raise ValueError("unrecognized element '{}'".format(element_repr))
     return 1 + index
+
+
+def element_to_ion(element_repr, state=None):
+    """
+    element_repr: str
+        A string representation of the element. Typical examples include...
+        'Fe' or 'fe' -> 'Fe I', 'Fe II', etc.
+    state: int (default: None)
+        The ionization state of the element.
+        
+    Converts a string representation of an element to thier default string
+    representation of the element's ionization state.
+    """
+
+    if not isinstance(element_repr, string_types):
+        raise TypeError("element must be represented by a string-type")
+    
+    if state is None:
+        try:
+            elem = element_repr.title().strip().split()[0]
+            ionization_state = get_default_ion(elem)
+            return f"{elem} {int_to_roman(ionization_state)}"
+
+        except ValueError:
+            molecule = element_repr.strip().split()[0]
+            Z = element_to_atomic_number(molecule)
+            elem = atomic_number_to_element(Z)
+            print(f"element_to_ion: {molecule} -> {Z} -> {elem}")
+
+            ionization_state = get_default_ion(elem)
+            if ionization_state == 0:
+                return f"{elem}"
+            else:
+                return f"{elem} {int_to_roman(ionization_state)}"
+    else:
+        return f"{element_repr} {int_to_roman(state)}"
+
 
 def species_to_element(species):
     """
@@ -216,14 +266,30 @@ def species_to_atomic_number(species):
         # Don"t know what this element is. It"s probably a molecule.
         try:
             elems = common_molecule_species_to_elems[species]
-            return "-".join(elems)
+            molecule = "-".join(elems)
+            Z = element_to_atomic_number(molecule)
+            # print(f"species_to_atomic_number: {species} -> {elems} -> {molecule} -> {Z}")
+            return Z
         except KeyError:
             # No idea
             return str(species)
         
     atomic_number = int(species)
     return atomic_number
+
+def species_to_ion(species):
+    """
+    species: float
+        A floating point representation of the species. Typical examples might
+        be 26.0, 26.1, 26.2, etc.
     
+    Converts a floating point representation of a species to the astronomical
+    string representation of the element and its ionization state.
+    """
+    
+    return species_to_element(species)
+
+
 def atomic_number_to_element(Z, species=None):
     """
     Z: int
@@ -239,7 +305,14 @@ def atomic_number_to_element(Z, species=None):
     if species is not None:
         return species_to_element(int(Z) + (species*0.1))
     else:
-        return pt_dict[int(Z)]
+        # if molecule
+        if Z not in pt_dict:
+            try:
+                return common_molecule_name_to_Z[Z]
+            except KeyError:
+                return str(Z)
+        else:
+            return pt_dict[int(Z)]
 
 
 def atomic_number_to_species(Z, species=None):
@@ -258,6 +331,89 @@ def atomic_number_to_species(Z, species=None):
         return int(Z) + (species * 0.1)
     else:
         return float(Z)
+
+def atomic_number_to_ion(Z, state=None):
+    """
+    Z: int
+        The atomic number of the element.
+    state: int (default: None)
+        The ionization state of the element.
+        
+    Converts an atomic number to the astronomical string representation of the
+    element and its ionization state, if 'state' is provided. Otherwise, it
+    returns the default element's ionization or just the element's symbol.
+    """
+    
+    if state is None:
+        ionization_state = get_default_ion(pt_dict[Z])
+        if ionization_state == 0:
+            return pt_dict[Z]
+        else:
+            return f"{pt_dict[Z]} {int_to_roman(ionization_state)}"
+    else:
+        return element_to_ion(pt_dict[Z], state)
+
+def ion_to_species(ion):
+    """
+    ion: str
+        The astronomical string representation of the element and its ionization
+        state. Typical examples include 'Fe I', 'Fe II', etc.
+    
+    Converts the astronomical string representation of an element and its ionization
+    state to a floating point representation of the species.
+    """
+    
+    if not isinstance(ion, string_types):
+        raise TypeError("ion must be represented by a string-type")
+    
+    if ion[0].islower():
+        ion = ion.title()
+    
+    try:
+        element, ionization_str = ion.split()
+        Z = element_to_atomic_number(element)
+        ionization = roman_to_int(ionization_str) - 1
+        return Z + (ionization * 0.1)
+    except ValueError:
+        return float(element_to_species(ion))
+
+
+def ion_to_element(ion):
+    """
+    ion: str
+        The astronomical string representation of the element and its ionization
+        state. Typical examples include 'Fe I', 'Fe II', etc.
+    
+    Converts the astronomical string representation of an element and its ionization
+    state to the element's symbol. (Note: This)
+    """
+    
+    if not isinstance(ion, string_types):
+        raise TypeError("ion must be represented by a string-type")
+    
+    Z = ion_to_atomic_number(ion)
+    elem = atomic_number_to_element(Z)
+    # print(f"ion_to_element: {ion} -> {Z} -> {elem}")
+    return elem
+
+
+def ion_to_atomic_number(ion):
+    """
+    ion: str
+        The astronomical string representation of the element and its ionization
+        state. Typical examples include 'Fe I', 'Fe II', etc.
+    
+    Converts the astronomical string representation of an element and its ionization
+    state to the element's atomic number.
+    """
+    
+    if not isinstance(ion, string_types):
+        raise TypeError("ion must be represented by a string-type")
+    
+    species = ion_to_species(ion)
+    Z = species_to_atomic_number(species)
+    # print(f"ion_to_atomic_number: {ion} -> {species} -> {Z}")
+    return Z
 
 
 ################################################################################
@@ -381,6 +537,65 @@ def species_to_elems_isotopes_ion(species):
     return elem1,elem2,isotope1,isotope2,ion
 
 
+def getelem(elem, lower=False, keep_species=False):
+    """
+    Converts an element's common name to a standard formatted chemical symbol
+    """
+    common_molecules = {'CH':'C','NH':'N'}
+    special_ions = ['Ti I','Cr II']
+    
+    if isinstance(elem, string_types):
+        prefix = None
+        try:
+            prefix,elem_ = identify_prefix(elem)
+            elem = elem_
+        except ValueError:
+            pass
+
+        if pt.element_query(elem) != None: # No ionization, e.g. Ti
+            elem = pt.element_query(elem).symbol
+        elif elem in common_molecules:
+            elem = common_molecules[elem]
+        elif prefix != None and '.' in elem:
+            elem,ion = elem.split('.')
+            elem = format_elemstr(elem)
+        #elif '.' in elem: #Not sure if this works correctly yet
+        #    elem,ion = elem.split('.')
+        #    elem = format_elemstr(elem)
+        elif elem[-1]=='I': #Check for ionization
+            # TODO account for ionization
+            if ' ' in elem: #of the form 'Ti II' or 'Y I'
+                species = element_to_species(elem)
+                elem = species_to_element(species)
+                elem = elem.split()[0]
+            else: #of the form 'TiII' or 'YI'
+                if elem[0]=='I':
+                    assert elem=='I'*len(elem)
+                    elem = 'I'
+                else:
+                    while elem[-1] == 'I': elem = elem[:-1]
+        else:
+            # Use smh to check for whether element is in periodic table
+            species = element_to_species(elem)
+            elem = species_to_element(species)
+            elem = elem.split()[0]
+            
+    elif isinstance(elem, (int, np.integer)):
+        elem = int(elem)
+        elem = pt.element_query(elem)
+        ## TODO common molecules
+        assert elem != None
+        elem = elem.symbol
+        if keep_species: raise NotImplementedError()
+    
+    elif isinstance(elem, float):
+        species = elem
+        elem = species_to_element(species)
+        if not keep_species: elem = elem.split()[0]
+
+    if lower: elem = elem.lower()
+    return elem
+
 #-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-
 ## Validation/Testing Functions
 
@@ -399,6 +614,367 @@ def element_matches_atomic_number(elem, Z):
         return False
     else:
         return True
+
+
+
+################################################################################
+# Utility functions for column names
+
+def _getcolnames(df,prefix):
+    """
+    Returns a list of all columns with a specific prefix
+    """
+    allnames = []
+    for col in df:
+        try:
+            this_prefix,elem = identify_prefix(col)
+        except ValueError:
+            continue
+        if this_prefix==prefix: allnames.append(col)
+    return allnames
+
+def epscolnames(df):
+    """
+    Returns a list of all log(eps) columns
+    """
+    return _getcolnames(df,'eps')
+
+def errcolnames(df):
+    """
+    Returns a list of all error columns
+    """
+    return _getcolnames(df,'e_')
+
+def ulcolnames(df):
+    """
+    Returns a list of all upper limit columns
+    """
+    return _getcolnames(df,'ul')
+
+def XHcolnames(df):
+    """
+    Returns a list of all [X/H] columns
+    """
+    return _getcolnames(df,'XH')
+
+def XFecolnames(df):
+    """
+    Returns a list of all [X/Fe] columns
+    """
+    return _getcolnames(df,'XFe')
+
+def epscol(elem):
+    """
+    Returns the log(eps) column name for an element
+    """
+    return 'eps'+getelem(elem,lower=True)
+
+def errcol(elem):
+    """
+    Returns the error column name for an element
+    """
+    try:
+        return 'e_'+getelem(elem,lower=True)
+    except ValueError:
+        if elem=="alpha": return "e_alpha"
+        else: raise
+    
+def eABcol(elems):
+    """
+    Input a tuple of elements, returns the error column name for the pair
+    """
+    A,B = elems
+    return f"eAB_{getelem(A)}/{getelem(B)}"
+
+def ulcol(elem):
+    """
+    Returns the upper limit column name for an element
+    """
+    try:
+        return 'ul'+getelem(elem,lower=True)
+    except ValueError:
+        if elem=="alpha": return "ulalpha"
+        else: raise
+    
+def XHcol(elem,keep_species=False):
+    """
+    Returns the [X/H] column name for an element
+    """
+    try:
+        return '['+getelem(elem,keep_species=keep_species)+'/H]'
+    except ValueError:
+        if elem=="alpha": return "[alpha/H]"
+        else: raise
+    
+def XFecol(elem,keep_species=False):
+    """
+    Returns the [X/Fe] column name for an element
+    """
+    try:
+        return '['+getelem(elem,keep_species=keep_species)+'/Fe]'
+    except ValueError:
+        if elem=="alpha": return "[alpha/Fe]"
+        else: raise
+    
+def ABcol(elems):
+    """
+    Input a tuple of elements, returns the column name for the pair
+    Note: by default the data does not have [A/B]
+    """
+    A,B = elems
+    return '['+getelem(A)+'/'+getelem(B)+']'
+
+def make_XHcol(species):
+    """
+    Converts species to a formatted [X/H] column name
+    """
+    if species==22.0: return "[Ti I/H]"
+    if species==23.1: return "[V II/H]"
+    if species==26.1: return "[Fe II/H]"
+    if species==24.1: return "[Cr II/H]"
+    if species==38.0: return "[Sr I/H]"
+    if species==106.0: return "[C/H]"
+    if species==607.0: return "[N/H]"
+    return XHcol(species)
+
+def make_XFecol(species):
+    """
+    Converts species to a formatted [X/Fe] column name
+    """
+    if species==22.0: return "[Ti I/Fe]"
+    if species==23.1: return "[V II/Fe]"
+    if species==26.1: return "[Fe II/Fe]"
+    if species==24.1: return "[Cr II/Fe]"
+    if species==38.0: return "[Sr I/Fe]"
+    if species==106.0: return "[C/Fe]"
+    if species==607.0: return "[N/Fe]"
+    return XFecol(species)
+
+def make_epscol(species):
+    """
+    Converts species to a formatted log(eps) column name
+    """
+    if species==22.0: return "epsti1"
+    if species==23.1: return "epsv2"
+    if species==26.1: return "epsfe2"
+    if species==24.1: return "epscr2"
+    if species==38.0: return "epssr1"
+    if species==106.0: return "epsc"
+    if species==607.0: return "epsn"
+    return epscol(species)
+
+def make_errcol(species):
+    """
+    Converts species to a formatted error column name
+    """
+    if species==22.0: return "e_ti1"
+    if species==23.1: return "e_v2"
+    if species==26.1: return "e_fe2"
+    if species==24.1: return "e_cr2"
+    if species==38.0: return "e_sr1"
+    if species==106.0: return "e_c"
+    if species==607.0: return "e_n"
+    return errcol(species)
+
+def make_ulcol(species):
+    """
+    Converts species to a formatted upper limit column name
+    """
+    if species==22.0: return "ulti1"
+    if species==23.1: return "ulv2"
+    if species==26.1: return "ulfe2"
+    if species==24.1: return "ulcr2"
+    if species==38.0: return "ulsr1"
+    if species==106.0: return "ulc"
+    if species==607.0: return "uln"
+    return ulcol(species)
+
+def format_elemstr(elem):
+    """
+    Capitalizes the first letter of an element string
+    """
+    assert len(elem) <= 2 and len(elem) >= 1
+    return elem[0].upper() + elem[1:].lower()
+
+def getcolion(col):
+    """
+    Returns the ionization state of an element column
+    """
+    prefix,elem = identify_prefix(col)
+    if '.' in elem: int(ion = elem.split('.')[1])
+    else: ion = get_default_ion(elem)
+    ionstr = 'I'
+    for i in range(ion): ionstr += 'I'
+    return ionstr
+
+def identify_prefix(col):
+    """
+    Identifies the prefix of a column name
+    """
+    for prefix in ['eps','e_','ul','XH','XFe']:
+        if prefix in col:
+            return prefix, col[len(prefix):]
+        if prefix=='XH':
+            matches = m_XH.findall(col)
+            if len(matches)==1: return prefix,matches[0]
+        if prefix=='XFe':
+            matches = m_XFe.findall(col)
+            if len(matches)==1: return prefix,matches[0]
+    raise ValueError("Invalid column:"+str(col))
+
+def get_default_ion(elem):
+    """
+    Returns the default ionization state for an element
+    """
+    default_to_1 = ['Na','Mg','Al','Si','Ca','Cr','Mn','Fe','Co','Ni']
+    default_to_2 = ['Sc','Ti','Sr','Y','Zr','Ba','La','Ce','Pr','Nd','Sm','Eu','Gd','Dy']
+    elem = getelem(elem)
+    if elem in default_to_1:
+        return 1
+    elif elem in default_to_2:
+        return 2
+    else:
+        warnings.warn("get_default_ion: {} not in defaults, returning 2".format(elem))
+        return 0
+
+################################################################################
+# Quick abundance conversion functions
+################################################################################
+
+def XH_from_eps(eps, elem):
+    """
+    Converts log(eps) to [X/H]
+    """
+    return eps - rd.get_solar(elem)[0]
+
+def eps_from_XH(XH, elem):
+    """
+    Converts [X/H] to log(eps)
+    """
+    return XH + rd.get_solar(elem)[0]
+
+def XFe_from_eps(eps, FeH, elem):
+    """
+    Converts log(eps) to [X/Fe]
+    """
+    return eps - rd.get_solar(elem)[0] - FeH
+
+def eps_from_XFe(XFe, FeH, elem):
+    """
+    Converts [X/Fe] to log(eps)
+    """
+    return  XFe+ rd.get_solar(elem)[0] + FeH
+
+def XFe_from_XH(XH, FeH):
+    """
+    Converts [X/H] to [X/Fe]
+    """
+    return XH - FeH
+
+def XH_from_XFe(XFe, FeH):
+    """
+    Converts [X/Fe] to [X/H]
+    """
+    return XFe + FeH
+
+
+################################################################################
+# Utility functions operating on standardized DataFrame columns
+################################################################################
+
+def get_star_abunds(starname,data,type):
+    """
+    Input: starname, DataFrame, and type of abundance to extract ('eps', 'XH', 'XFe', 'e_', 'ul')
+    Returns: a pandas Series of abundances for a star by extracting the columns of the specified type
+    """
+    assert type in ['eps','XH','XFe','e_','ul']
+    star = data.ix[starname]
+    colnames = _getcolnames(data,type)
+    if len(colnames)==0: raise ValueError("{} not in data".format(type))
+    abunds = np.array(star[colnames])
+    elems = [getelem(elem) for elem in colnames]
+    return pd.Series(abunds,index=elems)
+
+def XHcol_from_epscol(df):
+    """
+    Converts log(eps) columns to [X/H] columns
+    """
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore")
+        epscols = epscolnames(df)
+        asplund = rd.get_solar(epscols)
+        for col in epscols:
+            if XHcol(col) in df: warnings.warn("{} already in DataFrame, replacing".format(XHcol(col)))
+            df[XHcol(col)] = df[col].astype(float) - float(asplund[col])
+
+def XFecol_from_epscol(df):
+    """
+    Converts log(eps) columns to [X/Fe] columns
+    """
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore")
+        epscols = epscolnames(df)
+        assert 'epsfe' in epscols
+        asplund = rd.get_solar(epscols)
+        feh = df['epsfe'].astype(float) - float(asplund['epsfe'])
+        for col in epscols:
+            if col=='epsfe': continue
+            if XFecol(col) in df: warnings.warn("{} already in DataFrame, replacing".format(XFecol(col)))
+            XH = df[col].astype(float) - float(asplund[col])
+            df[XFecol(col)] = XH - feh
+
+def epscol_from_XHcol(df):
+    """
+    Converts [X/H] columns to log(eps) columns
+    """
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore")
+        XHcols = XHcolnames(df)
+        asplund = rd.get_solar(XHcols)
+        for col in XHcols:
+            if epscol(col) in df: warnings.warn("{} already in DataFrame, replacing".format(epscol(col)))
+            df[epscol(col)] = df[col] + float(asplund[col])
+
+def XFecol_from_XHcol(df):
+    """
+    Converts [X/H] columns to [X/Fe] columns
+    """
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore")
+        XHcols = XHcolnames(df)
+        assert '[Fe/H]' in XHcols
+        feh = df['[Fe/H]']
+        for col in XHcols:
+            if col=='[Fe/H]': continue
+            if XFecol(col) in df: warnings.warn("{} already in DataFrame, replacing".format(XFecol(col)))
+            df[XFecol(col)] = df[col] - feh
+
+def epscol_from_XFecol(df):
+    """
+    Converts [X/Fe] columns to log(eps) columns
+    """
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore")
+        XFecols = XFecolnames(df)
+        assert '[Fe/H]' in df
+        asplund = rd.get_solar(XFecols)
+        feh = df['[Fe/H]']
+        for col in XFecols:
+            df[epscol(col)] = df[col] + feh + float(asplund[col])
+
+def XHcol_from_XFecol(df):
+    """
+    Converts [X/Fe] columns to [X/H] columns
+    """
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore")
+        XFecols = XFecolnames(df)
+        assert '[Fe/H]' in df
+        asplund = rd.get_solar(XFecols)
+        feh = df['[Fe/H]']
+        for col in XFecols:
+            if XHcol(col) in df: warnings.warn("{} already in DataFrame, replacing".format(XHcol(col)))
+            df[XHcol(col)] = df[col] + feh
 
 ################################################################################
 ## Random Conversion Functions

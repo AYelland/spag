@@ -77,70 +77,74 @@ element_symbols = {
 ################################################################################
 ## Plot the solar r- and s-process abundances
 
-fig, ax = plt.subplots(figsize=(12, 6))
+def plot_solar_r_s_process():
+    """
+    Plot the solar r- and s-process abundances.
+    """
+    fig, ax = plt.subplots(figsize=(12, 6))
 
-# ax.set_title("solar r- and s-process abundances")
-ax.set_title("Solar s- and r- process patterns", fontsize=12, fontweight='bold')
-ax.set_xlabel(r'Atomic Number, $Z$')
-ax.set_ylabel(r'log $\epsilon$ (X)')
+    # ax.set_title("solar r- and s-process abundances")
+    ax.set_title("Solar s- and r- process patterns", fontsize=12, fontweight='bold')
+    ax.set_xlabel(r'Atomic Number, $Z$')
+    ax.set_ylabel(r'log $\epsilon$ (X)')
 
-## solar abundances, r-process and s-process 
-solar_rcolor = 'black'
-solar_scolor = 'gray'
+    ## solar abundances, r-process and s-process 
+    solar_rcolor = 'black'
+    solar_scolor = 'gray'
 
-# solar abundances, r-process & s-process 
-line_r = ax.plot(solar_Z, solar_logeps_r, label='solar r-process', color=solar_rcolor, linestyle='-', marker='.', zorder=1, alpha=0.5)
-line_s = ax.plot(solar_Z, solar_logeps_s, label='solar s-process', color=solar_scolor, linestyle='-', marker='.', zorder=1, alpha=0.5)
+    # solar abundances, r-process & s-process 
+    line_r = ax.plot(solar_Z, solar_logeps_r, label='solar r-process', color=solar_rcolor, linestyle='-', marker='.', zorder=1, alpha=0.5)
+    line_s = ax.plot(solar_Z, solar_logeps_s, label='solar s-process', color=solar_scolor, linestyle='-', marker='.', zorder=1, alpha=0.5)
 
-for j in range(len(solar_Z)):
-    offset = 0.1 if j % 2 == 0 else -0.1
-    vertical_align = 'bottom' if j % 2 == 0 else 'top'
-    if 44 <= solar_Z[j] < 62:
-        vertical_align = 'top' if j % 2 == 0 else 'bottom'
-        offset = -offset  # Flip the offset direction for elements in range(44, 62)
-                
-    if solar_Z[j] in [33, 35, 36, 38, 40, 42, 45, 47, 49, 50, 51, 53, 55, 56, 58, 59, 65, 67, 69, 71, 73, 74, 75, 77, 79, 80, 82, 83]:
-        ax.text(solar_Z[j], solar_logeps_s[j] + offset, element_symbols[int(solar_Z[j])], fontsize=10, color=solar_rcolor, ha='center', va=vertical_align, alpha=0.8)
-    else:
-        ax.text(solar_Z[j], solar_logeps_r[j] + offset, element_symbols[int(solar_Z[j])], fontsize=10, color=solar_rcolor, ha='center', va=vertical_align, alpha=0.8)
+    for j in range(len(solar_Z)):
+        offset = 0.1 if j % 2 == 0 else -0.1
+        vertical_align = 'bottom' if j % 2 == 0 else 'top'
+        if 44 <= solar_Z[j] < 62:
+            vertical_align = 'top' if j % 2 == 0 else 'bottom'
+            offset = -offset  # Flip the offset direction for elements in range(44, 62)
+                    
+        if solar_Z[j] in [33, 35, 36, 38, 40, 42, 45, 47, 49, 50, 51, 53, 55, 56, 58, 59, 65, 67, 69, 71, 73, 74, 75, 77, 79, 80, 82, 83]:
+            ax.text(solar_Z[j], solar_logeps_s[j] + offset, element_symbols[int(solar_Z[j])], fontsize=10, color=solar_rcolor, ha='center', va=vertical_align, alpha=0.8)
+        else:
+            ax.text(solar_Z[j], solar_logeps_r[j] + offset, element_symbols[int(solar_Z[j])], fontsize=10, color=solar_rcolor, ha='center', va=vertical_align, alpha=0.8)
 
-# for i in range(len(solar_Z)):
-#     offset = 0.1 if i%2 == 0 else -0.1
-#     vertical_align = 'bottom' if i%2 == 0 else 'top'
-#     if 44 <= solar_Z[i] < 62:
-#         vertical_align = 'top' if i%2 == 0 else 'bottom'
-#         offset = -offset  # Flip the offset direction for elements in range(44, 62)
-#     ax.text(solar_Z[i], solar_logeps_s[i] + offset, element_symbols[int(solar_Z[i])], fontsize=10, color=solar_scolor, ha='center', va=vertical_align)
+    # for i in range(len(solar_Z)):
+    #     offset = 0.1 if i%2 == 0 else -0.1
+    #     vertical_align = 'bottom' if i%2 == 0 else 'top'
+    #     if 44 <= solar_Z[i] < 62:
+    #         vertical_align = 'top' if i%2 == 0 else 'bottom'
+    #         offset = -offset  # Flip the offset direction for elements in range(44, 62)
+    #     ax.text(solar_Z[i], solar_logeps_s[i] + offset, element_symbols[int(solar_Z[i])], fontsize=10, color=solar_scolor, ha='center', va=vertical_align)
 
 
-## Axe attributes
-ax.set_axisbelow(True)
-ax.set_xticks(np.arange(np.min(solar_Z)-5, np.max(solar_Z)+5, 5)) # major x-ticks every 5th number
-ax.set_xticks(np.arange(np.min(solar_Z)-5, np.max(solar_Z)+5), minor=True) # minor x-ticks at every number
-ax.set_xticklabels([int(i) for i in ax.get_xticks()]) # only label the major x-ticks
+    ## Axe attributes
+    ax.set_axisbelow(True)
+    ax.set_xticks(np.arange(np.min(solar_Z)-5, np.max(solar_Z)+5, 5)) # major x-ticks every 5th number
+    ax.set_xticks(np.arange(np.min(solar_Z)-5, np.max(solar_Z)+5), minor=True) # minor x-ticks at every number
+    ax.set_xticklabels([int(i) for i in ax.get_xticks()]) # only label the major x-ticks
 
-ax.set_yticks(np.arange(-3, 4, 1)) # major y-ticks every 1
-ax.set_yticks(np.arange(-3, 3, 0.5), minor=True) # minor y-ticks at every 0.5
+    ax.set_yticks(np.arange(-3, 4, 1)) # major y-ticks every 1
+    ax.set_yticks(np.arange(-3, 3, 0.5), minor=True) # minor y-ticks at every 0.5
 
-ax.set_xlim(np.min(solar_Z)-2, np.max(solar_Z)+2)
-ax.set_ylim(-3, 3)
+    ax.set_xlim(np.min(solar_Z)-2, np.max(solar_Z)+2)
+    ax.set_ylim(-3, 3)
 
-## Make the plot features white
-# ax.spines['bottom'].set_color('white')
-# ax.spines['top'].set_color('white') 
-# ax.spines['right'].set_color('white')
-# ax.spines['left'].set_color('white')
-# ax.tick_params(axis='x', which="both", colors='white')
-# ax.tick_params(axis='y', which="both", colors='white')
-# ax.yaxis.label.set_color('white')
-# ax.xaxis.label.set_color('white')
-# ax.title.set_color('white')
+    ## Make the plot features white
+    # ax.spines['bottom'].set_color('white')
+    # ax.spines['top'].set_color('white') 
+    # ax.spines['right'].set_color('white')
+    # ax.spines['left'].set_color('white')
+    # ax.tick_params(axis='x', which="both", colors='white')
+    # ax.tick_params(axis='y', which="both", colors='white')
+    # ax.yaxis.label.set_color('white')
+    # ax.xaxis.label.set_color('white')
+    # ax.title.set_color('white')
 
-ax.grid(True, which='major', linestyle='-', linewidth=1)
-ax.grid(True, which='minor', linestyle='-', linewidth=0.3)
-ax.legend()
+    ax.grid(True, which='major', linestyle='-', linewidth=1)
+    ax.grid(True, which='minor', linestyle='-', linewidth=0.3)
+    ax.legend()
 
-## Save the plot
-if not os.path.exists(plotting_dir):
-    os.makedirs(plotting_dir)
-plt.savefig(plotting_dir+"solar_rproc.png", dpi=300, bbox_inches='tight') #, transparent=True)
+    ## Save the plot
+    if not os.path.exists(plotting_dir):
+        os.makedirs(plotting_dir)
+    plt.savefig(plotting_dir+"solar_rproc.png", dpi=300, bbox_inches='tight') #, transparent=True)

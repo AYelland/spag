@@ -16,6 +16,8 @@ from astropy.utils.exceptions import AstropyDeprecationWarning
 import warnings
 warnings.filterwarnings("ignore", category=AstropyDeprecationWarning)
 
+from spag.utils import normal_round
+
 ################################################################################
 ## Utility Functions
 
@@ -34,34 +36,52 @@ def replace_non_ascii(text):
 ################################################################################
 ## RA & Decl Coordinate Functions
 
-def ra_hms_to_deg(ra_str, precision=5):
+def ra_hms_to_deg(ra_str, precision=None):
     """
     ra_str: str
         Right ascension in the form 'hh:mm:ss.ss'
+    precision: int (default=5)
+        Number of decimal places to round to.
     
     Converts a right ascension string to degrees.
     """
     ra_str = replace_non_ascii(ra_str)
     ra_str = ra_str.split(':')
-    ra_deg = round(15.0 * (float(ra_str[0]) + float(ra_str[1])/60.0 + float(ra_str[2])/3600.0), precision)
+    if type(precision) == int:
+        ra_deg = round(15.0 * (float(ra_str[0]) + float(ra_str[1])/60.0 + float(ra_str[2])/3600.0), precision)
+    elif type(precision) == type(None):
+        ra_deg = 15.0 * (float(ra_str[0]) + float(ra_str[1])/60.0 + float(ra_str[2])/3600.0)
+    else:
+        raise TypeError("precision must be an int or None")
     return ra_deg
 
-def ra_deg_to_hms(ra_deg, precision=2):
+def ra_deg_to_hms(ra_deg, precision=None):
     """
     ra_deg: float
         Right ascension in degrees.
+    precision: int (default=2)
+        Number of decimal places to round to.
     
-    Converts right ascension in degrees to a string.
+    Converts right ascension in degrees to a string in the form 'hh:mm:ss.ss'.
     """
     ra_h = int(ra_deg / 15.0)
     ra_m = int((ra_deg - ra_h * 15.0) * 4.0)
-    ra_s = round((ra_deg - ra_h * 15.0 - ra_m / 4.0) * 240.0, precision)
-    return "{:02d}:{:02d}:{:05.2f}".format(ra_h, ra_m, ra_s)
+    if type(precision) == int:
+        ra_s = round((ra_deg - ra_h * 15.0 - ra_m / 4.0) * 240.0, precision)
+        output_str = "{:02d}:{:02d}:{:05.{}f}".format(ra_h, ra_m, ra_s, precision)
+    elif type(precision) == type(None):
+        ra_s = (ra_deg - ra_h * 15.0 - ra_m / 4.0) * 240.0
+        output_str = "{:02d}:{:02d}:{:05}".format(ra_h, ra_m, ra_s)
+    else:
+        raise TypeError("precision must be an int or None")
+    return output_str
 
-def dec_dms_to_deg(dec_str, precision=5):
+def dec_dms_to_deg(dec_str, precision=None):
     """
     dec_str: str
         Declination in the form '+dd:mm:ss.ss'
+    precision: int (default=5)
+        Number of decimal places to round to.
     
     Converts a declination string to degrees.
     """
@@ -72,15 +92,22 @@ def dec_dms_to_deg(dec_str, precision=5):
     else:
         sign = 1
         dec_str = dec_str.split(':')
-    dec_deg = sign * round((float(dec_str[0]) + float(dec_str[1])/60.0 + float(dec_str[2])/3600.0), precision)
+    if type(precision) == int:
+        dec_deg = sign * round((float(dec_str[0]) + float(dec_str[1])/60.0 + float(dec_str[2])/3600.0), precision)
+    elif type(precision) == type(None):
+        dec_deg = sign * (float(dec_str[0]) + float(dec_str[1])/60.0 + float(dec_str[2])/3600.0)
+    else:
+        raise TypeError("precision must be an int or None")
     return dec_deg
 
-def dec_deg_to_dms(dec_deg, precision=2):
+def dec_deg_to_dms(dec_deg, precision=None):
     """
     dec_deg: float
         Declination in degrees.
+    precision: int (default=2)
+        Number of decimal places to round to.
     
-    Converts declination in degrees to a string.
+    Converts declination in degrees to a string in the form '+dd:mm:ss.ss'
     """
     if dec_deg < 0:
         sign = '-'
@@ -89,8 +116,15 @@ def dec_deg_to_dms(dec_deg, precision=2):
         sign = '+'
     dec_d = int(dec_deg)
     dec_m = int((dec_deg - dec_d) * 60.0)
-    dec_s = round((dec_deg - dec_d - dec_m / 60.0) * 3600.0, precision)
-    return "{}{:02d}:{:02d}:{:05.2f}".format(sign, dec_d, dec_m, dec_s)
+    if type(precision) == int:
+        dec_s = round((dec_deg - dec_d - dec_m / 60.0) * 3600.0, precision)
+        output_str = "{}{:02d}:{:02d}:{:05.{}f}".format(sign, dec_d, dec_m, dec_s, precision)
+    elif type(precision) == type(None):
+        dec_s = (dec_deg - dec_d - dec_m / 60.0) * 3600.0
+        output_str = "{}{:02d}:{:02d}:{:05}".format(sign, dec_d, dec_m, dec_s)
+    else:
+        raise TypeError("precision must be an int or None")
+    return output_str
 
 def round_hms(hms_str, precision=1):
     """
@@ -118,6 +152,37 @@ def round_dms(dms_str, precision=1):
     s = f"{float(s):.{precision}f}"  # Convert to float and round to the specified number of decimals
     return f"{d}:{m}:{s.zfill(4 if precision > 0 else 2)}"  # Ensure consistent padding
 
+################################################################################
+## Coordinate Comparison Functions
+
+def coords_equal(ra1, dec1, ra2, dec2, precision=5):
+    """
+    ra1: float or str
+        Right ascension in degrees or in the form 'hh:mm:ss.ss'
+    dec1: float or str
+        Declination in degrees or in the form '+dd:mm:ss.ss'
+    ra2: float or str
+        Right ascension in degrees or in the form 'hh:mm:ss.ss'
+    dec2: float or str
+        Declination in degrees or in the form '+dd:mm:ss.ss'
+    precision: int (default=5)
+        Number of decimal places to round to.
+    
+    Compares two sets of coordinates and returns True if they are equal.
+    """
+    if isinstance(ra1, string_types) and isinstance(dec1, string_types):
+        ra1 = ra_hms_to_deg(ra1, precision)
+        dec1 = dec_dms_to_deg(dec1, precision)
+    if isinstance(ra2, string_types) and isinstance(dec2, string_types):
+        ra2 = ra_hms_to_deg(ra2, precision)
+        dec2 = dec_dms_to_deg(dec2, precision)
+    
+    ra1 = float(normal_round(ra1, precision))
+    dec1 = float(normal_round(dec1, precision))
+    ra2 = float(normal_round(ra2, precision))
+    dec2 = float(normal_round(dec2, precision))
+
+    return ra1 == ra2 and dec1 == dec2
 
 ################################################################################
 ## Special Coordinate System Conversions

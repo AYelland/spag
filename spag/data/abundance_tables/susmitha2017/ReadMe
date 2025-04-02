@@ -1,0 +1,86 @@
+J/A+A/606/A112      Abundance analysis of ALW Carina 8         (Susmitha+, 2017)
+================================================================================
+Abundance analysis of a CEMP-no star in the Carina dwarf spheroidal galaxy.
+    Susmitha A., Koch A., Sivarani T.
+    <Astron. Astrophys. 606, A112 (2017)>
+    =2017A&A...606A.112S        (SIMBAD/NED BibCode)
+================================================================================
+ADC_Keywords: Galaxies, nearby ; Stars, carbon ; Abundances
+Keywords: stars: abundances - binaries: spectroscopic - stars: carbon -
+          Galaxy: abundances - galaxies: dwarf
+
+Abstract:
+    Carbon-enhanced metal-poor (CEMP) stars bear important imprints of the
+    early chemical enrichment of any stellar system. While these stars are
+    known to exist in copious amounts in the Milky Way halo, detailed
+    chemical abundance data from the faint dwarf spheroidal (dSph)
+    satellites are still sparse, although the relative fraction of these
+    stars increases with decreasing metallicity. Here, we report the
+    abundance analysis of a metal-poor ([Fe/H]=-2.5dex),
+    carbon-rich ([C/Fe]=1.4dex) star, ALW-8, in the Carina dSph
+    using high-resolution spectroscopy obtained with the ESO/UVES
+    instrument. Its spectrum does not indicate any over-enhancements of
+    neutron capture elements. Thus classified as a CEMP-no star, this is
+    the first detection of this kind of star in Carina. Another of our
+    sample stars, ALW-1, is shown to be a CEMP-s star, but its immediate
+    binarity prompted us to discard it from a detailed analysis. The
+    majority of the 18 chemical elements we measured are typical of
+    Carina's field star population and also agree with CEMP stars in
+    other dSph galaxies. Similar to the only known CEMP-no star in the
+    Sculptor dSph and the weak-r-process star HD 122563, the lack of any
+    strong barium-enhancement is accompanied by a moderate overabundance
+    in yttrium, indicating a weak r-process activity. The overall
+    abundance pattern confirms that, also in Carina, the formation site
+    for CEMP-no stars has been affected by both faint supernovae and by
+    standard core collapse supernovae. Whichever process was responsible
+    for the heavy element production in ALW-8 must be a ubiquitous source
+    to pollute the CEMP-no stars, acting independently of the environment
+    such as in the Galactic halo or in dSphs.
+
+Description:
+    File tableA1.dat contains the linelist for the EW analysis,abundance
+    and abundance uncertainties to 1 sigma scatter in the stellar
+    parameters for ALW-8.
+
+Objects:
+    --------------------------------------------------
+       RA   (2000)   DE        Designation(s)
+    --------------------------------------------------
+    06 41 46.27  -50 58 55.9   ALW-8 = ALW Carina 8
+    --------------------------------------------------
+
+File Summary:
+--------------------------------------------------------------------------------
+ FileName      Lrecl  Records   Explanations
+--------------------------------------------------------------------------------
+ReadMe            80        .   This file
+tablea1.dat       54       58   Linelist for the EW analysis, abundance and
+                                 abundance uncertainties to 1 sigma scatter in
+                                 the stellar parameters for ALW-8
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: tablea1.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units      Label     Explanations
+--------------------------------------------------------------------------------
+   1-  5  A5    ---        Element   Element name and ionisation
+   9- 15  F7.2  0.1nm      lambda    Line wavelength
+  17- 20  F4.2  eV         Chi       Exitation potential
+  22- 27  F6.2  ---        loggf     Oscillator strength
+  29- 31  I3    0.1nm      EW        ? Equivalent width
+      32  A1    ---      n_EW        [s] s for syn
+      34  A1    ---      l_A(x)      Limit flag on A(x)
+  35- 39  F5.2  [-]        A(x)      Abundance
+  41- 44  F4.2  100K       dT        Abundance uncertainty to 1 sigma scatter
+                                      in the temperature, {delta}T
+  46- 49  F4.2 [0.25cm/s2] dlogg     Abundance uncertainty to 1 sigma scatter
+                                      in the gravity, {delta}logg
+  51- 54  F4.2  0.2km/s    dxi       Abundance uncertainty to 1 sigma scatter
+                                      in the microturbulent velocity, {delta}xi
+--------------------------------------------------------------------------------
+
+Acknowledgements:
+   Antony Susmitha, susmitharaniantony(at)gmail.com
+
+================================================================================
+(End)                                        Patricia Vannier [CDS]  19-Jun-2017

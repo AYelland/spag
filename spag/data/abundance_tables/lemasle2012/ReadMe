@@ -1,0 +1,183 @@
+J/A+A/538/A100     Abundances red giants in Carina dSph      (Lemasle+, 2012)
+================================================================================
+VLT/FLAMES spectroscopy of red giant branch stars in the Carina dwarf
+spheroidal galaxy.
+    Lemasle B., Hill V., Tolstoy E., Venn K.A., Shetrone M.D., Irwin M.J.,
+    de Boer T.J.L., Starkenburg E., Salvadori S.
+   <Astron. Astrophys. 538, A100 (2012)>
+   =2012A&A...538A.100L
+================================================================================
+ADC_Keywords: Galaxies, nearby ; Stars, giant ; Abundances ; Radial velocities ;
+              Equivalent widths ; Photometry, UBVRI ; Photometry, infrared
+Keywords: stars: abundances - galaxies: individual (Carina Dwarf Spheroidal) -
+          galaxies: evolution
+
+Abstract:
+    The ages of individual Red Giant Branch stars can range from 1Gyr old
+    to the age of the Universe, and it is believed that the abundances of
+    most chemical elements in their photospheres remain unchanged with
+    time (those that are not affected by the first dredge-up). This means
+    that they trace the interstellar medium in the galaxy at the time the
+    star formed, and hence the chemical enrichment history of the galaxy.
+
+    Colour-Magnitude Diagram analysis has shown the Carina dwarf
+    spheroidal to have had an unusually episodic star formation history
+    and this is expected to be reflected in the abundances of different
+    chemical elements.
+
+Description:
+    We use the VLT-FLAMES multi-fibre spectrograph in high-resolution mode
+    (R~20000) to measure the abundances of several chemical elements,
+    including Fe, Mg, Ca and Ba, in a sample of 35 individual Red Giant
+    Branch stars in the Carina dwarf spheroidal galaxy. We also combine
+    these abundances with photometry to derive age estimates for these
+    stars. This allows us to determine which of two distinct star
+    formation episodes the stars in our sample belong to, and thus to
+    define the relationship between star formation and chemical enrichment
+    during these two episodes.
+
+File Summary:
+--------------------------------------------------------------------------------
+ FileName   Lrecl  Records   Explanations
+--------------------------------------------------------------------------------
+ReadMe         80        .   This file
+table3.dat     88       98   Photometric information for our FLAMES targets
+table4.dat     36     3360   List of all spectral lines, their atomic
+                              parameters and their measured EWs for all the
+                              35 RGB stars in the Carina dSph
+table7.dat     86       35   The abundances and errors of iron and
+                              {alpha}-elements in our sample of RGB stars
+                              in the Carina dSph
+table8.dat     73       35   The abundances and errors of iron-peak and
+                              heavy elements in our sample of RGB stars
+                              in the Carina dSph
+table9.dat     98        8   The abundances and errors for elements that
+                              could be measured from single lines in only
+                              a handful of stars
+--------------------------------------------------------------------------------
+
+See also:
+ J/AJ/130/2677 : Stars in the Carina dSph galaxy field (Majewski+, 2005)
+ J/ApJ/649/201 : Velocities & Washington photometry in Carina dSph (Munoz+ 2006)
+ J/AJ/135/1580 : Element abundances in ten red giants of Car dSph (Koch+, 2008)
+
+Byte-by-byte Description of file: table3.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1-  7  A7    ---     Name      Name MKVNNNN
+   9- 10  I2    h       RAh       Right ascension (J2000)
+  12- 13  I2    min     RAm       Right ascension (J2000)
+  15- 19  F5.2  s       RAs       Right ascension (J2000)
+      21  A1    ---     DE-       Declination sign (J2000)
+  22- 23  I2    deg     DEd       Declination (J2000)
+  25- 26  I2    arcmin  DEm       Declination (J2000)
+  28- 32  F5.2  arcsec  DEs       Declination (J2000)
+  34- 39  F6.3  mag     Vmag      ESO-WFI V magnitude
+  41- 46  F6.3  mag     Imag      ESO-WFI I magnitude
+  48- 53  F6.3  mag     Jmag      ? ESO-SOFI J magnitude (1)
+  55- 60  F6.3  mag     Hmag      ? ESO-SOFI H magnitude (1)
+  62- 67  F6.3  mag     Kmag      ? ESO-SOFI K magnitude (1)
+  69- 73  F5.1  km/s    HRV       Heliocentric radial velocity (2)
+  75- 77  F3.1  km/s  e_HRV       rms uncertainty on HRV (2)
+  79- 88  A10   ---     Memb      Membership
+--------------------------------------------------------------------------------
+Note (1): From M. Gullieuszik (private communication)
+Note (2): our measured radial velocities
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table4.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1-  7  A7    ---     Name      Star name
+   9- 15  F7.2  0.1nm   lambda    Wavelength
+  17- 19  A3    ---     El        Element
+  21- 25  F5.3  eV      ExPot     Excitation potential
+  27- 32  F6.3  [-]     loggf     Oscillator strength
+  34- 36  I3    0.1pm   EW        ?=- Equivalent width
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table7.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1-  7  A7    ---     Name      Star name
+   9- 13  F5.2  [-]     [Fe1/H]   Abundance [FeI/H]
+  15- 18  F4.2  [-]   e_[Fe1/H]   rms uncertainty on [FeI/H]
+  20- 21  I2    ---   o_[Fe1/H]   Number of line used for [FeI/H]
+  23- 27  F5.2  [-]     [Fe2/H]   ?=- Abundance [FeII/H]
+  29- 32  F4.2  [-]   e_[Fe2/H]   ?=- rms uncertainty on [FeII/H]
+      34  I1    ---   o_[Fe2/H]   ?=- Number of line used for [FeII/H]
+  36- 40  F5.2  [-]     [Mg1/H]   ?=- Abundance [MgI/H]
+  42- 45  F4.2  [-]   e_[Mg1/H]   ?=- rms uncertainty on [MgI/H]
+      47  I1    ---   o_[Mg1/H]   ?=- Number of line used for [MgI/H]
+  49- 53  F5.2  [-]     [Ca1/H]   ?=- Abundance [CaI/H]
+  55- 58  F4.2  [-]   e_[Ca1/H]   ?=- rms uncertainty on [CaI/H]
+      60  I1    ---   o_[Ca1/H]   ?=- Number of line used for [CaI/H]
+  62- 66  F5.2  [-]     [Ti1/H]   ?=- Abundance [TiI/H]
+  68- 71  F4.2  [-]   e_[Ti1/H]   ?=- rms uncertainty on [TiI/H]
+      73  I1    ---   o_[Ti1/H]   ?=- Number of line used for [TiI/H]
+  75- 79  F5.2  [-]     [Ti2/H]   ?=- Abundance [TiII/H]
+  81- 84  F4.2  [-]   e_[Ti2/H]   ?=- rms uncertainty on [TiII/H]
+      86  I1    ---   o_[Ti2/H]   ?=- Number of line used for [TiII/H]
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table8.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1-  7  A7    ---     Name      Star name
+   9- 13  F5.2  [-]     [Fe1/H]   Abundance [FeI/H]
+  15- 18  F4.2  [-]   e_[Fe1/H]   rms uncertainty on [FeI/H]
+  20- 21  I2    ---   o_[Fe1/H]   Number of line used for [FeI/H]
+  23- 27  F5.2  [-]     [Cr1/H]   ?=- Abundance [CrI/H]
+  29- 32  F4.2  [-]   e_[Cr1/H]   ?=- rms uncertainty on [CrI/H]
+      34  I1    ---   o_[Cr1/H]   ?=- Number of line used for [CrI/H]
+  36- 40  F5.2  [-]     [Co1/H]   ?=- Abundance [CoI/H]
+  42- 45  F4.2  [-]   e_[Co1/H]   ?=- rms uncertainty on [CoI/H]
+      47  I1    ---   o_[Co1/H]   ?=- Number of line used for [CoI/H]
+  49- 53  F5.2  [-]     [Ni1/H]   ?=- Abundance [NiI/H]
+  55- 58  F4.2  [-]   e_[Ni1/H]   ?=- rms uncertainty on [NiI/H]
+      60  I1    ---   o_[Ni1/H]   ?=- Number of line used for [NiI/H]
+  62- 66  F5.2  [-]     [Ba2/H]   ?=- Abundance [BaII/H]
+  68- 71  F4.2  [-]   e_[Ba2/H]   ?=- rms uncertainty on [BaII/H]
+      73  I1    ---   o_[Ba2/H]   ?=- Number of line used for [BaII/H]
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table9.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1-  7  A7    ---     Name      Star name
+   9- 13  F5.2  [-]     [Na1/H]   ?=- Abundance [NaI/H]
+  15- 18  F4.2  [-]   e_[Na1/H]   ?=- rms uncertainty on [NaI/H]
+      20  I1    ---   o_[Na1/H]   ?=- Number of line used for [NaI/H]
+  22- 26  F5.2  [-]     [Si1/H]   ?=- Abundance [SiI/H]
+  28- 31  F4.2  [-]   e_[Si1/H]   ?=- rms uncertainty on [SiI/H]
+      33  I1    ---   o_[Si1/H]   ?=- Number of line used for [SiI/H]
+  35- 39  F5.2  [-]     [Sc2/H]   ?=- Abundance [ScII/H]
+  41- 44  F4.2  [-]   e_[Sc2/H]   ?=- rms uncertainty on [ScII/H]
+      46  I1    ---   o_[Sc2/H]   ?=- Number of line used for [ScII/H]
+  48- 52  F5.2  [-]     [Y2/H]    ?=- Abundance [YII/H]
+  54- 57  F4.2  [-]   e_[Y2/H]    ?=- rms uncertainty on [YII/H]
+      59  I1    ---   o_[Y2/H]    ?=- Number of line used for [YII/H]
+  61- 65  F5.2  [-]     [La2/H]   ?=- Abundance [LaII/H]
+  67- 70  F4.2  [-]   e_[La2/H]   ?=- rms uncertainty on [LaII/H]
+      72  I1    ---   o_[La2/H]   ?=- Number of line used for [LaII/H]
+  74- 78  F5.2  [-]     [Nd2/H]   ?=- Abundance [NdII/H]
+  80- 83  F4.2  [-]   e_[Nd2/H]   ?=- rms uncertainty on [NdII/H]
+      85  I1    ---   o_[Nd2/H]   ?=- Number of line used for [NdII/H]
+  87- 91  F5.2  [-]     [Eu2/H]   ?=- Abundance [EuII/H]
+  93- 96  F4.2  [-]   e_[Eu2/H]   ?=- rms uncertainty on [EuII/H]
+      98  I1    ---   o_[Eu2/H]   ?=- Number of line used for [EuII/H]
+--------------------------------------------------------------------------------
+
+Acknowledgements:
+    Bertrand Lemasle, lemasle(at)astro.rug.nl
+
+References:
+    Venn et al.   Companion Paper.  2012ApJ...751..102V   Cat. J/ApJ/751/102
+
+================================================================================
+(End)   Bertrand Lemasle [Kapteyn Inst.], Patricia Vannier [CDS]     16-Dec-2011
