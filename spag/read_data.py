@@ -26,8 +26,7 @@ script_dir = os.path.dirname(os.path.realpath(__file__))+"/" # use this if not i
 data_dir = script_dir+"data/"
 plots_dir = script_dir+"plots/"
 linelist_dir = script_dir+"linelists/"
-    
-    
+
 ################################################################################
 ## Solar Composition Functions
 
@@ -247,7 +246,6 @@ def get_solar(elems):
     asplund09 = solar_logepsX_asplund09_dict()
 
     return pd.Series([asplund09[elem] for elem in good_elems], index=elems, name='asplund09')
-
 
 ################################################################################
 ## Solar r-process and s-process Abundance Patterns
@@ -730,6 +728,24 @@ def load_sagittarius(include_lowres=False, include_apogee=False, **kwargs):
 
     return sagittarius_df
 
+def load_lmc(**kwargs):
+    """
+    Load the Large Magellanic Cloud (LMC) Dwarf Galaxy Stars
+
+    Loads the data from Chiti et al. 2024 and combines it with other
+    references if needed.
+    """
+
+    ## Manually add specific references
+    # -------------------------------------------------- #
+    ## Load Chiti+2024
+    chiti2024_df = load_chiti2024()
+
+    ## Combine the DataFrames
+    lmc_df = pd.concat([chiti2024_df], ignore_index=True, sort=False)
+
+    return lmc_df
+
 ################################################################################
 ## Reference Read-in (Abundance Data)
 
@@ -841,6 +857,20 @@ def load_chiti2018(combine_tables=True):
         m2fs_df = m2fs_df[m2fs_cols_reorder]
 
         return mage_df, m2fs_df
+
+def load_chiti2024():
+    """
+    Load the Chiti et al. 2024 data for the Large Magellanic Cloud (LMC).
+
+    See `create_chiti2024_yelland.ipynb` for details on how the datafile was created.
+    """
+
+    chiti2024_df = pd.read_csv(data_dir + 'abundance_tables/chiti2024/chiti2024_yelland.csv', comment="#")
+
+    ## Remove rows with 'MP_key' = NaN
+    chiti2024_df = chiti2024_df[chiti2024_df['MP_key'].notna()] # no abundance data in these rows, only exposure data
+
+    return chiti2024_df
 
 def load_frebel2010b():
     """
@@ -1313,6 +1343,8 @@ def load_placco2014():
     for col in numeric_cols:
         placco2014_df[col] = pd.to_numeric(placco2014_df[col], errors='coerce')
 
+    # placco2014_df.to_csv(data_dir+'abundance_tables/placco2014/placco2014.csv', index=False)
+    
     return placco2014_df
 
 def load_sestito2024():
@@ -1369,7 +1401,6 @@ def load_sestito2024b():
 
 
     return sestito2024b_df
-
 
 ################################################################################
 ## Dataset Read-in (Abundance Data)
