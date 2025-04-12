@@ -9,6 +9,7 @@ import  sys, os, glob, time
 import numpy as np
 import pandas as pd
 import seaborn as sns
+from astropy.io import fits
 
 from spag.convert import *
 from spag.utils import *
@@ -579,7 +580,7 @@ def load_sculptor(**kwargs):
     chiti2018_df['e_epsc'] = chiti2018_df['A(C)_ul']
     chiti2018_df.drop(columns=['logg','[Ba/H]','Slit','A(C)','A(C)_ll','A(C)_ul','e_A(C)'], inplace=True)
 
-    ## Skuladottir 2017 (SKU17)
+    ## Skuladottir 2017 (SKU17)                                                                                
     # have not collected the data for SPAG yet
 
     ## Skuladottir 2024 (SKU24)
@@ -594,6 +595,26 @@ def load_sculptor(**kwargs):
     ## Combine the DataFrames
     # -------------------------------------------------- #
     sculptor_df = pd.concat([jinabase_sculptor, chiti2018_df, frebel2010b_df], ignore_index=True, sort=False)
+
+    ## Add the Science Key values (Ncap_key, C_key, MP_key, alpha_key)
+    # -------------------------------------------------- #
+    # mp_val = sculptor_df.loc[sculptor_df['JINA_ID'] == jina_id, 'MP_key'].values[0]
+    # if pd.isna(mp_val) or mp_val == '' or (isinstance(mp_val, float) and np.isnan(mp_val)):
+    #     sculptor_df.loc[sculptor_df['JINA_ID'] == jina_id, 'MP_key'] = classify_metallicity(FeH)
+  
+    # alpha_val = sculptor_df.loc[sculptor_df['JINA_ID'] == jina_id, 'alpha_key'].values[0]
+    # if pd.isna(alpha_val) or alpha_val == '' or (isinstance(alpha_val, float) and np.isnan(alpha_val)):
+    #     if not any(pd.isna(val) for val in [MgFe, SiFe, CaFe, TiFe]):
+    #         sculptor_df.loc[sculptor_df['JINA_ID'] == jina_id, 'alpha_key'] = classify_alpha_enhancement(MgFe, SiFe, CaFe, TiFe)
+
+    # ncap_val = sculptor_df.loc[sculptor_df['JINA_ID'] == jina_id, 'Ncap_key'].values[0]
+    # if pd.isna(ncap_val) or ncap_val == '' or (isinstance(ncap_val, float) and np.isnan(ncap_val)):
+    #     sculptor_df.loc[sculptor_df['JINA_ID'] == jina_id, 'Ncap_key'] = classify_neutron_capture(EuFe, BaFe, SrFe, PbFe, LaFe, HfFe, IrFe)
+
+    # c_val = sculptor_df.loc[sculptor_df['JINA_ID'] == jina_id, 'C_key'].values[0]
+    # if pd.isna(c_val) or c_val == '' or (isinstance(c_val, float) and np.isnan(c_val)):
+    #     sculptor_df.loc[sculptor_df['JINA_ID'] == jina_id, 'C_key'] = classify_carbon_enhancement(CFe, BaFe)
+
 
     return sculptor_df
 
@@ -639,12 +660,12 @@ def load_fornax(**kwargs):
     letarte2010 = load_letarte2010()
 
     ## Lucchetti 2024 (LUCC24)
-    lucchetti2024 = rd.load_lucchetti2024()
+    lucchetti2024 = load_lucchetti2024()
     lucchetti2024_fornax = lucchetti2024[lucchetti2024['Name'].str.lower().str.contains('fnx')]
     
     ## Combine the DataFrames
     # -------------------------------------------------- #
-    fornax_df = pd.concat([jinabase_fornax, lucchetti2024_fornax, lemasle2014, letarte2010], ignore_index=True)
+    fornax_df = pd.concat([jinabase_fornax, lemasle2014, letarte2010, lucchetti2024_fornax], ignore_index=True)
 
     if '[C/Fe]_ul' not in fornax_df.columns:
         fornax_df = pd.concat([fornax_df, pd.Series(np.nan, index=fornax_df.index, name='[C/Fe]_ul')], axis=1)
@@ -817,6 +838,16 @@ def load_chiti2018(combine_tables=True):
             if pd.isna(row['DEC_dms']) and pd.notna(row['DEC_deg']):  # Ensure DEC_deg is not NaN
                 row['DEC_dms'] = coord.dec_deg_to_dms(row['DEC_deg'], precision=2)
                 chiti2018_df.at[idx, 'DEC_dms'] = row['DEC_dms']
+
+        columns = [('A(C)', '[C/Fe]'), ('A(C)_ll', '[C/Fe]_ll'), ('A(C)_ul', '[C/Fe]_ul')]
+        for ac_col, cf_col in columns:
+            # Fill A(C)* from [C/Fe]* if missing
+            mask_ac = chiti2018_df[ac_col].isna()
+            chiti2018_df.loc[mask_ac, ac_col] = chiti2018_df.loc[mask_ac, cf_col].apply(lambda x: XH_from_eps(x, 'C'))
+            
+            # Fill [C/Fe]* from A(C)* if missing
+            mask_cf = chiti2018_df[cf_col].isna()
+            chiti2018_df.loc[mask_cf, cf_col] = chiti2018_df.loc[mask_cf, ac_col].apply(lambda x: eps_from_XH(x, 'C'))
 
         return chiti2018_df
 
@@ -1011,7 +1042,9 @@ def load_letarte2010():
     Loads the data from Letarte et al. (2010) for the Fornax stars.
     """
     # Read FITS file and strip units
-    tab = Table.read(data_dir+"abundance_tables/letarte2010/letarte10_fornax.fits")
+    # tab = Table.read(data_dir+"abundance_tables/letarte2010/letarte10_fornax.fits") # generates a UnitsWarning from '[-]'
+    with fits.open(data_dir+"abundance_tables/letarte2010/letarte10_fornax.fits") as hdul:
+        tab = Table(hdul[1].data)  # skip unit parsing
     tab["Star"] = tab["Star"].astype(str)
     tab.rename_column("Star", "Name")
 
@@ -1343,8 +1376,8 @@ def load_placco2014():
     for col in numeric_cols:
         placco2014_df[col] = pd.to_numeric(placco2014_df[col], errors='coerce')
 
-    # placco2014_df.to_csv(data_dir+'abundance_tables/placco2014/placco2014.csv', index=False)
-    
+    # placco2014_df.to_csv(data_dir+'abundance_tables/placco2014/placco2014_yelland.csv', index=False)
+
     return placco2014_df
 
 def load_sestito2024():
