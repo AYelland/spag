@@ -279,7 +279,7 @@ def solar_r_s_abundances():
 ################################################################################
 ## JINAbase Data Read-in
 
-def load_jinabase(sci_key=None, priority=1, load_eps=True, load_ul=True, load_XH=True, load_XFe=True, load_aux=True, name_as_index=True):
+def load_jinabase(sci_key=None, priority=1, load_eps=True, load_ul=True, load_XH=True, load_XFe=True, load_aux=True, name_as_index=False):
     """
     sci_key: str or None
         A label used for interesting stars in the JINAbase database. There are four different types of keys.
@@ -361,9 +361,9 @@ def load_jinabase(sci_key=None, priority=1, load_eps=True, load_ul=True, load_XH
             
     ## Combine the auxiliary columns with the element abundance columns
     if load_aux:
-        data = pd.concat([data, auxdata],axis=1)
+        data = pd.concat([auxdata, data],axis=1)
     else:
-        data = pd.concat([data, auxdata[['Name','Ref','Priority','Ncap_key','C_key','MP_key','alpha_key']]], axis=1)
+        data = pd.concat([auxdata[['Name','Ref','Priority','Ncap_key','C_key','MP_key','alpha_key'], data]], axis=1)
 
     ## Remove duplicate entries by using the 'Priority' column (1=high, 2=low)
     ## (dupicates entries originate from two papers referencing the same source)
@@ -574,11 +574,10 @@ def load_sculptor(**kwargs):
 
     ## Chiti+2018
     chiti2018_df = load_chiti2018(combine_tables=True)
-    chiti2018_df['epsc'] = chiti2018_df['A(C)']
-    chiti2018_df['ulc'] = chiti2018_df['A(C)_ul']
-    chiti2018_df['llc'] = chiti2018_df['A(C)_ll']
-    chiti2018_df['e_epsc'] = chiti2018_df['A(C)_ul']
-    chiti2018_df.drop(columns=['logg','[Ba/H]','Slit','A(C)','A(C)_ll','A(C)_ul','e_A(C)'], inplace=True)
+    chiti2018_df.rename(columns={'A(C)':'epsc'}, inplace=True)
+    chiti2018_df.rename(columns={'A(C)_ul':'ulc'}, inplace=True)
+    chiti2018_df.rename(columns={'A(C)_ll':'llc'}, inplace=True)
+    chiti2018_df.rename(columns={'e_A(C)':'e_epsc'}, inplace=True)
 
     ## Skuladottir 2017 (SKU17)                                                                                
     # have not collected the data for SPAG yet
@@ -595,26 +594,6 @@ def load_sculptor(**kwargs):
     ## Combine the DataFrames
     # -------------------------------------------------- #
     sculptor_df = pd.concat([jinabase_sculptor, chiti2018_df, frebel2010b_df], ignore_index=True, sort=False)
-
-    ## Add the Science Key values (Ncap_key, C_key, MP_key, alpha_key)
-    # -------------------------------------------------- #
-    # mp_val = sculptor_df.loc[sculptor_df['JINA_ID'] == jina_id, 'MP_key'].values[0]
-    # if pd.isna(mp_val) or mp_val == '' or (isinstance(mp_val, float) and np.isnan(mp_val)):
-    #     sculptor_df.loc[sculptor_df['JINA_ID'] == jina_id, 'MP_key'] = classify_metallicity(FeH)
-  
-    # alpha_val = sculptor_df.loc[sculptor_df['JINA_ID'] == jina_id, 'alpha_key'].values[0]
-    # if pd.isna(alpha_val) or alpha_val == '' or (isinstance(alpha_val, float) and np.isnan(alpha_val)):
-    #     if not any(pd.isna(val) for val in [MgFe, SiFe, CaFe, TiFe]):
-    #         sculptor_df.loc[sculptor_df['JINA_ID'] == jina_id, 'alpha_key'] = classify_alpha_enhancement(MgFe, SiFe, CaFe, TiFe)
-
-    # ncap_val = sculptor_df.loc[sculptor_df['JINA_ID'] == jina_id, 'Ncap_key'].values[0]
-    # if pd.isna(ncap_val) or ncap_val == '' or (isinstance(ncap_val, float) and np.isnan(ncap_val)):
-    #     sculptor_df.loc[sculptor_df['JINA_ID'] == jina_id, 'Ncap_key'] = classify_neutron_capture(EuFe, BaFe, SrFe, PbFe, LaFe, HfFe, IrFe)
-
-    # c_val = sculptor_df.loc[sculptor_df['JINA_ID'] == jina_id, 'C_key'].values[0]
-    # if pd.isna(c_val) or c_val == '' or (isinstance(c_val, float) and np.isnan(c_val)):
-    #     sculptor_df.loc[sculptor_df['JINA_ID'] == jina_id, 'C_key'] = classify_carbon_enhancement(CFe, BaFe)
-
 
     return sculptor_df
 
@@ -990,6 +969,11 @@ def load_frebel2010b():
             else:
                 frebel2010_df.loc[0, col] = np.nan
 
+    frebel2010_df.loc[0,'Vel'] = 118.6
+    frebel2010_df.loc[0,'Teff'] = 4550
+    frebel2010_df.loc[0,'logg'] = 0.9
+    frebel2010_df.loc[0,'Vmic'] = 2.8
+
     return frebel2010_df
 
 def load_lemasle2014():
@@ -1175,36 +1159,33 @@ def load_lucchetti2024():
         ## Collect processed star data for bulk insertion
         star_data.append(star_row)
 
-    ## Convert list of dicts to DataFrame (efficient bulk operation)
+    ## Convert list of dicts to DataFrame
     lucchetti2024_df = pd.DataFrame(star_data)
 
+    ## Drop all cols with 'Fe/Fe' in them
+    for col in lucchetti2024_df.columns:
+        if "Fe/Fe" in col:
+            lucchetti2024_df.drop(col, axis=1, inplace=True)
+        
     ## Add coordinates efficiently using a DataFrame merge
-    coord_data = pd.DataFrame({
-        'Name': ['fnx_06_019', 'fnx0579x-1', 'car1_t174', 'car1_t194', 'car1_t200', 'LG04c_0008'],
-        'RA_hms': ['02:37:00.91', '02:40:47.79', '06:41:58.72', '06:41:42.87', '06:41:49.67', '06:40:49.14'],
-        'DEC_dms': ['-34:10:43.10', '-34:26:46.50', '-51:06:40.30', '-51:05:30.10', '-51:01:31.30', '-51:00:33.00']
-    })
+    aux_data = pd.read_csv(data_dir + 'abundance_tables/lucchesi2024/aux_data.csv')
 
     ## Convert RA/DEC to degrees
-    coord_data['RA_deg'] = coord_data['RA_hms'].apply(coord.ra_hms_to_deg)
-    coord_data['DEC_deg'] = coord_data['DEC_dms'].apply(coord.dec_dms_to_deg)
+    aux_data['RA_deg'] = aux_data['RA_hms'].apply(coord.ra_hms_to_deg)
+    aux_data['DEC_deg'] = aux_data['DEC_dms'].apply(coord.dec_dms_to_deg)
 
     ## Merge coordinates into the main DataFrame (fast operation)
-    lucchetti2024_df = lucchetti2024_df.merge(coord_data, on='Name', how='left')
-
-    ## Reorder columns to match original DataFrame
-    cols = ['Name', 'Reference', 'Ref', 'Loc', 'RA_hms', 'RA_deg', 'DEC_dms', 'DEC_deg'] + epscols + ulcols + XHcols + XFecols + errcols
-    cols_new = [col for col in lucchetti2024_df.columns if col not in cols]
-    lucchetti2024_df = lucchetti2024_df[cols + cols_new]
+    lucchetti2024_df = lucchetti2024_df.merge(aux_data, on=['Name'], how='left')
     
     return lucchetti2024_df
 
 def load_mardini2022():
 
-    mardini2022_df = pd.read_csv(data_dir+'abundance_tables/mardini2022/tab5.csv', comment='#')
+    mardini2022_df = pd.read_csv(data_dir+'abundance_tables/mardini2022/tab5_yelland.csv', comment='#')
 
     ## Add and rename the necessary columns
     # mardini2022_df.rename(columns={'source_id':'Name', 'ra':'RA_hms', 'dec':'DEC_deg', 'teff':'Teff'}, inplace=True)
+    mardini2022_df['JINA_ID'] = mardini2022_df['JINA_ID'].astype(int)
     mardini2022_df['Name'] = mardini2022_df['Simbad_Identifier']
     mardini2022_df['Ref'] = mardini2022_df['Reference'].str[:3].str.upper() + mardini2022_df['Reference'].str[-2:]
     mardini2022_df['Ncap_key'] = ''
@@ -1237,6 +1218,26 @@ def load_mardini2022():
         if pd.isna(row['DEC_dms']) and pd.notna(row['DEC_deg']):
             row['DEC_dms'] = coord.dec_deg_to_dms(row['DEC_deg'], precision=2)
             mardini2022_df.at[idx, 'DEC_dms'] = row['DEC_dms']
+
+    ## Get the JINAbase Data using the JINA_ID
+    jina_ids = list(mardini2022_df['JINA_ID'])
+
+    jinabase_df = rd.load_jinabase(priority=None)
+    sub_jinabase_df = jinabase_df[jinabase_df['JINA_ID'].isin(jina_ids)].copy()
+    new_columns = [col for col in sub_jinabase_df.columns if col not in mardini2022_df.columns]
+
+    # Align on JINA_ID
+    mardini2022_df = mardini2022_df.set_index('JINA_ID')
+    sub_jinabase_df = sub_jinabase_df.set_index('JINA_ID')
+    mardini2022_df = mardini2022_df.join(sub_jinabase_df[new_columns], how='left')
+
+    # Fill in missing [C/Fe] values from JINAbase
+    if '[C/Fe]' in mardini2022_df.columns and '[C/Fe]' in sub_jinabase_df.columns:
+        mardini2022_df['[C/Fe]'] = mardini2022_df['[C/Fe]'].fillna(sub_jinabase_df['[C/Fe]'])
+
+    ## Reset the index
+    sub_jinabase_df = sub_jinabase_df.reset_index()
+    mardini2022_df = mardini2022_df.reset_index()
 
     return mardini2022_df
 
@@ -1387,13 +1388,16 @@ def load_sestito2024():
     Load the data from Sestito for stars in the Sagittarius dwarf galaxy, focused on Carbon.
     PIGS IX (Table 4) is used for this dataset.
     """
-    sestito2024_df = pd.read_csv(data_dir+'abundance_tables/sestito2024/pigs_ix_tab4.csv', comment='#')
+    sestito2024_df = pd.read_csv(data_dir+'abundance_tables/sestito2024/pigs_ix_tab4-ay.csv', comment='#')
 
     ## Add and rename the necessary columns
-    sestito2024_df.rename(columns={'PIGS':'Name'}, inplace=True)
     sestito2024_df['Reference'] = 'Sestito+2024'
     sestito2024_df['Ref'] = 'SES24'
     sestito2024_df['Loc'] = 'DW'
+
+    ## Calculate the RA and DEC in hms and dms
+    sestito2024_df['RA_hms'] = sestito2024_df['RA_deg'].apply(lambda x: coord.ra_deg_to_hms(float(x), precision=2) if pd.notna(x) else np.nan)
+    sestito2024_df['DEC_dms'] = sestito2024_df['DEC_deg'].apply(lambda x: coord.dec_deg_to_dms(float(x), precision=2) if pd.notna(x) else np.nan)
 
     return sestito2024_df
 
