@@ -18,7 +18,7 @@ m_XFe= re.compile('\[(\D+)/Fe\]')
 ## SPAG imports
 import spag.periodic_table  as pt
 from spag.periodic_table import pt_list, pt_dict
-from spag.convert import *
+from spag.utils import *
 import spag.read_data as rd
 
 
@@ -657,11 +657,18 @@ def XHcolnames(df):
     """
     return _getcolnames(df,'XH')
 
+def ulXHcolnames(df):
+    """
+    Returns a list of all ul[X/H] columns
+    """
+    return _getcolnames(df,'ulXH')
+    
 def XFecolnames(df):
     """
     Returns a list of all [X/Fe] columns
     """
     return _getcolnames(df,'XFe')
+
 
 def epscol(elem):
     """
@@ -705,7 +712,17 @@ def XHcol(elem,keep_species=False):
     except ValueError:
         if elem=="alpha": return "[alpha/H]"
         else: raise
-    
+
+def ulXHcol(elem,keep_species=False):
+    """
+    Returns the ul[X/H] column name for an element
+    """
+    try:
+        return 'ul['+getelem(elem,keep_species=keep_species)+'/H]'
+    except ValueError:
+        if elem=="alpha": return "ul[alpha/H]"
+        else: raise
+
 def XFecol(elem,keep_species=False):
     """
     Returns the [X/Fe] column name for an element
@@ -715,7 +732,17 @@ def XFecol(elem,keep_species=False):
     except ValueError:
         if elem=="alpha": return "[alpha/Fe]"
         else: raise
-    
+
+def ulXFecol(elem,keep_species=False):
+    """
+    Returns the ul[X/Fe] column name for an element
+    """
+    try:
+        return 'ul['+getelem(elem,keep_species=keep_species)+'/Fe]'
+    except ValueError:
+        if elem=="alpha": return "ul[alpha/Fe]"
+        else: raise
+
 def ABcol(elems):
     """
     Input a tuple of elements, returns the column name for the pair
@@ -737,6 +764,19 @@ def make_XHcol(species):
     if species==607.0: return "[N/H]"
     return XHcol(species)
 
+def make_ulXHcol(species):
+    """
+    Converts species to a formatted ul[X/H] column name
+    """
+    if species==22.0: return "ul[Ti I/H]"
+    if species==23.1: return "ul[V II/H]"
+    if species==26.1: return "ul[Fe II/H]"
+    if species==24.1: return "ul[Cr II/H]"
+    if species==38.0: return "ul[Sr I/H]"
+    if species==106.0: return "ul[C/H]"
+    if species==607.0: return "ul[N/H]"
+    return ulXHcol(species)
+
 def make_XFecol(species):
     """
     Converts species to a formatted [X/Fe] column name
@@ -749,6 +789,19 @@ def make_XFecol(species):
     if species==106.0: return "[C/Fe]"
     if species==607.0: return "[N/Fe]"
     return XFecol(species)
+
+def make_ulXFecol(species):
+    """
+    Converts species to a formatted ul[X/Fe] column name
+    """
+    if species==22.0: return "ul[Ti I/Fe]"
+    if species==23.1: return "ul[V II/Fe]"
+    if species==26.1: return "ul[Fe II/Fe]"
+    if species==24.1: return "ul[Cr II/Fe]"
+    if species==38.0: return "ul[Sr I/Fe]"
+    if species==106.0: return "ul[C/Fe]"
+    if species==607.0: return "ul[N/Fe]"
+    return ulXFecol(species)
 
 def make_epscol(species):
     """
@@ -841,41 +894,41 @@ def get_default_ion(elem):
 # Quick abundance conversion functions
 ################################################################################
 
-def XH_from_eps(eps, elem):
+def XH_from_eps(eps, elem, precision=2):
     """
     Converts log(eps) to [X/H]
     """
-    return eps - rd.get_solar(elem)[0]
+    return normal_round(eps - rd.get_solar(elem)[0], precision=precision)
 
-def eps_from_XH(XH, elem):
+def eps_from_XH(XH, elem, precision=2):
     """
     Converts [X/H] to log(eps)
     """
-    return XH + rd.get_solar(elem)[0]
+    return normal_round(XH + rd.get_solar(elem)[0], precision=precision)
 
-def XFe_from_eps(eps, FeH, elem):
+def XFe_from_eps(eps, FeH, elem, precision=2):
     """
     Converts log(eps) to [X/Fe]
     """
-    return eps - rd.get_solar(elem)[0] - FeH
+    return normal_round(eps - rd.get_solar(elem)[0] - FeH, precision=precision)
 
-def eps_from_XFe(XFe, FeH, elem):
+def eps_from_XFe(XFe, FeH, elem, precision=2):
     """
     Converts [X/Fe] to log(eps)
     """
-    return  XFe+ rd.get_solar(elem)[0] + FeH
+    return  normal_round(XFe+ rd.get_solar(elem)[0] + FeH, precision=precision)
 
-def XFe_from_XH(XH, FeH):
+def XFe_from_XH(XH, FeH, precision=2):
     """
     Converts [X/H] to [X/Fe]
     """
-    return XH - FeH
+    return normal_round(XH - FeH, precision=precision)
 
-def XH_from_XFe(XFe, FeH):
+def XH_from_XFe(XFe, FeH, precision=2):
     """
     Converts [X/Fe] to [X/H]
     """
-    return XFe + FeH
+    return normal_round(XFe + FeH, precision=precision)
 
 
 ################################################################################
@@ -905,7 +958,23 @@ def XHcol_from_epscol(df):
         asplund = rd.get_solar(epscols)
         for col in epscols:
             if XHcol(col) in df: warnings.warn("{} already in DataFrame, replacing".format(XHcol(col)))
-            df[XHcol(col)] = df[col].astype(float) - float(asplund[col])
+            eps_star = pd.to_numeric(df[col], errors='coerce')  # ensures proper float conversion
+            eps_solar = float(asplund[col])
+            df[XHcol(col)] = (eps_star - eps_solar).apply(lambda x: normal_round(x, precision=2))
+
+def XHcol_from_XFecol(df):
+    """
+    Converts [X/Fe] columns to [X/H] columns
+    """
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore")
+        XFecols = XFecolnames(df)
+        assert '[Fe/H]' in df
+        asplund = rd.get_solar(XFecols)
+        feh = df['[Fe/H]']
+        for col in XFecols:
+            if XHcol(col) in df: warnings.warn("{} already in DataFrame, replacing".format(XHcol(col)))
+            df[XHcol(col)] = df[col] + feh
 
 def XFecol_from_epscol(df):
     """
@@ -916,12 +985,16 @@ def XFecol_from_epscol(df):
         epscols = epscolnames(df)
         assert 'epsfe' in epscols
         asplund = rd.get_solar(epscols)
-        feh = df['epsfe'].astype(float) - float(asplund['epsfe'])
+        epsfe_star = pd.to_numeric(df['epsfe'], errors='coerce')
+        epsfe_solar = float(asplund['epsfe'])
+        FeH = df['epsfe'].astype(float) - float(asplund['epsfe'])
         for col in epscols:
             if col=='epsfe': continue
             if XFecol(col) in df: warnings.warn("{} already in DataFrame, replacing".format(XFecol(col)))
-            XH = df[col].astype(float) - float(asplund[col])
-            df[XFecol(col)] = XH - feh
+            eps_star = pd.to_numeric(df[col], errors='coerce')
+            eps_solar = float(asplund[col])
+            XH = (eps_star - eps_solar).apply(lambda x: normal_round(x, precision=2))
+            df[XFecol(col)] = (XH - FeH).apply(lambda x: normal_round(x, precision=2))
 
 def epscol_from_XHcol(df):
     """
@@ -975,6 +1048,72 @@ def XHcol_from_XFecol(df):
         for col in XFecols:
             if XHcol(col) in df: warnings.warn("{} already in DataFrame, replacing".format(XHcol(col)))
             df[XHcol(col)] = df[col] + feh
+
+def ulcol_from_ulXHcol(df):
+    """
+    Converts the ul[X/H] columns to upper limit log(eps) columns
+    """
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore")
+        ulXHcols = ulXHcolnames(df)
+        asplund = rd.get_solar(ulXHcols)
+        for col in ulXHcols:
+            if ulcol(col) in df: warnings.warn("{} already in DataFrame, replacing".format(ulcol(col)))
+            ulXH_star = pd.to_numeric(df[col], errors='coerce')  # ensures proper float conversion
+            eps_solar = float(asplund[col])
+            df[ulcol(col)] = (ulXH_star + eps_solar).apply(lambda x: normal_round(x, precision=2))
+
+def ulXHcol_from_ulcol(df):
+    """
+    Converts the upper limit log(eps) columns to ul[X/H] columns
+    """
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore")
+        ulcols = ulcolnames(df)
+        asplund = rd.get_solar(ulcols)
+        for col in ulcols:
+            if ulXHcol(col) in df: warnings.warn("{} already in DataFrame, replacing".format(ulXHcol(col)))
+            ul_eps_star = pd.to_numeric(df[col], errors='coerce')  # ensures proper float conversion
+            ul_eps_solar = float(asplund[col])
+            df[ulXHcol(col)] = (ul_eps_star - ul_eps_solar).apply(lambda x: normal_round(x, precision=2))
+
+def ulXHcol_from_ulXFecol(df):
+    """
+    Converts the ul[X/Fe] columns to ul[X/H] columns
+    """
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore")
+        XFecols = XFecolnames(df)
+        assert '[Fe/H]' in df
+        asplund = rd.get_solar(XFecols)
+        feh = df['[Fe/H]']
+        for col in XFecols:
+            if col=='[Fe/H]': continue
+            if ulXHcol(col) in df: warnings.warn("{} already in DataFrame, replacing".format(ulXHcol(col)))
+            ulXFe_star = pd.to_numeric(df[col], errors='coerce')  # ensures proper float conversion
+            eps_solar = float(asplund[col])
+            df[ulXHcol(col)] = ulXFe_star + feh
+            
+def ulXFecol_from_ulcol(df):
+    """
+    Converts the upper limit log(eps) columns to ul[X/Fe] columns
+    """
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore")
+        epscols = epscolnames(df)
+        assert 'epsfe' in epscols
+        asplund = rd.get_solar(epscols)
+        epsfe_star = pd.to_numeric(df['epsfe'], errors='coerce')
+        epsfe_solar = float(asplund['epsfe'])
+        FeH = df['epsfe'].astype(float) - float(asplund['epsfe'])
+        ulcols = ulcolnames(df)
+        for epscol, ulcol in zip(epscols, ulcols):
+            if ulcol=='ulfe': continue
+            if ulXFecol(epscol) in df: warnings.warn("{} already in DataFrame, replacing".format(ulXFecol(ulcol)))
+            ul_eps_star = pd.to_numeric(df[ulcol], errors='coerce')
+            eps_solar = float(asplund[epscol])
+            ulXH = (ul_eps_star - eps_solar).apply(lambda x: normal_round(x, precision=2))
+            df[ulXFecol(epscol)] = (ulXH - FeH).apply(lambda x: normal_round(x, precision=2))
 
 ################################################################################
 ## Random Conversion Functions

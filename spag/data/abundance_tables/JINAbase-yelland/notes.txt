@@ -1,0 +1,18 @@
+Yelland:  7908
+Mardini:  7788
+Ji:       2869
+Abohlima: 2734
+
+
+# ---------------------
+# To display the counts:
+
+abohalima_jinabase_df = rd.load_jinabase(version='abohalima', priority=None)
+ji_jinabase_df = rd.load_jinabase(version='ji', priority=None)
+mardini_jinabase_df = rd.load_jinabase(version='mardini', priority=None)
+yelland_jinabase_df = rd.load_jinabase(version='yelland', priority=None)
+
+print(f"abohalima: {abohalima_jinabase_df.shape[0]}")
+print(f"ji:        {ji_jinabase_df.shape[0]}")
+print(f"mardini:   {mardini_jinabase_df.shape[0]}")
+print(f"yelland:   {yelland_jinabase_df.shape[0]}")
