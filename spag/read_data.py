@@ -279,7 +279,7 @@ def solar_r_s_abundances():
 ################################################################################
 ## JINAbase Data Read-in
 
-def load_jinabase(sci_key=None, priority=1, load_eps=True, load_ul=True, load_XH=True, load_XFe=True, load_aux=True, name_as_index=False):
+def load_jinabase(sci_key=None, priority=1, load_eps=True, load_ul=True, load_XH=True, load_XFe=True, load_aux=True, name_as_index=False, feh_ulim=None, version="yelland"):
     """
     sci_key: str or None
         A label used for interesting stars in the JINAbase database. There are four different types of keys.
@@ -307,6 +307,8 @@ def load_jinabase(sci_key=None, priority=1, load_eps=True, load_ul=True, load_XH
         Load the auxiliary columns from the JINAbase database. (e.g. JINA_ID, Name, Ref, Priority, stellar parameters, etc.)
     name_as_index: bool
         Set the "Name" column as the index of the DataFrame.
+    version: str
+        The version of the JINAbase data to load. Options are "abohalima", "ji", "mardini", or "yelland".
 
     Load the JINAbase data from the local copy of the JINAbase-updated repository. 
     Speak with Mohammad Mardini for more details.
@@ -344,6 +346,8 @@ def load_jinabase(sci_key=None, priority=1, load_eps=True, load_ul=True, load_XH
     uls_table = data.where(uls_mask)  # Extract only the upper limit values (keep NaN for others)
     for col in uls_table.columns:
         uls_table.rename(columns={col: "ul"+col[3:]}, inplace=True) #same as ulcolnames (e.g. "ulFe" -> "ulfe")
+    for col in uls_table.columns:
+        uls_table[col] = uls_table[col].str.replace("<", "").astype(float)
 
     data_matrix = data.to_numpy()  # Convert data DataFrame to NumPy array
     data_matrix[uls_mask] = np.nan # Set values in `data_matrix` to NaN wherever `uls_mask` is True
@@ -356,8 +360,12 @@ def load_jinabase(sci_key=None, priority=1, load_eps=True, load_ul=True, load_XH
     ## Convert the element abundance and add the [X/H] and [X/Fe] columns
     if load_XH:
         XHcol_from_epscol(data)
+        if load_ul:
+            ulXHcol_from_ulcol(data)
     if load_XFe:
         XFecol_from_epscol(data)
+        if load_ul:
+            ulXFecol_from_ulcol(data)
             
     ## Combine the auxiliary columns with the element abundance columns
     if load_aux:
@@ -397,7 +405,37 @@ def load_jinabase(sci_key=None, priority=1, load_eps=True, load_ul=True, load_XH
     if name_as_index:
         data.index = data["Name"]
 
+    ## Save the processed data to a CSV file
     data.to_csv(data_dir+"abundance_tables/JINAbase-yelland/JINAbase-yelland25-processed.csv", index=False)
+
+    # Filter the dataframe based on desired version
+    if version == "abohalima":
+        data = data[data['Added_by'] == 'Abohalima']
+    elif version == "ji":
+        data = data[(data['Added_by'] == 'Abohalima') | (data['Added_by'] == 'Ji')]
+    elif version == "mardini":
+        data = data[(data['Ref'] == 'HANc18') | (data['Ref'] == 'KIR12') | (data['Added_by'] == 'Abohalima') | (data['Added_by'] == 'Mardini')]
+    elif version == "yelland":
+        pass  # use full dataset
+    else:
+        raise ValueError("Invalid version. Choose from ('abohalima', 'ji', 'mardini', 'yelland').")
+
+    
+    ## Filter by metallicity
+    if feh_ulim is not None:
+        if isinstance(feh_ulim, (int, float)):
+            def feh_filter(val):
+                if isinstance(val, (int, float)):
+                    return val <= feh_ulim
+                elif isinstance(val, str) and '<' in val:
+                    return True  # treat upper limits as valid
+                else:
+                    return False  # ignore all other invalid entries
+
+            data = data[data['Fe/H'].apply(feh_filter)]
+        else:
+            raise ValueError("Invalid value for feh_ulim. It should be a number (float or int).")
+
     return data
 
 ################################################################################
@@ -533,8 +571,8 @@ def load_carina(**kwargs):
     # -------------------------------------------------- #
     carina_df = pd.concat([jinabase_carina, lucchetti2024_carina], ignore_index=True)
 
-    if '[C/Fe]_ul' not in carina_df.columns:
-        carina_df = pd.concat([carina_df, pd.Series(np.nan, index=carina_df.index, name='[C/Fe]_ul')], axis=1)
+    if 'ul[C/Fe]' not in carina_df.columns:
+        carina_df = pd.concat([carina_df, pd.Series(np.nan, index=carina_df.index, name='ul[C/Fe]')], axis=1)
 
     return carina_df
 
@@ -574,10 +612,6 @@ def load_sculptor(**kwargs):
 
     ## Chiti+2018
     chiti2018_df = load_chiti2018(combine_tables=True)
-    chiti2018_df.rename(columns={'A(C)':'epsc'}, inplace=True)
-    chiti2018_df.rename(columns={'A(C)_ul':'ulc'}, inplace=True)
-    chiti2018_df.rename(columns={'A(C)_ll':'llc'}, inplace=True)
-    chiti2018_df.rename(columns={'e_A(C)':'e_epsc'}, inplace=True)
 
     ## Skuladottir 2017 (SKU17)                                                                                
     # have not collected the data for SPAG yet
@@ -773,8 +807,8 @@ def load_chiti2018(combine_tables=True):
             mask_upper = df[l_col] == '<'
 
             df[f"{value_col}_real"] = np.where(mask_actual, df[value_col], np.nan) # Actual values
-            df[f"{value_col}_ll"] = np.where(mask_lower, df[value_col], np.nan) # Lower limit
-            df[f"{value_col}_ul"] = np.where(mask_upper, df[value_col], np.nan) # Upper limit
+            df[f"ll{value_col}"] = np.where(mask_lower, df[value_col], np.nan) # Lower limit
+            df[f"ul{value_col}"] = np.where(mask_upper, df[value_col], np.nan) # Upper limit
 
             # Drop the original limit column & value column
             df = df.drop(columns=[value_col])
@@ -792,10 +826,10 @@ def load_chiti2018(combine_tables=True):
         df_cols_reorder = [
             'Reference','Ref','Name','Loc','Type','Sci_key','RA_hms','DEC_dms','RA_deg','DEC_deg',
             'logg','Teff','[Ba/H]','Slit',
-            'A(C)','A(C)_ll','A(C)_ul','e_A(C)',
-            '[Fe/H]','[Fe/H]_ll','[Fe/H]_ul','e_[Fe/H]',
-            '[C/Fe]','[C/Fe]_ll','[C/Fe]_ul','e_[C/Fe]','[C/Fe]c',
-            '[C/Fe]f','[C/Fe]f_ll','[C/Fe]f_ul','e_[C/Fe]f',
+            'A(C)','llA(C)','ulA(C)','e_A(C)',
+            '[Fe/H]','ll[Fe/H]','ul[Fe/H]','e_[Fe/H]',
+            '[C/Fe]','ll[C/Fe]','ul[C/Fe]','e_[C/Fe]','[C/Fe]c',
+            '[C/Fe]f','ll[C/Fe]f','ul[C/Fe]f','e_[C/Fe]f',
         ]
         chiti2018_df = chiti2018_df[df_cols_reorder]
         chiti2018_df = chiti2018_df.rename(columns={'Sci_key': 'Ncap_key'})  # Rename 'Sci_key' to 'Ncap_key' for consistency
@@ -818,16 +852,25 @@ def load_chiti2018(combine_tables=True):
                 row['DEC_dms'] = coord.dec_deg_to_dms(row['DEC_deg'], precision=2)
                 chiti2018_df.at[idx, 'DEC_dms'] = row['DEC_dms']
 
-        columns = [('A(C)', '[C/Fe]'), ('A(C)_ll', '[C/Fe]_ll'), ('A(C)_ul', '[C/Fe]_ul')]
-        for ac_col, cf_col in columns:
+        columns = [('A(C)', '[C/Fe]'), ('llA(C)', 'll[C/Fe]'), ('ulA(C)', 'ul[C/Fe]')]
+        for ac_col, cfe_col in columns:
             # Fill A(C)* from [C/Fe]* if missing
             mask_ac = chiti2018_df[ac_col].isna()
-            chiti2018_df.loc[mask_ac, ac_col] = chiti2018_df.loc[mask_ac, cf_col].apply(lambda x: XH_from_eps(x, 'C'))
+            chiti2018_df.loc[mask_ac, ac_col] = chiti2018_df.loc[mask_ac, cfe_col].apply(lambda x: XH_from_eps(x, 'C'))
             
             # Fill [C/Fe]* from A(C)* if missing
-            mask_cf = chiti2018_df[cf_col].isna()
-            chiti2018_df.loc[mask_cf, cf_col] = chiti2018_df.loc[mask_cf, ac_col].apply(lambda x: eps_from_XH(x, 'C'))
+            mask_cf = chiti2018_df[cfe_col].isna()
+            chiti2018_df.loc[mask_cf, cfe_col] = chiti2018_df.loc[mask_cf, ac_col].apply(lambda x: eps_from_XH(x, 'C'))
 
+        ## Rename A(C) to epsc
+        chiti2018_df.rename(columns={'A(C)': 'epsc'}, inplace=True)
+        chiti2018_df.rename(columns={'llA(C)': 'llc'}, inplace=True)
+        chiti2018_df.rename(columns={'ulA(C)': 'ulc'}, inplace=True)
+        chiti2018_df.rename(columns={'e_A(C)': 'e_epsc'}, inplace=True)
+
+        ## Add a [C/H] column, calculating the value from epsc
+        chiti2018_df['[C/H]'] = chiti2018_df['epsc'].apply(lambda x: XH_from_eps(x, 'C', precision=2))
+        
         return chiti2018_df
 
     else:
@@ -843,10 +886,10 @@ def load_chiti2018(combine_tables=True):
         mage_df = separate_limit_columns(mage_df)
         mage_cols_reorder = [
             'Reference','Ref','ID','f5_ID','RA_deg','DEC_deg','Slit','logg','Teff',
-            '[Fe/H]KP','[Fe/H]KP_ll','[Fe/H]KP_ul','e_[Fe/H]KP',
-            'A(C)','A(C)_ll','A(C)_ul','e_A(C)',
-            '[C/Fe]','[C/Fe]_ll','[C/Fe]_ul','e_[C/Fe]',
-            '[C/Fe]c','[C/Fe]f','[C/Fe]f_ll','[C/Fe]f_ul','e_[C/Fe]f','[Ba/H]']
+            '[Fe/H]KP','ll[Fe/H]KP','ul[Fe/H]KP','e_[Fe/H]KP',
+            'A(C)','llA(C)','ulA(C)','e_A(C)',
+            '[C/Fe]','ll[C/Fe]','ul[C/Fe]','e_[C/Fe]',
+            '[C/Fe]c','[C/Fe]f','ll[C/Fe]f','ul[C/Fe]f','e_[C/Fe]f','[Ba/H]']
         mage_df = mage_df[mage_cols_reorder]
 
         ## Table 6: M2FS Measurements
@@ -861,9 +904,9 @@ def load_chiti2018(combine_tables=True):
         m2fs_df = separate_limit_columns(m2fs_df)
         m2fs_cols_reorder = [
             'Reference','Ref','ID','f6_ID','RA_hms','DEC_dms','Type','logg','Teff',
-            '[Fe/H]','[Fe/H]_ll','[Fe/H]_ul','e_[Fe/H]',
-            '[C/Fe]','[C/Fe]_ll','[C/Fe]_ul','e_[C/Fe]',
-            '[C/Fe]c','[C/Fe]f','[C/Fe]f_ll','[C/Fe]f_ul']
+            '[Fe/H]','ll[Fe/H]','ul[Fe/H]','e_[Fe/H]',
+            '[C/Fe]','ll[C/Fe]','ul[C/Fe]','e_[C/Fe]',
+            '[C/Fe]c','[C/Fe]f','ll[C/Fe]f','ul[C/Fe]f']
         m2fs_df = m2fs_df[m2fs_cols_reorder]
 
         return mage_df, m2fs_df
@@ -939,20 +982,20 @@ def load_frebel2010b():
         if col in XHcols:
             if pd.isna(row["l_[X/H]"]):
                 frebel2010_df.loc[0, col] = row["[X/H]"]
-                # frebel2010_df.loc[0, col+'_ul'] = np.nan
+                # frebel2010_df.loc[0, 'ul'+col] = np.nan
             else:
                 frebel2010_df.loc[0, col] = np.nan
-                frebel2010_df.loc[0, col+'_ul'] = row["[X/H]"]
+                frebel2010_df.loc[0, 'ul'+col] = row["[X/H]"]
 
         ## Assign [X/Fe] values
         col = make_XFecol(species_i)
         if col in XFecols:
             if pd.isna(row["l_[X/Fe]"]):
                 frebel2010_df.loc[0, col] = row["[X/Fe]"]
-                # frebel2010_df.loc[0, col+'_ul'] = np.nan
+                # frebel2010_df.loc[0, 'ul'+col] = np.nan
             else:
                 frebel2010_df.loc[0, col] = np.nan
-                frebel2010_df.loc[0, col+'_ul'] = row["[X/Fe]"]
+                frebel2010_df.loc[0, 'ul'+col] = row["[X/Fe]"]
 
         ## Assign error values
         col = make_errcol(species_i)
@@ -1139,7 +1182,7 @@ def load_lucchetti2024():
             col = make_XHcol(species_i)
             if col in XHcols and pd.notna(row["[X/H]"]):
                 if "<" in str(row["[X/H]"]):
-                    star_row[col+'_ul'] = row["[X/H]"].split("<")[1]
+                    star_row['ul'+col] = row["[X/H]"].split("<")[1]
                 else:
                     star_row[col] = row["[X/H]"]
 
@@ -1147,7 +1190,7 @@ def load_lucchetti2024():
             col = make_XFecol(species_i)
             if col in XFecols and pd.notna(row["[X/Fe]"]):
                 if "<" in str(row["[X/Fe]"]):
-                    star_row[col+'_ul'] = row["[X/Fe]"].split("<")[1]
+                    star_row['ul'+col] = row["[X/Fe]"].split("<")[1]
                 else:
                     star_row[col] = row["[X/Fe]"]
 
@@ -1198,7 +1241,7 @@ def load_mardini2022():
     ## Manually added datafields
     mardini2022_df.loc[mardini2022_df['Name'] == 'SDSS J124502.68-073847.0', 'Ncap_key'] = 'S'  # [C/Fe] = 2.54
     mardini2022_df.loc[mardini2022_df['Name'] == 'UCAC4 233-000355', 'Ncap_key'] = 'S'          # [C/Fe] = 3.02
-    mardini2022_df.loc[mardini2022_df['Name'] == '2MASS J14160471-208540', 'C_key'] = 'NO'    # [C/Fe] = 1.44
+    mardini2022_df.loc[mardini2022_df['Name'] == '2MASS J14160471-208540', 'C_key'] = 'NO'      # [C/Fe] = 1.44
     mardini2022_df.loc[mardini2022_df['Name'] == 'UCAC4 459-050836', 'C_key'] = 'NO'            # (HE 1300+0157, https://www.aanda.org/articles/aa/pdf/2019/03/aa34601-18.pdf)
 
     ## Fill the NaN values in the RA and DEC columns
@@ -1234,10 +1277,15 @@ def load_mardini2022():
     # Fill in missing [C/Fe] values from JINAbase
     if '[C/Fe]' in mardini2022_df.columns and '[C/Fe]' in sub_jinabase_df.columns:
         mardini2022_df['[C/Fe]'] = mardini2022_df['[C/Fe]'].fillna(sub_jinabase_df['[C/Fe]'])
+    if 'ul[C/Fe]' in mardini2022_df.columns and 'ul[C/Fe]' in sub_jinabase_df.columns:
+        mardini2022_df['ul[C/Fe]'] = mardini2022_df['ul[C/Fe]'].fillna(sub_jinabase_df['ul[C/Fe]'])
 
     ## Reset the index
     sub_jinabase_df = sub_jinabase_df.reset_index()
     mardini2022_df = mardini2022_df.reset_index()
+
+    ## Save the processed data to a CSV file
+    mardini2022_df.to_csv(data_dir+'abundance_tables/mardini2022/tab5_processed.csv', index=False)
 
     return mardini2022_df
 
@@ -1292,6 +1340,9 @@ def load_ou2025():
     ou2025_df['Loc'] = 'DW'
     ou2025_df['RA_deg'] = np.nan
     ou2025_df['DEC_dms'] = np.nan
+
+    ## Replace all column names starting with ul_* with ul*
+    ou2025_df.columns = [col.replace('ul_', 'ul') if col.startswith('ul_') else col for col in ou2025_df.columns]
 
     ## Fill the NaN values in the RA and DEC columns
     for idx, row in ou2025_df.iterrows():
@@ -1480,6 +1531,8 @@ def load_apogee_sgr():
 
     XHcol_from_XFecol(df)
     epscol_from_XHcol(df)
+    ulXHcol_from_ulcol(df)
+    ulXFecol_from_ulcol(df)
 
     df["Galaxy"] = "Sgr"
     df["Loc"] = "DW"
