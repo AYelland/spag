@@ -147,7 +147,51 @@ def classify_alpha_enhancement(MgFe, SiFe, CaFe, TiFe):
 
     return alpha_str
 
+def combine_classification(df, c_key_col='C_key', ncap_key_col='Ncap_key', output_col='Class'):
+    """
+    Combine carbon and neutron-capture classifications into a unified CEMP classification.
 
+    Parameters:
+        df (pd.DataFrame): Input DataFrame.
+        c_key_col (str): Column name for carbon classification (e.g., 'C_key').
+        ncap_key_col (str): Column name for neutron-capture classification (e.g., 'Ncap_key').
+        output_col (str): Name of the new combined classification column.
+
+    Returns:
+        pd.DataFrame: DataFrame with a new column `output_col`.
+    """
+
+    def classify(c_key, ncap_key):
+        c_key = np.nan if c_key == '' else c_key
+        ncap_key = np.nan if ncap_key == '' else ncap_key
+        if pd.notna(c_key) and pd.notna(ncap_key):
+            combo = c_key + '+' + ncap_key
+            mapping = {
+                'CE+RS': 'CEMP-r/s',
+                'CE+S': 'CEMP-s',
+                'CE+I': 'CEMP-i',
+                'CE+R1': 'CEMP-rI',
+                'CE+R2': 'CEMP-rII',
+                'CE+RL': 'CEMP-r-lim'
+            }
+            return mapping.get(combo, combo)
+        elif pd.notna(c_key):
+            return 'CEMP' if c_key == 'CE' else c_key
+        elif pd.notna(ncap_key):
+            return {
+                'R1': 'rI',
+                'R2': 'rII',
+                'S': 's',
+                'RS': 'r/s',
+                'I': 'i',
+                'RL': 'r-lim'
+            }.get(ncap_key, ncap_key)
+        return ''
+
+    df[output_col] = df.apply(lambda row: classify(row[c_key_col], row[ncap_key_col]), axis=1)
+    
+    return df
+    
 ################################################################################
 ## Formatting and converting datafiles
 
