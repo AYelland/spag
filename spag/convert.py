@@ -879,15 +879,15 @@ def get_default_ion(elem):
     """
     Returns the default ionization state for an element
     """
-    default_to_1 = ['Na','Mg','Al','Si','Ca','Cr','Mn','Fe','Co','Ni']
-    default_to_2 = ['Sc','Ti','Sr','Y','Zr','Ba','La','Ce','Pr','Nd','Sm','Eu','Gd','Dy']
+    default_to_1 = ['Na','Mg','Al','Si','Ca','Cr','Mn','Fe','Co','Ni','Ti']
+    default_to_2 = ['Sc','Sr','Y','Zr','Ba','La','Ce','Pr','Nd','Sm','Eu','Gd','Dy'] #'Ti' was originally here
     elem = getelem(elem)
     if elem in default_to_1:
         return 1
     elif elem in default_to_2:
         return 2
     else:
-        warnings.warn("get_default_ion: {} not in defaults, returning 2".format(elem))
+        warnings.warn("get_default_ion: {} not in defaults, returning 0".format(elem))
         return 0
 
 ################################################################################

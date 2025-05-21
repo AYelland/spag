@@ -399,7 +399,7 @@ def load_jinabase(sci_key=None, priority=1, load_eps=True, load_ul=True, load_XH
 
     ## Drop the log(eps) columns if not needed
     if not load_eps:
-        data.drop(eps_elems, axis=1, inplace=True)
+        data.drop(epscolnames, axis=1, inplace=True)
 
     ## Set the "Name" column as the index
     if name_as_index:
@@ -680,8 +680,8 @@ def load_fornax(**kwargs):
     # -------------------------------------------------- #
     fornax_df = pd.concat([jinabase_fornax, lemasle2014, letarte2010, lucchetti2024_fornax], ignore_index=True)
 
-    if '[C/Fe]_ul' not in fornax_df.columns:
-        fornax_df = pd.concat([fornax_df, pd.Series(np.nan, index=fornax_df.index, name='[C/Fe]_ul')], axis=1)
+    if 'ul[C/Fe]' not in fornax_df.columns:
+        fornax_df = pd.concat([fornax_df, pd.Series(np.nan, index=fornax_df.index, name='ul[C/Fe]')], axis=1)
 
     return fornax_df
 
@@ -837,6 +837,10 @@ def load_chiti2018(combine_tables=True):
         ## Fill the NaN values in the RA and DEC columns
         for idx, row in chiti2018_df.iterrows():
             if pd.isna(row['RA_deg']) and pd.notna(row['RA_hms']):  # Ensure RA_hms is not NaN
+                ## pad RA_hms with leading zeros
+                if len(row['RA_hms']) == 10:
+                    row['RA_hms'] = '0' + row['RA_hms']
+                    chiti2018_df.at[idx, 'RA_hms'] = row['RA_hms']
                 row['RA_deg'] = coord.ra_hms_to_deg(str(row['RA_hms']), precision=6)
                 chiti2018_df.at[idx, 'RA_deg'] = row['RA_deg']
 
@@ -852,24 +856,34 @@ def load_chiti2018(combine_tables=True):
                 row['DEC_dms'] = coord.dec_deg_to_dms(row['DEC_deg'], precision=2)
                 chiti2018_df.at[idx, 'DEC_dms'] = row['DEC_dms']
 
-        columns = [('A(C)', '[C/Fe]'), ('llA(C)', 'll[C/Fe]'), ('ulA(C)', 'ul[C/Fe]')]
-        for ac_col, cfe_col in columns:
-            # Fill A(C)* from [C/Fe]* if missing
-            mask_ac = chiti2018_df[ac_col].isna()
-            chiti2018_df.loc[mask_ac, ac_col] = chiti2018_df.loc[mask_ac, cfe_col].apply(lambda x: XH_from_eps(x, 'C'))
-            
-            # Fill [C/Fe]* from A(C)* if missing
-            mask_cf = chiti2018_df[cfe_col].isna()
-            chiti2018_df.loc[mask_cf, cfe_col] = chiti2018_df.loc[mask_cf, ac_col].apply(lambda x: eps_from_XH(x, 'C'))
-
         ## Rename A(C) to epsc
         chiti2018_df.rename(columns={'A(C)': 'epsc'}, inplace=True)
         chiti2018_df.rename(columns={'llA(C)': 'llc'}, inplace=True)
         chiti2018_df.rename(columns={'ulA(C)': 'ulc'}, inplace=True)
         chiti2018_df.rename(columns={'e_A(C)': 'e_epsc'}, inplace=True)
 
-        ## Add a [C/H] column, calculating the value from epsc
+        ## Add/Fill a epsfe column, calculating the value from [Fe/H]
+        chiti2018_df['epsfe'] = chiti2018_df['[Fe/H]'].apply(lambda x: eps_from_XH(x, 'Fe', precision=2))
+
+        ## Fill the Carbon Abundance Columns
+        columns = [('epsc', '[Fe/H]', '[C/Fe]'), ('llc', '[Fe/H]', 'll[C/Fe]'), ('ulc', '[Fe/H]', 'ul[C/Fe]')]
+        for eps_col, feh_col, cfe_col in columns:
+
+            # Fill eps_col from [C/Fe], if eps_col is missing
+            mask_eps = chiti2018_df[eps_col].isna() & chiti2018_df[cfe_col].notna() & chiti2018_df[feh_col].notna()
+            chiti2018_df.loc[mask_eps, eps_col] = chiti2018_df.loc[mask_eps].apply(
+                lambda row: eps_from_XFe(row[cfe_col], row[feh_col], 'C'), axis=1)
+
+            # Fill [C/Fe] from eps_col, if [C/Fe] is missing
+            mask_cfe = chiti2018_df[cfe_col].isna() & chiti2018_df[eps_col].notna() & chiti2018_df[feh_col].notna()
+            chiti2018_df.loc[mask_cfe, cfe_col] = chiti2018_df.loc[mask_cfe].apply(
+                lambda row: XFe_from_eps(row[eps_col], row[feh_col], 'C'), axis=1)
+
+        ## Add/Fill a [C/H] column, calculating the value from epsc
         chiti2018_df['[C/H]'] = chiti2018_df['epsc'].apply(lambda x: XH_from_eps(x, 'C', precision=2))
+        
+        ## Manual changes --> Removing the Halo reference star form the sample
+        chiti2018_df = chiti2018_df[chiti2018_df['Name'] != 'CS29497-034']
         
         return chiti2018_df
 
@@ -1230,6 +1244,7 @@ def load_mardini2022():
     # mardini2022_df.rename(columns={'source_id':'Name', 'ra':'RA_hms', 'dec':'DEC_deg', 'teff':'Teff'}, inplace=True)
     mardini2022_df['JINA_ID'] = mardini2022_df['JINA_ID'].astype(int)
     mardini2022_df['Name'] = mardini2022_df['Simbad_Identifier']
+    mardini2022_df['Reference'] = 'Mardini+2022'
     mardini2022_df['Ref'] = mardini2022_df['Reference'].str[:3].str.upper() + mardini2022_df['Reference'].str[-2:]
     mardini2022_df['Ncap_key'] = ''
     mardini2022_df['C_key'] = mardini2022_df['[C/Fe]'].apply(lambda cfe: classify_carbon_enhancement(cfe) if pd.notna(cfe) else np.nan)
@@ -1246,17 +1261,22 @@ def load_mardini2022():
 
     ## Fill the NaN values in the RA and DEC columns
     for idx, row in mardini2022_df.iterrows():
+
+        if pd.isna(row['RA_deg']) and pd.notna(row['RA_hms']):
+            ## pad RA_hms with leading zeros
+            if len(row['RA_hms']) == 10:
+                row['RA_hms'] = '0' + row['RA_hms']
+                mardini2022_df.at[idx, 'RA_hms'] = row['RA_hms']
+            row['RA_deg'] = coord.ra_hms_to_deg(row['RA_hms'], precision=6)
+            mardini2022_df.at[idx, 'RA_deg'] = row['RA_deg']
+
+        if pd.isna(row['DEC_deg']) and pd.notna(row['DEC_dms']):
+            row['DEC_deg'] = coord.dec_dms_to_deg(row['DEC_dms'], precision=6)
+            mardini2022_df.at[idx, 'DEC_deg'] = row['DEC_deg']
+            
         if pd.isna(row['RA_hms']) and pd.notna(row['RA_deg']):
             row['RA_hms'] = coord.ra_deg_to_hms(row['RA_deg'], precision=2)
             mardini2022_df.at[idx, 'RA_hms'] = row['RA_hms']
-
-        if pd.isna(row['DEC_deg']) and pd.notna(row['DEC_dms']):
-            row['DEC_deg'] = coord.dec_dms_to_deg(row['DEC_dms'], precision=2)
-            mardini2022_df.at[idx, 'DEC_deg'] = row['DEC_deg']
-
-        if pd.isna(row['RA_deg']) and pd.notna(row['RA_hms']):
-            row['RA_deg'] = coord.ra_hms_to_deg(row['RA_hms'], precision=6)
-            mardini2022_df.at[idx, 'RA_deg'] = row['RA_deg']
 
         if pd.isna(row['DEC_dms']) and pd.notna(row['DEC_deg']):
             row['DEC_dms'] = coord.dec_deg_to_dms(row['DEC_deg'], precision=2)
@@ -1268,6 +1288,7 @@ def load_mardini2022():
     jinabase_df = rd.load_jinabase(priority=None)
     sub_jinabase_df = jinabase_df[jinabase_df['JINA_ID'].isin(jina_ids)].copy()
     new_columns = [col for col in sub_jinabase_df.columns if col not in mardini2022_df.columns]
+    # new_columns = ['logg']
 
     # Align on JINA_ID
     mardini2022_df = mardini2022_df.set_index('JINA_ID')
@@ -1295,33 +1316,7 @@ def load_ou2024():
 
     Load the data from Ou+2024, Table 1, for stars in the GSE dwarf galaxy.
     """
-    ou2024_df = pd.read_csv(data_dir+'abundance_tables/ou2024/full_tab.csv', comment='#')
-
-    ## Add and rename the necessary columns
-    ou2024_df.rename(columns={'source_id':'Name', 'ra':'RA_hms', 'dec':'DEC_deg', 'teff':'Teff'}, inplace=True)
-    ou2024_df['Reference'] = 'Ou+2024'
-    ou2024_df['Ref'] = 'OU24'
-    ou2024_df['Loc'] = 'DW'
-    ou2024_df['RA_deg'] = np.nan
-    ou2024_df['DEC_dms'] = np.nan
-
-    ## Fill the NaN values in the RA and DEC columns
-    for idx, row in ou2024_df.iterrows():
-        if pd.isna(row['RA_hms']) and pd.notna(row['RA_deg']):
-            row['RA_hms'] = coord.ra_deg_to_hms(row['RA_deg'], precision=2)
-            ou2024_df.at[idx, 'RA_hms'] = row['RA_hms']
-
-        if pd.isna(row['DEC_deg']) and pd.notna(row['DEC_dms']):
-            row['DEC_deg'] = coord.dec_dms_to_deg(row['DEC_dms'], precision=2)
-            ou2024_df.at[idx, 'DEC_deg'] = row['DEC_deg']
-
-        if pd.isna(row['RA_deg']) and pd.notna(row['RA_hms']):
-            row['RA_deg'] = coord.ra_hms_to_deg(row['RA_hms'], precision=6)
-            ou2024_df.at[idx, 'RA_deg'] = row['RA_deg']
-
-        if pd.isna(row['DEC_dms']) and pd.notna(row['DEC_deg']):
-            row['DEC_dms'] = coord.dec_deg_to_dms(row['DEC_deg'], precision=2)
-            ou2024_df.at[idx, 'DEC_dms'] = row['DEC_dms']
+    ou2024_df = pd.read_csv(data_dir+'abundance_tables/ou2024/ou2024-yelland.csv', comment='#')
 
     return ou2024_df
 
@@ -1331,36 +1326,7 @@ def load_ou2025():
 
     Load the data from Ou+2025 for stars in the Sagittarius dwarf galaxy.
     """
-    ou2025_df = pd.read_csv(data_dir+'abundance_tables/ou2025/full_tab_v4.csv', comment='#')
-
-    ## Add and rename the necessary columns
-    ou2025_df.rename(columns={'name':'Name', 'teff':'Teff'}, inplace=True)
-    ou2025_df['Reference'] = 'Ou+2025'
-    ou2025_df['Ref'] = 'OU25'
-    ou2025_df['Loc'] = 'DW'
-    ou2025_df['RA_deg'] = np.nan
-    ou2025_df['DEC_dms'] = np.nan
-
-    ## Replace all column names starting with ul_* with ul*
-    ou2025_df.columns = [col.replace('ul_', 'ul') if col.startswith('ul_') else col for col in ou2025_df.columns]
-
-    ## Fill the NaN values in the RA and DEC columns
-    for idx, row in ou2025_df.iterrows():
-        if pd.isna(row['RA_hms']) and pd.notna(row['RA_deg']):
-            row['RA_hms'] = coord.ra_deg_to_hms(float(row['RA_deg']), precision=2)
-            ou2025_df.at[idx, 'RA_hms'] = row['RA_hms']
-
-        if pd.isna(row['DEC_deg']) and pd.notna(row['DEC_dms']):
-            row['DEC_deg'] = coord.dec_dms_to_deg(row['DEC_dms'], precision=2)
-            ou2025_df.at[idx, 'DEC_deg'] = row['DEC_deg']
-
-        if pd.isna(row['RA_deg']) and pd.notna(row['RA_hms']):
-            row['RA_deg'] = coord.ra_hms_to_deg(row['RA_hms'], precision=6)
-            ou2025_df.at[idx, 'RA_deg'] = row['RA_deg']
-
-        if pd.isna(row['DEC_dms']) and pd.notna(row['DEC_deg']):
-            row['DEC_dms'] = coord.dec_deg_to_dms(float(row['DEC_deg']), precision=2)
-            ou2025_df.at[idx, 'DEC_dms'] = row['DEC_dms']
+    ou2025_df = pd.read_csv(data_dir+'abundance_tables/ou2025/ou2025-yelland.csv', comment='#')
 
     return ou2025_df
 
@@ -1387,17 +1353,17 @@ def load_placco2014():
                                                            .str.replace(r' and [^ ]+ \((\d{4})', r'+\1', regex=True)
     placco2014_df['Ref'] = placco2014_df['Reference'].str[:3].str.upper() + placco2014_df['Reference'].str[-2:]
 
-    placco2014_df.rename(columns={"l_[N/Fe]": "[N/Fe]_ul"}, inplace=True)
-    placco2014_df.loc[placco2014_df['[N/Fe]_ul'] == '{<=}', '[N/Fe]_ul'] = placco2014_df['[N/Fe]']
-    placco2014_df.loc[placco2014_df['[N/Fe]_ul'] == placco2014_df['[N/Fe]'], '[N/Fe]'] = ''
+    placco2014_df.rename(columns={"l_[N/Fe]": "ul[N/Fe]"}, inplace=True)
+    placco2014_df.loc[placco2014_df['ul[N/Fe]'] == '{<=}', 'ul[N/Fe]'] = placco2014_df['[N/Fe]']
+    placco2014_df.loc[placco2014_df['ul[N/Fe]'] == placco2014_df['[N/Fe]'], '[N/Fe]'] = ''
     
-    placco2014_df.rename(columns={"l_[Sr/Fe]": "[Sr/Fe]_ul"}, inplace=True)
-    placco2014_df.loc[placco2014_df['[Sr/Fe]_ul'] == '{<=}', '[Sr/Fe]_ul'] = placco2014_df['[Sr/Fe]']
-    placco2014_df.loc[placco2014_df['[Sr/Fe]_ul'] == placco2014_df['[Sr/Fe]'], '[Sr/Fe]'] = ''
+    placco2014_df.rename(columns={"l_[Sr/Fe]": "ul[Sr/Fe]"}, inplace=True)
+    placco2014_df.loc[placco2014_df['ul[Sr/Fe]'] == '{<=}', 'ul[Sr/Fe]'] = placco2014_df['[Sr/Fe]']
+    placco2014_df.loc[placco2014_df['ul[Sr/Fe]'] == placco2014_df['[Sr/Fe]'], '[Sr/Fe]'] = ''
     
-    placco2014_df.rename(columns={"l_[Ba/Fe]": "[Ba/Fe]_ul"}, inplace=True)
-    placco2014_df.loc[placco2014_df['[Ba/Fe]_ul'] == '{<=}', '[Ba/Fe]_ul'] = placco2014_df['[Ba/Fe]']
-    placco2014_df.loc[placco2014_df['[Ba/Fe]_ul'] == placco2014_df['[Ba/Fe]'], '[Ba/Fe]'] = ''
+    placco2014_df.rename(columns={"l_[Ba/Fe]": "ul[Ba/Fe]"}, inplace=True)
+    placco2014_df.loc[placco2014_df['ul[Ba/Fe]'] == '{<=}', 'ul[Ba/Fe]'] = placco2014_df['[Ba/Fe]']
+    placco2014_df.loc[placco2014_df['ul[Ba/Fe]'] == placco2014_df['[Ba/Fe]'], '[Ba/Fe]'] = ''
 
     placco2014_df.rename(columns={'[C/Fe]c': '[C/Fe]f'}, inplace=True)
     placco2014_df.rename(columns={'Del[C/Fe]': '[C/Fe]c'}, inplace=True)
@@ -1416,6 +1382,80 @@ def load_placco2014():
             placco2014_df.loc[placco2014_df['Name'] == name, 'Ncap_key'] = 'RS'
         if placco2014_df.loc[placco2014_df['Name'] == name, 'Class'].values[0] == 'CEMP':
             placco2014_df.loc[placco2014_df['Name'] == name, 'C_key'] = 'CE'
+
+    ## Exclude/modify specific star entries
+    placco2014_df = placco2014_df[~placco2014_df["Name"].isin(["CS 22948-104"])] # considered to be apart of the Atari Disk
+    placco2014_df.loc[placco2014_df['Name'] == 'HE 1300+0157', 'ul[Sr/Fe]'] = placco2014_df.loc[placco2014_df['Name'] == 'HE 1300+0157', '[Sr/Fe]']
+    placco2014_df.loc[placco2014_df['Name'] == 'HE 1300+0157', '[Sr/Fe]'] = np.nan
+
+
+    ## Convert columns to appropriate data types
+    numeric_cols = ['Teff', 'logg', 'log_L', '[Fe/H]', '[N/Fe]', 'ul[N/Fe]', '[C/Fe]', 
+                    '[C/Fe]f', '[C/Fe]c','[Sr/Fe]', 'ul[Sr/Fe]', '[Ba/Fe]', 'ul[Ba/Fe]']
+    for col in numeric_cols:
+        placco2014_df[col] = pd.to_numeric(placco2014_df[col], errors='coerce')
+
+    ## Calculate the alternative carbon abundance columns
+    placco2014_df["epsc"] = np.nan
+    for i, row in placco2014_df.iterrows():
+        placco2014_df.at[i, "epsc"] = eps_from_XFe(row["[C/Fe]"], row["[Fe/H]"], 'C')
+        placco2014_df.at[i, "epsc_f"] = eps_from_XFe(row["[C/Fe]f"], row["[Fe/H]"], 'C')
+    placco2014_df["[C/H]"] = (placco2014_df["[C/Fe]"] + placco2014_df["[Fe/H]"]).astype(float)
+    placco2014_df["[C/H]f"] = (placco2014_df["[C/Fe]f"] + placco2014_df["[Fe/H]"]).astype(float)
+
+    ## Marking s-process stars (used for CEMP-s classification)
+    placco2014_df['CEMP'] = 0 
+    placco2014_df.loc[placco2014_df['[C/Fe]f'] >= 0.7, 'CEMP'] += 1 # CEMP-no stars, from Yoon+2016
+    placco2014_df.loc[(placco2014_df['CEMP'] == 1) & (placco2014_df['epsc_f'] >= 7.1), 'CEMP'] += 1 # CEMP-s stars, from Yoon+2016
+    placco2014_df.drop(columns=['CEMP'], inplace=True)
+
+    ## Manual assignments for Ncap_key (based on additional literature after Placco 2014)
+    placco2014_df.loc[placco2014_df['Name'] == 'HK17435-00532', 'Ncap_key'] = 'RS'
+    placco2014_df.loc[placco2014_df['Name'] == 'CS 31080-095', 'Ncap_key'] = 'S'
+    placco2014_df.loc[placco2014_df['Name'] == 'CS 29528-041', 'Ncap_key'] = 'S'
+    placco2014_df.loc[placco2014_df['Name'] == 'CS 22892-052', 'Ncap_key'] = 'R2'
+    placco2014_df.loc[placco2014_df['Name'] == 'CS 29497-004', 'Ncap_key'] = 'R2'
+    placco2014_df.loc[placco2014_df['Name'] == 'CS 31082-001', 'Ncap_key'] = 'R2'
+    placco2014_df.loc[placco2014_df['Name'] == 'HE 0430-4901', 'Ncap_key'] = 'R2'
+    placco2014_df.loc[placco2014_df['Reference'] == 'Simmerer+2004	', 'Ncap_key'] = 'S'
+
+    ## [Sr/H] Column
+    placco2014_df['[Sr/H]'] = np.nan
+    for i, row in placco2014_df.iterrows():
+        if row['[Sr/Fe]'] is not None and row['[Fe/H]'] is not None:
+            placco2014_df.at[i, '[Sr/H]'] = row['[Sr/Fe]'] + row['[Fe/H]']
+        else:
+            placco2014_df.at[i, '[Sr/H]'] = np.nan
+
+    placco2014_df['ul[Sr/H]'] = np.nan
+    for i, row in placco2014_df.iterrows():
+        if row['ul[Sr/Fe]'] is not None and row['[Fe/H]'] is not None:
+            placco2014_df.at[i, 'ul[Sr/H]'] = row['ul[Sr/Fe]'] + row['[Fe/H]']
+        else:
+            placco2014_df.at[i, 'ul[Sr/H]'] = np.nan
+
+    ## [Ba/H] Column
+    placco2014_df['[Ba/H]'] = np.nan
+    for i, row in placco2014_df.iterrows():
+        if row['[Ba/Fe]'] is not None and row['[Fe/H]'] is not None:
+            placco2014_df.at[i, '[Ba/H]'] = row['[Ba/Fe]'] + row['[Fe/H]']
+        else:
+            placco2014_df.at[i, '[Ba/H]'] = np.nan
+
+    placco2014_df['ul[Ba/H]'] = np.nan
+    for i, row in placco2014_df.iterrows():
+        if row['ul[Ba/Fe]'] is not None and row['[Fe/H]'] is not None:
+            placco2014_df.at[i, 'ul[Ba/H]'] = row['ul[Ba/Fe]'] + row['[Fe/H]']
+        else:
+            placco2014_df.at[i, 'ul[Ba/H]'] = np.nan
+    
+    ## [Sr/Ba] Column
+    placco2014_df['[Sr/Ba]'] = np.nan
+    for i, row in placco2014_df.iterrows():
+        if row['[Sr/Fe]'] is not None and row['[Ba/Fe]'] is not None:
+            placco2014_df.at[i, '[Sr/Ba]'] = row['[Sr/Fe]'] - row['[Ba/Fe]']
+        else:
+            placco2014_df.at[i, '[Sr/Ba]'] = np.nan
     
     ## Remove unnecessary columns
     placco2014_df.drop(columns=['Class'], inplace=True)
@@ -1423,13 +1463,14 @@ def load_placco2014():
     # placco2014_df.drop(columns=['I/O'], inplace=True)
 
     ## Convert columns to appropriate data types
-    numeric_cols = ['Teff', 'logg', 'log_L', '[Fe/H]', '[N/Fe]', '[N/Fe]_ul', '[C/Fe]', 
-                    '[C/Fe]f', '[C/Fe]c','[Sr/Fe]', '[Sr/Fe]_ul', '[Ba/Fe]', '[Ba/Fe]_ul']
+    numeric_cols = ['Teff', 'logg', 'log_L', '[Fe/H]', '[N/Fe]', 'ul[N/Fe]', '[C/Fe]', 
+                    '[C/Fe]f', '[C/Fe]c','[Sr/Fe]', 'ul[Sr/Fe]', '[Ba/Fe]', 'ul[Ba/Fe]',
+                    '[C/H]', '[C/H]f', '[Sr/H]', '[Ba/H]', '[Sr/Ba]', 'epsc', 'epsc_f']
     for col in numeric_cols:
         placco2014_df[col] = pd.to_numeric(placco2014_df[col], errors='coerce')
 
-    # placco2014_df.to_csv(data_dir+'abundance_tables/placco2014/placco2014_yelland.csv', index=False)
 
+    # placco2014_df.to_csv(data_dir+'abundance_tables/placco2014/placco2014_yelland.csv', index=False)
     return placco2014_df
 
 def load_sestito2024():
@@ -1439,16 +1480,7 @@ def load_sestito2024():
     Load the data from Sestito for stars in the Sagittarius dwarf galaxy, focused on Carbon.
     PIGS IX (Table 4) is used for this dataset.
     """
-    sestito2024_df = pd.read_csv(data_dir+'abundance_tables/sestito2024/pigs_ix_tab4-ay.csv', comment='#')
-
-    ## Add and rename the necessary columns
-    sestito2024_df['Reference'] = 'Sestito+2024'
-    sestito2024_df['Ref'] = 'SES24'
-    sestito2024_df['Loc'] = 'DW'
-
-    ## Calculate the RA and DEC in hms and dms
-    sestito2024_df['RA_hms'] = sestito2024_df['RA_deg'].apply(lambda x: coord.ra_deg_to_hms(float(x), precision=2) if pd.notna(x) else np.nan)
-    sestito2024_df['DEC_dms'] = sestito2024_df['DEC_deg'].apply(lambda x: coord.dec_deg_to_dms(float(x), precision=2) if pd.notna(x) else np.nan)
+    sestito2024_df = pd.read_csv(data_dir+'abundance_tables/sestito2024/sestito2024-yelland.csv', comment='#')
 
     return sestito2024_df
 
@@ -1462,31 +1494,57 @@ def load_sestito2024b():
     sestito2024b_df = pd.read_csv(data_dir+'abundance_tables/sestito2024b/membpara.csv', comment='#')
 
     ## Add and rename the necessary columns
-    sestito2024b_df.rename(columns={'PIGS':'Name', 'RAdeg':'RA_deg', 'DEdeg':'DEC_deg'}, inplace=True)
+    sestito2024b_df.rename(columns={'PIGS':'Name', 'RAdeg':'RA_deg', 'DEdeg':'DEC_deg', 'GaiaDR3':'Simbad_Identifier', 'RV':'Vel', 'e_RV':'e_Vel'}, inplace=True)
+    sestito2024b_df['Simbad_Identifier'] = 'Gaia DR3 ' + sestito2024b_df['Simbad_Identifier'].astype(str)
     sestito2024b_df['Reference'] = 'Sestito+2024b'
     sestito2024b_df['Ref'] = 'SES24b'
     sestito2024b_df['Loc'] = 'DW'
     sestito2024b_df['RA_hms'] = np.nan
     sestito2024b_df['DEC_dms'] = np.nan
+    sestito2024b_df.drop(columns={'[C/Fe]corr', 'Unnamed: 18'}, inplace=True) # not trustworthy values
+    sestito2024b_df['[C/Fe]c'] = np.nan
+    sestito2024b_df['[C/Fe]f'] = np.nan
 
     ## Fill the NaN values in the RA and DEC columns
     for idx, row in sestito2024b_df.iterrows():
-        if pd.isna(row['RA_hms']) and pd.notna(row['RA_deg']):
-            row['RA_hms'] = coord.ra_deg_to_hms(float(row['RA_deg']), precision=2)
-            sestito2024b_df.at[idx, 'RA_hms'] = row['RA_hms']
+        if pd.isna(row['RA_deg']) and pd.notna(row['RA_hms']):
+            ## pad RA_hms with leading zeros
+            if len(row['RA_hms']) == 10:
+                row['RA_hms'] = '0' + row['RA_hms']
+                sestito2024b_df.at[idx, 'RA_hms'] = row['RA_hms']
+            row['RA_deg'] = coord.ra_hms_to_deg(row['RA_hms'], precision=6)
+            sestito2024b_df.at[idx, 'RA_deg'] = row['RA_deg']
 
         if pd.isna(row['DEC_deg']) and pd.notna(row['DEC_dms']):
             row['DEC_deg'] = coord.dec_dms_to_deg(row['DEC_dms'], precision=2)
             sestito2024b_df.at[idx, 'DEC_deg'] = row['DEC_deg']
 
-        if pd.isna(row['RA_deg']) and pd.notna(row['RA_hms']):
-            row['RA_deg'] = coord.ra_hms_to_deg(row['RA_hms'], precision=6)
-            sestito2024b_df.at[idx, 'RA_deg'] = row['RA_deg']
+        if pd.isna(row['RA_hms']) and pd.notna(row['RA_deg']):
+            row['RA_hms'] = coord.ra_deg_to_hms(float(row['RA_deg']), precision=2)
+            sestito2024b_df.at[idx, 'RA_hms'] = row['RA_hms']
 
         if pd.isna(row['DEC_dms']) and pd.notna(row['DEC_deg']):
             row['DEC_dms'] = coord.dec_deg_to_dms(float(row['DEC_deg']), precision=2)
             sestito2024b_df.at[idx, 'DEC_dms'] = row['DEC_dms']
 
+    # Categorize columns & reorder dataFrame
+    columns = list(sestito2024b_df.columns)
+    aux_cols = [
+        'Reference','Ref','Name','Simbad_Identifier','Loc','RA_hms','DEC_dms','RA_deg','DEC_deg',
+        'Field','Vel','e_Vel','Teff','e_Teff','logg','e_logg','pmRAred','pmDEred'
+        ]
+    carbon_cols = [col for col in columns if "[C/" in col]
+    xh_cols = [col for col in columns if col.startswith("[") and col.endswith("/H]") and col not in carbon_cols]
+    ul_xh_cols = [col for col in columns if col.startswith("ul[") and col.endswith("/H]") and col not in carbon_cols]
+    e_xh_cols = [col for col in columns if col.startswith("e_[") and col.endswith("/H]") and col not in carbon_cols]
+    xfe_cols = [col for col in columns if col.startswith("[") and col.endswith("/Fe]") and col not in carbon_cols]
+    ul_xfe_cols = [col for col in columns if col.startswith("ul[") and col.endswith("/Fe]") and col not in carbon_cols]
+    e_xfe_cols = [col for col in columns if col.startswith("e_[") and col.endswith("/Fe]") and col not in carbon_cols]
+    xy_cols = [col for col in columns if (col.startswith("[") and ("/" in col)) and (col not in xh_cols + xfe_cols + carbon_cols)]
+    remaining_cols = [col for col in columns if col not in aux_cols + carbon_cols + xh_cols + ul_xh_cols + e_xh_cols + xfe_cols + ul_xfe_cols + e_xfe_cols + xy_cols]
+
+    ordered_cols = aux_cols + carbon_cols + xh_cols + ul_xh_cols + e_xh_cols + xfe_cols + ul_xfe_cols + e_xfe_cols + xy_cols + remaining_cols
+    sestito2024b_df = sestito2024b_df[ordered_cols]
 
     return sestito2024b_df
 
@@ -1512,8 +1570,8 @@ def load_apogee_sgr():
     tab = Table.read(data_dir+"abundance_tables/APOGEE/apogee_sgr.fits")
     tab.rename_column("APOGEE_ID","Name")
     cols_to_keep = ["Name","RA","DEC","M_H_ERR","ALPHA_M","ALPHA_M_ERR","TEFF_ERR","LOGG_ERR"]
-    tab.rename_columns(["TEFF","LOGG","VMICRO","M_H"], ["Teff","logg","vturb","Z"])
-    cols_to_keep.extend(["Teff","logg","vturb","Z"])
+    tab.rename_columns(["TEFF","LOGG","VMICRO","M_H"], ["Teff","logg","Vmic","mh"])
+    cols_to_keep.extend(["Teff","logg","Vmic","mh"])
     tab.rename_column("FE_H","[Fe/H]"); cols_to_keep.append("[Fe/H]")
     tab.rename_column("FE_H_ERR","e_fe"); cols_to_keep.append("e_fe")
     tab["ulfe"] = False; cols_to_keep.append("ulfe")
@@ -1529,14 +1587,68 @@ def load_apogee_sgr():
     
     df = tab[cols_to_keep].to_pandas()
 
+    ## Adding/Modifying Columns
+    df.rename(columns={
+        'RA':'RA_deg',
+        'DEC':'DEC_deg',
+        'M_H_ERR': 'e_mh',
+        'ALPHA_M': 'alpha_m',
+        'ALPHA_M_ERR': 'e_alpha_m',
+        'TEFF_ERR': 'e_Teff',
+        'LOGG_ERR': 'e_logg',
+        }, inplace=True)
+    
+    df["System"] = "Sgr"
+    df["Loc"] = "DW"
+    df["Reference"] = "APOGEE_DR16"
+    df["Ref"] = "APOGEE"
+    df['RA_hms'] = np.nan
+    df['DEC_dms'] = np.nan
+
+    for idx, row in df.iterrows():
+        if pd.isna(row['RA_deg']) and pd.notna(row['RA_hms']):
+            ## pad RA_hms with leading zeros
+            if len(row['RA_hms']) == 10:
+                row['RA_hms'] = '0' + row['RA_hms']
+                df.at[idx, 'RA_hms'] = row['RA_hms']
+            row['RA_deg'] = coord.ra_hms_to_deg(row['RA_hms'], precision=6)
+            df.at[idx, 'RA_deg'] = row['RA_deg']
+
+        if pd.isna(row['DEC_deg']) and pd.notna(row['DEC_dms']):
+            row['DEC_deg'] = coord.dec_dms_to_deg(row['DEC_dms'], precision=2)
+            df.at[idx, 'DEC_deg'] = row['DEC_deg']
+
+        if pd.isna(row['RA_hms']) and pd.notna(row['RA_deg']):
+            row['RA_hms'] = coord.ra_deg_to_hms(float(row['RA_deg']), precision=2)
+            df.at[idx, 'RA_hms'] = row['RA_hms']
+
+        if pd.isna(row['DEC_dms']) and pd.notna(row['DEC_deg']):
+            row['DEC_dms'] = coord.dec_deg_to_dms(float(row['DEC_deg']), precision=2)
+            df.at[idx, 'DEC_dms'] = row['DEC_dms']
+
     XHcol_from_XFecol(df)
     epscol_from_XHcol(df)
     ulXHcol_from_ulcol(df)
     ulXFecol_from_ulcol(df)
 
-    df["Galaxy"] = "Sgr"
-    df["Loc"] = "DW"
-    df["Reference"] = "APOGEE_DR16"
-    df["Ref"] = "APOGEE"
+    # Categorize columns & reorder dataFrame
+    columns = list(df.columns)
+    aux_cols = [
+        'Reference','Ref','Name','RA_hms','DEC_dms','RA_deg','DEC_deg',
+        'Loc','System','Teff','e_Teff','logg','e_logg','Vmic','mh','e_mh',
+        'alpha_m','e_alpha_m'
+        ]
+    carbon_cols = [col for col in columns if "[C/" in col]
+    xh_cols = [col for col in columns if col.startswith("[") and col.endswith("/H]") and col not in carbon_cols]
+    ul_xh_cols = [col for col in columns if col.startswith("ul[") and col.endswith("/H]") and col not in carbon_cols]
+    e_xh_cols = [col for col in columns if col.startswith("e_[") and col.endswith("/H]") and col not in carbon_cols]
+    xfe_cols = [col for col in columns if col.startswith("[") and col.endswith("/Fe]") and col not in carbon_cols]
+    ul_xfe_cols = [col for col in columns if col.startswith("ul[") and col.endswith("/Fe]") and col not in carbon_cols]
+    e_xfe_cols = [col for col in columns if col.startswith("e_[") and col.endswith("/Fe]") and col not in carbon_cols]
+    xy_cols = [col for col in columns if (col.startswith("[") and ("/" in col)) and (col not in xh_cols + xfe_cols + carbon_cols)]
+    remaining_cols = [col for col in columns if col not in aux_cols + carbon_cols + xh_cols + ul_xh_cols + e_xh_cols + xfe_cols + ul_xfe_cols + e_xfe_cols + xy_cols]
+
+    ordered_cols = aux_cols + carbon_cols + xh_cols + ul_xh_cols + e_xh_cols + xfe_cols + ul_xfe_cols + e_xfe_cols + xy_cols + remaining_cols
+    df = df[ordered_cols]
 
     return df

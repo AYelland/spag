@@ -16,3 +16,13 @@ print(f"abohalima: {abohalima_jinabase_df.shape[0]}")
 print(f"ji:        {ji_jinabase_df.shape[0]}")
 print(f"mardini:   {mardini_jinabase_df.shape[0]}")
 print(f"yelland:   {yelland_jinabase_df.shape[0]}")
+
+
+For the default_ion values for the abundance columns, it follows...
+    Default = neutral state (I)
+    ['Na','Mg','Al','Si','Ca','Cr','Mn','Fe','Co','Ni']
+
+    Default = first ionized state (II)
+    ['Sc','Ti','Sr','Y','Zr','Ba','La','Ce','Pr','Nd','Sm','Eu','Gd','Dy']
+
+    (see `get_default_ion(elem)` function in `convert.py`)
