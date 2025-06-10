@@ -1,0 +1,207 @@
+J/ApJ/857/74    Abundances of 7 new member stars in Tucana II    (Chiti+, 2018)
+================================================================================
+Chemical abundances of new member stars in the Tucana II dwarf galaxy.
+    Chiti A., Frebel A., Ji A.P., Jerjen H., Kim D., Norris J.E.
+   <Astrophys. J., 857, 74 (2018)>
+   =2018ApJ...857...74C
+================================================================================
+ADC_Keywords: Abundances; Radial velocities; Equivalent widths
+Keywords: galaxies: dwarf; galaxies: individual (TucII); Local Group;
+          stars: abundances
+
+Abstract:
+    We present chemical abundance measurements for seven stars with
+    metallicities ranging from [Fe/H]=-3.3 to [Fe/H]=-2.4 in the TucanaII
+    ultra-faint dwarf galaxy (UFD), based on high-resolution spectra
+    obtained with the MIKE spectrograph on the 6.5m Magellan-Clay
+    Telescope. For three stars, we present detailed chemical abundances
+    for the first time. Of those, two stars are newly discovered members
+    of Tucana II and were selected as probable members from deep
+    narrowband photometry of the Tucana II UFD taken with the SkyMapper
+    telescope. This result demonstrates the potential for photometrically
+    identifying members of dwarf galaxy systems based on chemical
+    composition. One new star was selected from the membership catalog of
+    Walker+ (2016, J/ApJ/819/53). The other four stars in our sample have
+    been reanalyzed, following additional observations. Overall, six stars
+    have chemical abundances that are characteristic of the UFD stellar
+    population. The seventh star shows chemical abundances that are
+    discrepant from the other Tucana II members and an atypical, higher
+    strontium abundance than what is expected for typical UFD stars. While
+    unlikely, its strontium abundance raises the possibility that it may
+    be a foreground metal-poor halo star with the same systemic velocity
+    as Tucana II. If we were to exclude this star, Tucana II would satisfy
+    the criteria to be a surviving first galaxy. Otherwise, this star
+    implies that Tucana II has likely experienced somewhat extended
+    chemical evolution.
+
+Description:
+    Ji+ (2016ApJ...832L...3J) observed TucII-006, TucII-011, TucII-033,
+    and TucII-052 with the MIKE spectrograph (see Table 1). All four stars
+    were selected from the membership catalog of Walker+ (2016, J/ApJ/819/53).
+    They observed each star between 100min to 4.42hr in 2016 August with
+    the MIKE spectrograph on the Magellan-Clay telescope.
+    We re-observed each star in Ji+ (2016ApJ...832L...3J) for an
+    additional 55min.
+    In addition to re-observing these stars, we observed an additional
+    member (TucII-078) from Walker+ (2016, J/ApJ/819/53) that had not
+    previously been observed with a high-resolution spectrograph.
+
+    Through a P.I. program, we obtained SkyMapper photometry of TucanaII
+    using the 1.3m telescope at Siding Spring Observatory.
+
+    The data in this paper were obtained with the MIKE spectrograph on the
+    Clay telescope at Las Campanas Observatory. The observations were
+    taken between 2017 August 14-17 and October 7-11 (R~28000 on the blue
+    chip and R~22000 on the red chip covering ~3500{AA} to ~9000{AA}).
+
+Objects:
+    ----------------------------------------------------------
+         RA   (ICRS)   DE        Designation(s)
+    ----------------------------------------------------------
+     22 51 55.1    -58 34 08     Tucana II = NAME Tuc II
+    ----------------------------------------------------------
+
+File Summary:
+--------------------------------------------------------------------------------
+ FileName   Lrecl  Records    Explanations
+--------------------------------------------------------------------------------
+ReadMe         80        .    This file
+table1.dat     62        7    Observations
+table2.dat     49        7    Stellar parameters
+table3.dat     54      128    Chemical abundances
+table4.dat     33      121    Uncertainties
+table5.dat     47      887    Line measurements
+--------------------------------------------------------------------------------
+
+See also:
+ J/ApJ/645/613    : Abundances of HD 221170 (Ivans+, 2006)
+ J/ApJS/162/227   : Transition probabilities for SmII (Lawler+, 2006)
+ J/ApJS/182/51    : Transitions of rare earth elements (Lawler+, 2009)
+ J/ApJS/182/80    : Rare earth abundances (Sneden+, 2009)
+ J/AN/331/474     : Abundances of metal-poor stars (Frebel, 2010)
+ J/ApJ/708/560    : Spectroscopy of UMa II and Coma Ber (Frebel+, 2010)
+ J/ApJ/724/341    : Nucleosynthesis of massive metal-free stars (Heger+, 2010)
+ J/ApJ/711/350    : Metal-poor giant Boo-1137 abundances (Norris+, 2010)
+ J/AJ/141/175     : Abundances in M15 RGB/RHB stars (Sobeck+, 2011)
+ J/PASP/124/140   : UBVRI Hp BT and VT photonic responses (Bessell+, 2012)
+ J/ApJ/769/57     : Equivalent widths of metal-poor stars (Frebel+, 2013)
+ J/ApJ/763/61     : Abundances of 7 red giants of BootesI (Gilmore+, 2013)
+ J/ApJ/779/102    : Metallicities of RGB stars in dwarf galaxies (Kirby+, 2013)
+ J/ApJ/767/134    : Abundances of red giants in UFD galaxies (Vargas+, 2013)
+ J/ApJ/786/74     : EW measurements of 6 Segue 1 red giants (Frebel+, 2014)
+ J/A+A/562/A146   : Chemical abundances of 8 metal-poor stars (Ishigaki+, 2014)
+ J/A+A/571/A47    : Linelist of CH in stellar atmospheres (Masseron+, 2014)
+ J/ApJ/797/21     : Carbon-enhanced metal-poor stars (Placco+, 2014)
+ J/MNRAS/440/2665 : SDSS J021933.13+200830.2 spectroscopy (Roederer+, 2014)
+ J/AJ/147/136     : Stars of very low metal abundance. VI. (Roederer+, 2014)
+ J/ApJ/801/125    : Carbon in red giants in GCs and dSph galaxies (Kirby+, 2015)
+ J/ApJ/830/93     : Abundances of Ret II brightest red giant members (Ji+, 2016)
+ J/ApJ/817/41     : Abundances of 4 metal-poor red giants in BooII (Ji+, 2016)
+ J/ApJ/819/53     : Magellan/M2FS spectroscopy of Tuc 2 & Grus 1 (Walker+, 2016)
+ J/ApJ/838/44     : Abundances of Tuc III brightest members (Hansen+, 2017)
+ J/ApJ/838/83     : RVs, abundances & membership in TriII (Kirby+, 2017)
+ J/ApJ/838/11     : Member stars in the MW satellite Tucana III (Simon+, 2017)
+ J/ApJ/856/142    : Abundances of metal-poor stars in Sculptor (Chiti+, 2018)
+ J/ApJ/852/99     : Abundances of 3 metal-poor stars in Hor I (Nagasawa+, 2018)
+
+Byte-by-byte Description of file: table1.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1-  9  A9    ---     Name      Star name
+  11- 12  I2    h       RAh       Hour of right ascension (J2000)
+  14- 15  I2    min     RAm       Minute of right ascension (J2000)
+  17- 21  F5.2  s       RAs       Second of right ascension (J2000)
+      23  A1    ---     DE-       Sign of declination (J2000)
+  24- 25  I2    deg     DEd       Degree of declination (J2000)
+  27- 28  I2    arcmin  DEm       Arcminute of declination (J2000)
+  30- 33  F4.1  arcsec  DEs       Arcsecond of declination (J2000)
+  35- 37  F3.1  arcsec  Slit      [1] Slit size
+  39- 43  F5.2  mag     gmag      [18.2/18.9] SkyMapper g-band magnitude
+  45- 47  I3    min     Exp       [155/385] Exposure time
+      49  A1    ---   f_Exp       Flag on Exp (1)
+  51- 52  I2    ---     S/N4500   [15/17] Signal-to-noise (S/N) per pixel
+                                   for 4500{AA}
+  54- 55  I2    ---     S/N6500   [30/37] Signal-to-noise (S/N) per pixel
+                                   for 6500{AA}
+  57- 62  F6.1  ---     HRV       [-127/-119] Heliocentric radial velocity
+--------------------------------------------------------------------------------
+Note (1):
+   b = Combined exposure time from Ji+ (2016ApJ...832L...3J) and this work.
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table2.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units    Label     Explanations
+--------------------------------------------------------------------------------
+   1-  9  A9    ---      Name      Star name
+  11- 14  I4    K        Teff      [4693/5017] Effective temperature
+  16- 18  I3    K      e_Teff      [153/227] Teff uncertainty
+  20- 23  F4.2 [cm/s2]   logg      [1.2/1.9] log of surface gravity
+  25- 28  F4.2 [cm/s2] e_logg      [0.3/0.9] logg uncertainty
+  30- 33  F4.2  km/s     Vt        [1.8/2.2] Microturbulent velocity
+  35- 38  F4.2  km/s   e_Vt        [0.2/0.3] Vt uncertainty
+  40- 44  F5.2  [-]      [Fe/H]    [-3.4/-2.4] Metallicity
+  46- 49  F4.2  [-]    e_[Fe/H]    [0.1/0.3] [Fe/H] uncertainty
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table3.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label   Explanations
+--------------------------------------------------------------------------------
+   1-  9 A9     ---     Name    Tucana II star name
+  11- 15 A5     ---     Sp      Atomic species of absorption feature
+  17- 17 A1     ---   f_Sp      Species corrected (1)
+  19- 20 I2     ---     Nl      [1/99] Number of lines fit
+  22- 25 F4.2   [-]     loge    [0.5/8.5] Log number abundance
+  27- 27 A1     ---   l_[X/H]   Limit flag on [X/H]
+  29- 33 F5.2   [-]     [X/H]   [-4.9/-1.6] Log abundance relative to hydrogen
+  35- 35 A1     ---   u_[X/H]   Uncertainty flag on [X/H]
+  39- 39 A1     ---   l_[X/Fe]  Limit flag on [X/Fe]
+  41- 45 F5.2   [-]     [X/Fe]  [-2.0/1.3] Log abundance relative to iron
+  47- 47 A1     ---   u_[X/Fe]  Uncertainty flag on [X/Fe]; see text
+  51- 54 F4.2   ---     sigma   [0.1/0.7]? Random uncertainties; See Table 4
+--------------------------------------------------------------------------------
+Note (1): Species corrected for evolutionary status of the star following
+    Placco+ (2014, J/ApJ/797/21).
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table4.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units Label  Explanations
+--------------------------------------------------------------------------------
+   1-  9 A9     ---   Name   Tucana II star name
+  11- 15 A5     ---   Sp     Atomic species of absorption feature
+  17- 18 I2     ---   Nl     [1/99] Number of lines fit
+  20- 23 F4.2   ---   Rand   [0.12/0.66]? Random uncertainty
+  25- 28 F4.2   ---   Sys    [0.13/0.64]? Systematic uncertainty
+  30- 33 F4.2   ---   Tot    [0.18/0.8]? Total uncertainty
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table5.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label   Explanations
+--------------------------------------------------------------------------------
+   1-  9 A9     ---     Name    Tucana II star name
+  11- 17 F7.2   0.1nm   lambda  [3783.5/6678] Rest wavelength of
+                                absorption feature
+  19- 23 A5     ---     Sp      Atomic species of absorption feature
+  25- 28 F4.2   eV      chi     [0/4.4]? Excitation potential of
+                                absorption line (1)
+  30- 34 F5.2   [-]     loggf   [-5.7/0.7]? Oscillator strength of
+                                absorption line (1)
+  36- 40 F5.1   0.1pm   EW      [15.7/253]? Measured equivalent width
+                                of absorption line (1)
+  42- 42 A1     ---   l_loge    Limit flag on logepsilon
+  43- 47 F5.2   [-]     loge    [-2.7/6.5] Measured chemical abundance
+                                 from absorption feature
+--------------------------------------------------------------------------------
+Note (1): Chemical abundances listed for entries with blank (null) values for
+    chi, loggf, and EW were derived from spectrum syntheses.
+--------------------------------------------------------------------------------
+
+History:
+    From electronic version of the journal
+
+================================================================================
+(End)                     Prepared by [AAS], Emmanuelle Perret [CDS] 25-Feb-2019

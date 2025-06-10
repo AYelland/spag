@@ -176,7 +176,12 @@ def combine_classification(df, c_key_col='C_key', ncap_key_col='Ncap_key', outpu
             }
             return mapping.get(combo, combo)
         elif pd.notna(c_key):
-            return 'CEMP' if c_key == 'CE' else c_key
+            if c_key == 'CE':
+                return 'CEMP'
+            elif c_key == 'NO':
+                return 'CEMP-no'
+            else:
+                return c_key
         elif pd.notna(ncap_key):
             return {
                 'R1': 'rI',
@@ -186,7 +191,8 @@ def combine_classification(df, c_key_col='C_key', ncap_key_col='Ncap_key', outpu
                 'I': 'i',
                 'RL': 'r-lim'
             }.get(ncap_key, ncap_key)
-        return ''
+        else:
+            return ''
 
     df[output_col] = df.apply(lambda row: classify(row[c_key_col], row[ncap_key_col]), axis=1)
     

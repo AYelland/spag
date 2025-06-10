@@ -1,0 +1,3 @@
+
+Name,Simbad_Identifier,System,RA_hms,DEC_dms,Vel,e_Vel,Teff,e_Teff,logg,e_logg,Vmic,e_Vmic,Fe/H,e_Fe/H
+Seg 1-7,2MASS J10081444+1605011,Segue 1,10:08:14.4,+16:05:01.19,204.3,0.1,4960,140,1.9,0.4,1.3,0.3,-3.52,0.3

@@ -762,6 +762,8 @@ def make_XHcol(species):
     if species==38.0: return "[Sr I/H]"
     if species==106.0: return "[C/H]"
     if species==607.0: return "[N/H]"
+    if species==108.0: return "[O-H/H]"
+    if species==20.1: return "[Ca II/H]"
     return XHcol(species)
 
 def make_ulXHcol(species):
@@ -775,6 +777,8 @@ def make_ulXHcol(species):
     if species==38.0: return "ul[Sr I/H]"
     if species==106.0: return "ul[C/H]"
     if species==607.0: return "ul[N/H]"
+    if species==108.0: return "ul[O-H/H]"
+    if species==20.1: return "ul[Ca II/H]"
     return ulXHcol(species)
 
 def make_XFecol(species):
@@ -788,6 +792,8 @@ def make_XFecol(species):
     if species==38.0: return "[Sr I/Fe]"
     if species==106.0: return "[C/Fe]"
     if species==607.0: return "[N/Fe]"
+    if species==108.0: return "[O-H/Fe]"
+    if species==20.1: return "[Ca II/Fe]"
     return XFecol(species)
 
 def make_ulXFecol(species):
@@ -801,6 +807,8 @@ def make_ulXFecol(species):
     if species==38.0: return "ul[Sr I/Fe]"
     if species==106.0: return "ul[C/Fe]"
     if species==607.0: return "ul[N/Fe]"
+    if species==108.0: return "ul[O-H/Fe]"
+    if species==20.1: return "ul[Ca II/Fe]"
     return ulXFecol(species)
 
 def make_epscol(species):
@@ -813,7 +821,10 @@ def make_epscol(species):
     if species==24.1: return "epscr2"
     if species==38.0: return "epssr1"
     if species==106.0: return "epsc"
+    if species==107.0: return "epsn-h"
     if species==607.0: return "epsn"
+    if species==108.0: return "epso-h"
+    if species==20.1: return "epsca2"
     return epscol(species)
 
 def make_errcol(species):
@@ -827,6 +838,8 @@ def make_errcol(species):
     if species==38.0: return "e_sr1"
     if species==106.0: return "e_c"
     if species==607.0: return "e_n"
+    if species==108.0: return "e_o-h"
+    if species==20.1: return "e_ca2"
     return errcol(species)
 
 def make_ulcol(species):
@@ -840,6 +853,8 @@ def make_ulcol(species):
     if species==38.0: return "ulsr1"
     if species==106.0: return "ulc"
     if species==607.0: return "uln"
+    if species==108.0: return "ulo-h"
+    if species==20.1: return "ulca2"
     return ulcol(species)
 
 def format_elemstr(elem):
@@ -879,8 +894,8 @@ def get_default_ion(elem):
     """
     Returns the default ionization state for an element
     """
-    default_to_1 = ['Na','Mg','Al','Si','Ca','Cr','Mn','Fe','Co','Ni','Ti']
-    default_to_2 = ['Sc','Sr','Y','Zr','Ba','La','Ce','Pr','Nd','Sm','Eu','Gd','Dy'] #'Ti' was originally here
+    default_to_1 = ['O','Na','Mg','Al','Si','Ca','V','Cr','Mn','Fe','Co','Ni']
+    default_to_2 = ['Sc','Sr','Y','Zr','Ba','La','Ce','Pr','Nd','Sm','Eu','Gd','Dy','Ti']
     elem = getelem(elem)
     if elem in default_to_1:
         return 1
@@ -889,6 +904,62 @@ def get_default_ion(elem):
     else:
         warnings.warn("get_default_ion: {} not in defaults, returning 0".format(elem))
         return 0
+
+def species_from_col(col):
+    """
+    Returns the numerical species from the input column name, using the default species.
+    Accepts the following columns formats:
+        formats: 'epsx', 'e_x', 'ulx', '[x/Fe]', '[x/H]'
+    """
+
+    if col.startswith('e_'): col = col.replace('e_', '')
+    if col.startswith('eps'): col = col.replace('eps', '')
+    if col.startswith('ul'): col = col.replace('ul', '')
+    if col.startswith('['): 
+        if col.endswith('/Fe]'): col = col.replace('[', '').replace('/Fe]', '')
+        elif col.endswith('/H]'): col = col.replace('[', '').replace('/H]', '')
+        else: raise ValueError(f"Column {col} not recognized for species extraction")
+    elem = col.lower()
+
+    if elem=="ti1": return 22.0  # Ti I
+    if elem=="v2": return 23.1  # V II
+    if elem=="fe2": return 26.1  # Fe II
+    if elem=="cr2": return 24.1  # Cr II
+    if elem=="sr1": return 38.0  # Sr I
+    if elem=="c": return 106.0  # C-H
+    if elem=="n-h": return 107.0  # N-H
+    if elem=="n": return 607.0  # C-N
+    if elem=="o-h": return 108.0  # O-H
+    if elem=="ca2": return 20.1  # Ca II
+
+    default_to_1 = ['O','Na','Mg','Al','Si','K','Ca','V','Cr','Mn','Fe','Co','Ni','Cu','Zn','Pb']
+    default_to_2 = ['Sc','Ti','Sr','Y','Zr','Ba','La','Ce','Pr','Nd','Sm','Eu','Gd','Dy','Er']
+
+    if elem.isalpha():
+        if elem.title() in default_to_1:
+            species = element_to_species(elem.title()) + 0.0
+        elif elem.title() in default_to_2:
+            species = element_to_species(elem.title()) + 0.1
+        else:
+            print(elem)
+            if elem.title() in pt_list: #default to ground ionization state (##.0)
+                species = element_to_species(elem.title()) + 0.0
+            else:
+                raise ValueError(f"Element {elem} not recognized from epscol {col}")
+        
+    elif elem[:-1].isalpha() and elem[-1].isdigit():
+        species = element_to_species(elem[:-1].title()) + (0.1 * float(elem[-1]) - 0.1)
+
+    else:
+        raise ValueError(f"Invalid epscol format: {col}")
+    
+    return species
+
+def ion_from_col(col):
+    """
+    Returns the ionization state from the input column name. See `species_from_col` for details.
+    """
+    return species_to_ion(species_from_col(col))
 
 ################################################################################
 # Quick abundance conversion functions

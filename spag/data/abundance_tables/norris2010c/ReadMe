@@ -1,0 +1,126 @@
+J/ApJ/723/1632     Abundance spreads in Bootes I and Segue 1     (Norris+, 2010)
+================================================================================
+Chemical enrichment in the faintest galaxies: the carbon and iron abundance
+spreads in the Bootes I dwarf spheroidal galaxy and the Segue 1 system.
+    Norris J.E., Wyse R.F.G., Gilmore G., Yong D., Frebel A., Wilkinson M.I.,
+    Belokurov V., Zucker D.B.
+   <Astrophys. J., 723, 1632-1650 (2010)>
+   =2010ApJ...723.1632N
+================================================================================
+ADC_Keywords: Abundances ; Galaxies, nearby ; Photometry, SDSS ; Stars, giant ;
+              Radial velocities
+Keywords: galaxies: abundances - galaxies: dwarf - stars: abundances -
+          galaxies: individual (Bootes I, Segue 1) - Galaxy: abundances -
+
+Abstract:
+    We present an AAOmega spectroscopic study of red giants in the
+    ultra-faint dwarf galaxy Bootes I (M_V_~-6) and the Segue 1 system
+    (M_V_~-1.5), either an extremely low luminosity dwarf galaxy or an
+    unusually extended globular cluster. Both Bootes I and Segue 1 have
+    significant abundance dispersions in iron and carbon. Bootes I has a
+    mean abundance of [Fe/H]=-2.55+/-0.11 with an [Fe/H] dispersion of
+    {sigma}=0.37+/-0.08, and abundance spreads of {Delta}[Fe/H]=1.7 and
+    {Delta}[C/H]=1.5. Segue 1 has a mean of [Fe/H]=-2.7+/-0.4 with [Fe/H]
+    dispersion of {sigma}=0.7+/-0.3, and abundances spreads of
+    {Delta}[Fe/H]=1.6 and {Delta}[C/H]=1.2. Moreover, Segue 1 has a
+    radial-velocity member at four half-light radii that is extremely
+    metal-poor and carbon-rich, with [Fe/H]=-3.5, and [C/Fe]=+2.3. Modulo
+    an unlikely non-member contamination, the [Fe/H] abundance dispersion
+    confirms Segue 1 as the least-luminous ultra-faint dwarf galaxy known.
+
+Description:
+    Candidate red giant members of Bootes I and Segue 1 were observed with
+    the Anglo-Australian Telescope/AAOmega fiber-fed spectrograph
+    combination during 2007 April 18-20 and 2006 May 23-29. Only the blue
+    spectra from the 2007 data set are discussed in this paper. These
+    spectra have resolution R=5000 and cover the wavelength range
+    3850-4540{AA}.
+
+File Summary:
+--------------------------------------------------------------------------------
+ FileName  Lrecl  Records   Explanations
+--------------------------------------------------------------------------------
+ReadMe        80        .   This file
+table1.dat    64      122   Observational data and derived heliocentric
+                            velocities for stars in the Bootes I field
+table2.dat    64      134   Observational data and derived heliocentric
+                            velocities for stars in the Segue 1 field
+table3.dat    68       16   Observational data and derived atmospheric
+                            parameters for candidate member stars of Bootes I
+table4.dat    67        6   Observational data and derived atmospheric
+                            parameters for candidate member stars of Segue 1
+--------------------------------------------------------------------------------
+
+See also:
+  II/306 : The SDSS Photometric Catalog, Release 8 (Adelman-McCarthy+, 2011)
+  J/ApJ/711/350   : Metal-poor giant Boo-1137 abundances (Norris+, 2010)
+  J/ApJ/692/1464  : Spectroscopy of Segue 1 (Geha+, 2009)
+  J/MNRAS/380/281 : Faint Galactic satellites survey (Martin+, 2007)
+  J/AJ/117/981    : Estimation of stellar metal abundance. II. (Beers+, 1999)
+
+Byte-by-byte Description of file: table[12].dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1-  4  I4    ---     Seq       Identification number
+   6-  7  I2    h       RAh       Hour of Right Ascension (J2000)
+   9- 10  I2    min     RAm       Minute of Right Ascension (J2000)
+  12- 16  F5.2  s       RAs       Second of Right Ascension (J2000)
+      18  A1    ---     DE-       [+] Sign of the Declination (J2000)
+  19- 20  I2    deg     DEd       Degree of Declination (J2000)
+  22- 23  I2    arcmin  DEm       Arcminute of Declination (J2000)
+  25- 28  F4.1  arcsec  DEs       Arcsecond of Declination (J2000)
+  30- 34  F5.2  mag     gmag      [17.25/21.49] SDSS-DR4 g band magnitude
+  36- 40  F5.2  mag     imag      SDSS-DR4 i band magnitude
+  42- 46  F5.1  arcmin  Xpix      X pixel location
+  48- 52  F5.1  arcmin  Ypix      Y pixel location
+  54- 57  F4.1  arcmin  Rad       [2.1/60] Radius from center
+  59- 62  I4    km/s    HRV       [-207/327] Heliocentric radial velocity
+      64  A1    ---     Mem?      [y/n] Candidate member? (1)
+--------------------------------------------------------------------------------
+Note (1): Candidate radial-velocity members in Bootes I (table 1) lying within
+          the range 85-130km/s (N=36 for "y").
+          Candidate radial-velocity members in Segue 1 (table 2) lying within
+          the range 185-230km/s (N=9 for "y").
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table3.dat table4.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units     Label     Explanations
+--------------------------------------------------------------------------------
+   1-  7  I7    ---       Seq       Star number
+       8  A1    ---     f_Seq       [cde] Question about membership (1)
+  10- 13  F4.1  arcmin    Rad       [2.1/48.8] Radius from center
+  15- 17  I3    km/s      HRV       [94/216] Heliocentric radial velocity
+  19- 23  F5.2  mag       gmag      [17.52/19.3] SDSS-DR4 g-band magnitude
+  25- 29  F5.3  mag       (g-r)0    Corrected (g-r) color index
+  31- 35  F5.3  mag       (r-z)0    ? Corrected (r-z) color index
+  37- 40  F4.2  0.1nm     K'        ? CaII K line-strength index (K') defined by
+                                    Beers et al. (1999, Cat. J/AJ/117/981)
+  42- 45  I4    K         Teff      Effective temperature
+  47- 49  F3.1  [cm/s2]   logg      Surface gravity
+  51- 55  F5.2  [Sun]     [Fe/H]    ? Abundance of [Fe/H]
+      56  A1    ---     f_[Fe/H]    [abcgh] Origin of [Fe/H] (1)
+  58- 62  F5.2  [Sun]     [C/H]     ? Abundance of [C/H]
+  64- 68  F5.2  [Sun]     [C/Fe]    ? Abundance of [C/Fe]
+--------------------------------------------------------------------------------
+Note (1): Flag as follows:
+   a = From the new VLT/UVES high-resolution, high-S/N, data mentioned in the
+       text. The abundance coincides with the value obtained from AAOmega
+       moderate-resolution CaII K' data.
+   b = From this work, based on AAOmega moderate-resolution CaII K' data.
+   c = Likely non-member, though velocity matches systemic. See the text for
+       discussion.
+   d = Inconsistent blue and red abundances. See the text for discussion.
+   e = RGB member from Geha et al. (2009, Cat. J/ApJ/692/1464), not observed by
+       us.
+   g = From G. Gilmore et al. (2010, in preparation), based on VLT/Flames/UVES
+       data.
+   h = From Norris et al. (2010, Cat. J/ApJ/711/350).
+--------------------------------------------------------------------------------
+
+History:
+    From electronic version of the journal
+
+================================================================================
+(End)                 Greg Schwarz [AAS], Emmanuelle Perret [CDS]    26-Jul-2012

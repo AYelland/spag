@@ -1,0 +1,116 @@
+J/ApJ/838/44    Abundances of the brightest member of Tuc III    (Hansen+, 2017)
+================================================================================
+An r-process enhanced star in the dwarf galaxy Tucana III.
+    Hansen T.T., Simon J.D., Marshall J.L., Li T.S., Carollo D., Depoy D.L.,
+    Nagasawa D.Q., Bernstein R.A., Drlica-Wagner A., Abdalla F.B., Allam S.,
+    Annis J., Bechtol K., Benoit-Levy A., Brooks D., Buckley-Geer E.,
+    Carnero Rosell A., Carrasco Kind M., Carretero J., Cunha C.E.,
+    da Costa L.N., Desai S., Eifler T.F., Fausti Neto A., Flaugher B.,
+    Frieman J., Garcia-Bellido J., Gaztanaga E., Gerdes D.W., Gruen D.,
+    Gruendl R.A., Gschwend J., Gutierrez G., James D.J., Krause E., Kuehn K.,
+    Kuropatkin N., Lahav O., Miquel R., Plazas A.A., Romer A.K., Sanchez E.,
+    Santiago B., Scarpine V., Smith R.C., Soares-Santos M., Sobreira F.,
+    Suchyta E., Swanson M.E.C., Tarle G., Walker A.R., (the DES Collaboration)
+   <Astrophys. J., 838, 44-44 (2017)>
+   =2017ApJ...838...44H    (SIMBAD/NED BibCode)
+================================================================================
+ADC_Keywords: Abundances ; Equivalent widths ; Stars, peculiar
+Keywords: galaxies: abundances; galaxies: dwarf; stars: abundances;
+          stars: chemically peculiar
+
+Abstract:
+    Chemically peculiar stars in dwarf galaxies provide a window for
+    exploring the birth environment of stars with varying chemical
+    enrichment. We present a chemical abundance analysis of the brightest
+    star in the newly discovered ultra-faint dwarf galaxy candidate
+    TucanaIII. Because it is particularly bright for a star in an
+    ultra-faint Milky Way (MW) satellite, we are able to measure the
+    abundance of 28 elements, including 13 neutron-capture species. This
+    star, DESJ235532.66-593114.9 (DES J235532), shows a mild enhancement
+    in neutron-capture elements associated with the r-process and can be
+    classified as an r-I star. DES J235532 is the first r-I star to be
+    discovered in an ultra-faint satellite, and Tuc III is the second
+    extremely low-luminosity system found to contain r-process enriched
+    material, after Reticulum II. Comparison of the abundance pattern of
+    DES J235532 with r-I and r-II stars found in other dwarf galaxies and
+    in the MW halo suggests a common astrophysical origin for the
+    neutron-capture elements seen in all r-process enhanced stars. We
+    explore both internal and external scenarios for the r-process
+    enrichment of Tuc III and show that with abundance patterns for
+    additional stars, it should be possible to distinguish between them.
+
+Description:
+    We observed DES J235532.66-593114.9 with the MIKE spectrograph on the
+    Magellan/Clay telescope on the night of 2015 August 14. We obtained a
+    total of 3.5hr of integration time (R=28000 on the blue channel and
+    R=22000 on the red channel).
+
+Objects:
+    -------------------------------------------------------------------
+         RA   (ICRS)   DE        Designation(s)
+    -------------------------------------------------------------------
+     23 55 32.80   -59 31 12.0   DES J235532 = DES J235532.66-593114.9
+    -------------------------------------------------------------------
+
+File Summary:
+--------------------------------------------------------------------------------
+ FileName  Lrecl  Records  Explanations
+--------------------------------------------------------------------------------
+ReadMe        80        .  This file
+table1.dat    36      145  Fe I and Fe II lines used for parameter determination
+table2.dat    24      126  Atomic line data
+--------------------------------------------------------------------------------
+
+See also:
+ J/ApJ/612/447  : Draco 119 and HD 88609 equivalent widths (Fulbright+, 2004)
+ J/ApJ/617/1091 : La and Eu abundances in 85 stars (Simmerer+, 2004)
+ J/A+A/439/129  : HERES II. Spectroscopic analysis (Barklem+, 2005)
+ J/ApJ/655/492  : Equivalent widths of 26 metal-poor stars (Aoki+, 2007)
+ J/ApJ/701/1053 : Abundances of 8 stars in the Draco dSph (Cohen+, 2009)
+ J/ApJ/719/931  : Chemical evolution of the UMi dSph (Cohen+, 2010)
+ J/A+A/523/A17  : Individual stars in Fornax dSph center (Letarte+, 2010)
+ J/ApJ/742/37   : Abundances of six RGB stars in M22 (Roederer+, 2011)
+ J/AJ/141/175   : Abundances in M15 RGB/RHB stars (Sobeck+, 2011)
+ J/AJ/144/168   : Spectroscopy of Scl 1019417 and UMi 20103 (Kirby+, 2012)
+ J/ApJ/751/102  : Equivalent widths of 9 RGB in Carina dSph (Venn+, 2012)
+ J/ApJ/769/57   : Equivalent widths of metal-poor stars (Frebel+, 2013)
+ J/ApJ/775/L27  : Chemical abundances in a metal-poor RGB star (Johnson+, 2013)
+ J/ApJ/778/149  : Abundances for 3 stars in Sgr dSph (McWilliam+, 2013)
+ J/ApJ/764/78   : Oxygen abundances in nearby FGK stars (Ramirez+, 2013)
+ J/A+A/572/A88  : Measured EWs for Fornax RGB stars (Lemasle+, 2014)
+ J/A+A/571/A47  : Linelist of CH in stellar atmospheres (Masseron+, 2014)
+ J/ApJ/797/21   : Carbon-enhanced metal-poor stars (Placco+, 2014)
+ J/AJ/147/136   : Stars of very low metal abundance. VI. (Roederer+, 2014)
+ J/ApJ/802/93   : Abundance analysis of 5 stars in Sculptor (Simon+, 2015)
+ J/A+A/574/A129 : The First CEMP star in the Sculptor dSph (Skuladottir+, 2015)
+ J/ApJ/830/93   : Ret II brightest red giant member abundances (Ji+, 2016)
+ J/ApJ/838/11   : Member stars in the MW satellite Tucana III (Simon+, 2017)
+
+Byte-by-byte Description of file: table1.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1-  5  A5    ---     Species   Species
+   7- 13  F7.2  0.1nm   lambda    [3743.3/6750.2] Species wavelength, Angstroms
+  15- 18  F4.2  eV      ExPot     [0/4.5] Excitation potential
+  20- 25  F6.3  [-]     log(gf)   [-5/0.6] Log of the oscillator strength
+  27- 31  F5.1  10-13m  EW        [10/215.5] Equivalent Width, Species,
+                                   milli-Angstroms
+  33- 36  F4.2  [-]     logeps    [4.7/5.7] Log {epsilon} abundance
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table2.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1-  5  A5    ---     Species   Species
+   7- 13  F7.2  0.1nm   lambda    [3768.4/7699] Species wavelength, Angstroms
+  15- 18  F4.2  eV      ExPot     [0/4.4] Excitation potential
+  20- 24  F5.2  [-]     log(gf)   [-9.8/0.6] Log of the oscillator strength
+--------------------------------------------------------------------------------
+
+History:
+    From electronic version of the journal
+
+================================================================================
+(End)                 Prepared by [AAS], Emmanuelle Perret [CDS]    26-Oct-2017

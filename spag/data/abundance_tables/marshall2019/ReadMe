@@ -1,0 +1,170 @@
+J/ApJ/882/177    Abundances of 4 member stars of Tucana III    (Marshall+, 2019)
+================================================================================
+Chemical abundance analysis of Tucana III, the second r-process enhanced
+ultra-faint dwarf galaxy.
+    Marshall J.L., Hansen T., Simon J.D., Li T.S., Bernstein R.A., Kuehn K.,
+    Pace A.B., DePoy D.L., Palmese A., Pieres A., Strigari L., Drlica-Wagner A.,
+    Bechtol K., Lidman C., Nagasawa D.Q., Bertin E., Brooks D., Buckley-Geer E.,
+    Burke D.L., Rosell A.C., Kind M.C., Carretero J., Cunha C.E., D'Andrea C.B.,
+    da Costa L.N., De Vicente J., Desai S., Doel P., Eifler T.F., Flaugher B.,
+    Fosalba P., Frieman J., Garcia-Bellido J., Gaztanaga E., Gerdes D.W.,
+    Gruendl R.A., Gschwend J., Gutierrez G., Hartley W.G., Hollowood D.L.,
+    Honscheid K., Hoyle B., James D.J., Kuropatkin N., Maia M.A.G.,
+    Menanteau F., Miller C.J., Miquel R., Plazas A.A., Sanchez E., Santiago B.,
+    Scarpine V., Schubnell M., Serrano S., Sevilla-Noarbe I., Smith M.,
+    Soares-Santos M., Suchyta E., Swanson M.E.C., Tarle G., Wester W.
+   <Astrophys. J., 882, 177 (2019)>
+   =2019ApJ...882..177M
+================================================================================
+ADC_Keywords: Abundances, [Fe/H]; Equivalent widths; Radial velocities;
+              Spectra, optical
+Keywords: Chemical abundances ; Chemically peculiar stars ; Dwarf galaxies
+
+Abstract:
+    We present a chemical abundance analysis of four additional confirmed
+    member stars of Tucana III, a Milky Way satellite galaxy candidate in
+    the process of being tidally disrupted as it is accreted by the
+    Galaxy. Two of these stars are centrally located in the core of the
+    galaxy while the other two stars are located in the eastern and
+    western tidal tails. The four stars have chemical abundance patterns
+    consistent with the one previously studied star in Tucana III: they
+    are moderately enhanced in r-process elements, i.e., they have
+    <[Eu/Fe]>~+0.4dex. The non-neutron-capture elements generally follow
+    trends seen in other dwarf galaxies, including a metallicity range of
+    0.44 dex and the expected trend in {alpha}-elements, i.e., the lower
+    metallicity stars have higher Ca and Ti abundances. Overall, the
+    chemical abundance patterns of these stars suggest that Tucana III was
+    an ultra-faint dwarf galaxy, and not a globular cluster, before being
+    tidally disturbed. As is the case for the one other galaxy dominated
+    by r-process enhanced stars, Reticulum II, Tucana III's stellar
+    chemical abundances are consistent with pollution from ejecta produced
+    by a binary neutron star merger, although a different r-process
+    element or dilution gas mass is required to explain the abundances in
+    these two galaxies if a neutron star merger is the sole source of
+    r-process enhancement.
+
+Description:
+    Observations of the four confirmed member stars in the Tuc III stellar
+    system were performed with the MIKE spectrograph at the Magellan-Clay
+    Telescope at Las Campanas Observatory. Observations took place on 2016
+    August 5-7.
+
+    The spectra cover 3310{AA}<{lambda}<5000{AA} in the blue channel
+    (R~41000) and 4830{AA}<{lambda}<9160{AA} in the red (R~32000).
+
+File Summary:
+--------------------------------------------------------------------------------
+ FileName   Lrecl  Records  Explanations
+--------------------------------------------------------------------------------
+ReadMe         80        .  This file
+table1.dat     80        5  Observing log
+table2.dat     59        5  Measured stellar parameters
+table3.dat     53      536  FeI and FeII lines used for parameter determination
+--------------------------------------------------------------------------------
+
+See also:
+ II/357  : The Dark Energy Survey (DES): Data Release 1 (Abbott+, 2018)
+ VII/195 : Globular Clusters in the Milky Way (Harris, 1996)
+ VII/202 : Globular Clusters in the Milky Way (Harris, 1997)
+ J/A+A/381/500  : Eu abundances in F and G disk stars (Koch+, 2002)
+ J/ApJ/617/1091 : La and Eu abundances in 85 stars (Simmerer+, 2004)
+ J/A+A/439/129  : HERES II. Spectroscopic analysis (Barklem+, 2005)
+ J/A+A/455/271  : Abundances of red giants in NGC 6441 (Gratton+, 2006)
+ J/A+A/464/967  : Abundances of red giants in NGC 6388 (Carretta+, 2007)
+ J/A+A/505/139  : Abundances of red giants in 17 GCs (Carretta+, 2009)
+ J/ApJ/708/560  : Spectroscopy of UMa II and Coma Ber (Frebel+, 2010)
+ J/ApJ/711/350  : Metal-poor giant Boo-1137 abundances (Norris+, 2010)
+ J/AJ/141/175   : Abundances in M15 RGB/RHB stars (Sobeck+, 2011)
+ J/ApJ/769/57   : Equivalent widths of metal-poor stars (Frebel+, 2013)
+ J/ApJ/763/61   : Abundances of 7 red giant members of BootesI (Gilmore+, 2013)
+ J/ApJ/770/16   : Spectroscopic members of Segue 2 galaxy (Kirby+, 2013)
+ J/ApJ/786/74   : EW measurements of 6 Segue 1 red giants (Frebel+, 2014)
+ J/A+A/562/A146 : Chemical abundances of 8 metal-poor stars (Ishigaki+, 2014)
+ J/MNRAS/440/2665 : SDSS J021933.13+200830.2 spectroscopy (Roederer+, 2014)
+ J/AJ/147/136   : Stars of very low metal abundance. VI. (Roederer+, 2014)
+ J/ApJ/803/63   : gr photometry of stars in Kim 2 (Kim+, 2015)
+ J/ApJ/808/95   : Spectroscopy of Reticulum II (Simon+, 2015)
+ J/ApJ/808/108  : M2FS stellar spectroscopy of Reticulum 2 (Walker+, 2015)
+ J/ApJ/826/110  : Boo-127 and Boo-980 high-resolution spectra (Frebel+, 2016)
+ J/ApJ/830/93   : Abundances of Ret II brightest red giant members (Ji+, 2016)
+ J/ApJ/817/41   : Abundances of 4 metal-poor red giants in BooII (Ji+, 2016)
+ J/AJ/151/82    : 4 bright red giants in the UFD galaxy Ret 2 (Roederer+, 2016)
+ J/ApJ/838/44   : Abundances of the brightest member of Tuc III (Hansen+, 2017)
+ J/ApJ/838/83   : RVs, abundances & membership in TriII (Kirby+, 2017)
+ J/ApJ/838/11   : Member stars in the MW satellite Tucana III (Simon+, 2017)
+ J/ApJ/857/74   : Abundances of 7 new member stars in Tucana II (Chiti+, 2018)
+ J/ApJ/858/92   : RPA Southern Pilot Search of 107 Stars (Hansen+, 2018)
+ J/ApJ/866/22   : Spectroscopic analysis of Tuc III stream (Li+, 2018)
+ J/ApJ/857/145  : MagLiteS Carina II and Carina III spectroscopy (Li+, 2018)
+ J/ApJ/852/99   : Abundances of 3 metal-poor stars in Hor I (Nagasawa+, 2018)
+ J/ApJ/868/110  : R-Process Alliance: 1st release in Gal. halo (Sakari+, 2018)
+ J/ApJ/863/89   : Gaia DR2 PMs in ultra-faint MW satellites (Simon, 2018)
+ J/ApJ/870/83   : Abundances in ultra-faint dwarf gal. GruI & TriII (Ji+, 2019)
+ J/ApJ/875/77   : Proper motions of MW satellites with Gaia & DES (Pace+, 2019)
+
+Byte-by-byte Description of file: table1.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units    Label    Explanations
+--------------------------------------------------------------------------------
+   1-  3 A3     ---      ---      [DES]
+   5- 18 A14    ---      Name     Star name (DES JHHMMSS+DDMMSS)
+      20 A1     ---    f_Name     c: from Hansen+ (2017, J/ApJ/838/44),
+                                   included for reference
+  22- 23 I2     h        RAh      Hour of right ascension (J2000) (1)
+  25- 26 I2     min      RAm      Minute of right ascension (J2000)
+  28- 31 F4.1   s        RAs      Second of right ascension (J2000)
+      33 A1     ---      DE-      Sign of declination (J2000) (1)
+  34- 35 I2     deg      DEd      Degree of declination (J2000) (1)
+  37- 38 I2     arcmin   DEm      Arcminute of declination (J2000)
+  40- 43 F4.1   arcsec   DEs      Arcsecond of declination (J2000)
+  45- 50 F6.3   mag      gmag     [16/17.7] g-band magnitude (1)
+  52- 56 F5.3   mag      g-r      [0.5/0.8] g-r colour index (1)
+  58- 65 F8.2   d        MJD      [57248/57607.8] Modified Julian Date,
+                                   at the midpoint of the observation
+  67- 69 F3.1   h        Exp      [2/4.5] Exposure time
+  71- 72 I2     ---      SNR4200  [10/30] Signal-to-noise ratio at 4200{AA}
+  74- 75 I2     ---      SNR5500  [20/50] Signal-to-noise ratio at 5500{AA}
+  77- 80 A4     ---      Loc      Location
+--------------------------------------------------------------------------------
+Note (1): Astrometry and dereddened photometry from Li+ (2018, J/ApJ/866/22).
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table2.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units     Label   Explanations
+--------------------------------------------------------------------------------
+   1-  3 A3     ---       ---     [DES]
+   5- 11 A7     ---       ID      Abbreviated identifier (JHHMMSS)
+  13- 18 F6.1   km/s      HRV     [-121.5/-92.6] Heliocentric radial velocity
+  20- 22 F3.1   km/s    e_HRV     [0.3/1.1] HRV uncertainty
+  24- 27 I4     K         Teff    [4675/4900] Effective temperature
+  29- 31 I3     K       e_Teff    [100/150] Teff uncertainty
+  33- 36 F4.2   [cm/s2]   logg    [1.3/1.9] Log of surface gravity
+  38- 40 F3.1   [cm/s2] e_logg    [0.3] Logg uncertainty
+  42- 44 F3.1   km/s      Vt      [1.3/2] Microturbulent velocity
+  46- 48 F3.1   km/s    e_Vt      [0.3] Vt uncertainty
+  50- 54 F5.2   [Sun]     [Fe/H]  [-2.7/-2.2] Log of Fe/ abundance
+  56- 59 F4.2   [Sun]   e_[Fe/H]  [0.08/0.2] [Fe/H] uncertainty
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table3.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units Label   Explanations
+--------------------------------------------------------------------------------
+   1- 14 A14    ---   Name    Tucana III star name
+  16- 19 A4     ---   Ion     Atomic species of absorption feature (FeI or FeII)
+  21- 27 F7.2   0.1nm lambda  [3765.54/8824.22] Rest wavelength of
+                               absorption feature
+  29- 33 F5.3   eV    chi     [0/4.6] Excitation potential of absorption line
+  35- 40 F6.3   [-]   loggf   [-4.8/0.65] Oscillator strength of absorption line
+  42- 47 F6.2   0.1pm EW      [6/110] Measured equivalent width
+                               of absorption line
+  49- 53 F5.3   [-]   loge    [4.2/5.4] Measured chemical abundance
+                               from absorption feature
+--------------------------------------------------------------------------------
+
+History:
+    From electronic version of the journal
+
+================================================================================
+(End)                     Prepared by [AAS], Emmanuelle Perret [CDS] 15-Feb-2021
