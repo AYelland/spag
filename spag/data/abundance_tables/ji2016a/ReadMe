@@ -1,0 +1,182 @@
+J/ApJ/817/41      Abundances of 4 metal-poor red giants in BooII     (Ji+, 2016)
+================================================================================
+High-resolution spectroscopy of extremely metal-poor stars in the least-evolved
+galaxies: Bootes II.
+    Ji A.P., Frebel A., Simon J.D., Geha M.
+   <Astrophys. J., 817, 41 (2016)>
+   =2016ApJ...817...41J    (SIMBAD/NED BibCode)
+================================================================================
+ADC_Keywords: Abundances ; Equivalent widths ; Stars, giant ; Galaxies, optical
+Keywords: galaxies: dwarf ; galaxies: individual: Boo II;
+          Local Group; stars: abundances
+
+Abstract:
+    We present high-resolution Magellan/MIKE spectra of the four brightest
+    confirmed red giant stars in the ultra-faint dwarf galaxy Bootes II
+    (Boo II). These stars all inhabit the metal-poor tail of the BooII
+    metallicity distribution function. The chemical abundance pattern of
+    all detectable elements in these stars is consistent with that of the
+    Galactic halo. However, all four stars have undetectable amounts of
+    neutron-capture elements Sr and Ba, with upper limits comparable to
+    the lowest ever detected in the halo or in other dwarf galaxies. One
+    star exhibits significant radial velocity variations over time,
+    suggesting it to be in a binary system. Its variable velocity has
+    likely increased past determinations of the Boo II velocity
+    dispersion. Our four stars span a limited metallicity range, but their
+    enhanced {alpha}-abundances and low neutron-capture abundances are
+    consistent with the interpretation that Boo II has been enriched by
+    very few generations of stars. The chemical abundance pattern in Boo
+    II confirms the emerging trend that the faintest dwarf galaxies have
+    neutron-capture abundances distinct from the halo, suggesting the
+    dominant source of neutron-capture elements in halo stars may be
+    different than in ultra-faint dwarfs.
+
+Description:
+    A total of 16 Boo II member stars were identified with Keck/DEIMOS
+    observations (M. Geha et al. 2015, in preparation). We selected the
+    four brightest members on the red giant branch sample for
+    high-resolution follow-up (see Figure 1).
+
+    The four target stars were observed with the Magellan Inamori Kyocera
+    Echelle (MIKE) spectrograph on the Clay telescope in the full optical
+    wavelength range from 3500 to 9000{AA} in March 2010, 2011 and 2014
+    and in June 2015 (see table 1).
+
+File Summary:
+--------------------------------------------------------------------------------
+ FileName   Lrecl  Records   Explanations
+--------------------------------------------------------------------------------
+ReadMe         80        .   This file
+table1.dat    104        4   Observing details
+table2.dat     86      217   Equivalent Widths
+table3.dat     49        4   Stellar parameters
+table4.dat     40       65   Magellan/MIKE chemical abundances of Boo II stars
+--------------------------------------------------------------------------------
+
+See also:
+ V/139 : The SDSS Photometric Catalog, Release 9 (Adelman-McCarthy+, 2012)
+ J/ApJS/216/10  : DUSTiNGS. I. The Good Source Catalog (Boyer+, 2015)
+ J/MNRAS/440/2665 : SDSS J021933.13+200830.2 spectroscopy (Roederer+, 2014)
+ J/A+A/562/A146 : Chemical abundances of 8 metal-poor stars (Ishigaki+, 2014)
+ J/ApJ/779/102  : Metallicities of RGB stars in dwarf galaxies (Kirby+, 2013)
+ J/ApJ/769/57   : Equivalent widths of metal-poor stars (Frebel+, 2013)
+ J/ApJ/767/134  : Abundances of red giant stars in UFD galaxies (Vargas+, 2013)
+ J/ApJ/763/61   : Abundances of 7 red giant members of BootesI (Gilmore+, 2013)
+ J/ApJ/762/26   : Most metal-poor stars. II. Galactic halo stars (Yong+, 2013)
+ J/AJ/144/4     : Dwarf galaxy data in the Local Group (McConnachie+, 2012)
+ J/ApJ/711/350  : Metal-poor giant Boo-1137 abundances (Norris+, 2010)
+ J/ApJ/655/492  : Equivalent widths of 26 metal-poor stars (Aoki+, 2007)
+ http://www.sdss.org/ : SDSS home page
+
+Byte-by-byte Description of file: table1.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1-  4  A4    ---     ---       [SDSS]
+   6- 23  A18   ---     Name      SDSS truncated name (JHHMMSS.s+DDMMSS.s)
+  25- 26  I2    h       RAh       [13] Hour of right ascension (J2000)
+  28- 29  I2    min     RAm       [57/58] Minute of right ascension (J2000)
+  31- 34  F4.1  s       RAs       Second of right ascension (J2000)
+      36  A1    ---     DE-       [+] Sign of declination (J2000)
+  37- 38  I2    deg     DEd       [12] Degree of declination (J2000)
+  40- 41  I2    arcmin  DEm       [51/54] Arcminute of declination (J2000)
+  43- 46  F4.1  arcsec  DEs       Arcsecond of declination (J2000)
+  48- 77  A30   ---     Date      Observation date(s)
+  79- 81  F3.1  arcsec  Slit      [0.7/1] Slit width (1)
+  83- 86  F4.1  h       Exp       [5.8/12.2] Exposure time
+  88- 92  F5.2  mag     gmag      [19.2/19.6] g-band magnitude
+  94- 98  F5.2  mag     Vmag      [18.8/19.2] V-band magnitude (2)
+ 100-101  I2    ---     S/N       [11/17] Signal to noise ratio at 5300{AA} (3)
+ 103-104  I2    ---     S/N6      [21/29] Signal to noise ratio at 6000{AA} (3)
+--------------------------------------------------------------------------------
+Note (1): A 1.0" slit leads to a spectral resolution of ~22000 at red
+          wavelengths and ~28000 at blue wavelengths. A 0.7" slit yields a
+          spectral resolution of ~28000 and ~35000 in the red and blue,
+          respectively.
+Note (2): Converted from SDSS photometry using Schlafly & Finkbeiner
+          (2011ApJ...737..103S) and Jordi et al. (2006A&A...460..339J).
+Note (3): Signal-to-noise is per pixel.
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table2.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units    Label   Explanations
+--------------------------------------------------------------------------------
+   1-  5 A5     ---      Ion     Element/Ion/Molecule designation
+   7- 13 F7.2   0.1nm    lambda  [3783.5/6678]? Wavelength; Angstroms
+  15- 18 F4.2   eV       ExPot   [0/4.4]? Excitation potential
+  20- 24 F5.2   [-]      log(gf) [-5.7/0.7]? Log oscillator strength
+      26 A1     ---    l_EW1     Limit flag on EW1
+  27- 31 F5.1   10-13m   EW1     [15/197.2]? SDSS J135751.2+125137.0
+                                  equivalent width (in milli-Angstroms)
+      33 A1     ---    f_EW1     [s] Flag on EW1 (1)
+      35 A1     ---    l_loge1   Limit flag on loge1
+  36- 40 F5.2   [-]      loge1   [-2.2/6]? SDSS J135751.2+125137.0 log abundance
+  42- 46 F5.1   10-13m   EW2     [26/253]? SDSS J135759.7+125426.4
+                                  equivalent width (in milli-Angstroms)
+      48 A1     ---    f_EW2     [s] Flag on EW2 (1)
+      50 A1     ---    l_loge2   Limit flag on loge2
+  51- 55 F5.2   [-]      loge2   [-2.2/6.2]? SDSS J135759.7+125426.4
+                                  log abundance
+  57- 61 F5.1   10-13m   EW3     [19.5/194]? SDSS J135756.2+125207.7
+                                  equivalent width (in milli-Angstroms)
+      63 A1     ---    f_EW3     [s] Flag on EW3 (1)
+      65 A1     ---    l_loge3   Limit flag on loge3
+  66- 70 F5.2   [-]      loge3   [-2.2/6]? SDSS J135756.2+125207.7 log abundance
+      72 A1     ---    l_EW4     Limit flag on EW4
+  73- 77 F5.1   10-13m   EW4     [21.6/160]? SDSS J135801.4+125105.2
+                                  equivalent width (in milli-Angstroms)
+      79 A1     ---    f_EW4     [s] Flag on EW4 (1)
+      81 A1     ---    l_loge4   Limit flag on loge4
+  82- 86 F5.2   [-]      loge4   [-2/6.1]? SDSS J135801.4+125105.2 log abundance
+--------------------------------------------------------------------------------
+Note (1):
+    s = abundance determined with spectrum synthesis.
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table3.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1-  4  A4    ---     ---       [SDSS]
+   6- 23  A18   ---     Name      SDSS truncated name (JHHMMSS.s+DDMMSS.s)
+  25- 28  I4    K       Teff      [4936/5192] Effective temperature
+  30- 33  F4.2 [cm/s2]  logg      [1.8/2.6] Lof of surface gravity
+  35- 38  F4.2  km/s    xi        [1.6/2.1] Microturbulent velocity
+  40- 44  F5.2 [Sun]    [Fe/H]    [-3/-2.6] Metallicity [Fe/H]
+  46- 49  I4    K       Tphot     [5005/5217] Photometric temperature (4)
+--------------------------------------------------------------------------------
+Note (4): Using converted SDSS magnitudes and B-V calibration from
+          Alonso et al. (1999A&AS..140..261A).
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table4.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+       1 I1     ---     Seq     Stellar identifier code (1)
+   3-  7 A5     ---     Ion     Element/Ion/Molecule designation
+   9- 11 I3     ---     N       [1/109] Number of lines used in analysis
+      13 A1     ---   l_loge    Limit flag on loge
+  14- 18 F5.2   [-]     loge    [-2.3/6.2] Log number abundance
+      19 A1     ---   u_loge    [:] Uncertainty flag on loge; see text
+  21- 24 F4.2   [-]   e_loge    [0.1/0.5]? The 1{sigma} uncertainty in loge
+      26 A1     ---   l_[X/H]   Limit flag on [X/H]
+  27- 31 F5.2   [-]     [X/H]   [-5.1/-1.1] Log abundance relative to hydrogen
+      32 A1     ---   u_[X/H]   [:] Uncertainty flag on [X/H]; see text
+      34 A1     ---   l_[X/Fe]  Limit flag on [X/Fe]
+  35- 39 F5.2   [-]     [X/Fe]  [-2.4/1.7] Log abundance relative to iron
+      40 A1     ---   u_[X/Fe]  [:] Uncertainty flag on [X/Fe]; see text
+--------------------------------------------------------------------------------
+Note (1): Code as follows:
+    1 = SDSS J135751.2+125137.0;
+    2 = SDSS J135759.7+125426.4;
+    3 = SDSS J135756.2+125207.7;
+    4 = SDSS J135801.4+125105.2.
+--------------------------------------------------------------------------------
+
+History:
+    From electronic version of the journal
+
+================================================================================
+(End)                  Prepared by [AAS], Emmanuelle Perret [CDS]    06-Apr-2016

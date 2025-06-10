@@ -1,0 +1,238 @@
+J/ApJ/763/61    Abundances of 7 red giant members of BootesI    (Gilmore+, 2013)
+================================================================================
+Elemental abundances and their implications for the chemical enrichment of the
+Bootes I ultrafaint galaxy.
+    Gilmore G., Norris J.E., Monaco L., Yong D., Wyse R.F.G., Geisler D.
+   <Astrophys. J., 763, 61 (2013)>
+   =2013ApJ...763...61G
+================================================================================
+ADC_Keywords: Abundances ; Stars, giant ; Radial velocities ; Equivalent widths
+Keywords: galaxies: abundances; galaxies: dwarf; galaxies: individual: Bootes I;
+          Galaxy: abundances; stars: abundances
+
+Abstract:
+    We present a double-blind analysis of high-dispersion spectra of seven
+    red giant members of the Bootes I ultrafaint dwarf spheroidal galaxy,
+    complemented with re-analysis of a similar spectrum of an
+    eighth-member star. The stars cover [Fe/H] from -3.7 to -1.9 and
+    include a CEMP-no star with [Fe/H]=-3.33. We conclude from our
+    chemical abundance data that Bootes I has evolved as a self-enriching
+    star-forming system, from essentially primordial initial abundances.
+    This allows us uniquely to investigate the place of CEMP-no stars in a
+    chemically evolving system, in addition to limiting the timescale of
+    star formation. The elemental abundances are formally consistent with
+    a halo-like distribution, with enhanced mean [{alpha}/Fe] and small
+    scatter about the mean. This is in accord with the high-mass stellar
+    initial mass function in this low-stellar-density, low-metallicity
+    system being indistinguishable from the present-day solar neighborhood
+    value. There is a non-significant hint of a decline in [{alpha}/Fe]
+    with [Fe/H]; together with the low scatter, this requires low star
+    formation rates, allowing time for supernova ejecta to be mixed over
+    the large spatial scales of interest. One star has very high [Ti/Fe],
+    but we do not confirm a previously published high value of [Mg/Fe] for
+    another star. We discuss the existence of CEMP-no stars, and the
+    absence of any stars with lower CEMP-no enhancements at higher [Fe/H],
+    a situation that is consistent with knowledge of CEMP-no stars in the
+    Galactic field. We show that this observation requires there be two
+    enrichment paths at very low metallicities: CEMP-no and
+    "carbon-normal."
+
+Description:
+    High-resolution, moderate-S/N, spectra were obtained of seven BootesI
+    red giants as part of a larger program to investigate the kinematics
+    and chemical abundances of the Bootes I system. During 2009
+    February-March, data were obtained with the FLAMES spectrograph of the
+    8.2m Kueyen (VLT/UT2) telescope at Cerro Paranal, Chile. The spectra
+    cover the wavelength ranges 4800-5750{AA} and 5840-6800{AA}, and have
+    resolving power R=47000.
+
+File Summary:
+--------------------------------------------------------------------------------
+ FileName   Lrecl  Records   Explanations
+--------------------------------------------------------------------------------
+ReadMe         80        .   This file
+table1.dat     64        7   The seven Bootes I red giant program stars
+table2.dat     41        7   Radial velocities for program stars
+table3.dat     63        7   Atmospheric parameters for program stars
+table4.dat    107      115  *NY atomic data, equivalent widths, and absolute
+                              abundances
+table5.dat    108      226  *GM atomic data, equivalent widths, and absolute
+                              abundances
+table8.dat     61        8   Adopted {alpha}-element abundances
+--------------------------------------------------------------------------------
+Note on table4.dat and table5.dat: Throughout the paper, "NY" stand for
+  Norris J.E. & Yong D. and "GM" are for Geisler D. & Monaco L. for the
+  double-blind analysis (see section 1.1).
+--------------------------------------------------------------------------------
+
+See also:
+ II/294 : The SDSS Photometric Catalog, Release 7 (Adelman-McCarthy+, 2009)
+ J/A+A/562/A146  : Chemical abundances of 8 metal-poor stars (Ishigaki+, 2014)
+ J/ApJ/736/146   : Radial velocities of stars in Bootes I (Koposov+, 2011)
+ J/ApJ/723/1632  : Abundance spreads in Bootes I and Segue 1 (Norris+, 2010)
+ J/ApJ/711/350   : Metal-poor giant Boo-1137 abundances (Norris+, 2010)
+ J/A+A/509/A93   : Carbon-enhanced metal-poor stars (Masseron+, 2010)
+ J/MNRAS/380/281 : Faint galactic satellites spectrosc. survey (Martin+, 2007)
+
+Byte-by-byte Description of file: table1.dat
+--------------------------------------------------------------------------------
+  Bytes Format Units   Label    Explanations
+--------------------------------------------------------------------------------
+  1-  4  I4    ---     Star     Identification number
+                                 (<[NWG2010] BooI NNN> in Simbad)
+  6-  7  I2    ---     M07      ? Identification number from Martin+, 2007,
+                                  Cat. J/MNRAS/380/281
+  9- 10  I2    ---     L11      ? Identification number from
+                                  Lai+ (2011ApJ...738...51L)
+ 12- 13  I2    h       RAh      Hour of right ascension (J2000)
+ 15- 16  I2    min     RAm      Minute of right ascension (J2000)
+ 18- 22  F5.2  s       RAs      Second of right ascension (J2000)
+     24  A1    ---     DE-      Sign of declination (J2000)
+ 25- 26  I2    deg     DEd      Degree of declination (J2000)
+ 28- 29  I2    arcmin  DEm      Arcminute of declination (J2000)
+ 31- 34  F4.1  arcsec  DEs      Arcsecond of declination (J2000)
+ 36- 41  F6.3  mag     g0mag    [17.4/18.4] SDSS-DR7 g_0_-band magnitude (1)
+ 43- 47  F5.3  mag     (g-r)0   [0.6/0.9] (g-r)_0_ color index (1)
+ 49- 53  F5.2  [Sun]   [Fe/H]a  [-3/-1.4]? Abundance [Fe/H] using CaIIK line (2)
+ 55- 58  F4.1  [Sun]   [Fe/H]b  [-3/-1.6]? Abundance [Fe/H] using CaII IR
+                                  triplet (3)
+ 60- 64  F5.2  [Sun]   [Fe/H]c  [-4/-1.6]? Abundance [Fe/H] (4)
+--------------------------------------------------------------------------------
+Note (1): SDSS Data Release 7 (Abazajian et al. 2009, Cat. II/294) ugriz
+          photometry g_0_ and (g-r)_0_ (where a reddening of E(B-V)=0.02
+          (Belokurov et al. 2006ApJ...647L.111B) has been adopted).
+Note (2): [Fe/H] determined by Norris et al. (2008ApJ...689L.113N) using the
+          CaII K line.
+Note (3): [Fe/H] determined by Martin et al. (2007, Cat. J/MNRAS/380/281) using
+          the CaII infrared triplet.
+Note (4): [Fe/H] determined by Lai et al. (2011ApJ...738...51L) using
+          intermediate-resolution blue data.
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table2.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label   Explanations
+--------------------------------------------------------------------------------
+   1-  4  I4    ---     Star    Star number
+   6- 11  F6.2  km/s    RVny    Radial velocity determined by Norris & Yong
+  13- 16  F4.2  km/s  e_RVny    Internal standard error in RVny
+  18- 19  I2    ---   o_RVny    Number of individual spectra that were measured
+  21- 26  F6.2  km/s    RVgm    Radial velocity determined by Geisler & Monaco
+  28- 31  F4.2  km/s  e_RVgm    Internal standard error in RVgm
+  33- 34  I2    ---   o_RVgm    Number of individual spectra that were measured
+  36- 41  F6.2  km/s    HRV     [92.5/107] Mean radial velocity
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table3.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1-  4  I4    ---     Star      Star number
+   6-  9  I4    K       Teff1     [4570/4790] Effective temperature (1)
+  11- 13  F3.1  [cm/s2] logg1     [0.8/1.6] Surface gravity (1)
+  15- 19  F5.2  [Sun]   [Fe/H]1   [-3.3/-1.9] Abundance [Fe/H] (1)(4)
+  21- 23  F3.1  km/s    Vt1       [2.4/3.3] Microturbulent velocity (1)
+  25- 28  I4    K       Teff2     [4550/4800] Effective temperature (2)
+  30- 32  F3.1  [cm/s2] logg2     [0.9/1.4] Surface gravity (2)
+  34- 38  F5.2  [Sun]   [Fe/H]2   [-3.44/-1.8] Abundance [Fe/H] (2)(4)
+  40- 42  F3.1  km/s    Vt2       [1.8/2.9] Microturbulent velocity (2)
+      44  A1    ---   l_Teff3     Limit flag on Teff3
+  46- 49  I4    K       Teff3     [4600/4600]? Effective temperature (3)
+  51- 53  F3.1  [cm/s2] logg3     [0.5/1]? Surface gravity (3)
+  55- 59  F5.2  [Sun]   [Fe/H]3   [-2.95/-2.03]? Abundance [Fe/H] (3)(4)
+  61- 63  F3.1  km/s    Vt3       [2.1/2.1]? Microturbulent velocity (3)
+--------------------------------------------------------------------------------
+Note (1): Determined by Norris & Yong (NY).
+Note (2): Determined by Geisler & Monaco (GM).
+Note (3): Determined by Feltzing et al. (2009A&A...508L...1F)
+Note (4): Assuming log{epsilon}_{sun}_(Fe)=7.50, following Asplund et al.
+          (2009ARA&A..47..481A).
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table4.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1-  4  A4    ---     Ion       Species identifier
+   6- 12  F7.2  0.1nm   lambda    [4810/6644] Wavelength {lambda} ({AA})
+  14- 17  F4.2  eV      chi       Excitation potential
+  19- 23  F5.2  [-]     log(gf)   Log of the oscillator strength
+  25- 29  F5.1  10-13m  EW33      ? Equivalent width in Boo 33 (m{AA})
+  31- 35  F5.2  [-]     loge33    ? Log absolute abundance in Boo 33 (2)
+  37- 41  F5.1  10-13m  EW41      ? Equivalent width in Boo 41 (m{AA})
+  43- 47  F5.2  [-]     loge41    ? Log absolute abundance in Boo 41 (2)
+  49- 53  F5.1  10-13m  EW94      ? Equivalent width in Boo 94 (m{AA})
+  55- 59  F5.2  [-]     loge94    ? Log absolute abundance in Boo 94 (2)
+  61- 65  F5.1  10-13m  EW117     ? Equivalent width in Boo 117 (m{AA})
+  67- 71  F5.2  [-]     loge117   ? Log absolute abundance in Boo 117 (2)
+  73- 77  F5.1  10-13m  EW119     ? Equivalent width in Boo 119 (m{AA})
+  79- 83  F5.2  [-]     loge119   ? Log absolute abundance in Boo 119 (2)
+  85- 89  F5.1  10-13m  EW127     ? Equivalent width in Boo 127 (m{AA})
+  91- 95  F5.2  [-]     loge127   ? Log absolute abundance in Boo 127 (2)
+  97-101  F5.1  10-13m  EW130     ? Equivalent width in Boo 130 (m{AA})
+ 103-107  F5.2  [-]     loge130   ? Log absolute abundance in Boo 130 (2)
+--------------------------------------------------------------------------------
+Note (2): where loge(X) = (log(N_X_/N_H_)+12.0)
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table5.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1-  5  A5    ---     Ion       Species identifier
+   7- 14  F8.3  0.1nm   lambda    [4810/6768] Wavelength {lambda} ({AA})
+  16- 20  F5.3  eV      chi       Excitation potential {chi}
+  22- 27  F6.3  [-]     log(gf)   Log of the oscillator strength
+  29- 33  F5.1  10-13m  EW33      ? Equivalent width in Boo 33 (1)
+  35- 39  F5.2  [-]     loge33    ? Log absolute abundance in Boo 33 (2)
+  41- 45  F5.1  10-13m  EW41      ? Equivalent width in Boo 41 (1)
+  47- 50  F4.2  [-]     loge41    ? Log absolute abundance in Boo 41 (2)
+  52- 56  F5.1  10-13m  EW94      ? Equivalent width in Boo 94 (1)
+  58- 62  F5.2  [-]     loge94    ? Log absolute abundance in Boo 94 (2)
+  64- 68  F5.1  10-13m  EW117     ? Equivalent width in Boo 117 (1)
+  70- 74  F5.2  [-]     loge117   ? Log absolute abundance in Boo 117 (2)
+  76- 80  F5.1  10-13m  EW119     ? Equivalent width in Boo 119 (1)
+  82- 85  F4.2  [-]     loge119   ? Log absolute abundance in Boo 119 (2)
+  87- 91  F5.1  10-13m  EW127     ? Equivalent width in Boo 127 (1)
+  93- 97  F5.2  [-]     loge127   ? Log absolute abundance in Boo 127 (2)
+  99-102  F4.1  10-13m  EW130     ? Equivalent width in Boo 130 (1)
+ 104-108  F5.2  [-]     loge130   ? Log absolute abundance in Boo 130 (2)
+--------------------------------------------------------------------------------
+Note (1): In units of milli-Angstroms.
+Note (2): where loge(X) = (log(N_X_/N_H_) + 12.0)
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table8.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label    Explanations
+--------------------------------------------------------------------------------
+   1-  4  A4    ---     ---      [Boo-]
+   5-  8  I4    ---     Star     [33/1137] Star number
+       9  A1    ---   f_Star     [d] d: CEMP-no star (Carbon-Enhanced Metal-Poor
+                                 with no enhancement of heavy neutron-capture
+                                 elements over Solar ratios )
+  11- 14  F4.2  [Sun]   [Mg/Fe]  [0.1/1.1] Magnesium abundance
+  16- 19  F4.2  [Sun] e_[Mg/Fe]  [0.1/0.3] [Mg/Fe] uncertainty (1)
+  21- 24  F4.2  [Sun]   [Ca/Fe]  [0.1/0.6] Calcium abundance
+  26- 29  F4.2  [Sun] e_[Ca/Fe]  [0.05/0.2] [Ca/Fe] uncertainty (1)
+  31- 35  F5.2  [Sun]   [Ti/Fe]  [-0.02/0.8] Titanium abundance
+  37- 40  F4.2  [Sun] e_[Ti/Fe]  [0.1/0.3] [Ti/Fe] uncertainty (1)
+  42- 45  F4.2  [Sun]   [a/Fe]   [0.1/0.8] {alpha}-elements abundance (2)
+  47- 50  F4.2  [Sun] e_[a/Fe]   [0.09/0.2] [a/Fe] uncertainty (3)
+  52- 56  F5.2  [Sun]   [Fe/H]   [-3.7/-1.8] Iron abundance
+  58- 61  F4.2  [Sun] e_[Fe/H]   [0.1/0.2] [Fe/H] uncertainty (1)
+--------------------------------------------------------------------------------
+Note (1): Arithmetic mean of Norris & Yong (NY) and Geisler & Monaco (GM)
+          errors.
+Note (2): [{alpha}/Fe]=([Mg/Fe]+[Ca/Fe]+[Ti/Fe])/3.
+Note (3): Quadrature mean of NY and GM errors, except for Boo-119 and Boo-1137
+          for which the values are based on the analysis of GM and the present
+          reanalysis of the data of Norris et al. (2010, Cat. J/ApJ/711/350),
+          respectively.
+--------------------------------------------------------------------------------
+
+History:
+    From electronic version of the journal
+
+================================================================================
+(End)                 Greg Schwarz [AAS], Emmanuelle Perret [CDS]    15-Oct-2014

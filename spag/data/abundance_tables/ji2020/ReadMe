@@ -1,0 +1,225 @@
+J/ApJ/889/27       Abundances of 11 stars in Carina II and III       (Ji+, 2020)
+================================================================================
+Detailed abundances in the ultra-faint Magellanic satellites Carina II and III.
+    Ji A.P., Li T.S., Simon J.D., Marshall J., Vivas A.K., Pace A.B.,
+    Bechtol K., Drlica-Wagner A., Koposov S.E., Hansen T.T., Allam S.,
+    Gruendl R.A., Johnson M.D., McNanna M., Noel N.E.D., Tucker D.L.,
+    Walker A.R., (the MagLiteS Collaboration)
+   <Astrophys. J., 889, 27-27 (2020)>
+   =2020ApJ...889...27J    (SIMBAD/NED BibCode)
+================================================================================
+ADC_Keywords: Spectra, optical; Abundances; Radial velocities; Equivalent widths
+Keywords: Local Group; Stellar abundances; Dwarf galaxies
+
+Abstract:
+    We present the first detailed elemental abundances in the ultra-faint
+    Magellanic satellite galaxies Carina II (Car II) and Carina III
+    (CarIII). With high-resolution Magellan/MIKE spectroscopy, we
+    determined the abundances of nine stars in Car II, including the first
+    abundances of an RR Lyrae star in an ultra-faint dwarf galaxy (UFD),
+    and two stars in Car III. The chemical abundances demonstrate that
+    both systems are clearly galaxies and not globular clusters. The stars
+    in these galaxies mostly display abundance trends matching those of
+    other similarly faint dwarf galaxies: enhanced but declining
+    [{alpha}/Fe] ratios, iron-peak elements matching the stellar halo, and
+    unusually low neutron-capture element abundances. One star displays a
+    low outlying [Sc/Fe]=-1.0. We detect a large Ba scatter in Car II,
+    likely due to inhomogeneous enrichment by low-mass asymptotic giant
+    branch star winds. The most striking abundance trend is for [Mg/Ca] in
+    Car II, which decreases from +0.4 to -0.4 and indicates clear
+    variation in the initial progenitor masses of enriching core-collapse
+    supernovae. So far, the only UFDs displaying a similar [Mg/Ca] trend
+    are likely satellites of the Large Magellanic Cloud. We find two stars
+    with [Fe/H]<=-3.5 whose abundances likely trace the first generation
+    of metal-free Population III stars and are well fit by Population III
+    core-collapse supernova yields. An appendix describes our new
+    abundance uncertainty analysis that propagates line-by-line stellar
+    parameter uncertainties.
+
+Description:
+    We observed the Magellanic satellite galaxies Carina II and III target
+    stars with Magellan/MIKE over four separate runs between May 2017 and
+    Oct 2019. The total integrated time spent on these stars is 34hr.
+
+File Summary:
+--------------------------------------------------------------------------------
+ FileName      Lrecl  Records   Explanations
+--------------------------------------------------------------------------------
+ReadMe            80        .   This file
+table1.dat        89       11   Observations
+table2.dat        45       54   Radial velocities
+table3.dat        51       11   Stellar parameters
+table4.dat       102     2280   Line measurements
+table6.dat        56      242   Stellar abundances
+--------------------------------------------------------------------------------
+
+See also:
+ I/345 : Gaia DR2 (Gaia Collaboration, 2018)
+ J/ApJ/655/492   : Equivalent widths of 26 metal-poor stars (Aoki+, 2007)
+ J/MNRAS/383/183 : CaII triplet of RGB from VLT/FLAMES obs. (Battaglia+, 2008)
+ J/ApJ/708/560   : Spectroscopy of UMa II and Coma Ber (Frebel+, 2010)
+ J/ApJ/719/931   : Chemical evolution of the UMi dSph (Cohen+, 2010)
+ J/ApJ/723/1632  : Abundance spreads in Bootes I and Segue 1 (Norris+, 2010)
+ J/ApJ/724/341   : Nucleosynthesis of massive metal-free stars (Heger+, 2010)
+ J/AJ/140/1694   : Abundances of non-variable red and blue HB stars (For+, 2010)
+ J/ApJS/197/29   : Chemical compositions of 11 RR Lyrae (For+, 2011)
+ J/AJ/144/88     : Spectroscopy of 6 LMC & 3 SMC RR Lyrae stars (Haschke+, 2012)
+ J/ApJ/760/86    : Equivalent widths for 13 NGC2419 RGB stars (Cohen+, 2012)
+ J/ApJ/762/26    : Most metal-poor stars. II. Galactic halo stars (Yong+, 2013)
+ J/ApJ/763/61    : Abundances of 7 red giant members of BootesI (Gilmore+, 2013)
+ J/ApJ/769/57    : Equivalent widths of metal-poor stars (Frebel+, 2013)
+ J/ApJ/778/56    : Hamburg/ESO Survey extremely metal-poor stars (Cohen+, 2013)
+ J/ApJ/778/149   : Abundances for 3 stars in Sgr dSph (McWilliam+, 2013)
+ J/A+A/562/A146  : Chemical abundances of 8 metal-poor stars (Ishigaki+, 2014)
+ J/ApJ/786/74    : EW measurements of 6 Segue 1 red giants (Frebel+, 2014)
+ J/MNRAS/440/2665  : SDSS J021933.13+200830.2 spectroscopy (Roederer+, 2014)
+ J/ApJ/797/21    : Carbon-enhanced metal-poor stars (Placco+, 2014)
+ J/A+A/574/A129  : The First CEMP star in the Sculptor dSph (Skuladottir+, 2015)
+ J/A+A/586/A120  : Grid of 1D models for Mg line formation (Osorio+, 2016)
+ J/AJ/151/82     : The 4 brightest red giants in galaxy Ret 2 (Roederer+, 2016)
+ J/ApJ/826/110   : Boo-127 and Boo-980 high-resolution spectra (Frebel+, 2016)
+ J/ApJ/830/93    : Abundances of Ret II brightest red giant members (Ji+, 2016)
+ J/ApJ/833/20    : Carbon-enhanced metal-poor star abundances (Yoon+, 2016)
+ J/ApJ/838/44    : Abundances of the brightest member of Tuc III (Hansen+, 2017)
+ J/ApJ/838/83    : Rvel, abundances & membership in TriII (Kirby+, 2017)
+ J/ApJ/847/142   : Ultra-metal-poor stars abundances (Ezzeddine+, 2017)
+ J/ApJ/852/99    : Abundances of 3 metal-poor stars in Hor I (Nagasawa+, 2018)
+ J/ApJ/856/142   : Abundances of metal-poor stars in Sculptor (Chiti+, 2018)
+ J/ApJ/857/74    : Abundances of 7 new member stars in Tucana II (Chiti+, 2018)
+ J/ApJ/857/145   : MagLiteS Carina II and Carina III spectroscopy (Li+, 2018)
+ J/ApJ/863/25    : Deep Megacam obs. of 4 MW satellites (Mutlu-Pakdil+, 2018)
+ J/ApJ/863/89    : Gaia DR2 PMs in ultra-faint MW satellites (Simon, 2018)
+ J/ApJ/870/83    : Abundances in GruI & TriII (Ji+, 2019)
+ J/A+A/622/A60   : Gaia DR2 misclassified RR Lyrae list (Clementini+, 2019)
+ J/A+A/623/A129  : New satellites of the LMC search (Fritz+, 2019)
+ J/ApJ/875/77    : Proper motions of MW satellites with Gaia & DES (Pace+, 2019)
+ J/A+A/627/A177  : Non-LTE analysis of K I in late-type stars (Reggiani+, 2019)
+ J/ApJ/882/177   : Abundances of 4 member stars of Tucana III (Marshall+, 2019)
+ J/A+A/631/A80   : Mn lines 3D NLTE formation (Bergemann+, 2019)
+
+Byte-by-byte Description of file: table1.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units    Label    Explanations
+--------------------------------------------------------------------------------
+   1- 11 A11    ---      ID       Star identifier (1)
+      13 A1     ---    f_ID       Flag on ID (2)
+  15- 33 I19    ---      Gaia     Gaia DR2 identifier
+  35- 36 I2     h        RAh      Hour of right ascension (J2000)
+  38- 39 I2     min      RAm      Minute of right ascension (J2000)
+  41- 45 F5.2   s        RAs      Second of right ascension (J2000)
+      47 A1     ---      DE-      Sign of declination (J2000)
+  48- 49 I2     deg      DEd      Degree of declination (J2000)
+  51- 52 I2     arcmin   DEm      Arcminute of declination (J2000)
+  54- 57 F4.1   arcsec   DEs      Arcsecond of declination (J2000)
+  59- 63 F5.2   mag      Gmag     [15/18.5] Gaia G-band magnitude
+  65- 69 F5.2   mag      g0mag    [15.6/18.4] Dereddened DECam g-band magnitude
+                                   from MagLiteS (3)
+  71- 75 F5.2   mag      r0mag    [14.6/18.1] Dereddened DECam r-band magnitude
+                                   from MagLiteS (3)
+  77- 79 F3.1   ---      Slit     [0.5/1] Slit
+  81- 83 F3.1   h        Exp      [1/5.5] Exposure time
+  85- 86 I2     ---      SNR4500  [13/38] Signal-to-noise ratio per pixel
+                                   at 4500 {AA}
+  88- 89 I2     ---      SNR6500  [24/80] Signal-to-noise ratio
+                                   at 6500 {AA}
+--------------------------------------------------------------------------------
+Note (1): Our star ID numbers are the last four digits of the Gaia source_id.
+Note (2): Flag as follows:
+  a = This star is a variable RRL star. The magnitudes here are the mean
+      magnitudes found by MagLiteS and Gaia (Torrealba+ 2018MNRAS.475.5085T
+      and Clementini+ 2019, J/A+A/622/A60), where the DECam magnitudes have
+      been dereddened.
+Note (3): g0mag and r0mag are dereddened DECam photometry from MagLiteS,
+    taken from T. S. Li. et al. (2019, in preparation).
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table2.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1- 11  A11   ---     ID        Star identifier (1)
+  13- 16  I4    yr      Obs.Y     Year of the observation
+  18- 19  I2   "month"  Obs.M     Month of the observation
+  21- 22  I2    d       Obs.D     Day of the observation
+  24- 32  F9.3  d       MJD       [58092.3/58552.1] Modified Julian Date
+                                   of the observation
+  34- 38  F5.1  km/s    RVel      [280.8/483.7] Heliocentric radial velocity
+  40- 41  I2    ---     Nord      [16/36] Final number of orders used
+  43- 45  F3.1  km/s    sigma     [0.3/7] Systematic error
+--------------------------------------------------------------------------------
+Note (1): Note that CarII-6544 is likely a binary star and CarII-V3 is an RRL
+          star, so these have significant velocity variations.
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table3.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units     Label  Explanations
+--------------------------------------------------------------------------------
+   1- 11 A11    ---       ID     Star identifier
+  13- 16 I4     K         Teff   [4330/6100] Effective temperature
+  18- 20 I3     K       e_Teff   [152/330] Teff uncertainty
+  22- 25 F4.2   [cm/s2]   logg   [0.4/2.7] Log of surface gravity
+  27- 30 F4.2   [cm/s2] e_logg   [0.27/0.5] Logg uncertainty
+  32- 35 F4.2   km/s      Vt     [1.75/3.2] Microturbulent velocity
+  37- 40 F4.2   km/s    e_Vt     [0.25/0.4] Vt uncertainty
+  42- 46 F5.2   [Sun]     [M/H]  [-3.9/-2.1] Metallicity
+  48- 51 F4.2   [Sun]   e_[M/H]  [0.06/0.21] [M/H] uncertainty
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table4.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label       Explanations
+--------------------------------------------------------------------------------
+   1- 11 A11    ---     ID          Star identifier
+  13- 19 F7.2   0.1nm   lambda      [3825.8/7699] Wavelength in Angstrom units
+  21- 25 F5.1   ---     Ion         [8/607] Ion code (1)
+  27- 30 F4.2   ---     chi         [0/4.5]? Excitation potential
+  32- 37 F6.2   [-]     log(gf)     [-10.3/0.6]? log oscillator strength
+  39- 43 F5.1   0.1nm   EW          [8/309]? Equivalent width; Angstroms
+      45 A1     ---   f_EW          [s] Flag on EW (s=synthesis)
+  47- 50 F4.1   0.1nm e_EW          [1/26]? Uncertainty in EW
+      52 I1     ---   l_logeps      [0/1] Upper flag limit on logeps
+                                      (1=True,0=False)
+  54- 58 F5.2   [-]     logeps      [-3.3/8.8] log abundance
+  60- 63 F4.2   ---     sigma       [0.09/9]? Total error;
+                                     sigmaStat^2^+sigmaSys^2^
+  65- 68 F4.2   ---     sigmaStat   [0.01/9]? Statistical error
+  70- 73 F4.2   ---     sigmaSys    [0.07/2.4]? Systematic error (2)
+  75- 79 F5.2   ---     sigmaTeff   [-0.4/2.4]? Systematic abundance offset
+                                     from Teff
+  81- 85 F5.2   ---     sigmalogg   [-0.6/0.4]? Systematic abundance offset
+                                     from log(g)
+  87- 91 F5.2   ---     sigmavt     [-0.4/0.15]? Systematic abundance offset
+                                     from v_turb_
+  93- 97 F5.2   ---     sigma[M/H]  [-0.2/0.16]? Systematic abundance offset
+                                     from [M/H]
+  99-102 F4.2   ---     sigmacont   [0.01/0.8]? Systematic abundance offset
+                                     from local continuum allowed to vary
+--------------------------------------------------------------------------------
+Note (1): In the format X.Y where X is the atomic number and Y is the
+          ionization, e.g. 26.0=FeI. Values of 106.0 and 607.0 indicate
+          the C-H and C-N molecules, respectively.
+Note (2): sigmaSys=sigmaTeff^2^+sigmalogg^2^+sigmavt^2^+sigma[M/H]^2^.
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table6.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label      Explanations
+--------------------------------------------------------------------------------
+   1- 11 A11    ---     ID         Star identifier
+  13- 17 A5     ---     El         Element identifier
+  19- 21 I3     ---     N          [1/169] Number of elements used
+      23 A1     ---   l_logeps     Limit flag on logeps
+  25- 29 F5.2   [-]     logeps     [-3.3/8.8] log abundance
+  31- 34 F4.2   ---     sigmastat  [0.01/0.65]? Statistical error
+  36- 40 F5.2   [-]     [X/H]      [-5.8/0.04] log [X/H] abundance
+  42- 45 F4.2   [-]   e_[X/H]      [0.1/0.8]? Uncertainty in [X/H]
+  47- 51 F5.2   [-]     [X/Fe]     [-2.6/2.9] log [X/Fe] abundance
+  53- 56 F4.2   [-]   e_[X/Fe]     [0.02/0.7]? Uncertainty in [X/Fe]
+--------------------------------------------------------------------------------
+
+History:
+    From electronic version of the journal
+
+================================================================================
+(End)                  Prepared by [AAS], Emmanuelle Perret [CDS]    08-Jul-2021

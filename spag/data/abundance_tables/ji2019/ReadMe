@@ -1,0 +1,198 @@
+J/ApJ/870/83  Abundances in the ultra-faint dwarf gal. GruI & TriII  (Ji+, 2019)
+================================================================================
+Chemical abundances in the ultra-faint dwarf galaxies Grus I and Triangulum II:
+neutron-capture elements as a defining feature of the faintest dwarfs.
+    Ji A.P., Simon J.D., Frebel A., Venn K.A., Hansen T.T.
+   <Astrophys. J., 870, 83-83 (2019)>
+   =2019ApJ...870...83J    (SIMBAD/NED BibCode)
+================================================================================
+ADC_Keywords: Abundances; Equivalent widths; Spectra, optical;
+              Radial velocities
+Keywords: galaxies: dwarf - galaxies: individual: (Gru I, Tri II) -
+          Local Group - nuclear reactions, nucleosynthesis, abundances -
+          stars: abundances
+
+Abstract:
+    We present high-resolution spectroscopy of four stars in two candidate
+    ultra-faint dwarf galaxies (UFDs), GrusI (GruI) and TriangulumII
+    (TriII). Neither object currently has a clearly determined velocity
+    dispersion, placing them in an ambiguous region of parameter space
+    between dwarf galaxies and globular clusters (GCs). No significant
+    metallicity difference is found for the two GruI stars, but both stars
+    are deficient in neutron-capture elements. We verify previous results
+    that TriII displays significant spreads in metallicity and
+    [{alpha}/Fe]. Neutron-capture elements are not detected in our TriII
+    data, but we place upper limits at the lower envelope of Galactic halo
+    stars, consistent with previous very low detections. Stars with
+    similarly low neutron-capture element abundances are common in UFDs
+    but rare in other environments. This signature of low neutron-capture
+    element abundances traces chemical enrichment in the least massive
+    star-forming dark matter halos and further shows that the dominant
+    sources of neutron-capture elements in metal-poor stars are rare. In
+    contrast, all known GCs have similar ratios of neutron-capture
+    elements to those of halo stars, suggesting that GCs do not form at
+    the centers of their own dark matter halos. The low neutron-capture
+    element abundances may be the strongest evidence that GruI and TriII
+    are (or once were) galaxies rather than GCs, and we expect future
+    observations of these systems to robustly find nonzero velocity
+    dispersions or signs of tidal disruption. However, the nucleosynthetic
+    origin of this low neutron-capture element floor remains unknown.
+
+Description:
+    Our program stars were observed between December 2015 and August 2017
+    from two telescopes with two different echelle spectrographs. Details
+    of the observations can be found in Table1.
+
+    The GruI stars were selected as the two brightest probable members of
+    GruI from Walker+ (2016, J/ApJ/819/53). We observed these stars with
+    the Magellan Inamori Kyocera Echelle (MIKE) spectrograph on the
+    Magellan-Clay telescope in 2017 August with the 1"0 slit, providing
+    resolution R~28000 from ~3900 to 5000{AA} on the blue arm and R~22000
+    from ~5000 to 9000{AA} on the red arm.
+
+    The two stars in TriII were observed with the Gemini Remote Access to
+    CFHT ESPaDOnS (Echelle SpectroPolarimetric Device for the Observation
+    of Stars at Canada-France-Hawaii Telescope) Spectrograph (GRACES).
+    These stars were selected as the brightest probable members of TriII
+    from Kirby+ (2015ApJ...814L...7K) and Martin+ (2016ApJ...818...40M).
+    We combined data from two programs that both used the two-fiber
+    object+sky GRACES mode providing R~40000 from ~5000 to 10000{AA}.
+
+Objects:
+    ----------------------------------------------------------
+         RA   (ICRS)   DE        Designation(s)
+    ----------------------------------------------------------
+     22 56 42.4    -50 09 48     GruI  = NAME Grus I
+     02 13 17.40   +36 10 42.4   TriII = NAME Tri II
+    ----------------------------------------------------------
+
+File Summary:
+--------------------------------------------------------------------------------
+ FileName  Lrecl  Records  Explanations
+--------------------------------------------------------------------------------
+ReadMe       80        .   This file
+table1.dat   89       10   Observing details of the four stars in the
+                            ultra-faint dwarf galaxies (UFDs) GruI and TriII
+table2.dat  136      289   Line measurements
+--------------------------------------------------------------------------------
+
+See also:
+ J/AJ/128/1177 : Galactic stellar abundances (Venn+, 2004)
+ J/AJ/130/2140 : Abundances and velocities in globular clusters (Pritzl+, 2005)
+ J/AJ/137/3100 : Radial velocities of 4 dSph galaxies (Walker+, 2009)
+ J/AN/331/474  : Abundances of metal-poor stars (Frebel, 2010)
+ J/ApJ/711/573 : Detailed abundances in a halo stellar stream (Roederer+, 2010)
+ J/ApJ/724/341 : Nucleosynthesis of massive metal-free stars (Heger+, 2010)
+ J/ApJ/767/134 : Abundances of red giant stars in UFD galaxies (Vargas+, 2013)
+ J/ApJ/769/57  : Equivalent widths of metal-poor stars (Frebel+, 2013)
+ J/ApJ/770/16  : Spectroscopic members of Segue 2 galaxy (Kirby+, 2013)
+ J/ApJ/779/102 : Metallicities of RGB stars in dwarf galaxies (Kirby+, 2013)
+ J/AJ/145/159  : LAMOST. II. ugriz photometry of 526 new quasars (Huo+, 2013)
+ J/A+A/562/A146  : Chemical abundances of 8 metal-poor stars (Ishigaki+, 2014)
+ J/A+A/565/A23 : Abundances of NGC5897 red giants (Koch+, 2014)
+ J/A+A/571/A47 : Extensive list of CH in stellar atmospheres (Masseron+, 2014)
+ J/AJ/147/136  : Stars very low metal abundance. VI. Abundances (Roederer+,2014)
+ J/ApJ/786/74  : EW measurements of 6 Segue 1 red giants (Frebel+, 2014)
+ J/ApJ/789/147 : Star formation histories of LG dwarf galaxies (Weisz+, 2014)
+ J/ApJ/797/21  : Carbon-enhanced metal-poor stars (Placco+, 2014)
+ J/A+A/574/A129   : The First CEMP star in the Sculptor dSph (Skuladottir+,2015)
+ J/ApJ/802/93  : Chemical abundance analysis 5 stars in Sculptor (Simon+, 2015)
+ J/ApJ/808/95  : Spectroscopy of Reticulum II (Simon+, 2015)
+ J/MNRAS/449/761  : EWs of metal-poor stars in UMiI dSph galaxy (Ural+, 2015)
+ J/MNRAS/449/3889 : Detailed abundances of 15 stars in NGC4833 (Roederer+, 2015)
+ J/AJ/151/82   : The 4 brightest red giants in UFD galaxy Ret 2 (Roederer+,2016)
+ J/ApJ/817/41  : Abundances of 4 metal-poor red giants in BooII (Ji+, 2016)
+ J/ApJ/819/53  : Magellan/M2FS spectroscopy of Tucana 2 & Grus 1 (Walker+, 2016)
+ J/ApJ/826/110 : Boo-127 and Boo-980 high-resolution spectra (Frebel+, 2016)
+ J/ApJ/830/93  : Abundances of Ret II brightest red giant members (Ji+, 2016)
+ J/MNRAS/458/L59 : DracoII stars gi magnitude & radial velocities (Martin+,2016)
+ J/A+A/604/A129  : Formation of MW halo and dwarf satellites (Mashonkina+, 2017)
+ J/ApJ/838/11  : Member stars in the MW satellite Tucana III (Simon+, 2017)
+ J/ApJ/838/44  : Abundances of the brightest member of Tuc III (Hansen+, 2017)
+ J/ApJ/838/83  : Radial velocities abundances membership in TriII (Kirby+, 2017)
+ J/ApJS/230/28 : The populations of Carina. II. Abundances (Norris+, 2017)
+ J/ApJ/852/99  : Abundances 3 metal-poor stars in Horologium I (Nagasawa+, 2018)
+ J/ApJ/855/83  : Abundances very metal-poor stars in Sagittarius (Hansen+, 2018)
+ J/ApJ/857/74  : Abundances of 7 new member stars in Tucana II (Chiti+, 2018)
+ J/ApJ/863/89  : GaiaDR2 PMs of stars in ultra-faint MW satellites (Simon, 2018)
+
+Byte-by-byte Description of file: table1.dat
+--------------------------------------------------------------------------------
+  Bytes Format Units    Label   Explanations
+--------------------------------------------------------------------------------
+      1  I1    ---      Seq     Star number (as in Table 2); column added by CDS
+  3- 10  A8    ---      Name    Star identification
+ 12- 13  I2    h        RAh     [2/22] Hour of right ascension (J2000)
+ 15- 16  I2    min      RAm     Minute of right ascension (J2000)
+ 18- 21  F4.1  s        RAs     Second of right ascension (J2000)
+     23  A1    ---      DE-     Sign of declination (J2000)
+ 24- 25  I2    deg      DEd     Degree of declination (J2000)
+ 27- 28  I2    arcmin   DEm     Arcminute of declination (J2000)
+ 30- 33  F4.1  arcsec   DEs     Arcseconde of declination (J2000)
+ 35- 38  F4.1  mag      Vmag    [17/19] V magnitude
+ 40- 50  A11  "date"    Date    Observation date
+ 52- 54  I3    min      Exp     [60/430] Exposure time
+ 56- 61  F6.1  km/s     HRV     [-397/-139] Helicocentric velocity (1)
+ 63- 65  F3.1  km/s   e_HRV     [0.4/5]? Error on RV
+ 67- 68  I2    ---      S/N4500 [1/22]? Signal-to-noise ratio at 4500{AA}
+                                 per pixel (2)
+ 70- 71  I2    ---      S/N5300 [7/25]? Signal-to-noise ratio at 5300{AA}
+                                 per pixel (2)
+ 73- 74  I2    ---      S/N6500 [17/60]? Signal-to-noise ratio at 6500{AA}
+                                 per pixel (2)
+ 76- 89  A14   ---      Inst    Spectrograph used
+--------------------------------------------------------------------------------
+Note (1): Velocity precision is computed with co-added spectra except for
+           TriII-46, where each visit is measured separately because of the
+           binary orbital motion.
+Note (2): S/N values for TriII stars were determined after co-adding.
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table2.dat
+--------------------------------------------------------------------------------
+  Bytes Format Units   Label   Explanations
+--------------------------------------------------------------------------------
+  1-  5 A5     ---     Ion     Atomic species
+  7- 13 F7.2   0.1nm   lambda  [3961/8195] Rest wavelength ({lambda})
+ 15- 18 F4.2   eV      EP      [0/4.5]? Excitation potential ({chi})
+ 20- 24 F5.2   [-]     loggf   [-5.7/0.65]? log statistical weight*oscillator
+                                strength
+ 26- 30 F5.1   0.1pm   EW1     [22/311]? Measured equivalent width, GruI-032
+ 32- 34 A3     ---   f_EW1     syn: abundance from spectrum synthesis
+ 36- 39 F4.1   0.1pm e_EW1     [5/66]? Uncertainty in EW1 ({sigma}(EW))
+ 41- 41 A1     ---   l_logeps1 Limit flag on logeps1
+ 43- 47 F5.2   [-]     logeps1 [-2.5/5.7]? Abundance derived from this line,
+                                GruI-032 (log{epsilon})
+ 49- 52 F4.2   [-]   e_logeps1 [0.1/1.2]? Uncertainty on logeps1
+                                ({sigma}(log{epsilon}))
+ 54- 58 F5.1   0.1pm   EW2     [20/280]? Measured equivalent width, GruI-038
+ 60- 62 A3     ---   f_EW2     syn: abundance from spectrum synthesis
+ 64- 67 F4.1   0.1pm e_EW2     [5/79]? Uncertainty in EW2 ({sigma}(EW))
+ 69- 69 A1     ---   l_logeps2 Limit flag on logeps2
+ 71- 75 F5.2   [-]     logeps2 [-1.8/5.7]? Abundance derived from this line,
+                                GruI-038 (log{epsilon})
+ 77- 80 F4.2   [-]   e_logeps2 [0.1/1.5]? Uncertainty on logeps2
+                                ({sigma}(log{epsilon}))
+ 82- 86 F5.1   0.1pm   EW3     [16/209]? Measured equivalent width, TriII-40
+ 88- 90 A3     ---   f_EW3     syn: abundance from spectrum synthesis
+ 92- 95 F4.1   0.1pm e_EW3     [4/34]? Uncertainty in EW3 ({sigma}(EW))
+ 97- 97 A1     ---   l_logeps3 Limit flag on logeps3
+ 99-103 F5.2   [-]     logeps3 [-2.3/5.1]? Abundance derived from this line,
+                                TriII-40 (log{epsilon})
+105-108 F4.2   [-]   e_logeps3 [0.1/0.5]? Uncertainty on logeps3
+                                ({sigma}(log{epsilon}))
+110-114 F5.1   0.1pm   EW4     [52/207]? Measured equivalent width, TriII-46
+116-118 A3     ---   f_EW4     syn: abundance from spectrum synthesis
+120-123 F4.1   0.1pm e_EW4     [12/70]? Uncertainty in EW4 ({sigma}(EW))
+125-125 A1     ---   l_logeps4 Limit flag on logeps4
+127-131 F5.2   [-]     logeps4 [-0.06/6.2]? Abundance derived from this line,
+                                TriII-46 (log{epsilon})
+133-136 F4.2   [-]   e_logeps4 [0.2/1.1]? Uncertainty on logeps4
+                                ({sigma}(log{epsilon}))
+--------------------------------------------------------------------------------
+
+History:
+    From electronic version of the journal
+
+================================================================================
+(End)                        Prepared by [AAS], Coralie Fix [CDS]    11-Feb-2020

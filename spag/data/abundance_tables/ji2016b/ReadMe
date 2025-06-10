@@ -1,0 +1,163 @@
+J/ApJ/830/93  Abundances of the Ret II brightest red giant members  (Ji+, 2016)
+================================================================================
+Complete element abundances of nine stars in the r-process galaxy Reticulum II.
+    Ji A.P., Frebel A., Simon J.D., Chiti A.
+   <Astrophys. J., 830, 93-93 (2016)>
+   =2016ApJ...830...93J    (SIMBAD/NED BibCode)
+================================================================================
+ADC_Keywords: Galaxies, nearby ; Spectroscopy ; Stars, giant ; Abundances ;
+              Radial velocities ; Equivalent widths
+Keywords: galaxies: dwarf; galaxies: individual: Ret II; Local Group;
+          nuclear reactions, nucleosynthesis, abundances; stars: abundances
+
+Abstract:
+    We present chemical abundances derived from high-resolution
+    Magellan/Magellan Inamori Kyocera Echelle spectra of the nine
+    brightest known red giant members of the ultra-faint dwarf galaxy
+    Reticulum II (Ret II). These stars span the full metallicity range of
+    Ret II (-3.5<[Fe/H]< -2). Seven of the nine stars have extremely high
+    levels of r-process material ([Eu/Fe]~1.7), in contrast to the
+    extremely low neutron-capture element abundances found in every other
+    ultra-faint dwarf galaxy studied to date. The other two stars are the
+    most metal-poor stars in the system ([Fe/H]< -3), and they have
+    neutron-capture element abundance limits similar to those in other
+    ultra-faint dwarf galaxies. We confirm that the relative abundances of
+    Sr, Y, and Zr in these stars are similar to those found in r-process
+    halo stars, but they are ~0.5dex lower than the solar r-process
+    pattern. If the universal r-process pattern extends to those elements,
+    the stars in Ret II display the least contaminated known r-process
+    pattern. The abundances of lighter elements up to the iron peak are
+    otherwise similar to abundances of stars in the halo and in other
+    ultra-faint dwarf galaxies. However, the scatter in abundance ratios
+    is large enough to suggest that inhomogeneous metal mixing is required
+    to explain the chemical evolution of this galaxy. The presence of low
+    amounts of neutron-capture elements in other ultra-faint dwarf
+    galaxies may imply the existence of additional r-process sites besides
+    the source of r-process elements in Ret II. Galaxies like Ret II may
+    be the original birth sites of r-process enhanced stars now found in
+    the halo.
+
+Description:
+    On 2015 October 1-4 we obtained high-resolution spectra of the
+    brightest nine confirmed members in Reticulum II. We used the Magellan
+    Inamori Kyocera Echelle (MIKE) spectrograph on the Magellan-Clay
+    telescope with a 1.0" slit, which provides a spectral resolution of
+    ~22000 and ~28000 at red and blue wavelengths, respectively.
+
+File Summary:
+--------------------------------------------------------------------------------
+ FileName      Lrecl  Records   Explanations
+--------------------------------------------------------------------------------
+ReadMe            80        .   This file
+table1.dat        80        9  *Observed stars and stellar parameters
+table2.dat       161      396   Equivalent widths
+--------------------------------------------------------------------------------
+Note on table1.dat: All stars were observed with a 1.0" slit. Stars are
+   ordered by brightness.
+--------------------------------------------------------------------------------
+
+See also:
+ J/ApJ/808/108  : M2FS stellar spectroscopy of Reticulum 2 (Walker+, 2015)
+ J/ApJ/808/95   : Spectroscopy of Reticulum II (Simon+, 2015)
+ J/ApJ/807/171  : SkyMapper Survey metal-poor star spectrosc. (Jacobson+, 2015)
+ J/A+A/571/A47  : Linelist of CH in stellar atmospheres (Masseron+, 2014)
+ J/AJ/147/136   : Stars of very low metal abundance. VI. (Roederer+, 2014)
+ J/ApJ/779/102  : Metallicities of RGB stars in dwarf galaxies (Kirby+, 2013)
+ J/ApJ/767/134  : Abundances of red giant stars in UFD galaxies (Vargas+, 2013)
+ J/AJ/144/4     : Dwarf galaxies in the Local Group (McConnachie+, 2012)
+ J/ApJS/182/80  : Rare earth abundances (Sneden+, 2009)
+ J/ApJS/162/227 : Transition probabilities for SmII (Lawler+, 2006)
+
+Byte-by-byte Description of file: table1.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units    Label     Explanations
+--------------------------------------------------------------------------------
+   1-  3  A3    ---      ---       [DES]
+   5- 18  A14   ---      DES       Star identifier (JHHMMSS+DDMMSS)
+  20- 22  I3    min      Exp       [58/220] Exposure time
+  24- 28  F5.2  mag      Vmag      [16/18.7] V-band magnitude (1)
+  30- 31  I2    ---      S/N4      [7/22] Signal to noise ratio per pixel
+                                    at 4250{AA}
+  33- 34  I2    ---      S/N6      [13/47] Signal to noise ratio per pixel
+                                    at 6000{AA}
+  36- 39  F4.1  km/s     HRV       [60.9/71.6] Heliocentric velocity
+  41- 43  F3.1  km/s   e_HRV       [0.1/0.3] HRV uncertainty (2)
+  45- 48  I4    K        Teff      [4608/5395] Effective temperature
+  50- 52  I3    K      e_Teff      [157/258] Teff uncertainty (3)
+  54- 57  F4.2 [cm/s2]   logg      [1/3.1] Log of surface gravity
+  59- 62  F4.2 [cm/s2] e_logg      [0.3/0.4] logg uncertainty (3)
+  64- 67  F4.2  km/s     Vt        [1.3/2.4] Microturbulence velocity
+  69- 72  F4.2  km/s   e_Vt        [0.2/0.5] Vt uncertainty (3)
+  74- 78  F5.2  [Sun]    [Fe/H]    [-3.6/-2] Metallicity
+      80  A1    ---      ID        Letter used as identifier in table 2; 
+                                    column added by CDS
+--------------------------------------------------------------------------------
+Note (1): V magnitudes were found with the conversion in
+          Bechtol+ (2015ApJ...807...50B).
+Note (2): Velocity error is from FWHM of cross-correlation.
+Note (3): See Ji+ (2016Natur.531..610J) for stellar parameter uncertainty
+          breakdown.
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table2.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units    Label   Explanations
+--------------------------------------------------------------------------------
+   1-  5 A5     ---      Ion     Molecule or Ion identifier
+   7- 13 F7.2   0.1nm    lambda  [3743.3/6678] Wavelength in Angstroms
+  15- 18 F4.2   eV       ExPot   [0/4.4]? Excitation potential
+  20- 24 F5.2   [-]      log(gf) [-5.7/0.7]? Log oscillator strength
+  26- 30 F5.1   10-13m   EW-A    [17/179]? DES J033523-540407 equivalent width
+                                  in milli-Angstroms
+      32 A1     ---    f_EW-A    s=abundance determined with spectrum synthesis
+  34- 38 F5.2   [-]      loge-A  [-1.1/6.1]? DES J033523-540407 log abundance
+  40- 44 F5.1   10-13m   EW-B    [14/188]? DES J033607-540235 equivalent width
+                                  in milli-Angstroms
+      46 A1     ---    f_EW-B    s=abundance determined with spectrum synthesis
+  48- 52  F5.2  [-]      loge-B  [-0.9/5.9]? DES J033607-540235 log abundance
+  54- 58  F5.1  10-13m   EW-C    [19/236]? DES J033447-540525 equivalent width
+                                  in milli-Angstroms
+      60 A1     ---    f_EW-C    s=abundance determined with spectrum synthesis
+  62- 66 F5.2   [-]      loge-C  [-0.8/5.8]? DES J033447-540525 log abundance
+  68- 72 F5.1   10-13m   EW-D    [17/200]? DES J033531-540148 equivalent width
+                                  in milli-Angstroms
+      74 A1     ---    f_EW-D    s=abundance determined with spectrum synthesis
+      76 A1     ---    l_loge-D  Limit flag on loge-D
+  77- 81 F5.2   [-]      loge-D  [-2/5.4]? DES J033531-540148 log abundance
+      83 A1     ---    l_EW-E    Limit flag on EW-E
+  84- 88 F5.1   10-13m   EW-E    [20/218]? DES J033548-540349 equivalent width
+                                  in milli-Angstroms
+      90 A1     ---    f_EW-E    s=abundance determined with spectrum synthesis
+      92 A1     ---    l_loge-E  Limit flag on loge-E
+  93- 97 F5.2   [-]      loge-E  [-0.9/6.8]? DES J033548-540349 log abundance
+      99 A1     ---    l_EW-F    Limit flag on EW-F
+ 100-104 F5.1   10-13m   EW-F    [36/193]? DES J033537-540401 equivalent width
+                                  in milli-Angstroms
+     106 A1     ---    f_EW-F    s=abundance determined with spectrum synthesis
+     108 A1     ---    l_loge-F  Limit flag on loge-F
+ 109-113 F5.2   [-]      loge-F  [-0.6/6]? DES J033537-540401 log abundance
+     115 A1     ---    l_EW-G    Limit flag on EW-G
+ 116-120 F5.1   10-13m   EW-G    [16/187]? DES J033556-540316 equivalent width
+                                  in milli-Angstroms
+     122 A1     ---    f_EW-G    s=abundance determined with spectrum synthesis
+     124 A1     ---    l_loge-G  Limit flag on loge-G
+ 125-129 F5.2   [-]      loge-G  [-1.3/6.1]? DES J033556-540316 log abundance
+     131 A1     ---    l_EW-H    Limit flag on EW-H
+ 132-136 F5.1   10-13m   EW-H    [32/194]? DES J033457-540531 equivalent width
+                                  in milli-Angstroms
+     138 A1     ---    f_EW-H    s=abundance determined with spectrum synthesis
+     140 A1     ---    l_loge-H  Limit flag on loge-H
+ 141-145 F5.2   [-]      loge-H  [-0.06/6.7]? DES J033457-540531 log abundance
+     147 A1     ---    l_EW-I     Limit flag on EW-I
+ 148-152 F5.1   10-13m   EW-I    [40/203]? DES J033454-540558 equivalent width
+                                  in milli-Angstroms
+     154 A1     ---    f_EW-I    s=abundance determined with spectrum synthesis
+     156 A1     ---    l_loge-I  Limit flag on loge-I
+ 157-161 F5.2   [-]      loge-I  [-0.2/7.3]? DES J033454-540558 log abundance
+--------------------------------------------------------------------------------
+
+History:
+    From electronic version of the journal
+
+================================================================================
+(End)                  Prepared by [AAS], Emmanuelle Perret [CDS]    18-Jan-2017

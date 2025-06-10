@@ -1,0 +1,259 @@
+J/AJ/165/55      Chemical abundances for 5 stars in Tucana II     (Chiti+, 2023)
+================================================================================
+Detailed Chemical Abundances of Stars in the Outskirts of the Tucana II
+Ultrafaint Dwarf Galaxy.
+    Chiti A., Frebel A., Ji A.P., Mardini M.K., Ou X., Simon J.D., Jerjen H.,
+    Kim D., Norris J.E.
+   <Astron. J., 165, 55 (2023)>
+   =2023AJ....165...55C
+================================================================================
+ADC_Keywords: Galaxies, dwarf; Stars, population II; Spectra, optical;
+              Abundances; Radial velocities; Effective temperatures
+Keywords: Dwarf galaxies ; Local Group ; Population II stars
+
+Abstract:
+    We present chemical abundances and velocities of five stars between
+    0.3 and 1.1kpc from the center of the TucanaII ultrafaint dwarf galaxy
+    (UFD) from high-resolution Magellan/MIKE spectroscopy. We find that
+    every star is deficient in metals (-3.6<[Fe/H]<-1.9) and in
+    neutron-capture elements as is characteristic of UFD stars,
+    unambiguously confirming their association with TucanaII. Other
+    chemical abundances (e.g., C, iron peak) largely follow UFD trends and
+    suggest that faint core-collapse supernovae (SNe) dominated the early
+    evolution of TucanaII. We see a downturn in [{alpha}/Fe] at
+    [Fe/H]~-2.8, indicating the onset of Type Ia SN enrichment and
+    somewhat extended chemical evolution. The most metal-rich star has
+    strikingly low [Sc/Fe]=-1.29{+/-}0.48 and [Mn/Fe]=-1.33{+/-}0.33,
+    implying significant enrichment by a sub-Chandrasekhar mass Type Ia
+    SN. We do not detect a radial velocity gradient in TucanaII
+    (dv_helio_/d{theta}_1_=-2.6_-2.9_^+3.0^km/s/kpc), reflecting a lack of
+    evidence for tidal disruption, and derive a dynamical mass of
+    M_1/2_(r_h_)=1.6_-0.7_^+1.1^x10^6^M{sun}. We revisit formation
+    scenarios of the extended component of TucanaII in light of its
+    stellar chemical abundances. We find no evidence that TucanaII had
+    abnormally energetic SNe, suggesting that if SNe drove in situ stellar
+    halo formation, then other UFDs should show similar such features.
+    Although not a unique explanation, the decline in [{alpha}/Fe] is
+    consistent with an early galactic merger triggering later star
+    formation. Future observations may disentangle such formation channels
+    of UFD outskirts.
+
+Description:
+    We used Magellan Inamori Kyocera Echelle (Magellan/MIKE) to obtain
+    high-resolution spectra of five Tucana II member stars.
+    The MIKE spectra in this study were obtained using the 1.0" slit and
+    2x2 binning, which provided wavelength coverage between 3500 and
+    9000{AA} with a resolution of R~28000 on the blue echelle orders and
+    R~22000 on the red echelle orders. The observations took place in 2020
+    October and December and in 2021 June, July, and October.
+
+Objects:
+    --------------------------------------------------
+       RA   (ICRS)   DE        Designation(s)
+    --------------------------------------------------
+    22 51 55.10  -58 34 08.0   Tucana II = NAME Tuc II
+    --------------------------------------------------
+
+File Summary:
+--------------------------------------------------------------------------------
+ FileName    Lrecl  Records  Explanations
+--------------------------------------------------------------------------------
+ReadMe          80        .  This file
+table1.dat     101        5  Observations
+table2.dat      49        5  Stellar parameters
+table3.dat      47       84  Chemical abundances
+table4.dat      44       79  Uncertainties
+table5.dat      47      557  Line measurements
+table6.dat      58       60 *Velocity measurements
+--------------------------------------------------------------------------------
+Note on table6.dat: For velocities reported in Walker+, 2016, J/ApJ/819/53,
+                    we list the MJD derived from Table1 in that study.
+--------------------------------------------------------------------------------
+
+See also:
+ I/337 : Gaia DR1 (Gaia Collaboration, 2016)
+ I/345 : Gaia DR2 (Gaia Collaboration, 2018)
+ J/ApJ/612/447  : Draco 119 and HD 88609 equivalent widths (Fulbright+, 2004)
+ J/ApJ/645/613  : Abundances of HD 221170 (Ivans+, 2006)
+ J/ApJS/162/227 : Transition probabilities for SmII (Lawler+, 2006)
+ J/ApJ/655/492  : Equivalent widths of 26 metal-poor stars (Aoki+, 2007)
+ J/ApJS/182/51  : Transition probabilities rare earth elements (Lawler+, 2009)
+ J/ApJS/182/80  : Rare earth abundances (Sneden+, 2009)
+ J/ApJ/708/560  : Spectroscopy of UMa II and Coma Ber (Frebel+, 2010)
+ J/ApJ/724/341  : Nucleosynthesis of massive metal-free stars (Heger+, 2010)
+ J/ApJ/723/1632 : Abundance spreads in Bootes I and Segue 1 (Norris+, 2010)
+ J/ApJ/711/350  : Metal-poor giant Boo-1137 abundances (Norris+, 2010)
+ J/AJ/141/175   : Abundances in M15 RGB/RHB stars (Sobeck+, 2011)
+ J/ApJ/778/56   : Hamburg/ESO Survey extremely metal-poor stars (Cohen+, 2013)
+ J/ApJ/769/57   : Equivalent widths of metal-poor stars (Frebel+, 2013)
+ J/ApJ/763/61   : Abundances of 7 red giant members of BootesI (Gilmore+, 2013)
+ J/ApJ/778/149  : Abundances for 3 stars in Sgr dSph (McWilliam+, 2013)
+ J/ApJ/786/74   : EW measurements of 6 Segue 1 red giants (Frebel+, 2014)
+ J/A+A/562/A146 : Chemical abundances of 8 metal-poor stars (Ishigaki+, 2014)
+ J/A+A/571/A47  : Extensive linelist CH in stellar atmospheres (Masseron+, 2014)
+ J/ApJ/797/21   : Carbon-enhanced metal-poor stars (Placco+, 2014)
+ J/MNRAS/440/2665 : SDSS J021933.13+200830.2 spectroscopy (Roederer+, 2014)
+ J/AJ/147/136   : Stars of low metal abundance. VI. Abundances (Roederer+, 2014)
+ J/ApJ/801/125  : Carbon in red giants in GCs and dSph galaxies (Kirby+, 2015)
+ J/ApJ/802/93   : Chemical abundance analysis 5 stars in Sculptor (Simon+, 2015)
+ J/A+A/574/A129 : The First CEMP star in the Sculptor dSph (Skuladottir+, 2015)
+ J/ApJ/808/108  : M2FS stellar spectroscopy of Reticulum 2 (Walker+, 2015)
+ J/ApJ/826/110  : Boo-127 and Boo-980 high-resolution spectra (Frebel+, 2016)
+ J/ApJ/830/93   : Abundances of Ret II brightest red giant members (Ji+, 2016)
+ J/A+A/586/A120 : Grid of 1D models for Mg line formation (Osorio+, 2016)
+ J/AJ/151/82    : 4 brightest red giants in UFD galaxy Ret 2 (Roederer+, 2016)
+ J/ApJ/819/53   : Magellan/M2FS spectroscopy of Tucana2 & Grus1 (Walker+, 2016)
+ J/ApJ/838/44   : Abundances of the brightest member of Tuc III (Hansen+, 2017)
+ J/ApJ/838/83   : RVel, abundances & membership in TriII (Kirby+, 2017)
+ J/A+A/606/A112 : Abundance analysis of ALW Carina 8 (Susmitha+, 2017)
+ J/ApJ/857/74   : Abundances of 7 new member stars in Tucana II (Chiti+, 2018)
+ J/ApJ/856/142  : Abundances of metal-poor stars in Sculptor (Chiti+, 2018)
+ J/ApJ/855/83   : Abundances of metal-poor stars in Sagittarius (Hansen+, 2018)
+ J/ApJ/866/22   : Spectroscopic analysis of Tuc III stream (Li+, 2018)
+ J/ApJ/852/99   : Abundances 3 metal-poor starsHorologium I (Nagasawa+, 2018)
+ J/ApJ/863/89   : Gaia DR2 PMs stars in ultra-faint MW satellites (Simon, 2018)
+ J/A+A/631/A80  : Mn lines 3D NLTE formation late-type stars (Bergemann+, 2019)
+ J/A+A/626/A15  : Sculptor Red Giant Branch stars abundances (Hill+, 2019)
+ J/ApJ/870/83   : Abundances in ultra-faint dwarf gal. GruI & TriII (Ji+, 2019)
+ J/ApJ/882/177  : Abundances of 4 member stars of Tucana III (Marshall+, 2019)
+ J/ApJ/891/85   : Mn abundances in GC & dSph galaxies (de los Reyes+, 2020)
+ J/ApJ/898/150  : High-res. MIKE obs. of metal-poor stars (Ezzeddine+, 2020)
+ J/ApJ/897/183  : Chemical abundances 3 stars in Grus II galaxy (Hansen+, 2020)
+ J/AJ/160/181   : Chemical abundances in red giants with Magellan (Ji+, 2020)
+ J/ApJ/889/27   : Abundances of 11 stars in Carina II and III (Ji+, 2020)
+ J/ApJ/909/192  : HST/ACS photometry of Eridanus II (Gallart+, 2021)
+ J/ApJ/908/18   : HST stellar photometry of Eridanus II (Simon+, 2021)
+
+Byte-by-byte Description of file: table1.dat
+--------------------------------------------------------------------------------
+  Bytes  Format Units    Label     Explanations
+--------------------------------------------------------------------------------
+  1-  9  A9     ---      Name      Name from Chiti+, 2021NatAs...5..392C
+ 11- 12  I2     h        RAh       [22] Hour of right ascension (J2000)
+ 14- 15  I2     min      RAm       [49/57] Minute of right ascension (J2000)
+ 17- 22  F6.3   s        RAs       Second of right ascension (J2000)
+     24  A1     ---      DE-       [-] Sign of declination (J2000)
+ 26- 27  I2     deg      DEd       [57/58] Degree of declination (J2000)
+ 29- 30  I2     arcmin   DEm       Arcminute of declination (J2000)
+ 32- 37  F6.3   arcsec   DEs       Arcsecond of declination (J2000)
+ 39- 70  A32    ---      Obs       UT date(s) of observation
+ 72- 74  F3.1   s        Slit      [1] Slit size
+ 76- 80  F5.2   mag      gmag      [18.3/18.9] g-band magnitude
+ 82- 84  I3     min      Texp      [150/365] Exposure time
+ 86- 87  I2     ---      S/N4500   [12/19] Signal-to-noise ratio at 4500{AA}
+ 89- 90  I2     ---      S/N6500   [22/40] Signal-to-noise ratio at 6500{AA}
+ 92- 97  F6.1   km/s     RVel      [-129/-119] Heliocentric radial velocity
+ 99-101  F3.1   km/s   e_RVel      [0.9] Error on RVel
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table2.dat
+--------------------------------------------------------------------------------
+  Bytes  Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+  1-  9  A9     ---     Name      Name from Chiti+, 2021NatAs...5..392C
+ 11- 14  I4     K       Teff      [4810/5071] Effective temperature
+ 16- 18  I3     K     e_Teff      [160/241] Error on Teff
+ 20- 23  F4.2   [-]     logg      [1.55/1.75] log surface gravity
+ 25- 28  F4.2   [-]   e_logg      [0.3/0.9] Error on logg
+ 30- 33  F4.2   km/s    nu        [1.73/2.3] microturbulence velocity
+ 35- 38  F4.2   km/s  e_nu        [0.2/0.3] Error on nu
+ 40- 44  F5.2   [-]     [Fe/H]    [-3.59/-1.93] log metallicity
+ 46- 49  F4.2   [-]   e_[Fe/H]    [0.1/0.3] Error on [Fe/H]
+--------------------------------------------------------------------------------
+
+
+Byte-by-byte Description of file: table3.dat
+--------------------------------------------------------------------------------
+ Bytes  Format Units   Label   Explanations
+--------------------------------------------------------------------------------
+  1-  9 A9     ---     Name    Star identifier
+ 11- 15 A5     ---     Species Species identifier
+     17 A1     ---   f_Species [b] Flag on Species (1)
+ 19- 21 I3     ---     N       [1/126] Number of lines used
+ 23- 26 F4.2   [-]     logeX   [0.52/8.43] log solar number abundance
+     28 A1     ---   l_[X/H]   Limit flag on [X/H]
+ 29- 33 F5.2   [-]     [X/H]   [-4.99/-1.29] log abundance relative to Hydrogen
+     34 A1     ---   u_[X/H]   [:] Uncertainty flag on [X/H] (9 occurrences) (2)
+     36 A1     ---   l_[X/Fe]  Limit flag on [X/Fe]
+ 37- 41 F5.2   [-]     [X/Fe]  [-2.09/1.45] log abundance relative to Iron
+     42 A1     ---   u_[X/Fe]  [:] Uncertainty in [X/Fe] (9 occurrences) (2)
+ 44- 47 F4.2   ---     sigma   [0.17/0.65]? Random uncertainty in abundances (3)
+--------------------------------------------------------------------------------
+Note (1): Flag as follows:
+   b = Corrected for the evolutionary status of the star following
+        Placco+, 2014, J/ApJ/797/21 (5 occurrences).
+Note (2): A large uncertainty despite the detection of a line feature.
+Note (3): See Table 4 for total uncertainties.
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table4.dat
+--------------------------------------------------------------------------------
+ Bytes  Format Units Label      Explanations
+--------------------------------------------------------------------------------
+  1-  9 A9     ---   Name       Star identifier
+ 11- 15 A5     ---   Species    Species identifier
+ 17- 19 I3     ---   N          [1/126] Number of lines used
+ 21- 24 F4.2   [-]   sigma      [0.17/0.65]? Random uncertainty
+ 26- 29 F4.2   [-]   [X/H]sys   [0.09/0.79]? log systematic abundance
+                                 uncertainty relative to Hydrogen
+ 31- 34 F4.2   [-]   [X/H]tot   [0.25/0.82]? log total abundance uncertainty
+                                 relative to Hydrogen
+ 36- 39 F4.2   [-]   [X/Fe]sys  [0.01/0.65]? log systematic abundance
+                                 uncertainty relative to Iron
+ 41- 44 F4.2   [-]   [X/Fe]tot  [0.17/0.71]? log total abundance uncertainty
+                                 relative to Iron
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table5.dat
+--------------------------------------------------------------------------------
+ Bytes Format Units  Label     Explanations
+--------------------------------------------------------------------------------
+   1-  9 A9     ---      Name     Star identifier
+  11- 17 F7.2   0.1nm    Wave     [3787/6979] Rest wavelength; Angstroms
+  19- 23 A5     ---      Species  Species identifier
+  25- 28 F4.2   eV       ExPot    [0/4.45]? Excitation potential (1)
+  30- 34 F5.2   ---      loggf    [-5.69/0.65]? Oscillator strength (1)
+  36- 40 F5.1   10-13m   EW       [22.3/244]? Equivalent width; m{AA} (1)
+      42 A1     ---    l_logeX    Limit flag on loge(X)
+  43- 47 F5.2   [-]      logeX    [-2.56/7.02] log number abundance
+--------------------------------------------------------------------------------
+Note (1): A blank indicates a synthetic spectrum was used to derive loge(X).
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table6.dat
+--------------------------------------------------------------------------------
+  Bytes  Format Units   Label  Explanations
+--------------------------------------------------------------------------------
+  1-  9  A9     ---     Name   Star identifier
+ 11- 19  F9.5   deg     RAdeg  [342/345] Degree of Right Ascension (J2000)
+ 21- 29  F9.5   deg     DEdeg  [-59/-57] Degree of Declination (J2000)
+ 31- 37  F7.1   d       MJD    [57221/59494] Modified Julian Date at midpoint of
+                                the observation (JD-2400000.5)
+ 39- 43  A5     ---     Inst   Instrument used (1)
+ 45- 50  F6.1   km/s    RVel   [-136/-115] Heliocentric radial velocity
+     52  A1     ---   f_RVel   [b] Flag on RVel (2)
+ 54- 56  F3.1   km/s  e_RVel   [0.5/9] Error on RVel
+     58  I1     ---     Ref    [1/5] Reference used (3)
+--------------------------------------------------------------------------------
+Note (1): Instruments as follows:
+   IMACS =  Inamori-Magellan Areal Camera and Spectrograph (15 occurrences)
+   M2FS = Michigan/Magellan Fiber System (14 occurrences)
+   MIKE = Magellan Inamori Kyocera Echelle (21 occurrences)
+   MagE = Magellan Echellette spectrograph (10 occurrences)
+Note (2): Flag as follows:
+    b = Offset of 2.5km/s has been applied to account for a zero-point
+    offset between M2FS and MIKE velocities (see paragraph 4 in Section
+    3.1) (13 occurrences).
+Note (3): References as follows:
+   1 = This work
+   2 = Walker+, 2016, J/ApJ/819/53
+   3 = Chiti+, 2021NatAs...5..392C
+   4 = Remeasured from Ji+, 2016ApJ...832L...3J
+   5 = Remeasured from Chiti+, 2018, J/ApJ/857/74
+--------------------------------------------------------------------------------
+
+History:
+    From electronic version of the journal
+
+================================================================================
+(End)                          Prepared by [AAS], Coralie Fix [CDS], 26-May-2023

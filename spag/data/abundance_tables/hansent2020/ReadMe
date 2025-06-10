@@ -1,0 +1,149 @@
+J/ApJ/897/183  Chemical abundances of 3 stars in Grus II galaxy  (Hansen+, 2020)
+================================================================================
+Chemical Analysis of the Ultrafaint Dwarf Galaxy Grus II. Signature of High-mass
+Stellar Nucleosynthesis.
+    Hansen T.T., Marshall J.L., Simon J.D., Li T.S., Bernstein R.A., Pace A.B.,
+    Ferguson P., Nagasawa D.Q., Kuehn K., Carollo D., Geha M., James D.,
+    Walker A., Diehl H.T., Aguena M., Allam S., Avila S., Bertin E., Brooks D.,
+    Buckley-Geer E., Burke D.L., Rosell A.C., Kind M.C., Carretero J.,
+    Costanzi M., Da Costa L.N., Desai S., De Vicente J., Doel P., Eckert K.,
+    Eifler T.F., Everett S., Ferrero I., Frieman J., Garcia-Bellido J.,
+    Gaztanaga E., Gerdes D.W., Gruen D., Gruendl R.A., Gschwend J.,
+    Gutierrez G., Hinton S.R., Hollowood D.L., Honscheid K., Kuropatkin N.,
+    Maia M.A.G., March M., Miquel R., Palmese A., Paz-Chinchon F., Plazas A.A.,
+    Sanchez E., Santiago B., Scarpine V., Serrano S., Smith M., Soares-
+    Santos M., Suchyta E., Swanson M.E.C., Tarle G., Varga T.N., Wilkinson R.
+   <Astrophys. J., 897, 183 (2020)>
+   =2020ApJ...897..183H
+================================================================================
+ADC_Keywords: Galaxies; Stars, peculiar; Abundances; Optical
+Keywords: Chemical abundances ; Dwarf galaxies ; Chemically peculiar stars ;
+          Stellar abundances
+
+Abstract:
+    We present a detailed abundance analysis of the three brightest member
+    stars at the top of the giant branch of the ultrafaint dwarf (UFD)
+    galaxy GrusII. All stars exhibit a higher than expected [Mg/Ca] ratio
+    compared to metal-poor stars in other UFD galaxies and in the Milky
+    Way (MW) halo. Nucleosynthesis in high-mass (>=20M{sun}) core-collapse
+    supernovae has been shown to create this signature. The abundances of
+    this small sample (three) stars suggests the chemical enrichment of
+    GrusII could have occurred through substantial high-mass stellar
+    evolution, and is consistent with the framework of a top-heavy initial
+    mass function. However, with only three stars it cannot be ruled out
+    that the abundance pattern is the result of a stochastic chemical
+    enrichment at early times in the galaxy. The most metal-rich of the
+    three stars also possesses a small enhancement in rapid
+    neutron-capture (r-process) elements. The abundance pattern of the
+    r-process elements in this star matches the scaled r-process pattern
+    of the solar system and r-process enhanced stars in other dwarf
+    galaxies and in the MW halo, hinting at a common origin for these
+    elements across a range of environments. All current proposed
+    astrophysical sites of r-process element production are associated
+    with high- mass stars, thus the possible top-heavy initial mass
+    function of GrusII would increase the likelihood of any of these
+    events occurring. The time delay between the {alpha} and r-process
+    element enrichment of the galaxy favors a neutron star merger as the
+    origin of the r-process elements in GrusII.
+
+Description:
+    A total sample of five stars were observed with the Magellan Inamori
+    Kyocera Echelle (MIKE) spectrograph at the Magellan-Clay Telescope at
+    Las Campanas Observatory. Table1 lists the targets, observing dates,
+    and exposure times.
+
+File Summary:
+--------------------------------------------------------------------------------
+ FileName    Lrecl  Records  Explanations
+--------------------------------------------------------------------------------
+ReadMe          80        .  This file
+table1.dat     127        6  Observing Log
+table3.dat      48      274  EW and atomic data for FeI and FeII lines used for
+                              parameter determination
+table4.dat      48      101  EW measurements and atomic data for lines used for
+                              abundance determination
+--------------------------------------------------------------------------------
+
+See also:
+ II/357 : The Dark Energy Survey (DES): Data Release 1 (Abbott+, 2018)
+ J/A+A/439/129  : HERES II. Spectroscopic analysis (Barklem+, 2005)
+ J/ApJ/655/492  : Equivalent widths of 26 metal-poor stars (Aoki+, 2007)
+ J/A+A/512/A54  : Teff and Fbol from Infrared Flux Method (Casagrande+, 2010)
+ J/ApJ/708/560  : Spectroscopy of UMa II and Coma Ber (Frebel+, 2010)
+ J/ApJ/724/341  : Nucleosynthesis of massive metal-free stars (Heger+, 2010)
+ J/ApJ/723/1632 : Abundance spreads in Bootes I and Segue 1 (Norris+, 2010)
+ J/AJ/141/175   : Abundances in M15 RGB/RHB stars (Sobeck+, 2011)
+ J/ApJ/769/57   : Equivalent widths of metal-poor stars (Frebel+, 2013)
+ J/ApJ/763/61   : Abundances of 7 red giant members of BootesI (Gilmore+, 2013)
+ J/ApJ/778/149  : Abundances for 3 stars in Sgr dSph (McWilliam+, 2013)
+ J/ApJ/786/74   : EW measurements of 6 Segue 1 red giants (Frebel+, 2014)
+ J/A+A/562/A146 : Chemical abundances of 8 metal-poor stars (Ishigaki+, 2014)
+ J/ApJ/797/21   : Carbon-enhanced metal-poor stars (Placco+, 2014)
+ J/MNRAS/440/2665 : SDSS J021933.13+200830.2 spectroscopy (Roederer+, 2014)
+ J/AJ/147/136   : Stars low metal abundance. VI. Abundances (Roederer+, 2014)
+ J/ApJ/826/110  : Boo-127 and Boo-980 high-resolution spectra (Frebel+, 2016)
+ J/ApJ/830/93   : Abundances of Ret II brightest red giant members (Ji+, 2016)
+ J/ApJ/817/41   : Abundances of 4 metal-poor red giants in BooII (Ji+, 2016)
+ J/AJ/151/82    : 4 brightest red giants in UFD galaxy Ret 2 (Roederer+, 2016)
+ J/ApJ/838/44   : Abundances of the brightest member of Tuc III (Hansen+, 2017)
+ J/ApJ/857/74   : Abundances of 7 new member stars in Tucana II (Chiti+, 2018)
+ J/ApJ/858/92   : RPA Southern Pilot Search of 107 Stars (Hansen+, 2018)
+ J/ApJ/866/22   : Spectroscopic analysis of Tuc III stream (Li+, 2018)
+ J/ApJ/852/99   : Abundances of 3 metal-poor stars Horologium I (Nagasawa+,2018)
+ J/ApJ/882/40   : Lanthanide fraction distrib. of metal-poor stars (Ji+, 2019)
+ J/ApJ/870/83   : Abundances in ultra-faint dwarf gal. GruI & TriII (Ji+, 2019)
+ J/ApJ/882/177  : Abundances of 4 member stars of Tucana III (Marshall+, 2019)
+ J/ApJ/875/77   : Proper motions of MW satellites with Gaia & DES (Pace+, 2019)
+ J/ApJ/889/27   : Abundances of 11 stars in Carina II and III (Ji+, 2020)
+ J/ApJ/892/137  : Spectroscopy of Grus II, Tuc IV and Tuc V (Simon+, 2020)
+
+Byte-by-byte Description of file: table1.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units    Label   Explanations
+--------------------------------------------------------------------------------
+   1- 23  A23   ---      Name    Star identifier
+  25- 26  I2    h        RAh     [22] Hour of right ascension (J2000)
+  28- 29  I2    min      RAm     [02/04] Minute of right ascension (J2000)
+  31- 35  F5.2  s        RAs     Second of right ascension (J2000)
+      37  A1    ---      DE-     [-] Sign of declination (J2000)
+  39- 40  I2    deg      DEd     [46] Degree of declination (J2000)
+  42- 43  I2    arcmin   DEm     [21/41] Arcminute of declination (J2000)
+  45- 49  F5.2  arcsec   DEs     Arcsecond of declination (J2000)
+  51- 56  F6.3  mag      gmag    [17.5/19.4] g-band magnitude
+  58- 63  F6.3  mag      rmag    [16.7/18.9]? r-band magnitude
+  65- 70  F6.3  mag      imag    [16.4/18.7]? i-band magnitude
+  72- 77  F6.3  mag      zmag    [16.2/18.6]? z-band magnitude
+  79- 83  I5    d        MJD     [57605/58433] Modified Juliand Date of
+                                  observation; MJD-2400000.5
+  85- 94  A10   s        Texp    Exposure time for each observation
+  96- 97  I2    ---      S/N4100 [3/12] Signal-to-noise ration at 4100{AA}
+      99  A1    ---    f_S/N4100 [a] Flag means S/N of the combined spectrum
+                                  per pixel
+ 101-102  I2    ---      S/N5500 [5/32] Signal-to-noise ration at 5500{AA}
+     104  A1    ---    f_S/N5500 [a] Flag means S/N of the combined spectrum
+                                  per pixel
+ 106-111  F6.1  km/s     RVel    [-107/77] Heliocentric radial velocity
+ 113-115  F3.1  km/s   e_RVel    [0.6/1.1] Error on RVel
+ 117-119  A3    ---      Memb    Member? Yes or No
+ 121-127  A7    ---      ID      Identifier used in this work
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table[34].dat
+--------------------------------------------------------------------------------
+   Bytes Format Units    Label    Explanations
+--------------------------------------------------------------------------------
+   1-  7 A7     ---      ID       Stellar ID
+   9- 12 A4     ---      Species  Species
+  14- 20 F7.2   0.1nm    lambda   Wavelength
+  22- 26 F5.3   eV       ExPot    Excitation potential
+  28- 32 F5.2   [-]      loggf    Log of the oscillator strength
+  34- 38 F5.1   10-13m   EW       Equivalent width of species line
+  40- 43 F4.1   10-13m e_EW       Uncertainty in EW
+  45- 48 F4.2   [-]      [Abd]    Abundance, log
+--------------------------------------------------------------------------------
+
+History:
+    From electronic version of the journal
+
+================================================================================
+(End)                          Prepared by [AAS], Coralie Fix [CDS], 30-Sep-2021

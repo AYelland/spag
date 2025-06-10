@@ -1,0 +1,227 @@
+J/ApJ/852/99  Abundances of 3 metal-poor stars in Horologium I (Nagasawa+, 2018)
+================================================================================
+Chemical abundance analysis of three {alpha}-poor, metal-poor stars in the
+ultrafaint dwarf galaxy Horologium I.
+    Nagasawa D.Q., Marshall J.L., Li T.S., Hansen T.T., Simon J.D.,
+    Bernstein R.A., Balbinot E., Drlica-Wagner A., Pace A.B., Strigari L.E.,
+    Pellegrino C.M., DePoy D.L., Suntzeff N.B., Bechtol K., Walker A.R.,
+    Abbott T.M.C., Abdalla F.B., Allam S., Annis J., Benoit-Levy A., Bertin E.,
+    Brooks D., Carnero Rosell A., Carrasco Kind M., Carretero J., Cunha C.E.,
+    D'Andrea C.B., da Costa L.N., Davis C., Desai S., Doel P., Eifler T.F.,
+    Flaugher B., Fosalba P., Frieman J., Garcia-Bellido J., Gaztanaga E.,
+    Gerdes D.W., Gruen D., Gruendl R.A., Gschwend J., Gutierrez G.,
+    Hartley W.G., Honscheid K., James D.J., Jeltema T., Krause E., Kuehn K.,
+    Kuhlmann S., Kuropatkin N., March M., Miquel R., Nord B., Roodman A.,
+    Sanchez E., Santiago B., Scarpine V., Schindler R., Schubnell M.,
+    Sevilla-Noarbe I., Smith M., Smith R.C., Soares-Santos M., Sobreira F.,
+    Suchyta E., Tarle G., Thomas D., Tucker D.L., Wechsler R.H., Wolf R.C.,
+    Yanny B.
+   <Astrophys. J., 852, 99 (2018)>
+   =2018ApJ...852...99N
+================================================================================
+ADC_Keywords: Abundances; Galaxies, spectra; Stars, metal-deficient
+Keywords: galaxies: abundances ; galaxies: dwarf ; stars: abundances ;
+          stars: chemically peculiar
+
+Abstract:
+    We present chemical abundance measurements of three stars in the
+    ultrafaint dwarf galaxy Horologium I, a Milky Way satellite discovered
+    by the Dark Energy Survey. Using high-resolution spectroscopic
+    observations, we measure the metallicity of the three stars, as well
+    as abundance ratios of several {alpha}-elements, iron-peak elements,
+    and neutron-capture elements. The abundance pattern is relatively
+    consistent among all three stars, which have a low average metallicity
+    of [Fe/H]~-2.6 and are not {alpha}-enhanced ([{alpha}/Fe]~0.0). This
+    result is unexpected when compared to other low-metallicity stars in
+    the Galactic halo and other ultrafaint dwarfs and suggests the
+    possibility of a different mechanism for the enrichment of Hor I
+    compared to other satellites. We discuss possible scenarios that could
+    lead to this observed nucleosynthetic signature, including extended
+    star formation, enrichment by a Population III supernova, and or an
+    association with the Large Magellanic Cloud.
+
+Description:
+    Observations were performed using the FLAMES-UVES spectrograph on the
+    VLT in Paranal, Chile, as part of program 096.D-0967(B) (PI: E. Balbinot)
+    and the MIKE spectrograph at the Magellan-Clay Telescope at Las
+    Campanas Observatory (PI: R. Bernstein).
+    UVES observations took place on five nights over the months of 2015
+    December to 2016 January in 14 40-minute exposures. See section 2.1.1.
+    MIKE observations of DES J025535-540643, a confirmed Hor I member star
+    (Koposov+ 2015ApJ...811...62K), took place on 2016 August 06 in five
+    30-minute exposures. See section 2.1.2.
+
+    In Figure 1 we present a color-magnitude diagram of the confirmed
+    (Koposov+ 2015ApJ...811...62K) and high-probability (Bechtol+
+    2015ApJ...807...50B) member stars of Hor I, constructed using
+    photometry from the Dark Energy Survey (DES; the Dark Energy Survey
+    Collaboration 2005astro.ph.10346T).
+
+File Summary:
+--------------------------------------------------------------------------------
+ FileName    Lrecl   Records Explanations
+--------------------------------------------------------------------------------
+ReadMe          80        .  This file
+table1.dat      69        3  DES astrometry and photometry of three member
+                              stars of Hor I
+table2.dat      39        3  Observing details
+table3.dat      28      190  Atomic line data
+table4.dat      65        3  Measured stellar parameters
+--------------------------------------------------------------------------------
+
+See also:
+ J/AJ/128/1177  : Galactic stellar abundances (Venn+, 2004)
+ J/ApJS/167/292 : Transition probabilities for Gd II (Den Hartog+, 2006)
+ J/ApJS/162/227 : Transition probabilities for SmII (Lawler+, 2006)
+ J/ApJ/667/1267 : CrI transition probabilities (Sobeck+, 2007)
+ J/AJ/135/1580  : Element abundances in ten red giants of Car dSph (Koch+, 2008)
+ J/AJ/135/209   : Rotational and RVs 761 HIP giants (Massarotti+, 2008)
+ J/A+A/480/379  : Abundances of 59 red giants in LMC (Pompeia+, 2008)
+ J/ApJ/705/328  : Abundance measurements in Sculptor dSph (Kirby+, 2009)
+ J/ApJS/182/51  : Transition prob. of rare earth elements (Lawler+, 2009)
+ J/ApJS/182/80  : Rare earth abundances (Sneden+, 2009)
+ J/AN/331/474   : Abundances of metal-poor stars (Frebel, 2010)
+ J/ApJ/708/560  : Spectroscopy of UMa II and Coma Ber (Frebel+, 2010)
+ J/ApJ/724/341  : Nucleosynthesis of massive metal-free stars (Heger+, 2010)
+ J/ApJ/723/1632 : Abundance spreads in Bootes I and Segue 1 (Norris+, 2010)
+ J/ApJS/194/35  : Atomic transition probabilities of Mn (Den Hartog+, 2011)
+ J/AJ/141/175   : Abundances in M15 RGB/RHB stars (Sobeck+, 2011)
+ J/AJ/144/88    : Spectrosc. of 6 LMC RR Lyrae & 3 SMC RR Lyrae (Haschke+, 2012)
+ J/ApJ/761/33   : Chemical data of 89 stars in the LMC disk (Lapenna+, 2012)
+ J/AJ/144/4     : Dwarf galaxies in the Local Group (McConnachie+, 2012)
+ J/ApJ/769/57   : Equivalent widths of metal-poor stars (Frebel+, 2013)
+ J/ApJ/763/61   : Abundances of 7 red giant members of BootesI (Gilmore+, 2013)
+ J/A+A/560/A44  : Abundances of LMC bar and disk stars (Van der Swaelmen+, 2013)
+ J/ApJ/767/134  : Abundances of red giant stars in UFD galaxies (Vargas+, 2013)
+ J/ApJ/762/26   : Most metal-poor stars. II. Galactic halo stars (Yong+, 2013)
+ J/ApJ/786/74   : EW measurements of 6 Segue 1 red giants (Frebel+, 2014)
+ J/A+A/562/A146 : Chemical abundances of 8 metal-poor stars (Ishigaki+, 2014)
+ J/ApJS/215/20  : Vanadium log(gf) and transition probabilities (Lawler+, 2014)
+ J/A+A/571/A47  : Extensive linelist of CH in stellar atm. (Masseron+, 2014)
+ J/MNRAS/440/2665 : SDSS J021933.13+200830.2 spectroscopy (Roederer+, 2014)
+ J/AJ/147/136     : Stars of very low metal abundance. VI. (Roederer+, 2014)
+ J/MNRAS/441/3127 : FeI oscillator strengths for Gaia-ESO (Ruffoni+, 2014)
+ J/ApJS/214/26  : Line lists for CN isotopes transitions (Sneden+, 2014)
+ J/ApJS/211/20  : NiI transition probability measurements (Wood+, 2014)
+ J/ApJ/803/63   : gr photometry of stars in Kim 2 (Kim+, 2015)
+ J/ApJS/220/13  : Co I transition probabilities (Lawler+, 2015)
+ J/ApJ/808/95   : Spectroscopy of Reticulum II (Simon+, 2015)
+ J/ApJ/802/93   : Abundance analysis of 5 stars in Sculptor (Simon+, 2015)
+ J/ApJ/826/110  : Boo-127 and Boo-980 high-resolution spectra (Frebel+, 2016)
+ J/ApJ/830/93   : Abundances of Ret II brightest red giant members (Ji+, 2016)
+ J/ApJ/817/41   : Abundances of 4 metal-poor red giants in BooII (Ji+, 2016)
+ J/AJ/151/82    : 4 brightest red giants in Ret 2 (Roederer+, 2016)
+ J/ApJ/817/53   : Fe-group elemental abundances in HD84937 (Sneden+, 2016)
+ J/ApJ/819/53   : Magellan/M2FS spectrosc. of Tucana 2 & Grus 1 (Walker+, 2016)
+ J/ApJ/838/44   : Abundances of the brightest member of Tuc III (Hansen+, 2017)
+ J/ApJ/838/83   : RVs, abundances & membership in TriII (Kirby+, 2017)
+ J/ApJ/838/11   : Member stars in the MW satellite Tucana III (Simon+, 2017)
+
+Byte-by-byte Description of file: table1.dat
+--------------------------------------------------------------------------------
+  Bytes Format Units  Label Explanations
+--------------------------------------------------------------------------------
+  1-  3 A3     ---    ---   [DES]
+  5- 18 A14    ---    DES   DES identifier (JHHMMSS+DDMMSS)
+     19 A1     ---  f_DES   Flag on DES (1)
+ 21- 28 F8.5   deg    RAdeg [43.8/44] Right ascension in decimal degrees (J2000)
+ 30- 38 F9.5   deg    DEdeg [-54.2/-54] Declination in decimal degrees (J2000)
+ 40- 44 F5.2   mag    gmag  [17.7/18.7] DES g-band magnitude
+     45 A1     ---  f_gmag  Flag on gmag (1)
+ 47- 51 F5.2   mag    rmag  [16.7/18] DES r-band magnitude
+ 53- 57 F5.2   mag    imag  [16.3/17.7] DES i-band magnitude
+ 59- 63 F5.2   mag    zmag  [16.1/17.6] DES z-band magnitude
+ 65- 69 F5.2   mag    Ymag  [16.1/17.5] DES Y-band magnitude
+--------------------------------------------------------------------------------
+Note (1): Flag as follows:
+  a = Referred to as Horo 9 by Koposov+ (2015ApJ...811...62K). 
+  b = Referred to as Horo 10 by Koposov+ (2015ApJ...811...62K).
+  c = Note that Koposov+ (2015ApJ...811...62) report g=19.31mag for this star.
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table2.dat
+--------------------------------------------------------------------------------
+ Bytes  Format Units  Label    Explanations
+--------------------------------------------------------------------------------
+  1-  3 A3     ---    ---      [DES]
+  5- 18 A14    ---    DES      DES identifier (JHHMMSS+DDMMSS)
+ 20- 23 A4     ---    Inst     Instrument
+ 25- 26 I2     ---    S/N5300  [20/35] Signal to noise ration at 5300_{AA}
+ 28- 29 I2     ---    S/N6300  [20/40] Signal to noise ration at 6300_{AA}
+ 31- 35 F5.1   km/s   HRV      [114.3/118.6] Heliocentric velocity
+ 37- 39 F3.1   km/s e_HRV      [0.5/0.6] HRV uncertainty
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table3.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units  Label   Explanations
+--------------------------------------------------------------------------------
+   1-  5 A5     ---    Ion     Species (1)
+   7- 13 F7.2   0.1nm  lambda  [3818.7/8688.7] Wavelength in Angstroms
+  15- 18 F4.2   eV     ExPot   [0/5.7]? Excitation potential (1)
+  20- 25 F6.2   [-]    log(gf) [-10.6/0.7]? Log of degeneracy times oscillator
+                                strength (1)
+  27- 28 I2     ---    Ref     [1/30] Literature reference (2)
+--------------------------------------------------------------------------------
+Note (1): The CH and CN are molecular bands and thus have no ExPot and log(gf)
+          values. These are left blank.
+Note (2): Reference as follows:
+     1 = Kurucz (2011CaJPh..89..417K);
+     2 = Kramida, Ralchenko & Reader (2016, NIST Atomic Spectra Database
+          (version 5.4) http://physics.nist.gov/asd);
+     3 = Ruffoni et al. (2014, J/MNRAS/441/3127);
+     4 = Masseron et al. (2014, J/A+A/571/A47)
+     5 = Sneden et al. (2014, J/ApJS/214/26);
+     6 = Lawler & Dakin (1989JOSAB...6.1457L) with hfs from
+         Kurucz & Bell (1995KurCD..23.....K)
+     7 = Lawler et al. (2013ApJS..205...11L)
+     8 = Lawler et al. (2014, J/ApJS/215/20);
+     9 = Sobeck et al. (2007, J/ApJ/667/1267);
+    10 = Den Hartog et al. (2011, J/ApJS/194/35);
+    11 = Lawler et al. (2015, J/ApJS/220/13);
+    12 = Wood et al. (2014, J/ApJS/211/20);
+    13 = Kurucz & Bell (1995KurCD..23.....K)
+    14 = Biemont et al. (2011AIPC.1344...31B)
+    15 = Biemont et al. (1981ApJ...248..867B)
+    16 = Palmeri et al. (2005MNRAS.363..452P)
+    17 = Wickliffe et al. (1994JQSRT..51..545W)
+    18 = Gallagher et al. (2010A&A...523A..24G)
+    19 = Gallagher (2012PhDT.......276G)
+    20 = Lawler et al. (2001ApJ...556..452L)
+    21 = Lawler et al. (2009ApJS..182...51L)
+    22 = Li et al. (2007PhyS...76..577L) with hfs from
+         Sneden et al. (2009, J/ApJS/182/80);
+    23 = Den Hartog et al. (2003ApJS..148..543D)
+    24 = Lawler et al. (2006, J/ApJS/162/227);
+    25 = Lawler et al. (2001ApJ...563.1075L)
+    26 = Den Hartog et al. (2006, J/ApJS/167/292);
+    27 = Lawler et al. (2001ApJS..137..341L)  with hfs from
+         Lawler et al. (2001ApJS..137..351L)
+    28 = Lawler et al. (2001ApJS..137..341L)
+    29 = Wickliffe et al. (2000JQSRT..66..363W)
+    30 = Lawler et al. (2011ApJS..178...71L).
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table4.dat
+--------------------------------------------------------------------------------
+  Bytes Format Units    Label     Explanations
+--------------------------------------------------------------------------------
+  1-  3  A3     ---      ---      [DES]
+  5- 18  A14    ---      DES      DES identifier (JHHMMSS+DDMMSS)
+ 20- 23  I4     K        Teff     [4500/5000] Effective temperature
+ 25- 27  I3     K      e_Teff     [100] Teff uncertainty
+ 29- 31  F3.1  [cm/s2]   logg     [1.4/2] Log of surface gravity
+ 33- 35  F3.1  [cm/s2] e_logg     [0.2] logg uncertainty
+ 37- 39  F3.1   km/s     Vt       [0.8/3.5] Microturbulent velocity
+ 41- 43  F3.1   km/s   e_Vt       [0.5] Vt uncertainty
+ 45- 49  F5.2   [Sun]    [Fe/H]   [-2.9/-2.4] Metallicity
+ 51- 54  F4.2   [Sun]  e_[Fe/H]   [0.1/0.2] Metallicity uncertainty
+ 56- 60  F5.2   [Sun]    [Ca/Fe]  [-0.07/0] Abundance of [Ca/Fe]
+ 62- 65  F4.2   [Sun]  e_[Ca/Fe]  [0.1/0.3] Abundance of [Ca/Fe] uncertainty
+--------------------------------------------------------------------------------
+
+History:
+    From electronic version of the journal
+
+================================================================================
+(End)                     Prepared by [AAS], Emmanuelle Perret [CDS] 19-Sep-2018

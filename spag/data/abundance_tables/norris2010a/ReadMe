@@ -1,0 +1,88 @@
+J/ApJ/711/350        Metal-poor giant Boo-1137 abundances        (Norris+, 2010)
+================================================================================
+Boo-1137--an extremely metal-poor star in the ultra-faint dwarf spheroidal
+galaxy Bootes I.
+    Norris J.E., Yong D., Gilmore G., Wyse R.F.G.
+   <Astrophys. J., 711, 350-360 (2010)>
+   =2010ApJ...711..350N
+================================================================================
+ADC_Keywords: Abundances ; Equivalent widths ; Stars, metal-deficient ;
+              Stars, giant ; Galaxies, nearby
+Keywords: Galaxy: abundances - galaxies: abundances - galaxies: dwarf -
+          galaxies: individual (Bootes I) - stars: abundances
+
+Abstract:
+    We present high-resolution (R~40000), high-signal-to-noise ratio
+    (20-90) spectra of an extremely metal-poor giant star Boo-1137 in the
+    "ultra-faint" dwarf spheroidal galaxy (dSph) Bootes I, absolute
+    magnitude M_V_~-6.3. We derive an iron abundance of [Fe/H]=-3.7,
+    making this the most metal-poor star as yet identified in an
+    ultra-faint dSph. Our derived effective temperature and gravity are
+    consistent with its identification as a red giant in Bootes I.
+    Abundances for a further 15 elements have also been determined.
+    Comparison of the relative abundances, [X/Fe], with those of the
+    extremely metal-poor red giants of the Galactic halo shows that
+    Boo-1137 is "normal" with respect to C and N, the odd-Z elements Na
+    and Al, the iron-peak elements, and the neutron-capture elements Sr
+    and Ba, in comparison with the bulk of the Milky Way halo population
+    having [Fe/H]<~-3.0. The {alpha}-elements Mg, Si, Ca, and Ti are all
+    higher by {Delta}[X/Fe]~0.2 than the average halo values. Monte Carlo
+    analysis indicates that {Delta}[{alpha}/Fe] values this large are
+    expected with a probability ~0.02. The elemental abundance pattern in
+    Boo-1137 suggests inhomogeneous chemical evolution, consistent with
+    the wide internal spread in iron abundances we previously reported.
+
+Description:
+    Boo-1137 was observed at the VLT Unit Telescope 2 (UT2) with the
+    UVES (Ultraviolet and Visual Echelle Spectrograph) during the nights
+    of 2009 April 24 and 25. Ten individual exposures with an integration
+    time of 46 minutes each were obtained.
+
+Objects:
+    -----------------------------------------------------
+       RA   (2000)    DE        Designation(s)
+    -----------------------------------------------------
+    13 58 33.81   +14 21 08.3   Boo-1137 = [NGW2008] 1137
+    -----------------------------------------------------
+
+File Summary:
+--------------------------------------------------------------------------------
+ FileName   Lrecl  Records   Explanations
+--------------------------------------------------------------------------------
+ReadMe         80        .   This file
+table1.dat     39      154   Averaged equivalent widths, upper limits, and
+                             line-by-line abundances of Boo-1137
+--------------------------------------------------------------------------------
+
+See also:
+    B/eso : ESO Science Archive Catalog (ESO, 2012)
+    J/A+A/501/519  : Extremely metal-poor turnoff stars abundances (Bonifacio+,
+                     2009)
+    J/A+A/416/1117 : Abundances in the early Galaxy (Cayrel+, 2004)
+    J/A+A/403/1105 : Extremely metal-poor giants equivalent widths (Francois+,
+                     2003)
+    http://www.astro.uu.se/~vald/php/vald.php : VALD www interface
+
+Byte-by-byte Description of file: table1.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units    Label     Explanations
+--------------------------------------------------------------------------------
+   1-  5  A5    ---      Ion       Species identification
+   7- 14  F8.3  0.1nm    lambda    Wavelength in {AA}
+  16- 19  F4.2  eV       chi       Lower excitation potential (1)
+  21- 25  F5.2  ---      loggf     Oscillator strength (1)
+      27  A1    ---    f_loggf     [a] a: loggf from VALD
+  29- 33  F5.1  0.1pm    EW        Equivalent width in m{AA}
+  35- 39  F5.2  [-]      log(e)    {epsilon} abundance [log(Ion/H)+12]
+--------------------------------------------------------------------------------
+Note (1): Lower excitation potentials, {chi}, and loggf values are taken
+          preferentially from Table 3 of Cayrel et al. (2004,
+          Cat. J/A+A/416/1117), and supplemented by material from the Vienna
+          Atomic Line Database (VALD) database (if flagged in column f_loggf).
+--------------------------------------------------------------------------------
+
+History:
+    From electronic version of the journal
+
+================================================================================
+(End)                                     Emmanuelle Perret [CDS]    03-Apr-2012
