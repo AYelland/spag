@@ -1,4 +1,4 @@
-Name,Species,N,l_logepsX,logepsX,e_stat,l_[X/H],[X/H],e_[X/H],l_[X/Fe],[X/Fe],e_[X/Fe]
+Name,Species,N,l_logepsX,logepsX,e_logepsX,l_[X/H],[X/H],e_[X/H],l_[X/Fe],[X/Fe],e_[X/Fe]
 J220409,C-H,,,5.41,0.20,,-3.02,0.47,,-0.33,0.31
 J220409,C-N,,<,+7.83,,<,-0.69,,<,+2.00,
 J220409,Na I,2,,3.57,0.20,,-2.67,0.30,,0.02,0.27
