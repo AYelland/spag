@@ -541,7 +541,9 @@ def getelem(elem, lower=False, keep_species=False):
     """
     Converts an element's common name to a standard formatted chemical symbol
     """
-    common_molecules = {'CH':'C','NH':'N'}
+    common_molecules = {'CH':'C','C-H':'C',
+                        'CC':'C','C-C':'C',
+                        'NH':'N','N-H':'N'}
     special_ions = ['Ti I','Cr II']
     
     if isinstance(elem, string_types):
@@ -941,7 +943,7 @@ def species_from_col(col):
         elif elem.title() in default_to_2:
             species = element_to_species(elem.title()) + 0.1
         else:
-            print(elem)
+            # print(elem)
             if elem.title() in pt_list: #default to ground ionization state (##.0)
                 species = element_to_species(elem.title()) + 0.0
             else:
@@ -950,6 +952,12 @@ def species_from_col(col):
     elif elem[:-1].isalpha() and elem[-1].isdigit():
         species = element_to_species(elem[:-1].title()) + (0.1 * float(elem[-1]) - 0.1)
 
+    elif '-' in elem:
+        # Handle common molecules
+        try:
+            species = common_molecule_name_to_species[elem.upper()]
+        except KeyError:
+            raise ValueError(f"Element {elem} not recognized from epscol {col}")
     else:
         raise ValueError(f"Invalid epscol format: {col}")
     
