@@ -1,0 +1,144 @@
+J/AJ/162/229       13 Magellanic Clouds metal-poor stars       (Reggiani+, 2021)
+================================================================================
+The most metal-poor stars in the Magellanic Clouds are r-process enhanced.
+    Reggiani H., Schlaufman K.C., Casey A.R., Simon J.D., Ji A.P.
+   <Astron. J., 162, 229-229 (2021)>
+   =2021AJ....162..229R    (SIMBAD/NED BibCode)
+================================================================================
+ADC_Keywords: Magellanic Clouds; Abundances; Stars, metal-deficient;
+              Spectra, optical
+Keywords: Galaxy accretion; Galaxy chemical evolution; Galaxy environments
+          Magellanic Clouds; Population II stars; Stellar abundances
+
+Abstract:
+    The chemical abundances of a galaxy's metal-poor stellar population
+    can be used to investigate the earliest stages of its formation and
+    chemical evolution. The Magellanic Clouds are the most massive of the
+    Milky Way's satellite galaxies and are thought to have evolved in
+    isolation until their recent accretion by the Milky Way. Unlike the
+    Milky Way's less massive satellites, little is known about the
+    Magellanic Clouds' metal-poor stars. We have used the mid-infrared
+    metal-poor star selection of Schlaufman & Casey and archival data to
+    target nine LMC and four SMC giants for high-resolution Magellan/MIKE
+    spectroscopy. These nine LMC giants with -2.4<~[Fe/H]<~-1.5 and four
+    SMC giants with -2.6<~[Fe/H]<~-2.0 are the most metal-poor stars in
+    the Magellanic Clouds yet subject to a comprehensive abundance
+    analysis. While we find that at constant metallicity these stars are
+    similar to Milky Way stars in their {alpha}, light, and iron-peak
+    elemental abundances, both the LMC and SMC are enhanced relative to
+    the Milky Way in the r-process element europium. These abundance
+    offsets are highly significant, equivalent to 3.9{sigma} for the LMC,
+    2.7{sigma} for the SMC, and 5.0{sigma} for the complete Magellanic
+    Cloud sample. We propose that the r-process enhancement of the
+    Magellanic Clouds' metal-poor stellar population is a result of the
+    Magellanic Clouds' isolated chemical evolution and long history of
+    accretion from the cosmic web combined with r-process nucleosynthesis
+    on a timescale longer than the core-collapse supernova timescale but
+    shorter than or comparable to the thermonuclear (i.e., Type Ia)
+    supernova timescale.
+
+Description:
+    We followed up 13 stars with the Magellan Inamori Kyocera Echelle
+    (MIKE) spectrograph on the Magellan Clay Telescope at Las Campanas
+    Observatory. We used either the 0.7" or 1.0" slits and the standard
+    blue and red grating azimuths, yielding spectra between 335 and 950nm
+    with resolution R~40000/28000 in the blue and R~31000/22000 in the red
+    for the 0.7"/1.0" slits.
+
+File Summary:
+--------------------------------------------------------------------------------
+ FileName    Lrecl    Records    Explanations
+--------------------------------------------------------------------------------
+ReadMe          80          .    This file
+table1.dat      94         13    Log of Magellan/MIKE observations
+table2.dat      63       2574    Atomic data, equivalent-width, &
+                                  individual-line abundance inferences
+--------------------------------------------------------------------------------
+
+See also:
+ VII/233 : The 2MASS Extended sources (IPAC/UMass, 2003-2006)
+ I/337 : Gaia DR1 (Gaia Collaboration, 2016)
+ III/284 : APOGEE-2 data from DR16 (Johnsson+, 2020)
+ V/154 : Sloan Digital Sky Surveys (SDSS), Release 16 (DR16) (Ahumada+, 2020)
+ J/ApJ/743/156 : NEOWISE observations NEOs: preliminary results (Mainzer+, 2011)
+ J/A+A/560/A44 : Abundances of LMC bar and disk stars (Van der Swaelmen+, 2013)
+ J/AJ/145/107 : Zr, Ba, La, & Eu abundances 19 open clusters (Jacobson+, 2013)
+ J/ApJ/767/134 : Abundances of red giant stars in UFD galaxies (Vargas+, 2013)
+ J/AJ/147/136 : Stars very low metal abundance. VI. Abundances (Roederer+, 2014)
+ J/ApJ/769/57 : Equivalent widths of metal-poor stars (Frebel+, 2013)
+ J/ApJ/780/59 : Araucaria project: eclipsing binaries in SMC (Graczyk+, 2014)
+ J/ApJ/789/147 : Star formation histories of LG dwarf galaxies (Weisz+, 2014)
+ J/ApJ/797/13 : Abundances of bright metal-poor stars (Schlaufman+, 2014)
+ J/MNRAS/442/1680 : Red giants in SMC. Abundances (Dobbie+, 2014)
+ J/ApJ/807/171 : SkyMapper Survey metal-poor star spectroscopy (Jacobson+, 2015)
+ J/A+A/586/A120 : Grid of 1D models for Mg line formation (Osorio+, 2016)
+ J/AJ/151/82 : 4 brightest red giants in the UFD galaxy Ret 2 (Roederer+, 2016)
+ J/AJ/151/144 : ASPCAP weights for 15 APOGEE chemical elements (Garcia+, 2016)
+ J/ApJ/816/49 : Spitzer/IRAC observations of SMC Cepheids (Scowcroft+, 2016)
+ J/ApJ/830/93 : Abundances of the Ret II brightest red giant members (Ji+, 2016)
+ J/A+A/608/A46 : Constraining cosmic scatter (Reggiani+, 2017)
+ J/AcA/67/297 : OGLE Galactic center Cepheids and RR Lyrae (Soszynski+, 2017)
+ J/ApJ/838/44 : Abundances of the brightest member of Tuc III (Hansen+, 2017)
+ J/ApJ/850/179 : 2MASSJ15111324-2130030 metal-poor star abund. (Casey+, 2017)
+ J/A+A/616/A12 : Gaia DR2 sources in GC and dSph (Gaia Collaboration+, 2018)
+ J/AcA/68/89 : VI light curves of MC type II Cepheids (Soszynski+, 2018)
+ J/AJ/156/18 : APOGEE DR14:Binary companions evolved stars (Price-Whelan+, 2018)
+ J/ApJ/858/92 : RPA Southern Pilot Search of 107 Stars (Hansen+, 2018)
+ J/ApJ/863/89 : Gaia DR2 PMs of stars in ultra-faint MW satellites (Simon, 2018)
+ J/ApJ/868/110 : R-Process Alliance 1st release in Galactic halo (Sakari+, 2018)
+ J/A+A/627/A177 : Non-LTE analysis of K I in late-type stars (Reggiani+, 2019)
+ J/ApJ/882/177 : Abundances of 4 member stars of Tucana III (Marshall+, 2019)
+ J/AJ/160/173 : Abundances of metal-poor stars in Inner Bulge (Reggiani+, 2020)
+ J/AJ/160/181 : Chemical abundances in red giants with Magellan (Ji+, 2020)
+ J/ApJ/889/177 : RGB abundances in disk, stream & halo of M31 (Escala+, 2020)
+ J/ApJ/895/78 : [Fe/H] and [{alpha}/Fe] in M31 dwarf galaxies (Wojno+, 2020)
+ J/ApJ/898/150 : High-res. MIKE obs. of metal-poor stars (Ezzeddine+, 2020)
+ J/ApJS/249/30 : R-Process Alliance: metal-poor star spectro. (Holmbeck+, 2020)
+ J/ApJS/252/23 : E(V-I) reddening map MCs from OGLE-IV RC stars (Skowron+, 2021)
+
+Byte-by-byte Description of file: table1.dat
+--------------------------------------------------------------------------------
+  Bytes Format Units     Label   Explanations
+--------------------------------------------------------------------------------
+  1- 17  A17   ---       2MASS   2MASS identifier
+ 19- 21  A3    ---       Gal     Galaxy identifier; Small/Large Magellanic Cloud
+ 23- 24  I2    h         RAh     [0/6] Hour of right ascension (J2000)
+ 26- 27  I2    min       RAm     Minute of right ascension (J2000)
+ 29- 33  F5.2  s         RAs     Second of right ascension (J2000)
+     35  A1    ---       DE-     [-] Sign of declination (J200)
+ 37- 38  I2    deg       DEd     Degree of declination
+ 40- 41  I2    arcmin    DEm     Arcminute of declination
+ 43- 47  F5.2  arcsec    DEs     Arcsecond of declination
+ 49- 52  I4    yr        Obs.Y   [2016/2020] Year of observation
+ 54- 56  A3    "month"   Obs.M   Month of observation
+ 58- 59  I2    d         Obs.D   Day of observation
+ 61- 62  I2    h         Obs.h   Hour of observation
+ 64- 65  I2    min       Obs.m   Minute of observation
+ 67- 68  I2    s         Obs.s   Second of observation
+ 70- 72  F3.1  arcsec    Slit    [0.7/1] Slit width
+ 74- 78  I5    s         Texp    [3584/25200] Exposure time
+ 80- 84  F5.1  km/s      RVel    [100/357] Radial velocity
+ 86- 88  F3.1  km/s    e_RVel    [0.9/4] Error on RVel
+ 90- 91  I2    ---       S/N4500 [14/30] Signal to noise ratio at 4500{AA}
+ 93- 94  I2    ---       S/N6500 [31/76] Signal to noise ratio at 6500{AA}
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table2.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units  Label    Explanations
+--------------------------------------------------------------------------------
+   1- 17 A17    ---    2MASS    2MASS designation
+  19- 21 A3     ---    Gal      Galaxy identifier; Small/Large Magellanic Cloud
+  23- 30 F8.3   0.1nm  Wave     [3999/7789] Wavelength; Angstroms
+  32- 35 A4     ---    Species  Species identifier
+  37- 41 F5.3   eV     ExPot    [0/5.09] Excitation potential
+  43- 48 F6.3   [-]    loggf    [-5.63/0.55] log oscillator strength
+  50- 56 F7.2   10-13m EW       [1.9/3149]? Equivalent width; milli-Angstroms
+  58- 63 F6.3   [-]    loge     [-1.47/7.04] log Abundance
+--------------------------------------------------------------------------------
+
+History:
+    From electronic version of the journal
+
+================================================================================
+(End)                          Prepared by [AAS], Coralie Fix [CDS], 18-Feb-2022

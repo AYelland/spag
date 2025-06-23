@@ -1,39 +1,43 @@
-Chiti+2018
-Chiti+2023
-Feltzing+2009 (repeatedstars,low-resdata)
-Francois+2016
-Frebel+2010a
-Frebel+2014
-Gilmore+2013
-HansenT+2017
-Hansen+2020
-Hansen+2024
-Ishigaki+2014
-Ji+2016a
-Ji+2016b
-Ji+2019
-Ji+2020
-Kirby+2017
-Koch+2008c
-Koch+2013b
-Lai+2011
-Marshall+2019
-Nagasawa+2018
-Norris+2010a (BooII-1137)
-Norris+2010b (Segue1-7)
-Norris+2010c (BootesII & Segue1)
-Roederer+2014b
-Simon+2010
-Spite+2018
-Waller+2023
-Webber+2023
-
-
-Need to Do:
+UFDs:
+    Chiti+2018b
+    Chiti+2023
+    Feltzing+2009
+    Francois+2016
+    Frebel+2010a
     Frebel+2013
+    Frebel+2014
     Frebel+2016
-    C-19 Stream
-    Draco
-    Ursa Minor I
-    Draco
-    Sextans
+    Gilmore+2013
+    HansenT+2017
+    HansenT+2020
+    HansenT+2024
+    Ishigaki+2014b
+    Ji+2016a
+    Ji+2016b
+    Ji+2019
+    Ji+2020
+    Kirby+2017
+    Koch+2008c
+    Koch+2013b
+    Lai+2011
+    Marshall+2019
+    Nagasawa+2018
+    Norris+2010a
+    Norris+2010b
+    Norris+2010c
+    Roederer+2014b
+    Simon+2010
+    Spite+2018
+    Waller+2023
+    Webber+2023
+
+    NEED TO DO:
+        Brown+2014
+        Frebel+2009
+        Ji+2018
+        Nagasawa+2017
+        Roederer+2016
+        Spite+2019
+        Venn+2017
+        Walter+2022
+        Reichert+2020
