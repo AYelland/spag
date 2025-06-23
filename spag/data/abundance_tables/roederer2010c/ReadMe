@@ -1,0 +1,112 @@
+J/ApJ/724/975  Heavy elements abundances of metal-poor stars  (Roederer+, 2010)
+================================================================================
+The ubiquity of the rapid neutron-capture process.
+    Roederer I.U., Cowan J.J., Karakas A.I., Kratz K.-L., Lugaro M.,
+    Simmerer J., Farouqi K., Sneden C.
+   <Astrophys. J., 724, 975-993 (2010)>
+   =2010ApJ...724..975R
+================================================================================
+ADC_Keywords: Abundances ; Equivalent widths ; Stars, metal-deficient ;
+              Stars, giant; Spectra, optical
+Keywords: nuclear reactions, nucleosynthesis, abundances - stars: abundances -
+          stars: Population II
+
+Abstract:
+    To better characterize the abundance patterns produced by the
+    r-process, we have derived new abundances or upper limits for the
+    heavy elements zinc (Zn, Z=30), yttrium (Y, Z=39), lanthanum (La,
+    Z=57), europium (Eu, Z=63), and lead (Pb, Z=82). Our sample of 161
+    metal-poor stars includes new measurements from 88 high-resolution and
+    high signal-to-noise spectra obtained with the Tull Spectrograph on
+    the 2.7m Smith Telescope at the McDonald Observatory, and other
+    abundances are adopted from the literature. We use models of the
+    s-process in asymptotic giant branch stars to characterize the high
+    Pb/Eu ratios produced in the s-process at low metallicity, and our new
+    observations then allow us to identify a sample of stars with no
+    detectable s-process material.
+
+Description:
+    Simmerer et al. (2004, Cat. J/ApJ/617/1091) obtained high-resolution
+    (R~60000) and high signal-to-noise ratio (S/N~100 at 4100{AA}) spectra
+    for 88 bright (V<=11.0) metal-poor dwarf and giant stars from the halo
+    and disk using the Tull Cross-dispersed Echelle Spectrograph on the
+    2.7m Smith Telescope at the McDonald Observatory. We adopt the
+    atmospheric parameters from Simmerer et al. (2004, Cat. J/ApJ/617/1091)
+    and derive new zinc (Zn, Z=30), Y, and Pb abundances for the stars in
+    this sample.
+
+File Summary:
+--------------------------------------------------------------------------------
+ FileName   Lrecl  Records   Explanations
+--------------------------------------------------------------------------------
+ReadMe         80        .   This file
+table1.dat     36       83   Zinc and yttrium equivalent widths
+table2.dat     66      161   Stellar abundances
+refs.dat       70       36   References
+--------------------------------------------------------------------------------
+
+See also:
+ J/ApJ/711/573  : Detailed abundances in a halo stellar stream (Roederer+, 2010)
+ J/A+A/516/A46  : HE 2327-5642 abundance analysis (Mashonkina+, 2010)
+ J/ApJS/182/80  : Rare earth abundances (Sneden+, 2009)
+ J/ApJ/689/1031 : Heavy element abundances in giant stars (Yong+, 2008)
+ J/ApJ/681/1524 : Detailed abundances for 28 metal-poor stars (Lai+, 2008)
+ J/ApJ/645/613  : Abundances of HD 221170 (Ivans+, 2006)
+ J/A+A/439/129  : HERES II. Spectroscopic analysis (Barklem+, 2005)
+ J/ApJ/617/1091 : La and Eu abundances in 85 stars (Simmerer+, 2004)
+ J/A+A/416/1117 : Abundances in the early Galaxy (Cayrel+, 2004)
+ J/A+A/403/1105 : Extremely metal-poor giants EWs (Francois+, 2003)
+ J/AJ/120/1841  : Abundances and Kinematics of Halo and Disk Stars (Fulbright
+                  2000)
+
+Byte-by-byte Description of file: table1.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1- 10  A10   ---     Star      Star identification
+  12- 15  F4.1  0.1pm   ZnI47     ZnI 4722.16{AA} equivalent width in m{AA}
+  17- 20  F4.1  0.1pm   ZnI48     ? ZnI 4810.54{AA} equivalent width in m{AA}
+  22- 26  F5.1  0.1pm   YII48     ? YII 4833.68{AA} equivalent width in m{AA}
+  28- 31  F4.1  0.1pm   YII50     ? YII 5087.42{AA} equivalent width in m{AA}
+  33- 36  F4.1  0.1pm   YII52     ? YII 5200.41{AA} equivalent width in m{AA}
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table2.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units  Label      Explanations
+--------------------------------------------------------------------------------
+   1- 15  A15   ---    Star       Star identification
+  17- 21  F5.2 [Sun]   [Fe/H]     Abundance of [Fe/H]
+  23- 24  I2    ---  r_[Fe/H]     Reference for [Fe/H] (see refs.dat file)
+  26- 30  F5.2  [-]    log(ZnI)   ? Log of ZnI abundance (log(N/H)+12)
+  32- 36  F5.2  [-]    log(YII)   ? Log of YII abundance (log(N/H)+12)
+  38- 42  F5.2  [-]    log(LaII)  ? Log of LaII abundance (log(N/H)+12)
+  44- 48  F5.2  [-]    log(EuII)  ? Log of EuII abundance (log(N/H)+12)
+      50  A1    ---  l_log(PbI)   Limit flag on loge(PbI)
+  51- 55  F5.2  [-]    log(PbI)   ? Log of PbI abundance (log(N/H)+12)
+  57- 64  A8    ---    Ref        Reference(s) (see refs.dat file)
+      66  I1    ---    Class      [0/3] Classification code (1)
+--------------------------------------------------------------------------------
+Note (1): Classification as follows:
+  1 = log{epsilon}(Pb/Eu)<+1.8
+  2 = member of the stellar stream analyzed by Roederer et al. (2010,
+      Cat. J/ApJ/711/573)
+  3 = log{epsilon}(Pb/Eu)<+0.9, as well as HD 88609 and HD 122563
+  0 = none of 1-3 or [Fe/H]>=-1.4.
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: refs.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1-  2  I2    ---     Ref       Code reference
+   4- 22  A19   ---     BibCode   Bibcode
+  24- 42  A19   ---     Aut       First author's name
+  44- 70  A27   ---     Comm      Comment
+--------------------------------------------------------------------------------
+
+History:
+    From electronic version of the journal
+
+================================================================================
+(End)                                     Emmanuelle Perret [CDS]    02-Aug-2012

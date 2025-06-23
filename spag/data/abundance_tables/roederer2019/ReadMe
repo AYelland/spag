@@ -1,0 +1,228 @@
+J/ApJ/883/84  MIKE obs. of 2 metal-poor stars in Sylgr stream  (Roederer+, 2019)
+================================================================================
+High-resolution optical spectroscopy of stars in the Sylgr stellar stream.
+    Roederer I.U., Gnedin O.Y.
+   <Astrophys. J., 883, 84 (2019)>
+   =2019ApJ...883...84R
+================================================================================
+ADC_Keywords: Abundances; Equivalent widths; Spectra, optical;
+              Stars, metal-deficient; Radial velocities; Photometry, SDSS
+Keywords: dwarf galaxies (416) ; globular star clusters (656) ;
+          nucleosynthesis (1131) ; Population II stars ; Stellar abundances
+
+Abstract:
+    We observe two metal-poor main-sequence stars that are members of the
+    recently discovered Sylgr stellar stream. We present radial
+    velocities, stellar parameters, and abundances for 13 elements derived
+    from high-resolution optical spectra collected using the Magellan
+    Inamori Kyocera Echelle spectrograph. The two stars have identical
+    compositions (within 0.13 dex or 1.2{sigma}) among all elements
+    detected. Both stars are very metal-poor ([Fe/H]=-2.92+/-0.06).
+    Neither star is highly enhanced in C ([C/Fe]<+1.0). Both stars are
+    enhanced in the {alpha} elements Mg, Si, and Ca
+    ([{alpha}/Fe]=+0.32+/-0.06), and the ratios among Na, Al, and all
+    Fe-group elements are typical for other stars in the halo and
+    ultra-faint and dwarf spheroidal galaxies at this metallicity. Sr is
+    mildly enhanced ([Sr/Fe]=+0.22+/-0.11), but Ba is not enhanced
+    ([Ba/Fe]{<}-0.4), indicating that these stars do not contain high
+    levels of neutron-capture elements. The Li abundances match those
+    found in metal-poor unevolved field stars and globular clusters (GCs)
+    (log{epsilon}(Li)=2.05+/-0.07), which implies that environment is not
+    a dominant factor in determining the Li content of metal-poor stars.
+    The chemical compositions of these two stars cannot distinguish
+    whether the progenitor of the Sylgr stream was a dwarf galaxy or a GC.
+    If the progenitor was a dwarf galaxy, the stream may originate from a
+    dense region such as a nuclear star cluster. If the progenitor was a
+    GC, it would be the most metal-poor GC known.
+
+Description:
+    We observed SDSS J120220.91-002038.9 and SDSS J120825.36+002440.4, two
+    metal-poor main-sequence stars that are members of the Sylgr stellar
+    stream, using the Magellan Inamori Kyocera Echelle (MIKE) spectrograph
+    on the Landon Clay (Magellan II) Telescope at Las Campanas
+    Observatory, Chile.
+    MIKE is a double spectrograph with a spectral resolving power of
+    R~41000 on the blue spectrograph (3350<{lambda}<5000{AA}) and
+    R~36000 on the red spectrograph (5000 <{lambda}<8300{AA}).
+
+    SDSS J120220.91-002038.9 and J120825.36+002440.4 were each observed on
+    2019 April 11 and 12, for total integration times of 5.00hr and 5.61hr,
+    respectively.
+
+File Summary:
+--------------------------------------------------------------------------------
+ FileName    Lrecl  Records   Explanations
+--------------------------------------------------------------------------------
+ReadMe          80        .   This file
+table1.dat     197        2   Radial velocities, photometry, calculated Teff
+                               values, and adopted model atmosphere parameters
+table2.dat      55      109   Line list
+--------------------------------------------------------------------------------
+
+See also:
+ VII/195 : Globular Clusters in the Milky Way (Harris, 1996)
+ VII/202 : Globular Clusters in the Milky Way (Harris, 1997)
+ J/ApJ/612/447    : Draco 119 and HD 88609 equivalent widths (Fulbright+, 2004)
+ J/A+A/435/373    : Broadening of Fe II lines by H collisions (Barklem+, 2005)
+ J/A+A/442/961    : Lithium content of the Gal. Halo stars (Charbonnel+, 2005)
+ J/AJ/130/873     : BQS objects in the SDSS DR3 area (Jester+, 2005)
+ J/ApJ/645/613    : Abundances of HD 221170 (Ivans+, 2006)
+ J/ApJ/667/1267   : CrI transition probabilities (Sobeck+, 2007)
+ J/ApJ/681/1524   : Detailed abundances for 28 metal-poor stars (Lai+, 2008)
+ J/A+A/501/519    : Extremely metal-poor turnoff stars (Bonifacio+, 2009)
+ J/A+A/505/117    : Abundances of red giants in 15 GCs (Carretta+, 2009)
+ J/ApJ/701/1053   : Abundances of 8 stars in the Draco dSph (Cohen+, 2009)
+ J/A+A/503/541    : Neutral Li in late-type stars (Lind+, 2009)
+ J/A+A/503/545    : Equivalent widths of Li, Na, Fe, Ca in NGC6397 (Lind+, 2009)
+ J/AJ/137/4377    : List of SEGUE plate pairs (Yanny+, 2009)
+ J/A+A/512/A54    : Teff and Fbol from Infrared Flux Method (Casagrande+, 2010)
+ J/ApJ/719/931    : Chemical evolution of the UMi dSph (Cohen+, 2010)
+ J/ApJ/708/560    : Spectroscopy of UMa II and Coma Ber (Frebel+, 2010)
+ J/ApJS/191/352   : Abundances in stars of MW dwarf satellites (Kirby+, 2010)
+ J/A+A/519/L3     : Lithium content of {omega} Cen (Monaco+, 2010)
+ J/ApJ/711/350    : Metal-poor giant Boo-1137 abundances (Norris+, 2010)
+ J/ApJ/711/573    : Abundances in a halo stellar stream (Roederer+, 2010)
+ J/A+A/522/A26    : Fe Abundances in metal-poor stars (Sbordone+ 2010)
+ J/ApJ/740/60     : EWs for NGC2419 and NGC7099 RGB stars (Cohen+, 2011)
+ J/ApJS/194/35    : Atomic transition probabilities of Mn (Den Hartog+, 2011)
+ J/AJ/142/63      : Abundance of five stars in NGC 6397 (Koch+, 2011)
+ J/AJ/141/175     : Abundances in M15 RGB/RHB stars (Sobeck+, 2011)
+ J/A+A/546/A90    : NLTE analysis of Sr lines (Bergemann+, 2012)
+ J/AJ/144/168     : Spectroscopy of Scl 1019417 and UMi 20103 (Kirby+, 2012)
+ J/AJ/144/4       : Dwarf galaxies in the Local Group (McConnachie+, 2012)
+ J/ApJ/750/76     : R-process peaks elements in HD 160617 (Roederer+, 2012)
+ J/ApJ/751/102    : Equivalent widths of 9 RGB in Carina dSph (Venn+, 2012)
+ J/ApJ/763/61     : Abundances of red giant members of BootesI (Gilmore+, 2013)
+ J/ApJ/779/102    : Metallicities of RGB stars in dwarf galaxies (Kirby+, 2013)
+ J/MNRAS/435/3667 : Equivalent widths of 6 NGC5694 stars (Mucciarelli+, 2013)
+ J/ApJS/208/27    : Sun and HD 84937 TiII log(gf) and abundances (Wood+, 2013)
+ J/ApJ/762/26     : Most metal-poor stars. II. Galactic halo stars (Yong+, 2013)
+ J/A+A/561/A87    : FLAMES observations of Terzan 8 (Carretta+, 2014)
+ J/ApJ/786/74     : EW measurements of 6 Segue 1 red giants (Frebel+, 2014)
+ J/A+A/562/A146   : Chemical abundances of 8 metal-poor stars (Ishigaki+, 2014)
+ J/A+A/565/A23    : Abundances of NGC5897 red giants (Koch+, 2014)
+ J/MNRAS/440/2665 : SDSS J021933.13+200830.2 spectroscopy (Roederer+, 2014)
+ J/AJ/147/136     : Stars of very low metal abundance. VI. (Roederer+, 2014)
+ J/MNRAS/441/3127 : FeI oscillator strengths for Gaia-ESO (Ruffoni+, 2014)
+ J/ApJS/214/18    : VII log(gf) values, and V abundance in HD 84937 (Wood+ 2014)
+ J/ApJS/211/20    : NiI transition probability measurements (Wood+, 2014)
+ J/ApJ/804/109    : Equivalent widths of RGB stars in NGC 5053 (Boberg+, 2015)
+ J/ApJ/807/171    : SkyMapper metal-poor star spectroscopy (Jacobson+, 2015)
+ J/ApJS/220/13    : Co I transition probabilities (Lawler+, 2015)
+ J/MNRAS/449/3889 : Abundances of 15 stars in NGC 4833 (Roederer+, 2015)
+ J/AJ/149/204     : Spectroscopy of 25 stars in M68 (Schaeuble+, 2015)
+ J/MNRAS/449/761  : EWs of metal-poor stars in UMi I dSph (Ural+, 2015)
+ J/ApJ/824/5      : Chemical abundances in NGC 5024 (M53) (Boberg+, 2016)
+ J/ApJ/826/110    : Boo-127 and Boo-980 high-resolution spectra (Frebel+, 2016)
+ J/A+A/589/A61    : Stellar parameters and abundances for M30 (Gruyters+, 2016)
+ J/ApJ/830/93     : Abundances of Ret II brightest red giant members (Ji+, 2016)
+ J/ApJ/817/41     : Abundances of 4 metal-poor red giants in BooII (Ji+, 2016)
+ J/A+A/586/A120   : Grid of 1D models for Mg line formation (Osorio+, 2016)
+ J/AJ/151/82      : The 4 brightest red giants in Ret 2 (Roederer+, 2016)
+ J/ApJ/817/53     : Abundance analysis in HD84937 (Sneden+, 2016)
+ J/A+A/607/A44    : FLAMES observations of NGC6535 (Bragaglia+, 2017)
+ J/A+A/599/A97    : Chemical composition of NGC 6426 (Hanke+, 2017)
+ J/ApJ/838/44     : Abundances of brightest members of Tuc III (Hansen+, 2017)
+ J/ApJ/857/74     : Abundances of 7 new member stars in Tucana II (Chiti+, 2018)
+ J/A+A/616/A12    : Gaia DR2 sources in GC and dSph (Gaia Collaboration+, 2018)
+ J/ApJ/852/99     : Abundances of 3 metal-poor stars in Hor I (Nagasawa+, 2018)
+ J/AJ/156/179     : Highly r-process-enhanced field stars (Roederer+, 2018)
+ J/ApJ/865/129    : Abundance analysis of HD 222925 (Roederer+, 2018)
+ J/ApJ/860/125    : Six warm metal-poor stars iron abundances (Roederer+, 2018)
+ J/ApJ/863/89     : Gaia DR2 PMs in ultra-faint MW satellites (Simon, 2018)
+ J/MNRAS/482/5138 : Galactic GC mean proper motions & vel. (Baumgardt+, 2019)
+ J/ApJ/870/83     : Abundances in UFD galaxies GruI & TriII (Ji+, 2019)
+
+Byte-by-byte Description of file: table1.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units     Label     Explanations
+--------------------------------------------------------------------------------
+   1-  4 A4     ---       ---       [SDSS]
+  6-  24 A19    ---       SDSS      SDSS identifier (JHHMMSS.ss+DDMMSS.s)
+ 26-  31 F6.1   km/s      HRV       [-209.5/-203.3] Heliocentric radial velocity
+ 33-  35 F3.1   km/s    e_HRV       [0.7/0.7] HRV uncertainty
+ 37-  41 F5.2   mag       umag      [18.44/18.63] SDSS u-band (AB) magnitude
+ 43-  46 F4.2   mag     e_umag      [0.01/0.02] Uncertainty on the umag
+ 48-  52 F5.2   mag       gmag      [17.56/17.77] SDSS g-band (AB) magnitude
+ 54-  57 F4.2   mag     e_gmag      [0.01/0.01] Uncertainty on the gmag
+ 59-  63 F5.2   mag       rmag      [17.33/17.55] SDSS r-band (AB) magnitude
+ 65-  68 F4.2   mag     e_rmag      [0.01/0.01] Uncertainty on the rmag
+ 70-  74 F5.2   mag       imag      [17.23/17.45] SDSS i-band (AB) magnitude
+ 76-  79 F4.2   mag     e_imag      [0.01/0.01] Uncertainty on the imag
+ 81-  85 F5.2   mag       Bmag      [17.89/18.09] Johnson B magnitude (1)
+ 87-  90 F4.2   mag     e_Bmag      [0.02/0.02] Uncertainty on the Bmag
+ 92-  96 F5.2   mag       Vmag      [17.45/17.67] Johnson V magnitude (1)
+ 98- 101 F4.2   mag     e_Vmag      [0.01/0.01] Uncertainty on the Vmag
+103- 107 F5.2   mag       Rcmag     [17.19/17.41] Cousins R magnitude (1)
+109- 112 F4.2   mag     e_Rcmag     [0.01/0.01] Uncertainty on the Rcmag
+114- 118 F5.2   mag       Icmag     [16.82/17.04] Cousins I magnitude (1)
+120- 123 F4.2   mag     e_Icmag     [0.01/0.01] Uncertainty on the Icmag
+125- 129 F5.3   mag       E(B-V)    [0.02/0.022] Reddening E(B-V)
+131- 134 F4.2   mag     e_E(B-V)    [0.01/0.01] E(B-V) uncertainty
+136- 139 I4     K         Teff(BV)  [6206/6255] Effective temperature from B-V
+141- 143 I3     K       e_Teff(BV)  [140/142] Teff(BV) uncertainty
+145- 148 I4     K         Teff(VR)  [6200/6613] Effective temperature from V-Rc
+150- 152 I3     K       e_Teff(VR)  [83/202] Teff(VR) uncertainty
+154- 157 I4     K         Teff(VI)  [6128/6556] Effective temperature from V-Ic
+159- 161 I3     K       e_Teff(VI)  [108/198] Teff(VI) uncertainty
+163- 166 I4     K         Teff      [6092/6242] Adopted effective temperature
+168- 170 I3     K       e_Teff      [84/107] Teff uncertainty
+172- 175 F4.2   [cm/s2]   logg      [4.46/4.47] Adopted log of surface gravity
+177- 179 F3.1   [cm/s2] e_logg      [0.2/0.2] Logg uncertainty
+181- 184 F4.2   km/s      Vt        [1.15/1.15] Adopted microturbulent velocity
+186- 188 F3.1   km/s    e_Vt        [0.1/0.1] Vt uncertainty
+190- 193 F4.1  [Sun]      [M/H]     [-3/-3] Adopted [M/H]
+195- 197 F3.1  [Sun]    e_[M/H]     [0.1/0.1] [M/H] uncertainty
+--------------------------------------------------------------------------------
+Note (1): The BVRcIc magnitudes are calculated from the SDSS gri magnitudes
+  using the Population II star transformations of Jordi+ (2006A&A...460..339J).
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table2.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label    Explanations
+--------------------------------------------------------------------------------
+   1-  5 A5     ---     Ion      Species identifier
+   7- 13 F7.2   0.1nm   lambda   [3502.28/7771.94] Wavelength in Angstroms
+  15- 18 F4.2   eV      ExPot    [0/9.15] Excitation potential
+  20- 24 F5.2   ---     log(gf)  [-3.21/0.51] Log of degeneracy times oscillator
+                                  strength
+  26- 27 I2     ---   r_log(gf)  [1/15] Reference for log(gf) (1)
+  29- 33 F5.1   10-13m  EW1      [7/134.7]? Equivalent width for J1202-0020
+                                  in milli-Angstroms
+      35 A1     ---   l_log(e1)  Limit flag on log(e1)
+  37- 41 F5.2   [-]     log(e1)  [-1.2/7.5]? Log epsilon (LTE) abundance
+                                  for J1202-0020
+  43- 47 F5.1   10-13m  EW2      [6.2/121]? Equivalent width for J1208+0024
+                                  in milli-Angstroms
+      49 A1     ---   l_log(e2)  Limit flag on log(e2)
+  51- 55 F5.2   [-]     log(e2)  [-1.1/7.3]? Log epsilon (LTE) abundance
+                                  for J1208+0024
+--------------------------------------------------------------------------------
+Note (1): Reference code as follows:
+   1 = Kramida et al. (2018APS..DMPM01004K);
+   2 = Pehlivan Rhodin et al. (2017A&A...598A.102P);
+   3 = Aldenius et al. (2009A&A...502..989A);
+   4 = Lawler & Dakin (1989JOSAB...6...11B), using HFS
+       from Kurucz (2011CaJPh..89..417K);
+   5 = Wood et al. (2013ApJS..208...27W);
+   6 = Wood et al. (2014ApJS..214...18W) for log(gf) values and HFS;
+   7 = Sobeck et al. (2007ApJ...667.1267S);
+   8 = Den Hartog et al. (2011ApJS..194...35D) for both log(gf)
+       values and HFS;
+   9 = Ruffoni et al. (2014MNRAS.441.3127R);
+  10 = Belmonte et al. (2017ApJ...848..125B);
+  11 = Lawler et al. (2015ApJS..220...13L) for log(gf) values and HFS;
+  12 = Wood et al. (2014ApJS..211...20W);
+  13 = Roederer & Lawler (2012ApJ...750...76R);
+  14 = Kramida et al. (2018APS..DMPM01004K), using HFS/IS
+       from McWilliam (1998AJ....115.1640M);
+  15 = Lawler et al. (2001ApJ...563.1075L), using HFS/IS
+       from Ivans et al. (2006ApJ...645..613I).
+--------------------------------------------------------------------------------
+
+History:
+    From electronic version of the journal
+
+================================================================================
+(End)                   Prepared by [AAS], Emmanuelle Perret [CDS]   03-Mar-2021

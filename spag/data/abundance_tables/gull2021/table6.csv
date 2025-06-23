@@ -1,33 +1,33 @@
-Stream,Name,[Fe/H],l_[Eu/Fe],[Eu/Fe],l_[Ba/Fe],[Ba/Fe],l_[Ba/Eu],[Ba/Eu],l_[C/Fe]c,[C/Fe]c,Class,R10,Comm
-Helmi trail,HE2234-4757,-2.83,,0.72,,-0.05,,-0.77,,0.77,r-I,,
-Helmi trail,HE0050-0918,-1.37,,0.71,,0.11,,-0.6,,-0.25,r-I,,11.2Gyr
-Helmi trail,BM235,-1.63,,0.48,,0.08,,-0.4,,-0.04,r-I; r+s,,10.8Gyr
-Helmi trail,HE1210-2729,-3.01,,-0.46,,-1.04,,-0.58,,0.36,r-0,,
-Helmi trail,HE0033-2141,-2.91,<,-0.11,,-1.17,>,-1.06,,0.43,,,
-Helmi debris,HE0048-1109,-2.35,,1.29,,0.62,,-0.67,,0.61,r-II,,"AB, -15.0Gyr"
-Helmi debris,HE0324-0122,-2.41,,1.12,,0.46,,-0.66,,0.37,r-II,,10.3Gyr
-Helmi debris,BD+30 2611,-1.5,,0.65,,0.06,,-0.59,,-0.72,r-I,R10,13.6Gyr
-Helmi debris,BD+29 2356,-1.59,,0.41,,0.09,,-0.32,,-0.24,r-I; r+s,R10,"AB, 2.3Gyr"
-Helmi debris,CS 29513-032,-2.08,,0.39,,0.76,,0.37,,0.62,r-I; r+s,R10,
-Helmi debris,HD 175305,-1.73,,0.35,,0.06,,-0.29,,-0.31,r-I; r+s,R10,"AB, 0.5Gyr"
-Helmi debris,HD 119516,-2.26,,0.34,,-0.02,,-0.36,<,-0.42,r-I; r+s,R10,
-Helmi debris,BM028,-1.83,,0.33,,0.12,,-0.21,,0.38,r-0; r+s,R10,(CD-36 1052)
-Helmi debris,BM308,-2.1,,0.32,,-0.26,,-0.58,,0.31,r-0,,
-Helmi debris,BM201,-2.27,,0.22,,-0.44,,-0.66,,0.21,r-0,R10,(HD 128279)
-Helmi debris,HE0017-3646,-2.45,,0.18,,-0.53,,-0.71,,0.08,r-0,,"AB, -22.5Gyr"
-Helmi debris,BD+10 2495,-2.31,,0.13,,-0.01,,-0.14,,-0.31,r-0; r+s,R10,"AB, -2.8Gyr"
-Helmi debris,HD 237846,-3.29,,-0.3,,-0.79,,-0.49,,0.17,r-0,R10,
-Helmi debris,CS 29513-031,-2.64,<,1.14,,-0.31,>,-1.45,<,1.2,,R10,
-Helmi debris,CS 22876-040,-2.34,<,1.15,,0.12,>,-1.03,<,0.59,,R10,
-Helmi debris,HE0012-5643,-3.03,<,1.51,<,0.45,,,,1.22,,,
-Helmi debris,CS 22948-093,-3.36,<,1.91,,0.37,>,-1.54,<,1.72,,R10,
-omega-Centauri progenitor,HE0007-1752,-2.36,,1.25,,0.6,,-0.65,,-0.29,r-II,,10.8Gyr
-omega-Centauri progenitor,HE0429-4620,-2.4,,0.53,,-0.19,,-0.72,,0.05,r-I,,
-omega-Centauri progenitor,BM056,-2.02,,0.33,,-0.06,,-0.39,,0.34,r-I; r+s,,11.7Gyr
-omega-Centauri progenitor,HE2322-6125,-2.61,,0.37,,-0.29,,-0.66,,0.3,r-I,,
-omega-Centauri progenitor,BM121,-2.48,,0.27,,-0.48,,-0.75,,0.37,r-0,,11.2Gyr
-omega-Centauri progenitor,HE2315-4306,-2.39,,-0.11,,-0.62,,-0.51,,0.31,r-0,,
-omega-Centauri progenitor,HE2319-5228,-3.18,<,-0.04,,-1.74,>,-1.7,,1.63,,,
-omega-Centauri progenitor,HE1401-0010,-2.54,<,0.12,,-0.43,>,-0.55,,0.93,,,
-omega-Centauri progenitor,HE2138-0314,-3.08,<,0.36,,-0.93,>,-1.29,,0.95,,,
-omega-Centauri progenitor,HE0039-0216,-2.56,<,1.09,,-0.3,>,-1.39,,0.94,,,
+System,sub_System,Name,[Fe/H],l_[Eu/Fe],[Eu/Fe],l_[Ba/Fe],[Ba/Fe],l_[Ba/Eu],[Ba/Eu],l_[C/Fe]c,[C/Fe]c,Class,R10,Comm
+Helmi,trail,HE2234-4757,-2.83,,0.72,,-0.05,,-0.77,,0.77,r-I,,
+Helmi,trail,HE0050-0918,-1.37,,0.71,,0.11,,-0.6,,-0.25,r-I,,11.2Gyr
+Helmi,trail,BM235,-1.63,,0.48,,0.08,,-0.4,,-0.04,r-I; r+s,,10.8Gyr
+Helmi,trail,HE1210-2729,-3.01,,-0.46,,-1.04,,-0.58,,0.36,r-0,,
+Helmi,trail,HE0033-2141,-2.91,<,-0.11,,-1.17,>,-1.06,,0.43,,,
+Helmi,debris,HE0048-1109,-2.35,,1.29,,0.62,,-0.67,,0.61,r-II,,"AB, -15.0Gyr"
+Helmi,debris,HE0324-0122,-2.41,,1.12,,0.46,,-0.66,,0.37,r-II,,10.3Gyr
+Helmi,debris,BD+30 2611,-1.5,,0.65,,0.06,,-0.59,,-0.72,r-I,R10,13.6Gyr
+Helmi,debris,BD+29 2356,-1.59,,0.41,,0.09,,-0.32,,-0.24,r-I; r+s,R10,"AB, 2.3Gyr"
+Helmi,debris,CS 29513-032,-2.08,,0.39,,0.76,,0.37,,0.62,r-I; r+s,R10,
+Helmi,debris,HD 175305,-1.73,,0.35,,0.06,,-0.29,,-0.31,r-I; r+s,R10,"AB, 0.5Gyr"
+Helmi,debris,HD 119516,-2.26,,0.34,,-0.02,,-0.36,<,-0.42,r-I; r+s,R10,
+Helmi,debris,BM028,-1.83,,0.33,,0.12,,-0.21,,0.38,r-0; r+s,R10,(CD-36 1052)
+Helmi,debris,BM308,-2.1,,0.32,,-0.26,,-0.58,,0.31,r-0,,
+Helmi,debris,BM201,-2.27,,0.22,,-0.44,,-0.66,,0.21,r-0,R10,(HD 128279)
+Helmi,debris,HE0017-3646,-2.45,,0.18,,-0.53,,-0.71,,0.08,r-0,,"AB, -22.5Gyr"
+Helmi,debris,BD+10 2495,-2.31,,0.13,,-0.01,,-0.14,,-0.31,r-0; r+s,R10,"AB, -2.8Gyr"
+Helmi,debris,HD 237846,-3.29,,-0.3,,-0.79,,-0.49,,0.17,r-0,R10,
+Helmi,debris,CS 29513-031,-2.64,<,1.14,,-0.31,>,-1.45,<,1.2,,R10,
+Helmi,debris,CS 22876-040,-2.34,<,1.15,,0.12,>,-1.03,<,0.59,,R10,
+Helmi,debris,HE0012-5643,-3.03,<,1.51,<,0.45,,,,1.22,,,
+Helmi,debris,CS 22948-093,-3.36,<,1.91,,0.37,>,-1.54,<,1.72,,R10,
+omega-Centauri,progenitor,HE0007-1752,-2.36,,1.25,,0.6,,-0.65,,-0.29,r-II,,10.8Gyr
+omega-Centauri,progenitor,HE0429-4620,-2.4,,0.53,,-0.19,,-0.72,,0.05,r-I,,
+omega-Centauri,progenitor,BM056,-2.02,,0.33,,-0.06,,-0.39,,0.34,r-I; r+s,,11.7Gyr
+omega-Centauri,progenitor,HE2322-6125,-2.61,,0.37,,-0.29,,-0.66,,0.3,r-I,,
+omega-Centauri,progenitor,BM121,-2.48,,0.27,,-0.48,,-0.75,,0.37,r-0,,11.2Gyr
+omega-Centauri,progenitor,HE2315-4306,-2.39,,-0.11,,-0.62,,-0.51,,0.31,r-0,,
+omega-Centauri,progenitor,HE2319-5228,-3.18,<,-0.04,,-1.74,>,-1.7,,1.63,,,
+omega-Centauri,progenitor,HE1401-0010,-2.54,<,0.12,,-0.43,>,-0.55,,0.93,,,
+omega-Centauri,progenitor,HE2138-0314,-3.08,<,0.36,,-0.93,>,-1.29,,0.95,,,
+omega-Centauri,progenitor,HE0039-0216,-2.56,<,1.09,,-0.3,>,-1.39,,0.94,,,

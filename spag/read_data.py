@@ -786,9 +786,11 @@ def load_stellar_streams():
 
     ## Load additional references
     df_list = [
+        load_gull2021(), ## Helmi, omega-Centauri
+        load_ji2020b(), ## ATLAS, Aliqa Uma, Chenab, Elqui, Indus, Jhelum, and Phoenix
         load_martin2022(), ## C-19
-        load_ji2020b(), ## also in JINAbase
-        load_gull2021(), ## Helmi trail, debris, and omega-Centauri progenitor
+        load_roederer2010a(), ## Helmi
+        load_roederer2019() ## Sylgr
     ]
 
     ## Combine all dataframes into a single dataframe
@@ -6175,6 +6177,240 @@ def load_webber2023():
 
 ## stellar streams (SS)
 
+def load_gull2021():
+    """
+    Load the Gull et al. 2021 data for the Helmi debris stream, Helmi trail stream, and omega Centauri stream.
+    
+    Helmi debris stream (Helmi et al. 1999)
+        Helmi & White (1999) found 13 members of the now so-called debris stream.
+        Roederer et al. (2010) performed a detailed abundance analysis of 12 of those 13 members.
+        The Helmi debris stars manifest themselves in a well-defined stream, 
+         with prominent negative vz motion (Myeong et al. 2019).
+    
+    Helmi trail stream (Helmi et al. 1999)
+        Chiba & Beers (2000) 9 stars apart of a secondary stream associated with the Helmi debris stream trail stream.
+        The Helmi trail stream distinguishes itself from the Helmi debris stream kinematically (Yuan et al. 2020). 
+         by displaying a positive vz (vertical velocity) motions, slightly higher energy, larger radial motions, 
+         and are more diffuse without clear features on kinematic diagrams
+
+    Table 1 - Observations
+    Table 3 - Stellar Parameters
+    Table 5 - Abundance Table
+    """
+
+    ## Read in the data tables
+    obs_df = pd.read_csv(data_dir + "abundance_tables/gull2021/table1.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    param_df = pd.read_csv(data_dir + "abundance_tables/gull2021/table3.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    abund_df = pd.read_csv(data_dir + "abundance_tables/gull2021/table5.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+
+    ## Make the new column names
+    species = []
+    for ion in abund_df["Species"].unique():
+        species_i = ion_to_species(ion)
+        elem_i = ion_to_element(ion)
+        if species_i not in species:
+            species.append(species_i)
+
+    epscols = [make_epscol(s) for s in species]
+    ulcols = [make_ulcol(s) for s in species]
+    XHcols = [make_XHcol(s).replace(" ", "") for s in species]
+    ulXHcols = ['ul' + col for col in XHcols]
+    XFecols = [make_XFecol(s).replace(" ", "") for s in species]
+    ulXFecols = ['ul' + col for col in XFecols]
+    errcols = [make_errcol(s) for s in species]
+
+    ## New dataframe with proper columns
+    gull2021_df = pd.DataFrame(
+                    columns=['Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
+                    'Teff','logg','Fe/H','Vmic'] + epscols + ulcols + XHcols + ulXHcols + XFecols 
+                    + ulXFecols + errcols)
+    for i, name in enumerate(abund_df['Name'].unique()):
+        gull2021_df.loc[i,'Name'] = name
+        gull2021_df.loc[i,'Simbad_Identifier'] = obs_df.loc[obs_df['Name'] == name, 'Simbad_Identifier'].values[0]
+        gull2021_df.loc[i,'Reference'] = 'Gull+2021'
+        gull2021_df.loc[i,'Ref'] = 'GUL21'
+        gull2021_df.loc[i,'Loc'] = 'SS'
+        gull2021_df.loc[i,'System'] = obs_df.loc[obs_df['Name'] == name, 'System'].values[0]
+        gull2021_df.loc[i,'RA_hms'] = obs_df.loc[obs_df['Name'] == name, 'RA_hms'].values[0]
+        gull2021_df.loc[i,'RA_deg'] = coord.ra_hms_to_deg(gull2021_df.loc[i,'RA_hms'], precision=6)
+        gull2021_df.loc[i,'DEC_dms'] = obs_df.loc[obs_df['Name'] == name, 'DEC_dms'].values[0]
+        gull2021_df.loc[i,'DEC_deg'] = coord.dec_dms_to_deg(gull2021_df.loc[i,'DEC_dms'], precision=2)
+        gull2021_df.loc[i,'Teff'] = param_df.loc[param_df['Name'] == name, 'Teff'].values[0]
+        gull2021_df.loc[i,'logg'] = param_df.loc[param_df['Name'] == name, 'logg'].values[0]
+        gull2021_df.loc[i,'Fe/H'] = param_df.loc[param_df['Name'] == name, 'Fe/H'].values[0]
+        gull2021_df.loc[i,'Vmic'] = param_df.loc[param_df['Name'] == name, 'Vmic'].values[0]
+
+        ## Fill in data
+        star_df = abund_df[abund_df['Name'] == name]
+        for j, row in star_df.iterrows():
+            ion = row["Species"]
+            species_i = ion_to_species(ion)
+            elem_i = ion_to_element(ion)
+
+            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009')[0]
+            logepsFe_a09 = star_df.loc[star_df['Species'] == 'Fe I', 'logepsX'].values[0]
+            feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009')[0]
+
+            ## Assign epsX values
+            col = make_epscol(species_i)
+            if col in epscols:
+                gull2021_df.loc[i, col] = row["logepsX"] if pd.isna(row["l_logepsX"]) else np.nan
+
+            ## Assign ulX values
+            col = make_ulcol(species_i)
+            if col in ulcols:
+                gull2021_df.loc[i, col] = row["logepsX"] if pd.notna(row["l_logepsX"]) else np.nan
+
+            ## Assign [X/H] and ul[X/H]values
+            col = make_XHcol(species_i).replace(" ", "")
+            if col in XHcols:
+                if pd.isna(row["l_logepsX"]):
+                    gull2021_df.loc[i, col] = normal_round(row["logepsX"] - logepsX_sun_a09, 2)
+                    gull2021_df.loc[i, 'ul'+col] = np.nan
+                else:
+                    gull2021_df.loc[i, col] = np.nan
+                    gull2021_df.loc[i, 'ul'+col] = normal_round(row["logepsX"] - logepsX_sun_a09, 2)
+                if 'e_[X/H]' in row.index:
+                    gull2021_df.loc[i, 'e_'+col] = row["e_[X/H]"]
+
+            ## Assign [X/Fe] values
+            col = make_XFecol(species_i).replace(" ", "")
+            if col in XFecols:
+                if pd.isna(row["l_logepsX"]):
+                    gull2021_df.loc[i, col] = normal_round((row["logepsX"] - logepsX_sun_a09) - feh_a09, 2)
+                    gull2021_df.loc[i, 'ul'+col] = np.nan
+                else:
+                    gull2021_df.loc[i, col] = np.nan
+                    gull2021_df.loc[i, 'ul'+col] = normal_round((row["logepsX"] - logepsX_sun_a09) - feh_a09, 2)
+                if 'e_[X/Fe]' in row.index:
+                    gull2021_df.loc[i, 'e_'+col] = row["e_[X/Fe]"]
+
+            ## Assign error values
+            col = make_errcol(species_i)
+            if col in errcols:
+                e_logepsX = row.get("e_logepsX", np.nan)
+                if pd.notna(e_logepsX):
+                    gull2021_df.loc[i, col] = e_logepsX
+                else:
+                    gull2021_df.loc[i, col] = np.nan
+
+    ## Drop the Fe/Fe columns
+    gull2021_df.drop(columns=['[Fe/Fe]','ul[Fe/Fe]','[FeII/Fe]','ul[FeII/Fe]'], inplace=True, errors='ignore')
+
+    return gull2021_df
+
+def load_ji2020b():
+    """
+    Load the Ji et al. 2020 data for the 7 stellar streams in the Milky Way.
+    These streams include: ATLAS, Aliqa Uma, Chenab, Elqui, Indus, Jhelum, and Phoenix
+
+    Table 1 - Observations
+    Table 2 - Radial Velocities
+    Table 3 - Stellar Parameters
+    Table 6 - Abundance Table
+    """
+
+    ## Read in the data tables
+    obs_df = pd.read_csv(data_dir + "abundance_tables/ji2020b/table1.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    param_df = pd.read_csv(data_dir + "abundance_tables/ji2020b/table2.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    abund_df = pd.read_csv(data_dir + "abundance_tables/ji2020b/table6.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+
+    ## Make the new column names
+    species = []
+    for ion in abund_df["Species"].unique():
+        species_i = ion_to_species(ion)
+        elem_i = ion_to_element(ion)
+        if species_i not in species:
+            species.append(species_i)
+
+    epscols = [make_epscol(s) for s in species]
+    ulcols = [make_ulcol(s) for s in species]
+    XHcols = [make_XHcol(s).replace(" ", "") for s in species]
+    ulXHcols = ['ul' + col for col in XHcols]
+    XFecols = [make_XFecol(s).replace(" ", "") for s in species]
+    ulXFecols = ['ul' + col for col in XFecols]
+    errcols = [make_errcol(s) for s in species]
+
+    ## New dataframe with proper columns
+    ji2020b_df = pd.DataFrame(
+                    columns=['Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
+                    'Teff','logg','M/H','Vmic'] + epscols + ulcols + XHcols + ulXHcols + XFecols 
+                    + ulXFecols + errcols)
+    for i, name in enumerate(abund_df['Name'].unique()):
+        ji2020b_df.loc[i,'Name'] = name
+        ji2020b_df.loc[i,'Simbad_Identifier'] = obs_df.loc[obs_df['Name'] == name, 'Simbad_Identifier'].values[0]
+        ji2020b_df.loc[i,'Reference'] = 'Ji+2020b'
+        ji2020b_df.loc[i,'Ref'] = 'JI20b'
+        ji2020b_df.loc[i,'Loc'] = 'SS'
+        ji2020b_df.loc[i,'System'] = obs_df.loc[obs_df['Name'] == name, 'System'].values[0]
+        ji2020b_df.loc[i,'RA_hms'] = obs_df.loc[obs_df['Name'] == name, 'RA_hms'].values[0]
+        ji2020b_df.loc[i,'RA_deg'] = coord.ra_hms_to_deg(ji2020b_df.loc[i,'RA_hms'], precision=6)
+        ji2020b_df.loc[i,'DEC_dms'] = obs_df.loc[obs_df['Name'] == name, 'DEC_dms'].values[0]
+        ji2020b_df.loc[i,'DEC_deg'] = coord.dec_dms_to_deg(ji2020b_df.loc[i,'DEC_dms'], precision=2)
+        ji2020b_df.loc[i,'Teff'] = param_df.loc[param_df['Name'] == name, 'Teff'].values[0]
+        ji2020b_df.loc[i,'logg'] = param_df.loc[param_df['Name'] == name, 'logg'].values[0]
+        ji2020b_df.loc[i,'M/H'] = param_df.loc[param_df['Name'] == name, 'M/H'].values[0]
+        ji2020b_df.loc[i,'Vmic'] = param_df.loc[param_df['Name'] == name, 'Vmic'].values[0]
+
+        ## Fill in data
+        star_df = abund_df[abund_df['Name'] == name]
+        for j, row in star_df.iterrows():
+            ion = row["Species"]
+            species_i = ion_to_species(ion)
+            elem_i = ion_to_element(ion)
+
+            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009')[0]
+            logepsFe_a09 = star_df.loc[star_df['Species'] == 'Fe I', 'logepsX'].values[0]
+            feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009')[0]
+
+            ## Assign epsX values
+            col = make_epscol(species_i)
+            if col in epscols:
+                ji2020b_df.loc[i, col] = row["logepsX"] if pd.isna(row["l_logepsX"]) else np.nan
+
+            ## Assign ulX values
+            col = make_ulcol(species_i)
+            if col in ulcols:
+                ji2020b_df.loc[i, col] = row["logepsX"] if pd.notna(row["l_logepsX"]) else np.nan
+
+            ## Assign [X/H] and ul[X/H]values
+            col = make_XHcol(species_i).replace(" ", "")
+            if col in XHcols:
+                if pd.isna(row["l_logepsX"]):
+                    ji2020b_df.loc[i, col] = normal_round(row["logepsX"] - logepsX_sun_a09, 2)
+                    ji2020b_df.loc[i, 'ul'+col] = np.nan
+                else:
+                    ji2020b_df.loc[i, col] = np.nan
+                    ji2020b_df.loc[i, 'ul'+col] = normal_round(row["logepsX"] - logepsX_sun_a09, 2)
+                if 'e_[X/H]' in row.index:
+                    ji2020b_df.loc[i, 'e_'+col] = row["e_[X/H]"]
+
+            ## Assign [X/Fe] values
+            col = make_XFecol(species_i).replace(" ", "")
+            if col in XFecols:
+                if pd.isna(row["l_logepsX"]):
+                    ji2020b_df.loc[i, col] = normal_round((row["logepsX"] - logepsX_sun_a09) - feh_a09, 2)
+                    ji2020b_df.loc[i, 'ul'+col] = np.nan
+                else:
+                    ji2020b_df.loc[i, col] = np.nan
+                    ji2020b_df.loc[i, 'ul'+col] = normal_round((row["logepsX"] - logepsX_sun_a09) - feh_a09, 2)
+                if 'e_[X/Fe]' in row.index:
+                    ji2020b_df.loc[i, 'e_'+col] = row["e_[X/Fe]"]
+
+            ## Assign error values
+            col = make_errcol(species_i)
+            if col in errcols:
+                e_logepsX = row.get("e_logepsX", np.nan)
+                if pd.notna(e_logepsX):
+                    ji2020b_df.loc[i, col] = e_logepsX
+                else:
+                    ji2020b_df.loc[i, col] = np.nan
+
+    ## Drop the Fe/Fe columns
+    ji2020b_df.drop(columns=['[Fe/Fe]','ul[Fe/Fe]','[FeII/Fe]','ul[FeII/Fe]'], inplace=True, errors='ignore')
+
+    return ji2020b_df
+
 def load_martin2022():
     """
     Load the Martin et al. 2022 data for the C-19 Stream.
@@ -6311,21 +6547,19 @@ def load_martin2022():
 
     return martin2022_df
 
-def load_ji2020b():
+def load_roederer2010a():
     """
-    Load the Ji et al. 2020 data for the 7 stellar streams in the Milky Way.
-    These streams include: ATLAS, Aliqa Uma, Chenab, Elqui, Indus, Jhelum, and Phoenix
+    Load the Roederer et al. 2010a data for the Helmi stellar stream.
 
-    Table 1 - Observations
-    Table 2 - Radial Velocities
-    Table 3 - Stellar Parameters
-    Table 6 - Abundance Table
+    Table 2 - Observations
+    Table 5 - Stellar Parameters
+    Table 7,8,9,10 - Abundance Table
     """
 
     ## Read in the data tables
-    obs_df = pd.read_csv(data_dir + "abundance_tables/ji2020b/table1.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
-    param_df = pd.read_csv(data_dir + "abundance_tables/ji2020b/table2.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
-    abund_df = pd.read_csv(data_dir + "abundance_tables/ji2020b/table6.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    obs_df = pd.read_csv(data_dir + "abundance_tables/roederer2010a/table2.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    param_df = pd.read_csv(data_dir + "abundance_tables/roederer2010a/table5.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    abund_df = pd.read_csv(data_dir + "abundance_tables/roederer2010a/table7-8-9-10.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
 
     ## Make the new column names
     species = []
@@ -6344,25 +6578,25 @@ def load_ji2020b():
     errcols = [make_errcol(s) for s in species]
 
     ## New dataframe with proper columns
-    ji2020b_df = pd.DataFrame(
+    roederer2010a_df = pd.DataFrame(
                     columns=['Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
                     'Teff','logg','M/H','Vmic'] + epscols + ulcols + XHcols + ulXHcols + XFecols 
                     + ulXFecols + errcols)
     for i, name in enumerate(abund_df['Name'].unique()):
-        ji2020b_df.loc[i,'Name'] = name
-        ji2020b_df.loc[i,'Simbad_Identifier'] = obs_df.loc[obs_df['Name'] == name, 'Simbad_Identifier'].values[0]
-        ji2020b_df.loc[i,'Reference'] = 'Ji+2020b'
-        ji2020b_df.loc[i,'Ref'] = 'JI20b'
-        ji2020b_df.loc[i,'Loc'] = 'SS'
-        ji2020b_df.loc[i,'System'] = obs_df.loc[obs_df['Name'] == name, 'System'].values[0]
-        ji2020b_df.loc[i,'RA_hms'] = obs_df.loc[obs_df['Name'] == name, 'RA_hms'].values[0]
-        ji2020b_df.loc[i,'RA_deg'] = coord.ra_hms_to_deg(ji2020b_df.loc[i,'RA_hms'], precision=6)
-        ji2020b_df.loc[i,'DEC_dms'] = obs_df.loc[obs_df['Name'] == name, 'DEC_dms'].values[0]
-        ji2020b_df.loc[i,'DEC_deg'] = coord.dec_dms_to_deg(ji2020b_df.loc[i,'DEC_dms'], precision=2)
-        ji2020b_df.loc[i,'Teff'] = param_df.loc[param_df['Name'] == name, 'Teff'].values[0]
-        ji2020b_df.loc[i,'logg'] = param_df.loc[param_df['Name'] == name, 'logg'].values[0]
-        ji2020b_df.loc[i,'M/H'] = param_df.loc[param_df['Name'] == name, 'M/H'].values[0]
-        ji2020b_df.loc[i,'Vmic'] = param_df.loc[param_df['Name'] == name, 'Vmic'].values[0]
+        roederer2010a_df.loc[i,'Name'] = name
+        roederer2010a_df.loc[i,'Simbad_Identifier'] = obs_df.loc[obs_df['Name'] == name, 'Simbad_Identifier'].values[0]
+        roederer2010a_df.loc[i,'Reference'] = 'Roederer+2010a'
+        roederer2010a_df.loc[i,'Ref'] = 'ROE10a'
+        roederer2010a_df.loc[i,'Loc'] = 'SS'
+        roederer2010a_df.loc[i,'System'] = obs_df.loc[obs_df['Name'] == name, 'System'].values[0]
+        roederer2010a_df.loc[i,'RA_hms'] = obs_df.loc[obs_df['Name'] == name, 'RA_hms'].values[0]
+        roederer2010a_df.loc[i,'RA_deg'] = coord.ra_hms_to_deg(roederer2010a_df.loc[i,'RA_hms'], precision=6)
+        roederer2010a_df.loc[i,'DEC_dms'] = obs_df.loc[obs_df['Name'] == name, 'DEC_dms'].values[0]
+        roederer2010a_df.loc[i,'DEC_deg'] = coord.dec_dms_to_deg(roederer2010a_df.loc[i,'DEC_dms'], precision=2)
+        roederer2010a_df.loc[i,'Teff'] = param_df.loc[param_df['Name'] == name, 'Teff'].values[0]
+        roederer2010a_df.loc[i,'logg'] = param_df.loc[param_df['Name'] == name, 'logg'].values[0]
+        roederer2010a_df.loc[i,'M/H'] = param_df.loc[param_df['Name'] == name, 'M/H'].values[0]
+        roederer2010a_df.loc[i,'Vmic'] = param_df.loc[param_df['Name'] == name, 'Vmic'].values[0]
 
         ## Fill in data
         star_df = abund_df[abund_df['Name'] == name]
@@ -6378,76 +6612,62 @@ def load_ji2020b():
             ## Assign epsX values
             col = make_epscol(species_i)
             if col in epscols:
-                ji2020b_df.loc[i, col] = row["logepsX"] if pd.isna(row["l_logepsX"]) else np.nan
+                roederer2010a_df.loc[i, col] = row["logepsX"] if pd.isna(row["l_logepsX"]) else np.nan
 
             ## Assign ulX values
             col = make_ulcol(species_i)
             if col in ulcols:
-                ji2020b_df.loc[i, col] = row["logepsX"] if pd.notna(row["l_logepsX"]) else np.nan
+                roederer2010a_df.loc[i, col] = row["logepsX"] if pd.notna(row["l_logepsX"]) else np.nan
 
             ## Assign [X/H] and ul[X/H]values
             col = make_XHcol(species_i).replace(" ", "")
             if col in XHcols:
                 if pd.isna(row["l_logepsX"]):
-                    ji2020b_df.loc[i, col] = normal_round(row["logepsX"] - logepsX_sun_a09, 2)
-                    ji2020b_df.loc[i, 'ul'+col] = np.nan
+                    roederer2010a_df.loc[i, col] = normal_round(row["logepsX"] - logepsX_sun_a09, 2)
+                    roederer2010a_df.loc[i, 'ul'+col] = np.nan
                 else:
-                    ji2020b_df.loc[i, col] = np.nan
-                    ji2020b_df.loc[i, 'ul'+col] = normal_round(row["logepsX"] - logepsX_sun_a09, 2)
+                    roederer2010a_df.loc[i, col] = np.nan
+                    roederer2010a_df.loc[i, 'ul'+col] = normal_round(row["logepsX"] - logepsX_sun_a09, 2)
                 if 'e_[X/H]' in row.index:
-                    ji2020b_df.loc[i, 'e_'+col] = row["e_[X/H]"]
+                    roederer2010a_df.loc[i, 'e_'+col] = row["e_[X/H]"]
 
             ## Assign [X/Fe] values
             col = make_XFecol(species_i).replace(" ", "")
             if col in XFecols:
                 if pd.isna(row["l_logepsX"]):
-                    ji2020b_df.loc[i, col] = normal_round((row["logepsX"] - logepsX_sun_a09) - feh_a09, 2)
-                    ji2020b_df.loc[i, 'ul'+col] = np.nan
+                    roederer2010a_df.loc[i, col] = normal_round((row["logepsX"] - logepsX_sun_a09) - feh_a09, 2)
+                    roederer2010a_df.loc[i, 'ul'+col] = np.nan
                 else:
-                    ji2020b_df.loc[i, col] = np.nan
-                    ji2020b_df.loc[i, 'ul'+col] = normal_round((row["logepsX"] - logepsX_sun_a09) - feh_a09, 2)
+                    roederer2010a_df.loc[i, col] = np.nan
+                    roederer2010a_df.loc[i, 'ul'+col] = normal_round((row["logepsX"] - logepsX_sun_a09) - feh_a09, 2)
                 if 'e_[X/Fe]' in row.index:
-                    ji2020b_df.loc[i, 'e_'+col] = row["e_[X/Fe]"]
+                    roederer2010a_df.loc[i, 'e_'+col] = row["e_[X/Fe]"]
 
             ## Assign error values
             col = make_errcol(species_i)
             if col in errcols:
                 e_logepsX = row.get("e_logepsX", np.nan)
                 if pd.notna(e_logepsX):
-                    ji2020b_df.loc[i, col] = e_logepsX
+                    roederer2010a_df.loc[i, col] = e_logepsX
                 else:
-                    ji2020b_df.loc[i, col] = np.nan
+                    roederer2010a_df.loc[i, col] = np.nan
 
     ## Drop the Fe/Fe columns
-    ji2020b_df.drop(columns=['[Fe/Fe]','ul[Fe/Fe]','[FeII/Fe]','ul[FeII/Fe]'], inplace=True, errors='ignore')
+    roederer2010a_df.drop(columns=['[Fe/Fe]','ul[Fe/Fe]','[FeII/Fe]','ul[FeII/Fe]'], inplace=True, errors='ignore')
 
-    return ji2020b_df
+    return roederer2010a_df
 
-def load_gull2021():
+def load_roederer2019():
     """
-    Load the Gull et al. 2021 data for the Helmi debris stream, Helmi trail stream, and omega Centauri stream.
-    
-    Helmi debris stream (Helmi et al. 1999)
-        Helmi & White (1999) found 13 members of the now so-called debris stream.
-        Roederer et al. (2010) performed a detailed abundance analysis of 12 of those 13 members.
-        The Helmi debris stars manifest themselves in a well-defined stream, 
-         with prominent negative vz motion (Myeong et al. 2019).
-    
-    Helmi trail stream (Helmi et al. 1999)
-        Chiba & Beers (2000) 9 stars apart of a secondary stream associated with the Helmi debris stream trail stream.
-        The Helmi trail stream distinguishes itself from the Helmi debris stream kinematically (Yuan et al. 2020). 
-         by displaying a positive vz (vertical velocity) motions, slightly higher energy, larger radial motions, 
-         and are more diffuse without clear features on kinematic diagrams
+    Load the Roederer et al. 2019 data for the Sylgr stellar stream.
 
-    Table 1 - Observations
-    Table 3 - Stellar Parameters
-    Table 5 - Abundance Table
+    Table 1 - Observations & Stellar Parameters
+    Table 3 - Abundance Table
     """
 
     ## Read in the data tables
-    obs_df = pd.read_csv(data_dir + "abundance_tables/gull2021/table1.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
-    param_df = pd.read_csv(data_dir + "abundance_tables/gull2021/table3.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
-    abund_df = pd.read_csv(data_dir + "abundance_tables/gull2021/table5.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    obs_param_df = pd.read_csv(data_dir + "abundance_tables/roederer2019/table1.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    abund_df = pd.read_csv(data_dir + "abundance_tables/roederer2019/table3.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
 
     ## Make the new column names
     species = []
@@ -6466,25 +6686,25 @@ def load_gull2021():
     errcols = [make_errcol(s) for s in species]
 
     ## New dataframe with proper columns
-    gull2021_df = pd.DataFrame(
+    roederer2019_df = pd.DataFrame(
                     columns=['Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
-                    'Teff','logg','Fe/H','Vmic'] + epscols + ulcols + XHcols + ulXHcols + XFecols 
+                    'Teff','logg','M/H','Vmic'] + epscols + ulcols + XHcols + ulXHcols + XFecols 
                     + ulXFecols + errcols)
     for i, name in enumerate(abund_df['Name'].unique()):
-        gull2021_df.loc[i,'Name'] = name
-        gull2021_df.loc[i,'Simbad_Identifier'] = obs_df.loc[obs_df['Name'] == name, 'Simbad_Identifier'].values[0]
-        gull2021_df.loc[i,'Reference'] = 'Gull+2021'
-        gull2021_df.loc[i,'Ref'] = 'GUL21'
-        gull2021_df.loc[i,'Loc'] = 'SS'
-        gull2021_df.loc[i,'System'] = obs_df.loc[obs_df['Name'] == name, 'System'].values[0]
-        gull2021_df.loc[i,'RA_hms'] = obs_df.loc[obs_df['Name'] == name, 'RA_hms'].values[0]
-        gull2021_df.loc[i,'RA_deg'] = coord.ra_hms_to_deg(gull2021_df.loc[i,'RA_hms'], precision=6)
-        gull2021_df.loc[i,'DEC_dms'] = obs_df.loc[obs_df['Name'] == name, 'DEC_dms'].values[0]
-        gull2021_df.loc[i,'DEC_deg'] = coord.dec_dms_to_deg(gull2021_df.loc[i,'DEC_dms'], precision=2)
-        gull2021_df.loc[i,'Teff'] = param_df.loc[param_df['Name'] == name, 'Teff'].values[0]
-        gull2021_df.loc[i,'logg'] = param_df.loc[param_df['Name'] == name, 'logg'].values[0]
-        gull2021_df.loc[i,'Fe/H'] = param_df.loc[param_df['Name'] == name, 'Fe/H'].values[0]
-        gull2021_df.loc[i,'Vmic'] = param_df.loc[param_df['Name'] == name, 'Vmic'].values[0]
+        roederer2019_df.loc[i,'Name'] = name
+        roederer2019_df.loc[i,'Simbad_Identifier'] = obs_param_df.loc[obs_param_df['Name'] == name, 'Simbad_Identifier'].values[0]
+        roederer2019_df.loc[i,'Reference'] = 'Roederer+2010a'
+        roederer2019_df.loc[i,'Ref'] = 'ROE10a'
+        roederer2019_df.loc[i,'Loc'] = 'SS'
+        roederer2019_df.loc[i,'System'] = obs_param_df.loc[obs_param_df['Name'] == name, 'System'].values[0]
+        roederer2019_df.loc[i,'RA_hms'] = obs_param_df.loc[obs_param_df['Name'] == name, 'RA_hms'].values[0]
+        roederer2019_df.loc[i,'RA_deg'] = coord.ra_hms_to_deg(roederer2019_df.loc[i,'RA_hms'], precision=6)
+        roederer2019_df.loc[i,'DEC_dms'] = obs_param_df.loc[obs_param_df['Name'] == name, 'DEC_dms'].values[0]
+        roederer2019_df.loc[i,'DEC_deg'] = coord.dec_dms_to_deg(roederer2019_df.loc[i,'DEC_dms'], precision=2)
+        roederer2019_df.loc[i,'Teff'] = obs_param_df.loc[obs_param_df['Name'] == name, 'Teff'].values[0]
+        roederer2019_df.loc[i,'logg'] = obs_param_df.loc[obs_param_df['Name'] == name, 'logg'].values[0]
+        roederer2019_df.loc[i,'M/H'] = obs_param_df.loc[obs_param_df['Name'] == name, 'M/H'].values[0]
+        roederer2019_df.loc[i,'Vmic'] = obs_param_df.loc[obs_param_df['Name'] == name, 'Vmic'].values[0]
 
         ## Fill in data
         star_df = abund_df[abund_df['Name'] == name]
@@ -6500,50 +6720,50 @@ def load_gull2021():
             ## Assign epsX values
             col = make_epscol(species_i)
             if col in epscols:
-                gull2021_df.loc[i, col] = row["logepsX"] if pd.isna(row["l_logepsX"]) else np.nan
+                roederer2019_df.loc[i, col] = row["logepsX"] if pd.isna(row["l_logepsX"]) else np.nan
 
             ## Assign ulX values
             col = make_ulcol(species_i)
             if col in ulcols:
-                gull2021_df.loc[i, col] = row["logepsX"] if pd.notna(row["l_logepsX"]) else np.nan
+                roederer2019_df.loc[i, col] = row["logepsX"] if pd.notna(row["l_logepsX"]) else np.nan
 
             ## Assign [X/H] and ul[X/H]values
             col = make_XHcol(species_i).replace(" ", "")
             if col in XHcols:
                 if pd.isna(row["l_logepsX"]):
-                    gull2021_df.loc[i, col] = normal_round(row["logepsX"] - logepsX_sun_a09, 2)
-                    gull2021_df.loc[i, 'ul'+col] = np.nan
+                    roederer2019_df.loc[i, col] = normal_round(row["logepsX"] - logepsX_sun_a09, 2)
+                    roederer2019_df.loc[i, 'ul'+col] = np.nan
                 else:
-                    gull2021_df.loc[i, col] = np.nan
-                    gull2021_df.loc[i, 'ul'+col] = normal_round(row["logepsX"] - logepsX_sun_a09, 2)
+                    roederer2019_df.loc[i, col] = np.nan
+                    roederer2019_df.loc[i, 'ul'+col] = normal_round(row["logepsX"] - logepsX_sun_a09, 2)
                 if 'e_[X/H]' in row.index:
-                    gull2021_df.loc[i, 'e_'+col] = row["e_[X/H]"]
+                    roederer2019_df.loc[i, 'e_'+col] = row["e_[X/H]"]
 
             ## Assign [X/Fe] values
             col = make_XFecol(species_i).replace(" ", "")
             if col in XFecols:
                 if pd.isna(row["l_logepsX"]):
-                    gull2021_df.loc[i, col] = normal_round((row["logepsX"] - logepsX_sun_a09) - feh_a09, 2)
-                    gull2021_df.loc[i, 'ul'+col] = np.nan
+                    roederer2019_df.loc[i, col] = normal_round((row["logepsX"] - logepsX_sun_a09) - feh_a09, 2)
+                    roederer2019_df.loc[i, 'ul'+col] = np.nan
                 else:
-                    gull2021_df.loc[i, col] = np.nan
-                    gull2021_df.loc[i, 'ul'+col] = normal_round((row["logepsX"] - logepsX_sun_a09) - feh_a09, 2)
+                    roederer2019_df.loc[i, col] = np.nan
+                    roederer2019_df.loc[i, 'ul'+col] = normal_round((row["logepsX"] - logepsX_sun_a09) - feh_a09, 2)
                 if 'e_[X/Fe]' in row.index:
-                    gull2021_df.loc[i, 'e_'+col] = row["e_[X/Fe]"]
+                    roederer2019_df.loc[i, 'e_'+col] = row["e_[X/Fe]"]
 
             ## Assign error values
             col = make_errcol(species_i)
             if col in errcols:
                 e_logepsX = row.get("e_logepsX", np.nan)
                 if pd.notna(e_logepsX):
-                    gull2021_df.loc[i, col] = e_logepsX
+                    roederer2019_df.loc[i, col] = e_logepsX
                 else:
-                    gull2021_df.loc[i, col] = np.nan
+                    roederer2019_df.loc[i, col] = np.nan
 
     ## Drop the Fe/Fe columns
-    gull2021_df.drop(columns=['[Fe/Fe]','ul[Fe/Fe]','[FeII/Fe]','ul[FeII/Fe]'], inplace=True, errors='ignore')
+    roederer2019_df.drop(columns=['[Fe/Fe]','ul[Fe/Fe]','[FeII/Fe]','ul[FeII/Fe]'], inplace=True, errors='ignore')
 
-    return gull2021_df
+    return roederer2019_df
 
 ################################################################################
 ## Dataset Read-in (Abundance Data)
