@@ -1,0 +1,215 @@
+J/other/Nat/601.45            C-19 stream members                (Martin+, 2022)
+================================================================================
+A stellar stream remnant of a globular cluster below the metallicity floor.
+    Martin N.F., Venn K.A., Aguado D.S., Starkenburg E.,
+    Gonzalez Hernandez J.I., Ibata R.A., Bonifacio P., Caffau E., Sestito F.,
+    Arentsen A., Allende Prieto C., Carlberg R.G., Fabbro S., Fouesneau M.,
+    Hill V., Jablonka P., Kordopatis G., Lardo C., Malhan K., Mashonkina L.I.,
+    McConnachie A.W., Navarro J.F., Sanchez-Janssen R., Thomas G.F., Yuan Z.,
+    Mucciarelli A.
+    <Nature, 601, 45-48 (2022)>
+    =2022Natur.601...45M        (SIMBAD/NED BibCode)
+================================================================================
+ADC_Keywords: Stars, metal-deficient ; Spectroscopy ; Abundances ;
+              Equivalent widths
+
+Abstract:
+    Stellar ejecta gradually enrich the gas out of which subsequent stars
+    form, making the least chemically enriched stellar systems direct
+    fossils of structures formed in the early Universe. Although a few
+    hundred stars with metal content below 1000th of the solar iron
+    content are known in the Galaxy, none of them inhabit globular
+    clusters, some of the oldest known stellar structures. These show
+    metal content of at least approximately 0.2% of the solar metallicity
+    ([Fe/H]>~2.7). This metallicity floor appears universal, and it has
+    been proposed that protogalaxies that merged into the galaxies we
+    observe today were simply not massive enough to form clusters that
+    survived to the present day. Here we report observations of a stellar
+    stream, C-19, whose metallicity is less than 0.05% of the solar
+    metallicity ([Fe/H]=-3.38+/-0.06(statistical)+/-0.20(systematic)). The
+    low metallicity dispersion and the chemical abundances of the C-19
+    stars show that this stream is the tidal remnant of the most
+    metal-poor globular cluster ever discovered, and is significantly
+    below the purported metallicity floor: clusters with significantly
+    lower metallicities than observed today existed in the past and
+    contributed their stars to the Milky Way halo.
+
+Description:
+    We performed spectroscopic observations of eight member stars with two
+    telescopes and two spectrographs (Gemini and the Gemini Remote Access
+    to CFHT ESPaDOnS Spectrograph (GRACES), and Gran Telescopio Canarias
+    (GTC) and the Optical System for Imaging and
+    low-Intermediate-Resolution Integrated Spectroscopy (OSIRIS)) to
+    determine the nature of the C-19 progenitor and refine the orbit of
+    the stream.
+
+File Summary:
+--------------------------------------------------------------------------------
+ FileName      Lrecl  Records   Explanations
+--------------------------------------------------------------------------------
+ReadMe            80        .   This file
+table1.dat       130       56   List of potential C-19 member from the
+                                 STREAMFINDER sample
+table2.dat       125       11   Summary of observations for the
+                                 C-19 candidate stars
+table3.dat        59       16   Spectroscopic parameters and 1DLTE chemical
+                                 abundances for the Gemini/GRACES spectra
+table4.dat        52       54   Spectral lines and atomic data used for the
+                                 chemical abundances for the Gemini/GRACES
+                                 spectra
+table5.dat        86       12   Stellar parameters and abundances of C-19 stars
+                                 observed with GTC/OSIRIS
+--------------------------------------------------------------------------------
+
+See also:
+   I/345 : Gaia DR2 (Gaia Collaboration, 2018)
+
+Byte-by-byte Description of file: table1.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units     Label     Explanations
+--------------------------------------------------------------------------------
+   1- 19  I19   ---       GaiaDR2   Gaia DR2 ID
+  21- 31  F11.7 deg       RAdeg     Right ascension (ICRS) at Ep=2015.5
+  33- 42  F10.7 deg       DEdeg     Declination (ICRS) at Ep=2015.5
+  44- 49  F6.3  mag       G0mag     Deredenned G magnitude
+  51- 55  F5.3  mag     e_G0mag     Error on G magnitude
+  57- 61  F5.3  mag       (BP-RP)0  Deredenned BP-RP colour index
+  63- 67  F5.3  mag     e_(BP-RP)0  Error on BP-RP
+  69- 74  F6.3  arcsec    Plx       Parallax
+  76- 80  F5.3  arcsec  e_Plx       Parallax error
+  82- 86  F5.3  mas/yr    pmRA*     Proper motion along RA, pmRA*cosDE
+  88- 92  F5.3  mas/yr  e_pmRA*     Error on pmRA*
+  94- 99  F6.3  mas/yr    pmDE      Proper motion along DE
+ 101-105  F5.3  mas/yr  e_pmDE      Error on pmDE
+ 107-111  F5.2  [-]       [Fe/H]    ?=- Pristime metallicity (1)
+ 113-130  A18   ---       Note      Note (2)
+--------------------------------------------------------------------------------
+Note (1): When available the photometric metallicities from the Pristine survey
+  are provided in this column. We note that, by construction, the Pristine
+  photometric metallicities do not go below [Fe/H]Pristine=-4.0 and that the
+  lessened sensitivity of the Pristine narrow-band in this regime means that,
+  although stars can be flagged quite successfully to have [Fe/H]<-3:0,
+  the actual photometric metallicity value is less accurate in this regime
+  than for stars with [Fe/H]>-3:0.
+Note (2): Notes:
+            HB: candidate horizontal branch star
+    non-member: considered a non-member based on the Pristine metallicity
+                 ([Fe/H]Pristine>-2:5) and not used in the analysis.
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table2.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1- 21  A21   ---     Name      Name (Pristine LLL.ll+BB.bb)
+  23- 30  F8.4  deg     RAdeg     Right ascension (J2000)
+  32- 39  F8.4  deg     DEdeg     Declination (J2000)
+  41- 45  F5.2  mag     Gmag      G magnitude
+  47- 51  F5.2  [-]     [Fe/H]    Pristine metallicity
+  53- 58  A6    s       Texp      Exposure time
+  60- 62  I3    ---     S/N       Signal to noise at 600nm (Gemini/GRACES)
+                                   and 420nm (GTC/OSIRIS)
+  64- 69  F6.1  km/s    RV        Radial velocity
+  71- 74  F4.1  km/s  e_RV        ? Radial velocity error
+  76- 88  A13   ---     Obs       Observatory
+  90-125  A36   ---     Com       Comment
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table3.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label   Explanations
+--------------------------------------------------------------------------------
+   1- 14  A14   ---     Param   Parameter
+      16  A1    ---   l_P1      Limit flag on P1
+  18- 24  F7.2  ---     P1      Value of Param for Pristine 354.77+30.25
+  26- 31  F6.2  ---   e_P1      ? Error of Value of Param for
+                                 Pristine 354.77+30.25 (1)
+  33- 39  F7.2  ---     P2      Value of Param for Pristine 355.13+27.98
+  40- 45  F6.2  ---   e_P2      Error of Value of Param for
+                                 Pristine 355.13+27.98 (1)
+      46  A1    ---   l_P3      Limit flag on P3
+  47- 53  F7.2  ---     P3      Value of Param for Pristine 355.27+27.74
+  54- 59  F6.2  ---   e_P3      ? Error of value of Param for
+                                 Pristine 355.27+27.74 (1)
+--------------------------------------------------------------------------------
+Note (1): The uncertainties of FeI measurements correspond to the line to
+  line scatter in the FeI abundances only, whereas uncertainties on [FeII/H]
+  and [X/Fe] combine the measurement uncertainties (where {sigma}/SQRT(N))
+  and the uncertainties due to the stellar parameters, added in quadrature.
+  NLTE corrections are listed in Table 4; the averaged NLTE corrections are
+  applied here, other than Na I for which individual line calculations per
+  star were applied. We adopt the metallicities for these stars from [FeII/H].
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table4.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1-  8  F8.3  0.1nm   lambda    Wavelength
+  10- 13  A4    ---     El        Element
+  15- 18  F4.2  eV      xi        Energy
+  20- 24  F5.2  [-]     loggf     Oscillator strength
+  26- 28  I3    0.1pm   EW1       ? Equivalent width for Pristine 355.1+27.9
+      29  A1    ---   n_EW1       Note on EW1 (1)
+      30  A1    ---   l_EW2       Limit flag on EW2
+  31- 33  I3    0.1pm   EW2       ? Equivalent width for Pristine 354.7+30.2
+      34  A1    ---   n_EW2       Note on EW2 (1)
+      36  A1    ---   l_EW3       Limit flag on EW2
+  37- 39  I3    0.1pm   EW3       ? Equivalent width for Pristine 355.2+27.7
+      40  A1    ---   n_EW3       Note on EW3 (1)
+  42- 46  F5.2  0.1pm   NLTEcorra ?=- NLTE correction estimates from the INSPECT
+                                   (http://www.inspect-stars.com) and/or MPIA
+                                   database (http://nlte.mpia.de) (2)
+  48- 52  F5.2  0.1pm   NLTEcorrb ?=- NLTE corrections from the private
+                                   calculations of coauthor L. Mashonkina
+                                   (http://www.inasan.rssi.ru/~lima/pristine).
+                                   Only the NaI NLTE corrections show some star
+                                   to star variations due to the differences in
+                                   the line strengths (the average from the
+                                   three stars is reported here) (2)
+--------------------------------------------------------------------------------
+Note (1): Note that when lines could not be measured in all three stars,
+           they are noted as follows:
+            n = noisy
+            w = weak
+            b = blended
+Note (2): As these three stars have very similar stellar parameters, a single
+  NLTE abundance correction estimate is shown per line from three sources
+  (where NLTE=log(X/H)NLTE-log(X/H)LTE).
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table5.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units     Label     Explanations
+--------------------------------------------------------------------------------
+       1  A1    ---       Code      [PW] Code (1)
+   3- 23  A21   ---       Name      Name (Pristine LLL.ll+BB.bb)
+  25- 28  I4    K         Teff      Effective temperature
+  30- 32  I3    K       e_Teff      Effective temperature error
+  34- 37  F4.2  [cm/s2]   logg      Surface gravity
+      38  A1    ---     n_logg      [lu] Note pn logg (2)
+  39- 42  F4.2  [cm/s2] e_logg      ? Surface gravity error
+  44- 48  F5.2  [-]       [M/H]     Abundance [M/H]
+  50- 53  F4.2  [-]     e_[M/H]     Abundance [M/H]
+  55- 59  F5.2  [-]       [Ca/H]    ? Abundance [Ca/H]
+  61- 64  F4.2  [-]     e_[Ca/H]    ? Abundance [Ca/H] error
+  66- 70  F5.2  [-]       [Fe/H]    ? Abundance [Fe/H]
+  72- 75  F4.2  [-]     e_[Fe/H]    ? Abundance [FeM/H] error
+  77- 81  F5.2  [-]       [C/Fe]    ? Abundance [C/Fe]
+  83- 86  F4.2  [-]     e_[C/Fe]    ? Abundance [C/Fe] error
+--------------------------------------------------------------------------------
+Note (1): Code as follows:
+    W = With stellar parameters based on Gaia photometry (used in the paper)
+    P = Pure spectroscopic stellar parameters
+Note (2): Note as follows:
+    l = lower limit for cases where FERRE reached the limit of the
+         spectral model grid
+    u = upper limit for cases where FERRE reached the limit of the
+         spectral model grid
+--------------------------------------------------------------------------------
+
+History:
+    From electronic version of the journal
+
+================================================================================
+(End)                                      Patricia Vannier [CDS]    20-Jun-2023

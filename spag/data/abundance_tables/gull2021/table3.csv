@@ -1,0 +1,23 @@
+Name,System,Teff,logg,Vmic,Fe/H,[C/Fe]_corr,[N/Fe]_uncorr
+BM-235,Helmi trail,4780,1.50,2.05,-1.63,-0.04,0.30
+HE0033-2141,Helmi trail,4910,1.60,1.70,-2.91,0.43,
+HE0050-0918,Helmi trail,5310,2.10,2.00,-1.37,-0.25,0.60
+HE1210-2729,Helmi trail,4655,0.60,2.25,-3.01,0.36,1.38
+HE2234-4757,Helmi trail,4655,0.85,2.35,-2.83,0.77,0.93
+BM-028,Helmi debris,5945,1.80,2.95,-1.83,0.38,0.70
+BM-209,Helmi debris,5215,2.65,1.45,-2.27,0.21,
+BM-308,Helmi debris,4885,1.65,1.85,-2.10,0.31,
+HE0012-5643,Helmi debris,6240,3.75,1.20,-3.03,1.22,
+HE0017-3646,Helmi debris,5425,1.60,2.15,-2.45,0.08,
+HE0048-1109,Helmi debris,6265,3.80,1.45,-2.35,0.61,
+HE0324-0122,Helmi debris,5145,2.45,1.65,-2.41,0.37,0.70
+BM-056,omega-Centauri progenitor,4875,1.75,1.85,-2.02,0.34,0.40
+BM-121,omega-Centauri progenitor,4580,0.95,2.55,-2.48,0.37,0.60
+HE0007-1752,omega-Centauri progenitor,5215,2.65,1.45,-2.36,-0.29,
+HE0039-0216,omega-Centauri progenitor,6345,3.95,1.45,-2.56,0.94,
+HE0429-4620,omega-Centauri progenitor,5205,2.80,1.55,-2.40,0.05,0.70
+HE1401-0010,omega-Centauri progenitor,6340,3.85,1.40,-2.54,0.93,0.71
+HE2138-0314,omega-Centauri progenitor,5190,2.15,1.75,-3.08,0.95,0.95
+HE2315-4306,omega-Centauri progenitor,5125,2.15,1.75,-2.39,0.31,
+HE2319-5228,omega-Centauri progenitor,4935,2.00,1.85,-3.18,1.63,2.87
+HE2322-6125,omega-Centauri progenitor,5065,2.15,1.65,-2.61,0.30,
