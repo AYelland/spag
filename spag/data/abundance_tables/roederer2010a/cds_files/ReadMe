@@ -1,0 +1,148 @@
+J/ApJ/711/573  Detailed abundances in a halo stellar stream   (Roederer+, 2010)
+================================================================================
+Characterizing the chemistry of the Milky Way stellar halo: detailed chemical
+analysis of a metal-poor stellar stream.
+    Roederer I.U., Sneden C., Thompson I.B., Preston G.W., Shectman S.A.
+   <Astrophys. J., 711, 573-596 (2010)>
+   =2010ApJ...711..573R
+================================================================================
+ADC_Keywords: Equivalent widths ; Abundances ; Radial velocities ; Stars, halo ;
+              Stars, giant ; Milky Way
+Keywords: Galaxy: halo - Galaxy: kinematics and dynamics -
+          nuclear reactions, nucleosynthesis, abundances - stars: abundances -
+          stars: kinematics and dynamics - stars: Population II
+
+Abstract:
+    We present the results of a detailed abundance analysis of one of the
+    confirmed building blocks of the Milky Way stellar halo, a
+    kinematically coherent metal-poor stellar stream. We have obtained
+    high-resolution and high signal-to-noise spectra of 12 probable stream
+    members using the Magellan Inamori Kyocera Echelle spectrograph on the
+    Magellan-Clay Telescope at Las Campanas Observatory and the 2dCoude
+    spectrograph on the Smith Telescope at McDonald Observatory. We have
+    derived abundances or upper limits for 51 species of 46 elements in
+    each of these stars. The stream members show a range of metallicity
+    (-3.4<[Fe/H]<-1.5) but are otherwise chemically homogeneous, with the
+    same star-to-star dispersion in [X/Fe] as the rest of the halo. This
+    implies that, in principle, a significant fraction of the Milky Way
+    stellar halo could have formed from accreted systems like the stream.
+    The stream stars show minimal evolution in the {alpha} or Fe-group
+    elements over the range of metallicity. This stream is enriched with
+    material produced by the main and weak components of the rapid
+    neutron-capture process and shows no evidence for enrichment by the
+    slow neutron-capture process.
+
+Description:
+    Six candidate stream members were observed with the Robert G. Tull
+    Cross-Dispersed Echelle Spectrometer (2dCoude), located on the 2.7m
+    Harlan J. Smith Telescope at the McDonald Observatory, between 2009
+    May 06 and 2009 June 14. These spectra were taken with the 2.4"x8.0"
+    slit, yielding a resolving power R~33000. An additional six candidate
+    stream members were observed with the Magellan Inamori Kyocera Echelle
+    (MIKE) spectrograph, located on the 6.5m Magellan-Clay Telescope at
+    Las Campanas Observatory, between 2004 June 22 and 2009 October 28.
+    The MIKE spectra were taken with the 0.7" wide slit, yielding a
+    resolving power of R~41000 in the blue and R~32000 in the red. See the
+    log of observations in table 1.
+
+File Summary:
+--------------------------------------------------------------------------------
+ FileName   Lrecl  Records   Explanations
+--------------------------------------------------------------------------------
+ReadMe         80        .   This file
+table1.dat     76       24   Log of observations
+table2.dat     64       12   Observational stellar data
+table4.dat     44     5776   Equivalent width measurements for all stars
+table5.dat     37       12   Model atmosphere parameters
+--------------------------------------------------------------------------------
+
+See also:
+ J/A+A/534/A136 : Halo red giants from the SEGUE survey (Martell+, 2011)
+ J/ApJ/706/1095 : Chemical compositions of 26 outer halo stars (Zhang+, 2009)
+ J/A+A/442/961  : Lithium content of the Galactic Halo stars (Charbonnel+, 2005)
+ J/A+A/415/993  : FeII, ZNI and SI abundances on halo stars (Nissen+, 2004)
+ J/A+A/425/671  : Equivalent widths of 10 metal-poor halo stars (Bai+, 2004)
+ J/AJ/125/2502  : Spectral indices of Galactic halo (Morrison+, 2003)
+ J/AJ/126/1362  : Century Survey Galactic Halo Project. I. (Brown+, 2003)
+
+Byte-by-byte Description of file: table1.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units       Label     Explanations
+--------------------------------------------------------------------------------
+   1- 12  A12   ---         Name      Star name
+  14- 35  A22   ---         Tel       Telescope/Instrument
+  37- 40  I4    s           Exp       Exposure time
+  42- 51  A10 "YYYY/MM/DD"  Obs.date  Date of observation
+  53- 57  A5  "h:m"         Obs.time  UT mid-exposure
+  59- 69  F11.3 d           HJD       Heliocentric Julian Date
+  71- 76  F6.1  km/s        HRV       Heliocentric radial velocity
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table2.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label    Explanations
+--------------------------------------------------------------------------------
+   1- 12  A12   ---     Name     Star name
+  14- 15  I2    h       RAh      Hour of right ascension (J2000)
+  17- 18  I2    min     RAm      Minute of right ascension (J2000)
+  20- 21  I2    s       RAs      Second of right ascension (J2000)
+      23  A1    ---     DE-      Sign of declination (J2000)
+  24- 25  I2    deg     DEd      Degree of declination (J2000)
+  27- 28  I2    arcmin  DEm      Arcminute of declination (J2000)
+  30- 31  I2    arcsec  DEs      Arcsecond of declination (J2000)
+  33- 38  F6.1  km/s    HRV      ? Mean or systemic heliocentric radial velocity
+      40  I1    ---     Flag     [0/3] Binarity flag (1)
+  42- 46  I5    s       Exp      Total exposure time
+      48  I1    ---     Nobs     Number of observation(s)
+  50- 52  I3    ---     S/N3     3950{AA} S/N
+  54- 56  I3    ---     S/N4     4550{AA} S/N
+  58- 60  I3    ---     S/N5     5200{AA} S/N
+  62- 64  I3    ---     S/N6     6750{AA} S/N
+--------------------------------------------------------------------------------
+Note (1): Binary flags as follows:
+  0 = unknown binary status;
+  1 = no RV variations detected in multiple epochs, either among our
+      observations or in combination with previous studies;
+  2 = RV variations detected, suspected binary, no systemic velocity listed;
+  3 = spectroscopic binary confirmed by other studies, systemic velocity listed.
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table4.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units    Label     Explanations
+--------------------------------------------------------------------------------
+   1- 12  A12   ---      Name      Object name
+  14- 20  F7.2  0.1nm    Lambda    Wavelength in Angstroms
+  22- 25  F4.1  ---      Ion       Species identification (1)
+  27- 30  F4.2  eV       ExPot     Excitation potential
+  32- 36  F5.2  [-]      log(gf)   Log of the oscillator strength
+  38- 42  F5.1  0.1pm    EW        ? Equivalent width (m{AA})
+      44  A1    ---    f_EW        [ls] Flag on EW (2)
+--------------------------------------------------------------------------------
+Note (1): The integer component of the species ID indicates the atomic
+     number, and the decimal component indicates the ionization state 
+     (0 = neutral, 1 = singly ionized).
+Note (2): Flag as follows:
+    s = abundance was derived from spectrum synthesis;
+    l = upper limit on the abundance.
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table5.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label  Explanations
+--------------------------------------------------------------------------------
+   1- 12  A12   ---     Name   Star name
+  14- 17  I4    K       Teff   Model effective temperature
+  19- 22  F4.2  [cm/s2] logg   Model surface gravity
+  24- 27  F4.2  km/s    Vt     Model microturbulent velocity
+  29- 33  F5.2  [Sun]   [M/H]  Model metallicity abundance
+  35- 37  A3    ---     State  Model evolutionary state: RGB = red giant branch,
+                               RHB = red horizontal branch,
+                               SGB = subgiant branch.
+--------------------------------------------------------------------------------
+
+History:
+    From electronic version of the journal
+
+================================================================================
+(End)                 Greg Schwarz [AAS], Emmanuelle Perret [CDS]    03-Apr-2012
