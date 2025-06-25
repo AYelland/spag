@@ -1,0 +1,162 @@
+``` python
+
+mage_df = pd.read_csv(data_dir + "abundance_tables/chiti2018a/table5.csv", comment='#')
+m2fs_df = pd.read_csv(data_dir + "abundance_tables/chiti2018a/table6.csv", comment='#')
+
+m2fs_only_names = []
+mage_only_names = []
+shared_names = []
+for name in mage_df['Name'].unique():
+    if name in m2fs_df['Name'].unique():
+        shared_names.append(name)
+    else:
+        mage_only_names.append(name)
+for name in m2fs_df['Name'].unique():
+    if name not in mage_df['Name'].unique():
+        m2fs_only_names.append(name)  
+
+mage_only_names.sort()
+m2fs_only_names.sort()
+shared_names.sort()
+
+print("Stars only observed by MagE:  ", len(mage_only_names), ' of ', len(mage_df['Name'].unique()))
+print("Stars only observed by M2FS: ", len(m2fs_only_names), ' of ', len(m2fs_df['Name'].unique()))
+print("Stars observed by both:      ", len(shared_names), ' of ', len(mage_df['Name'].unique()) + len(m2fs_df['Name'].unique()) - len(shared_names))
+
+print()
+print('MagE only:')
+for name in mage_only_names:
+    print('  ', name)
+
+print()
+print('M2FS only:')
+for name in m2fs_only_names:
+    print('  ', name)
+
+print()
+print('Shared:')
+for name in shared_names:
+    print('  ', name)
+    
+```
+
+## Comparison of MagE & M2FS Observations
+
+Stars only observed by MagE:   9  of   26 (excluding CS29497-034 -- halo reference star)
+Stars only observed by M2FS:  83  of  100
+Stars observed by both:       17  of  109
+
+MagE only:
+   10_7_790
+   10_8_1226
+   10_8_2714
+   10_8_3810
+   11_1_6015
+   11_2_556
+   6_6_402
+   7_4_1992
+   7_4_3280
+
+M2FS only:
+   10_7_570
+   10_8_1062
+   10_8_1072
+   10_8_1124
+   10_8_1308
+   10_8_1325
+   10_8_1366
+   10_8_1463
+   10_8_1615
+   10_8_1640
+   10_8_1731
+   10_8_1877
+   10_8_1887
+   10_8_2028
+   10_8_2126
+   10_8_2134
+   10_8_2148
+   10_8_2211
+   10_8_2558
+   10_8_2635
+   10_8_2647
+   10_8_265
+   10_8_2669
+   10_8_2730
+   10_8_2818
+   10_8_2824
+   10_8_2908
+   10_8_2927
+   10_8_2933
+   10_8_3045
+   10_8_3111
+   10_8_3167
+   10_8_3188
+   10_8_320
+   10_8_3315
+   10_8_3520
+   10_8_3558
+   10_8_3625
+   10_8_3698
+   10_8_3709
+   10_8_3723
+   10_8_3751
+   10_8_3926
+   10_8_4014
+   10_8_4020
+   10_8_4247
+   10_8_4250
+   10_8_436
+   10_8_437
+   10_8_440
+   10_8_462
+   10_8_577
+   10_8_61
+   10_8_758
+   10_8_798
+   11_1_2583
+   11_1_3246
+   11_1_3513
+   11_1_3646
+   11_1_3738
+   11_1_3743
+   11_1_4122
+   11_1_4277
+   11_1_4824
+   11_1_5047
+   11_1_5437
+   11_1_6192
+   11_1_6267
+   11_1_6443
+   11_1_6533
+   11_2_425
+   11_2_956
+   6_5_163
+   6_5_239
+   6_5_420
+   6_5_678
+   6_5_736
+   6_5_948
+   7_3_243
+   7_4_1514
+   7_4_2750
+   7_4_3182
+   7_4_3266
+
+Shared:
+   10_7_442
+   10_7_486
+   10_7_923
+   10_8_1566
+   10_8_3804
+   10_8_3963
+   11_1_3334
+   11_1_4121
+   11_1_4296
+   11_1_4422
+   11_1_4673
+   11_1_6440
+   11_2_661
+   6_5_1035
+   6_5_1598
+   6_5_505
+   7_4_2408

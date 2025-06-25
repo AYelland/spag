@@ -46,6 +46,7 @@ def ra_hms_to_deg(ra_str, precision=None):
     Converts a right ascension string to degrees.
     """
     ra_str = replace_non_ascii(ra_str)
+    ra_str = ra_str.strip()
     ra_str = ra_str.split(':')
     if type(precision) == int:
         ra_deg = round(15.0 * (float(ra_str[0]) + float(ra_str[1])/60.0 + float(ra_str[2])/3600.0), precision)
@@ -86,6 +87,7 @@ def dec_dms_to_deg(dec_str, precision=None):
     Converts a declination string to degrees.
     """
     dec_str = replace_non_ascii(dec_str)
+    dec_str = dec_str.strip()
     if dec_str[0] == '-':
         sign = -1
         dec_str = dec_str[1:].split(':')

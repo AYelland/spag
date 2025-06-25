@@ -1,0 +1,17 @@
+There was an error in the paper, such that the log_eps(C) == A(C) values were off by 0.12 dex. This
+is due to a mistake in Table 5, in which Ani Chiti calculated the log_eps(C) values using the 
+Anders+1989 carbon solar abundance value of 8.55 dex (instead of the Asplund+2009 carbon solar 
+abundance value of 8.43 dex).
+
+The discrepency between the two solar abundances was discussed in the paper while comparsing the data
+being analyzed with another paper; however, the wrong value was used when creating the A(C) column. The 
+correct [C/Fe] values were used in both Table 5 and Table 6, and throughout the rest of the analysis. 
+The error only appears in the final creation of Table 5 in the paper.
+
+Thus, I have manually changed the values in `table5.csv`, and `chiti2018a.csv` to correct the values 
+from this 0.12 dex discrepency. Comparing to the published paper, one will see the difference. The 
+conversion of log_eps(C) to [C/Fe] using the Asplund+2009 log_eps(C)_sun = 8.43 can also be used 
+to check this work.
+
+[C/Fe] = (epsc_star - epsc_sun) - [Fe/H]
+epsc_star = [C/Fe] + epsc_sun + [Fe/H]
