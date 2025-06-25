@@ -1,0 +1,225 @@
+J/AJ/151/82 The 4 brightest red giants in the UFD galaxy Ret 2 (Roederer+, 2016)
+================================================================================
+Detailed chemical abundances in the r-process-rich ultra-faint dwarf galaxy
+Reticulum 2.
+    Roederer I.U., Mateo M., Bailey III J.I., Song Y., Bell E.F., Crane J.D.,
+    Loebman S., Nidever D.L., Olszewski E.W., Shectman S.A., Thompson I.B.,
+    Valluri M., Walker M.G.
+   <Astron. J., 151, 82 (2016)>
+   =2016AJ....151...82R    (SIMBAD/NED BibCode)
+================================================================================
+ADC_Keywords: Galaxies, nearby ; Stars, giant ; Photometry, ugriz ;
+              Radial velocities ; Spectroscopy ; Equivalent widths ;
+              Effective temperatures ; Abundances
+Keywords: galaxies: dwarf - galaxies: individual: Reticulum 2 -
+          nuclear reactions, nucleosynthesis, abundances - stars: abundances
+
+Abstract:
+    The ultra-faint dwarf (UFD) galaxy Reticulum 2 (Ret 2) was recently
+    discovered in images obtained by the Dark Energy Survey (Diehl et al.
+    2014SPIE.9149E..0VD). We have observed the four brightest red giants
+    in Ret 2 at high spectral resolution using the Michigan/Magellan Fiber
+    System. We present detailed abundances for as many as 20 elements per
+    star, including 12 elements heavier than the Fe group. We confirm
+    previous detection of high levels of r-process material in Ret 2 (mean
+    [Eu/Fe]=+1.69+/-0.05) found in three of these stars (mean
+    [Fe/H]=-2.88+/-0.10). The abundances closely match the r-process
+    pattern found in the well-studied metal-poor halo star CS 22892-052.
+    Such r-process-enhanced stars have not been found in any other UFD
+    galaxy, though their existence has been predicted by at least one
+    model. The fourth star in Ret 2 ([Fe/H]=-3.42+/-0.20) contains only
+    trace amounts of Sr ([Sr/Fe]=-1.73+/-0.43) and no detectable heavier
+    elements. One r-process enhanced star is also enhanced in C (natal
+    [C/Fe]~+1.1). This is only the third such star known, which suggests
+    that the nucleosynthesis sites leading to C and r-process enhancements
+    are decoupled. The r-process-deficient star is enhanced in Mg
+    ([Mg/Fe]=+0.81+/-0.14), and the other three stars show normal levels
+    of {alpha}-enhancement (mean [Mg/Fe]=+0.34+/-0.03). The abundances of
+    other {alpha} and Fe-group elements closely resemble those in UFD
+    galaxies and metal-poor halo stars, suggesting that the nucleosynthesis
+    that led to the large r-process enhancements either produced no light
+    elements or produced light-element abundance signatures
+    indistinguishable from normal supernovae.
+
+Description:
+    There are only four stars brighter than the horizontal branch that are
+    confirmed members of Ret 2 (Simon et al. 2015, J/ApJ/808/95;
+    Walker et al. 2015, J/ApJ/808/108). We observed these four stars using
+    one arm of the Michigan/Magellan Fiber System (M2FS) and MSpec double
+    spectrograph (Bailey et al. 2012SPIE.8446E..5GB; Mateo et al.
+    2012SPIE.8446E..4YM) mounted on the Nasmyth platform at the 6.5 m
+    Landon Clay Telescope (Magellan II) at Las Campanas Observatory, Chile.
+    We observed four high-probability members of Ret 2 and one blank sky
+    position simultaneously on 2015 November 14 and 16, with a total
+    integration time of 6.67 hr. Both observations were taken in dark time.
+
+Objects:
+ -------------------------------------------------------------
+     RA   (ICRS)    DE        Designation(s)
+ -------------------------------------------------------------
+  03 35 42.1    -54 02 57     Reticulum 2 = NAME Reticulum II
+ -------------------------------------------------------------
+
+File Summary:
+--------------------------------------------------------------------------------
+ FileName      Lrecl  Records   Explanations
+--------------------------------------------------------------------------------
+ReadMe            80        .   This file
+table1.dat        64        4   Basic Stellar Data
+table3.dat        59      207   Equivalent Widths and Atomic Data
+table4.dat        43        4   Stellar Parameters
+table5.dat        32      428   Abundances Derived from Individual Lines
+--------------------------------------------------------------------------------
+
+See also:
+ J/ApJ/645/613    : Abundances of HD 221170 (Ivans+, 2006)
+ J/ApJS/162/227   : Transition probabilities for SmII (Lawler+, 2006)
+ J/ApJS/167/292   : Laboratory transition probabilities for Gd II
+                                                             (Den Hartog+, 2006)
+ J/ApJ/667/1267   : CrI transition probabilities (Sobeck+, 2007)
+ J/ApJS/182/51    : Transition probabilities of rare earth elements
+                                                                 (Lawler+, 2009)
+ J/ApJS/182/80    : Rare earth abundances (Sneden+, 2009)
+ J/ApJS/194/35    : Atomic transition probabilities of Mn (Den Hartog+, 2011)
+ J/ApJ/750/76     : r-process peaks elements in HD 160617 (Roederer+, 2012)
+ J/ApJ/767/134    : Abundances of red giant stars in UFD galaxies
+                                                                 (Vargas+, 2013)
+ J/ApJS/208/27    : Sun and HD 84937 TiII log(gf) and abundances (Wood+, 2013)
+ J/ApJS/211/20    : NiI transition probability measurements (Wood+, 2014)
+ J/ApJS/215/20    : Vanadium log(gf) and transition probabilities
+                                                                 (Lawler+, 2014)
+ J/MNRAS/441/3127 : FeI oscillator strengths for Gaia-ESO (Ruffoni+, 2014)
+ J/ApJ/808/95     : Spectroscopy of Reticulum II (Simon+, 2015)
+ J/ApJ/808/108    : M2FS stellar spectroscopy of Reticulum 2 (Walker+, 2015)
+
+Byte-by-byte Description of file: table1.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units Label   Explanations
+--------------------------------------------------------------------------------
+   1-  4  A4    ---   ---     [Star]
+       6  I1    ---   Star    [1/4] Star name from this work (Star N)
+   8- 10  A3    ---   ---     [DES]
+  12- 30  A19   ---   DES     Dark Energy Survey (DES, Diehl et al.
+                               2014SPIE.9149E..0VD) star name from Simon et al.
+                               (2015, J/ApJ/808/95) (DES JHHMMSS.ss+DDMMSS.s)
+  32- 36  A5    ---   ---     [Ret2-]
+  37- 39  I3    ---   Ret2-   [80/178]? Star name from Walker et al.
+                               (2015, J/ApJ/808/108) (Ret2-NNN)
+  41- 45  F5.2  mag   gmag    [16.47/17.57] Star g-band magnitude, adopted from
+                               Koposov et al. (2015ApJ...805..130K)
+  47- 50  F4.2  mag   g-r     [0.56/0.80] Star g-r color, adopted from
+                               Koposov et al. (2015ApJ...805..130K)
+  52- 55  F4.1  km/s  <HRV>   [59.7/65.5] Mean calculated heliocentric radial
+                               velocity
+  57- 58  I2    ---   S/N4300 [15/26] Spectral signal-to-noise ratio at 4300{AA}
+  60- 61  I2    ---   S/N4800 [26/45] Spectral signal-to-noise ratio at 4800{AA}
+  63- 64  I2    ---   S/N5200 [33/59] Spectral signal-to-noise ratio at 5200{AA}
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table3.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label    Explanations
+--------------------------------------------------------------------------------
+   1-  5  A5    ---     Ion      Species
+   7- 13  F7.2  0.1nm   Wave     [4149.20/5429.70] Wavelength {lambda} ({AA})
+  15- 18  F4.2  eV      ExPot    [0.00/4.47] Excitation potential
+  20- 24  F5.2  [-]     log(gf)  [-5.62/0.65] Log of degeneracy times oscillator
+                                  strength
+  26- 27  I2    ---   r_log(gf)  [1/29] Literature reference for log(gf) value
+                                  (1)
+      29  A1    ---   f_EW-1     [ls] Flag on EW-1 (2)
+  31- 35  F5.1  0.1pm   EW-1     [17.7/144.7]? Equivalent width for Star 1
+                                  (m{AA})
+      37  A1    ---   f_EW-2     [ls] Flag on EW-2 (2)
+  39- 43  F5.1  0.1pm   EW-2     [21.3/238.1]? Equivalent width for Star 2
+                                  (m{AA})
+      45  A1    ---   f_EW-3     [ls] Flag on EW-3 (2)
+  47- 51  F5.1  0.1pm   EW-3     [6.4/190.3]? Equivalent width for Star 3
+                                  (m{AA})
+      53  A1    ---   f_EW-4     [ls] Flag on EW-4 (2)
+  55- 59  F5.1  0.1pm   EW-4     [8.4/220.3]? Equivalent width for Star 4
+                                  (m{AA})
+--------------------------------------------------------------------------------
+Note (1): Reference as follows:
+   1 = NIST, Kramida et al. (2015, NIST Atomic Spectra Database (v. 5.3) online:
+       http://physics.nist.gov/asd);
+   2 = Aldenius et al. (2007A&A...461..767A);
+   3 = Lawler & Dakin (1989JOSAB...6.1457L), using hyperfine splitting (HFS)
+       from Kurucz & Bell (1995KurCD..23.....K);
+   4 = Lawler et al. (2013ApJS..205...11L);
+   5 = Wood et al. (2013, J/ApJS/208/27);
+   6 = Lawler et al. (2014, J/ApJS/215/20);
+   7 = Sobeck et al. (2007, J/ApJ/667/1267);
+   8 = Nilsson et al. (2006A&A...445.1165N);
+   9 = Booth et al. (1984MNRAS.208..147B);
+  10 = Den Hartog et al. (2011, J/ApJS/194/35) for both log(gf) value and HFS;
+  11 = Ruffoni et al. (2014, J/MNRAS/441/3127);
+  12 = Wood et al. (2014, J/ApJS/211/20);
+  13 = NIST, Kramida et al. (2015, NIST Atomic Spectra Database (v. 5.3) online:
+       http://physics.nist.gov/asd), using HFS from Kurucz & Bell
+       (1995KurCD..23.....K);
+  14 = Roederer & Lawler (2012, J/ApJ/750/76);
+  15 = Biemont et al. (2011MNRAS.414.3350B);
+  16 = Ljung et al. (2006A&A...456.1181L);
+  17 = Palmeri et al. (2005MNRAS.363..452P);
+  18 = Wickliffe et al. (1994JQSRT..51..545W);
+  19 = NIST, Kramida et al. (2015, NIST Atomic Spectra Database (v. 5.3) online:
+       http://physics.nist.gov/asd), using HFS/isotope shifts (IS) from
+       McWilliam (1998AJ....115.1640M) when available;
+  20 = Lawler et al. (2001ApJ...556..452L), using HFS from Ivans et al.
+       (2006, J/ApJ/645/613);
+  21 = Lawler et al. (2009, J/ApJS/182/51);
+  22 = Li et al. (2007PhyS...76..577L), using HFS from Sneden et al.
+       (2009, J/ApJS/182/80);
+  23 = Ivarsson et al. (2001PhyS...64..455I), using HFS from Sneden et al.
+       (2009, J/ApJS/182/80);
+  24 = Den Hartog et al. (2003ApJS..148..543D), using HFS/IS from
+       Roederer et al. (2008ApJ...675..723R) when available;
+  25 = Lawler et al. (2006, J/ApJS/162/227), using HFS/IS from Roederer et al.
+       (2008ApJ...675..723R) when available;
+  26 = Lawler et al. (2001ApJ...563.1075L), using HFS/IS from Ivans et al.
+       (2006, J/ApJ/645/613);
+  27 = Den Hartog et al. (2006, J/ApJS/167/292);
+  28 = Lawler et al. (2001ApJS..137..341L), using HFS from Lawler et al.
+       (2001ApJS..137..351L) when available;
+  29 = Wickliffe et al. (2000JQSRT..66..363W).
+Note (2): Flag as follows:
+  s = Indicates that abundances were derived by spectral synthesis matching;
+  l = Indicates that an upper limit was derived from a non-detection.
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table4.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units     Label   Explanations
+--------------------------------------------------------------------------------
+   1-  4  A4    ---       ---     [Star]
+       6  I1    ---       Star    [1/4] Star name from this work (Star N)
+   8- 11  I4    K         Teff    [4710/5020] Derived stellar effective
+                                   temperature
+  13- 15  I3    K       e_Teff    [140] Uncertainty in Teff
+  17- 20  F4.2  [cm/s2]   logg    [1.22/2.09] Derived log of surface gravity
+  22- 25  F4.2  [cm/s2] e_logg    [0.38/0.40] Uncertainty in logg
+  27- 30  F4.2  km/s      Vt      [2.00/2.85] Derived microturbulence velocity
+  32- 34  F3.1  km/s    e_Vt      [0.2/0.3] Uncertainty in Vt
+  36- 39  F4.1  [Sun]     [M/H]   [-3.3/-2.7] Model derived metallicity
+  41- 43  F3.1  [Sun]   e_[M/H]   [0.2] Uncertainty in [M/H]
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table5.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label   Explanations
+--------------------------------------------------------------------------------
+   1-  4  A4    ---     ---     [Star]
+       6  I1    ---     Star    [1/4] Star name from this work (Star N)
+   8- 12  A5    ---     Ion     Species
+  14- 20  F7.2  0.1nm   Wave    [4149.20/5429.70] Wavelength {lambda} ({AA})
+      22  A1    ---   l_logeps  [<] Limit flag on logeps
+  23- 27  F5.2  [-]     logeps  [-2.59/5.35] Log {epsilon} abundance
+  29- 32  F4.2  [-]   e_logeps  [0.15/0.57]? Error on logeps
+--------------------------------------------------------------------------------
+
+History:
+    From electronic version of the journal
+
+================================================================================
+(End)             Prepared by [AAS], Tiphaine Pouvreau [CDS]         21-Mar-2018
