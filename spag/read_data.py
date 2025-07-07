@@ -648,33 +648,57 @@ def load_mw_halo(**kwargs):
     halo = halo[halo["Loc"] != "UF"]
     return halo
 
+def load_accreted_dsph(**kwargs):
+    """
+    Loads the fully accreted dwarf spheroidal galaxies (dSph), including
+    the Atari Disk and the Gaia-Sausage/Enceladus.
+    """
+
+    df_list = [
+        load_ataridisk(),
+        load_gse()
+    ]
+
+    ## Combine all dataframes into a single dataframe
+    ads_df = pd.concat(df_list, ignore_index=True)
+
+    if ~ads_df['System'].any():
+        print("Warning: Some stars are missing the 'System' value in the ads_df dataframe. Please check the data.")
+    if ~ads_df['Loc'].any():
+        print("Warning: Some stars are missing the 'Loc' value in the ads_df dataframe. Please check the data.")
+
+    return ads_df
+
 def load_classical_dsph(**kwargs):
     """
     Loads all of the classical dwarf galaxy functions into a single dataframe.
     """
 
+    jinabase_df = load_jinabase()
+
     df_list = [
-        load_carina(),
-        load_draco(),
-        load_fornax(),
-        load_leoI(),
-        load_lmc(),
-        load_sagittarius(),
-        load_sculptor(),
-        load_sextans(),
-        load_ursaminor()
+        load_carina(jinabase=jinabase_df),
+        load_draco(jinabase=jinabase_df),
+        load_fornax(jinabase=jinabase_df),
+        load_leoI(jinabase=jinabase_df),
+        load_lmc(jinabase=jinabase_df),
+        load_sagittarius(jinabase=jinabase_df),
+        load_sculptor(jinabase=jinabase_df),
+        load_sextans(jinabase=jinabase_df),
+        load_ursaminor(jinabase=jinabase_df)
     ]
 
     ## Combine all dataframes into a single dataframe
     cds_df = pd.concat(df_list, ignore_index=True)
 
     if ~cds_df['System'].any():
-        print("Warning: Some stars are missing the 'System' value in the cdgs_df dataframe. Please check the data.")
-        display(cds_df[cds_df['System'].isna()][['Name', 'Reference', 'System']])
+        print("Warning: Some stars are missing the 'System' value in the cds_df dataframe. Please check the data.")
+    if ~cds_df['Loc'].any():
+        print("Warning: Some stars are missing the 'Loc' value in the cds_df dataframe. Please check the data.")
 
     return cds_df
 
-def load_ufds():
+def load_ufds(**kwargs):
     """
     Load the UFD galaxies from Alexmods, parse abundance values and upper limits.
 
@@ -717,6 +741,11 @@ def load_ufds():
         load_waller2023(),
         load_webber2023(),
     ]
+
+    for i, df in enumerate(df_list):
+        dupes = df.columns[df.columns.duplicated()].tolist()
+        if len(dupes) > 0:
+            raise ValueError(f"Warning: Duplicate columns found in dataframe {i}: {dupes}")
 
     ## Combine all dataframes into a single dataframe
     ufd_df = pd.concat(df_list, ignore_index=True)
@@ -775,7 +804,7 @@ def load_ufds():
 
     return ufd_df
 
-def load_stellar_streams():
+def load_stellar_streams(**kwargs):
     """
     Load the stellar streams data from JINAbase and other sources.
     
@@ -783,8 +812,8 @@ def load_stellar_streams():
         pd.DataFrame: A DataFrame containing the stellar streams data.
     """
 
-    ## Load JINAbase data
-    jinabase_df = load_jinabase(**kwargs)
+    # ## Load JINAbase data
+    # jinabase_df = load_jinabase(**kwargs)
 
     ## Load additional references
     df_list = [
@@ -794,6 +823,11 @@ def load_stellar_streams():
         load_roederer2010a(), ## Helmi
         load_roederer2019() ## Sylgr
     ]
+    
+    for i, df in enumerate(df_list):
+        dupes = df.columns[df.columns.duplicated()].tolist()
+        if len(dupes) > 0:
+            raise ValueError(f"Warning: Duplicate columns found in dataframe {i}: {dupes}")
 
     ## Combine all dataframes into a single dataframe
     ss_df = pd.concat(df_list, ignore_index=True)
@@ -854,7 +888,7 @@ def load_stellar_streams():
 ################################################################################
 ## Specific System's Data Read-in
 
-def load_ataridisk(**kwargs):
+def load_ataridisk(jinabase=None, **kwargs):
     """
     Atari Disk Stars
 
@@ -877,14 +911,15 @@ def load_ataridisk(**kwargs):
 
     return atari_df
 
-def load_carina(**kwargs):
+def load_carina(jinabase=None, **kwargs):
     """
     Loads Carina data from JINAbase and adds data from specific references. All data
     is stored in a single DataFrame. Find datasets in SPAG directories.
     """
 
     ## JINAbase
-    jinabase = load_jinabase(**kwargs)
+    if jinabase is None:
+        jinabase = load_jinabase(**kwargs)
     jinabase_nan = jinabase[jinabase['Name'].isna()]  # Rows where 'Name' is NaN
     jinabase_non_nan = jinabase[jinabase['Name'].notna()]  # Rows where 'Name' is not NaN
     jinabase_car = jinabase_non_nan[jinabase_non_nan['Name'].str.lower().str.contains('car')]
@@ -935,14 +970,15 @@ def load_carina(**kwargs):
     
     return carina_df
 
-def load_draco(**kwargs):
+def load_draco(jinabase=None, **kwargs):
     """
     Loads Draco data from JINAbase and adds data from specific references. All data
     is stored in a single DataFrame. Find datasets in SPAG directories.
     """
 
     ## JINAbase
-    jinabase = load_jinabase(**kwargs)
+    if jinabase is None:
+        jinabase = load_jinabase(**kwargs)
     jinabase_nan = jinabase[jinabase['Name'].isna()]  # Rows where 'Name' is NaN
     jinabase_non_nan = jinabase[jinabase['Name'].notna()]  # Rows where 'Name' is not NaN
     jinabase_dra = jinabase_non_nan[jinabase_non_nan['Name'].str.lower().str.contains('dra')]
@@ -990,14 +1026,15 @@ def load_draco(**kwargs):
 
     return draco_df
 
-def load_fornax(**kwargs):
+def load_fornax(jinabase=None, **kwargs):
     """
     Loads Fornax data from JINAbase and adds data from specific references. All data
     is stored in a single DataFrame. Find datasets in SPAG directories.
     """
 
     ## JINAbase
-    jinabase = load_jinabase(**kwargs)
+    if jinabase is None:
+        jinabase = load_jinabase(**kwargs)
     jinabase_nan = jinabase[jinabase['Name'].isna()]  # Rows where 'Name' is NaN
     jinabase_non_nan = jinabase[jinabase['Name'].notna()]  # Rows where 'Name' is not NaN
     jinabase_fnx = jinabase_non_nan[jinabase_non_nan['Name'].str.lower().str.contains('fnx')]
@@ -1048,7 +1085,7 @@ def load_fornax(**kwargs):
 
     return fornax_df
 
-def load_gse(**kwargs):
+def load_gse(jinabase=None, **kwargs):
     """
     Gaia Sausage/Enceladus (GSE) Dwarf Galaxy Stars 
 
@@ -1082,14 +1119,15 @@ def load_gse(**kwargs):
 
     return gse_df
 
-def load_leoI(**kwargs):
+def load_leoI(jinabase=None, **kwargs):
     """
     Loads Sextans data from JINAbase and adds data from specific references. All data
     is stored in a single DataFrame. Find datasets in SPAG directories.
     """
 
     ## JINAbase
-    jinabase = load_jinabase(**kwargs)
+    if jinabase is None:
+        jinabase = load_jinabase(**kwargs)
     jinabase_nan = jinabase[jinabase['Name'].isna()]  # Rows where 'Name' is NaN
     jinabase_non_nan = jinabase[jinabase['Name'].notna()]  # Rows where 'Name' is not NaN
     jinabase_leoI = jinabase_non_nan[jinabase_non_nan['Name'].str.lower().str.contains('leoI')]
@@ -1130,7 +1168,7 @@ def load_leoI(**kwargs):
 
     return leoI_df
 
-def load_lmc(**kwargs):
+def load_lmc(jinabase=None, **kwargs):
     """
     Load the Large Magellanic Cloud (LMC) Dwarf Galaxy Stars
 
@@ -1169,7 +1207,7 @@ def load_lmc(**kwargs):
 
     return lmc_df
 
-def load_sagittarius(include_medres=True, include_apogee=False, **kwargs):
+def load_sagittarius(jinabase=None, include_medres=True, include_apogee=False, **kwargs):
     """
     Sagittarius (Sgr) Dwarf Galaxy Stars 
 
@@ -1177,7 +1215,8 @@ def load_sagittarius(include_medres=True, include_apogee=False, **kwargs):
     """
 
     ## JINAbase
-    jinabase = load_jinabase(**kwargs)
+    if jinabase is None:
+        jinabase = load_jinabase(**kwargs)
     jinabase_nan = jinabase[jinabase['Name'].isna()]  # Rows where 'Name' is NaN
     jinabase_non_nan = jinabase[jinabase['Name'].notna()]  # Rows where 'Name' is not NaN
     jinabase_sgr = jinabase_non_nan[jinabase_non_nan['Name'].str.lower().str.contains('sgr')]
@@ -1228,7 +1267,7 @@ def load_sagittarius(include_medres=True, include_apogee=False, **kwargs):
 
     return sagittarius_df
 
-def load_sculptor(**kwargs):
+def load_sculptor(jinabase=None, **kwargs):
     """
     Sculptor (Scl) Dwarf Galaxy Stars 
 
@@ -1236,14 +1275,15 @@ def load_sculptor(**kwargs):
     """
 
     ## JINAbase
-    jinabase = load_jinabase(**kwargs)
+    if jinabase is None:
+        jinabase = load_jinabase(**kwargs)
     jinabase_nan = jinabase[jinabase['Name'].isna()]  # Rows where 'Name' is NaN
     jinabase_non_nan = jinabase[jinabase['Name'].notna()]  # Rows where 'Name' is not NaN
     jinabase_scl = jinabase_non_nan[(jinabase_non_nan['Name'].str.lower().str.contains('scl')) | (jinabase_non_nan['System'].str.lower().str.contains('scl'))]
     # print(jinabase_scl['Reference'].unique())
 
     ## Load references
-    chiti2018a_df = load_chiti2018a(combine_tables=True)
+    chiti2018a_df = load_chiti2018a()
     frebel2010b_df = load_frebel2010b()
     geisler2005_df = jinabase[jinabase['Reference'] == 'Geisler+2005']
     hill2019_df = jinabase[jinabase['Reference'] == 'Hill+2019']
@@ -1302,14 +1342,15 @@ def load_sculptor(**kwargs):
 
     return sculptor_df
 
-def load_sextans(**kwargs):
+def load_sextans(jinabase=None, **kwargs):
     """
     Loads Sextans data from JINAbase and adds data from specific references. All data
     is stored in a single DataFrame. Find datasets in SPAG directories.
     """
 
     ## JINAbase
-    jinabase = load_jinabase(**kwargs)
+    if jinabase is None:
+        jinabase = load_jinabase(**kwargs)
     jinabase_nan = jinabase[jinabase['Name'].isna()]  # Rows where 'Name' is NaN
     jinabase_non_nan = jinabase[jinabase['Name'].notna()]  # Rows where 'Name' is not NaN
     jinabase_sex = jinabase_non_nan[jinabase_non_nan['Name'].str.lower().str.contains('sex')]
@@ -1359,14 +1400,15 @@ def load_sextans(**kwargs):
 
     return sextans_df
 
-def load_ursaminor(**kwargs):
+def load_ursaminor(jinabase=None, **kwargs):
     """
     Loads Ursa Minor data from JINAbase and adds data from specific references. All data
     is stored in a single DataFrame. Find datasets in SPAG directories.
     """
 
     ## JINAbase
-    jinabase = load_jinabase(**kwargs)
+    if jinabase is None:
+        jinabase = load_jinabase(**kwargs)
     jinabase_nan = jinabase[jinabase['Name'].isna()]  # Rows where 'Name' is NaN
     jinabase_non_nan = jinabase[jinabase['Name'].notna()]  # Rows where 'Name' is not NaN
     jinabase_umi = jinabase_non_nan[jinabase_non_nan['Name'].str.lower().str.contains('umi')]
@@ -1599,8 +1641,10 @@ def load_mardini2022():
     # mardini2022_df.rename(columns={'source_id':'Name', 'ra':'RA_hms', 'dec':'DEC_deg', 'teff':'Teff'}, inplace=True)
     mardini2022_df['JINA_ID'] = mardini2022_df['JINA_ID'].astype(int)
     mardini2022_df['Name'] = mardini2022_df['Simbad_Identifier']
-    # mardini2022_df['Reference'] = 'Mardini+2022'
-    mardini2022_df['Ref'] = mardini2022_df['Reference'].str[:3].str.upper() + mardini2022_df['Reference'].str[-2:]
+    mardini2022_df['Reference_2'] = mardini2022_df['Reference']
+    mardini2022_df['Ref_2'] = mardini2022_df['Reference'].str[:3].str.upper() + mardini2022_df['Reference'].str[-2:]
+    mardini2022_df['Reference'] = 'Mardini+2022'
+    mardini2022_df['Ref'] = 'MAR22'
     mardini2022_df['Ncap_key'] = ''
     mardini2022_df['C_key'] = mardini2022_df['[C/Fe]'].apply(lambda cfe: classify_carbon_enhancement(cfe) if pd.notna(cfe) else np.nan)
     mardini2022_df['MP_key'] = mardini2022_df['[Fe/H]'].apply(lambda feh: classify_metallicity(feh) if pd.notna(feh) else np.nan)
@@ -3988,9 +4032,12 @@ def load_hansent2017():
     ## Read in the data tables
     data_df = pd.read_csv(data_dir + 'abundance_tables/hansent2017/table3.csv', comment='#', na_values=['', ' ', 'nan', 'NaN', 'N/A', 'n/a'])
 
-    elements = [col.replace('[','').replace('/Fe]', '') for col in data_df.columns if ((col.endswith('/Fe]') & (col.startswith('['))))]
-    elements += [col.replace('ul[','').replace('/Fe]', '') for col in data_df.columns if ((col.endswith('/Fe]') & (col.startswith('ul['))))]
-
+    elements = [col.replace('[','').replace('/H]', '') for col in data_df.columns if ((col.startswith('[')) & (col.endswith('/H]')))]
+    elements += [col.replace('ul[','').replace('/H]', '') for col in data_df.columns if ((col.startswith('ul[')) & (col.endswith('/H]')))]
+    elements += [col.replace('[','').replace('/Fe]', '') for col in data_df.columns if ((col.startswith('[')) & (col.endswith('/Fe]')))]
+    elements += [col.replace('ul[','').replace('/Fe]', '') for col in data_df.columns if ((col.startswith('ul[')) & (col.endswith('/Fe]')))]
+    elements = list(set(elements))  # Remove duplicates
+    
     epscols = ['eps'+elem.lower() for elem in elements]
     ulcols = ['ul'+elem.lower() for elem in elements]
     XHcols = [f'[{elem}/H]' for elem in elements]
@@ -4067,7 +4114,10 @@ def load_hansent2017():
             hansent2017_df[errcol] = data_df[errcol].astype(float)
         else:
             hansent2017_df[errcol] = np.nan
-            
+
+    ## Drop the Fe/Fe columns
+    hansent2017_df.drop(columns=['[Fe/Fe]','ul[Fe/Fe]','[FeII/Fe]','ul[FeII/Fe]'], inplace=True, errors='ignore')
+
     return hansent2017_df
 
 def load_hansent2020():
@@ -6726,7 +6776,7 @@ def load_martin2022():
     ## New dataframe with proper columns
     martin2022_df = pd.DataFrame(
                     columns=['Name','Simbad_Identifier','Pristine_Name','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
-                    'Teff','logg','Fe/H','Vmic'] )#+ epscols + ulcols + XHcols + ulXHcols + XFecols + ulXFecols + errcols)
+                    'Teff','logg','Fe/H','M/H','Vmic'] )#+ epscols + ulcols + XHcols + ulXHcols + XFecols + ulXFecols + errcols)
     for i, name in enumerate(obs_df['Name'].unique()):
         martin2022_df.loc[i,'Name'] = name
         martin2022_df.loc[i,'Simbad_Identifier'] = obs_df.loc[obs_df['Name'] == name, 'Simbad_Identifier'].values[0]
@@ -6816,8 +6866,8 @@ def load_martin2022():
                 martin2022_df.loc[i, 'ul[Fe/H]'] = abund_df2.loc[abund_df2['Name'] == name, 'ul[Fe/H]'].values[0]
                 martin2022_df.loc[i, 'e_[Fe/H]'] = abund_df2.loc[abund_df2['Name'] == name, 'e_[Fe/H]'].values[0]
 
-                martin2022_df.loc[i, 'epsfe'] = martin2022_df.loc[i, '[Fe/H]'] + logepsCa_a09
-                martin2022_df.loc[i, 'ulfe'] = martin2022_df.loc[i, 'ul[Fe/H]'] + logepsCa_a09
+                martin2022_df.loc[i, 'epsfe'] = martin2022_df.loc[i, '[Fe/H]'] + logepsFe_a09
+                martin2022_df.loc[i, 'ulfe'] = martin2022_df.loc[i, 'ul[Fe/H]'] + logepsFe_a09
 
             if (pd.isna(martin2022_df.loc[i, '[Ca/H]']) and pd.isna(martin2022_df.loc[i, 'ul[Ca/H]'])):
                 martin2022_df.loc[i, '[Ca/H]'] = abund_df2.loc[abund_df2['Name'] == name, '[Ca/H]'].values[0]

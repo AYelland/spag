@@ -766,6 +766,7 @@ def make_XHcol(species):
     if species==607.0: return "[N/H]"
     if species==108.0: return "[O-H/H]"
     if species==20.1: return "[Ca II/H]"
+    if species==25.1: return "[Mn II/H]"
     return XHcol(species)
 
 def make_ulXHcol(species):
@@ -781,6 +782,7 @@ def make_ulXHcol(species):
     if species==607.0: return "ul[N/H]"
     if species==108.0: return "ul[O-H/H]"
     if species==20.1: return "ul[Ca II/H]"
+    if species==25.1: return "ul[Mn II/H]"
     return ulXHcol(species)
 
 def make_XFecol(species):
@@ -796,6 +798,7 @@ def make_XFecol(species):
     if species==607.0: return "[N/Fe]"
     if species==108.0: return "[O-H/Fe]"
     if species==20.1: return "[Ca II/Fe]"
+    if species==25.1: return "[Mn II/Fe]"
     return XFecol(species)
 
 def make_ulXFecol(species):
@@ -811,6 +814,7 @@ def make_ulXFecol(species):
     if species==607.0: return "ul[N/Fe]"
     if species==108.0: return "ul[O-H/Fe]"
     if species==20.1: return "ul[Ca II/Fe]"
+    if species==25.1: return "ul[Mn II/Fe]"
     return ulXFecol(species)
 
 def make_epscol(species):
@@ -827,6 +831,7 @@ def make_epscol(species):
     if species==607.0: return "epsn"
     if species==108.0: return "epso-h"
     if species==20.1: return "epsca2"
+    if species==25.1: return "epsmn2"
     return epscol(species)
 
 def make_errcol(species):
@@ -842,6 +847,7 @@ def make_errcol(species):
     if species==607.0: return "e_n"
     if species==108.0: return "e_o-h"
     if species==20.1: return "e_ca2"
+    if species==25.1: return "e_mn2"
     return errcol(species)
 
 def make_ulcol(species):
@@ -857,6 +863,7 @@ def make_ulcol(species):
     if species==607.0: return "uln"
     if species==108.0: return "ulo-h"
     if species==20.1: return "ulca2"
+    if species==25.1: return "ulmn2"
     return ulcol(species)
 
 def format_elemstr(elem):
@@ -933,6 +940,7 @@ def species_from_col(col):
     if elem=="n": return 607.0  # C-N
     if elem=="o-h": return 108.0  # O-H
     if elem=="ca2": return 20.1  # Ca II
+    if elem=="mn2": return 25.1  # Mn II
 
     default_to_1 = ['O','Na','Mg','Al','Si','K','Ca','V','Cr','Mn','Fe','Co','Ni','Cu','Zn','Pb']
     default_to_2 = ['Sc','Ti','Sr','Y','Zr','Ba','La','Ce','Pr','Nd','Sm','Eu','Gd','Dy','Er']
