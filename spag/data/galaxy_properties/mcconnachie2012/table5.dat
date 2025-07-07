@@ -1,0 +1,102 @@
+The Galaxy                   | |     |    |                    |       |
+Canis Major                  | |-0.5 |0.2 |CMD fitting         |400    |Based primarily on MS stars
+Sagittarius dSph             | |-0.4 |0.2 |HRS                 |401    |
+Segue (I)                    | |-2.72|0.40|MRS                 |402    |See also Simon et al. (2011, Cat. J/ApJ/733/46)
+Ursa Major II                | |-2.47|0.06|MRS                 |403,404|
+Bootes II                    | |-1.79|0.05|MRS (CaT)           |405    |
+Segue II                     | |-2.00|0.25|HRS                 |305    |
+Willman 1                    |:|-2.1 |    |MRS                 |406    |Based on three stars
+Coma Berenices               | |-2.60|0.05|MRS                 |403,404|
+Bootes III                   | |-2.1 |0.2 |MRS                 |407    |
+LMC                          | |-0.5 |    |MRS (CaT)           |408    |See also Cole et al. (2005, Cat. J/AJ/129/1465)
+SMC                          | |-1.00|0.02|MRS (CaT)           |409    |
+Bootes (I)                   | |-2.55|0.11|MRS                 |402    |See also Lai et al. (2011ApJ...738...51L)
+Draco                        | |-1.93|0.01|MRS                 |404    |See also Winnick (2003PhDT.........9W)
+Ursa Minor                   | |-2.13|0.01|MRS                 |404    |See also Winnick (2003PhDT.........9W)
+Sculptor                     | |-1.68|0.01|MRS                 |410,404|See also Battaglia et al. (2008ApJ...681L..13B)
+Sextans (I)                  | |-1.93|0.01|MRS                 |404    |See also Battaglia et al. (2011, Cat. J/MNRAS/411/1013)
+Ursa Major (I)               | |-2.18|0.04|MRS                 |403,404|
+Carina                       | |-1.72|0.01|MRS (CaT)           |411    |
+Hercules                     | |-2.41|0.04|MRS                 |403,404|
+Fornax                       | |-0.99|0.01|MRS                 |404    |See also Battaglia et al. (2006, Cat. J/A+A/459/423)
+Leo IV                       | |-2.54|0.07|MRS                 |403,404|HRS of a single star in Simon et al. (2010ApJ...716..446S)
+Canes Venatici II            | |-2.21|0.05|MRS                 |403,404|
+Leo V                        | |-2.00|0.2 |Isochrones          |412    |
+Pisces II                    |:|-1.9 |    |Isochrones          |317    |
+Canes Venatici (I)           | |-1.98|0.01|MRS                 |403,404|
+Leo II                       | |-1.62|0.01|MRS                 |404    |See also Koch et al. (2007, Cat. J/AJ/133/270)
+Leo I                        | |-1.43|0.01|MRS                 |404    |See also Koch et al. (2007, Cat. J/AJ/133/270)
+Andromeda                    | |     |    |                    |       |
+M32                          | |-0.25|    |Isochrones          |413    |Likely significant age spread and gradients?
+Andromeda IX                 | |-2.2 |0.2 |Co-added MRS (CaT)  |44     |
+NGC 205                      | |-0.8 |0.2 |Isochrones          |415    |
+Andromeda XVII               | |-1.9 |0.2 |Isochrones          |416    |
+Andromeda I                  | |-1.45|0.04|Isochrones          |417    |
+Andromeda XXVII              | |-1.7 |0.2 |Isochrones          |235    |
+Andromeda III                | |-1.78|0.04|Isochrones          |417    |
+Andromeda XXV                | |-1.8 |0.2 |Isochrones          |325    |
+Andromeda XXVI               | |-1.9 |0.2 |Isochrones          |325    |
+Andromeda XI                 | |-2.0 |0.2 |Co-added MRS (CaT)  |44     |
+Andromeda V                  | |-1.6 |0.3 |Co-added LRS (CaT)  |235    |
+Andromeda X                  | |-1.93|0.11|Isochrones          |417    |
+Andromeda XXIII              | |-1.8 |0.2 |Isochrones          |325    |
+Andromeda XX                 | |-1.5 |0.1 |Isochrones          |329    |
+Andromeda XII                | |-2.1 |0.2 |Co-added MRS (CaT)  |44     |
+NGC 147                      | |-1.1 |0.1 |MRS (CaT)           |419    |
+Andromeda XXI                | |-1.8 |0.2 |Isochrones          |331    |
+Andromeda XIV                | |-2.26|0.05|Isochrones          |417    |
+Andromeda XV                 | |-1.8 |0.2 |Co-added MRS (CaT)  |420    |
+Andromeda XIII               | |-1.9 |0.2 |Co-added MRS (CaT)  |44     |
+Andromeda II                 | |-1.64|0.04|Isochrones          |417    |
+NGC 185                      | |-1.3 |0.1 |MRS (CaT)           |419    |
+Andromeda XXIX               |:|-1.8 |    |Isochrones          |335    |
+Andromeda XIX                | |-1.9 |0.1 |Isochrones          |329    |
+Triangulum                   | |     |    |                    |       |
+Andromeda XXIV               | |-1.8 |0.2 |Isochrones          |325    |
+Andromeda VII                | |-1.40|0.30|Isochrones          |417    |
+Andromeda XXII               |:|-1.8 |    |Isochrones          |331    |
+IC 10                        |:|-1.28|    |Isochrones,RGB color|421    |
+LGS 3 (Local Group Suspect 3)| |-2.10|0.22|RGB color           |422    |
+Andromeda VI                 | |-1.3 |0.14|Co-added MRS (CaT)  |235    |
+Andromeda XVI                | |-2.1 |0.2 |Co-added MRS (CaT)  |420    |
+Andromeda XXVIII             | |     |    |                    |       |
+IC 1613                      | |-1.6 |0.2 |CMD modeling        |423    |Derived in E. Skillman et al., (2012 in preparation)
+Phoenix                      | |-1.37|0.2 |RGB color           |424    |
+NGC 6822                     | |-1.0 |0.5 |LRS (CaT)           |425    |
+Cetus                        | |-1.9 |0.10|MRS (CaT)           |426    |
+Pegasus dIrr                 | |-1.4 |0.2 |Isochrones          |415    |
+Leo T                        | |-1.99|0.05|MRS                 |403,404|
+WLM (Wolf-Lundmark-Melotte)  | |-1.27|0.04|MRS (CaT)           |427    |
+Leo A                        | |-1.4 |0.2 |CMD modeling        |428    |
+Andromeda XVIII              | |-1.8 |0.1 |Isochrones          |329    |
+Aquarius                     | |-1.3 |0.2 |Isochrones          |429    |Assumes an age of 4Gyr; for an ancient population, find [Fe/H]~-1.9
+Tucana                       | |-1.95|0.15|MRS (CaT)           |430    |
+Sagittarius dIrr             | |-2.1 |0.2 |Isochrones          |431    |
+UGC 4879                     | |-1.5 |0.2 |Isochrones          |432    |
+NGC 3109                     | |-1.84|0.2 |RGB color           |433    |
+Sextans B                    | |     |    |                    |       |
+Antlia                       | |-1.6 |0.1 |RGB color           |434    |
+Sextans A                    |:|-1.85|    |RGB color           |435    |Adopted (V-I)_-3.5_=1.3
+HIZSS 3(A)                   | |     |    |                    |       |
+HIZSS 3B                     | |     |    |                    |       |
+KKR 25                       | |-2.1 |0.3 |RGB color           |359    |
+ESO 410- G 005               | |-1.93|0.2 |RGB color           |436    |
+NGC 55                       | |     |    |                    |       |
+ESO 294- G 010               | |-1.48|0.17|RGB color           |436    |
+NGC 300                      | |     |    |                    |       |
+IC 5152                      | |     |    |                    |       |
+KKH 98                       | |-1.94|0.25|RGB color           |436    |
+UKS 2323-326                 | |-1.68|0.19|RGB color           |436    |
+KKR 3                        | |-2.02|0.25|RGB color           |436    |
+GR 8                         | |     |    |                    |       |
+UGC 9128                     | |-2.33|0.24|RGB color           |436    |
+UGC 8508                     | |-1.91|0.19|RGB color           |436    |
+IC 3104                      | |     |    |                    |       |
+DDO 125                      | |-1.73|0.17|RGB color           |436    |
+UGCA 86                      | |     |    |                    |       |
+DDO 99                       | |-2.13|0.22|RGB color           |436    |
+IC 4662                      | |-1.34|0.13|RGB color           |436    |
+DDO 190                      | |-2.00|0.08|RGB color           |437    |
+KKH 86                       | |-2.33|0.29|RGB color           |436    |
+NGC 4163                     | |-1.65|0.15|RGB color           |436    |
+DDO 113                      | |-1.99|0.21|RGB color           |436    |
