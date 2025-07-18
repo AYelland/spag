@@ -977,6 +977,43 @@ def ion_from_col(col):
     """
     return species_to_ion(species_from_col(col))
 
+def jinabasecol_from_col(col):
+    """
+    Returns the numerical species from the input column name, using the default species.
+    Accepts the following columns formats:
+        formats: 'epsx', 'e_x', 'ulx', '[x/Fe]', '[x/H]'
+    """
+
+    if col.startswith('e_'): col = col.replace('e_', '')
+    if col.startswith('eps'): col = col.replace('eps', '')
+    if col.startswith('ul'): col = col.replace('ul', '')
+    if col.startswith('['): 
+        if col.endswith('/Fe]'): col = col.replace('[', '').replace('/Fe]', '')
+        elif col.endswith('/H]'): col = col.replace('[', '').replace('/H]', '')
+        else: raise ValueError(f"Column {col} not recognized for species extraction")
+    elem = col.lower()
+
+    if elem=="ti1": return 'Ti'  # Ti I
+    if elem=="ti": return 'TiII'  # Ti II
+    if elem=="v2": return 'VII'  # V II
+    if elem=="fe2": return 'FeII'  # Fe II
+    if elem=="cr2": return 'CrII'  # Cr II
+    if elem=="sr1": return 'Sr'  # Sr I
+    if elem=="c": return 'C'  # C-H
+    if elem=="n-h": return 'N-H'  # N-H
+    if elem=="n": return 'N'  # C-N
+    if elem=="o-h": return 'O'  # O-H
+    if elem=="ca2": return 'CaII'  # Ca II
+    if elem=="mn2": return 'MnII'  # Mn II
+
+    default_to_1 = ['O','Na','Mg','Al','Si','K','Ca','V','Cr','Mn','Fe','Co','Ni','Cu','Zn','Pb']
+    default_to_2 = ['Sc','Ti','Sr','Y','Zr','Ba','La','Ce','Pr','Nd','Sm','Eu','Gd','Dy','Er']
+
+    if elem.isalpha():
+        return elem.title()  # Return the element name capitalized
+    else:
+        raise ValueError(f"Column {col} not recognized for species extraction")
+    
 ################################################################################
 # Quick abundance conversion functions
 ################################################################################
