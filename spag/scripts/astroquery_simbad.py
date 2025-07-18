@@ -22,7 +22,7 @@ group.add_argument("-c", "--coordinates", action="store_true", help="Use coordin
 args = parser.parse_args()
 reference = args.reference
 # base_path = f"/Users/ayelland/Research/metal-poor-stars/spag/spag/data/abundance_tables/{reference}"
-base_path = "/Users/ayelland/Research/metal-poor-stars/project/carbon-project-2025/tables/tables-20250625/ref-table/"
+base_path = "/Users/ayelland/Research/metal-poor-stars/project/carbon-project-2025/"
 input_file = os.path.join(base_path, "astroquery.csv")
 
 # Collect results
@@ -34,21 +34,25 @@ coord_df = pd.read_csv(input_file)
 for idx, row in coord_df.iterrows():
 
     if args.identifier:
-        identifier = row.get('Name', f'coord_{idx}').strip()
+        identifier = row.get('Simbad_Identifier', f'coord_{idx}').strip()
         if 'RA_hms' in row and 'DEC_dms' in row:
             ra_hms = row['RA_hms']
             dec_dms = row['DEC_dms']
+        if 'JINA_ID' in row:
+            jinaid = row['JINA_ID']
         try:
             result = Simbad.query_object(identifier)
             if result is not None:
                 df = result.to_pandas()
                 df['Found'] = True
+                df['JINA_ID'] = jinaid if 'jinaid' in locals() else None
                 df['Query_ID'] = identifier
                 df['RA_input'] = ra_hms if 'ra_hms' in locals() else None
                 df['DEC_input'] = dec_dms if 'dec_dms' in locals() else None
             else:
                 df = pd.DataFrame([{
                     'Found': False,
+                    'JINA_ID': jinaid if 'jinaid' in locals() else None,
                     'Query_ID': identifier, 
                     'RA_input': ra_hms if 'ra_hms' in locals() else None,
                     'DEC_input': dec_dms if 'dec_dms' in locals() else None 
@@ -56,7 +60,8 @@ for idx, row in coord_df.iterrows():
         except Exception as e:
             df = pd.DataFrame([{
                 'Found': False, 
-                'Query_ID': identifier, 
+                'JINA_ID': jinaid if 'jinaid' in locals() else None,
+                'Query_ID': identifier,
                 'RA_input': ra_hms if 'ra_hms' in locals() else None,
                 'DEC_input': dec_dms if 'dec_dms' in locals() else None,
                 'Error': str(e)
