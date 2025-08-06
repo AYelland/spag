@@ -104,14 +104,15 @@ def element_query(_input):
     value = type_(_input)
 
     if value is int:
-        return session.query(Element).filter_by(atomic=_input).first()
+        return session.query(Element).filter(Element.atomic == _input, Element.atomic <= 92).first()
     if value is float:
-        return session.query(Element).filter_by(mass=_input).first()
+        return session.query(Element).filter(Element.mass == _input, Element.atomic <= 92).first()
 
     _input = _input.capitalize()
     if len(_input) <= 2:
-        return session.query(Element).filter_by(symbol=_input).first()
-    return session.query(Element).filter_by(name=_input).first()
+        return session.query(Element).filter(Element.symbol == _input, Element.atomic <= 92).first()
+    return session.query(Element).filter(Element.name == _input, Element.atomic <= 92).first()
+
 
 # Interactive Shell
 def interactive_shell():

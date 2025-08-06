@@ -21,7 +21,6 @@ from spag.periodic_table import pt_list, pt_dict
 from spag.utils import *
 import spag.read_data as rd
 
-
 # Functions to import when using 'from spag.utils import *'
 # __all__ =  ["element_to_species", "element_to_atomic_number",
 #             "species_to_element", "species_to_atomic_number",
@@ -59,14 +58,13 @@ def roman_to_int(roman):
             value += roman_int_dict[roman[i]]
     return value
 
-
 ################################################################################
-## SMH Molecular Species Identification by Atomic Number (Z)
+## SMH Molecular Species and Uncommon Isotopes Identification by Atomic Number (Z)
 
 common_molecule_name_to_Z = {
     'Mg-H': 12,'H-Mg': 12,
     'C-C':  6,
-    'C-N':  7, 'N-C':  7, #TODO
+    'C-N':  7, 'N-C':  7,
     'C-H':  6, 'H-C':  6,
     'O-H':  8, 'H-O':  8,
     'Fe-H': 26,'H-Fe': 26,
@@ -76,6 +74,9 @@ common_molecule_name_to_Z = {
     'V-O':  23,'O-V':  23,
     'Zr-O': 40,'O-Zr': 40
     }
+common_molecule_Z_to_name = {
+    v: k for k, v in common_molecule_name_to_Z.items()
+}
 common_molecule_name_to_species = {
     'Mg-H': 112,'H-Mg': 112,
     'C-C':  606,
@@ -89,6 +90,9 @@ common_molecule_name_to_species = {
     'V-O':  823,'O-V':  823,
     'Zr-O': 840,'O-Zr': 840
     }
+common_molecule_species_to_name = {
+    v: k for k, v in common_molecule_name_to_species.items()
+}
 common_molecule_species_to_elems = {
     112: ["Mg", "H"],
     606: ["C", "C"],
@@ -102,10 +106,105 @@ common_molecule_species_to_elems = {
     823: ["V", "O"],
     840: ["Zr", "O"]
     }
+common_molecule_name_to_colname = {
+    'C-N':  'N', 'N-C':  'N',
+    'C-H':  'C', 'H-C':  'C',
+    'C-C':  'C-C',
+    'O-H':  'O-H', 'H-O':  'O-H',
+    'N-H':  'N-H', 'H-N':  'N-H',
+    }
+common_molecule_colname_to_name = {
+    v: k for k, v in common_molecule_name_to_colname.items()
+}
+
+common_isotope_colname_to_Z = {
+    'Ca2': 20,
+    'Ti1': 22,
+    'Ti':  22,
+    'V2':  23,
+    'Cr2': 24,
+    'Mn2': 25,
+    'Fe2': 26,
+    'Sr1': 38,
+}
+common_isotope_name_to_species = {
+    'Ca II': 20.1,
+    'Ti I':  22.0,
+    'Ti II': 22.1,
+    'V II':  23.1,
+    'Cr II': 24.1,
+    'Mn II': 25.1,
+    'Fe II': 26.1,
+    'Sr I':  38.0,
+}
+common_isotope_colname_to_species = {
+    'Ca2': 20.1,
+    'Ti1': 22.0,
+    'Ti':  22.1,
+    'V2':  23.1,
+    'Cr2': 24.1,
+    'Mn2': 25.1,
+    'Fe2': 26.1,
+    'Sr1': 38.0,
+}
+common_isotope_name_to_colname = {
+    'Ca II': 'Ca2',
+    'Ti I': 'Ti1',
+    'Ti II': 'Ti',
+    'V II': 'V2',
+    'Cr II': 'Cr2',
+    'Mn II': 'Mn2',
+    'Fe II': 'Fe2',
+    'Sr I': 'Sr1',
+}
+common_isotope_colname_to_name = {
+    v: k for k, v in common_isotope_name_to_colname.items()
+}
+common_isotope_species_to_colname = {
+    v: k for k, v in common_isotope_colname_to_species.items()
+}
 
 ################################################################################
 ## Element, atomic number, and species conversion functions
 
+def identify_prefix(col):
+    """
+    Identifies the prefix of a column name
+    """
+    for prefix in ['eps','e_','ul','XH','XFe']:
+        if prefix in col:
+            return prefix, col[len(prefix):]
+        if prefix=='XH':
+            matches = m_XH.findall(col)
+            if len(matches)==1: return prefix,matches[0]
+        if prefix=='XFe':
+            matches = m_XFe.findall(col)
+            if len(matches)==1: return prefix,matches[0]
+    raise ValueError("Invalid column:"+str(col))
+
+def get_default_ion(elem):
+    """
+    Returns the default ionization state for an element
+    """
+
+    # default ionization states for elements in SPAG
+
+
+
+    default_to_1 = ['O','Na','Mg','Al','Si','K','Ca','V','Cr','Mn','Fe','Co','Ni','Cu','Zn','Pb',
+                    'Rb','Mo','Ru','Rh','Os','Ir','U','Li','Ga','Tc',]
+    default_to_2 = ['Sc','Ti','Sr','Y','Zr','Ba','La','Ce','Pr','Nd','Sm','Eu','Gd','Tb','Dy','Ho','Er','Tm','Yb','Hf',
+                    'Nb','Th']
+
+    elem = getelem(elem)
+    if elem in default_to_1:
+        return 1
+    elif elem in default_to_2:
+        return 2
+    else:
+        warnings.warn("get_default_ion: {} not in defaults, returning 0".format(elem))
+        return 0
+    
 def element_to_species(element_repr):
     """
     element_repr: str
@@ -133,10 +232,13 @@ def element_to_species(element_repr):
     # Handle unknown elements or molecules
     if element not in pt_list:
         try:
-            return common_molecule_name_to_species[element_repr]
+            return common_isotope_colname_to_species[element]
         except KeyError:
-            print(f"Unknown element: {element_repr}")
-            return str(element_repr) # Don't know what this element is
+            try:
+                return common_molecule_name_to_species[element_repr]
+            except KeyError:
+                print(f"Unknown element: {element_repr}")
+                return str(element_repr) # Don't know what this element is
     
     # Convert Roman numeral ionization to integer
     ionization = max([0, roman_to_int(ionization_str) - 1, 0]) * 0.1
@@ -144,7 +246,6 @@ def element_to_species(element_repr):
     # Find the atomic number of the element and add the ionization
     species = pt_list.index(element) + 1 + ionization
     return species
-
 
 def element_to_atomic_number(element_repr):
     """
@@ -166,11 +267,13 @@ def element_to_atomic_number(element_repr):
         raise ValueError("unrecognized element '{}'".format(element_repr))
     except ValueError:
         try:
-            return common_molecule_name_to_Z[element]
+            return common_isotope_colname_to_Z[element]
         except KeyError:
-            raise ValueError("unrecognized element '{}'".format(element_repr))
+            try:
+                return common_molecule_name_to_Z[element]
+            except KeyError:
+                raise ValueError("unrecognized element '{}'".format(element_repr))
     return 1 + index
-
 
 def element_to_ion(element_repr, state=None):
     """
@@ -190,6 +293,8 @@ def element_to_ion(element_repr, state=None):
     if state is None:
         try:
             elem = element_repr.title().strip().split()[0]
+            if not elem.isalpha():
+                elem = elem[:-1]
             ionization_state = get_default_ion(elem)
             return f"{elem} {int_to_roman(ionization_state)}"
 
@@ -205,8 +310,7 @@ def element_to_ion(element_repr, state=None):
             else:
                 return f"{elem} {int_to_roman(ionization_state)}"
     else:
-        return f"{element_repr} {int_to_roman(state)}"
-
+        return f"{element_repr.title()} {int_to_roman(state)}"
 
 def species_to_element(species):
     """
@@ -289,7 +393,6 @@ def species_to_ion(species):
     
     return species_to_element(species)
 
-
 def atomic_number_to_element(Z, species=None):
     """
     Z: int
@@ -313,7 +416,6 @@ def atomic_number_to_element(Z, species=None):
                 return str(Z)
         else:
             return pt_dict[int(Z)]
-
 
 def atomic_number_to_species(Z, species=None):
     """
@@ -377,7 +479,6 @@ def ion_to_species(ion):
     except ValueError:
         return float(element_to_species(ion))
 
-
 def ion_to_element(ion):
     """
     ion: str
@@ -396,7 +497,6 @@ def ion_to_element(ion):
     # print(f"ion_to_element: {ion} -> {Z} -> {elem}")
     return elem
 
-
 def ion_to_atomic_number(ion):
     """
     ion: str
@@ -414,7 +514,6 @@ def ion_to_atomic_number(ion):
     Z = species_to_atomic_number(species)
     # print(f"ion_to_atomic_number: {ion} -> {species} -> {Z}")
     return Z
-
 
 ################################################################################
 ## Molecule Species Identification by Elements, Isotopes, and Ionization State
@@ -536,16 +635,11 @@ def species_to_elems_isotopes_ion(species):
         isotope2 = 0
     return elem1,elem2,isotope1,isotope2,ion
 
-
 def getelem(elem, lower=False, keep_species=False):
     """
     Converts an element's common name to a standard formatted chemical symbol
     """
-    common_molecules = {'CH':'C','C-H':'C',
-                        'CC':'C','C-C':'C',
-                        'NH':'N','N-H':'N'}
-    special_ions = ['Ti I','Cr II']
-    
+        
     if isinstance(elem, string_types):
         prefix = None
         try:
@@ -555,47 +649,66 @@ def getelem(elem, lower=False, keep_species=False):
             pass
 
         if pt.element_query(elem) != None: # No ionization, e.g. Ti
+            # print('1')
             elem = pt.element_query(elem).symbol
-        elif elem in common_molecules:
-            elem = common_molecules[elem]
-        elif prefix != None and '.' in elem:
-            elem,ion = elem.split('.')
-            elem = format_elemstr(elem)
-        #elif '.' in elem: #Not sure if this works correctly yet
-        #    elem,ion = elem.split('.')
-        #    elem = format_elemstr(elem)
+                
+        elif elem in common_molecule_name_to_colname.keys():
+            # print('2')
+            elem = common_molecule_name_to_colname[elem]
+
         elif elem[-1]=='I': #Check for ionization
-            # TODO account for ionization
-            if ' ' in elem: #of the form 'Ti II' or 'Y I'
-                species = element_to_species(elem)
-                elem = species_to_element(species)
-                elem = elem.split()[0]
-            else: #of the form 'TiII' or 'YI'
+            # print('4')
+            if ' ' not in elem:
                 if elem[0]=='I':
                     assert elem=='I'*len(elem)
                     elem = 'I'
-                else:
-                    while elem[-1] == 'I': elem = elem[:-1]
+                elif elem[-2:]=='II':
+                    elem = elem[:-2] + ' II'
+                elif elem[-1]=='I':
+                    elem = elem[:-1] + ' I'
+            
+            species = element_to_species(elem)
+
+            if species in common_isotope_species_to_colname.keys():
+                elem = common_isotope_species_to_colname[species]
+            elif species in common_molecule_species_to_name.keys():
+                elem = common_molecule_name_to_colname[common_molecule_species_to_name[species]]
+            else:
+                elem = species_to_element(species)
+                elem = elem.split()[0]
+
         else:
-            # Use smh to check for whether element is in periodic table
+            # print('5')
             species = element_to_species(elem)
             elem = species_to_element(species)
-            elem = elem.split()[0]
-            
+            elem = elem.replace(' ', '')
+            # elem = elem.split()[0]
+        
     elif isinstance(elem, (int, np.integer)):
-        elem = int(elem)
-        elem = pt.element_query(elem)
-        ## TODO common molecules
-        assert elem != None
-        elem = elem.symbol
-        if keep_species: raise NotImplementedError()
-    
-    elif isinstance(elem, float):
-        species = elem
-        elem = species_to_element(species)
-        if not keep_species: elem = elem.split()[0]
+        # print('6')
 
-    if lower: elem = elem.lower()
+        Z = int(elem)
+        try:
+            elem = pt.element_query(Z).symbol
+            if keep_species: elem = elem + ' ' + 'I'*get_default_ion(elem)
+        except:
+            if Z in common_molecule_species_to_name.keys():
+                elem = common_molecule_name_to_colname[common_molecule_species_to_name[Z]]
+
+    elif isinstance(elem, float):
+        # print('7')
+        species = elem
+        
+        if species in common_isotope_species_to_colname.keys():
+            elem = common_isotope_species_to_colname[species]
+        elif species in common_molecule_species_to_name.keys():
+            elem = common_molecule_name_to_colname[common_molecule_species_to_name[species]]
+        
+        if isinstance(elem, float):
+            elem = species_to_element(species)
+            if not keep_species: elem = elem.split()[0]
+
+    if lower: elem = elem.replace(' ','').lower()
     return elem
 
 #-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-
@@ -616,8 +729,6 @@ def element_matches_atomic_number(elem, Z):
         return False
     else:
         return True
-
-
 
 ################################################################################
 # Utility functions for column names
@@ -651,26 +762,51 @@ def ulcolnames(df):
     """
     Returns a list of all upper limit columns
     """
-    return _getcolnames(df,'ul')
+    allnames = []
+    for col in df:
+        if col.startswith('ul') and not col.startswith('ul['):
+            allnames.append(col)
+    return allnames
 
 def XHcolnames(df):
     """
     Returns a list of all [X/H] columns
     """
-    return _getcolnames(df,'XH')
+    allnames = []
+    for col in df:
+        if col.startswith('[') and col.endswith('/H]'):
+            allnames.append(col)
+    return allnames
 
 def ulXHcolnames(df):
     """
     Returns a list of all ul[X/H] columns
     """
-    return _getcolnames(df,'ulXH')
+    allnames = []
+    for col in df:
+        if col.startswith('ul[') and col.endswith('/H]'):
+            allnames.append(col)
+    return allnames
     
 def XFecolnames(df):
     """
     Returns a list of all [X/Fe] columns
     """
-    return _getcolnames(df,'XFe')
+    allnames = []
+    for col in df:
+        if col.startswith('[') and col.endswith('/Fe]'):
+            allnames.append(col)
+    return allnames
 
+def ulXFecolnames(df):
+    """
+    Returns a list of all ul[X/Fe] columns
+    """
+    allnames = []
+    for col in df:
+        if col.startswith('ul[') and col.endswith('/Fe]'):
+            allnames.append(col)
+    return allnames
 
 def epscol(elem):
     """
@@ -688,12 +824,11 @@ def errcol(elem):
         if elem=="alpha": return "e_alpha"
         else: raise
     
-def eABcol(elems):
+def e_ABcol(elem1, elem2):
     """
     Input a tuple of elements, returns the error column name for the pair
     """
-    A,B = elems
-    return f"eAB_{getelem(A)}/{getelem(B)}"
+    return f"e_[{getelem(elem1)}/{getelem(elem2)}]"
 
 def ulcol(elem):
     """
@@ -753,118 +888,47 @@ def ABcol(elems):
     A,B = elems
     return '['+getelem(A)+'/'+getelem(B)+']'
 
+def make_epscol(species):
+    """
+    Converts species to a formatted log(eps) column name
+    """
+    return epscol(species)
+
+def make_ulcol(species):
+    """
+    Converts species to a formatted upper limit column name
+    """
+    return ulcol(species)
+
+def make_errcol(species):
+    """
+    Converts species to a formatted error column name
+    """
+    return errcol(species)
+
 def make_XHcol(species):
     """
     Converts species to a formatted [X/H] column name
     """
-    if species==22.0: return "[Ti I/H]"
-    if species==23.1: return "[V II/H]"
-    if species==26.1: return "[Fe II/H]"
-    if species==24.1: return "[Cr II/H]"
-    if species==38.0: return "[Sr I/H]"
-    if species==106.0: return "[C/H]"
-    if species==607.0: return "[N/H]"
-    if species==108.0: return "[O-H/H]"
-    if species==20.1: return "[Ca II/H]"
-    if species==25.1: return "[Mn II/H]"
     return XHcol(species)
 
 def make_ulXHcol(species):
     """
     Converts species to a formatted ul[X/H] column name
     """
-    if species==22.0: return "ul[Ti I/H]"
-    if species==23.1: return "ul[V II/H]"
-    if species==26.1: return "ul[Fe II/H]"
-    if species==24.1: return "ul[Cr II/H]"
-    if species==38.0: return "ul[Sr I/H]"
-    if species==106.0: return "ul[C/H]"
-    if species==607.0: return "ul[N/H]"
-    if species==108.0: return "ul[O-H/H]"
-    if species==20.1: return "ul[Ca II/H]"
-    if species==25.1: return "ul[Mn II/H]"
     return ulXHcol(species)
 
 def make_XFecol(species):
     """
     Converts species to a formatted [X/Fe] column name
     """
-    if species==22.0: return "[Ti I/Fe]"
-    if species==23.1: return "[V II/Fe]"
-    if species==26.1: return "[Fe II/Fe]"
-    if species==24.1: return "[Cr II/Fe]"
-    if species==38.0: return "[Sr I/Fe]"
-    if species==106.0: return "[C/Fe]"
-    if species==607.0: return "[N/Fe]"
-    if species==108.0: return "[O-H/Fe]"
-    if species==20.1: return "[Ca II/Fe]"
-    if species==25.1: return "[Mn II/Fe]"
     return XFecol(species)
 
 def make_ulXFecol(species):
     """
     Converts species to a formatted ul[X/Fe] column name
     """
-    if species==22.0: return "ul[Ti I/Fe]"
-    if species==23.1: return "ul[V II/Fe]"
-    if species==26.1: return "ul[Fe II/Fe]"
-    if species==24.1: return "ul[Cr II/Fe]"
-    if species==38.0: return "ul[Sr I/Fe]"
-    if species==106.0: return "ul[C/Fe]"
-    if species==607.0: return "ul[N/Fe]"
-    if species==108.0: return "ul[O-H/Fe]"
-    if species==20.1: return "ul[Ca II/Fe]"
-    if species==25.1: return "ul[Mn II/Fe]"
     return ulXFecol(species)
-
-def make_epscol(species):
-    """
-    Converts species to a formatted log(eps) column name
-    """
-    if species==22.0: return "epsti1"
-    if species==23.1: return "epsv2"
-    if species==26.1: return "epsfe2"
-    if species==24.1: return "epscr2"
-    if species==38.0: return "epssr1"
-    if species==106.0: return "epsc"
-    if species==107.0: return "epsn-h"
-    if species==607.0: return "epsn"
-    if species==108.0: return "epso-h"
-    if species==20.1: return "epsca2"
-    if species==25.1: return "epsmn2"
-    return epscol(species)
-
-def make_errcol(species):
-    """
-    Converts species to a formatted error column name
-    """
-    if species==22.0: return "e_ti1"
-    if species==23.1: return "e_v2"
-    if species==26.1: return "e_fe2"
-    if species==24.1: return "e_cr2"
-    if species==38.0: return "e_sr1"
-    if species==106.0: return "e_c"
-    if species==607.0: return "e_n"
-    if species==108.0: return "e_o-h"
-    if species==20.1: return "e_ca2"
-    if species==25.1: return "e_mn2"
-    return errcol(species)
-
-def make_ulcol(species):
-    """
-    Converts species to a formatted upper limit column name
-    """
-    if species==22.0: return "ulti1"
-    if species==23.1: return "ulv2"
-    if species==26.1: return "ulfe2"
-    if species==24.1: return "ulcr2"
-    if species==38.0: return "ulsr1"
-    if species==106.0: return "ulc"
-    if species==607.0: return "uln"
-    if species==108.0: return "ulo-h"
-    if species==20.1: return "ulca2"
-    if species==25.1: return "ulmn2"
-    return ulcol(species)
 
 def format_elemstr(elem):
     """
@@ -884,36 +948,6 @@ def getcolion(col):
     for i in range(ion): ionstr += 'I'
     return ionstr
 
-def identify_prefix(col):
-    """
-    Identifies the prefix of a column name
-    """
-    for prefix in ['eps','e_','ul','XH','XFe']:
-        if prefix in col:
-            return prefix, col[len(prefix):]
-        if prefix=='XH':
-            matches = m_XH.findall(col)
-            if len(matches)==1: return prefix,matches[0]
-        if prefix=='XFe':
-            matches = m_XFe.findall(col)
-            if len(matches)==1: return prefix,matches[0]
-    raise ValueError("Invalid column:"+str(col))
-
-def get_default_ion(elem):
-    """
-    Returns the default ionization state for an element
-    """
-    default_to_1 = ['O','Na','Mg','Al','Si','Ca','V','Cr','Mn','Fe','Co','Ni']
-    default_to_2 = ['Sc','Sr','Y','Zr','Ba','La','Ce','Pr','Nd','Sm','Eu','Gd','Dy','Ti']
-    elem = getelem(elem)
-    if elem in default_to_1:
-        return 1
-    elif elem in default_to_2:
-        return 2
-    else:
-        warnings.warn("get_default_ion: {} not in defaults, returning 0".format(elem))
-        return 0
-
 def species_from_col(col):
     """
     Returns the numerical species from the input column name, using the default species.
@@ -930,25 +964,16 @@ def species_from_col(col):
         else: raise ValueError(f"Column {col} not recognized for species extraction")
     elem = col.lower()
 
-    if elem=="ti1": return 22.0  # Ti I
-    if elem=="v2": return 23.1  # V II
-    if elem=="fe2": return 26.1  # Fe II
-    if elem=="cr2": return 24.1  # Cr II
-    if elem=="sr1": return 38.0  # Sr I
-    if elem=="c": return 106.0  # C-H
-    if elem=="n-h": return 107.0  # N-H
-    if elem=="n": return 607.0  # C-N
-    if elem=="o-h": return 108.0  # O-H
-    if elem=="ca2": return 20.1  # Ca II
-    if elem=="mn2": return 25.1  # Mn II
-
-    default_to_1 = ['O','Na','Mg','Al','Si','K','Ca','V','Cr','Mn','Fe','Co','Ni','Cu','Zn','Pb']
-    default_to_2 = ['Sc','Ti','Sr','Y','Zr','Ba','La','Ce','Pr','Nd','Sm','Eu','Gd','Dy','Er']
+    if elem.title() in common_isotope_colname_to_species.keys():
+        return common_isotope_colname_to_species[elem.title()]
+    if elem.title() in common_molecule_colname_to_name.keys():
+        return common_molecule_name_to_species[common_molecule_colname_to_name[elem.title()]]
 
     if elem.isalpha():
-        if elem.title() in default_to_1:
+        default_state = get_default_ion(elem.title())
+        if default_state == 1:
             species = element_to_species(elem.title()) + 0.0
-        elif elem.title() in default_to_2:
+        elif default_state == 2:
             species = element_to_species(elem.title()) + 0.1
         else:
             # print(elem)
@@ -1006,9 +1031,6 @@ def jinabasecol_from_col(col):
     if elem=="ca2": return 'CaII'  # Ca II
     if elem=="mn2": return 'MnII'  # Mn II
 
-    default_to_1 = ['O','Na','Mg','Al','Si','K','Ca','V','Cr','Mn','Fe','Co','Ni','Cu','Zn','Pb']
-    default_to_2 = ['Sc','Ti','Sr','Y','Zr','Ba','La','Ce','Pr','Nd','Sm','Eu','Gd','Dy','Er']
-
     if elem.isalpha():
         return elem.title()  # Return the element name capitalized
     else:
@@ -1053,7 +1075,6 @@ def XH_from_XFe(XFe, FeH, precision=2):
     Converts [X/Fe] to [X/H]
     """
     return normal_round(XFe + FeH, precision=precision)
-
 
 ################################################################################
 # Utility functions operating on standardized DataFrame columns

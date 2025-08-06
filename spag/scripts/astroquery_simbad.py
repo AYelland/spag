@@ -34,7 +34,7 @@ coord_df = pd.read_csv(input_file)
 for idx, row in coord_df.iterrows():
 
     if args.identifier:
-        identifier = row.get('Simbad_Identifier', f'coord_{idx}').strip()
+        identifier = row.get('Name', f'coord_{idx}').strip()
         if 'RA_hms' in row and 'DEC_dms' in row:
             ra_hms = row['RA_hms']
             dec_dms = row['DEC_dms']
@@ -72,18 +72,22 @@ for idx, row in coord_df.iterrows():
         identifier = row.get('Name', f'coord_{idx}').strip()
         ra_hms = row['RA_hms']
         dec_dms = row['DEC_dms']
+        if 'JINA_ID' in row:
+            jinaid = row['JINA_ID']
         try:
             coord = SkyCoord(ra=ra_hms, dec=dec_dms, unit=(u.hourangle, u.deg))
             result = Simbad.query_region(coord, radius='5s')
             if result is not None:
                 df = result.to_pandas()
                 df['Found'] = True
+                df['JINA_ID'] = jinaid if 'jinaid' in locals() else None
                 df['Query_ID'] = identifier
                 df['RA_input'] = ra_hms
                 df['DEC_input'] = dec_dms
             else:
                 df = pd.DataFrame([{
                     'Found': False,
+                    'JINA_ID': jinaid if 'jinaid' in locals() else None,
                     'Query_ID': identifier,
                     'RA_input': ra_hms,
                     'DEC_input': dec_dms
@@ -91,6 +95,7 @@ for idx, row in coord_df.iterrows():
         except Exception as e:
             df = pd.DataFrame([{
                 'Found': False,
+                'JINA_ID': jinaid if 'jinaid' in locals() else None,
                 'Query_ID': identifier,
                 'RA_input': ra_hms,
                 'DEC_input': dec_dms,
@@ -101,7 +106,7 @@ for idx, row in coord_df.iterrows():
 # Combine results and reorder columns
 final_df = pd.concat(results_list, ignore_index=True)
 
-priority_cols = ['Found', 'Query_ID', 'RA_input', 'DEC_input']
+priority_cols = ['Found', 'JINA_ID', 'Query_ID', 'RA_input', 'DEC_input']
 for col in priority_cols:
     if col not in final_df.columns:
         final_df[col] = pd.NA
