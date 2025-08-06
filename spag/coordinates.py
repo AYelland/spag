@@ -56,23 +56,22 @@ def ra_hms_to_deg(ra_str, precision=None):
         raise TypeError("precision must be an int or None")
     return ra_deg
 
-def ra_deg_to_hms(ra_deg, precision=None):
+def ra_deg_to_hms(ra_deg, precision=2):
     """
     ra_deg: float
         Right ascension in degrees.
     precision: int (default=2)
         Number of decimal places to round to.
-    
+
     Converts right ascension in degrees to a string in the form 'hh:mm:ss.ss'.
     """
     ra_h = int(ra_deg / 15.0)
     ra_m = int((ra_deg - ra_h * 15.0) * 4.0)
-    if type(precision) == int:
-        ra_s = round((ra_deg - ra_h * 15.0 - ra_m / 4.0) * 240.0, precision)
-        output_str = "{:02d}:{:02d}:{:05.{}f}".format(ra_h, ra_m, ra_s, precision)
-    elif type(precision) == type(None):
-        ra_s = (ra_deg - ra_h * 15.0 - ra_m / 4.0) * 240.0
-        output_str = "{:02d}:{:02d}:{:05}".format(ra_h, ra_m, ra_s)
+    ra_s = (ra_deg - ra_h * 15.0 - ra_m / 4.0) * 240.0
+    if isinstance(precision, int):
+        output_str = f"{ra_h:02d}:{ra_m:02d}:{ra_s:06.{precision}f}"
+    elif precision is None:
+        output_str = f"{ra_h:02d}:{ra_m:02d}:{int(ra_s):02d}"
     else:
         raise TypeError("precision must be an int or None")
     return output_str
@@ -102,13 +101,13 @@ def dec_dms_to_deg(dec_str, precision=None):
         raise TypeError("precision must be an int or None")
     return dec_deg
 
-def dec_deg_to_dms(dec_deg, precision=None):
+def dec_deg_to_dms(dec_deg, precision=2):
     """
     dec_deg: float
         Declination in degrees.
     precision: int (default=2)
         Number of decimal places to round to.
-    
+
     Converts declination in degrees to a string in the form '+dd:mm:ss.ss'
     """
     if dec_deg < 0:
@@ -118,12 +117,11 @@ def dec_deg_to_dms(dec_deg, precision=None):
         sign = '+'
     dec_d = int(dec_deg)
     dec_m = int((dec_deg - dec_d) * 60.0)
-    if type(precision) == int:
-        dec_s = round((dec_deg - dec_d - dec_m / 60.0) * 3600.0, precision)
-        output_str = "{}{:02d}:{:02d}:{:05.{}f}".format(sign, dec_d, dec_m, dec_s, precision)
-    elif type(precision) == type(None):
-        dec_s = (dec_deg - dec_d - dec_m / 60.0) * 3600.0
-        output_str = "{}{:02d}:{:02d}:{:05}".format(sign, dec_d, dec_m, dec_s)
+    dec_s = (dec_deg - dec_d - dec_m / 60.0) * 3600.0
+    if isinstance(precision, int):
+        output_str = f"{sign}{dec_d:02d}:{dec_m:02d}:{dec_s:06.{precision}f}"
+    elif precision is None:
+        output_str = f"{sign}{dec_d:02d}:{dec_m:02d}:{int(dec_s):02d}"
     else:
         raise TypeError("precision must be an int or None")
     return output_str

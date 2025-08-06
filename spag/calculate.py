@@ -29,15 +29,46 @@ plots_dir = script_dir+"plots/"
 linelist_dir = script_dir+"linelists/"
 
 ################################################################################
+## Calculating the Carbon Corrections=, using Placco et al. 2014 website
+# https://vplacco.pythonanywhere.com/
+
+import requests
+from bs4 import BeautifulSoup
+
+def calc_carbon_correction(logg, feh, cfe):
+    payload = {
+        'lgg': str(logg),
+        'feh': str(feh),
+        'cfe': str(cfe)
+    }
+
+    URL = 'https://vplacco.pythonanywhere.com'  # example: 'http://vmplacco.pythonanywhere.com'
+    session = requests.Session()
+    response = session.post(URL, data=payload)
+    soup = BeautifulSoup(response.text, 'html.parser')
+    
+    correction_tag = soup.find('pre', style=lambda s: s and 'font-size: 30px' in s)
+    if correction_tag:
+        correction = str(correction_tag.text.strip())
+        correction = float(correction.split(' ')[4])
+    else:
+        correction = None
+    return correction
+
+
+################################################################################
 ## Calculating the CEMP fraction
 
 def calc_cemp_fraction(df, feh_limit=-2.0, cfe_limit=0.7):
     """
     Calculate the carbon fraction for a given DataFrame and [Fe/H] limit.
+
+    Returns: (cemp_fraction, n_CEMP, n_tot)
     """
     df_filtered = df[df['[Fe/H]'] <= feh_limit]
     n_CEMP = len(df_filtered[df_filtered['[C/Fe]f'] >= cfe_limit])
-    n_tot = len(df_filtered)
+    n_tot = len(df_filtered[df_filtered['[C/Fe]f'].notna()]) # real data values
+    n_tot += len(df_filtered[(df_filtered['ul[C/Fe]f'].notna()) & (df_filtered['ul[C/Fe]f'] <= 0.8)]) # upper limits
     # print(n_CEMP, n_tot, feh_limit, cfe_limit)
 
     if n_tot == 0 and n_CEMP != 0:
@@ -55,4 +86,102 @@ def calc_cemp_fraction(df, feh_limit=-2.0, cfe_limit=0.7):
     else:
         cemp_fraction = -1
         
-    return cemp_fraction
+    return cemp_fraction, n_CEMP, n_tot
+
+################################################################################
+## Calculating Dtrans 
+
+def calc_dtrans(ch):
+    """
+    Calculate Dtrans values for the given [C/H] value.
+    """
+    
+    assert isinstance(ch, (float, int)), "Input ch must be a float or int"
+
+    # [C/O] values, representing the delta (dex) between C and O abundances
+    co_lower = 0.0 
+    co_upper = -0.6
+
+    oh_l = ch - co_lower
+    oh_u = ch - co_upper
+
+    Dtrans_l = np.log10(10**ch + (0.9 * 10**oh_l))
+    Dtrans_u = np.log10(10**ch + (0.9 * 10**oh_u))
+
+    return (Dtrans_l, Dtrans_u)
+
+def calc_dtrans_line(feh):
+    """
+    Calculate Dtrans values for the solar abundances, scaled by metallicity 
+    from a given [Fe/H] value (or array of values).
+    This function creates the diagonal line in the Dtrans vs [Fe/H] plot.
+    """
+    ch = 0.0 # [C/H] = 0.0, the solar ratio for carbon
+
+    # [C/O] values, representing the delta (dex) between C and O abundances
+    co_lower = 0.0 
+    co_upper = -0.6
+
+    oh_l = ch - co_lower # [C/H] = 0.0
+    oh_u = ch - co_upper # [C/H] = 0.6
+
+    Dtrans_l = np.log10(10**(ch+feh) + (0.9 * 10**(oh_l+feh)))
+    Dtrans_u = np.log10(10**(ch+feh) + (0.9 * 10**(oh_u+feh)))
+
+    return Dtrans_l , Dtrans_u
+    
+def calc_dtrans_columns(df):
+    """
+    Calculate Dtrans values for the given dataframe. The dataframe must have
+    either a [C/H]f or ul[C/H]f column. 
+    
+    The function will add four new columns to the dataframe:
+        Dtrans_l: lower [O/H] value used when calculating Dtrans (using co_lower)
+        Dtrans_llim: lower [O/H] value used when calculating Dtrans (using co_lower) for upper limits
+        Dtrans_u: upper [O/H] value used when calculating Dtrans (using co_upper)
+        Dtrans_ulim: upper [O/H] value used when calculating Dtrans (using co_upper) for upper limits
+    """
+    
+    # [C/O] values, representing the delta (dex) between C and O abundances
+    co_lower = 0.0 
+    co_upper = -0.6
+
+    def dtrans(ch, oh):
+        return np.log10(10**ch + (0.9 * 10**oh))
+    
+    for i, row in df.iterrows():
+        if not pd.isna(row['[C/H]f']):
+            ch = float(row['[C/H]f'])
+
+            oh_l = ch - co_lower
+            Dtrans_l = dtrans(ch, oh_l)
+            df.loc[i, 'Dtrans_l'] = Dtrans_l
+            df.loc[i, 'Dtrans_llim'] = np.nan
+
+            oh_u = ch - co_upper
+            Dtrans_u = dtrans(ch, oh_u)
+            df.loc[i, 'Dtrans_u'] = Dtrans_u
+            df.loc[i, 'Dtrans_ulim'] = np.nan
+
+        elif not pd.isna(row['ul[C/H]f']):
+            ch = float(row['ul[C/H]f'])
+
+            oh_l = ch - co_lower
+            Dtrans_l = dtrans(ch, oh_l)
+            df.loc[i, 'Dtrans_l'] = np.nan
+            df.loc[i, 'Dtrans_llim'] = Dtrans_l
+            
+            oh_u = ch - co_upper
+            Dtrans_u = dtrans(ch, oh_u)
+            df.loc[i, 'Dtrans_u'] = np.nan
+            df.loc[i, 'Dtrans_ulim'] = Dtrans_u
+
+        else:
+            print(f"Row {i} does not have [C/H]f or ul[C/H]f: {row['Name']}")
+
+    ## Add the columns to the dataframe, if they do not exist already
+    for col in ['Dtrans_u', 'Dtrans_ulim', 'Dtrans_l', 'Dtrans_llim']:
+        if col not in df.columns:
+            df[col] = np.nan
+
+    return df

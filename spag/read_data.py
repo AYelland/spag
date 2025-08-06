@@ -439,11 +439,22 @@ def get_solar_abund_dict(version='asplund2009'):
 def get_solar(elems, version='asplund2009'):
     """
     Returns the solar abundance of the elements in the list 'elems'.
+    Keeps original input names in the index.
     """
-    
+
     elems = np.ravel(elems)
-    good_elems = [getelem(elem) for elem in elems]
     solar_abund = get_solar_abund_dict(version=version)
+
+    def get_clean_element(elem):
+        try:
+            _, elem_ = identify_prefix(elem)
+        except ValueError:
+            elem_ = elem
+        # Strip ionization
+        match = re.match(r'^([A-Z][a-z]?)', elem_.title())
+        return match.group(1) if match else elem_.title()
+
+    good_elems = [get_clean_element(str(e)) for e in elems]
 
     return pd.Series([solar_abund[elem] for elem in good_elems], index=elems, name=version)
 
@@ -517,42 +528,36 @@ def load_jinabase(sci_key=None, io=1, load_eps=True, load_ul=True, load_XH=True,
     uls  = pd.read_csv(data_dir+"abundance_tables/JINAbase-yelland/JINAbase-yelland25-ulimits.csv", header=0, na_values=["*"]) #index_col=0
     Nstars = len(data)
 
-    ## Get the list of elements & create the corresponding column names for the element abundance columns
-    ## NOTE: The ionization state columns are dropped and not used in this analysis. Hence, the -7 
-    ##       in the column slicing. Every application of elems, ul_elems, and epscolnames now 
-    ##       excludes the ionization state columns.
-    elems = data.columns[32:-7]
-    ul_elems = list(map(lambda x: "ul"+x, elems))
-    epscolnames = list(map(lambda x: "eps"+x.lower(), elems))
-    print("WARNING: Dropped the CaII, TiII, VII, CrII, MnII, FeII columns.")
-
-    ## Rename the data element abundance columns with the prefix "eps" (e.g. "Fe" -> "epsfe")
-    data.rename(columns=dict(zip(elems, epscolnames)), inplace=True)
-
-    ## Separate the auxiliary columns (JINA_ID, I/O, etc.) from the element abundance columns (epsX) in 'data' and 'uls'
-    auxdata_cols = data.columns[0:32].append(pd.Index([data.columns[-1]]))
+    ## Gather groups of column names
+    abund_cols = data.columns[data.columns.get_loc('Li I'):-1]
+    auxdata_cols = [col for col in data.columns if col not in abund_cols]
+    epscols = [epscol(ion) for ion in abund_cols]
+    ulcols = [ulcol(ion) for ion in abund_cols]
+    
+    ## Separate the auxiliary columns from the abundance columns (also rename for epsX and ulX columns)
     auxdata = data[auxdata_cols]
-    data = data[epscolnames]
+    data = data[abund_cols]
+    data.rename(columns=dict(zip(abund_cols, epscols)), inplace=True)
 
+    ## Rename the abundance columns in 'uls' DataFrame
     auxuls_cols = uls.columns[0:5]
     auxuls = uls[auxuls_cols]
-    uls = uls[ul_elems] # consist of 1s (upper limits) and NaNs (non-upper limits)
+    uls = uls[ulcols] # consist of 1s (upper limits) and NaNs (non-upper limits)
 
     ## Use the ulimits (uls) DataFrame to mask the data DataFrame
     uls_mask = pd.notnull(uls).to_numpy()  # Convert uls DataFrame to boolean array (True if not NaN)
-    uls_table = data.where(uls_mask)  # Extract only the upper limit values (keep NaN for others)
-    for col in uls_table.columns:
-        uls_table.rename(columns={col: "ul"+col[3:]}, inplace=True) #same as ulcolnames (e.g. "ulFe" -> "ulfe")
-    for col in uls_table.columns:
-        uls_table[col] = uls_table[col].str.replace("<", "").astype(float)
+    uls_values = data.where(uls_mask)  # Extract only the upper limit values from 'data' (keep NaN for others)
+    for col in uls_values.columns:
+        uls_values.rename(columns={col: "ul"+col[3:]}, inplace=True) # from epsX to ulX
+    uls_values = uls_values.applymap(lambda x: float(x.strip("<")) if isinstance(x, str) and x.strip().startswith("<") else np.nan)
 
     data_matrix = data.to_numpy()  # Convert data DataFrame to NumPy array
     data_matrix[uls_mask] = np.nan # Set values in `data_matrix` to NaN wherever `uls_mask` is True
     data = pd.DataFrame(data_matrix, columns=data.columns, index=data.index) # Convert the modified NumPy array back to a DataFrame
 
-    ## Concatenate the upper limit values to the 'data' DataFrame
+    ## Concatenate the 'uls_values' Dataframe to the 'data' DataFrame
     if load_ul:
-        data = pd.concat([data, uls_table], axis=1) # Concatenate the upper limit values to the data DataFrame
+        data = pd.concat([data, uls_values], axis=1) # Concatenate the upper limit values to the data DataFrame
 
     ## Convert the element abundance and add the [X/H] and [X/Fe] columns
     if load_XH:
@@ -570,8 +575,8 @@ def load_jinabase(sci_key=None, io=1, load_eps=True, load_ul=True, load_XH=True,
     else:
         data = pd.concat([auxdata[['Name','Ref','I/O','Ncap_key','C_key','MP_key','alpha_key'], data]], axis=1)
 
-    ## Remove duplicate entries by using the 'I/O' column (1=high, 2=low)
-    ## (dupicates entries originate from two papers referencing the same source)
+    ## Remove duplicate entries by using the 'I/O' column (1=keep, 0=remove)
+    ## (duplicate entries originate from two papers referencing the same target)
     if io==1 or io==0:
         pmask = data['I/O'] == io
         data = data[pmask]
@@ -586,21 +591,24 @@ def load_jinabase(sci_key=None, io=1, load_eps=True, load_ul=True, load_XH=True,
                 sci_mask = data[key_col] == sci_key
                 break
         if sci_mask is None:
-            raise ValueError(f"The provided sci_key '{sci_key}' is not valid. Choose from ('_MP', 'R1', 'R2', 'S', 'RS', 'I', 'CE', 'NO', 'alpha').")
+            raise ValueError(f"The provided sci_key '{sci_key}' is not valid. Choose from ('MP', 'R1', 'R2', 'S', 'RS', 'I', 'CE', 'NO', 'alpha').")
         data = data[sci_mask]
         uls = uls[sci_mask]
 
     ## Finalize the DataFrame by dropping columns in the auxiliary columns
     if not load_aux:
-        data.drop({'I/O','Ncap_key','C_key','MP_key','alpha_key'}, axis=1, inplace=True)
+        data.drop({'Ncap_key','C_key','MP_key','alpha_key'}, axis=1, inplace=True)
 
     ## Drop the log(eps) columns if not needed
     if not load_eps:
-        data.drop(epscolnames, axis=1, inplace=True)
+        data.drop(epscols, axis=1, inplace=True)
 
     ## Set the "Name" column as the index
     if name_as_index:
         data.index = data["Name"]
+
+    ## Set I/O as integer type
+    data['I/O'] = data['I/O'].astype(int)
 
     ## Save the processed data to a CSV file
     data.to_csv(data_dir+"abundance_tables/JINAbase-yelland/JINAbase-yelland25-processed.csv", index=False)
@@ -616,7 +624,6 @@ def load_jinabase(sci_key=None, io=1, load_eps=True, load_ul=True, load_XH=True,
         pass  # use full dataset
     else:
         raise ValueError("Invalid version. Choose from ('abohalima', 'ji', 'mardini', 'yelland').")
-
     
     ## Filter by metallicity
     if feh_ulim is not None:
@@ -648,15 +655,17 @@ def load_mw_halo(**kwargs):
     halo = halo[halo["Loc"] != "UF"]
     return halo
 
-def load_accreted_dsph(io=None, **kwargs):
+def load_accreted_dwarfs(io=None, **kwargs):
     """
     Loads the fully accreted dwarf spheroidal galaxies (dSph), including
     the Atari Disk and the Gaia-Sausage/Enceladus.
     """
+    # jinabase_df = load_jinabase(io=io, **kwargs)
 
     df_list = [
-        load_atari(),
-        load_gse()
+        load_atari(), #jinabase=jinabase_df),
+        load_gse(), #jinabase=jinabase_df)
+        load_sass_stars()
     ]
 
     ## Combine all dataframes into a single dataframe
@@ -669,12 +678,15 @@ def load_accreted_dsph(io=None, **kwargs):
 
     return ads_df
 
-def load_classical_dsph(io=None, **kwargs):
+def load_classical_dwarfs(io=1, **kwargs):
     """
     Loads all of the classical dwarf galaxy functions into a single dataframe.
     """
 
-    jinabase_df = load_jinabase()
+    if io == 1 or io == 0 or io is None:
+        jinabase_df = load_jinabase(io=io, **kwargs)
+    else:
+        raise ValueError("Invalid value for io. It should be 0, 1, or None. (Default is None)")
 
     df_list = [
         load_carina(jinabase=jinabase_df),
@@ -802,6 +814,52 @@ def load_ufds(io=None, **kwargs):
     newcols_df = pd.DataFrame(newcols, index=ufd_df.index)
     ufd_df = pd.concat([ufd_df, newcols_df], axis=1)
 
+    ## Remove duplicate stars in the UFD data
+    dups = [
+        ('Feltzing+2009' , 'BooI-007'),
+        ('Feltzing+2009' , 'BooI-033'),
+        ('Feltzing+2009' , 'BooI-094'),
+        ('Feltzing+2009' , 'BooI-117'),
+        ('Feltzing+2009' , 'BooI-121'),
+        ('Feltzing+2009' , 'BooI-127'),
+        ('Feltzing+2009' , 'BooI-911'),
+        ('Francois+2016' , 'LeoIV-S1'),
+        ('Francois+2016' , 'BooII-7'),
+        ('Francois+2016' , 'BooII-15'),
+        ('Gilmore+2013'  , 'BooI-127'),
+        ('Ishigaki+2014b', 'BooI-094'),
+        ('Ishigaki+2014b', 'BooI-117'),
+        ('Ishigaki+2014b', 'BooI-127'),
+        ('Ji+2016b'      , 'DES J033523-540407'),
+        ('Ji+2016b'      , 'DES J033607-540235'),
+        ('Ji+2016b'      , 'DES J033531-540148'),
+        ('Ji+2019'      , 'TriII-40'),
+        ('Koch+2013b'    , '42795'),
+        ('Koch+2013b'    , '42241'),
+        ('Koch+2013b'    , '42149'),
+        ('Koch+2013b'    , '41460'),
+        ('Lai+2011'      , 'BooI-01'),
+        ('Lai+2011'      , 'BooI-24'),
+        ('Lai+2011'      , 'BooI-21'),
+        ('Norris+2010c'  , 'BooI-911'),
+        ('Norris+2010c'  , 'Seg1-71'),
+        ('Norris+2010c'  , 'Seg1-31'),
+        ('Norris+2010c'  , 'BooI-980'),
+        ('Norris+2010c'  , 'Seg1-7'),
+        ('Roederer+2016b', 'Star 2'),
+        ('Roederer+2016b', 'Star 1'),
+
+        # temporary, switch to the 'Norris+2010c' reference in the future
+        ('Ishigaki+2014b', 'BooI-121'),
+        ('Ishigaki+2014b', 'BooI-009'),
+        # ('Norris+2010c'  , 'BooI-121'), #used for the carbon abundances
+        # ('Norris+2010c'  , 'BooI-9'), #used for the carbon abundances
+    ]
+
+    for ref, name in dups:
+        ufd_df.loc[(ufd_df['Name'] == name) & (ufd_df['Reference'] == ref), 'I/O'] = 0
+    # ufd_df = ufd_df[ufd_df['I/O'] == 1]
+
     return ufd_df
 
 def load_stellar_streams(**kwargs):
@@ -883,10 +941,14 @@ def load_stellar_streams(**kwargs):
     newcols_df = pd.DataFrame(newcols, index=ss_df.index)
     ss_df = pd.concat([ss_df, newcols_df], axis=1)
 
-    ## Manually removing duplicate stars in the collective stream data
-    ss_df.loc[(ss_df['Reference'] == 'Roederer+2010a') & (ss_df['Name'] == 'HD 128279'), 'I/O'] = 0
-    ss_df.loc[(ss_df['Reference'] == 'Roederer+2010a') & (ss_df['Name'] == 'CD-36 1052'), 'I/O'] = 0
-    ss_df = ss_df[ss_df['I/O'] == 1]
+    ## Remove duplicate stars in the stellar streams data
+    dups = [
+        ('Roederer+2010a' , 'HD 128279'),
+        ('Roederer+2010a' , 'CD-36 1052'),
+    ]
+    for ref, name in dups:
+        ss_df.loc[(ss_df['Name'] == name) & (ss_df['Reference'] == ref), 'I/O'] = 0
+    # ss_df = ss_df[ss_df['I/O'] == 1]
 
     return ss_df
 
@@ -934,15 +996,16 @@ def load_carina(jinabase=None, **kwargs):
     lemasle2012_df = jinabase[jinabase['Reference'] == 'Lemasle+2012'].copy() #load_lemasle2012()
     lucchesi2024_df = load_lucchesi2024()
     norris2017b_df = jinabase[jinabase['Reference'] == 'Norris+2017b'].copy() #load_norris2017b()
-    reichert2020_df = jinabase[jinabase['Reference'] == 'Reichert+2020'].copy()
+    # reichert2020_df = jinabase[jinabase['Reference'] == 'Reichert+2020'] # complication of other references, somewhat unreliable.copy()
     shetrone2003_df = jinabase[jinabase['Reference'] == 'Shetrone+2003'].copy() #load_shetrone2003()
     # susmitha2017_df = load_susmitha2017() ## not created yet
     venn2012_df = jinabase[jinabase['Reference'] == 'Venn+2012'].copy() #load_venn2012()
     
     ## Add filters for specific references
     lucchesi2024_df = lucchesi2024_df[lucchesi2024_df['System'] == 'Carina']
-    reichert2020_df = reichert2020_df[reichert2020_df['System'] == 'Carina']
+    # reichert2020_df = reichert2020_df[reichert2020_df['System'] == 'Carina']
     shetrone2003_df = shetrone2003_df[shetrone2003_df['System'] == 'Carina']
+    venn2012_df = venn2012_df[venn2012_df['System'] == 'Carina']
     
     ## Combine the DataFrames
     carina_df = pd.concat([
@@ -975,12 +1038,11 @@ def load_carina(jinabase=None, **kwargs):
     
     ## Removing Duplicate stars 
     dups = [
-        ('Venn+2012', 'Car-7002'),
-        ('Lemasle+2012' , 'MKV0925'),
+        ('Venn+2012', 'Car-7002'), # duplicate with a LUC24 star
     ]
     for ref, name in dups:
         carina_df.loc[(carina_df['Name'] == name) & (carina_df['Reference'] == ref), 'I/O'] = 0
-    carina_df = carina_df[carina_df['I/O'] == 1]
+    # carina_df = carina_df[carina_df['I/O'] == 1]
 
     return carina_df
 
@@ -1001,20 +1063,20 @@ def load_draco(jinabase=None, **kwargs):
     ## Load References
     cohen2009_df = jinabase[jinabase['Reference'] == 'Cohen+2009']
     fulbright2004_df = jinabase[jinabase['Reference'] == 'Fulbright+2004']
-    reichert2020_df = jinabase[jinabase['Reference'] == 'Reichert+2020']
+    # reichert2020_df = jinabase[jinabase['Reference'] == 'Reichert+2020'] # complication of other references, somewhat unreliable
     shetrone2001_df = jinabase[jinabase['Reference'] == 'Shetrone+2001']
     tsujimoto2015_df = jinabase[jinabase['Reference'] == 'Tsujimoto+2015']
     tsujimoto2017_df = jinabase[jinabase['Reference'] == 'Tsujimoto+2017']
 
     ## Add filters for specific references
-    reichert2020_df = reichert2020_df[reichert2020_df['System'] == 'Draco']
+    # reichert2020_df = reichert2020_df[reichert2020_df['System'] == 'Draco']
     shetrone2001_df = shetrone2001_df[shetrone2001_df['System'] == 'Draco']
 
     ## Combine the DataFrames
     draco_df = pd.concat([
             cohen2009_df,
             fulbright2004_df,
-            reichert2020_df,
+            # reichert2020_df,
             shetrone2001_df,
             tsujimoto2015_df,
             tsujimoto2017_df
@@ -1038,6 +1100,12 @@ def load_draco(jinabase=None, **kwargs):
     auxcols   = [col for col in draco_df.columns if col not in epscols + XHcols + XFecols + ulXHcols + ulXFecols + ulcols + eXHcols + eXFecols + ecols]
     draco_df = draco_df[auxcols + epscols + ulcols + XHcols + XFecols + ulXHcols + ulXFecols  + ecols + eXHcols + eXFecols]
 
+    ## Removing Duplicate stars 
+    dups = []
+    for ref, name in dups:
+        draco_df.loc[(draco_df['Name'] == name) & (draco_df['Reference'] == ref), 'I/O'] = 0
+    # draco_df = draco_df[draco_df['I/O'] == 1]
+
     return draco_df
 
 def load_fornax(jinabase=None, **kwargs):
@@ -1059,13 +1127,13 @@ def load_fornax(jinabase=None, **kwargs):
     letarte2010_df = load_letarte2010()
     lemasle2014_df = load_lemasle2014()
     lucchesi2024_df = load_lucchesi2024()
-    reichert2020_df = jinabase[jinabase['Reference'] == 'Reichert+2020'].copy()
+    # reichert2020_df = jinabase[jinabase['Reference'] == 'Reichert+2020'] # complication of other references, somewhat unreliable.copy()
     shetrone2003_df = jinabase[jinabase['Reference'] == 'Shetrone+2003'].copy()
     tafelmeyer2010_df = jinabase[jinabase['Reference'] == 'Tafelmeyer+2010'].copy()
     
     ## Add filters for specific references
     lucchesi2024_df = lucchesi2024_df[lucchesi2024_df['System'] == 'Fornax']
-    reichert2020_df = reichert2020_df[reichert2020_df['System'] == 'Fornax']
+    # reichert2020_df = reichert2020_df[reichert2020_df['System'] == 'Fornax']
     shetrone2003_df = shetrone2003_df[shetrone2003_df['System'] == 'Fornax']
     tafelmeyer2010_df = tafelmeyer2010_df[tafelmeyer2010_df['System'] == 'Fornax']
     
@@ -1075,7 +1143,7 @@ def load_fornax(jinabase=None, **kwargs):
             letarte2010_df,
             lemasle2014_df,
             lucchesi2024_df,
-            reichert2020_df,
+            # reichert2020_df,
             shetrone2003_df,
             tafelmeyer2010_df, 
         ], ignore_index=True)
@@ -1096,6 +1164,16 @@ def load_fornax(jinabase=None, **kwargs):
     ecols     = [col for col in fornax_df.columns if col.startswith('e_') and col not in eXHcols and col not in eXFecols]
     auxcols   = [col for col in fornax_df.columns if col not in epscols + XHcols + XFecols + ulXHcols + ulXFecols + ulcols + eXHcols + eXFecols + ecols]
     fornax_df = fornax_df[auxcols + epscols + ulcols + XHcols + XFecols + ulXHcols + ulXFecols  + ecols + eXHcols + eXFecols]
+
+    ## Removing Duplicate stars 
+    dups = [
+        ('Letarte+2010', 'BL239'),
+        ('Letarte+2010', 'BL266'),
+        ('Letarte+2010', 'BL278'),
+    ]
+    for ref, name in dups:
+        fornax_df.loc[(fornax_df['Name'] == name) & (fornax_df['Reference'] == ref), 'I/O'] = 0
+    # fornax_df = fornax_df[fornax_df['I/O'] == 1]
 
     return fornax_df
 
@@ -1148,17 +1226,17 @@ def load_leoI(jinabase=None, **kwargs):
     # print(jinabase_umi['Reference'].unique())
 
     ## Load References
-    reichert2020_df = jinabase[jinabase['Reference'] == 'Reichert+2020']
+    # reichert2020_df = jinabase[jinabase['Reference'] == 'Reichert+2020'] # complication of other references, somewhat unreliable
     shetrone2003_df = jinabase[jinabase['Reference'] == 'Shetrone+2003']
     # theler2020_df = load_theler() ## not created yet
 
     ## Add filters for specific references
-    reichert2020_df = reichert2020_df[reichert2020_df['System'] == 'Leo I']
+    # reichert2020_df = reichert2020_df[reichert2020_df['System'] == 'Leo I']
     shetrone2003_df = shetrone2003_df[shetrone2003_df['System'] == 'Leo I']
 
     ## Combine the DataFrames
     leoI_df = pd.concat([
-            reichert2020_df,
+            # reichert2020_df,
             shetrone2003_df
         ], ignore_index=True)
     # print(ursaminor_df['Reference'].unique())
@@ -1240,14 +1318,14 @@ def load_sagittarius(jinabase=None, include_medres=True, include_apogee=False, *
     apogee_df = load_apogee_sgr() if include_apogee else pd.DataFrame()
     hansenc2018_df = jinabase[jinabase['Reference'] == 'Hansen_C+2018']
     ou2025_df = load_ou2025()
-    reichert2020_df = jinabase[jinabase['Reference'] == 'Reichert+2020']
+    # reichert2020_df = jinabase[jinabase['Reference'] == 'Reichert+2020'] # complication of other references, somewhat unreliable
     sbordone2007_df = load_sbordone2007()
     sbordone2020_df = jinabase[jinabase['Reference'] == 'Sbordone+2020']
     sestito2024_df = load_sestito2024()
     sestito2024b_df = load_sestito2024b() if include_medres else pd.DataFrame()
 
     ## Add filters for specific references
-    reichert2020_df = reichert2020_df[reichert2020_df['System'] == 'Sagittarius']
+    # reichert2020_df = reichert2020_df[reichert2020_df['System'] == 'Sagittarius']
     sbordone2007_df = sbordone2007_df[sbordone2007_df['System'] == 'Sagittarius']
 
     ## Combine the DataFrames
@@ -1255,7 +1333,7 @@ def load_sagittarius(jinabase=None, include_medres=True, include_apogee=False, *
             apogee_df,
             hansenc2018_df,
             ou2025_df,
-            reichert2020_df,
+            # reichert2020_df,
             sbordone2007_df,
             sbordone2020_df,
             sestito2024_df,
@@ -1278,6 +1356,30 @@ def load_sagittarius(jinabase=None, include_medres=True, include_apogee=False, *
     ecols     = [col for col in sagittarius_df.columns if col.startswith('e_') and col not in eXHcols and col not in eXFecols]
     auxcols   = [col for col in sagittarius_df.columns if col not in epscols + XHcols + XFecols + ulXHcols + ulXFecols + ulcols + eXHcols + eXFecols + ecols]
     sagittarius_df = sagittarius_df[auxcols + epscols + ulcols + XHcols + XFecols + ulXHcols + ulXFecols  + ecols + eXHcols + eXFecols]
+
+    ## Removing Duplicate stars 
+    dups = [
+        ('Sestito+2024' , 'Pristine_185053.71-313317.7'),
+        ('Sestito+2024' , 'Pristine_185210.30-315413.2'),
+        ('Sestito+2024' , 'Pristine_185704.51-301021.6'),
+        ('Sestito+2024' , 'Pristine_190612.10-315504.4'),
+        ('Sestito+2024' , 'Pristine_184431.86-293145.0'),
+        ('Sestito+2024' , 'Pristine_184853.44-302718.4'),
+        ('Sestito+2024' , 'Pristine_184957.04-291425.1'),
+        ('Sestito+2024' , 'Pristine_185129.00-300942.8'),
+        ('Sestito+2024' , 'Pristine_185347.87-314747.6'),
+        ('Sestito+2024' , 'Pristine_185855.01-301522.2'),
+        ('Sestito+2024b', 'Pristine_185210.30-315413.2'),
+        ('Sestito+2024b', 'Pristine_185248.45-293223.4'),
+        ('Sestito+2024b', 'Pristine_185704.51-301021.6'),
+        ('Sestito+2024b', 'Pristine_190612.10-315504.4'),
+        ('Sestito+2024b', 'Pristine_185538.63-302704.3'),
+        ('Sestito+2024b', 'Pristine_184759.63-315322.5'),
+        ('Sestito+2024b', 'Pristine_184843.24-314626.8'),
+    ]
+    for ref, name in dups:
+        sagittarius_df.loc[(sagittarius_df['Name'] == name) & (sagittarius_df['Reference'] == ref), 'I/O'] = 0
+    # sagittarius_df = sagittarius_df[sagittarius_df['I/O'] == 1]
 
     return sagittarius_df
 
@@ -1302,8 +1404,8 @@ def load_sculptor(jinabase=None, **kwargs):
     geisler2005_df = jinabase[jinabase['Reference'] == 'Geisler+2005']
     hill2019_df = jinabase[jinabase['Reference'] == 'Hill+2019']
     jablonka2015_df = jinabase[jinabase['Reference'] == 'Jablonka+2015']
-    kirby2012_df = jinabase[jinabase['Reference'] == 'Kirby+2012']
-    reichert2020_df = jinabase[jinabase['Reference'] == 'Reichert+2020']
+    kirby2012c_df = jinabase[jinabase['Reference'] == 'Kirby+2012c']
+    # reichert2020_df = jinabase[jinabase['Reference'] == 'Reichert+2020'] # complication of other references, somewhat unreliable
     # sestito2023_df = load_sestito2023() ## not created yet
     shetrone2003_df = jinabase[jinabase['Reference'] == 'Shetrone+2003']
     simon2015_df = jinabase[jinabase['Reference'] == 'Simon+2015']
@@ -1314,7 +1416,8 @@ def load_sculptor(jinabase=None, **kwargs):
     tafelmayer2010_df = jinabase[jinabase['Reference'] == 'Tafelmeyer+2010']
 
     ## Add filters for specific references
-    reichert2020_df = reichert2020_df[reichert2020_df['System'] == 'Sculptor']
+    kirby2012c_df = kirby2012c_df[kirby2012c_df['System'] == 'Sculptor']
+    # reichert2020_df = reichert2020_df[reichert2020_df['System'] == 'Sculptor']
     shetrone2003_df = shetrone2003_df[shetrone2003_df['System'] == 'Sculptor']
     tafelmayer2010_df = tafelmayer2010_df[tafelmayer2010_df['System'] == 'Sculptor']
 
@@ -1325,8 +1428,8 @@ def load_sculptor(jinabase=None, **kwargs):
             geisler2005_df,
             hill2019_df,
             jablonka2015_df,
-            kirby2012_df,
-            reichert2020_df,
+            kirby2012c_df,
+            # reichert2020_df,
             # sestito2023_df,
             shetrone2003_df,
             simon2015_df,
@@ -1354,6 +1457,35 @@ def load_sculptor(jinabase=None, **kwargs):
     auxcols   = [col for col in sculptor_df.columns if col not in epscols + XHcols + XFecols + ulXHcols + ulXFecols + ulcols + eXHcols + eXFecols + ecols]
     sculptor_df = sculptor_df[auxcols + epscols + ulcols + XHcols + XFecols + ulXHcols + ulXFecols  + ecols + eXHcols + eXFecols]
 
+    ## Removing Duplicate stars 
+    dups = [
+        ('Chiti+2018a', '10_7_923'), 
+        ('Hill+2019', 'Scl_ET0237'),
+        ('Hill+2019', 'Scl_ET0232'),
+        ('Hill+2019', 'Scl_ET0236'),
+        ('Simon+2015', 'Scl6_6_402'),
+        ('Chiti+2018a', '6_6_402'),
+        ('Hill+2019', 'Scl_ET0051'),
+        ('Chiti+2018a', '10_8_1072'),
+        ('Chiti+2018a', '10_8_2818'),
+        ('Hill+2019', 'Scl_ET0369'),
+        ('Chiti+2018a', '10_8_320'),
+        ('Chiti+2018a', '11_1_4296'),
+        
+        ## temporary, change in the future if not doing carbon analysis
+        ('Hill+2019', 'Scl_ET0322'),
+        ('Hill+2019', 'Scl_ET0238'),
+        ('Hill+2019', 'Scl_ET0320'),
+        ('Hill+2019', 'Scl_ET0239'),
+        # ('Chiti+2018a', '10_8_3315'),
+        # ('Chiti+2018a', '11_1_2583'),
+        # ('Chiti+2018a', '11_1_3738'),
+        # ('Chiti+2018a', '11_1_4824'),
+    ]
+    for ref, name in dups:
+        sculptor_df.loc[(sculptor_df['Name'] == name) & (sculptor_df['Reference'] == ref), 'I/O'] = 0
+    # sculptor_df = sculptor_df[sculptor_df['I/O'] == 1]
+
     return sculptor_df
 
 def load_sextans(jinabase=None, **kwargs):
@@ -1372,20 +1504,20 @@ def load_sextans(jinabase=None, **kwargs):
 
     ## Load References
     aoki2009_df = jinabase[jinabase['Reference'] == 'Aoki+2009']
-    reichert2020_df = jinabase[jinabase['Reference'] == 'Reichert+2020']
+    # reichert2020_df = jinabase[jinabase['Reference'] == 'Reichert+2020'] # complication of other references, somewhat unreliable
     shetrone2001_df = jinabase[jinabase['Reference'] == 'Shetrone+2001']
     tafelmeyer2010_df = jinabase[jinabase['Reference'] == 'Tafelmeyer+2010']
     # theler2020_df = load_theler() ## not created yet
 
     ## Add filters for specific references
-    reichert2020_df = reichert2020_df[reichert2020_df['System'] == 'Sextans']
+    # reichert2020_df = reichert2020_df[reichert2020_df['System'] == 'Sextans']
     shetrone2001_df = shetrone2001_df[shetrone2001_df['System'] == 'Sextans']
     tafelmeyer2010_df = tafelmeyer2010_df[tafelmeyer2010_df['System'] == 'Sextans']
 
     ## Combine the DataFrames
     sextans_df = pd.concat([
             aoki2009_df,
-            reichert2020_df,
+            # reichert2020_df,
             shetrone2001_df,
             tafelmeyer2010_df,
             # theler2020_df
@@ -1409,6 +1541,12 @@ def load_sextans(jinabase=None, **kwargs):
     auxcols   = [col for col in sextans_df.columns if col not in epscols + XHcols + XFecols + ulXHcols + ulXFecols + ulcols + eXHcols + eXFecols + ecols]
     sextans_df = sextans_df[auxcols + epscols + ulcols + XHcols + XFecols + ulXHcols + ulXFecols  + ecols + eXHcols + eXFecols]
 
+    ## Removing Duplicate stars
+    dups = []
+    for ref, name in dups:
+        sextans_df.loc[(sextans_df['Name'] == name) & (sextans_df['Reference'] == ref), 'I/O'] = 0
+    # sextans_df = sextans_df[sextans_df['I/O'] == 1]
+
     return sextans_df
 
 def load_ursaminor(jinabase=None, **kwargs):
@@ -1428,23 +1566,24 @@ def load_ursaminor(jinabase=None, **kwargs):
     # ## Load References
     aoki2007b_df = jinabase[jinabase['Reference'] == 'Aoki+2007b']
     cohen2010_df = jinabase[jinabase['Reference'] == 'Cohen+2010']
-    kirby2012_df = jinabase[jinabase['Reference'] == 'Kirby+2012']
-    reichert2020_df = jinabase[jinabase['Reference'] == 'Reichert+2020']
+    kirby2012c_df = jinabase[jinabase['Reference'] == 'Kirby+2012c']
+    # reichert2020_df = jinabase[jinabase['Reference'] == 'Reichert+2020'] # complication of other references, somewhat unreliable
     sadakane2004_df = jinabase[jinabase['Reference'] == 'Sadakane+2004']
     sestito2023b_df = jinabase[jinabase['Reference'] == 'Sestito+2023b']
     shetrone2001_df = jinabase[jinabase['Reference'] == 'Shetrone+2001']
     ural2015_df = jinabase[jinabase['Reference'] == 'Ural+2015']
 
     ## Add filters for specific references
-    reichert2020_df = reichert2020_df[reichert2020_df['System'] == 'Ursa Minor']
+    kirby2012c_df = kirby2012c_df[kirby2012c_df['System'] == 'Ursa Minor']
+    # reichert2020_df = reichert2020_df[reichert2020_df['System'] == 'Ursa Minor']
     shetrone2001_df = shetrone2001_df[shetrone2001_df['System'] == 'Ursa Minor']
 
     ## Combine the DataFrames
     ursaminor_df = pd.concat([
             aoki2007b_df,
             cohen2010_df,
-            kirby2012_df,
-            reichert2020_df,
+            kirby2012c_df,
+            # reichert2020_df,
             sadakane2004_df,
             sestito2023b_df,
             shetrone2001_df,
@@ -1469,19 +1608,107 @@ def load_ursaminor(jinabase=None, **kwargs):
     auxcols   = [col for col in ursaminor_df.columns if col not in epscols + XHcols + XFecols + ulXHcols + ulXFecols + ulcols + eXHcols + eXFecols + ecols]
     ursaminor_df = ursaminor_df[auxcols + epscols + ulcols + XHcols + XFecols + ulXHcols + ulXFecols  + ecols + eXHcols + eXFecols]
 
+    ## Removing Duplicate stars
+    dups = [
+        ('Shetrone+2001', 'UMi199'),
+    ]
+    for ref, name in dups:
+        ursaminor_df.loc[(ursaminor_df['Name'] == name) & (ursaminor_df['Reference'] == ref), 'I/O'] = 0
+    # ursaminor_df = ursaminor_df[ursaminor_df['I/O'] == 1]
+
     return ursaminor_df
+
+def load_sass_stars():
+    """
+    Load the SASS stars data from JINAbase, using selection filters and criteria.
+    """
+    jinabase_df = load_jinabase(io=None)
+
+    ## Selects only halo stars (or more like everything unclassified in JINAbase)
+    halo_df = jinabase_df[(jinabase_df['Loc'] == 'HA') | (jinabase_df['Loc'].isin(['', 'nan', np.nan]))]
+
+    ## Has C measurements
+    halo_w_c_df = halo_df[
+        (halo_df['[C/H]'].notna() | halo_df['ul[C/H]'].notna())
+    ]
+
+    ## Has Sr and/or Ba measurements
+    halo_w_c_sr_ba_df = halo_w_c_df[
+        (halo_w_c_df['[Sr/H]'].notna() | halo_w_c_df['ul[Sr/H]'].notna()) &
+        (halo_w_c_df['[Ba/H]'].notna() | halo_w_c_df['ul[Ba/H]'].notna())
+    ]
+
+    ## Has low Sr and Ba abundances
+    low_sr_ba_df = halo_w_c_sr_ba_df[
+        (halo_w_c_sr_ba_df['[Sr/H]'].notna()) & (halo_w_c_sr_ba_df['[Sr/H]'].astype(float) <= -4.5) & 
+        (halo_w_c_sr_ba_df['[Ba/H]'].notna()) & (halo_w_c_sr_ba_df['[Ba/H]'].astype(float) <= -4)
+    ]
+    low_ulsr_ba_df = halo_w_c_sr_ba_df[
+        (halo_w_c_sr_ba_df['ul[Sr/H]'].notna()) & (halo_w_c_sr_ba_df['ul[Sr/H]'].astype(float) <= -4.5) & 
+        (halo_w_c_sr_ba_df['[Ba/H]'].notna()) & (halo_w_c_sr_ba_df['[Ba/H]'].astype(float) <= -4)
+    ]
+    low_sr_ulba_df = halo_w_c_sr_ba_df[
+        (halo_w_c_sr_ba_df['[Sr/H]'].notna()) & (halo_w_c_sr_ba_df['[Sr/H]'].astype(float) <= -4.5) & 
+        (halo_w_c_sr_ba_df['ul[Ba/H]'].notna()) & (halo_w_c_sr_ba_df['ul[Ba/H]'].astype(float) <= -4)
+    ]
+    low_ulsr_ulba_df = halo_w_c_sr_ba_df[
+        (halo_w_c_sr_ba_df['ul[Sr/H]'].notna()) & (halo_w_c_sr_ba_df['ul[Sr/H]'].astype(float) <= -4.5) & 
+        (halo_w_c_sr_ba_df['ul[Ba/H]'].notna()) & (halo_w_c_sr_ba_df['ul[Ba/H]'].astype(float) <= -4)
+    ]
+
+    ## Concatenate the two dataframes
+    sass_df = pd.concat([low_sr_ba_df, low_ulsr_ba_df, low_sr_ulba_df, low_ulsr_ulba_df], ignore_index=True)
+    sass_df['System'] = 'SASS'
+
+    ## Removing Duplicate stars 
+    sass_df['I/O'] = 1  # Initialize I/O column to 1
+    dups = [
+        ('Holmbeck+2020', 'J03142084-1035112'),
+        ('Roederer+2014b', 'HE1012-1540'),
+        ('Li+2015c', 'LAMOSTJ1313-0552'),
+        ('Hansen_T+2014', 'HE1310-0536'),
+        ('Aoki+2005', 'BS16084-160'),
+        ('Roederer+2014b', 'CS22891-200'),
+        ('Hollek+2011', 'CS22891-200'),
+        ('McWilliam+1995', 'CS22891-200'),
+        ('Norris+2001', 'CS22885-096'),
+        ('McWilliam+1995', 'CS22885-096'),
+        ('McWilliam+1995', 'CS22949-048'),
+        ('Roederer+2014b', 'BD+44493'),
+        ('McWilliam+1995', 'CD-38245'),
+        ('Norris+2001', 'CD-38245'),
+        ('Ezzeddine+2020', '2MASS J00463619-3739335'),
+        ('Yong+2013', 'CS30336-049'),
+        ('Yong+2013', 'HE0057-5959'),
+        ('Cohen+2008', 'HE1347-1025'),
+        ('Cohen+2008', 'HE1356-0622'),
+        ('Holmbeck+2020', 'J07123398-4814049'),
+        ('Collet+2006', 'HE0107-52401D'),
+        ('Collet+2006', 'HE0107-52403D'),
+        ('McWilliam+1995', 'CS22968-014'),
+        ('Roederer+2014b', 'CS22968-014'),
+        ('Frebel+2008', 'HE1327-23263D'),
+        ('Cohen+2008', 'BS16467-062'),
+        ('Hansen_T+2014', 'HE2239-5019'),
+        ('Keller+2014', 'NAMESMSSJ031300.36-670839.3') # has carbon, but uppper limit in iron --> ignore this star (not a duplicate)
+    ]
+    for ref, name in dups:
+        sass_df.loc[(sass_df['Name'] == name) & (sass_df['Reference'] == ref), 'I/O'] = 0
+    sass_df = sass_df[sass_df['I/O'] == 1]
+    
+    return sass_df
 
 ################################################################################
 ## Reference Read-in (Abundance Data)
 
 ### milky way (MW)
 
-def load_placco2014(remove_atari=True, io=1):
+def load_placco2014(remove_atari=True, use_sass_star_abundances=False, io=1):
     """
     Load the Placco et al. (2014) abundance data for the Milky Way (MW) halo stars.
 
     616 stars - total number of placco stars
-    505 stars - with all CEMP-s/i stars removed (-11)
+    505 stars - with all CEMP-s/i stars removed (-111)
     486 stars - with all atari stars removed (-19, Note: really -21 but 2 were already removed)
     478 stars - with duplicates removed (-8)
 
@@ -1646,42 +1873,42 @@ def load_placco2014(remove_atari=True, io=1):
     ## Add the Simbad_Identifier, RA_hms, DEC_dms columns
     placco2014_simbad_df = pd.read_csv(data_dir+'abundance_tables/placco2014/simbad_data.csv')
     for name in placco2014_simbad_df['Name']:
-        placco2014_df.loc[placco2014_df['Name'] == name, 'Simbad_Identifier'] = placco2014_simbad_df.loc[placco2014_simbad_df['Name'] == name, 'Query_ID'].values[0]
+        placco2014_df.loc[placco2014_df['Name'] == name, 'Simbad_Identifier'] = placco2014_simbad_df.loc[placco2014_simbad_df['Name'] == name, 'MAIN_ID'].values[0]
         placco2014_df.loc[placco2014_df['Name'] == name, 'RA_hms'] = placco2014_simbad_df.loc[placco2014_simbad_df['Name'] == name, 'RA'].values[0].replace(' ', ':')
         placco2014_df.loc[placco2014_df['Name'] == name, 'DEC_dms'] = placco2014_simbad_df.loc[placco2014_simbad_df['Name'] == name, 'DEC'].values[0].replace(' ', ':')
     placco2014_df = placco2014_df[[placco2014_df.columns[0]] + ['Simbad_Identifier', 'RA_hms', 'DEC_dms'] + list(placco2014_df.columns[1:-3])]
-
+        
     ## Save the pre-filtered DataFrame
     placco2014_df.to_csv(data_dir+'abundance_tables/placco2014/placco2014.csv', index=False)
 
     ## Removing Atari Stars
     if remove_atari:
         atari_stars = [
-            'BPS BS 16928-053',
-            'BPS CS 22186-023',
-            'BPS CS 22948-104',
-            'BPS CS 22960-064',
-            'BPS CS 29506-007',
-            'BPS CS 30306-132',
-            'BPS CS 31078-018',
-            'HD 2796',
-            'HD 23798',
+            'BPS BS 16928-0053',
+            'BPS CS 22186-0023',
+            'BPS CS 22948-0104',
+            'BPS CS 22960-0064',
+            'BPS CS 29506-0007',
+            'BPS CS 30306-0132',
+            'BPS CS 31079-0028', 
+            'HD   2796',
+            'HD  23798',
             'HD 119516',
             'HE 0017-4346',
             'HE 0023-4825',
-            'HE 1116-0634',
+            'TYC 4928-1438-1', 
             'HE 1300+0157',
-            'HE 1317-0407',
+            'TYC 4961-1053-1', 
             'HE 1413-1954',
             'HE 1424-0241',
             'HE 2259-3407',
             'HE 2318-1621',
-            'SDSS J102915.15+172927.9',
-            'SDSS J124502.68-073847.1'
+            'UCAC3 215-112497', 
+            '2MASS J12450268-0738469'
         ]
         placco2014_df.loc[placco2014_df['Simbad_Identifier'].isin(atari_stars), 'I/O'] = 0
 
-    ## Removing Duplicate stars 
+    # Removing Duplicate stars 
     dups = [
         'CS 29497-040',
         'HE 0132-2439',
@@ -1695,7 +1922,7 @@ def load_placco2014(remove_atari=True, io=1):
     for name in dups:
         placco2014_df.loc[placco2014_df['Name'] == name, 'I/O'] = 0
 
-    # Using the I/O column to filter the data
+    ## Using the I/O column to filter the data
     if io == 0 or io == 1:
         placco2014_df = placco2014_df[placco2014_df['I/O'] == io]
     elif io is None:
@@ -1703,10 +1930,141 @@ def load_placco2014(remove_atari=True, io=1):
     else:
         raise ValueError("Invalid value for 'io'. It should be 0, 1, or None.")
     
+    
+    ## Using the JINAbase values for SASS stars
+    if use_sass_star_abundances:
+        # print("Number of stars before SASS substitution:", len(placco2014_df))
+        sass_df = load_sass_stars()
+        placco2014_sass_rows = []
+        for simbad_id in placco2014_df['Simbad_Identifier']:
+            if simbad_id in sass_df['Simbad_Identifier'].values:
+                row = sass_df[sass_df['Simbad_Identifier'] == simbad_id].iloc[0:1].copy()
+                row['I/O'] = placco2014_df.loc[placco2014_df['Simbad_Identifier'] == simbad_id, 'I/O'].values[0]
+                placco2014_sass_rows.append(row)
+            else:
+                row = placco2014_df[placco2014_df['Simbad_Identifier'] == simbad_id].iloc[0:1].copy()
+                placco2014_sass_rows.append(row)
+        placco2014_sass_df = pd.concat(placco2014_sass_rows, ignore_index=True)
+        placco2014_df = placco2014_sass_df.copy()
+        # print("Number of stars after SASS substitution:", len(placco2014_df))
+        
+        
     ## Save the final DataFrame
     placco2014_df.to_csv(data_dir+'abundance_tables/placco2014/placco2014-processed.csv', index=False)
     
     return placco2014_df
+
+def load_cayrel2004(io=None):
+    """
+    Load the Cayrel et al. 2004 data for Milky Way halo data.
+
+    Table 2 - Observation Table
+    Table 4 - Stellar Parameters
+    Table 8 - Abundance Table
+    """
+
+    ## Read in the data tables
+    obs_df = pd.read_csv(data_dir + "abundance_tables/cayrel2004/table2.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    param_df = pd.read_csv(data_dir + "abundance_tables/cayrel2004/table4.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    abund_df = pd.read_csv(data_dir + "abundance_tables/cayrel2004/table8.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    
+    ## Make the new column names
+    species = []
+    for ion in abund_df["Species"].unique():
+        species_i = ion_to_species(ion)
+        elem_i = ion_to_element(ion)
+        if species_i not in species:
+            species.append(species_i)
+
+    epscols = [make_epscol(s) for s in species]
+    ulcols = [make_ulcol(s) for s in species]
+    XHcols = [make_XHcol(s).replace(" ", "") for s in species]
+    ulXHcols = ['ul' + col for col in XHcols]
+    XFecols = [make_XFecol(s).replace(" ", "") for s in species]
+    ulXFecols = ['ul' + col for col in XFecols]
+    errcols = [make_errcol(s) for s in species]
+
+    ## New dataframe with proper columns
+    cayrel2004_df = pd.DataFrame(
+                    columns=['I/O','Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
+                    'Teff','logg','Fe/H','Vmic'] + epscols + ulcols + XHcols + ulXHcols + XFecols 
+                    + ulXFecols + errcols)
+    for i, name in enumerate(abund_df['Name'].unique()):
+        cayrel2004_df.loc[i,'Name'] = name
+        cayrel2004_df.loc[i,'Simbad_Identifier'] = obs_df.loc[obs_df['Name'] == name, 'Simbad_Identifier'].values[0]
+        cayrel2004_df.loc[i,'Reference'] = 'Cayrel+2004'
+        cayrel2004_df.loc[i,'Ref'] = 'CAY04'
+        cayrel2004_df.loc[i,'I/O'] = 1
+        cayrel2004_df.loc[i,'Loc'] = 'HA'
+        cayrel2004_df.loc[i,'System'] = obs_df.loc[obs_df['Name'] == name, 'System'].values[0]
+        cayrel2004_df.loc[i,'RA_hms'] = obs_df.loc[obs_df['Name'] == name, 'RA_hms'].values[0]
+        cayrel2004_df.loc[i,'RA_deg'] = coord.ra_hms_to_deg(cayrel2004_df.loc[i,'RA_hms'], precision=6)
+        cayrel2004_df.loc[i,'DEC_dms'] = obs_df.loc[obs_df['Name'] == name, 'DEC_dms'].values[0]
+        cayrel2004_df.loc[i,'DEC_deg'] = coord.dec_dms_to_deg(cayrel2004_df.loc[i,'DEC_dms'], precision=2)
+        cayrel2004_df.loc[i,'Teff'] = param_df.loc[param_df['Name'] == name, 'Teff'].values[0]
+        cayrel2004_df.loc[i,'logg'] = param_df.loc[param_df['Name'] == name, 'logg'].values[0]
+        cayrel2004_df.loc[i,'Fe/H'] = param_df.loc[param_df['Name'] == name, 'Fe/H_m'].values[0]
+        cayrel2004_df.loc[i,'Vmic'] = param_df.loc[param_df['Name'] == name, 'Vmic'].values[0]
+
+
+        ## Fill in data
+        star_df = abund_df[abund_df['Name'] == name]
+        for j, row in star_df.iterrows():
+            ion = row["Species"]
+            species_i = ion_to_species(ion)
+            elem_i = ion_to_element(ion)
+
+            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009')[0]
+            logepsFe_a09 = star_df.loc[star_df['Species'] == 'Fe I', 'logepsX'].values[0]
+            feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009')[0]
+
+            ## Assign epsX values
+            col = make_epscol(species_i)
+            if col in epscols:
+                cayrel2004_df.loc[i, col] = row["logepsX"] if pd.isna(row["l_logepsX"]) else np.nan
+
+            ## Assign ulX values
+            col = make_ulcol(species_i)
+            if col in ulcols:
+                cayrel2004_df.loc[i, col] = row["logepsX"] if pd.notna(row["l_logepsX"]) else np.nan
+
+            ## Assign [X/H] and ul[X/H]values
+            col = make_XHcol(species_i).replace(" ", "")
+            if col in XHcols:
+                if pd.isna(row["l_logepsX"]):
+                    cayrel2004_df.loc[i, col] = normal_round(row["logepsX"] - logepsX_sun_a09, 2)
+                    cayrel2004_df.loc[i, 'ul'+col] = np.nan
+                else:
+                    cayrel2004_df.loc[i, col] = np.nan
+                    cayrel2004_df.loc[i, 'ul'+col] = normal_round(row["logepsX"] - logepsX_sun_a09, 2)
+                if 'e_[X/H]' in row.index:
+                    cayrel2004_df.loc[i, 'e_'+col] = row["e_[X/H]"]
+
+            ## Assign [X/Fe] values
+            col = make_XFecol(species_i).replace(" ", "")
+            if col in XFecols:
+                if pd.isna(row["l_logepsX"]):
+                    cayrel2004_df.loc[i, col] = normal_round((row["logepsX"] - logepsX_sun_a09) - feh_a09, 2)
+                    cayrel2004_df.loc[i, 'ul'+col] = np.nan
+                else:
+                    cayrel2004_df.loc[i, col] = np.nan
+                    cayrel2004_df.loc[i, 'ul'+col] = normal_round((row["logepsX"] - logepsX_sun_a09) - feh_a09, 2)
+                if 'e_[X/Fe]' in row.index:
+                    cayrel2004_df.loc[i, 'e_'+col] = row["e_[X/Fe]"]
+
+            ## Assign error values
+            col = make_errcol(species_i)
+            if col in errcols:
+                e_logepsX = row.get("e_[X/H]", np.nan)
+                if pd.notna(e_logepsX):
+                    cayrel2004_df.loc[i, col] = e_logepsX
+                else:
+                    cayrel2004_df.loc[i, col] = np.nan
+
+    ## Drop the Fe/Fe columns
+    cayrel2004_df.drop(columns=['[Fe/Fe]','ul[Fe/Fe]','[FeII/Fe]','ul[FeII/Fe]'], inplace=True, errors='ignore')
+
+    return cayrel2004_df
 
 ### milky way accreted dwarf galaxies (Acc. dSph)
 
@@ -1723,15 +2081,15 @@ def load_mardini2022a(io=None):
     # mardini2022a_df.rename(columns={'source_id':'Name', 'ra':'RA_hms', 'dec':'DEC_deg', 'teff':'Teff'}, inplace=True)
     mardini2022a_df['JINA_ID'] = mardini2022a_df['JINA_ID'].astype(int)
     mardini2022a_df['Name'] = mardini2022a_df['Simbad_Identifier']
-    mardini2022a_df['Reference_2'] = mardini2022a_df['Reference']
-    mardini2022a_df['Ref_2'] = mardini2022a_df['Reference'].str[:3].str.upper() + mardini2022a_df['Reference'].str[-2:]
-    mardini2022a_df['Reference'] = 'Mardini+2022a'
-    mardini2022a_df['Ref'] = 'MAR22a'
+    mardini2022a_df['Reference'] = mardini2022a_df['Reference']
+    mardini2022a_df['Ref'] = mardini2022a_df['Reference'].str[:3].str.upper() + mardini2022a_df['Reference'].str[-2:]
+    # mardini2022a_df['Reference_2'] = 'Mardini+2022a'
+    # mardini2022a_df['Ref_2'] = 'MARm22a'
     mardini2022a_df['I/O'] = 1
     mardini2022a_df['Ncap_key'] = ''
     mardini2022a_df['C_key'] = mardini2022a_df['[C/Fe]'].apply(lambda cfe: classify_carbon_enhancement(cfe) if pd.notna(cfe) else np.nan)
     mardini2022a_df['MP_key'] = mardini2022a_df['[Fe/H]'].apply(lambda feh: classify_metallicity(feh) if pd.notna(feh) else np.nan)
-    mardini2022a_df['Loc'] = 'DW'
+    mardini2022a_df['Loc'] = 'aDW'
     mardini2022a_df['System'] = 'Atari Disk'
     mardini2022a_df['RA_deg'] = np.nan
     mardini2022a_df['DEC_deg'] = np.nan
@@ -1779,7 +2137,7 @@ def load_mardini2022a(io=None):
         mardini2022a_df['ul[C/Fe]'] = mardini2022a_df['ul[C/Fe]'].fillna(sub_jinabase_df['ul[C/Fe]'])
 
     ## Manually added datafields
-    mardini2022a_df.loc[mardini2022a_df['Name'] == 'SDSS J124502.68-073847.0', 'Ncap_key'] = 'S'  # halo reference star
+    mardini2022a_df.loc[mardini2022a_df['Name'] == '2MASS J12450268-0738469', 'Ncap_key'] = 'S'  # halo reference star
     mardini2022a_df.loc[mardini2022a_df['Name'] == 'HE 0017-4346', 'Ncap_key'] = 'S'          # [C/Fe] = 3.02
     mardini2022a_df.loc[mardini2022a_df['Name'] == 'HE 1413-1954', 'C_key'] = 'NO'      # [C/Fe] = 1.44
     mardini2022a_df.loc[mardini2022a_df['Name'] == 'HE 1300+0157', 'C_key'] = 'NO'            # (HE 1300+0157, https://www.aanda.org/articles/aa/pdf/2019/03/aa34601-18.pdf)
@@ -1835,14 +2193,14 @@ def load_mardini2024b(io=None):
 
     ## New dataframe with proper columns
     mardini2024b_df = pd.DataFrame(
-                    columns=['Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
+                    columns=['I/O','Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
                     'Teff','logg','Fe/H','Vmic'] + epscols + ulcols + XHcols + ulXHcols + XFecols 
                     + ulXFecols + errcols)
     for i, name in enumerate(abund_df['Name'].unique()):
         mardini2024b_df.loc[i,'Name'] = name
         mardini2024b_df.loc[i,'Simbad_Identifier'] = obs_param_df.loc[obs_param_df['Name'] == name, 'Simbad_Identifier'].values[0]
         mardini2024b_df.loc[i,'Reference'] = 'Mardini+2024b'
-        mardini2024b_df.loc[i,'Ref'] = 'MAR24b'
+        mardini2024b_df.loc[i,'Ref'] = 'MARm24b'
         mardini2024b_df['I/O'] = 1
         mardini2024b_df.loc[i,'Loc'] = 'DW'
         mardini2024b_df.loc[i,'System'] = obs_param_df.loc[obs_param_df['Name'] == name, 'System'].values[0]
@@ -1955,7 +2313,8 @@ def load_chiti2018a(data_subset='merged'):
 
     ## Load the combined table (created by Alex Yelland)
     chiti2018a_df = pd.read_csv(data_dir+'abundance_tables/chiti2018a/chiti2018a.csv', comment='#')
-    
+    chiti2018a_df['I/O'] = chiti2018a_df['I/O'].astype(int)
+
     ## Add/Fill a epsfe column, calculating the value from [Fe/H]
     chiti2018a_df['epsfe'] = chiti2018a_df['[Fe/H]'].apply(lambda x: eps_from_XH(x, 'Fe', precision=2))
 
@@ -2035,7 +2394,7 @@ def load_chiti2024(io=None):
         chiti2024_df.loc[i,'Simbad_Identifier'] = obs_df.loc[obs_df['Name'] == name, 'Simbad_Identifier'].values[0]
         chiti2024_df.loc[i,'Reference'] = 'Chiti+2024'
         chiti2024_df.loc[i,'Ref'] = 'CHI24'
-        chiti2024_df.loc[i,'I/O'] = 1
+        chiti2024_df.loc[i,'I/O'] = int(1)
         chiti2024_df.loc[i,'Instrument'] = obs_df.loc[obs_df['Name'] == name, 'Instrument'].values[0]       
         chiti2024_df.loc[i,'Loc'] = 'DW'
         chiti2024_df.loc[i,'System'] = obs_df.loc[obs_df['Name'] == name, 'System'].values[0]
@@ -2120,6 +2479,7 @@ def load_chiti2024(io=None):
             new_row['Simbad_Identifier'] = obs_df.loc[obs_df['Name'] == name, 'Simbad_Identifier'].values[0]
             new_row['Reference'] = 'Chiti+2024'
             new_row['Ref'] = 'CHI24'
+            new_row['I/O'] = int(1)
             new_row['Instrument'] = obs_df.loc[obs_df['Name'] == name, 'Instrument'].values[0]
             new_row['Loc'] = 'DW'
             new_row['System'] = obs_df.loc[obs_df['Name'] == name, 'System'].values[0]
@@ -2329,7 +2689,7 @@ def load_lemasle2012(io=None):
 
     ## New dataframe with proper columns
     lemasle2012_df = pd.DataFrame(
-                    columns=['Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
+                    columns=['I/O','Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
                     'Teff','logg','Fe/H','Vmic'] + epscols + ulcols + XHcols + ulXHcols + XFecols 
                     + ulXFecols + errcols)
     for i, name in enumerate(abund_df['Name'].unique()):
@@ -2465,7 +2825,7 @@ def load_lemasle2014(io=None):
 
     ## New dataframe with proper columns
     lemasle2014_df = pd.DataFrame(
-                    columns=['Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
+                    columns=['I/O','Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
                     'Teff','logg','Fe/H','Vmic'] + epscols + ulcols + XHcols + ulXHcols + XFecols 
                     + ulXFecols + errcols)
     for i, name in enumerate(abund_df['Name'].unique()):
@@ -2629,7 +2989,7 @@ def load_letarte2010(io=None):
 
     ## New dataframe with proper columns
     letarte2010_df = pd.DataFrame(
-                    columns=['Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
+                    columns=['I/O','Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
                     'Teff','logg','Fe/H','Vmic'] + epscols + ulcols + XHcols + ulXHcols + XFecols 
                     + ulXFecols + errcols)
     for i, name in enumerate(abund_df['Name'].unique()):
@@ -2794,7 +3154,7 @@ def load_lucchesi2024(io=None):
 
     ## New dataframe with proper columns
     lucchesi2024_df = pd.DataFrame(
-                    columns=['Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
+                    columns=['I/O','Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
                     'Teff','logg','Fe/H','Vmic'] + epscols + ulcols + XHcols + ulXHcols + XFecols 
                     + ulXFecols + errcols)
     for i, name in enumerate(abund_df['Name'].unique()):
@@ -2915,7 +3275,7 @@ def load_norris2017b(io=None):
 
     ## New dataframe with proper columns
     norris2017b_df = pd.DataFrame(
-                    columns=['Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
+                    columns=['I/O','Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
                     'Teff','logg','Fe/H','Vmic'] + epscols + ulcols + XHcols + ulXHcols + XFecols 
                     + ulXFecols + errcols)
     for i, name in enumerate(abund_df['Name'].unique()):
@@ -3051,7 +3411,7 @@ def load_reggiani2021(io=None):
 
     ## New dataframe with proper columns
     reggiani2021_df = pd.DataFrame(
-                    columns=['Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
+                    columns=['I/O','Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
                     'Teff','logg','Fe/H','Vmic'] + epscols + ulcols + XHcols + ulXHcols + XFecols 
                     + ulXFecols + errcols)
     for i, name in enumerate(abund_df['Name'].unique()):
@@ -3265,7 +3625,7 @@ def load_shetrone2003(io=None):
 
     ## New dataframe with proper columns
     shetrone2003_df = pd.DataFrame(
-                    columns=['Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
+                    columns=['I/O','Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
                     'Teff','logg','Fe/H','Vmic'] + epscols + ulcols + XHcols + ulXHcols + XFecols 
                     + ulXFecols + errcols)
     for i, name in enumerate(abund_df['Name'].unique()):
@@ -3294,7 +3654,7 @@ def load_shetrone2003(io=None):
             elem_i = ion_to_element(ion)
 
             ## Calculate the logepsX value
-            if ion not in ['Fe I']:
+            if ion not in ['Fe I', 'Fe II']:
                 xfe_she03 = row["[X/Fe]"]
                 feh_she03 = star_df.loc[star_df['Species'] == 'Fe I', '[X/H]'].values[0]
                 logepsX_sun_she03 = row['logepsX_sun']
@@ -3393,7 +3753,7 @@ def load_venn2012(io=None):
 
     ## New dataframe with proper columns
     venn2012_df = pd.DataFrame(
-                    columns=['Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
+                    columns=['I/O','Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
                     'Teff','logg','Fe/H','Vmic'] + epscols + ulcols + XHcols + ulXHcols + XFecols 
                     + ulXFecols + errcols)
     for i, name in enumerate(abund_df['Name'].unique()):
@@ -3525,7 +3885,7 @@ def load_chiti2018b(io=None):
 
     ## New dataframe with proper columns
     chiti2018b_df = pd.DataFrame(
-                    columns=['Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
+                    columns=['I/O','Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
                     'Teff','logg','Fe/H','Vmic'] + epscols + ulcols + XHcols + ulXHcols + XFecols 
                     + ulXFecols + errcols)
     for i, name in enumerate(abund_df['Name'].unique()):
@@ -3533,6 +3893,7 @@ def load_chiti2018b(io=None):
         chiti2018b_df.loc[i,'Simbad_Identifier'] = obs_df.loc[obs_df['Name'] == name, 'Simbad_Identifier'].values[0]        
         chiti2018b_df.loc[i,'Reference'] = 'Chiti+2018b'
         chiti2018b_df.loc[i,'Ref'] = 'CHI18b'
+        chiti2018b_df.loc[i,'I/O'] = 1
         chiti2018b_df.loc[i,'Loc'] = 'UF'
         chiti2018b_df.loc[i,'System'] = obs_df.loc[obs_df['Name'] == name, 'System'].values[0]     
         chiti2018b_df.loc[i,'RA_hms'] = obs_df.loc[obs_df['Name'] == name, 'RA_hms'].values[0]
@@ -3638,7 +3999,7 @@ def load_chiti2023(io=None):
 
     ## New dataframe with proper columns
     chiti2023_df = pd.DataFrame(
-                    columns=['Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
+                    columns=['I/O','Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
                     'Teff','logg','Fe/H','Vmic'] + epscols + ulcols + XHcols + ulXHcols + XFecols 
                     + ulXFecols + errcols)
     for i, name in enumerate(abund_df['Name'].unique()):
@@ -3646,6 +4007,7 @@ def load_chiti2023(io=None):
         chiti2023_df.loc[i,'Simbad_Identifier'] = obs_df.loc[obs_df['Name'] == name, 'Simbad_Identifier'].values[0]        
         chiti2023_df.loc[i,'Reference'] = 'Chiti+2023'
         chiti2023_df.loc[i,'Ref'] = 'CHI23'
+        chiti2023_df.loc[i,'I/O'] = 1
         chiti2023_df.loc[i,'Loc'] = 'UF'
         chiti2023_df.loc[i,'System'] = obs_df.loc[obs_df['Name'] == name, 'System'].values[0]     
         chiti2023_df.loc[i,'RA_hms'] = obs_df.loc[obs_df['Name'] == name, 'RA_hms'].values[0]
@@ -3746,7 +4108,7 @@ def load_feltzing2009(io=None):
 
     ## New dataframe with proper columns
     feltzing2009_df = pd.DataFrame(
-                    columns=['Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
+                    columns=['I/O','Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
                     'Teff','logg','Fe/H','Vmic'] + epscols + ulcols + XHcols + ulXHcols + XFecols 
                     + ulXFecols + errcols)
     for i, name in enumerate(abund_df['Name'].unique()):
@@ -3754,6 +4116,7 @@ def load_feltzing2009(io=None):
         feltzing2009_df.loc[i,'Simbad_Identifier'] = obs_param_df.loc[obs_param_df['Name'] == name, 'Simbad_Identifier'].values[0]
         feltzing2009_df.loc[i,'Reference'] = 'Feltzing+2009'
         feltzing2009_df.loc[i,'Ref'] = 'FEL09'
+        feltzing2009_df.loc[i,'I/O'] = 1
         feltzing2009_df.loc[i,'Loc'] = 'UF'
         feltzing2009_df.loc[i,'System'] = obs_param_df.loc[obs_param_df['Name'] == name, 'System'].values[0]
         feltzing2009_df.loc[i,'RA_hms'] = obs_param_df.loc[obs_param_df['Name'] == name, 'RA_hms'].values[0]
@@ -3857,13 +4220,14 @@ def load_francois2016(io=None):
 
     ## New dataframe with proper columns
     francois2016_df = pd.DataFrame(
-                    columns=['Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
+                    columns=['I/O','Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
                     'Teff','logg','Fe/H','Vmic'] + epscols + ulcols + XHcols + ulXHcols + XFecols + ulXFecols) # + errcols)
     for i, name in enumerate(abund_df['Name'].unique()):
         francois2016_df.loc[i,'Name'] = name
         francois2016_df.loc[i,'Simbad_Identifier'] = obs_df.loc[obs_df['Name'] == name, 'Simbad_Identifier'].values[0]
         francois2016_df.loc[i,'Reference'] = 'Francois+2016'
         francois2016_df.loc[i,'Ref'] = 'FRA16'
+        francois2016_df.loc[i,'I/O'] = 1
         francois2016_df.loc[i,'Loc'] = 'UF'
         francois2016_df.loc[i,'System'] = obs_df.loc[obs_df['Name'] == name, 'System'].values[0]
         francois2016_df.loc[i,'RA_hms'] = obs_df.loc[obs_df['Name'] == name, 'RA_hms'].values[0]
@@ -3959,7 +4323,7 @@ def load_frebel2010a(io=None):
 
     ## New dataframe with proper columns
     frebel2010a_df = pd.DataFrame(
-                    columns=['Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
+                    columns=['I/O','Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
                     'Teff','logg','Fe/H','Vmic'] + epscols + ulcols + XHcols + ulXHcols + XFecols 
                     + ulXFecols + errcols)
     for i, name in enumerate(abund_df['Name'].unique()):
@@ -3967,6 +4331,7 @@ def load_frebel2010a(io=None):
         frebel2010a_df.loc[i,'Simbad_Identifier'] = obs_param_df.loc[obs_param_df['Name'] == name, 'Simbad_Identifier'].values[0]        
         frebel2010a_df.loc[i,'Reference'] = 'Frebel+2010a'
         frebel2010a_df.loc[i,'Ref'] = 'FRE10a'
+        frebel2010a_df.loc[i,'I/O'] = 1
         frebel2010a_df.loc[i,'Loc'] = 'UF'
         frebel2010a_df.loc[i,'System'] = obs_param_df.loc[obs_param_df['Name'] == name, 'System'].values[0]     
         frebel2010a_df.loc[i,'RA_hms'] = obs_param_df.loc[obs_param_df['Name'] == name, 'RA_hms'].values[0]
@@ -4068,7 +4433,7 @@ def load_frebel2013(io=None):
 
     ## New dataframe with proper columns
     frebel2013_df = pd.DataFrame(
-                    columns=['Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
+                    columns=['I/O','Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
                     'Teff','logg','Fe/H','Vmic'] + epscols + ulcols + XHcols + ulXHcols + XFecols 
                     + ulXFecols + errcols)
     for i, name in enumerate(abund_df['Name'].unique()):
@@ -4076,6 +4441,7 @@ def load_frebel2013(io=None):
         frebel2013_df.loc[i,'Simbad_Identifier'] = obs_df.loc[obs_df['Name'] == name, 'Simbad_Identifier'].values[0]
         frebel2013_df.loc[i,'Reference'] = 'Frebel+2013'
         frebel2013_df.loc[i,'Ref'] = 'FRE13'
+        frebel2013_df.loc[i,'I/O'] = 1
         frebel2013_df.loc[i,'Loc'] = 'UF'
         frebel2013_df.loc[i,'System'] = obs_df.loc[obs_df['Name'] == name, 'System'].values[0]
         frebel2013_df.loc[i,'RA_hms'] = obs_df.loc[obs_df['Name'] == name, 'RA_hms'].values[0]
@@ -4178,7 +4544,7 @@ def load_frebel2014(io=None):
 
     ## New dataframe with proper columns
     frebel2014_df = pd.DataFrame(
-                    columns=['Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
+                    columns=['I/O','Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
                     'Teff','logg','Fe/H','Vmic'] + epscols + ulcols + XHcols + ulXHcols + XFecols 
                     + ulXFecols + errcols)
     for i, name in enumerate(abund_df['Name'].unique()):
@@ -4186,6 +4552,7 @@ def load_frebel2014(io=None):
         frebel2014_df.loc[i,'Simbad_Identifier'] = obs_df.loc[obs_df['Name'] == name, 'Simbad_Identifier'].values[0]
         frebel2014_df.loc[i,'Reference'] = 'Frebel+2014'
         frebel2014_df.loc[i,'Ref'] = 'FRE14'
+        frebel2014_df.loc[i,'I/O'] = 1
         frebel2014_df.loc[i,'Loc'] = 'UF'
         frebel2014_df.loc[i,'System'] = 'Segue 1'
         frebel2014_df.loc[i,'RA_hms'] = obs_df.loc[obs_df['Name'] == name, 'RA_hms'].values[0]
@@ -4286,7 +4653,7 @@ def load_frebel2016(io=None):
 
     ## New dataframe with proper columns
     frebel2016_df = pd.DataFrame(
-                    columns=['Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
+                    columns=['I/O','Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
                     'Teff','logg','Fe/H','Vmic'] + epscols + ulcols + XHcols + ulXHcols + XFecols 
                     + ulXFecols + errcols)
     for i, name in enumerate(abund_df['Name'].unique()):
@@ -4294,6 +4661,7 @@ def load_frebel2016(io=None):
         frebel2016_df.loc[i,'Simbad_Identifier'] = obs_param_df.loc[obs_param_df['Name'] == name, 'Simbad_Identifier'].values[0]
         frebel2016_df.loc[i,'Reference'] = 'Frebel+2016'
         frebel2016_df.loc[i,'Ref'] = 'FRE16'
+        frebel2016_df.loc[i,'I/O'] = 1
         frebel2016_df.loc[i,'Loc'] = 'UF'
         frebel2016_df.loc[i,'System'] = obs_param_df.loc[obs_param_df['Name'] == name, 'System'].values[0]
         frebel2016_df.loc[i,'RA_hms'] = obs_param_df.loc[obs_param_df['Name'] == name, 'RA_hms'].values[0]
@@ -4396,7 +4764,7 @@ def load_gilmore2013(io=None):
     
     ## New dataframe with proper columns
     gilmore2013_df = pd.DataFrame(
-                    columns=['Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
+                    columns=['I/O','Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
                     'Teff','logg','Fe/H','Vmic'] + epscols + ulcols + XHcols + ulXHcols + XFecols 
                     + ulXFecols + errcols)
     for i, name in enumerate(abund_df['Name'].unique()):
@@ -4404,6 +4772,7 @@ def load_gilmore2013(io=None):
         gilmore2013_df.loc[i,'Simbad_Identifier'] = obs_df.loc[obs_df['Name'] == name, 'Simbad_Identifier'].values[0]        
         gilmore2013_df.loc[i,'Reference'] = 'Gilmore+2013'
         gilmore2013_df.loc[i,'Ref'] = 'GIL13'
+        gilmore2013_df.loc[i,'I/O'] = 1
         gilmore2013_df.loc[i,'Loc'] = 'UF'
         gilmore2013_df.loc[i,'System'] = obs_df.loc[obs_df['Name'] == name, 'System'].values[0]     
         gilmore2013_df.loc[i,'RA_hms'] = obs_df.loc[obs_df['Name'] == name, 'RA_hms'].values[0]
@@ -4523,7 +4892,7 @@ def load_roederer2016b(io=None):
 
     ## New dataframe with proper columns
     roederer2016b_df = pd.DataFrame(
-                    columns=['Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
+                    columns=['I/O','Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
                     'Teff','logg','M/H','Vmic'] + epscols + ulcols + XHcols + ulXHcols + XFecols 
                     + ulXFecols + errcols)
     for i, name in enumerate(abund_df['Name'].unique()):
@@ -4531,6 +4900,7 @@ def load_roederer2016b(io=None):
         roederer2016b_df.loc[i,'Simbad_Identifier'] = obs_df.loc[obs_df['Name'] == name, 'Simbad_Identifier'].values[0]
         roederer2016b_df.loc[i,'Reference'] = 'Roederer+2016b'
         roederer2016b_df.loc[i,'Ref'] = 'ROE16b'
+        roederer2016b_df.loc[i,'I/O'] = 1
         roederer2016b_df.loc[i,'Loc'] = 'UF'
         roederer2016b_df.loc[i,'System'] = obs_df.loc[obs_df['Name'] == name, 'System'].values[0]
         roederer2016b_df.loc[i,'RA_hms'] = obs_df.loc[obs_df['Name'] == name, 'RA_hms'].values[0]
@@ -4625,13 +4995,14 @@ def load_hansent2017(io=None):
 
     ## New dataframe with proper columns
     hansent2017_df = pd.DataFrame(
-                    columns=['Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
+                    columns=['I/O','Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
                     'Teff','logg','Fe/H','Vmic'] + epscols + ulcols + XHcols + ulXHcols + XFecols 
                     + ulXFecols + errcols)
     hansent2017_df['Name'] = data_df['Name'].astype(str)
     hansent2017_df['Simbad_Identifier'] = data_df['Simbad_Identifier'].astype(str)      
     hansent2017_df['Reference'] = 'HansenT+2017'
     hansent2017_df['Ref'] = 'HANt17'
+    hansent2017_df['I/O'] = 1
     hansent2017_df['Loc'] = 'UF'
     hansent2017_df['System'] = 'Tucana III'
     hansent2017_df['RA_hms'] = data_df['RA_hms'].astype(str)   
@@ -4727,7 +5098,7 @@ def load_hansent2020a(io=None):
 
     ## New dataframe with proper columns
     hansent2020a_df = pd.DataFrame(
-                    columns=['Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
+                    columns=['I/O','Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
                     'Teff','logg','Fe/H','Vmic'] + epscols + ulcols + XHcols + ulXHcols + XFecols 
                     + ulXFecols + errcols)
     for i, name in enumerate(abund_df['Name'].unique()):
@@ -4735,6 +5106,7 @@ def load_hansent2020a(io=None):
         hansent2020a_df.loc[i,'Simbad_Identifier'] = obs_df.loc[obs_df['Name'] == name, 'Simbad_Identifier'].values[0]
         hansent2020a_df.loc[i,'Reference'] = 'HansenT+2020'
         hansent2020a_df.loc[i,'Ref'] = 'HANt20a'
+        hansent2020a_df.loc[i,'I/O'] = 1
         hansent2020a_df.loc[i,'Loc'] = 'UF'
         hansent2020a_df.loc[i,'System'] = 'Grus II'
         hansent2020a_df.loc[i,'RA_hms'] = obs_df.loc[obs_df['Name'] == name, 'RA_hms'].values[0]
@@ -4835,7 +5207,7 @@ def load_hansent2024(io=None):
 
     ## New dataframe with proper columns
     hansent2024_df = pd.DataFrame(
-                    columns=['Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
+                    columns=['I/O','Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
                     'Teff','logg','Fe/H','Vmic'] + epscols + ulcols + XHcols + ulXHcols + XFecols 
                     + ulXFecols + errcols)
     for i, name in enumerate(abund_df['Name'].unique()):
@@ -4843,6 +5215,7 @@ def load_hansent2024(io=None):
         hansent2024_df.loc[i,'Simbad_Identifier'] = obs_df.loc[obs_df['Name'] == name, 'Simbad_Identifier'].values[0]
         hansent2024_df.loc[i,'Reference'] = 'HansenT+2024'
         hansent2024_df.loc[i,'Ref'] = 'HANt24'
+        hansent2024_df.loc[i,'I/O'] = 1
         hansent2024_df.loc[i,'Loc'] = 'UF'
         hansent2024_df.loc[i,'System'] = 'Tucana V'
         hansent2024_df.loc[i,'RA_hms'] = obs_df.loc[obs_df['Name'] == name, 'RA_hms'].values[0]
@@ -4944,7 +5317,7 @@ def load_ishigaki2014b(exclude_mw_halo_ref_stars=True, io=None):
 
     ## New dataframe with proper columns
     ishigaki2014b_df = pd.DataFrame(
-                    columns=['Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
+                    columns=['I/O','Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
                     'Teff','logg','Fe/H','Vmic'] + epscols + ulcols + XHcols + ulXHcols + XFecols 
                     + ulXFecols + errcols)
     for i, name in enumerate(abund_df['Name'].unique()):
@@ -4952,6 +5325,7 @@ def load_ishigaki2014b(exclude_mw_halo_ref_stars=True, io=None):
         ishigaki2014b_df.loc[i,'Simbad_Identifier'] = obs_df.loc[obs_df['Name'] == name, 'Simbad_Identifier'].values[0]
         ishigaki2014b_df.loc[i,'Reference'] = 'Ishigaki+2014b'
         ishigaki2014b_df.loc[i,'Ref'] = 'ISH14b'
+        ishigaki2014b_df.loc[i,'I/O'] = 1
         ishigaki2014b_df.loc[i,'Loc'] = 'UF'
         ishigaki2014b_df.loc[i,'System'] = obs_df.loc[obs_df['Name'] == name, 'System'].values[0]
         ishigaki2014b_df.loc[i,'RA_hms'] = obs_df.loc[obs_df['Name'] == name, 'RA_hms'].values[0]
@@ -5058,7 +5432,7 @@ def load_ji2016a(io=None):
 
     ## New dataframe with proper columns
     ji2016a_df = pd.DataFrame(
-                    columns=['Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
+                    columns=['I/O','Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
                     'Teff','logg','Fe/H','Vmic'] + epscols + ulcols + XHcols + ulXHcols + XFecols 
                     + ulXFecols + errcols)
     for i, name in enumerate(abund_df['Name'].unique()):
@@ -5066,6 +5440,7 @@ def load_ji2016a(io=None):
         ji2016a_df.loc[i,'Simbad_Identifier'] = name
         ji2016a_df.loc[i,'Reference'] = 'Ji+2016a'
         ji2016a_df.loc[i,'Ref'] = 'JI16a'
+        ji2016a_df.loc[i,'I/O'] = 1
         ji2016a_df.loc[i,'Loc'] = 'UF'
         ji2016a_df.loc[i,'System'] = obs_df.loc[obs_df['Name'] == name, 'System'].values[0]
         ji2016a_df.loc[i,'RA_hms'] = obs_df.loc[obs_df['Name'] == name, 'RA_hms'].values[0]
@@ -5166,7 +5541,7 @@ def load_ji2016b(io=None):
 
     ## New dataframe with proper columns
     ji2016b_df = pd.DataFrame(
-                    columns=['Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
+                    columns=['I/O','Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
                     'Teff','logg','Fe/H','Vmic'] + epscols + ulcols + XHcols + ulXHcols + XFecols 
                     + ulXFecols + errcols)
     for i, name in enumerate(abund_df['Name'].unique()):
@@ -5174,6 +5549,7 @@ def load_ji2016b(io=None):
         ji2016b_df.loc[i,'Simbad_Identifier'] = obs_param_df.loc[obs_param_df['Name'] == name, 'Simbad_Identifier'].values[0]        
         ji2016b_df.loc[i,'Reference'] = 'Ji+2016b'
         ji2016b_df.loc[i,'Ref'] = 'JI16b'
+        ji2016b_df.loc[i,'I/O'] = 1
         ji2016b_df.loc[i,'Loc'] = 'UF'
         ji2016b_df.loc[i,'System'] = obs_param_df.loc[obs_param_df['Name'] == name, 'System'].values[0]     
         ji2016b_df.loc[i,'RA_hms'] = obs_param_df.loc[obs_param_df['Name'] == name, 'RA_hms'].values[0]
@@ -5274,7 +5650,7 @@ def load_ji2018(io=None):
 
     ## New dataframe with proper columns
     ji2018_df = pd.DataFrame(
-                    columns=['Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
+                    columns=['I/O','Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
                     'Teff','logg','Fe/H','Vmic'] + epscols + ulcols + XHcols + ulXHcols + XFecols 
                     + ulXFecols + errcols)
     for i, name in enumerate(abund_df['Name'].unique()):
@@ -5282,6 +5658,7 @@ def load_ji2018(io=None):
         ji2018_df.loc[i,'Simbad_Identifier'] = obs_param_df.loc[obs_param_df['Name'] == name, 'Simbad_Identifier'].values[0]
         ji2018_df.loc[i,'Reference'] = 'Ji+2018'
         ji2018_df.loc[i,'Ref'] = 'JI18'
+        ji2018_df.loc[i,'I/O'] = 1
         ji2018_df.loc[i,'Loc'] = 'UF'
         ji2018_df.loc[i,'System'] = obs_param_df.loc[obs_param_df['Name'] == name, 'System'].values[0]
         ji2018_df.loc[i,'RA_hms'] = obs_param_df.loc[obs_param_df['Name'] == name, 'RA_hms'].values[0]
@@ -5386,7 +5763,7 @@ def load_ji2019a(io=None):
 
     ## New dataframe with proper columns
     ji2019a_df = pd.DataFrame(
-                    columns=['Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
+                    columns=['I/O','Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
                     'Teff','logg','Fe/H','Vmic'] + epscols + ulcols + XHcols + ulXHcols + XFecols 
                     + ulXFecols + errcols)
     for i, name in enumerate(abund_df['Name'].unique()):
@@ -5394,6 +5771,7 @@ def load_ji2019a(io=None):
         ji2019a_df.loc[i,'Simbad_Identifier'] = obs_df.loc[obs_df['Name'] == name, 'Simbad_Identifier'].values[0]
         ji2019a_df.loc[i,'Reference'] = 'Ji+2019'
         ji2019a_df.loc[i,'Ref'] = 'JI19a'
+        ji2019a_df.loc[i,'I/O'] = 1
         ji2019a_df.loc[i,'Loc'] = 'UF'
         ji2019a_df.loc[i,'System'] = obs_df.loc[obs_df['Name'] == name, 'System'].values[0]
         ji2019a_df.loc[i,'RA_hms'] = obs_df.loc[obs_df['Name'] == name, 'RA_hms'].values[0]
@@ -5501,7 +5879,7 @@ def load_ji2020a(io=None):
 
     ## New dataframe with proper columns
     ji2020a_df = pd.DataFrame(
-                    columns=['Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
+                    columns=['I/O','Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
                     'Teff','logg','M/H','Vmic'] + epscols + ulcols + XHcols + ulXHcols + XFecols 
                     + ulXFecols + errcols)
     for i, name in enumerate(abund_df['Name'].unique()):
@@ -5509,6 +5887,7 @@ def load_ji2020a(io=None):
         ji2020a_df.loc[i,'Simbad_Identifier'] = obs_df.loc[obs_df['Name'] == name, 'Simbad_Identifier'].values[0]
         ji2020a_df.loc[i,'Reference'] = 'Ji+2020a'
         ji2020a_df.loc[i,'Ref'] = 'JI20a'
+        ji2020a_df.loc[i,'I/O'] = 1
         ji2020a_df.loc[i,'Loc'] = 'UF'
         ji2020a_df.loc[i,'System'] = obs_df.loc[obs_df['Name'] == name, 'System'].values[0]
         ji2020a_df.loc[i,'RA_hms'] = obs_df.loc[obs_df['Name'] == name, 'RA_hms'].values[0]
@@ -5609,7 +5988,7 @@ def load_kirby2017b(io=None):
 
     ## New dataframe with proper columns
     kirby2017b_df = pd.DataFrame(
-                    columns=['Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
+                    columns=['I/O','Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
                     'Teff','logg','Fe/H','Vmic'] + epscols + ulcols + XHcols + ulXHcols + XFecols 
                     + ulXFecols + errcols)
     for i, name in enumerate(abund_df['Name'].unique()):
@@ -5617,6 +5996,7 @@ def load_kirby2017b(io=None):
         kirby2017b_df.loc[i,'Simbad_Identifier'] = obs_param_df.loc[obs_param_df['Name'] == name, 'Simbad_Identifier'].values[0]
         kirby2017b_df.loc[i,'Reference'] = 'Kirby+2017'
         kirby2017b_df.loc[i,'Ref'] = 'KIR17b'
+        kirby2017b_df.loc[i,'I/O'] = 1
         kirby2017b_df.loc[i,'Loc'] = 'UF'
         kirby2017b_df.loc[i,'System'] = obs_param_df.loc[obs_param_df['Name'] == name, 'System'].values[0]
         kirby2017b_df.loc[i,'RA_hms'] = obs_param_df.loc[obs_param_df['Name'] == name, 'RA_hms'].values[0]
@@ -5717,7 +6097,7 @@ def load_koch2008c(io=None):
 
     ## New dataframe with proper columns
     koch2008c_df = pd.DataFrame(
-                    columns=['Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
+                    columns=['I/O','Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
                     'Teff','logg','Fe/H','Vmic'] + epscols + ulcols + XHcols + ulXHcols + XFecols 
                     + ulXFecols + errcols)
     for i, name in enumerate(abund_df['Name'].unique()):
@@ -5725,6 +6105,7 @@ def load_koch2008c(io=None):
         koch2008c_df.loc[i,'Simbad_Identifier'] = obs_param_df.loc[obs_param_df['Name'] == name, 'Simbad_Identifier'].values[0]
         koch2008c_df.loc[i,'Reference'] = 'Koch+2008c'
         koch2008c_df.loc[i,'Ref'] = 'KOC08c'
+        koch2008c_df.loc[i,'I/O'] = 1
         koch2008c_df.loc[i,'Loc'] = 'UF'
         koch2008c_df.loc[i,'System'] = obs_param_df.loc[obs_param_df['Name'] == name, 'System'].values[0]
         koch2008c_df.loc[i,'RA_hms'] = obs_param_df.loc[obs_param_df['Name'] == name, 'RA_hms'].values[0]
@@ -5824,14 +6205,15 @@ def load_koch2013b(io=None):
 
     ## New dataframe with proper columns
     koch2013b_df = pd.DataFrame(
-                    columns=['Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
+                    columns=['I/O','Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
                     'Teff','logg','Fe/H','Vmic'] + epscols + ulcols + XHcols + ulXHcols + XFecols 
                     + ulXFecols)
     for i, name in enumerate(abund_df['Name'].unique()):
-        koch2013b_df.loc[i,'Name'] = name
+        koch2013b_df.loc[i,'Name'] = str(name)
         koch2013b_df.loc[i,'Simbad_Identifier'] = obs_param_df.loc[obs_param_df['Name'] == name, 'Simbad_Identifier'].values[0]
         koch2013b_df.loc[i,'Reference'] = 'Koch+2013b'
         koch2013b_df.loc[i,'Ref'] = 'KOC13b'
+        koch2013b_df.loc[i,'I/O'] = 1
         koch2013b_df.loc[i,'Loc'] = 'UF'
         koch2013b_df.loc[i,'System'] = obs_param_df.loc[obs_param_df['Name'] == name, 'System'].values[0]
         koch2013b_df.loc[i,'RA_hms'] = obs_param_df.loc[obs_param_df['Name'] == name, 'RA_hms'].values[0]
@@ -5895,13 +6277,14 @@ def load_lai2011(io=None):
 
     ## New dataframe with proper columns
     lai2011_df = pd.DataFrame(
-                    columns=['Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
+                    columns=['I/O','Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
                     'Teff','logg','Fe/H','Vmic'] + ['epsfe', '[Fe/H]','ulfe', 'ul[Fe/H]', 'epsc', '[C/H]', '[C/Fe]', 'ulc', 'ul[C/H]', 'ul[C/Fe]'])
     for i, name in enumerate(data_df['Name'].unique()):
         lai2011_df.loc[i,'Name'] = name
         lai2011_df.loc[i,'Simbad_Identifier'] = data_df.loc[data_df['Name'] == name, 'Simbad_Identifier'].values[0]
         lai2011_df.loc[i,'Reference'] = 'Lai+2011'
         lai2011_df.loc[i,'Ref'] = 'LAI11'
+        lai2011_df.loc[i,'I/O'] = 1
         lai2011_df.loc[i,'Loc'] = 'UF'
         lai2011_df.loc[i,'System'] = data_df.loc[data_df['Name'] == name, 'System'].values[0]
         lai2011_df.loc[i,'RA_hms'] = data_df.loc[data_df['Name'] == name, 'RA_hms'].values[0]
@@ -5976,14 +6359,15 @@ def load_marshall2019(io=None):
 
     ## New dataframe with proper columns
     marshall2019_df = pd.DataFrame(
-                    columns=['Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
+                    columns=['I/O','Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
                     'Teff','logg','Fe/H','Vmic'] + epscols + ulcols + XHcols + ulXHcols + XFecols 
                     + ulXFecols + errcols)
     for i, name in enumerate(abund_df['Name'].unique()):
         marshall2019_df.loc[i,'Name'] = name
         marshall2019_df.loc[i,'Simbad_Identifier'] = obs_df.loc[obs_df['Name'] == name, 'Simbad_Identifier'].values[0]
         marshall2019_df.loc[i,'Reference'] = 'Marshall+2019'
-        marshall2019_df.loc[i,'Ref'] = 'MAR19'
+        marshall2019_df.loc[i,'Ref'] = 'MARj19'
+        marshall2019_df.loc[i,'I/O'] = 1
         marshall2019_df.loc[i,'Loc'] = 'UF'
         marshall2019_df.loc[i,'System'] = obs_df.loc[obs_df['Name'] == name, 'System'].values[0]
         marshall2019_df.loc[i,'RA_hms'] = obs_df.loc[obs_df['Name'] == name, 'RA_hms'].values[0]
@@ -6086,7 +6470,7 @@ def load_nagasawa2018(io=None):
 
     ## New dataframe with proper columns
     nagasawa2018_df = pd.DataFrame(
-                    columns=['Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
+                    columns=['I/O','Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
                     'Teff','logg','Fe/H','Vmic'] + epscols + ulcols + XHcols + ulXHcols + XFecols 
                     + ulXFecols + errcols)
     for i, name in enumerate(abund_df['Name'].unique()):
@@ -6094,6 +6478,7 @@ def load_nagasawa2018(io=None):
         nagasawa2018_df.loc[i,'Simbad_Identifier'] = obs_df.loc[obs_df['Name'] == name, 'Simbad_Identifier'].values[0]
         nagasawa2018_df.loc[i,'Reference'] = 'Nagasawa+2018'
         nagasawa2018_df.loc[i,'Ref'] = 'NAG18'
+        nagasawa2018_df.loc[i,'I/O'] = 1
         nagasawa2018_df.loc[i,'Loc'] = 'UF'
         nagasawa2018_df.loc[i,'System'] = obs_df.loc[obs_df['Name'] == name, 'System'].values[0]
         nagasawa2018_df.loc[i,'RA_hms'] = obs_df.loc[obs_df['Name'] == name, 'RA_hms'].values[0]
@@ -6166,7 +6551,7 @@ def load_nagasawa2018(io=None):
 
 def load_norris2010a(io=None):
     """
-    Load the Norris et al. 2010a data for the Bootes II (Boo-1137) Ultra-Faint Dwarf Galaxy.
+    Load the Norris et al. 2010a data for the Bootes I (Boo-1137) Ultra-Faint Dwarf Galaxy.
 
     Table 0 - Observation and Stellar Parameters
     Table 2 - Abundance Table
@@ -6196,13 +6581,14 @@ def load_norris2010a(io=None):
 
     ## New dataframe with proper columns
     norris2010a_df = pd.DataFrame(
-                    columns=['Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
+                    columns=['I/O','Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
                     'Teff','logg','Fe/H','Vmic'] + epscols + ulcols + XFecols + ulXFecols + errcols)
     for i, name in enumerate(abund_df['Name'].unique()):
         norris2010a_df.loc[i,'Name'] = name
         norris2010a_df.loc[i,'Simbad_Identifier'] = obs_df.loc[obs_df['Name'] == name, 'Simbad_Identifier'].values[0]        
         norris2010a_df.loc[i,'Reference'] = 'Norris+2010a'
         norris2010a_df.loc[i,'Ref'] = 'NOR10a'
+        norris2010a_df.loc[i,'I/O'] = 1
         norris2010a_df.loc[i,'Loc'] = 'UF'
         norris2010a_df.loc[i,'System'] = obs_df.loc[obs_df['Name'] == name, 'System'].values[0]     
         norris2010a_df.loc[i,'RA_hms'] = obs_df.loc[obs_df['Name'] == name, 'RA_hms'].values[0]
@@ -6305,13 +6691,14 @@ def load_norris2010b(io=None):
 
     ## New dataframe with proper columns
     norris2010b_df = pd.DataFrame(
-                    columns=['Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
+                    columns=['I/O','Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
                     'Teff','logg','Fe/H','Vmic'] + epscols + ulcols + XFecols + ulXFecols + errcols)
     for i, name in enumerate(abund_df['Name'].unique()):
         norris2010b_df.loc[i,'Name'] = name
         norris2010b_df.loc[i,'Simbad_Identifier'] = obs_df.loc[obs_df['Name'] == name, 'Simbad_Identifier'].values[0]        
         norris2010b_df.loc[i,'Reference'] = 'Norris+2010b'
         norris2010b_df.loc[i,'Ref'] = 'NOR10b'
+        norris2010b_df.loc[i,'I/O'] = 1
         norris2010b_df.loc[i,'Loc'] = 'UF'
         norris2010b_df.loc[i,'System'] = obs_df.loc[obs_df['Name'] == name, 'System'].values[0]     
         norris2010b_df.loc[i,'RA_hms'] = obs_df.loc[obs_df['Name'] == name, 'RA_hms'].values[0]
@@ -6397,13 +6784,14 @@ def load_norris2010c(load_gilmore2013=False, io=None):
 
     ## New dataframe with proper columns
     norris2010c_df = pd.DataFrame(
-                    columns=['Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
+                    columns=['I/O','Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
                     'Teff','logg','Fe/H','Vmic'] + ['epsfe','epsc','[Fe/H]','[C/H]','[C/Fe]'])
     for i, name in enumerate(csv_df['Name'].unique()):
         norris2010c_df.loc[i,'Name'] = name
         norris2010c_df.loc[i,'Simbad_Identifier'] = csv_df.loc[csv_df['Name'] == name, 'Simbad_Identifier'].values[0]        
         norris2010c_df.loc[i,'Reference'] = csv_df.loc[csv_df['Name'] == name, 'Reference'].values[0]
         norris2010c_df.loc[i,'Ref'] = 'NOR10c'
+        norris2010c_df.loc[i,'I/O'] = 1
         norris2010c_df.loc[i,'Loc'] = 'UF'
         norris2010c_df.loc[i,'System'] = csv_df.loc[csv_df['Name'] == name, 'System'].values[0]     
         norris2010c_df.loc[i,'RA_hms'] = csv_df.loc[csv_df['Name'] == name, 'RA_hms'].values[0]
@@ -6461,7 +6849,7 @@ def load_roederer2014b(io=None):
 
     ## New dataframe with proper columns
     roederer2014b_df = pd.DataFrame(
-                    columns=['Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
+                    columns=['I/O','Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
                     'Teff','logg','Fe/H','Vmic'] + epscols + ulcols + XHcols + ulXHcols + XFecols 
                     + ulXFecols + errcols)
     for i, name in enumerate(abund_df['Name'].unique()):
@@ -6469,6 +6857,7 @@ def load_roederer2014b(io=None):
         roederer2014b_df.loc[i,'Simbad_Identifier'] = obs_param_df.loc[obs_param_df['Name'] == name, 'Simbad_Identifier'].values[0]
         roederer2014b_df.loc[i,'Reference'] = 'Roederer+2014b'
         roederer2014b_df.loc[i,'Ref'] = 'ROE14b'
+        roederer2014b_df.loc[i,'I/O'] = 1
         roederer2014b_df.loc[i,'Loc'] = 'UF'
         roederer2014b_df.loc[i,'System'] = obs_param_df.loc[obs_param_df['Name'] == name, 'System'].values[0]
         roederer2014b_df.loc[i,'RA_hms'] = obs_param_df.loc[obs_param_df['Name'] == name, 'RA_hms'].values[0]
@@ -6569,7 +6958,7 @@ def load_simon2010(io=None):
 
     ## New dataframe with proper columns
     simon2010_df = pd.DataFrame(
-                    columns=['Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
+                    columns=['I/O','Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
                     'Teff','logg','Fe/H','Vmic'] + epscols + ulcols + XHcols + ulXHcols + XFecols 
                     + ulXFecols + errcols)
     for i, name in enumerate(abund_df['Name'].unique()):
@@ -6577,6 +6966,7 @@ def load_simon2010(io=None):
         simon2010_df.loc[i,'Simbad_Identifier'] = obs_param_df.loc[obs_param_df['Name'] == name, 'Simbad_Identifier'].values[0]
         simon2010_df.loc[i,'Reference'] = 'Simon+2010'
         simon2010_df.loc[i,'Ref'] = 'SIM10'
+        simon2010_df.loc[i,'I/O'] = 1
         simon2010_df.loc[i,'Loc'] = 'UF'
         simon2010_df.loc[i,'System'] = obs_param_df.loc[obs_param_df['Name'] == name, 'System'].values[0]
         simon2010_df.loc[i,'RA_hms'] = obs_param_df.loc[obs_param_df['Name'] == name, 'RA_hms'].values[0]
@@ -6677,7 +7067,7 @@ def load_sbordone2007(io=None):
 
     ## New dataframe with proper columns
     sbordone2007_df = pd.DataFrame(
-                    columns=['Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
+                    columns=['I/O','Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
                     'Teff','logg','Fe/H','Vmic'] + epscols + ulcols + XHcols + ulXHcols + XFecols 
                     + ulXFecols + errcols)
     for i, name in enumerate(abund_df['Name'].unique()):
@@ -6685,6 +7075,7 @@ def load_sbordone2007(io=None):
         sbordone2007_df.loc[i,'Simbad_Identifier'] = obs_param_df.loc[obs_param_df['Name'] == name, 'Simbad_Identifier'].values[0]        
         sbordone2007_df.loc[i,'Reference'] = 'Sbordone+2007'
         sbordone2007_df.loc[i,'Ref'] = 'SBO07'
+        sbordone2007_df.loc[i,'I/O'] = 1
         sbordone2007_df.loc[i,'Loc'] = obs_param_df.loc[obs_param_df['Name'] == name, 'Loc'].values[0]
         sbordone2007_df.loc[i,'System'] = obs_param_df.loc[obs_param_df['Name'] == name, 'System'].values[0]     
         sbordone2007_df.loc[i,'RA_hms'] = obs_param_df.loc[obs_param_df['Name'] == name, 'RA_hms'].values[0]
@@ -6785,7 +7176,7 @@ def load_spite2018(io=None):
 
     ## New dataframe with proper columns
     spite2018_df = pd.DataFrame(
-                    columns=['Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
+                    columns=['I/O','Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
                     'Teff','logg','Fe/H','Vmic'] + epscols + ulcols + XHcols + ulXHcols + XFecols 
                     + ulXFecols + errcols)
     for i, name in enumerate(abund_df['Name'].unique()):
@@ -6793,6 +7184,7 @@ def load_spite2018(io=None):
         spite2018_df.loc[i,'Simbad_Identifier'] = obs_param_df.loc[obs_param_df['Name'] == name, 'Simbad_Identifier'].values[0]
         spite2018_df.loc[i,'Reference'] = 'Spite+2018'
         spite2018_df.loc[i,'Ref'] = 'SPI18'
+        spite2018_df.loc[i,'I/O'] = 1
         spite2018_df.loc[i,'Loc'] = 'UF'
         spite2018_df.loc[i,'System'] = obs_param_df.loc[obs_param_df['Name'] == name, 'System'].values[0]
         spite2018_df.loc[i,'RA_hms'] = obs_param_df.loc[obs_param_df['Name'] == name, 'RA_hms'].values[0]
@@ -6897,7 +7289,7 @@ def load_waller2023(io=None):
     
     ## New dataframe with proper columns
     waller2023_df = pd.DataFrame(
-                    columns=['Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
+                    columns=['I/O','Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
                     'Teff','logg','Fe/H','Vmic'] + epscols + ulcols + XHcols + ulXHcols + XFecols 
                     + ulXFecols + errcols)
     for i, name in enumerate(abund_df['Name'].unique()):
@@ -6905,6 +7297,7 @@ def load_waller2023(io=None):
         waller2023_df.loc[i,'Simbad_Identifier'] = obs_df.loc[obs_df['Name'] == name, 'Simbad_Identifier'].values[0]
         waller2023_df.loc[i,'Reference'] = 'Waller+2023'
         waller2023_df.loc[i,'Ref'] = 'WAL23'
+        waller2023_df.loc[i,'I/O'] = 1
         waller2023_df.loc[i,'Loc'] = 'UF'
         waller2023_df.loc[i,'System'] = obs_df.loc[obs_df['Name'] == name, 'System'].values[0]
         waller2023_df.loc[i,'RA_hms'] = obs_df.loc[obs_df['Name'] == name, 'RA_hms'].values[0]
@@ -7021,7 +7414,7 @@ def load_webber2023(io=None):
 
     ## New dataframe with proper columns
     webber2023_df = pd.DataFrame(
-                    columns=['Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
+                    columns=['I/O','Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
                     'Teff','logg','Fe/H','Vmic'] + epscols + ulcols + XHcols + ulXHcols + XFecols 
                     + ulXFecols + errcols)
     for i, name in enumerate(abund_df['Name'].unique()):
@@ -7029,6 +7422,7 @@ def load_webber2023(io=None):
         webber2023_df.loc[i,'Simbad_Identifier'] = obs_df.loc[obs_df['Name'] == name, 'Simbad_Identifier'].values[0]
         webber2023_df.loc[i,'Reference'] = 'Webber+2023'
         webber2023_df.loc[i,'Ref'] = 'WEB23'
+        webber2023_df.loc[i,'I/O'] = 1
         webber2023_df.loc[i,'Loc'] = 'UF'
         webber2023_df.loc[i,'System'] = obs_df.loc[obs_df['Name'] == name, 'System'].values[0]
         webber2023_df.loc[i,'RA_hms'] = obs_df.loc[obs_df['Name'] == name, 'RA_hms'].values[0]
@@ -7145,7 +7539,7 @@ def load_gull2021(io=None):
 
     ## New dataframe with proper columns
     gull2021_df = pd.DataFrame(
-                    columns=['Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
+                    columns=['I/O','Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
                     'Teff','logg','Fe/H','Vmic'] + epscols + ulcols + XHcols + ulXHcols + XFecols 
                     + ulXFecols + errcols)
     for i, name in enumerate(abund_df['Name'].unique()):
@@ -7266,7 +7660,7 @@ def load_ji2020b(io=None):
 
     ## New dataframe with proper columns
     ji2020b_df = pd.DataFrame(
-                    columns=['Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
+                    columns=['I/O','Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
                     'Teff','logg','M/H','Vmic'] + epscols + ulcols + XHcols + ulXHcols + XFecols 
                     + ulXFecols + errcols)
     for i, name in enumerate(abund_df['Name'].unique()):
@@ -7378,7 +7772,7 @@ def load_martin2022a(io=None):
         martin2022a_df.loc[i,'Pristine_Name'] = obs_df.loc[obs_df['Name'] == name, 'Pristine_Name'].values[0]
         martin2022a_df.loc[i,'Reference'] = 'Martin+2022'
         martin2022a_df.loc[i,'I/O'] = 1
-        martin2022a_df.loc[i,'Ref'] = 'MAR22'
+        martin2022a_df.loc[i,'Ref'] = 'MARn22'
         martin2022a_df.loc[i,'Loc'] = 'SS'
         martin2022a_df.loc[i,'System'] = obs_df.loc[obs_df['Name'] == name, 'System'].values[0]
         martin2022a_df.loc[i,'RA_deg'] = obs_df.loc[obs_df['Name'] == name, 'RA_deg'].values[0]
@@ -7530,7 +7924,7 @@ def load_roederer2010a(io=None):
 
     ## New dataframe with proper columns
     roederer2010a_df = pd.DataFrame(
-                    columns=['Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
+                    columns=['I/O','Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
                     'Teff','logg','M/H','Vmic'] + epscols + ulcols + XHcols + ulXHcols + XFecols 
                     + ulXFecols + errcols)
     for i, name in enumerate(abund_df['Name'].unique()):
@@ -7647,7 +8041,7 @@ def load_roederer2019(io=None):
 
     ## New dataframe with proper columns
     roederer2019_df = pd.DataFrame(
-                    columns=['Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
+                    columns=['I/O','Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
                     'Teff','logg','M/H','Vmic'] + epscols + ulcols + XHcols + ulXHcols + XFecols 
                     + ulXFecols + errcols)
     for i, name in enumerate(abund_df['Name'].unique()):
