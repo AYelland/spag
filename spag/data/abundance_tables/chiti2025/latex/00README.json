@@ -1,0 +1,31 @@
+{
+   "sources" : [
+      {
+         "usage" : "toplevel",
+         "filename" : "sn-article.tex"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "sn-basic.bst"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "sn-bibliography.bib"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "sn-mathphys-ay.bst"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "sn-mathphys-num.bst"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "sn-nature.bst"
+      }
+   ],
+   "process" : {
+      "compiler" : "pdflatex"
+   }
+}
