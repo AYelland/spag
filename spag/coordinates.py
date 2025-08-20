@@ -69,7 +69,7 @@ def ra_deg_to_hms(ra_deg, precision=2):
     ra_m = int((ra_deg - ra_h * 15.0) * 4.0)
     ra_s = (ra_deg - ra_h * 15.0 - ra_m / 4.0) * 240.0
     if isinstance(precision, int):
-        output_str = f"{ra_h:02d}:{ra_m:02d}:{ra_s:06.{precision}f}"
+        output_str = f"{ra_h:02d}:{ra_m:02d}:{ra_s:0{3+precision}.{precision}f}"
     elif precision is None:
         output_str = f"{ra_h:02d}:{ra_m:02d}:{int(ra_s):02d}"
     else:
@@ -119,7 +119,7 @@ def dec_deg_to_dms(dec_deg, precision=2):
     dec_m = int((dec_deg - dec_d) * 60.0)
     dec_s = (dec_deg - dec_d - dec_m / 60.0) * 3600.0
     if isinstance(precision, int):
-        output_str = f"{sign}{dec_d:02d}:{dec_m:02d}:{dec_s:06.{precision}f}"
+        output_str = f"{sign}{dec_d:02d}:{dec_m:02d}:{dec_s:0{3+precision}.{precision}f}"
     elif precision is None:
         output_str = f"{sign}{dec_d:02d}:{dec_m:02d}:{int(dec_s):02d}"
     else:
