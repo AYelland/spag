@@ -68,7 +68,7 @@ def calc_cemp_fraction(df, feh_limit=-2.0, cfe_limit=0.7):
     df_filtered = df[df['[Fe/H]'] <= feh_limit]
     n_CEMP = len(df_filtered[df_filtered['[C/Fe]f'] >= cfe_limit])
     n_tot = len(df_filtered[df_filtered['[C/Fe]f'].notna()]) # real data values
-    n_tot += len(df_filtered[(df_filtered['ul[C/Fe]f'].notna()) & (df_filtered['ul[C/Fe]f'] <= 0.8)]) # upper limits
+    n_tot += len(df_filtered[(df_filtered['ul[C/Fe]f'].notna()) & (df_filtered['ul[C/Fe]f'] <= cfe_limit+0.1)]) # upper limits
     # print(n_CEMP, n_tot, feh_limit, cfe_limit)
 
     if n_tot == 0 and n_CEMP != 0:
