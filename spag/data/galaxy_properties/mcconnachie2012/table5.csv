@@ -1,22 +1,22 @@
 Name,u_[Fe/H],[Fe/H],e_[Fe/H],Meth,Ref5,Com5
 The Galaxy,,,,,,
 Canis Major,,-0.5,0.2,CMD fitting,400,Based primarily on MS stars
-Sagittarius dSph,,-0.4,0.2,HRS,401,
-Segue (I),,-2.72,0.4,MRS,402,"See also Simon et al. (2011, Cat. J/ApJ/733/46)"
+Sagittarius,,-0.4,0.2,HRS,401,
+Segue 1,,-2.72,0.4,MRS,402,"See also Simon et al. (2011, Cat. J/ApJ/733/46)"
 Ursa Major II,,-2.47,0.06,MRS,"403,404",
 Bootes II,,-1.79,0.05,MRS (CaT),405,
-Segue II,,-2.0,0.25,HRS,305,
+Segue 2,,-2.0,0.25,HRS,305,
 Willman 1,:,-2.1,,MRS,406,Based on three stars
 Coma Berenices,,-2.6,0.05,MRS,"403,404",
 Bootes III,,-2.1,0.2,MRS,407,
-LMC,,-0.5,,MRS (CaT),408,"See also Cole et al. (2005, Cat. J/AJ/129/1465)"
-SMC,,-1.0,0.02,MRS (CaT),409,
-Bootes (I),,-2.55,0.11,MRS,402,See also Lai et al. (2011ApJ...738...51L)
+Large Magellanic Cloud,,-0.5,,MRS (CaT),408,"See also Cole et al. (2005, Cat. J/AJ/129/1465)"
+Small Magellanic Cloud,,-1.0,0.02,MRS (CaT),409,
+Bootes I,,-2.55,0.11,MRS,402,See also Lai et al. (2011ApJ...738...51L)
 Draco,,-1.93,0.01,MRS,404,See also Winnick (2003PhDT.........9W)
 Ursa Minor,,-2.13,0.01,MRS,404,See also Winnick (2003PhDT.........9W)
 Sculptor,,-1.68,0.01,MRS,"410,404",See also Battaglia et al. (2008ApJ...681L..13B)
-Sextans (I),,-1.93,0.01,MRS,404,"See also Battaglia et al. (2011, Cat. J/MNRAS/411/1013)"
-Ursa Major (I),,-2.18,0.04,MRS,"403,404",
+Sextans I,,-1.93,0.01,MRS,404,"See also Battaglia et al. (2011, Cat. J/MNRAS/411/1013)"
+Ursa Major I,,-2.18,0.04,MRS,"403,404",
 Carina,,-1.72,0.01,MRS (CaT),411,
 Hercules,,-2.41,0.04,MRS,"403,404",
 Fornax,,-0.99,0.01,MRS,404,"See also Battaglia et al. (2006, Cat. J/A+A/459/423)"
@@ -24,7 +24,7 @@ Leo IV,,-2.54,0.07,MRS,"403,404",HRS of a single star in Simon et al. (2010ApJ..
 Canes Venatici II,,-2.21,0.05,MRS,"403,404",
 Leo V,,-2.0,0.2,Isochrones,412,
 Pisces II,:,-1.9,,Isochrones,317,
-Canes Venatici (I),,-1.98,0.01,MRS,"403,404",
+Canes Venatici I,,-1.98,0.01,MRS,"403,404",
 Leo II,,-1.62,0.01,MRS,404,"See also Koch et al. (2007, Cat. J/AJ/133/270)"
 Leo I,,-1.43,0.01,MRS,404,"See also Koch et al. (2007, Cat. J/AJ/133/270)"
 Andromeda,,,,,,

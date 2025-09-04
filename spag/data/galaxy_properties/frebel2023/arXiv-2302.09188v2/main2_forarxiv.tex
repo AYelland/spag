@@ -1,0 +1,2372 @@
+\documentclass[letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{fullpage}
+\usepackage{tcolorbox}
+
+% to get rid of the ugly boxes
+\usepackage[hidelinks]{hyperref}
+
+% Astronomy latex definitions,  used in apj styling
+\input{latexdefs}
+% Setting up bibliography
+\usepackage{natbib}
+\bibliographystyle{apj}
+
+\usepackage{color}
+\usepackage{amsmath}
+\usepackage{xspace}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{xifthen}
+\usepackage{hyperref}
+\usepackage[normalem]{ulem}
+\usepackage{hhline}
+\usepackage{makecell}
+\newcommand{\unit}[1]{\ensuremath{\mathrm{\,#1}}\xspace}
+% \newcommand{\feh}{\unit{[Fe/H]}}
+% \newcommand{\teff}{\ensuremath{T_\mathrm{eff}}\xspace}
+% \newcommand{\logg}{\ensuremath{\log\,g}\xspace}
+% \newcommand{\msun}{\unit{M_\odot}}
+% \newcommand{\lsun}{\unit{L_\odot}}
+
+\title{Observations of $R$-process Stars in the Milky Way and Dwarf Galaxies \\\vspace{0.3cm}
+\large{to appear in \\
+\textit{Handbook of Nuclear Physics} -- Part III \\
+Section 15 ``Supernovae and Neutron Star Mergers"\\
+by \textit{Springer Nature} 2022}
+}
+% \flushleft
+% \author{Anna Frebel 
+% (Department of Physics and Kavli Institute for Astrophysics and 
+% Space Research, Massachusetts Institute of Technology, Cambridge, MA 02139, USA, and Joint Institute for Nuclear Astrophysics--Center for Evolution of the Elements (JINA), East Lansing, MI 48824, USA) and \\ 
+% Alexander P. Ji (University of Chicago, Kavli Institute for Cosmological Physics, Joint Institute for Nuclear Astrophysics)}
+\author{}
+
+% Department of Astronomy \& Astrophysics, University of Chicago, 5640 S Ellis Avenue, Chicago, IL 60637, USA
+% Kavli Institute for Cosmological Physics, University of Chicago, Chicago, IL 60637, USA
+% Joint Institute for Nuclear Astrophysics—Center for Evolution of the Elements, East Lansing, MI 48824, USA
+
+% \date{July 1, 2022}
+\date{}
+
+
+\begin{document}
+
+\maketitle
+
+\begin{center}
+    
+{\large Anna Frebel} \\
+{\small Department of Physics and Kavli Institute for Astrophysics and Space Research, Massachusetts Institute of Technology, Cambridge, MA 02139, USA} \\ 
+{\small Joint Institute for Nuclear Astrophysics--Center for Evolution of the Elements (JINA), East Lansing, MI 48824, USA} \\[12pt]
+{\large and} \\[12pt]
+{\large Alexander P. Ji} \\ 
+{\small Department of Astronomy \& Astrophysics, University of Chicago, 5640 S Ellis Avenue, Chicago, IL 60637, USA} \\
+{\small Kavli Institute for Cosmological Physics, University of Chicago, Chicago, IL 60637, USA} \\
+{\small Joint Institute for Nuclear Astrophysics--Center for Evolution of the Elements (JINA), East Lansing, MI 48824, USA}
+\end{center}
+
+
+
+\begin{center}
+\section*{Abstract} 
+
+This chapter presents an overview of the recent progress on spectroscopic observations of metal-poor stars with $r$-process element signatures found in the Milky Way’s stellar halo and satellite dwarf galaxies.
+Major empirical lessons related to the origins of the $r$-process are discussed, including the universality of the observed $r$-process pattern and deviations from universality among the light $r$-process elements and actinides. Different astrophysical sites of the $r$-process based on theoretical expectations are presented, including common and rare supernovae and neutron star mergers. A major distinguishing factor between $r$-process sites is their delay time distribution. The best constraints on the detailed $r$-process pattern come from Galactic halo $r$-process stars, but these cannot provide information on the environment of the stars' birth gas clouds. Studying $r$-process enrichment within dwarf galaxies can remedy the situation despite the fact that high-resolution spectroscopic observations of individual stars in these systems are very difficult to obtain. A general overview of dwarf galaxy properties and chemical evolution expectations depending on their mass and star formation duration is provided. The $r$-process trends depend on the stellar mass and star formation durations of dwarf galaxies in a way that clearly shows that the $r$-process is rare, prolific, and has both prompt and delayed sources. This work complements ongoing theoretical heavy-element nucleosynthesis explorations and experimental measurements of the properties of $r$-process nuclei, such as with the Facility for Rare Isotope Beams.
+
+\end{center}
+
+
+
+
+%- Permissions for Figures 2 (Hansen 2018), 4 (Roederer 2022)
+%  - Copyright in caption
+
+
+
+
+\newpage
+\section{Introduction}
+
+Astronomical observations of cosmic objects provide insight into a large range of physics questions. One central question is that of the origin of the chemical elements through a variety of nucleosynthesis processes that occur in stars, supernova explosions, merging neutron stars and other objects. 
+
+This chapter presents an overview of recent astronomical observations of heavy elements associated with $r$-process nucleosynthesis. The $r$-process (short for ``rapid neutron-capture process'') is responsible for synthesizing about half of the isotopes of elements heavier than iron in the solar system. The $s$-process (short for ``slow neutron-capture process'') is responsible for the other half.
+The elements synthesized by these and other nucleosynthetic processes can be probed by studying the chemical composition of ancient, so-called ``metal-poor" stars. The elements preserved in these objects over billions of years enable us to study abundance signatures that arose from just a few (or even one) nucleosynthesis events that occurred prior to the star's birth in the early universe. This concept is often referred to as Stellar Archaeology, and illustrated in Figure~\ref{fig:overview}.
+Indeed, having the means to observationally isolate a variety of clean nucleosynthesis signatures, and interpreting them within the framework of nuclear astrophysics, is vital for our understanding where and how the chemical elements were synthesized \citep{Frebel2015}.
+
+
+In this context, it is important to begin with a definition of metal-poor stars. ``Metal" refers in astronomy to all elements heavier than H and He. ``Metal-poor" refers to an amount of all heavy elements that is less than that of the Sun, our reference star. Effectively that means, that the lower the overall metallicity, the earlier the star must have formed due to ongoing chemical enrichment events that only ever add new metals to the universe. With spectroscopic observations, the chemical composition of stars can be obtained to determine metallicity and abundances of individual elements. In most cases, the iron abundance of the star (given as ``[Fe/H]" in the bracket notation) will be used to represent its overall metallicity, and used interchangeably. Stellar chemical abundances of any two elements are then defined relative to the respective abundances in the Sun (e.g., \citealt{Asplund2009}) as \mbox{[A/B]}$
+= \log(N_{\rm A}/N_{\rm B}) - \log(N_{\rm A}/N_{\rm B})_\odot$ where
+$N_{\rm {A}}$ ($N_{\rm {B}}$) is the number of atoms of element A (B). Consequently, the Sun will have a metallicity of $\mbox{[Fe/H]}=0.0$. Stars with $\mbox{[Fe/H]}<-1.0$ are called ``metal-poor" stars. Stars with $\mbox{[Fe/H]}<-2.0$ are called ``very metal-poor" stars. An ``extremely metal-poor" star would have $\mbox{[Fe/H]}<-3.0$, which corresponds to one thousandth of the solar iron abundance. For better or for worse, the words ``very'' and ``extremely'' have a specific technical meaning when studying metal-poor stars. For a full classification, see table 1 in \citealt{Frebel2018}.
+
+\begin{figure}[!b]
+\centering
+    \includegraphics[width=0.8\linewidth]{figures/stellar_archaeology_final.pdf}
+    \caption{Overview of the concepts of stellar and dwarf galaxy archaeology. In both cases, observations of ancient stars in the Milky Way's halo as well as its orbiting dwarf satellite galaxies enable the reconstruction of the physical and chemical conditions of stellar birth gas clouds present within the earliest galactic systems that formed soon after the Big Bang as well as over all of cosmic history. Comparisons with theoretical models allows testing for specific sources and sites of nucleosynthesis and their effects on their environment.
+    }
+    \label{fig:overview}
+\end{figure}
+
+
+For nearly three decades by now, stellar archaeology has been carried out with a group of rare, old, very and extremely metal-poor stars that display large relative enhancements in heavy elements associated with the $r$-process. They are found in the outskirts of the Milky Way, in the Galactic halo \citep{Beers05, Sneden2008, Frebel2018}. 
+Astronomers distinguish different $r$-process enhancement levels of these stars in the following way. First, $r$-process stars need to fulfill the criterion of $\mbox{[Ba/Eu]} < 0.0$ to ensure their neutron-capture element content does not originate with the $s$-process. Mildly enhanced $r$-process stars are defined to have $0.3 \le \mbox{[Eu/Fe]} \le 0.7$ and are termed $r$-I stars. Strongly enhanced $r$-process stars have $\mbox{[Eu/Fe]} > 0.7$; they are the $r$-II stars. An earlier definition had the transition from $r$-I to $r$-II at $\mbox{[Eu/Fe]} =1.0$ but recent works shows a naturally occurring break at 0.7 in the distribution, with about 2/3 of the $r$-process stars having values of $\mbox{[Eu/Fe]}<0.7$. Finally, the recent discovery of a star with $\mbox{[Eu/Fe]} = 2.3$ \citep{cain20} led to the introduction of $r$-III stars with exceedingly large Eu abundances of $\mbox{[Eu/Fe]} > +2.0$. 
+
+
+Metal-poor halo stars are thought to originate in small dwarf galaxies that have been tidally disrupted by the Milky Way \citep{Frebel2015}.
+It was mostly impossible to associate these halo stars with their birth environments, but there are also intact dwarf satellite galaxies orbiting the Milky Way at larger distances.
+Starting in the 2000s \citep[e.g.,][]{Shetrone01,shetrone03,Koch08} the advent of 6-10m diameter telescopes enabled direct study of the chemical abundances of stars in these dwarf galaxies (see reviews by \citealt{Venn04,Tolstoy2009,Frebel2015,Simon2019}).
+At first, very few stars were discovered with clear $r$-process-enhanced nucleosynthetic signature outside the stellar halo (in the dwarf galaxy Ursa Minor and the globular cluster M15; \citealt{Otsuki06, aoki2007_cos82, Cohen2009}).
+
+It thus came as a surprise in 2016 when the dwarf galaxy Reticulum\,II \citep{Ji2016b, Roederer2016} turned out to be an entire ``$r$-process galaxy" when seven of nine stars observed showed the $r$-process pattern and enhancement levels among the highest ever found. The existence of such stars in a known and quantifiable dwarf galaxy environment provided a novel constraint on the astrophysical production site of the $r$-process. Based on an estimate for the mass of Reticulum\,II and together with the enhancement level observed in the stars, it was concluded that likely a neutron star merger had occurred to provide copious amounts of $r$-process elements in this galaxy at very early times. Using entire dwarf galaxies as probes of chemical enrichment events -- and more broadly to constrain the physical and chemical conditions of early galaxies --  significantly builds on Stellar Archaeology, since the birth environment of dwarf galaxy stars can be estimated and taken into account. Accordingly, this is referred to as ``dwarf galaxy archaeology" and also shown in Figure~\ref{fig:overview}.
+
+% 2018 jinabase
+% >0.7 65  7%
+% >1.0 30  3%
+
+% RPA
+% >0.7 70 stars 12\%
+% >1.0 27 stars  5\%
+
+
+Metal-poor halo stars and dwarf galaxies thus provide complementary ways to observationally access information about the origin of the $r$-process elements.
+Metal-poor halo stars are relatively nearby ($<5$\,kpc), so it is possible to directly study the detailed composition of $r$-process nucleosynthesis across all the $r$-process peaks. This has led to many exquisite results and findings, e.g., the universality of the $r$-process, uranium measurements, actinide boost, second $r$-process peak abundances, that have driven this line of observational exploration of $r$-process nucleosynthesis. 
+% 
+Dwarf galaxies are distant (30-200\,kpc) making it challenging to obtain stellar spectra from which to determine full $r$-process element patterns (see Figure~\ref{fig:spectra}), but the known birth environment of the stars provides the opportunity to understand the buildup of $r$-process material over time. The many dwarf galaxies sample a wide range of formation histories, providing a way to test the relative contributions of $r$-process sites with different rates, yields, and delay time distributions.
+Ultimately, the goal is a unified picture of the origin of $r$-process elements in the intact dwarf galaxies, the tidally disrupted dwarf galaxies, and the Milky Way Galaxy itself. This approach highlights the importance of nuclear astrophysics that brings together results from astrophysics and nuclear physics in the quest to understand the $r$-process. The work with $r$-process stars and dwarf galaxies will thus provide information complementary to results to be obtained from experimental facilities such as the Facility for Rare Isotope Beams (FRIB).
+
+The rest of this Chapter first describes lessons about $r$-process nucleosynthesis from Stellar Archaeology (Section~\ref{sec:halo}) with metal-poor halo stars. The next section briefly discusses different $r$-process sites and how a primary distinguishing factor is not which elements are made, but \textit{when} they are made (Section~\ref{candidates}). This motivates studying dwarf galaxies to understand the $r$-process. General information about dwarf galaxies is reviewed in Section~\ref{sec:dwarfgals}, and a discussion of lessons regarding the $r$-process origin from dwarf galaxies is in Section~\ref{sec:dwarfrproc}. A summary and the path ahead is discussed in Section~\ref{sec:conclusion}.
+
+%--------------------------------------------
+%--------------------------------------------
+\section{$R$-process Nucleosynthesis in the Cosmos}\label{sec:halo}
+
+Starting in the mid 1990's, astronomers began to occasionally find metal-poor stars that would show an unusual, strong enhancement in $r$-process elements. They would be located in the so-called halo of the Milky Way, depicting the extensive spherical region that envelopes the Galaxy's disk. The first such star (with $\mbox{[Fe/H]}\sim-3.1$) was CS22892-052 \citep{sneden1994,Sneden03}) which eventually became one of the most well-studied metal-poor stars, certainly in terms of number of elements. An impressive 57 elements were measured based on high-resolution spectroscopic data taken with ground and space based telescopes. Soon after, CS31082-001 was found \citep{Cayrel01, Hill02}, another strongly $r$-process enhanced star which now also enables Th \textit{and} U measurement. However, this star appeared to be enhanced in Th and U relative to other neutron-capture element abundances which lead to negative values when attempting to age date this star (although the Th/U ratio did deliver an age of $\sim$14 billion years). The actinide boost phenomenon was found, leading to even more questions about $r$-process nucleosynthesis, its astrophysical site, and frequency of occurrence.
+% 
+All these initial observational findings of metal-poor halo stars enhanced in $r$-process elements showed without a doubt \textit{that} the $r$-process operated in the early universe, and that clean nucleosynthesis signatures could be extracted from stars through detailed chemical abundance analyses. It opened up a new branch of nuclear astrophysics by enabling the collection of the observable fingerprints of this process.
+ 
+ 
+%--------------------------------------------------- 
+\subsection{Discovering $R$-process Stars in the Milky Way Halo and their Abundance Signatures}
+
+Astronomers began to systematically search for more metal-poor $r$-process stars since it had become clear that they are out there -- just not in large numbers. 
+In the early 2000's, an extensive observational campaign, the HERES survey \citep{Christlieb04, Barklem2005}, was started that would collect hundreds of so-called snapshot spectra of metal-poor red giants allowing sifting through many stars to check for the presence of the strong Eu absorption line at 4129\,{\AA}, the most prominent indicator for $r$-process enhancement. Absorption line strength is temperature dependent where, at fixed abundance, the cooler red giants will display a stronger, more easily to detect line than warmer main-sequence star counterparts. Since 2017, the $R$-Process Alliance (e.g., \citealt{sakari18,hansen18,ezzeddine20, holmbeck20}) has continued this work by conducting a multi-year observational program with telescopes in both the Northern and Southern hemisphere, with the goal of quadrupling the number of existing $r$-process enhanced stars. Thus far, more than 2000 candidates have been observed, of which $\sim$70 are strongly enhanced $r$-process stars with $\mbox{[Eu/Fe]}>0.7$ discovered by the $R$-Process Alliance. 
+
+Detailed chemical abundance studies have by now been carried out for dozens of $r$-process stars based on high-resolution, high $S/N$ spectra obtained with telescopes such as the 8 meter ESO/VLT, 6.5 meter Magellan, and 8 meter Subaru \citep{Christlieb04, Honda05, holmbeck18, placco2020, cain20}. A handful have even been studied with UV spectra obtained with the Hubble Space Telescope and its STIS and COS spectrographs to obtain measurements of additional elements with transition only available in the UV spectral range \citep{Roederer2012, roederer2014phos, Roederer18_hd}. The challenge with UV measurements is that stars must be rather bright, fairly warm with respect to its surface temperature as to produce a larger relative UV flux, and of course highly enhanced in $r$-process elements. 
+
+
+\begin{figure}
+\centering
+    \includegraphics[width=0.7\linewidth]{figures/Hansen2018_spectra.png} \\
+    \includegraphics[width=0.7\linewidth]{figures/ret2_spectra.pdf}
+    \caption{Portion of spectra of stars with different levels of neutron-capture element enhancement around the strong Sr, Ba, and Eu absorption lines at 4215\,{\AA}, 6141\,{\AA}, and 4129\,{\AA}, respectively. Top panels: A limited-$r$ halo star (top, J1812$-$4934), a mildly enhanced $r$-process halo star (middle, J1558$-$1224) stars, and a strongly $-r$-process enhanced halo star (bottom, J0246$-$1518). Figure taken from \citet{Hansen2018}. 
+    Bottom panels:
+    Two stars from the ultra-faint dwarf galaxy Reticulum\,II \citep{Ji2016b}. The top star is a typical ultra-faint dwarf galaxy star completely lacking neutron-capture element lines, while the bottom star is a strongly $r$-process enhanced star. The halo stars were observed with a relatively small 2.5m diameter telescope in 10-30 min, while the dwarf galaxy stars were observed with a 6.5m diameter telescope for 1-3 hours. Despite the vast difference in telescope diameter and exposure time, note the stark difference in signal-to-noise ratio of the spectra between the halo stars and Reticulum\,II stars.
+    }
+    % J0246: 600s, J1558: 1200s, J1812: 1800s
+    \label{fig:spectra}
+\end{figure}
+
+
+\subsection{How Much $R$-process Material is Found in Old Halo Stars?}
+
+As part of the discovery process, candidate stars are identified by the Eu line to obtain the stars' Eu-to-Fe ratio. Moderate enhancement, termed $r$-I, has been originally defined as $0.3<\mbox{[Eu/Fe]}<1.0$ \citep{Beers05} but more recently been changed to $0.3<\mbox{[Eu/Fe]}<0.7$ \citep{holmbeck20} to better reflect a naturally occurring break in the abundance distribution. Regardless, $r$-I stars show ratios at least at a factor of 2 or higher than the Eu/Fe ratio of the Sun. Strong enhancement, termed $r$-II, now defined as $\mbox{[Eu/Fe]}>0.7$, a factor of at least 5 times higher compared to the Sun's ratio. By now, stars with much higher ratios has been found, up to $\mbox{[Eu/Fe]}\sim2.3$. Stars with $\mbox{[Eu/Fe]}>2.0$ have been termed $r$-III stars \citep{cain20, ezzeddine20}.  This is illustrated in Figure~\ref{fig:eufe}. These $r$-III stars display more than a factor of 100 higher Eu/Fe ratios than the Sun, providing evidence of significant contributions of Eu to the stars' early birth gas clouds, in relation to Fe contributions by other sources and as compared to the pre-solar nebula's enrichment history. The $r$-III stars are especially interesting for setting constraints on the maximum yield of potential $r$-process sites \citep[e.g.,][]{Macias2018,Macias2019,Siegel2021}
+
+In this context, it is also interesting to look at the ``raw" abundance, log $\epsilon(Eu)$ or [Eu/H] for a more direct comparison to the amount of Eu present in the Sun (formed $\sim$9.2 billion years after the Big Bang). 
+At $\mbox{[Fe/H]}\sim-3.1$ and with $\mbox{[Eu/Fe]}\sim1.5$ \citep{sneden2000}, CS22892-052 has still contains a significantly lower total Eu amount than the Sun of $\mbox{[Eu/H]}\sim-1.6$, or a factor of 40 less than the Sun's value. Still, CS22892-052 is called a strongly enhanced $r$-process star because the Eu amount relative to Fe is so unusual given it's (supposed) early formation time as indicated by the low [Fe/H] abundance (probably within the first billion years or so). Compare this to another star. At $\mbox{[Fe/H]}\sim-1.5$ and with $\mbox{[Eu/Fe]}\sim1.3$ \citep{Roederer18_hd}, the $r$-II star HD\,222925 has $\mbox{[Eu/H]}\sim-0.2$. This  is very close to the amount of Eu found in the Sun, and in fact the largest Eu amount discovered in any of the $r$-process stars. Models incorporating $r$-process nucleosynthesis, chemical evolution and star formation will need  to reproduce not just the observed $r$-process abundance signature of these stars but also explain their total amounts of Eu and other heavy elements. 
+
+
+\begin{figure*}[!h] 
+\begin{center}
+  \includegraphics[width=\linewidth]{figures/rpa_eufe.pdf}
+   \caption{\mbox{Logarithmic [Eu/Fe]} and linear Eu-to-Fe ratio (relative to that of the Sun) plotted against \feh\ for various $r$-process enhanced observed by the $R$-Process Alliance. The adopted boundaries for $r$-I, $r$-II, and $r$-III stars are shown at $\mbox{[Eu/Fe]} = 0.7$ and 2.0. 
+   For educational purposes, the older $r$-I-$r$-II boundary of $\mbox{[Eu/Fe]} = 1.0$ that was based on a smaller dataset is also shown.
+   Data are from \citep{hansen18,sakari18,ezzeddine20, holmbeck20}. 
+   The $r$-III star J1521$-$3538 is marked separately \citep{cain20}.
+   %
+  Additional $r$-II stars can be found in JINAbase \citep{Abohalima18}. \label{fig:eufe}
+   }
+\end{center}
+\end{figure*}
+
+
+\subsection{Frequency of $R$-process Stars in the Galactic Halo}
+
+While the Galactic halo contains relatively many ancient metal-poor stars, the bulk of objects are much younger and metal-rich. This leaves metal-poor stars to be rare objects that are difficult to identify \citep{Beers05, Frebel2015}. 
+The $r$-process enhanced stars are exceedingly rare and determining the occurrence rate has not been easy, especially when samples were still small. For a long time, for stars with $\mbox{[Eu/Fe]}>1.0$, the rate was about 5\% among metal-poor stars with $\mbox{[Fe/H]}<-2.0$ \citep{Barklem2005}. As of Spring 2022, hundreds of $r$-process are now known spanning a large range of enhancement levels. Specifically, $r$-II stars with $\mbox{[Eu/Fe]}>1.0$ found by the $R$-Process Alliance remain at 5\% (27 stars), but numbers increase to 12\% (70 stars) when taking $\mbox{[Eu/Fe]}>0.7$ \citep{Hansen2018,sakari18,ezzeddine20,holmbeck20}. According to the JINAbase database  \citep{Abohalima18} for metal-poor stars, 30 additional stars with $\mbox{[Eu/Fe]}>1.0$ are known (3\%) and 65 stars with $\mbox{[Eu/Fe]}>0.7$ (7\%), all for $\mbox{[Fe/H]}<-1.5$. This brings the total of known $r$-process halo metal-poor stars with  $\mbox{[Eu/Fe]}>1.0$ to 57, and 135 with $\mbox{[Eu/Fe]}>0.7$. Stars with Eu enhancement of $0.3<\mbox{[Eu/Fe]}<0.7$ are much more numerous, about 2-3 times as many of the strongly enhanced $r$-process stars. Interestingly, no metallicity dependence has been observed on these fractions \citep{holmbeck20}, although it should be noted that hardly any of these stars have $\mbox{[Fe/H]}<-3.3$.
+
+
+
+\subsection{The Universality of the $R$-process between Barium and Platinum}
+
+Ever since the discovery of the first $r$-process star, CS22892-052, it has been shown repeatedly that the derived abundance pattern of heavy neutron-capture elements in all these stars shows a universal behavior; that is the relative $\log \epsilon$(X) abundances (defined as $\log_{10}\epsilon$(X) = $\log_{10}$($N_{\rm X}$/N$_{\rm H}$) + 12 $= \mbox{[X/H]} + \log\epsilon_\odot$(X)) for elements barium and above always show the exact same distinct pattern. This is illustrated in Figure~\ref{fig:rprocpattern} for the metal-poor $r$-process enhanced star HD\,222925 \citep{Roederer2022}. For example, two stars with different metallicities would not share the same level of enrichment (higher metallicity stars tend to have higher overall abundances including those of neutron-capture abundances) but they would share the same \textit{relative} abundance pattern. This allows for using e.g., the [Ba/Eu] ratio as an indicator for observationally identifying $r$-process stars given that a value of $\mbox{[Ba/Eu]} =-0.8$ simply refers to that underlying pattern \citep{Sneden2008}.
+
+\begin{figure}
+\centering
+    \includegraphics[width=0.7\linewidth]{figures/Roederer2022_Pattern.png}
+    \caption{$R$-process pattern of the metal-poor red giant star HD\,222925 which has the most complete elemental abundance pattern of directly detected 42 $r$-process elements, based on ground-based and space-based spectroscopic data. The three elemental $r$-process peaks at $Z \sim 34$, $54$, and $78$ correspond to the isotopic abundance peaks at $A \sim 80$, $130$, and $195$ that originate from the closed neutron shells at $N=28$, $50$, and $82$. The match to the scaled solar $r$-process pattern is striking in the region from Ba to Pt. HD\,222925 does not appear to be an actinide boost star. Differences, however, are found for several trans-Fe elements (Ga, Ge, As) and among the lighter neutron-capture elements close to the second peak. 
+    Figure taken from \citet{Roederer2022}.}
+    \label{fig:rprocpattern}
+\end{figure}
+
+
+This universality of the heavy $r$-process elements, in fact, even extends to the $r$-process residuals of the Sun -- stars covering a range of metallicities from $\mbox{[Fe/H]}\sim-1$ to $-3$ and the Sun show the same relative abundance pattern despite having vastly different overall levels of heavy element abundances. Note that the Sun's $r$-process residual is obtained by subtracting a theoretically derived $s$-process component from the Sun's total chemical abundance pattern \citep[e.g.,][]{Goriely1999,Sneden2008,Bisterzo2014,Prantzos2020}. This is necessary because the Sun formed from gas that experienced a variety of nucleosynthesis events over billions of years, including $s$- and $r$-process. As such, it is important to remember that the Sun's pattern is not a measured quantity as it is the case for the $r$-process abundances patterns obtained from metal-poor stars. Still, the universality seems to hold. Overall, the universality implies that no matter where and when in the universe, the $r$-process production of heavy elements of barium to the third peak elements  appears to remains the same irrespective of any astrophysical effects. 
+
+
+While the Sun's $r$-process residual pattern is a derived quantity, it uniquely has isotope abundances available in addition to element abundances. As such, it has been the long-standing benchmark star for comparisons with essentially all observational and theoretical results.  However, recently, the bright star HD\,222925 was discovered to be $r$-process-enhanced. Using both ground and spaced based observations it was possible to measure chemical abundances of 42 heavy neutron-capture elements from 31 $\le$ Z $\le$ 90 \citep{Roederer2022}. This makes HD\,222925 the star with the most elements measured besides the Sun. Going forward, HD\,222925 could be used as the benchmark for all further comparisons related to testing the site of the $r$-process, especially given the large deviations in the first $r$-process peak.
+Table~\ref{tab:solarrproc} provides multiple different determinations of the solar $r$-process residual as well as the measurements of HD\,222925 \citep{Prantzos2020,Roederer2022}.
+
+
+
+
+\subsection{Variations of Light Neutron-Capture Element Abundance}
+
+The behavior of the lighter neutron-capture elements, from strontium to barium, is not a universal pattern unlike what is found for the heavy $r$-process elements. 
+Instead, significant variations, of over a factor of 10, are found in the ratio of these first $r$-process peak elements relative to the universal pattern occurring above barium in $r$-process enhanced stars \citep[e.g.,][]{Sneden2008,Ji2016c,Ji2018}.
+This behavior is shown in Figure~\ref{fig:srresid}, which displays the stellar $r$-process residuals derived from subtracting off the solar $r$-process residuals \citep{Burris00} from the stellar $\log \epsilon$(X) abundances. It can clearly be seen that the scaled light neutron-capture element abundances (Sr, Y, Zr) vary from being significantly lower than the bulk of the scaled heavy-element pattern for some stars, to being much higher in other stars. In other words, there is substantial scatter in the observed [Sr/Eu] ratio, where Sr and Eu are representative elements for the light and heavy $r$-process elements, respectively. 
+Note that it is important to keep in mind that the benchmark for comparisons, especially with theoretical predictions, has been the Sun's residual $r$-process pattern -- but the body of metal-poor stellar data does in fact not agree with the Sun among the lighter neutron-capture elements. 
+
+
+\begin{figure}
+\centering
+    \includegraphics[width=0.9\linewidth]{figures/rIIstar_residuals.pdf}
+    \caption{Residuals of stellar $r$-process element abundances subtracted from the solar $r$-process pattern \citep{Burris00}, for a variety of $r$-process enhanced ($r$-II) stars in the halo, the brightest star in the $r$-process dwarf galaxy Reticulum\,II \citep{Ji2018}, and the $r$-process  star HD\,222925 \citep{Roederer2022}.
+    The residuals are calculated to minimize the absolute deviation for $56 \leq Z \leq 66$ (see \citealt{Ji2016c}).
+    The universality of the $r$-process is reflected in the small amount of scatter of elements Ba to Yb, and when measurable in HD\,222925 it extends up to elements like Ir and Pt. On the contrary, the lighter neutron-capture elements Sr, Y, and Z show significant variations compared to the solar $r$-process pattern, with both higher and lower values.
+    Variations in Th are also relatively large and representative of the actinide boost and deficiency phenomenon. Figure adapted and updated from \citet{Ji2016c}.}
+    \label{fig:srresid}
+\end{figure}
+
+There are at least two possible explanations for the observed variations in the observed scatter among light neutron-capture element abundances.
+First, the variation could result from the combination of two independent astrophysical sites, each producing a characteristic but stable abundance pattern in the first peak regime \citep[e.g.,][]{Travaglio04,Honda07,Montes07,SiqueiraMello2014,Shibagaki16}.
+Alternatively, the variation could be due to intrinsic variability in $r$-process composition and yield within one astrophysical site, as is commonly expected in theoretical calculations  \citep[e.g.,][]{Wanajo14,Just15,Nishimura2015,Radice16,Wu2016}.
+Mapping out these variations with more first peak elements in more $r$-process enhanced stars is ultimately needed to gain a more complete picture of light neutron-capture element production through the $r$-process.
+
+An interesting future point of comparison could be multi-messenger astrophysics, where the ratio of light to heavy $r$-process elements can be observed directly through measuring detailed light curves of explosive transients \citep{kilpatrick17,Chornock2017,Tanaka2017,Tanvir2017}. Already, the one neutron star merger detected in gravitational waves, GW170817, whose electromagnetic counterpart was observed with telescopes has a composition inconsistent with the strongly enhanced $r$-II stars \citep{Ji2019b}.
+
+
+\subsection{Actinide Element Variations and Nucleocosmochronometry}
+
+The measured abundances of the actinide elements, thorium and uranium, are dominated by long-lived radioactive isotopes that decay over cosmic timescales. The species $^{238}$U and $^{232}$Th have half-lives of 4.5 and 14 billion years, respectively. Assuming metal-poor stars to be older than the Sun then implies that the actinide abundances would be lower than the Sun's values compared to a stable heavy element such as Eu. This behavior principally offers a way to age date old stars via this ``cosmo-chronometry", as long as initial production ratios (yields) of the progenitor $r$-process are known and reflective of the stars birth environment and conditions. This has so far proven very challenging despite site-independent yield calculations \citep{schatz02, hill17} that have been utilized to age date a number of metal-poor $r$-process stars \citep{Cayrel01,he1523,placco17}. Another challenge is related to observational uncertainties that quickly result in very large age uncertainties. Observational Th and U measurements are very difficult to achieve for a variety of reasons (e.g., requiring strong lines, a very high resolution, very high signal-to-noise spectrum, low stellar carbon abundance) but even reasonable uncertainties will result in several billion year age uncertainty showing once again how difficult cosmo-chronometry is observationally alone. Uncertainties in initial production ratios, easily a multiple of the observed uncertainties, add to this issue. See also \citet{Frebel2018} for further details.
+
+To complicate matters further, about a quarter of metal-poor star with measurable Th (and U) abundances show a different behavior -- their actinide abundance are higher than those of the Sun's pattern \citep{holmbeck18}. This is illustrated in Figure~\ref{fig:srresid}. This phenomenon has been termed the ``actinide boost". This additional amount of actinides must come from a second and/or separate $r$-process or component that either occurred at a later time than the main/first event, or there must be significant variations in actinide production across $r$-processes and sites, perhaps due to fission cycling or other environmentally driven details \citep{holmbeck2019}.
+It has also been found in a few individual stars in dwarf galaxies that there are  actinide deficient stars, with surprisingly low Th/Eu ratios \citep{Ji2018,Hansen2021}.
+
+Generally, it would be of particular interest to measure actinide abundances in dwarf galaxy stars and star clusters, as one can obtain independent age measurements of these stellar systems from low-mass stellar evolution models. This would provide one way forward to calibrate $r$-process yield and site predictions in combination with an understanding of the gas mixing mass involved. So far, thorium has been measured in a number of stars in several dwarf galaxies: Reticulum~II \citep{Ji2018}, Ursa Minor \citep{aoki2007_cos82}, Fornax \citep{Reichert2021}, Sagittarius \citep{Hansen2020}, and the disrupted dwarf galaxy Indus \citep{Hansen2021}. However, uranium measurements will remain inaccessible due to the weakness of the strongest U line at 3859\,{\AA}.
+The ages from cosmo-chronometry are consistent with the ages of the dwarf galaxies, but the large uncertainties from cosmo-chronometry make this comparison currently, unfortunately, fairly meaningless \citep{aoki2007_cos82}.
+
+
+\input{solarrproc}
+
+
+\section{Candidate Astrophysical Sites of the $r$-process}\label{candidates}
+
+The fundamental question at hand is about the origin of heavy elements synthesized in the rapid neutron-capture elements: What are possible astrophysical sites, and what is their relative importance over cosmic history?
+A number of sites have been proposed theoretically to explain the operation of the $r$-process.
+Since  $r$-process nucleosynthesis requires a very high density of free neutrons, it can essentially only happen in events associated with the birth and death of compact neutron stars.
+
+Conditions for an $r$-process to operate must include a high neutron-to-seed ratio. The most important quantity for describing the neutron-to-seed ratio is the electron fraction $Y_e = n_e/n$. Since the ejecta is net neutral, $Y_e$ is  equal to the fraction of protons, and $1-Y_e$ is the fraction of neutrons. Thus, a lower $Y_e$ means that the ejecta will be more neutron-rich.
+A broad rule of thumb about $r$-process nucleosynthesis calculations is that an electron fraction of $Y_e > 0.25$ would result in the build up of elements of the first peak region, $0.10 < Y_e < 0.25$ would lead to elements partaking in the universal $r$-process pattern between the second and third $r$-process peak as well as some actinide elements, and $Y_e < 0.10$ would be especially responsible for the production of the actinide elements \citep[e.g.,][]{Lippuner15,Wu2016,holmbeck2019}.
+However, there are many exceptions to this general rule due to the exact thermodynamic properties of the ejecta \citep[e.g.,][]{Farouqi10,Wanajo14,Mumpower2016,Curtis2021}.
+Note that when discussing the origin of $r$-process elements, most people implicitly assume the question concerns solely the origin of $r$-process elements beyond the second $r$-process peak: The rare earth elements, the third $r$-process peak, and the actinides. Focus on these heavier elements stems from the fact that elements in the first $r$-process peak can also be produced in a much larger variety of ways, such as the weak $s$-process or $\nu p$ process \citep{Sukhbold2016, Frohlich2006}.
+
+Here, three broad categories of the most commonly invoked astrophysical sites for the $r$-process to occur are considered \citep{Cowan2021}:
+Common core-collapse supernovae (more than 1-10\%), e.g., in neutrino-driven winds \citep[e.g.,][]{Woosley92,woosley94,Farouqi10,Arcones11} or during electron-capture supernovae \citep{Ning2007,Janka2008,Wanajo2011};
+rare core-collapse supernovae (less than 1\% occurrence rate), such as in magnetorotationally driven jets \citep{Winteler2012,Nishimura2015,Nishimura2017,Mosta2018} or in collapsar disk winds \citep{Pruet2004,Surman2011,Siegel2019,Miller2020};
+and binary neutron star mergers, including both neutron star-neutron star pairs and black hole-neutron star mergers \citep[e.g.,][]{Lattimer74,Lattimer76,Lattimer77,Surman2008,Hotokezaka2013,Goriely11,Goriely2013,rosswog14,Wanajo14,Eichler2015,Just15,Wu2016,Lippuner2017,Curtis2021}.
+
+Below is a brief summary of the results of theoretical studies on four major questions:
+How often does it occur -- what is the event rate?
+How quickly does it happen after star formation -- what is the delay time distribution?
+How much $r$-process material is made -- What is the event yield? and
+What is the distribution of elements made -- What is the $r$-process composition?
+
+\subsection{Common core-collapse supernovae}
+
+Since \citet{Burbidge57}, core-collapse supernovae have been regarded as a promising site for $r$-process nucleosynthesis.
+But it has also been clear since \citet{mcwilliam98} that supernovae could not all produce the same amount of $r$-process elements. Yet a specific range of stellar masses, upon their explosion, could principally be able to produce all the $r$-process elements through the second and third peak. This would imply the operation of $r$-process nucleosynthesis in a relatively large fraction (1-10\%) of core-collapse supernovae \citep[e.g.,][]{wanajo_ishimaru}.
+
+Hypothetical mechanisms for producing the full slew of the $r$-process elements include neutrino-driven winds emanating from the proto-neutron star \citep[e.g.,][]{takahashi94,Woosley92,woosley94,Qian96,Farouqi10} and electron-capture supernovae of $8-10 M_\odot$ stars \citep[e.g.,][]{Ning2007,Janka2008,wanajo_rs2006}.
+Due to the short lifetimes of their progenitor stars, these common core-collapse supernovae would produce a small amount of $r$-process elements essentially immediately after an episode of star formation from which they originated.
+However, modern calculations show that these mechanisms tend not to produce a full $r$-process, though they can produce a limited (weak) $r$-process up to the first $r$-process peak \citep[e.g.,][]{Arcones07,Arcones11,Wanajo2011}.
+Thus, theoretically such sites are disfavored as the source of the heaviest $r$-process elements.
+
+Note that there is evidence that such a limited $r$-process (also often called the light element primary process, \citealt{Travaglio04,Montes07,Hansen12}) does exist in nature. A group of metal-poor stars, now termed limited $r$-process stars (e.g., \citealt{Frebel2018, Hansen2018}), qualitatively shows this type of abundance drop-off with increasing atomic number, as expected for a limited (weak) $r$-process \citep{Honda04,Honda07}. Following the abundance definition for these limited-$r$ stars, they need to fulfill $\mbox{[Eu/Fe]} < 0.3$, $\mbox{[Sr/Ba]} > 0.5$, and  $\mbox{[Sr/Eu]} > 0.0$.
+
+
+\subsection{Rare core-collapse supernovae}
+
+Given the difficulties of the common core-collapse supernovae to produce a full $r$-process, contemporary models of $r$-process nucleosynthesis in core-collapse supernovae invoke extreme physical conditions that may occur rarely, in less than 1\% of core-collapse supernova explosions (if physical indeed).
+Currently, the most popular models are collapsar disk winds \citep{Pruet2004,Surman2011,Siegel2019,Miller2020} and magnetorotationally driven jet supernovae \citep{Winteler2012,Nishimura2015,Mosta2018,Halevi2018}, which both involve high magnetic fields and very rapid rotation. Note these two mechanisms are not mutually exclusive, and in principle both could happen in the same supernova.
+Like the common core-collapse supernovae, it is currently rather uncertain whether these rare core-collapse supernovae are even capable of synthesizing the heaviest $r$-process elements, due to the complex physics involved (e.g. neutrino transport, radiation magnetohydrodynamics, general relativity).
+However, if suitable conditions for $r$-process production can be achieved, the $r$-process yields can be relatively high ($0.01-1 M_\odot$) and they would also occur promptly after star formation due to the short lives of the progenitors.
+
+
+
+\subsection{Neutron star mergers}
+
+Neutron star mergers  result from the inspiraling of two compact objects that have been orbiting each other and losing energy through gravitational waves. The two subclasses are binary neutron star mergers (BNS) and black hole-neutron star mergers (BHNS).
+The gravitational wave event GW170817 and its associated electromagnetic kilonova counterpart AT2017gfo \citep{LIGOGW170817a,LIGOGW170817b} have provided conclusive evidence that binary neutron star mergers can produce heavy $r$-process elements \citep{Arcavi2017,Chornock2017,Coulter2017,Cowperthwaite2017,drout17,Evans2017,Kasliwal2017,kilpatrick17,McCully2017,Nicholl2017,Pian2017,shappee17,Smartt2017,Tanvir2017,Troja2017}. This event remains the only direct observation of $r$-process nucleosynthesis in the cosmos, though only one individual element (strontium) was identified \citep{Watson2019}.
+These neutron star mergers produce a moderately high amount of $r$-process ($\sim 0.01 M_\odot$) material, and it is expected that they will produce a variable ratio of light  and heavy $r$-process elements \citep[e.g.,][]{Wu2016,Lippuner2017,Ji2019b}.
+Due to the time needed to inspiral due to a continued loss of energy through gravitational radiation, the actual merger events are expected to be delayed relative to star formation episode that created their massive progenitor stars \citep[e.g.,][]{Dominik12}.
+Additionally, binary neutron stars can experience a substantial velocity kick of a few hundred km/s during the formation of each of the neutron stars \citep[e.g.,][]{Willems2004,Dominik12,Fong2013,Beniamini2016,Bramante2016}.
+
+While neutron star mergers are the only definite source of $r$-process elements, it is still not clear how important they might be for the buildup of $r$-process elements in the Galaxy, and in particular, for understanding the composition of stars like our Sun. Reasons include that the delayed $r$-process production may well occur only after most stars in a galaxy have already formed, and/or that the enrichment in $r$-process elements may occur far away from the original star-forming regions if the system experienced strong velocity kicks.
+
+One other important caveat is that there is currently significant debate about how quickly neutron stars can actually merge. Most expectations are that a typical merging time is distributed as $t_{\rm merge} \propto t^{-1}$ with a minimum delay time of 10-100\,Myr \citep[e.g.,][]{Dominik12,Belczynski2018,Chruslinska2018,Neijssel2019}, but several authors have argued that a substantial fraction of neutron star binaries should merge much faster, on the order of 1\,Myr after both supernovae in the binary system have exploded \citep[e.g.,][]{Beniamini2019,Safarzadeh2019}.
+
+\subsection{Distinguishing factors}
+
+Comparing these three classes of sites, common core-collapse supernovae are theoretically disfavored due to their inability to synthesize the heavy $r$-process elements (as well as observationally ruled out by dwarf galaxies; Section~\ref{sec:ufd}).
+The other two classes, rare core-collapse supernovae and neutron star mergers, have very similar event rates and $r$-process yields. These rare events have very few observational constraints, and if indeed physically occurring in the universe, they operate under extreme multi-physics circumstances. Given significant theoretical uncertainties in the predicted electron fraction distributions, the uncertainties in nuclear experimental data along the $r$-process path, and few direct observational constraints, both of the rare $r$-process production sites should currently be considered as able to reproduce the typical $r$-process pattern, certainly for elements barium and above. Additional differences may be present on an isotopic level but that unfortunately cannot be constrained with observations of metal-poor stars.
+
+Thus, the primary available distinguishing factor between rare core-collapse supernovae and neutron star mergers as the primary source of $r$-process elements in the universe is the \emph{delay time distribution}, i.e. how long it takes after a burst of star formation in a given system for $r$-process elements to be synthesized.
+Delay times for core-collapse supernovae are simply the lifetimes of massive stars, which are extremely short (or ``prompt''), $10-20$\,Myr.
+Delay times for neutron star mergers are typically extended (or ``delayed''), ranging from ${\sim}30$\,Myr to several Gyr \citep[e.g.,][]{Belczynski2018,Neijssel2019}.
+The existence of $r$-process enhanced metal-poor stars thus traditionally led astronomers to prefer a prompt enrichment channel, such as core-collapse supernovae as the origin of $r$-process elements \citep[e.g.,][]{Qian00,Argast04,wanajo_ishimaru}. 
+
+However, it is important to recall that inferring the delay time distribution is not independent of the astrophysical context in which an $r$-process event occurs.
+As the most obvious example, the correspondence between metallicity and time (often called the age-metallicity relation) varies substantially depending on the mass of a galaxy that a star forms in \citep[e.g.,][]{Ishimaru15,Ji2016b}. Stars forming in low mass galaxies take much longer to reach a level of even [Fe/H] $= -3$ compared to stars forming in high mass galaxies.
+Furthermore, the detailed dynamics of how metals from an explosive event mix into the surrounding interstellar gas (``metal mixing'') can introduce inhomogeneities, such that coeval stars have in fact a range of metallicities, or conversely, that a single metallicity corresponds to a range of ages \citep[e.g.,][]{Webster14,Emerick2019,Ji2022}.
+Additionally, the $r$-process elements are synthesized at high energy, and it takes time to trap the material and cool it back down to star-forming gas in a galaxy's interstellar medium \citep{Shen2015,Hirai15,Naiman2018,Schonrich2019,Cote2019,Naidu2022,Amend2022,vandeVoort2020,vandeVoort2022}
+Thus, $r$-process enrichment should vary across time and also between galaxies with properties and environments that include different star formation histories and masses.
+Unfortunately, the study of metal-poor Galactic halo stars limits the exploration of these important issues; they cannot provide any information of environment of host galaxy properties because these halo stars originate from a variety of dwarf galaxies of different masses that were accreted by the Milky Way. Other stars are needed to probe both $r$-process abundance signatures as well as reveal environmental information about their birth conditions.
+
+
+%--------------------------------------------
+%--------------------------------------------
+\section{Dwarf Galaxies: Nature's Best $R$-process Laboratories}\label{sec:dwarfgals}
+
+The Milky Way's dwarf satellite galaxies have been extensively studied over the past half century (see e.g. \citealt{Tolstoy2009} for a comprehensive summary, and also \citealt{Simon2019} for more recent results). Given the specific focus here on $r$-process observations in dwarf galaxies, here is a brief summary of the state of the art, including providing information on the basic properties of dwarf galaxies as understanding dwarf galaxy environments has become increasingly important for learning about the site and operation of the $r$-process.
+
+There are currently ${\sim60}$ dwarf galaxy satellites of the Milky Way \citep{Simon2019}.
+Their basic properties are tabulated in Table~\ref{tab:dwarfprop} and show some important quantities in Figure~\ref{fig:dwarfprop}.
+Only two of these galaxies contain gas and are star-forming (the Large and Small Magellanic Clouds, LMC and SMC). All of the other galaxies are so-called dwarf spheroidal (dSph) galaxies, which contain no neutral gas and look morphologically like a diffuse cloud of stars.
+It is thus useful here to define ``galaxy,'' as opposed to other gravitationally bound stellar systems such as star clusters \citep{Willman2012}. A galaxy forms at the center of a dark matter halo, so its gravitational mass is 10-100 times higher than its stellar mass. Even galaxies with only a few thousand solar masses of stars have their own extensive dark halo and thus represent the lower mass end of galaxy formation. On the contrary, a star cluster is not embedded in a dark halo, even the most massive ones containing several million solar masses of stars.
+Twelve of the Milky Way satellites are still candidate galaxies at the time of writing, meaning that there is not yet enough data to conclusively distinguish them from star clusters.
+
+Some confusing naming conventions should also be clarified. Dwarf galaxies are typically named after the International Astronomical Union-defined constellation where they were originally discovered, followed by a roman numeral if multiple galaxies or candidate galaxies or structures are in the same constellation on the sky. For example,  Reticulum\,II is the 2nd galaxy-like structure found within the Reticulum constellation. The first galaxy discovered typically has the roman numeral dropped (e.g., Carina\,I = Carina) as is especially the case with the longer known systems. However, upon initial discovery, it can be unclear if a system is ultimately confirmed to be a galaxy or rather a star cluster, as the structure needs to be followed up with spectroscopy to confirm a high mass-to-light ratio and metallicity dispersion. As a result, galaxy names do not always follow this rule. For example, Segue 1 and 2 were named after the SEGUE survey, instead of a constellation, and were only later confirmed to actually be galaxies. Reticulum\,I has been shown to be a globular cluster, but Reticulum~II is a dwarf galaxy. Once names are given, they are typically kept.
+
+
+\subsection{The Need to Study Dwarf Galaxies to Learn about the $R$-process}
+
+Contrary to the availability of relatively bright and close-by halo stars with observable $r$-process enhancements, stars in dwarf galaxies are much, much fainter. This is mostly due to the large distances of often up to 250\,kpc of these system, leaving only the brightest red giant stars available for detailed spectroscopic observations. These brightest stars  are of 16th to 19th magnitude, where 19th magnitude is at the edge of what is technically possible to observe with high-resolution spectroscopy even with the largest telescopes.
+Every single star thus takes at least several hours if not an entire night or more to observe. 
+
+However, stars in dwarf galaxies provide a powerful advantage over Galactic halo stars:
+A dwarf galaxy provide a collection of stars with a known common and correlated formation history. This includes environmental information related to metal mixing, gas dilution mass, and star formation history. The observed stars are still within their birth environment, which means that the chemical enrichment that took place prior to their birth can be reconstructed more quantitatively. Knowing about the environment helps to break degeneracies of galaxy evolution. At fixed [X/H], the number of enriching sources is completely degenerate with the gas mass of the system. But within the same galaxy, the gas mass is constant, thus offering a way to constrain the enrichment history. 
+This is essential when trying to understand the signature and origin scenarios of different nucleosynthesis processes. Since the Galactic halo formed from a combination of dissolved dwarf galaxies as part of the hierarchical assembly of the Milky Way, any given halo star likely did not originate from within the Galaxy but in a small dwarf galaxy long ago. Hence, any information on the birth gas cloud conditions was lost upon the accretion of the erstwhile host galaxy.
+
+While element nucleosynthesis is entirely governed by nuclear physics processes, the initial conditions for it to occur are determined by the astrophysical site and associated environmental situation at the time of the event. On one hand, this complicates the interpretation of the observed signatures, but on the other hand, it also provides an opportunity to obtain information that might provide insight into the astrophysical site and conditions. 
+
+Regarding $r$-process nucleosynthesis, stars located in dwarf galaxies are ideally suited for studying individual, clean nucleosynthesis processes, since they still reside in the environment in which the $r$-process event occurred. Besides the yield constraints, the dwarf galaxy environment specifically provides means to constrain different production sites in terms of their astrophysics delay times and and type of yields. With chemical evolution models, varying delay times can be taken into account when  predicting observed trends and abundance ratios pertaining to contributions by prompt and delayed sources. However, the sites associated with those timescales remain indistinguishable at present. More data, likely to come in the next decades, will hopefully shed more light on these questions.
+
+
+
+
+
+%--------------------------------------------
+%--------------------------------------------
+\subsection{$R$-process Observables in Dwarf Galaxies}
+
+Of all the neutron-capture elements, only three are usually available to measure in dwarf galaxies: strontium (Sr), barium (Ba), and europium (Eu), which trace the first $r$-process peak, the second $r$-process peak, and the rare earth elements, respectively.
+This is because in low-metallicity stars ($\mbox{[Fe/H]} < -2$), the absorption lines of other neutron-capture elements are intrinsically much weaker and as such usually undetectable in spectrum of low or moderate quality.
+At metallicities of $\mbox{[Fe/H]} \gtrsim -2.0$, yttrium (Y) becomes measurable in place of Sr, and lanthanum (La) in place of Ba. With increasing [Fe/H] many other elements also become  measurable (especially Zr, Ce, Nd, Dy), especially if their abundances are enhanced.
+Indeed, in a few rare cases of highly $r$-process enhanced stars, it has been possible to measure the actinide element thorium (Th) \citep{aoki2007_cos82,Ji2018,Hansen2018,Hansen2021,Reichert2021}.
+
+
+Still, measuring neutron-capture element abundances in dwarf galaxies is hard.
+Since dwarf galaxies are at least 20 kiloparsecs away, it is currently only feasible to study red giant stars, and unfortunately most neutron-capture element absorption lines occur at relatively low (blue) wavelengths where these stars produce little flux and spectrograph detectors have poor quantum efficiency. Additionally, moderately high spectral resolution ($R = \lambda/\Delta \lambda \gtrsim 25,000$) is required to detect any of the intrinsically weak $r$-process element absorption lines.
+This generally limits observations to the available brighter stars with $V < 19$, and requires, despite the above challenges, reaching down to wavelengths of 4000\,{\AA} to measure at least Sr (4077\,{\AA} and 4215\,{\AA}) and Eu (4129\,{\AA} and other lines further to the blue and red).
+The easiest of the three element to measure is Ba because has multiple strong lines at relatively red wavelengths (4554-6497\,{\AA}). Recently, it has been shown that Ba can be accurately measured at lower spectral resolutions of $R \sim 6000$ by simultaneously fitting all the Ba lines \citep{Duggan2018}. Thus, in many dwarf galaxy studies, Ba is the only neutron-capture element available.
+
+In general, dwarf galaxies are enriched by a combination of the $r$-process and $s$-process.
+Before studying $r$-process nucleosynthesis and its history, the $s$-process component must be removed. This is typically accomplished by measuring both Ba and Eu abundances, then assuming that the solar $r$-process pattern is universal from the second to the third peak ([Ba/Eu] $= -0.8$, \citealt{Sneden2008}), and that any excess Ba is due to the $s$-process \citep[e.g.,][]{Duggan2018,Skuladottir2019,delosReyes2022}.
+In principle, this fundamentally limits our ability to use dwarf galaxies to study variations in the $r$-process composition.
+However, the most metal-poor stars in the least massive dwarf galaxies can be assumed to have formed early enough that $s$-process contamination of the system is unlikely. Measurements made for some of these stars have confirmed that deviations from the universal $r$-process pattern are at the same level as measurement uncertainties. Thus, when considering average abundance trends, it is a reasonable procedure to do this subtraction, though it precludes studying variations in the detailed $r$-process composition.
+
+Overall, it is thus possible to study the (more) detailed $r$-process patterns of dwarf galaxy stars only in the rare cases where the stars are unusually close, and only with a very large investment of telescope time \citep[e.g.,][]{Ji2018,Hansen2021}.
+However bulk distributions of a few element ratios are currently achievable, such as [Ba/Eu] and [Sr/Eu].
+
+
+\subsection{General Properties of Dwarf Galaxies}
+
+\input{dwarftable}
+
+The most important parameter describing a dwarf galaxy is its stellar mass, which spans 7 orders of magnitude ($10^3 - 10^{10}\,M_\odot$). The stellar mass is inferred from a galaxy's observed luminosity which is typically given in absolute $V$-band magnitudes ($M_V$) and can be converted using
+\begin{equation}\label{eq:mstarmv}
+    M_\star = \eta\,10^{0.4(4.83 - M_V)}
+\end{equation}
+where $\eta$ is the mass-to-light ratio and is $\approx 2.2$ for old, metal-poor stellar populations  \citep{Ji2016b}. $\eta$ decreases to $1.0-1.5$ for younger stellar populations \citep{Kirby2013}.
+The constant 4.83 is the absolute $V$ magnitude of the Sun.
+Because of the large dynamic range, it is common to divide the dwarf galaxies into high- and low-mass galaxies, with a typical threshold that relatively luminous dwarf galaxies with $M_V < -7.7$ ($M_\star \gtrsim 2 \times 10^5\,M_\odot$) are called ``classical dwarf spheroidal'' (dSph) galaxies, while galaxies with luminosity $M_V > -7.7$ are deemed ``ultra-faint" dwarf galaxies (UFDs). 
+
+The top panel of Figure~\ref{fig:dwarfprop} shows the galaxy ``luminosity-metallicity relation'' (often abbreviated LZR, where Z is a common symbol representing metallicity; or MZR for the ``mass-metallicity relation''). The y-axis $\langle\mbox{[Fe/H]}\rangle$ is the mean of individual star $\mbox{[Fe/H]}$ measurements, so it is best thought of as the median metallicity of the whole galaxy (due to the $\log_{10}$ in the definition of [Fe/H]).
+It is clear that there is an overall scaling where more massive galaxies have higher median metallicities.
+This relation extends continuously to higher mass galaxies and appears to be present independent of a galaxy's large-scale environment \citep{Kirby2013}.
+However, it is important to remember that metal-poor stars are in fact present in all galaxies, though they are a small fraction of the stars in metal-rich galaxies \citep[e.g.,][]{Frebel2010a,Chiti2018,Reggiani2021}.
+
+In the Figure,  galaxies with high-resolution spectroscopic abundances are highlighted as larger black points. These are the only galaxies in which some $r$-process element abundances can be measured. Only about 50\% of the known Milky Way dwarf galaxies have been studied with high-resolution spectroscopy, though current studies span the entire range of masses and metallicities.
+Three of the ultra-faint dwarf galaxies (Ret~II, Tuc~III, Gru~II) are highlighted in red as $r$-process ultra-faint dwarf galaxies, which will be discussed in Section~\ref{sec:ufd}.
+
+\begin{figure}
+\centering
+    \includegraphics[width=0.7\linewidth]{figures/dwarf_properties.pdf}
+    \caption{
+    Summary of bulk dwarf galaxy properties.
+    In both panels, the large black points indicate galaxies for which high-resolution spectroscopic data has been obtained, and thus the potential to measure abundances of the $r$-process elements. The small black points indicate galaxies with no high-resolution spectroscopy. The dotted black vertical line shows the division between Ultra-Faint Dwarf Galaxies and Classical Dwarf Galaxies.
+    \emph{Top panel:} Absolute magnitude $M_V$ vs. mean metallicity $\langle\mbox{[Fe/H]}\rangle$. The top axis indicates the approximate stellar mass corresponding to each magnitude, assuming a mass-to-light ratio of 2.2 in Equation~\ref{eq:mstarmv}. This overestimates the mass of high luminosity galaxies, where the mass-to-light ratio can decrease to $1.0-1.6$ \citep{Kirby2013}.
+    In general, more massive dwarf galaxies have higher median metallicities.
+    \emph{Bottom panel:} Absolute magnitude $M_V$ vs the star formation duration (in Gyr).
+    The star formation duration is defined to be the time to form ${\approx}90\%$ of a galaxy's stars.
+    The shaded pink region at the bottom indicates the range of ages where current galaxy age determinations are not sufficiently precise to robustly distinguish between different ages, i.e. galaxies in that range should be thought of as having essentially identical star formation durations.
+    Galaxies with stellar masses below ${\approx}10^5 M_\odot$ uniformly formed in the first 1-2 billion years, while more massive galaxies are able to form stars for longer times.
+    The original references for data in this figure are given in Table~\ref{tab:dwarfprop}.
+    }
+    \label{fig:dwarfprop}
+\end{figure}
+
+The bottom panel of Figure~\ref{fig:dwarfprop} shows the primary reason to divide galaxies by mass which corresponds to their fundamentally different formation histories.
+The $y-$axis of that panel is the star formation duration, defined as the time it takes for the galaxy to form ${\approx}90\%$ of its present-day stellar mass.
+Low-mass dwarf galaxies occupy low-mass dark matter halos with present-day total masses of $M_{\rm halo} \lesssim 10^9\,M_\odot$. These halos are not massive enough to accrete gas from the intergalactic medium after cosmic reionization occurred at $z \approx 6$. Thus, the ultra-faint dwarf galaxies have their star formation halted by reionization, and their star formation histories appear to uniformly terminate somewhere between $z=2-6$, corresponding to 1-2\,Gyr after the Big Bang \citep{Weisz2014,Brown2014, RodriguezWimberly2019}.
+In contrast, more massive galaxies can continue to accrete gas and form stars after $z=6$, likely only quenching when they interact with a more massive galaxy \citep{Geha2012,Fillingham2019}. Of the Milky Way's known satellite galaxy population (i.e. within its 300 kpc dark matter halo virial radius), only the Large and Small Magellanic Clouds (the most massive satellites and orbiting for only 1-2\,Gyr around the Milky Way, \citealt{Besla2007, Kallivayalil2013}) have retained any gas and are still forming stars.
+However, even low-mass dwarf galaxies outside the virial radius (e.g., the distant dwarf galaxy Leo T at 400 kpc away) can still retain gas and actively form stars.
+
+
+
+\subsection{Chemical Enrichment and Evolution of Non-$r$-process Elements in Dwarf Galaxies}
+
+Before describing the observed $r$-process signatures in dwarf galaxies in Section~\ref{sec:dwarfrproc}, first consider a brief overview of the chemical evolution in dwarf galaxies.
+
+Chemical element abundances are best derived from high-resolution spectrum, but only half of the ${\sim}60$ dwarf galaxy satellites of the Milky Way have even a single star observed with the high-resolution spectroscopy. 
+The elements measurable with stellar spectroscopy are generally grouped into four categories: The $\alpha$-elements (e.g., O, Mg, Ca, Ti) that are made predominantly in core-collapse supernovae; the iron-peak elements (e.g., Mn, Fe, Ni, Zn) that are produced predominantly in thermonuclear (Type Ia) supernovae; the $s$-process elements that are synthesized predominantly in evolved, low and intermediate mass Asymptotic Giant Branch (AGB) stars; and the $r$-process elements whose origin remains uncertain.
+Recall that element sources occurring shortly after a burst of star formation are regarded ``prompt'' (e.g., core-collapse supernovae following the deaths of massive stars), and element sources occurring longer after a burst of star formation are ``delayed'' (e.g., Type Ia SNe, low mass AGB stars, and neutron star mergers). 
+
+The first and most important feature of dwarf galaxy chemical evolution is the fact that metallicity increases at different rates in different dwarf galaxies.
+Gas in lower-mass galaxies increases its metallicity at a slower rate than gas in higher-mass galaxies, for two reasons. First, the lower gravitational potential well of low-mass galaxies means that it is easier to directly expel metals out of low mass dwarf galaxies \citep[e.g.,][]{Dekel2003,Kirby11b,Brauer2021}.
+Second, stellar feedback is more efficient at preventing star formation in low-mass galaxies, so the overall star formation efficiency, and thus metal production rate, is lower \citep[e.g.,][]{Ishimaru15,Ji2016b}.
+Together, these effects mean that the expected age of a metal-poor star depends strongly on the galactic environment that it forms in. Metallicities can thus reasonably be interpreted as relative ages in dwarf galaxies, but this does not applied to stars or stellar samples from the Milky Way stellar halo.
+
+The next most important feature of chemical evolution is the so-called ``$\alpha$-plateau and knee'' \citep{Tinsley80,Matteucci1990,Tolstoy2009}, shown in the top-left panel of Figure~\ref{fig:chemevol}.
+These panels compare an $\alpha$-element like Mg, produced only in core-collapse supernovae, to an iron-peak element such as Fe, produced in both core-collapse supernovae and Type Ia supernovae.
+In every galaxy, the low-metallicity stars (those forming earlier in a dwarf galaxy's life) tend to have enhanced ratios of [Mg/Fe] $\gtrsim 0.3$ (i.e., more Mg than Fe relative to the solar composition for which the ratio is zero).
+At some metallicity, that ratio begins to decrease, and the more metal-rich stars (those forming later in a dwarf galaxy's evolution) end up with progressively lower ratios of [Mg/Fe] all the way to ${\lesssim} 0$.
+The interpretation here is that early in a galaxy's history, it is predominantly enriched by core-collapse supernovae which produce a large amount of $\alpha$-elements compared to the solar composition.
+At some point, the delayed Type Ia supernovae begin to dominate, synthesizing enough Fe to reduce the [$\alpha$/Fe] ratio, and thus producing a ``kink'' or ``knee'' in the [$\alpha$/Fe] vs. [Fe/H] chemical abundance trend.
+Because the timing of the onset of Type Ia supernovae is a property of the underlying stellar populations, galaxies with efficient metal production will have their $\alpha$-knee located at a \emph{higher} metallicity, while galaxies with inefficient metal production will have their $\alpha$-knee located at a \emph{lower} metallicity.
+Since galaxies of higher mass tend to produce stars and metals more efficiently, the metallicity location of the $\alpha$-knee is thus positively correlated with stellar mass. One major exception is galaxies that form so quickly that they never experience enrichment by Type~Ia supernovae, leaving a flat [$\alpha$/Fe] trend over their entire metallicity range \citep{frebel12}. So far, only the Segue~1 ultra-faint dwarf galaxy displays this signature \citep{Frebel2014}.
+
+
+
+Note that the above simple picture explains the overall evolution in most galaxies and the overall trend with galaxy mass, but it is not correct in detail.
+In particular, a common misconception is that the $\alpha$-knee indicates the exact time that the first Type~Ia supernovae ``turn on'' (e.g., ${\approx}100$\,Myr after the first burst of star formation, \citealt{maoz12}).
+However, in fact it occurs when Type~Ia supernovae ejecta \emph{dominate} over core-collapse supernovae, which can happen much later \citep[e.g.,][]{Maoz2017}. \citet{Theler2020} and \citet{Kirby2020} have recently both advocated that the \emph{slope} of the [$\alpha$/Fe] vs. [Fe/H] decline is a more meaningful tracer indicator than the knee location.
+This would naturally explain why the Large and Small Magellanic Clouds, the most massive dwarf galaxies around the Milky Way, have some of the lowest metallicity $\alpha$-knees \citep{Nidever2020}.
+
+A third important feature is the ``rise of the $s$-process'' \citep[e.g.,][]{Simmerer04,Venn04}.
+The bottom-left panel of Figure~\ref{fig:chemevol} shows the [Ba/Eu] ratio vs metallicity [Fe/H].
+Assuming the solar $r$-process pattern is universal, the $r$-process intrinsically produces a fixed ratio of [Ba/Eu] = $-0.9$ to $-0.7$ \citep{Sneden2008}.
+It is empirically observed that the most metal-poor stars in a galaxy cluster around this intrinsic value, while the more metal-rich stars have higher [Ba/Eu], which is interpreted as delayed $s$-process enrichment from AGB stars.
+The different [Ba/Y] ratio in dwarf galaxies is interpreted as being due to enrichment by the $s$-process operating in metal-poor AGB stars where the metal-poor $s$-process produces less Y than Ba compared to metal-rich AGB stars, due to the lower neutron-to-seed ratio in metal-poor AGB stars \citep[e.g.,][]{Venn04,Lugaro12} leading to a larger relative production of the heavier elements.
+
+Finally, an important distinction between chemical \emph{enrichment} and chemical \emph{evolution} in dwarf galaxies needs to be made.
+Chemical enrichment is the phase where metal production and observed stellar abundances can be linked to discrete enrichment sites (e.g., individual core-collapse supernovae).
+Chemical evolution is the long-term average evolution of the galaxy composition, once it is no longer possible to distinguish between individual sources of elements.
+For most dwarf galaxies, the chemical enrichment phase is restricted to the earliest times and as such only reflected in the abundances of the most metal-poor stars in the system.
+However, the lowest mass dwarf galaxies may never form enough stars to exit the chemical enrichment phase.
+This can be seen in Figure~\ref{fig:chemevol} on all panels, where the scatter in metal ratios at low [Fe/H] is generally larger than that at higher [Fe/H].
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.95\linewidth]{figures/chemevol_xfe.pdf}
+    \caption{Chemical evolution in dwarf galaxies.
+    Each point represents the chemical abundances of one star, with colors and shapes indicating the formation site of a star. Data with upper limits have not been plotted.
+    Grey points are stars in the Milky Way's stellar halo \citep{Abohalima18}.
+    Light blue points are stars from the relatively massive $10^6-10^7 M_\odot$ Fornax and Sculptor dSph galaxies \citep{Letarte2010,Hill2019}.
+    Purple points are stars from the lower mass $10^6 M_\odot$ Carina \citep{Venn2012,Lemasle2012,Norris2017}, Draco \citep{Cohen2009,Tsujimoto2017}, and Ursa Minor \citep{Cohen2010,Kirby2012,Ural2015} dSph galaxies.
+    Yellow points are stars from ultra-faint dwarf galaxies (UFDs, $<10^5 M_\odot$), using the literature compilation in \citealt{Ji2020}) displaying low neutron-capture element abundances. Bootes I is plotted separately as it shows a rise in $s$-process at high metallicity, contrasting with other UFDs \citep{Frebel16}.
+    Red points are stars from $r$-process enhanced UFDs, where larger points are from the highly $r$-process enhanced galaxy Reticulum~II and smaller points are the other two UFDs \citep{Ji2016c,Marshall2019,Hansen2021}.
+    \emph{Top left:} [Mg/Fe] vs [Fe/H], which indicates the relative enrichment of Type Ia and core-collapse supernovae. An approximate plateau at $\mbox{[Mg/Fe]} \sim 0.4$ exists at low metallicity for all systems (shown as shaded grey bar), but transitions to lower [Mg/Fe] at an [Fe/H] that broadly depends on galaxy mass.
+    \emph{Bottom left:} [Ba/Eu] vs [Fe/H], which indicates the relative amount of $s$-process vs $r$-process enhancement. The shaded grey bar shows $\mbox{[Ba/Eu]} \sim -0.8$, which is the universal value found in the solar $r$-process residual and in $r$-process enhanced stars. At higher metallicities, the onset of delayed $s$-process enrichment from AGB stars adds a lot of barium relative to europium, resulting in a gradual increase in [Ba/Eu] with metallicity. There is one UFD star with high [Ba/Eu] that is the result of $s$-process from AGB mass transfer.
+    \emph{Top right:} [Ba/Mg] vs [Fe/H]. The origin of Ba depends on metallicity and environment. At high metallicities, [Ba/Mg] shows the rise of the $s$-process by comparing delayed AGB to prompt core-collapse supernovae enrichment. At low metallicities, Ba is predominantly from $r$-process, where the UFDs show a very large scatter due to stochastic early $r$-process enrichment.
+    Note that all stars with sufficient data quality to detect $\mbox{[Ba/H]} > -4$ have successfully detected Ba \citep{Roederer13}.
+    \emph{Bottom right:} [Eu/Mg] vs [Fe/H], which compares the relative delay times of the $r$-process source compared to core-collapse supernovae.
+    It is clear that dwarf galaxies of different masses have different overall [Eu/Mg] (especially comparing Fornax to Sculptor), which is strong evidence for the existence of delayed $r$-process enrichment.
+    }
+    \label{fig:chemevol}
+\end{figure}
+
+
+
+%--------------------------------------------
+%--------------------------------------------
+\section{$R$-process Signatures in Dwarf Galaxies}\label{sec:dwarfrproc}
+
+This section gives a general summary of all existing $r$-process chemical evolution trends in dwarf galaxies, as well as specifics about  important individual dwarf galaxies.
+Dwarf galaxies are grouped into three categories: The ultra-faint dwarf galaxies which are dominated by stochastic $r$-process enrichment (Section~\ref{sec:ufd}); the large intact dwarf galaxies which display a transition from $r$-process enrichment to $r$-process element evolution (Section~\ref{sec:cldw}); and the tidally disrupted dwarf galaxies now observable as stellar streams and kinematic structures in the stellar halo (Section~\ref{sec:disrupteddwarfs}).
+
+%--------------------------------------------
+\subsection{Stochastic $R$-process Events in Ultra-Faint Dwarf Galaxies}\label{sec:ufd}
+
+Ultra-faint dwarf galaxies typically have masses of $M_\star \lesssim 2 \times 10^5 M_\odot$; systems more massive that this are the classical dwarf spheroidal galaxies. Note that this dividing mass is somewhat arbitrary and more reflects the history of their relatively recent discoveries than any underlying physical properties. However, $2 \times 10^5 M_\odot$ roughly corresponds to galaxies insufficiently massive to form stars after reionization at $z \sim 6$ \citep{Simon2019}.
+There are ${\sim}50$ known ultra-faint dwarf galaxies, of which ${\sim}20$ have high-resolution spectroscopy available of at least one star and in which neutron-capture elements could in principle be detected.
+
+The vast majority of ultra-faint dwarf galaxies display unusually low neutron-capture elements -- so low that it is not even possible to identify whether the neutron-capture source is $r$-process or $s$-process as only Sr and Ba can be measured \citep{Frebel2015,Ji2019}.
+The fundamental explanation is the low stellar mass of ultra-faint dwarf galaxies. For example, if the average rate of $r$-process production is about one $r$-process event per ${\sim}$1,000 core-collapse supernovae, it takes ${\sim}10^5 M_\odot$ of stellar mass formed in order to produce one single $r$-process event.
+Thus, individual ultra-faint dwarf galaxies are unlikely to display evidence of $r$-process enrichment; but as a population, a few UFDs should be $r$-process-rich galaxies.
+
+This line of reasoning was brought about by the discovery that the ultra-faint dwarf galaxy Reticulum~II is $r$-process enhanced, with over 2/3 of its stars having $\mbox{[Eu/Fe]} \sim 1.7$ (Ret~II; \citealt{Ji2016b,Roederer2016}; see Figure~\ref{fig:ufdncap} for updated data). Ret~II has $r$-process abundances over $10-100{\times}$ higher than what is found in other ultra-faint dwarf galaxies, indicating that it preserves the chemical abundance signature of a single $r$-process event. By considering the 10 ultra-faint dwarf galaxies available at that time, \citet{Ji2016b} derived strong $r$-process production constraints from inferring that the event produced $10^{-5.5}-10^{-3.5} M_\odot$ of europium, and that the relative rate of $r$-process events across the ultra-faint dwarf population was 1 $r$-process event for every 1,000-2,000 core-collapse supernovae (also see \citealt{Beniamini2016b}). These properties were consistent with theoretical expectations for neutron star mergers \citep{Goriely11,Dominik12}, and the theoretical values have since been validated by multi-messenger observations of the neutron star merger GW170817 and its kilonova \citep[e.g.,][]{Cote2018}. An immediate major concern with neutron star mergers is the fact that neutron star binaries typically get a velocity kick upon formation, which would cause them to be unbound from such a low-mass galaxy, in which case the $r$-process elements would not be captured by later generations of star formation \citep{Bramante2016,Bonetti2019}. This scenario can be avoided if the binary merges sufficiently quickly, and it is an open question whether binary neutron stars can merge sufficiently quickly to deposit their $r$-process elements in ultra-faint dwarf galaxies \citep{Beniamini2016,Safarzadeh2019}.
+% 
+An alternate likely possibility is that a rare core-collapse supernovae would produce a large amount of $r$-process, perhaps through strong magnetorotationally driven jets or disk winds from collapsars (see Section~\ref{candidates}).
+
+The most recent study of Ret~II finds that 70\% of its stars are $r$-process enhanced, and in those stars the $r$-process material is very homogeneously distributed \citep{Ji2022}.
+Current theoretical expectations for galaxies of Ret~II's mass are that the stars without $r$-process enhancement should be born in the same galaxy rather than accreted \citep{Griffen2018}.
+Based on metal mixing simulations, this suggests that ${\gtrsim}100$\,Myr must have elapsed between the \emph{production} of $r$-process material and the formation of the first 30\% of Ret~II stars \citep{Tarumi2020}. This suggests a very prompt source of $r$-process elements and a relatively large $r$-process yield of $M_r \gtrsim 10^{-1.5} M_\odot$.
+
+Since the discovery of Ret~II, two other ultra-faint dwarf galaxies or galaxy candidates have been clearly shown to contain $r$-process enhancements: Tucana~III \citep{Hansen2017} and Grus~II \citep{Hansen2020}.
+Unlike Ret~II, these two systems have moderate $r$-process enhancements [Eu/Fe] $\sim +0.5$, which can either be explained by dilution into different gas mass reservoirs \citep{Safarzadeh2017,Tarumi2020} or variable $r$-process yields \citep{Ji2019b}.
+Gru~II is clearly a bona fide dwarf galaxy, and like Ret~II it shows a transition from metal-poor $r$-process-free stars to (relatively) metal-rich rich $r$-process-enhanced stars.
+In contrast, there is still debate whether Tuc~III is a ultra-faint dwarf galaxy or a globular cluster, though the current evidence suggests it is more likely an ultra-faint dwarf galaxy \citep{Marshall2019}.
+There have not yet been more detailed studies using all galaxies that could result in more precise (but more model-dependent) determinations of the $r$-process yield and rate from ultra-faint dwarf galaxies.
+
+An important question is whether all the $r$-process enhanced stars in the Milky Way halo could be attributed to tidally disrupted UFDs \citep{Tsujimoto14b,Ishimaru15,Ji2016c,Ojima2018}.
+\citet{Brauer2019} modeled the assembly of a Milky Way stellar halo, finding that typically 50\% of the metal-poor $r$-II stars originate from UFDs, though this fraction varies from 20\% to 100\% depending on the specific Milky Way accretion history. Other, similar studies find fractions close to 100\% as well \citep{hirai22}. The other $r$-II stars thus likely originate from more massive dwarf galaxies, such as the $r$-process enhanced stars found in Ursa Minor \citep{Cohen2010} or Fornax \citep{Reichert2021}.
+
+
+
+\begin{figure}
+\centering
+    \includegraphics[width=\linewidth]{figures/ufd_ncap2.pdf}
+    \caption{Neutron-capture elements in dwarf galaxies depending on their stellar mass.
+    Blue circles are relatively massive classical dSphs, purple squares are intermediate mass classical dSphs, yellow diamonds are ultra-faint dwarf galaxies with no indication of $r$-process elements, red circles are the three ultra-faint dwarf galaxies with some enhancement in $r$-process elements.
+    Ret~II is shown as larger symbols to emphasize its higher [Eu/Fe] compared to Tuc~III and Gru~II.
+    Open symbols with downward pointing arrows are upper limits, i.e. no detection of that element was possible.
+    Most ultra-faint dwarf galaxies have low neutron-capture abundances compared to classical dSphs, including in the range $-3 < \mbox{[Fe/H]} < -2$, except for the rare $r$-process enhanced ultra-faint dwarf galaxies.
+    Note that the upper limits for Sr and Ba are quantitatively meaningful in many cases, but the upper limits for the $r$-process tracer Eu just indicate that Eu is difficult to detect at low abundances.
+    The increase in Ba for classical dSphs and a few ultra-faint dwarf galaxies at [Fe/H] $\gtrsim -2$ indicates the onset of significant $s$-process enrichment.
+    \label{fig:ufdncap}}
+\end{figure}
+
+
+
+%--------------------------------------------
+\subsection{The Rise of the $R$-process: From Enrichment to Evolution}\label{sec:cldw}
+
+Galaxies with stellar mass exceeding ${\sim}10^6 M_\odot$ will experience $\gtrsim 10$ $r$-process enrichment events over the course of their lives.
+The larger number of $r$-process events induces a transition from \emph{chemical enrichment} to \emph{chemical evolution}: Rather than being dominated by individual stochastic $r$-process enrichment events, instead the galaxy's $r$-process composition can reasonably be described as continuous chemical evolution.
+To estimate how many $r$-process events are required for this transition to occur, note that an unresolvable $r$-process abundance scatter would be 0.1-0.2\,dex scatter (a typical systematic uncertainty on [Eu/Fe] measurements in dwarf galaxies). This translates to 25\%-60\% relative $r$-process scatter, or equivalently the Poisson scatter of $r$-process yields from 3-15 $r$-process events.
+
+The bottom right panel of Figure~\ref{fig:chemevol} shows $r$-process chemical evolution in dwarf galaxies as measured by [Eu/Mg] vs [Fe/H]. Each point on the plot indicates the chemical abundances of a single star in a dwarf galaxy, and the points have been color-coded according to the typical mass of the galaxy (with different symbols representing individual dwarf galaxies).
+Traditionally, the literature has focused on the [Eu/Fe] vs [Fe/H] evolution plane, because Fe is the easiest-to-measure and most precise stellar metallicity indicator. However, it was emphasized in \citet{Tolstoy2009} and more recently by \citet{Skuladottir2019} that Fe may not be a simple reference element to study dwarf galaxy chemical evolution, because it is produced in both core-collapse supernovae and Type Ia supernovae.
+An empirical way to address this is using Mg instead of Fe as a reference element, as Mg is only produced in core-collapse supernovae. It can also be addressed with chemical evolution modeling, e.g. by simultaneously fitting [Mg/Fe] observations \citep[e.g.,][]{Molero2021,delosReyes2022} or calculating the Ia contribution with [Mg/Fe] \citep[e.g.,][]{Kirby2019}.
+
+The dwarf galaxies Draco, Ursa Minor, Sextans, and Carina have present-day stellar masses $\sim 10^6 M_\odot$, so they should display a transition from discrete $r$-process enrichment at the low-metallicity end to continuous $r$-process trends at high-metallicity \citep{Duggan2018,Skuladottir2019}.
+Draco is the clearest example of this, as it shows multiple distinct [Eu/H] plateaus that may correspond to discrete $r$-process enrichment events, though its neutron-capture elements are dominated by $s$-process enrichment \citep{Cohen2009,Tsujimoto2015,Tsujimoto2017}.
+Ursa Minor is dominated by $r$-process enrichment, but it has unusual Eu trends and large scatter that likely suggest it is still dominated by stochastic $r$-process enrichment \citep{Cohen2010,McWilliam2018}.
+Sextans unfortunately currently has only limited $r$-process measurements \citep{Theler2020, Reichert2020}, but at the high-metallicity end it currently appears to have low Eu scatter indicating a transition to continuous chemical evolution.
+Carina is a strange case as its star formation history has at least three distinct bursts \citep{Hurley-Keller1998,Weisz2014}.
+Its early history seems to have clear indications of inhomogeneous $r$-process abundances \citep{Venn2012}, and its later history has more continuous Eu evolution \citep{Lemasle2012, Norris2017}.
+
+Sculptor, Fornax, and Sagittarius are sufficiently massive that they should be dominated by chemical evolution rather than enrichment. Sculptor is one of the best-studied dwarf galaxies with a very simple star formation history and smooth $r$-process chemical evolution \citep{Duggan2018, Hill2019, Skuladottir2019, Molero2021, delosReyes2022}. There is still debate about the relative importance of prompt vs delayed $r$-process sources in Sculptor, but it clearly has reached the point of continuous chemical evolution with [Eu/Mg] ${\approx}0$.
+Fornax \citep{Letarte2010, Lemasle2014} and Sagittarius \citep{Bonifacio2000,McWilliam2013,Hansen2018} are two of the more massive dwarf spheroidal galaxies with $r$-process elements, both with enhanced [Eu/Mg] $\sim 0.4$. These indicate that Fornax and Sagittarius have a relatively large contribution from delayed sources of $r$-process elements compared to Sculptor, which matches the difference in star formation durations seen in the bottom panel of Figure~\ref{fig:dwarfprop}.
+Note that there is clearly some inhomogeneous $r$-process enrichment in Fornax, as some of its most metal-rich stars have extreme Eu enhancements \citep{Reichert2021}.
+
+The Large and Small Magellanic Clouds (LMC, SMC) are the only gas-rich and actively star-forming dwarf galaxy satellites of the Milky Way.
+The most comprehensive recent study of the LMC and SMC is by \citet{Nidever2020}. They were unable to study $r$-process chemical evolution, but they did show that the LMC and SMC have an inefficient star formation history, such that it should be dominated by delayed-enrichment sources even at relatively low metallicity.
+This is consistent with the findings of \citet{Reggiani2021}, who measured $r$-process abundances of metal-poor stars ($-2.5 \lesssim \mbox{[Fe/H]} \lesssim -1.5$) in the LMC and SMC, finding they were unusually enhanced and thus favoring delayed sources of $r$-process production.
+At higher metallicities, there is also evidence of enhanced [Eu/Mg] implying delayed $r$-process enrichment \citep{Naidu2022}, though also higher levels of contamination by the $s$-process in AGB stars \citep{VanderSwaelmen2013}.
+Unlike the simpler dSph galaxies, the LMC and SMC have distinct physical components (e.g. disk, bar, halo) with their own formation histories, and thus it is wise to separate chemical abundance interpretations based on the component being studied \citep[e.g.,][]{Pompeia2008, VanderSwaelmen2013,Reggiani2021}.
+
+
+
+\subsection{Tidally Disrupted Dwarf Galaxies: Stellar Streams and Dissolved Galaxies}\label{sec:disrupteddwarfs}
+
+Dwarf galaxies that accreted very early on into the Milky Way will be tidally disrupted by the Milky Way's gravitational potential. Their stars will be strewn throughout the Milky Way's stellar halo, but the stars will still retain their chemical compositions and some conserved kinematic quantities (e.g. energy, angular momentum, and actions).
+The advent of all-sky astrometry from the \emph{Gaia} space mission \citep{GaiaCollaboration2016} has recently enabled detailed calculations of the kinematics, and has ushered in a new era of discovery and chemically characterization of such tidally disrupted dwarf galaxies. These galaxies can differ from the intact galaxies discussed previously, because they stop forming stars when they interact with the Milky Way \citep[e.g.,][]{Johnston2008,Fillingham2019}.
+
+The task of breaking apart the stellar halo into discrete accreted dwarf galaxies is still ongoing, but there should only be a few massive dwarf galaxy accretions \citep[e.g.,][]{Deason2016,Brauer2019}. The broad picture of the massive Milky Way mergers is now largely in place \citep[e.g.,][]{Naidu2020,Kruijssen2020}.
+The most significant dwarf galaxy merger is Gaia-Sausage-Enceladus \citep[or GSE,][]{Belokurov2018, Helmi2018}, which makes up over 50\% of the halo stars in the solar neighborhood (though a smaller fraction of the metal-poor stars).
+This galaxy had a stellar mass of ${\approx}10^8 M_\odot$ when it merged into the Milky Way $10-12$ billion years ago. Several studies have shown that the metal-rich GSE stars have a high [Eu/Mg], indicating a preference for enrichment by delayed $r$-process sources \citep{Matsuno2021,Aguado2021,Naidu2022}.
+Another significant merger is the Kraken or Heracles galaxy \citep{Kruijssen2020,Horta2021}, which is confined to the inner 5 kpc of the Milky Way and thus merged with the Milky Way before GSE. \citet{Naidu2022} showed that Kraken stars display a low [Eu/Mg] enhancement, so it may be dominated by prompt $r$-process sources.
+A third likely dwarf galaxy merger is the Sequoia galaxy \citep{Matsuno2019,Myeong2019}, which is substantially more metal-poor and chemically distinct \citep{Matsuno2022} but does not yet have detailed $r$-process studies.
+There should be many more tidally disrupted low-mass dwarf galaxies that can be identified in the Milky Way, and searches are ongoing to discover and characterize their nature \citep[e.g.,][]{Roederer2018,Naidu2020,Yuan2020,Gudin2021,Shank2022,Brauer2022, Mardini2022}.
+
+Dwarf galaxies accreted more recently onto the Milky Way can be found as tidally unbound but still spatially coherent structures known as stellar streams.
+Streams are very low surface brightness, and they are discovered through a combination of deep imaging and Gaia astrometry \citep[e.g.,][]{Belokurov2006,Grillmair2009,Shipp2018,Ibata2019}.
+The most spectacular stellar stream is the Sagittarius stream, which is caused by the active tidal disruption of the Sagittarius dwarf galaxy \citep{Majewski2004}; but many stellar streams have no apparent progenitor system.
+Streams with unknown progenitors require spectroscopic followup to confirm whether they are dwarf galaxies or globular clusters \citep[e.g.,][]{Li2022}.
+There are now several spectroscopic studies of stellar streams that are producing  $r$-process constraints \citep[e.g.,][]{Roederer10,Casey2014,Ji2020b,Hansen2021,gull21,Limberg2021}.
+Currently the data are still limited, but there are already as many dwarf galaxy streams as intact dwarf galaxies in the intermediate mass range of $10^5-10^6 M_\odot$, and it is likely many more will be discovered in the future.
+
+The immense promise of the tidally disrupted dwarf galaxies for the $r$-process is that they could be the best of both worlds, containing stars close enough to obtain extremely high quality spectra for full $r$-process patterns while also having a galactic environment to interpret \citep[e.g.,][]{Naidu2022}.
+However, a general challenge with interpreting the $r$-process content of tidally disrupted systems is ensuring the purity of stars studied \citep[e.g.,][]{Limberg2021}. Unlike intact dwarf galaxies, where a spatial cut clearly selects galaxy member stars, a tidally disrupted system can overlap with multiple other structures in position and velocity space. Membership in these systems must be probabilistic. It is thus difficult to study intrinsic scatter in abundances in tidally disrupted systems, but it is still useful to study mean chemical abundance trends.
+
+
+%======================================================
+\section{State of the Art and Path Ahead}\label{sec:conclusion}
+
+The many discoveries and observations of $r$-process signatures in halo and dwarf galaxies confirm the existence of the $r$-process within early star forming environments as well as within dwarf galaxies at various times since the Big Bang. Still, information remains limited with regards to details on the astrophysical site and environment as well as other parameters that describe the operation of this nucleosynthesis process. 
+
+The following open questions will eventually need to be answered to fully understand the origin of $r$-process elements:  
+
+\begin{itemize}
+\item How many astrophysical sites can be identified? If more than one, what is their relative importance in different environments and over cosmic time?
+\item What is the average rate of $r$-process events? When did the first $r$-process events occur? How quickly does $r$-process production occur after star formation?
+\item What is the $r$-process yield? Is it variable per site? How do yields for light and heavy $r$-process elements, as well as actinides, compare? 
+\item How much does $r$-process material get diluted and how quickly does it reincorporated into stars? What is the explosion energy associated with $r$-process events? How does this depend on galactic environment?
+\end{itemize}
+
+Current data have begun to provide answers while future photometric and spectroscopic sky surveys as well as new instruments and telescopes will hopefully provide additional insight over the coming decades. The current state of the art is laid out in this section, which offers a glimpse of what is to come in terms of new data and telescopes.
+
+\subsection{Observational Constraints on the $R$-process}
+
+Despite the above questions about the nature and origin of the $r$-process, the body of data has, over the last decade, finally begun to reveal a number of important findings, constraints, anecdotes, and partial answers. 
+Table~\ref{summarytable} summarizes these results, which represents the state of the art of observational results regarding the astrophysical $r$-process from metal-poor halo stars and dwarf galaxies.
+Overall, it is clear that compositional information is best derived from the closer halo stars, while questions relying on the galactic environment benefit most from the dwarf galaxies.
+
+
+\begin{table}[!h]
+\tabcolsep7.5pt
+%\tabletypesize{\small}
+\begin{center}
+\begin{tabular}{|p{0.12\linewidth}|p{0.42\linewidth}|p{0.42\linewidth}|}
+\hline
+\makecell{Property} & \makecell{Evidence from Metal-Poor Halo Stars} & \makecell{Evidence from Dwarf Galaxies} \\ \hhline{|=|=|=|}
+Rate & 
+\makecell{Rare: large [Eu/Fe] scatter} & 
+\makecell{Rare: fraction of ultra-faint dwarf galaxies \\ 
+with $r$-process; \\
+${\sim}10^{-3}$ that of core-collapse supernovae} \\ \hline
+Yield & 
+\makecell{Ambiguous due to unknown dilution mass \\ and metal-poor star formation site} & 
+\makecell{At least one prolific $r$-process site \\ $M_r \gtrsim 10^{-2} M_\odot$} \\ \hline
+Delay Time & 
+\makecell{Likely have prompt sources \\ and may have delayed sources} & 
+\makecell{Must have both prompt and delayed sources} \\ \hline
+Composition & 
+\makecell{Universal pattern from 2nd to 3rd peak \\ Variations in relative abundance \\of 1st peak and actinides} & 
+\makecell{Consistent with halo stars} \\ \hline
+\end{tabular}
+\caption{\label{summarytable} Summary of Evidence for $R$-process Site(s)}
+\end{center}
+\end{table}
+
+
+In more detail:
+\begin{itemize}
+
+
+
+\item There are large variations in the absolute level of observed $r$-process enhancements between stars, indicating either variable yields, or that the gas mass in which yields were diluted were very different, or both. 
+
+\item There are significant variations in the detailed elemental composition of $r$-process-enhanced stars. There is a universal pattern from the 2nd to 3rd $r$-process peak between the solar system $r$-process residuals, but the relative amount of first peak and actinide elements changes from star to star. Future observations should be able to quantitatively investigate these variations in metal-poor halo stars.
+
+\item Some low-mass dwarf galaxies (e.g. Reticulum\,II) show $r$-process enhancement while most others do not, indicating early $r$-process enrichment is stochastic. Thus, the observed large $r$-process scatter in metal-poor halo stars is likely due to accreting dwarf galaxies of different masses, rather than inhomogeneous scatter within a single source of metal-poor stars. 
+
+\item In higher-mass dwarf galaxies, very few (if any) of the most metal-poor stars appear to be completely free of $r$-process material, indicating that some $r$-process element enrichment is rare but not delayed, i.e. it is ubiquitous after a certain amount of stellar mass has been achieved in any given system.
+However, the most metal-rich stars in these dwarf galaxies have differing amounts of $r$-process relative to core-collapse supernovae ([Eu/Mg]), showing that delayed sources eventually dominate.
+
+\item Taken together, $r$-process dwarf galaxies and metal-poor $r$-process halo stars point to a requirement for both prompt and delayed sources of $r$-process elements.
+
+
+
+\end{itemize}
+
+
+
+
+
+
+
+%--------------------------------------------
+%--------------------------------------------
+\subsection{New Surveys and New Dwarf Galaxies}
+
+
+The majority of results so far have come from studying the Milky Way stellar halo and intact dwarf galaxies. The next decade will bring a number of exciting spectroscopic and deep photometric surveys that will push this field to new levels. Over the coming years, the community can thus anticipate the discovery of many more dwarf galaxies whose varying properties will reveal more information about the nature of the $r$-process. \\
+
+\textit{New intact dwarf galaxies to be found in large photometric surveys:}
+Given current sky coverage, it is unlikely (though not impossible) that many new intact dwarf galaxies will be found around the Milky Way with $M_\star \gtrsim 10^6 M_\odot$ in the coming years.
+However, it is extremely likely that over 100 ultra-faint dwarf galaxies with $M_\star \lesssim 10^5 M_\odot$ will be found \citep{Hargis2014,Manwadkar2022}, especially with the Vera Rubin Observatory's Legacy Survey of Space and Time \citep{Ivezic2019}. With spectroscopic followup, this should lead to a much better mapping of and understanding about early stochastic $r$-process enrichment.\\
+
+\textit{Tidally disrupted galaxies discovered with Gaia and spectroscopic surveys:}
+In principle, metal-poor stars in the halo all come from tidally disrupted dwarf galaxies, and it is starting to be possible to associate them with erstwhile dwarf galaxies.
+Likely only  the surface has been scratched of discovering tidally disrupted dwarf galaxy streams and halo structures with \emph{Gaia} and spectroscopic surveys. Hence, the chemical study of such systems is still in relative infancy \citep{Roederer10,Ji2020b,Hansen2021,Aguado2021,Matsuno2021,Matsuno2022}.
+In the near future, major spectroscopic surveys with the capability to directly measure $r$-process abundances are WEAVE and 4MOST \citep{WEAVE,FOURMOST}. The surveys SDSS-V and DESI are lower spectral resolution and do not have the capability to measure $r$-process elements, but they will help discover structures that can then be followed up with other facilities.
+There are many nascent plans to build other wide-field spectroscopic facilities that could potentially benefit $r$-process studies in both intact and tidally disrupted dwarf galaxies, such as the Mauna Kea Spectroscopic Explorer (MSE; \citealt{TheMSEScienceTeam2019}).
+These tidally disrupted dwarf galaxies should help fill out the range of dwarf galaxy masses and star formation durations (Figure~\ref{fig:dwarfprop}), enabling testing different chemical evolution predictions on a larger sample of $r$-process abundance measurements.
+\\
+
+
+\subsection{New Instrumentation and Observational and Experimental Facilities}
+
+\textit{Ultraviolet spectroscopy:}
+Many of the most important $r$-process elements can only be measured at ultraviolet wavelengths, but it is currently difficult to study even the brightest most nearby stars \citep{Roederer2012,Roederer2022} this way. The United States 2020 Astronomy Decadal Survey identified a large IR-O-UV space telescope as a priority for future development, and a high-resolution UV spectrograph would help expand on existing, very limited stellar UV datasets. However, it is unlikely that even future UV spectrographs will have enough light-collecting power to study stars in distant dwarf galaxies.\\
+
+\textit{Infrared spectroscopy:}
+Other than ultra-violet, one technological development in the past years is the development of high quality infrared detectors and high-resolution spectrographs. The promise of this for $r$-process studies is not yet clear because absorption lines in the infrared tend to be weaker than the optical. However, lines have been identified for Sr, Y, Zr, Ba, Sm, Ce, Nd, Eu, Dy, and Yb \citep{Matsunaga2020,Smith2021}) in metal-rich, solar-type disk stars.
+\\
+
+\textit{Extremely Large Telescopes:}
+The vast majority of spectroscopic observations of dwarf galaxies are currently done on telescopes with effective mirror diameters of 6.5\,m to 10\,m (e.g., the \textit{Magellan} telescopes, the Very Large Telescopes, the Subaru Telescope, the Keck Telescopes).
+A major endeavor of the next decade is three projects aiming to build telescopes with effective mirror diameters of $25-40$\,meters: the Giant Magellan Telescope (GMT), the Thirty Meter Telescope (TMT), and the European Extremely Large Telescope (E-ELT).
+Tripling the telescope diameter effectively triples the distance out to which dwarf galaxies can be studied while also enabling much larger numbers of stars to be studied in individual galaxies.
+It also enables much higher signal-to-noise spectra of existing stars, which will likely enable the detection of additional elements, especially thorium.\\
+
+\textit{New Experimental Facilities:} Currently, theoretical calculations of $r$-process nucleosynthesis rely on extensive models of nuclear masses and reactions. The nuclear data uncertainties significantly limit many predictions of astrophysical $r$-process calculations \citep[e.g.,][]{Eichler2015,Mendoza-Temis2015,Mumpower2016,Surman2017,Barnes2021}.
+However, upcoming experimental facilities like the Facility for Rare Isotope Beams (FRIB), the Radioactive Isotope Beam Factor (RIBF), the International Facility for Antiproton and Ion Research (FAIR), the Advanced Rare IsotopE Laboratory (ARIEL), and the $N=126$ Factory at Argonne will fundamentally transform this landscape \citep{Horowitz2019}. In the future, small elemental and isotopic abundance deviations currently deemed consistent will likely become major areas of research.
+\\\\
+
+
+The next decades thus promise important advances in the field of nuclear astrophysics, especially the study of the $r$-process and its astrophysical site. 
+Combining results from metal-poor $r$-process enhanced stars in the Galactic halo and dwarf galaxies with other observations, such as gravitational wave events from neutron star mergers, deep sea radioactive isotope measurements of recent, local $r$-process events, as well as experimental measurements of nuclei and reaction rates and theoretical predictions for supernovae and neutron star merger yields has the potential to provide a unified picture of the origin of $r$-process elements across cosmic time. 
+
+
+\section*{Acknowledgments}
+We thank our colleagues in the field of nuclear astrophysics for many years of fruitful and enjoyable discussions about $r$-process topics, both observationally and theoretically, and seeing the field grow from individual stellar abundance patterns to large samples, including observations of stars in dwarf galaxies. 
+Specifically, we warmly thank our collaborators
+Tim Beers,
+Rana Ezzeddine,
+Terese Hansen,
+Erika Holmbeck,
+Evan Kirby,
+Ting Li,
+Gail McLaughlin,
+Andy McWilliam,
+Rohan Naidu,
+Brian O'Shea,
+Vinicius Placco,
+Ian Roederer,
+Charli Sakari,
+Joshua Simon,
+and
+Rebecca Surman
+for sharing our excitement about nuclear astrophysics. 
+We are grateful to the Joint Institute for Nuclear Astrophysics (JINA) for facilitating many of these interactions over the last 20 years.
+We acknowledge support awarded by the U.S. National Science Foundation (NSF): AST 1716251 and PHY 14-30152; Physics Frontier Center/JINA Center for the
+Evolution of the Elements (JINA-CEE).
+
+
+
+% \section{Bibliography}
+\begin{thebibliography}{}
+\expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
+
+\bibitem[{{Abbott} {et~al.}(2017{\natexlab{a}}){Abbott}, {Abbott}, {Abbott},
+  {Acernese}, {Ackley}, {Adams}, {Adams}, {Addesso}, {Adhikari}, {Adya}, \&
+  et~al.}]{LIGOGW170817a}
+{Abbott}, B.~P., {Abbott}, R., {Abbott}, T.~D., {et~al.} 2017{\natexlab{a}},
+  Physical Review Letters, 119, 161101
+
+\bibitem[{{Abbott} {et~al.}(2017{\natexlab{b}}){Abbott}, {Abbott}, {Abbott},
+  {Acernese}, {Ackley}, {Adams}, {Adams}, {Addesso}, {Adhikari}, {Adya}, \&
+  et~al.}]{LIGOGW170817b}
+---. 2017{\natexlab{b}}, \apjl, 848, L12
+
+\bibitem[{Abohalima \& Frebel(2018)}]{Abohalima18}
+Abohalima, A., \& Frebel, A. 2018, The Astrophysical Journal Supplement Series,
+  238, 36
+
+\bibitem[{{Aguado} {et~al.}(2021){Aguado}, {Belokurov}, {Myeong}, {Evans},
+  {Kobayashi}, {Sbordone}, {Chanam{\'e}}, {Navarrete}, \&
+  {Koposov}}]{Aguado2021}
+{Aguado}, D.~S., {Belokurov}, V., {Myeong}, G.~C., {et~al.} 2021, \apjl, 908,
+  L8
+
+\bibitem[{{Amend} {et~al.}(2022){Amend}, {Zrake}, \& {Hartmann}}]{Amend2022}
+{Amend}, B., {Zrake}, J., \& {Hartmann}, D.~H. 2022, arXiv e-prints,
+  arXiv:2205.03913
+
+\bibitem[{{Aoki} {et~al.}(2007){Aoki}, {Honda}, {Sadakane}, \&
+  {Arimoto}}]{aoki2007_cos82}
+{Aoki}, W., {Honda}, S., {Sadakane}, K., \& {Arimoto}, N. 2007, PASJ, 59, L15
+
+\bibitem[{{Arcavi} {et~al.}(2017){Arcavi}, {Hosseinzadeh}, {Howell}, {McCully},
+  {Poznanski}, {Kasen}, {Barnes}, {Zaltzman}, {Vasylyev}, {Maoz}, \&
+  {Valenti}}]{Arcavi2017}
+{Arcavi}, I., {Hosseinzadeh}, G., {Howell}, D.~A., {et~al.} 2017, \nat, 551, 64
+
+\bibitem[{{Arcones} {et~al.}(2007){Arcones}, {Janka}, \& {Scheck}}]{Arcones07}
+{Arcones}, A., {Janka}, H.-T., \& {Scheck}, L. 2007, \aap, 467, 1227
+
+\bibitem[{{Arcones} \& {Montes}(2011)}]{Arcones11}
+{Arcones}, A., \& {Montes}, F. 2011, \apj, 731, 5
+
+\bibitem[{{Argast} {et~al.}(2004){Argast}, {Samland}, {Thielemann}, \&
+  {Qian}}]{Argast04}
+{Argast}, D., {Samland}, M., {Thielemann}, F.-K., \& {Qian}, Y.-Z. 2004, \aap,
+  416, 997
+
+\bibitem[{{Asplund} {et~al.}(2009){Asplund}, {Grevesse}, {Sauval}, \&
+  {Scott}}]{Asplund2009}
+{Asplund}, M., {Grevesse}, N., {Sauval}, A.~J., \& {Scott}, P. 2009, \araa, 47,
+  481
+
+\bibitem[{{Barklem} {et~al.}(2005){Barklem}, {Christlieb}, {Beers}, {Hill},
+  {Bessell}, {Holmberg}, {Marsteller}, {Rossi}, {Zickgraf}, \&
+  {Reimers}}]{Barklem2005}
+{Barklem}, P.~S., {Christlieb}, N., {Beers}, T.~C., {et~al.} 2005, A\&A, 439,
+  129
+
+\bibitem[{{Barnes} {et~al.}(2021){Barnes}, {Zhu}, {Lund}, {Sprouse}, {Vassh},
+  {McLaughlin}, {Mumpower}, \& {Surman}}]{Barnes2021}
+{Barnes}, J., {Zhu}, Y.~L., {Lund}, K.~A., {et~al.} 2021, \apj, 918, 44
+
+\bibitem[{{Bechtol} {et~al.}(2015){Bechtol}, {Drlica-Wagner}, {Balbinot},
+  {Pieres}, {Simon}, {Yanny}, {Santiago}, {Wechsler}, {Frieman}, {Walker},
+  {Williams}, {Rozo}, {Rykoff}, {Queiroz}, {Luque}, {Benoit-L{\'e}vy},
+  {Tucker}, {Sevilla}, {Gruendl}, {da Costa}, {Fausti Neto}, {Maia}, {Abbott},
+  {Allam}, {Armstrong}, {Bauer}, {Bernstein}, {Bernstein}, {Bertin}, {Brooks},
+  {Buckley-Geer}, {Burke}, {Carnero Rosell}, {Castander}, {Covarrubias},
+  {D'Andrea}, {DePoy}, {Desai}, {Diehl}, {Eifler}, {Estrada}, {Evrard},
+  {Fernandez}, {Finley}, {Flaugher}, {Gaztanaga}, {Gerdes}, {Girardi},
+  {Gladders}, {Gruen}, {Gutierrez}, {Hao}, {Honscheid}, {Jain}, {James},
+  {Kent}, {Kron}, {Kuehn}, {Kuropatkin}, {Lahav}, {Li}, {Lin}, {Makler},
+  {March}, {Marshall}, {Martini}, {Merritt}, {Miller}, {Miquel}, {Mohr},
+  {Neilsen}, {Nichol}, {Nord}, {Ogando}, {Peoples}, {Petravick}, {Plazas},
+  {Romer}, {Roodman}, {Sako}, {Sanchez}, {Scarpine}, {Schubnell}, {Smith},
+  {Soares-Santos}, {Sobreira}, {Suchyta}, {Swanson}, {Tarle}, {Thaler},
+  {Thomas}, {Wester}, {Zuntz}, \& {DES Collaboration}}]{Bechtol2015}
+{Bechtol}, K., {Drlica-Wagner}, A., {Balbinot}, E., {et~al.} 2015, \apj, 807,
+  50
+
+\bibitem[{{Beers} \& {Christlieb}(2005)}]{Beers05}
+{Beers}, T.~C., \& {Christlieb}, N. 2005, \araa, 43, 531
+
+\bibitem[{{Belczynski} {et~al.}(2018){Belczynski}, {Askar}, {Arca-Sedda},
+  {Chruslinska}, {Donnari}, {Giersz}, {Benacquista}, {Spurzem}, {Jin},
+  {Wiktorowicz}, \& {Belloni}}]{Belczynski2018}
+{Belczynski}, K., {Askar}, A., {Arca-Sedda}, M., {et~al.} 2018, \aap, 615, A91
+
+\bibitem[{{Belokurov} {et~al.}(2018){Belokurov}, {Erkal}, {Evans}, {Koposov},
+  \& {Deason}}]{Belokurov2018}
+{Belokurov}, V., {Erkal}, D., {Evans}, N.~W., {Koposov}, S.~E., \& {Deason},
+  A.~J. 2018, \mnras, 478, 611
+
+\bibitem[{{Belokurov} {et~al.}(2006){Belokurov}, {Zucker}, {Evans}, {Gilmore},
+  {Vidrih}, {Bramich}, {Newberg}, {Wyse}, {Irwin}, {Fellhauer}, {Hewett},
+  {Walton}, {Wilkinson}, {Cole}, {Yanny}, {Rockosi}, {Beers}, {Bell},
+  {Brinkmann}, {Ivezi{\'c}}, \& {Lupton}}]{Belokurov2006}
+{Belokurov}, V., {Zucker}, D.~B., {Evans}, N.~W., {et~al.} 2006, \apjl, 642,
+  L137
+
+\bibitem[{{Beniamini} {et~al.}(2016{\natexlab{a}}){Beniamini}, {Hotokezaka}, \&
+  {Piran}}]{Beniamini2016}
+{Beniamini}, P., {Hotokezaka}, K., \& {Piran}, T. 2016{\natexlab{a}}, \apjl,
+  829, L13
+
+\bibitem[{{Beniamini} {et~al.}(2016{\natexlab{b}}){Beniamini}, {Hotokezaka}, \&
+  {Piran}}]{Beniamini2016b}
+---. 2016{\natexlab{b}}, \apj, 832, 149
+
+\bibitem[{{Beniamini} \& {Piran}(2019)}]{Beniamini2019}
+{Beniamini}, P., \& {Piran}, T. 2019, \mnras, 487, 4847
+
+\bibitem[{{Besla} {et~al.}(2007){Besla}, {Kallivayalil}, {Hernquist},
+  {Robertson}, {Cox}, {van der Marel}, \& {Alcock}}]{Besla2007}
+{Besla}, G., {Kallivayalil}, N., {Hernquist}, L., {et~al.} 2007, \apj, 668, 949
+
+\bibitem[{{Bisterzo} {et~al.}(2014){Bisterzo}, {Travaglio}, {Gallino},
+  {Wiescher}, \& {K{\"a}ppeler}}]{Bisterzo2014}
+{Bisterzo}, S., {Travaglio}, C., {Gallino}, R., {Wiescher}, M., \&
+  {K{\"a}ppeler}, F. 2014, \apj, 787, 10
+
+\bibitem[{{Bonetti} {et~al.}(2019){Bonetti}, {Perego}, {Dotti}, \&
+  {Cescutti}}]{Bonetti2019}
+{Bonetti}, M., {Perego}, A., {Dotti}, M., \& {Cescutti}, G. 2019, \mnras, 490,
+  296
+
+\bibitem[{{Bonifacio} {et~al.}(2000){Bonifacio}, {Hill}, {Molaro}, {Pasquini},
+  {Di Marcantonio}, \& {Santin}}]{Bonifacio2000}
+{Bonifacio}, P., {Hill}, V., {Molaro}, P., {et~al.} 2000, \aap, 359, 663
+
+\bibitem[{{Bramante} \& {Linden}(2016)}]{Bramante2016}
+{Bramante}, J., \& {Linden}, T. 2016, \apj, 826, 57
+
+\bibitem[{{Brauer} {et~al.}(2022){Brauer}, {Andales}, {Ji}, {Frebel},
+  {Mardini}, {Gomez}, \& {O'Shea}}]{Brauer2022}
+{Brauer}, K., {Andales}, H.~D., {Ji}, A.~P., {et~al.} 2022, arXiv e-prints,
+  arXiv:2206.07057
+
+\bibitem[{{Brauer} {et~al.}(2021){Brauer}, {Ji}, {Drout}, \&
+  {Frebel}}]{Brauer2021}
+{Brauer}, K., {Ji}, A.~P., {Drout}, M.~R., \& {Frebel}, A. 2021, \apj, 915, 81
+
+\bibitem[{{Brauer} {et~al.}(2019){Brauer}, {Ji}, {Frebel}, {Dooley},
+  {G{\'o}mez}, \& {O'Shea}}]{Brauer2019}
+{Brauer}, K., {Ji}, A.~P., {Frebel}, A., {et~al.} 2019, \apj, 871, 247
+
+\bibitem[{{Brown} {et~al.}(2014){Brown}, {Tumlinson}, {Geha}, {Simon},
+  {Vargas}, {VandenBerg}, {Kirby}, {Kalirai}, {Avila}, {Gennaro}, {Ferguson},
+  {Mu{\~n}oz}, {Guhathakurta}, \& {Renzini}}]{Brown2014}
+{Brown}, T.~M., {Tumlinson}, J., {Geha}, M., {et~al.} 2014, \apj, 796, 91
+
+\bibitem[{{Burbidge} {et~al.}(1957){Burbidge}, {Burbidge}, {Fowler}, \&
+  {Hoyle}}]{Burbidge57}
+{Burbidge}, E.~M., {Burbidge}, G.~R., {Fowler}, W.~A., \& {Hoyle}, F. 1957,
+  Reviews of Modern Physics, 29, 547
+
+\bibitem[{{Burris} {et~al.}(2000){Burris}, {Pilachowski}, {Armandroff},
+  {Sneden}, {Cowan}, \& {Roe}}]{Burris00}
+{Burris}, D.~L., {Pilachowski}, C.~A., {Armandroff}, T.~E., {et~al.} 2000,
+  \apj, 544, 302
+
+\bibitem[{{Cain} {et~al.}(2020){Cain}, {Frebel}, {Ji}, {Placco}, {Ezzeddine},
+  {Roederer}, {Hattori}, {Beers}, {Mel{\'e}ndez}, {Hansen}, \&
+  {Sakari}}]{cain20}
+{Cain}, M., {Frebel}, A., {Ji}, A.~P., {et~al.} 2020, \apj, 898, 40
+
+\bibitem[{{Carlin} {et~al.}(2017){Carlin}, {Sand}, {Mu{\~n}oz}, {Spekkens},
+  {Willman}, {Crnojevi{\'c}}, {Forbes}, {Hargis}, {Kirby}, {Peter},
+  {Romanowsky}, \& {Strader}}]{Carlin2017}
+{Carlin}, J.~L., {Sand}, D.~J., {Mu{\~n}oz}, R.~R., {et~al.} 2017, \aj, 154,
+  267
+
+\bibitem[{{Casey} {et~al.}(2014){Casey}, {Keller}, {Da Costa}, {Frebel}, \&
+  {Maunder}}]{Casey2014}
+{Casey}, A.~R., {Keller}, S.~C., {Da Costa}, G., {Frebel}, A., \& {Maunder}, E.
+  2014, \apj, 784, 19
+
+\bibitem[{{Cayrel} {et~al.}(2001){Cayrel}, {Hill}, {Beers}, {Barbuy}, {Spite},
+  {Spite}, {Plez}, {Andersen}, {Bonifacio}, \& {Fran{\c{c}}ois}}]{Cayrel01}
+{Cayrel}, R., {Hill}, V., {Beers}, T.~C., {et~al.} 2001, \nat, 409, 691
+
+\bibitem[{{Cerny} {et~al.}(2021){Cerny}, {Pace}, {Drlica-Wagner}, {Koposov},
+  {Vivas}, {Mau}, {Riley}, {Bom}, {Carlin}, {Choi}, {Erkal}, {Ferguson},
+  {James}, {Li}, {Mart{\'\i}nez-Delgado}, {Mart{\'\i}nez-V{\'a}zquez}, {Munoz},
+  {Mutlu-Pakdil}, {Olsen}, {Pieres}, {Sakowska}, {Sand}, {Simon}, {Smercina},
+  {Stringfellow}, {Tollerud}, {Adam{\'o}w}, {Hernandez-Lang}, {Kuropatkin},
+  {Santana-Silva}, {Tucker}, {Zenteno}, \& {Delve Collaboration}}]{Cerny2021}
+{Cerny}, W., {Pace}, A.~B., {Drlica-Wagner}, A., {et~al.} 2021, \apjl, 920, L44
+
+\bibitem[{{Cerny} {et~al.}(2022){Cerny}, {Simon}, {Li}, {Drlica-Wagner},
+  {Pace}, {Mart{\i}nez-Vazquez}, {Riley}, {Mutlu-Pakdil}, {Mau}, {Ferguson},
+  {Erkal}, {Munoz}, {Bom}, {Carlin}, {Carollo}, {Choi}, {Ji},
+  {Mart{\i}nez-Delgado}, {Manwadkar}, {Miller}, {Noel}, {Sakowska}, {Sand},
+  {Stringfellow}, {Tollerud}, {Vivas}, {Carballo-Bello}, {Hernandez-Lang},
+  {James}, {Nilo Castellon}, {Olsen}, \& {Zenteno}}]{Cerny2022}
+{Cerny}, W., {Simon}, J.~D., {Li}, T.~S., {et~al.} 2022, arXiv e-prints,
+  arXiv:2203.11788
+
+\bibitem[{{Chiti} {et~al.}(2022){Chiti}, {Simon}, {Frebel}, {Pace}, {Ji}, \&
+  {Li}}]{Chiti2022}
+{Chiti}, A., {Simon}, J.~D., {Frebel}, A., {et~al.} 2022, arXiv e-prints,
+  arXiv:2206.04580
+
+\bibitem[{{Chiti} {et~al.}(2018){Chiti}, {Simon}, {Frebel}, {Thompson},
+  {Shectman}, {Mateo}, {Bailey}, {Crane}, \& {Walker}}]{Chiti2018}
+---. 2018, \apj, 856, 142
+
+\bibitem[{{Chornock} {et~al.}(2017){Chornock}, {Berger}, {Kasen},
+  {Cowperthwaite}, {Nicholl}, {Villar}, {Alexander}, {Blanchard}, {Eftekhari},
+  {Fong}, {Margutti}, {Williams}, {Annis}, {Brout}, {Brown}, {Chen}, {Drout},
+  {Farr}, {Foley}, {Frieman}, {Fryer}, {Herner}, {Holz}, {Kessler}, {Matheson},
+  {Metzger}, {Quataert}, {Rest}, {Sako}, {Scolnic}, {Smith}, \&
+  {Soares-Santos}}]{Chornock2017}
+{Chornock}, R., {Berger}, E., {Kasen}, D., {et~al.} 2017, \apjl, 848, L19
+
+\bibitem[{{Christlieb} {et~al.}(2004){Christlieb}, {Beers}, {Barklem},
+  {Bessell}, {Hill}, {Holmberg}, {Korn}, {Marsteller}, {Mashonkina}, {Qian},
+  {Rossi}, {Wasserburg}, {Zickgraf}, {Kratz}, {Nordstr{\"o}m}, {Pfeiffer},
+  {Rhee}, \& {Ryan}}]{Christlieb04}
+{Christlieb}, N., {Beers}, T.~C., {Barklem}, P.~S., {et~al.} 2004, \aap, 428,
+  1027
+
+\bibitem[{{Chruslinska} {et~al.}(2018){Chruslinska}, {Belczynski}, {Klencki},
+  \& {Benacquista}}]{Chruslinska2018}
+{Chruslinska}, M., {Belczynski}, K., {Klencki}, J., \& {Benacquista}, M. 2018,
+  \mnras, 474, 2937
+
+\bibitem[{{Cohen} \& {Huang}(2009)}]{Cohen2009}
+{Cohen}, J.~G., \& {Huang}, W. 2009, \apj, 701, 1053
+
+\bibitem[{{Cohen} \& {Huang}(2010)}]{Cohen2010}
+---. 2010, \apj, 719, 931
+
+\bibitem[{{C{\^o}t{\'e}} {et~al.}(2018){C{\^o}t{\'e}}, {Fryer}, {Belczynski},
+  {Korobkin}, {Chru{\'s}li{\'n}ska}, {Vassh}, {Mumpower}, {Lippuner},
+  {Sprouse}, {Surman}, \& {Wollaeger}}]{Cote2018}
+{C{\^o}t{\'e}}, B., {Fryer}, C.~L., {Belczynski}, K., {et~al.} 2018, \apj, 855,
+  99
+
+\bibitem[{{C{\^o}t{\'e}} {et~al.}(2019){C{\^o}t{\'e}}, {Eichler}, {Arcones},
+  {Hansen}, {Simonetti}, {Frebel}, {Fryer}, {Pignatari}, {Reichert},
+  {Belczynski}, \& {Matteucci}}]{Cote2019}
+{C{\^o}t{\'e}}, B., {Eichler}, M., {Arcones}, A., {et~al.} 2019, \apj, 875, 106
+
+\bibitem[{{Coulter} {et~al.}(2017){Coulter}, {Foley}, {Kilpatrick}, {Drout},
+  {Piro}, {Shappee}, {Siebert}, {Simon}, {Ulloa}, {Kasen}, {Madore},
+  {Murguia-Berthier}, {Pan}, {Prochaska}, {Ramirez-Ruiz}, {Rest}, \&
+  {Rojas-Bravo}}]{Coulter2017}
+{Coulter}, D.~A., {Foley}, R.~J., {Kilpatrick}, C.~D., {et~al.} 2017, Science,
+  358, 1556
+
+\bibitem[{{Cowan} {et~al.}(2021){Cowan}, {Sneden}, {Lawler}, {Aprahamian},
+  {Wiescher}, {Langanke}, {Mart{\'\i}nez-Pinedo}, \& {Thielemann}}]{Cowan2021}
+{Cowan}, J.~J., {Sneden}, C., {Lawler}, J.~E., {et~al.} 2021, Reviews of Modern
+  Physics, 93, 015002
+
+\bibitem[{{Cowperthwaite} {et~al.}(2017){Cowperthwaite}, {Berger}, {Villar},
+  {Metzger}, {Nicholl}, {Chornock}, {Blanchard}, {Fong}, {Margutti},
+  {Soares-Santos}, {Alexander}, {Allam}, {Annis}, {Brout}, {Brown}, {Butler},
+  {Chen}, {Diehl}, {Doctor}, {Drout}, {Eftekhari}, {Farr}, {Finley}, {Foley},
+  {Frieman}, {Fryer}, {Garc{\'\i}a-Bellido}, {Gill}, {Guillochon}, {Herner},
+  {Holz}, {Kasen}, {Kessler}, {Marriner}, {Matheson}, {Neilsen}, {Quataert},
+  {Palmese}, {Rest}, {Sako}, {Scolnic}, {Smith}, {Tucker}, {Williams},
+  {Balbinot}, {Carlin}, {Cook}, {Durret}, {Li}, {Lopes}, {Louren{\c{c}}o},
+  {Marshall}, {Medina}, {Muir}, {Mu{\~n}oz}, {Sauseda}, {Schlegel}, {Secco},
+  {Vivas}, {Wester}, {Zenteno}, {Zhang}, {Abbott}, {Banerji}, {Bechtol},
+  {Benoit-L{\'e}vy}, {Bertin}, {Buckley-Geer}, {Burke}, {Capozzi}, {Carnero
+  Rosell}, {Carrasco Kind}, {Castander}, {Crocce}, {Cunha}, {D'Andrea}, {da
+  Costa}, {Davis}, {DePoy}, {Desai}, {Dietrich}, {Drlica-Wagner}, {Eifler},
+  {Evrard}, {Fernandez}, {Flaugher}, {Fosalba}, {Gaztanaga}, {Gerdes},
+  {Giannantonio}, {Goldstein}, {Gruen}, {Gruendl}, {Gutierrez}, {Honscheid},
+  {Jain}, {James}, {Jeltema}, {Johnson}, {Johnson}, {Kent}, {Krause}, {Kron},
+  {Kuehn}, {Nuropatkin}, {Lahav}, {Lima}, {Lin}, {Maia}, {March}, {Martini},
+  {McMahon}, {Menanteau}, {Miller}, {Miquel}, {Mohr}, {Neilsen}, {Nichol},
+  {Ogando}, {Plazas}, {Roe}, {Romer}, {Roodman}, {Rykoff}, {Sanchez},
+  {Scarpine}, {Schindler}, {Schubnell}, {Sevilla-Noarbe}, {Smith}, {Smith},
+  {Sobreira}, {Suchyta}, {Swanson}, {Tarle}, {Thomas}, {Thomas}, {Troxel},
+  {Vikram}, {Walker}, {Wechsler}, {Weller}, {Yanny}, \&
+  {Zuntz}}]{Cowperthwaite2017}
+{Cowperthwaite}, P.~S., {Berger}, E., {Villar}, V.~A., {et~al.} 2017, \apjl,
+  848, L17
+
+\bibitem[{{Crnojevi{\'c}} {et~al.}(2016){Crnojevi{\'c}}, {Sand}, {Zaritsky},
+  {Spekkens}, {Willman}, \& {Hargis}}]{Crnojevic2016}
+{Crnojevi{\'c}}, D., {Sand}, D.~J., {Zaritsky}, D., {et~al.} 2016, \apjl, 824,
+  L14
+
+\bibitem[{{Curtis} {et~al.}(2021){Curtis}, {M{\"o}sta}, {Wu}, {Radice},
+  {Roberts}, {Ricigliano}, \& {Perego}}]{Curtis2021}
+{Curtis}, S., {M{\"o}sta}, P., {Wu}, Z., {et~al.} 2021, arXiv e-prints,
+  arXiv:2112.00772
+
+\bibitem[{{Dalton} {et~al.}(2012){Dalton}, {Trager}, {Abrams}, {Carter},
+  {Bonifacio}, {Aguerri}, {MacIntosh}, {Evans}, {Lewis}, {Navarro}, {Agocs},
+  {Dee}, {Rousset}, {Tosh}, {Middleton}, {Pragt}, {Terrett}, {Brock}, {Benn},
+  {Verheijen}, {Cano Infantes}, {Bevil}, {Steele}, {Mottram}, {Bates},
+  {Gribbin}, {Rey}, {Rodriguez}, {Delgado}, {Guinouard}, {Walton}, {Irwin},
+  {Jagourel}, {Stuik}, {Gerlofsma}, {Roelfsma}, {Skillen}, {Ridings},
+  {Balcells}, {Daban}, {Gouvret}, {Venema}, \& {Girard}}]{WEAVE}
+{Dalton}, G., {Trager}, S.~C., {Abrams}, D.~C., {et~al.} 2012, in Society of
+  Photo-Optical Instrumentation Engineers (SPIE) Conference Series, Vol. 8446,
+  Ground-based and Airborne Instrumentation for Astronomy IV, ed. I.~S.
+  {McLean}, S.~K. {Ramsay}, \& H.~{Takami}, 84460P
+
+\bibitem[{{de los Reyes} {et~al.}(2022){de los Reyes}, {Kirby}, {Ji}, \&
+  {Nu{\~n}ez}}]{delosReyes2022}
+{de los Reyes}, M. A.~C., {Kirby}, E.~N., {Ji}, A.~P., \& {Nu{\~n}ez}, E.~H.
+  2022, \apj, 925, 66
+
+\bibitem[{{Deason} {et~al.}(2016){Deason}, {Mao}, \& {Wechsler}}]{Deason2016}
+{Deason}, A.~J., {Mao}, Y.-Y., \& {Wechsler}, R.~H. 2016, \apj, 821, 5
+
+\bibitem[{{Dekel} \& {Woo}(2003)}]{Dekel2003}
+{Dekel}, A., \& {Woo}, J. 2003, \mnras, 344, 1131
+
+\bibitem[{{Dominik} {et~al.}(2012){Dominik}, {Belczynski}, {Fryer}, {Holz},
+  {Berti}, {Bulik}, {Mandel}, \& {O'Shaughnessy}}]{Dominik12}
+{Dominik}, M., {Belczynski}, K., {Fryer}, C., {et~al.} 2012, \apj, 759, 52
+
+\bibitem[{{Drlica-Wagner} {et~al.}(2015){Drlica-Wagner}, {Bechtol}, {Rykoff},
+  {Luque}, {Queiroz}, {Mao}, {Wechsler}, {Simon}, {Santiago}, {Yanny},
+  {Balbinot}, {Dodelson}, {Fausti Neto}, {James}, {Li}, {Maia}, {Marshall},
+  {Pieres}, {Stringer}, {Walker}, {Abbott}, {Abdalla}, {Allam},
+  {Benoit-L{\'e}vy}, {Bernstein}, {Bertin}, {Brooks}, {Buckley-Geer}, {Burke},
+  {Carnero Rosell}, {Carrasco Kind}, {Carretero}, {Crocce}, {da Costa},
+  {Desai}, {Diehl}, {Dietrich}, {Doel}, {Eifler}, {Evrard}, {Finley},
+  {Flaugher}, {Fosalba}, {Frieman}, {Gaztanaga}, {Gerdes}, {Gruen}, {Gruendl},
+  {Gutierrez}, {Honscheid}, {Kuehn}, {Kuropatkin}, {Lahav}, {Martini},
+  {Miquel}, {Nord}, {Ogando}, {Plazas}, {Reil}, {Roodman}, {Sako}, {Sanchez},
+  {Scarpine}, {Schubnell}, {Sevilla-Noarbe}, {Smith}, {Soares-Santos},
+  {Sobreira}, {Suchyta}, {Swanson}, {Tarle}, {Tucker}, {Vikram}, {Wester},
+  {Zhang}, {Zuntz}, \& {DES Collaboration}}]{Drlica-Wagner2015}
+{Drlica-Wagner}, A., {Bechtol}, K., {Rykoff}, E.~S., {et~al.} 2015, \apj, 813,
+  109
+
+\bibitem[{{Drlica-Wagner} {et~al.}(2016){Drlica-Wagner}, {Bechtol}, {Allam},
+  {Tucker}, {Gruendl}, {Johnson}, {Walker}, {James}, {Nidever}, {Olsen},
+  {Wechsler}, {Cioni}, {Conn}, {Kuehn}, {Li}, {Mao}, {Martin}, {Neilsen},
+  {Noel}, {Pieres}, {Simon}, {Stringfellow}, {van der Marel}, \&
+  {Yanny}}]{Drlica-Wagner2016}
+{Drlica-Wagner}, A., {Bechtol}, K., {Allam}, S., {et~al.} 2016, \apjl, 833, L5
+
+\bibitem[{{Drout} {et~al.}(2017){Drout}, {Piro}, {Shappee}, {Kilpatrick},
+  {Simon}, {Contreras}, {Coulter}, {Foley}, {Siebert}, {Morrell}, {Boutsia},
+  {Di Mille}, {Holoien}, {Kasen}, {Kollmeier}, {Madore}, {Monson},
+  {Murguia-Berthier}, {Pan}, {Prochaska}, {Ramirez-Ruiz}, {Rest}, {Adams},
+  {Alatalo}, {Ba{\~n}ados}, {Baughman}, {Beers}, {Bernstein}, {Bitsakis},
+  {Campillay}, {Hansen}, {Higgs}, {Ji}, {Maravelias}, {Marshall}, {Bidin},
+  {Prieto}, {Rasmussen}, {Rojas-Bravo}, {Strom}, {Ulloa},
+  {Vargas-Gonz{\'a}lez}, {Wan}, \& {Whitten}}]{drout17}
+{Drout}, M.~R., {Piro}, A.~L., {Shappee}, B.~J., {et~al.} 2017, Science, 358,
+  1570
+
+\bibitem[{{Duggan} {et~al.}(2018){Duggan}, {Kirby}, {Andrievsky}, \&
+  {Korotin}}]{Duggan2018}
+{Duggan}, G.~E., {Kirby}, E.~N., {Andrievsky}, S.~M., \& {Korotin}, S.~A. 2018,
+  \apj, 869, 50
+
+\bibitem[{{Eichler} {et~al.}(2015){Eichler}, {Arcones}, {Kelic}, {Korobkin},
+  {Langanke}, {Marketin}, {Martinez-Pinedo}, {Panov}, {Rauscher}, {Rosswog},
+  {Winteler}, {Zinner}, \& {Thielemann}}]{Eichler2015}
+{Eichler}, M., {Arcones}, A., {Kelic}, A., {et~al.} 2015, \apj, 808, 30
+
+\bibitem[{{Emerick} {et~al.}(2019){Emerick}, {Bryan}, \& {Mac
+  Low}}]{Emerick2019}
+{Emerick}, A., {Bryan}, G.~L., \& {Mac Low}, M.-M. 2019, \mnras, 482, 1304
+
+\bibitem[{{Evans} {et~al.}(2017){Evans}, {Cenko}, {Kennea}, {Emery}, {Kuin},
+  {Korobkin}, {Wollaeger}, {Fryer}, {Madsen}, {Harrison}, {Xu}, {Nakar},
+  {Hotokezaka}, {Lien}, {Campana}, {Oates}, {Troja}, {Breeveld}, {Marshall},
+  {Barthelmy}, {Beardmore}, {Burrows}, {Cusumano}, {D'A{\`\i}}, {D'Avanzo},
+  {D'Elia}, {de Pasquale}, {Even}, {Fontes}, {Forster}, {Garcia}, {Giommi},
+  {Grefenstette}, {Gronwall}, {Hartmann}, {Heida}, {Hungerford}, {Kasliwal},
+  {Krimm}, {Levan}, {Malesani}, {Melandri}, {Miyasaka}, {Nousek}, {O'Brien},
+  {Osborne}, {Pagani}, {Page}, {Palmer}, {Perri}, {Pike}, {Racusin}, {Rosswog},
+  {Siegel}, {Sakamoto}, {Sbarufatti}, {Tagliaferri}, {Tanvir}, \&
+  {Tohuvavohu}}]{Evans2017}
+{Evans}, P.~A., {Cenko}, S.~B., {Kennea}, J.~A., {et~al.} 2017, Science, 358,
+  1565
+
+\bibitem[{{Ezzeddine} {et~al.}(2020){Ezzeddine}, {Rasmussen}, {Frebel},
+  {Chiti}, {Hinojisa}, {Placco}, {Roederer}, {Ji}, {Beers}, {Hansen}, {Sakari},
+  \& {Melendez}}]{ezzeddine20}
+{Ezzeddine}, R., {Rasmussen}, K., {Frebel}, A., {et~al.} 2020, arXiv e-prints,
+  arXiv:2006.07731
+
+\bibitem[{{Fabrizio} {et~al.}(2012){Fabrizio}, {Merle}, {Th{\'e}venin},
+  {Nonino}, {Bono}, {Stetson}, {Ferraro}, {Iannicola}, {Monelli}, {Walker},
+  {Buonanno}, {Caputo}, {Corsi}, {Dall'Ora}, {Degl'Innocenti},
+  {Fran{\c{c}}ois}, {Gilmozzi}, {Marconi}, {Pietrinferni}, {Prada Moroni},
+  {Primas}, {Pulone}, {Ripepi}, \& {Romaniello}}]{Fabrizio2012}
+{Fabrizio}, M., {Merle}, T., {Th{\'e}venin}, F., {et~al.} 2012, \pasp, 124, 519
+
+\bibitem[{{Farouqi} {et~al.}(2010){Farouqi}, {Kratz}, {Pfeiffer}, {Rauscher},
+  {Thielemann}, \& {Truran}}]{Farouqi10}
+{Farouqi}, K., {Kratz}, K.-L., {Pfeiffer}, B., {et~al.} 2010, \apj, 712, 1359
+
+\bibitem[{{Feltzing} {et~al.}(2018){Feltzing}, {Bensby}, {Bergemann},
+  {Chiappini}, {Christlieb}, {Cioni}, {Helmi}, {Irwin}, {Minchev},
+  {Starkenburg}, \& {de Jong}}]{FOURMOST}
+{Feltzing}, S., {Bensby}, T., {Bergemann}, M., {et~al.} 2018, in Rediscovering
+  Our Galaxy, ed. C.~{Chiappini}, I.~{Minchev}, E.~{Starkenburg}, \&
+  M.~{Valentini}, Vol. 334, 225--232
+
+\bibitem[{{Fillingham} {et~al.}(2019){Fillingham}, {Cooper}, {Kelley},
+  {Rodriguez Wimberly}, {Boylan-Kolchin}, {Bullock}, {Garrison-Kimmel},
+  {Pawlowski}, \& {Wheeler}}]{Fillingham2019}
+{Fillingham}, S.~P., {Cooper}, M.~C., {Kelley}, T., {et~al.} 2019, arXiv
+  e-prints, arXiv:1906.04180
+
+\bibitem[{{Fong} \& {Berger}(2013)}]{Fong2013}
+{Fong}, W., \& {Berger}, E. 2013, \apj, 776, 18
+
+\bibitem[{{Frebel}(2018)}]{Frebel2018}
+{Frebel}, A. 2018, Annual Review of Nuclear and Particle Science, 68, 237
+
+\bibitem[{{Frebel} \& {Bromm}(2012)}]{frebel12}
+{Frebel}, A., \& {Bromm}, V. 2012, \apj, 759, 115
+
+\bibitem[{{Frebel} {et~al.}(2007){Frebel}, {Christlieb}, {Norris}, {Thom},
+  {Beers}, \& {Rhee}}]{he1523}
+{Frebel}, A., {Christlieb}, N., {Norris}, J.~E., {et~al.} 2007, ApJL, 660, L117
+
+\bibitem[{{Frebel} {et~al.}(2010){Frebel}, {Kirby}, \& {Simon}}]{Frebel2010a}
+{Frebel}, A., {Kirby}, E.~N., \& {Simon}, J.~D. 2010, \nat, 464, 72
+
+\bibitem[{{Frebel} \& {Norris}(2015)}]{Frebel2015}
+{Frebel}, A., \& {Norris}, J.~E. 2015, \araa, 53, 631
+
+\bibitem[{{Frebel} {et~al.}(2016){Frebel}, {Norris}, {Gilmore}, \&
+  {Wyse}}]{Frebel16}
+{Frebel}, A., {Norris}, J.~E., {Gilmore}, G., \& {Wyse}, R.~F.~G. 2016, ArXiv
+  e-prints, arXiv:1605.05732
+
+\bibitem[{{Frebel} {et~al.}(2014){Frebel}, {Simon}, \& {Kirby}}]{Frebel2014}
+{Frebel}, A., {Simon}, J.~D., \& {Kirby}, E.~N. 2014, \apj, 786, 74
+
+\bibitem[{{Fr{\"o}hlich} {et~al.}(2006){Fr{\"o}hlich}, {Mart{\'\i}nez-Pinedo},
+  {Liebend{\"o}rfer}, {Thielemann}, {Bravo}, {Hix}, {Langanke}, \&
+  {Zinner}}]{Frohlich2006}
+{Fr{\"o}hlich}, C., {Mart{\'\i}nez-Pinedo}, G., {Liebend{\"o}rfer}, M.,
+  {et~al.} 2006, \prl, 96, 142502
+
+\bibitem[{{Gaia Collaboration} {et~al.}(2016){Gaia Collaboration}, {Prusti},
+  {de Bruijne}, {Brown}, {Vallenari}, {Babusiaux}, {Bailer-Jones}, {Bastian},
+  {Biermann}, {Evans}, \& et~al.}]{GaiaCollaboration2016}
+{Gaia Collaboration}, {Prusti}, T., {de Bruijne}, J.~H.~J., {et~al.} 2016,
+  \aap, 595, A1
+
+\bibitem[{{Geha} {et~al.}(2012){Geha}, {Blanton}, {Yan}, \&
+  {Tinker}}]{Geha2012}
+{Geha}, M., {Blanton}, M.~R., {Yan}, R., \& {Tinker}, J.~L. 2012, \apj, 757, 85
+
+\bibitem[{{Goriely}(1999)}]{Goriely1999}
+{Goriely}, S. 1999, \aap, 342, 881
+
+\bibitem[{{Goriely} {et~al.}(2011){Goriely}, {Bauswein}, \&
+  {Janka}}]{Goriely11}
+{Goriely}, S., {Bauswein}, A., \& {Janka}, H.-T. 2011, \apjl, 738, L32
+
+\bibitem[{{Goriely} {et~al.}(2013){Goriely}, {Sida}, {Lema{\^\i}tre},
+  {Panebianco}, {Dubray}, {Hilaire}, {Bauswein}, \& {Janka}}]{Goriely2013}
+{Goriely}, S., {Sida}, J.~L., {Lema{\^\i}tre}, J.~F., {et~al.} 2013, \prl, 111,
+  242502
+
+\bibitem[{{Griffen} {et~al.}(2018){Griffen}, {Dooley}, {Ji}, {O'Shea},
+  {G{\'o}mez}, \& {Frebel}}]{Griffen2018}
+{Griffen}, B.~F., {Dooley}, G.~A., {Ji}, A.~P., {et~al.} 2018, \mnras, 474, 443
+
+\bibitem[{{Grillmair}(2009)}]{Grillmair2009}
+{Grillmair}, C.~J. 2009, \apj, 693, 1118
+
+\bibitem[{{Gudin} {et~al.}(2021){Gudin}, {Shank}, {Beers}, {Yuan}, {Limberg},
+  {Roederer}, {Placco}, {Holmbeck}, {Dietz}, {Rasmussen}, {Hansen}, {Sakari},
+  {Ezzeddine}, \& {Frebel}}]{Gudin2021}
+{Gudin}, D., {Shank}, D., {Beers}, T.~C., {et~al.} 2021, \apj, 908, 79
+
+\bibitem[{{Gull} {et~al.}(2021){Gull}, {Frebel}, {Hinojosa}, {Roederer}, {Ji},
+  \& {Brauer}}]{gull21}
+{Gull}, M., {Frebel}, A., {Hinojosa}, K., {et~al.} 2021, \apj, 912, 52
+
+\bibitem[{{Halevi} \& {M{\"o}sta}(2018)}]{Halevi2018}
+{Halevi}, G., \& {M{\"o}sta}, P. 2018, \mnras, 477, 2366
+
+\bibitem[{{Hansen} {et~al.}(2018{\natexlab{a}}){Hansen}, {El-Souri}, {Monaco},
+  {Villanova}, {Bonifacio}, {Caffau}, \& {Sbordone}}]{Hansen2018}
+{Hansen}, C.~J., {El-Souri}, M., {Monaco}, L., {et~al.} 2018{\natexlab{a}},
+  \apj, 855, 83
+
+\bibitem[{{Hansen} {et~al.}(2012){Hansen}, {Primas}, {Hartman}, {Kratz},
+  {Wanajo}, {Leibundgut}, {Farouqi}, {Hallmann}, {Christlieb}, \&
+  {Nilsson}}]{Hansen12}
+{Hansen}, C.~J., {Primas}, F., {Hartman}, H., {et~al.} 2012, \aap, 545, A31
+
+\bibitem[{{Hansen} {et~al.}(2017){Hansen}, {Simon}, {Marshall}, {Li},
+  {Carollo}, {DePoy}, {Nagasawa}, {Bernstein}, {Drlica-Wagner}, {Abdalla},
+  {Allam}, {Annis}, {Bechtol}, {Benoit-L{\'e}vy}, {Brooks}, {Buckley-Geer},
+  {Carnero Rosell}, {Carrasco Kind}, {Carretero}, {Cunha}, {da Costa}, {Desai},
+  {Eifler}, {Fausti Neto}, {Flaugher}, {Frieman}, {Garc{\'\i}a-Bellido},
+  {Gaztanaga}, {Gerdes}, {Gruen}, {Gruendl}, {Gschwend}, {Gutierrez}, {James},
+  {Krause}, {Kuehn}, {Kuropatkin}, {Lahav}, {Miquel}, {Plazas}, {Romer},
+  {Sanchez}, {Santiago}, {Scarpine}, {Smith}, {Soares-Santos}, {Sobreira},
+  {Suchyta}, {Swanson}, {Tarle}, {Walker}, \& {DES Collaboration}}]{Hansen2017}
+{Hansen}, T.~T., {Simon}, J.~D., {Marshall}, J.~L., {et~al.} 2017, \apj, 838,
+  44
+
+\bibitem[{{Hansen} {et~al.}(2018{\natexlab{b}}){Hansen}, {Holmbeck}, {Beers},
+  {Placco}, {Roederer}, {Frebel}, {Sakari}, {Simon}, \& {Thompson}}]{hansen18}
+{Hansen}, T.~T., {Holmbeck}, E.~M., {Beers}, T.~C., {et~al.}
+  2018{\natexlab{b}}, \apj, 858, 92
+
+\bibitem[{{Hansen} {et~al.}(2020){Hansen}, {Marshall}, {Simon}, {Li},
+  {Bernstein}, {Pace}, {Ferguson}, {Nagasawa}, {Kuehn}, {Carollo}, {Geha},
+  {James}, {Walker}, {Diehl}, {Aguena}, {Allam}, {Avila}, {Bertin}, {Brooks},
+  {Buckley-Geer}, {Burke}, {Rosell}, {Kind}, {Carretero}, {Costanzi}, {Da
+  Costa}, {Desai}, {De Vicente}, {Doel}, {Eckert}, {Eifler}, {Everett},
+  {Ferrero}, {Frieman}, {Garc{\'\i}a-Bellido}, {Gaztanaga}, {Gerdes}, {Gruen},
+  {Gruendl}, {Gschwend}, {Gutierrez}, {Hinton}, {Hollowood}, {Honscheid},
+  {Kuropatkin}, {Maia}, {March}, {Miquel}, {Palmese}, {Paz-Chinch{\'o}n},
+  {Plazas}, {Sanchez}, {Santiago}, {Scarpine}, {Serrano}, {Smith},
+  {Soares-Santos}, {Suchyta}, {Swanson}, {Tarle}, {Varga}, {Wilkinson}, \& {DES
+  Collaboration}}]{Hansen2020}
+{Hansen}, T.~T., {Marshall}, J.~L., {Simon}, J.~D., {et~al.} 2020, \apj, 897,
+  183
+
+\bibitem[{{Hansen} {et~al.}(2021){Hansen}, {Ji}, {Da Costa}, {Li}, {Casey},
+  {Pace}, {Cullinane}, {Erkal}, {Koposov}, {Kuehn}, {Lewis}, {Mackey},
+  {Simpson}, {Shipp}, {Zucker}, {Bland-Hawthorn}, \& {S5
+  Collaboration}}]{Hansen2021}
+{Hansen}, T.~T., {Ji}, A.~P., {Da Costa}, G.~S., {et~al.} 2021, \apj, 915, 103
+
+\bibitem[{{Hargis} {et~al.}(2014){Hargis}, {Willman}, \& {Peter}}]{Hargis2014}
+{Hargis}, J.~R., {Willman}, B., \& {Peter}, A. H.~G. 2014, \apjl, 795, L13
+
+\bibitem[{{Helmi} {et~al.}(2018){Helmi}, {Babusiaux}, {Koppelman}, {Massari},
+  {Veljanoski}, \& {Brown}}]{Helmi2018}
+{Helmi}, A., {Babusiaux}, C., {Koppelman}, H.~H., {et~al.} 2018, \nat, 563, 85
+
+\bibitem[{{Hill} {et~al.}(2017){Hill}, {Christlieb}, {Beers}, {Barklem},
+  {Kratz}, {Nordstr{\"o}m}, {Pfeiffer}, \& {Farouqi}}]{hill17}
+{Hill}, V., {Christlieb}, N., {Beers}, T.~C., {et~al.} 2017, \aap, 607, A91
+
+\bibitem[{{Hill} {et~al.}(2002){Hill}, {Plez}, {Cayrel}, {Beers},
+  {Nordstr{\"o}m}, {Andersen}, {Spite}, {Spite}, {Barbuy}, {Bonifacio},
+  {Depagne}, {Fran{\c c}ois}, \& {Primas}}]{Hill02}
+{Hill}, V., {Plez}, B., {Cayrel}, R., {et~al.} 2002, \aap, 387, 560
+
+\bibitem[{{Hill} {et~al.}(2019){Hill}, {Sk{\'u}lad{\'o}ttir}, {Tolstoy},
+  {Venn}, {Shetrone}, {Jablonka}, {Primas}, {Battaglia}, {de Boer},
+  {Fran{\c{c}}ois}, {Helmi}, {Kaufer}, {Letarte}, {Starkenburg}, \&
+  {Spite}}]{Hill2019}
+{Hill}, V., {Sk{\'u}lad{\'o}ttir}, {\'A}., {Tolstoy}, E., {et~al.} 2019, \aap,
+  626, A15
+
+\bibitem[{{Hirai} {et~al.}(2022){Hirai}, {Beers}, {Chiba}, {Aoki}, {Shank},
+  {Saitoh}, {Okamoto}, \& {Makino}}]{hirai22}
+{Hirai}, Y., {Beers}, T.~C., {Chiba}, M., {et~al.} 2022, arXiv e-prints,
+  arXiv:2206.04060
+
+\bibitem[{{Hirai} {et~al.}(2015){Hirai}, {Ishimaru}, {Saitoh}, {Fujii},
+  {Hidaka}, \& {Kajino}}]{Hirai15}
+{Hirai}, Y., {Ishimaru}, Y., {Saitoh}, T.~R., {et~al.} 2015, \apj, 814, 41
+
+\bibitem[{{Holmbeck} {et~al.}(2019){Holmbeck}, {Frebel}, {McLaughlin},
+  {Mumpower}, {Sprouse}, \& {Surman}}]{holmbeck2019}
+{Holmbeck}, E.~M., {Frebel}, A., {McLaughlin}, G.~C., {et~al.} 2019, \apj, 881,
+  5
+
+\bibitem[{{Holmbeck} {et~al.}(2018){Holmbeck}, {Beers}, {Roederer}, {Placco},
+  {Hansen}, {Sakari}, {Sneden}, {Liu}, {Lee}, {Cowan}, \&
+  {Frebel}}]{holmbeck18}
+{Holmbeck}, E.~M., {Beers}, T.~C., {Roederer}, I.~U., {et~al.} 2018, \apjl,
+  859, L24
+
+\bibitem[{{Holmbeck} {et~al.}(2020){Holmbeck}, {Hansen}, {Beers}, {Placco},
+  {Whitten}, {Rasmussen}, {Roederer}, {Ezzeddine}, {Sakari}, {Frebel}, {Drout},
+  {Simon}, {Thompson}, {Bland-Hawthorn}, {Gibson}, {Grebel}, {Kordopatis},
+  {Kunder}, {Mel{\'e}ndez}, {Navarro}, {Reid}, {Seabroke}, {Steinmetz},
+  {Watson}, \& {Wyse}}]{holmbeck20}
+{Holmbeck}, E.~M., {Hansen}, T.~T., {Beers}, T.~C., {et~al.} 2020, \apjs, 249,
+  30
+
+\bibitem[{{Homma} {et~al.}(2016){Homma}, {Chiba}, {Okamoto}, {Komiyama},
+  {Tanaka}, {Tanaka}, {Ishigaki}, {Akiyama}, {Arimoto}, {Garmilla}, {Lupton},
+  {Strauss}, {Furusawa}, {Miyazaki}, {Murayama}, {Nishizawa}, {Takada},
+  {Usuda}, \& {Wang}}]{Homma2016}
+{Homma}, D., {Chiba}, M., {Okamoto}, S., {et~al.} 2016, \apj, 832, 21
+
+\bibitem[{{Homma} {et~al.}(2018){Homma}, {Chiba}, {Okamoto}, {Komiyama},
+  {Tanaka}, {Tanaka}, {Ishigaki}, {Hayashi}, {Arimoto}, {Garmilla}, {Lupton},
+  {Strauss}, {Miyazaki}, {Wang}, \& {Murayama}}]{Homma2018}
+---. 2018, \pasj, 70, S18
+
+\bibitem[{{Honda} {et~al.}(2007){Honda}, {Aoki}, {Ishimaru}, \&
+  {Wanajo}}]{Honda07}
+{Honda}, S., {Aoki}, W., {Ishimaru}, Y., \& {Wanajo}, S. 2007, \apj, 666, 1189
+
+\bibitem[{{Honda} {et~al.}(2005){Honda}, {Aoki}, {Kajino}, {Ando}, \&
+  {Beers}}]{Honda05}
+{Honda}, S., {Aoki}, W., {Kajino}, T., {Ando}, H., \& {Beers}, T.~C. 2005,
+  \nphysa, 758, 296
+
+\bibitem[{{Honda} {et~al.}(2004){Honda}, {Aoki}, {Kajino}, {Ando}, {Beers},
+  {Izumiura}, {Sadakane}, \& {Takada-Hidai}}]{Honda04}
+{Honda}, S., {Aoki}, W., {Kajino}, T., {et~al.} 2004, \apj, 607, 474
+
+\bibitem[{{Horowitz} {et~al.}(2019){Horowitz}, {Arcones}, {C{\^o}t{\'e}},
+  {Dillmann}, {Nazarewicz}, {Roederer}, {Schatz}, {Aprahamian}, {Atanasov},
+  {Bauswein}, {Beers}, {Bliss}, {Brodeur}, {Clark}, {Frebel}, {Foucart},
+  {Hansen}, {Just}, {Kankainen}, {McLaughlin}, {Kelly}, {Liddick}, {Lee},
+  {Lippuner}, {Martin}, {Mendoza-Temis}, {Metzger}, {Mumpower}, {Perdikakis},
+  {Pereira}, {O'Shea}, {Reifarth}, {Rogers}, {Siegel}, {Spyrou}, {Surman},
+  {Tang}, {Uesaka}, \& {Wang}}]{Horowitz2019}
+{Horowitz}, C.~J., {Arcones}, A., {C{\^o}t{\'e}}, B., {et~al.} 2019, Journal of
+  Physics G Nuclear Physics, 46, 083001
+
+\bibitem[{{Horta} {et~al.}(2021){Horta}, {Schiavon}, {Mackereth}, {Pfeffer},
+  {Mason}, {Kisku}, {Fragkoudi}, {Allende Prieto}, {Cunha}, {Hasselquist},
+  {Holtzman}, {Majewski}, {Nataf}, {O'Connell}, {Schultheis}, \&
+  {Smith}}]{Horta2021}
+{Horta}, D., {Schiavon}, R.~P., {Mackereth}, J.~T., {et~al.} 2021, \mnras, 500,
+  1385
+
+\bibitem[{{Hotokezaka} {et~al.}(2013){Hotokezaka}, {Kiuchi}, {Kyutoku},
+  {Okawa}, {Sekiguchi}, {Shibata}, \& {Taniguchi}}]{Hotokezaka2013}
+{Hotokezaka}, K., {Kiuchi}, K., {Kyutoku}, K., {et~al.} 2013, \prd, 87, 024001
+
+\bibitem[{{Hurley-Keller} {et~al.}(1998){Hurley-Keller}, {Mateo}, \&
+  {Nemec}}]{Hurley-Keller1998}
+{Hurley-Keller}, D., {Mateo}, M., \& {Nemec}, J. 1998, \aj, 115, 1840
+
+\bibitem[{{Ibata} {et~al.}(2019){Ibata}, {Malhan}, \& {Martin}}]{Ibata2019}
+{Ibata}, R.~A., {Malhan}, K., \& {Martin}, N.~F. 2019, \apj, 872, 152
+
+\bibitem[{{Ishimaru} {et~al.}(2015){Ishimaru}, {Wanajo}, \&
+  {Prantzos}}]{Ishimaru15}
+{Ishimaru}, Y., {Wanajo}, S., \& {Prantzos}, N. 2015, \apjl, 804, L35
+
+\bibitem[{{Ivezi{\'c}} {et~al.}(2019){Ivezi{\'c}}, {Kahn}, {Tyson}, {Abel},
+  {Acosta}, {Allsman}, {Alonso}, {AlSayyad}, {Anderson}, {Andrew}, \&
+  et~al.}]{Ivezic2019}
+{Ivezi{\'c}}, {\v{Z}}., {Kahn}, S.~M., {Tyson}, J.~A., {et~al.} 2019, \apj,
+  873, 111
+
+\bibitem[{{Janka} {et~al.}(2008){Janka}, {M{\"u}ller}, {Kitaura}, \&
+  {Buras}}]{Janka2008}
+{Janka}, H.~T., {M{\"u}ller}, B., {Kitaura}, F.~S., \& {Buras}, R. 2008, \aap,
+  485, 199
+
+\bibitem[{{Jenkins} {et~al.}(2021){Jenkins}, {Li}, {Pace}, {Ji}, {Koposov}, \&
+  {Mutlu-Pakdil}}]{Jenkins2021}
+{Jenkins}, S.~A., {Li}, T.~S., {Pace}, A.~B., {et~al.} 2021, \apj, 920, 92
+
+\bibitem[{{Ji} {et~al.}(2019{\natexlab{a}}){Ji}, {Drout}, \&
+  {Hansen}}]{Ji2019b}
+{Ji}, A.~P., {Drout}, M.~R., \& {Hansen}, T.~T. 2019{\natexlab{a}}, \apj, 882,
+  40
+
+\bibitem[{{Ji} \& {Frebel}(2018)}]{Ji2018}
+{Ji}, A.~P., \& {Frebel}, A. 2018, \apj, 856, 138
+
+\bibitem[{{Ji} {et~al.}(2016{\natexlab{a}}){Ji}, {Frebel}, {Chiti}, \&
+  {Simon}}]{Ji2016b}
+{Ji}, A.~P., {Frebel}, A., {Chiti}, A., \& {Simon}, J.~D. 2016{\natexlab{a}},
+  \nat, 531, 610
+
+\bibitem[{{Ji} {et~al.}(2016{\natexlab{b}}){Ji}, {Frebel}, {Simon}, \&
+  {Chiti}}]{Ji2016c}
+{Ji}, A.~P., {Frebel}, A., {Simon}, J.~D., \& {Chiti}, A. 2016{\natexlab{b}},
+  \apj, 830, 93
+
+\bibitem[{{Ji} {et~al.}(2019{\natexlab{b}}){Ji}, {Simon}, {Frebel}, {Venn}, \&
+  {Hansen}}]{Ji2019}
+{Ji}, A.~P., {Simon}, J.~D., {Frebel}, A., {Venn}, K.~A., \& {Hansen}, T.~T.
+  2019{\natexlab{b}}, \apj, 870, 83
+
+\bibitem[{{Ji} {et~al.}(2020{\natexlab{a}}){Ji}, {Li}, {Simon}, {Marshall},
+  {Vivas}, {Pace}, {Bechtol}, {Drlica-Wagner}, {Koposov}, {Hansen}, {Allam},
+  {Gruendl}, {Johnson}, {McNanna}, {No{\"e}l}, {Tucker}, \& {Walker}}]{Ji2020}
+{Ji}, A.~P., {Li}, T.~S., {Simon}, J.~D., {et~al.} 2020{\natexlab{a}}, \apj,
+  889, 27
+
+\bibitem[{{Ji} {et~al.}(2020{\natexlab{b}}){Ji}, {Li}, {Hansen}, {Casey},
+  {Koposov}, {Pace}, {Mackey}, {Lewis}, {Simpson}, {Bland-Hawthorn},
+  {Cullinane}, {Da Costa}, {Hattori}, {Martell}, {Kuehn}, {Erkal}, {Shipp},
+  {Wan}, \& {Zucker}}]{Ji2020b}
+{Ji}, A.~P., {Li}, T.~S., {Hansen}, T.~T., {et~al.} 2020{\natexlab{b}}, \aj,
+  160, 181
+
+\bibitem[{{Ji} {et~al.}(2021){Ji}, {Koposov}, {Li}, {Erkal}, {Pace}, {Simon},
+  {Belokurov}, {Cullinane}, {Da Costa}, {Kuehn}, {Lewis}, {Mackey}, {Shipp},
+  {Simpson}, {Zucker}, {Hansen}, {Bland-Hawthorn}, \& {S5
+  Collaboration}}]{Ji2021}
+{Ji}, A.~P., {Koposov}, S.~E., {Li}, T.~S., {et~al.} 2021, \apj, 921, 32
+
+\bibitem[{{Ji} {et~al.}(2022){Ji}, {Simon}, {Roederer}, {Magg}, {Frebel},
+  {Johnson}, {Klessen}, {Magg}, {Cescutti}, {Mateo}, {Bergemann}, \&
+  {Bailey}}]{Ji2022}
+{Ji}, A.~P., {Simon}, J.~D., {Roederer}, I.~U., {et~al.} 2022, to be submitted
+
+\bibitem[{{Johnston} {et~al.}(2008){Johnston}, {Bullock}, {Sharma}, {Font},
+  {Robertson}, \& {Leitner}}]{Johnston2008}
+{Johnston}, K.~V., {Bullock}, J.~S., {Sharma}, S., {et~al.} 2008, \apj, 689,
+  936
+
+\bibitem[{{Just} {et~al.}(2015){Just}, {Bauswein}, {Pulpillo}, {Goriely}, \&
+  {Janka}}]{Just15}
+{Just}, O., {Bauswein}, A., {Pulpillo}, R.~A., {Goriely}, S., \& {Janka}, H.-T.
+  2015, \mnras, 448, 541
+
+\bibitem[{{Kallivayalil} {et~al.}(2013){Kallivayalil}, {van der Marel},
+  {Besla}, {Anderson}, \& {Alcock}}]{Kallivayalil2013}
+{Kallivayalil}, N., {van der Marel}, R.~P., {Besla}, G., {Anderson}, J., \&
+  {Alcock}, C. 2013, \apj, 764, 161
+
+\bibitem[{{Kasliwal} {et~al.}(2017){Kasliwal}, {Nakar}, {Singer}, {Kaplan},
+  {Cook}, {Van Sistine}, {Lau}, {Fremling}, {Gottlieb}, {Jencson}, {Adams},
+  {Feindt}, {Hotokezaka}, {Ghosh}, {Perley}, {Yu}, {Piran}, {Allison},
+  {Anupama}, {Balasubramanian}, {Bannister}, {Bally}, {Barnes}, {Barway},
+  {Bellm}, {Bhalerao}, {Bhattacharya}, {Blagorodnova}, {Bloom}, {Brady},
+  {Cannella}, {Chatterjee}, {Cenko}, {Cobb}, {Copperwheat}, {Corsi}, {De},
+  {Dobie}, {Emery}, {Evans}, {Fox}, {Frail}, {Frohmaier}, {Goobar}, {Hallinan},
+  {Harrison}, {Helou}, {Hinderer}, {Ho}, {Horesh}, {Ip}, {Itoh}, {Kasen},
+  {Kim}, {Kuin}, {Kupfer}, {Lynch}, {Madsen}, {Mazzali}, {Miller}, {Mooley},
+  {Murphy}, {Ngeow}, {Nichols}, {Nissanke}, {Nugent}, {Ofek}, {Qi}, {Quimby},
+  {Rosswog}, {Rusu}, {Sadler}, {Schmidt}, {Sollerman}, {Steele}, {Williamson},
+  {Xu}, {Yan}, {Yatsu}, {Zhang}, \& {Zhao}}]{Kasliwal2017}
+{Kasliwal}, M.~M., {Nakar}, E., {Singer}, L.~P., {et~al.} 2017, Science, 358,
+  1559
+
+\bibitem[{{Kilpatrick} {et~al.}(2017){Kilpatrick}, {Foley}, {Kasen},
+  {Murguia-Berthier}, {Ramirez-Ruiz}, {Coulter}, {Drout}, {Piro}, {Shappee},
+  {Boutsia}, {Contreras}, {Di Mille}, {Madore}, {Morrell}, {Pan}, {Prochaska},
+  {Rest}, {Rojas-Bravo}, {Siebert}, {Simon}, \& {Ulloa}}]{kilpatrick17}
+{Kilpatrick}, C.~D., {Foley}, R.~J., {Kasen}, D., {et~al.} 2017, Science, 358,
+  1583
+
+\bibitem[{{Kim} {et~al.}(2015){Kim}, {Jerjen}, {Mackey}, {Da Costa}, \&
+  {Milone}}]{Kim2015}
+{Kim}, D., {Jerjen}, H., {Mackey}, D., {Da Costa}, G.~S., \& {Milone}, A.~P.
+  2015, \apjl, 804, L44
+
+\bibitem[{{Kim} {et~al.}(2016){Kim}, {Jerjen}, {Geha}, {Chiti}, {Milone}, {Da
+  Costa}, {Mackey}, {Frebel}, \& {Conn}}]{Kim2016}
+{Kim}, D., {Jerjen}, H., {Geha}, M., {et~al.} 2016, \apj, 833, 16
+
+\bibitem[{{Kirby} \& {Cohen}(2012)}]{Kirby2012}
+{Kirby}, E.~N., \& {Cohen}, J.~G. 2012, \aj, 144, 168
+
+\bibitem[{{Kirby} {et~al.}(2013){Kirby}, {Cohen}, {Guhathakurta}, {Cheng},
+  {Bullock}, \& {Gallazzi}}]{Kirby2013}
+{Kirby}, E.~N., {Cohen}, J.~G., {Guhathakurta}, P., {et~al.} 2013, \apj, 779,
+  102
+
+\bibitem[{{Kirby} {et~al.}(2017){Kirby}, {Cohen}, {Simon}, {Guhathakurta},
+  {Thygesen}, \& {Duggan}}]{Kirby2017}
+{Kirby}, E.~N., {Cohen}, J.~G., {Simon}, J.~D., {et~al.} 2017, \apj, 838, 83
+
+\bibitem[{{Kirby} {et~al.}(2020){Kirby}, {Gilbert}, {Escala}, {Wojno},
+  {Guhathakurta}, {Majewski}, \& {Beaton}}]{Kirby2020}
+{Kirby}, E.~N., {Gilbert}, K.~M., {Escala}, I., {et~al.} 2020, \aj, 159, 46
+
+\bibitem[{{Kirby} {et~al.}(2011){Kirby}, {Lanfranchi}, {Simon}, {Cohen}, \&
+  {Guhathakurta}}]{Kirby11b}
+{Kirby}, E.~N., {Lanfranchi}, G.~A., {Simon}, J.~D., {Cohen}, J.~G., \&
+  {Guhathakurta}, P. 2011, \apj, 727, 78
+
+\bibitem[{{Kirby} {et~al.}(2015){Kirby}, {Simon}, \& {Cohen}}]{Kirby2015}
+{Kirby}, E.~N., {Simon}, J.~D., \& {Cohen}, J.~G. 2015, \apj, 810, 56
+
+\bibitem[{{Kirby} {et~al.}(2019){Kirby}, {Xie}, {Guo}, {de los Reyes},
+  {Bergemann}, {Kovalev}, {Shen}, {Piro}, \& {McWilliam}}]{Kirby2019}
+{Kirby}, E.~N., {Xie}, J.~L., {Guo}, R., {et~al.} 2019, \apj, 881, 45
+
+\bibitem[{{Koch} {et~al.}(2008){Koch}, {McWilliam}, {Grebel}, {Zucker}, \&
+  {Belokurov}}]{Koch08}
+{Koch}, A., {McWilliam}, A., {Grebel}, E.~K., {Zucker}, D.~B., \& {Belokurov},
+  V. 2008, \apjl, 688, L13
+
+\bibitem[{{Koposov} {et~al.}(2015){Koposov}, {Casey}, {Belokurov}, {Lewis},
+  {Gilmore}, {Worley}, {Hourihane}, {Randich}, {Bensby}, {Bragaglia},
+  {Bergemann}, {Carraro}, {Costado}, {Flaccomio}, {Francois}, {Heiter}, {Hill},
+  {Jofre}, {Lando}, {Lanzafame}, {de Laverny}, {Monaco}, {Morbidelli},
+  {Sbordone}, {Mikolaitis}, \& {Ryde}}]{Koposov2015}
+{Koposov}, S.~E., {Casey}, A.~R., {Belokurov}, V., {et~al.} 2015, \apj, 811, 62
+
+\bibitem[{{Koposov} {et~al.}(2018){Koposov}, {Walker}, {Belokurov}, {Casey},
+  {Geringer-Sameth}, {Mackey}, {Da Costa}, {Erkal}, {Jethwa}, {Mateo},
+  {Olszewski}, \& {Bailey}}]{Koposov2018}
+{Koposov}, S.~E., {Walker}, M.~G., {Belokurov}, V., {et~al.} 2018, \mnras, 479,
+  5343
+
+\bibitem[{{Kruijssen} {et~al.}(2020){Kruijssen}, {Pfeffer}, {Chevance},
+  {Bonaca}, {Trujillo-Gomez}, {Bastian}, {Reina-Campos}, {Crain}, \&
+  {Hughes}}]{Kruijssen2020}
+{Kruijssen}, J.~M.~D., {Pfeffer}, J.~L., {Chevance}, M., {et~al.} 2020, \mnras,
+  498, 2472
+
+\bibitem[{{Laevens} {et~al.}(2015){Laevens}, {Martin}, {Bernard}, {Schlafly},
+  {Sesar}, {Rix}, {Bell}, {Ferguson}, {Slater}, {Sweeney}, {Wyse}, {Huxor},
+  {Burgett}, {Chambers}, {Draper}, {Hodapp}, {Kaiser}, {Magnier}, {Metcalfe},
+  {Tonry}, {Wainscoat}, \& {Waters}}]{Laevens2015}
+{Laevens}, B. P.~M., {Martin}, N.~F., {Bernard}, E.~J., {et~al.} 2015, \apj,
+  813, 44
+
+\bibitem[{{Lattimer} {et~al.}(1977){Lattimer}, {Mackie}, {Ravenhall}, \&
+  {Schramm}}]{Lattimer77}
+{Lattimer}, J.~M., {Mackie}, F., {Ravenhall}, D.~G., \& {Schramm}, D.~N. 1977,
+  \apj, 213, 225
+
+\bibitem[{{Lattimer} \& {Schramm}(1974)}]{Lattimer74}
+{Lattimer}, J.~M., \& {Schramm}, D.~N. 1974, \apjl, 192, L145
+
+\bibitem[{{Lattimer} \& {Schramm}(1976)}]{Lattimer76}
+---. 1976, \apj, 210, 549
+
+\bibitem[{{Lee} {et~al.}(2009){Lee}, {Yuk}, {Park}, {Harris}, \&
+  {Zaritsky}}]{Lee2009}
+{Lee}, M.~G., {Yuk}, I.-S., {Park}, H.~S., {Harris}, J., \& {Zaritsky}, D.
+  2009, \apj, 703, 692
+
+\bibitem[{{Lemasle} {et~al.}(2012){Lemasle}, {Hill}, {Tolstoy}, {Venn},
+  {Shetrone}, {Irwin}, {de Boer}, {Starkenburg}, \& {Salvadori}}]{Lemasle2012}
+{Lemasle}, B., {Hill}, V., {Tolstoy}, E., {et~al.} 2012, \aap, 538, A100
+
+\bibitem[{{Lemasle} {et~al.}(2014){Lemasle}, {de Boer}, {Hill}, {Tolstoy},
+  {Irwin}, {Jablonka}, {Venn}, {Battaglia}, {Starkenburg}, {Shetrone},
+  {Letarte}, {Fran{\c{c}}ois}, {Helmi}, {Primas}, {Kaufer}, \&
+  {Szeifert}}]{Lemasle2014}
+{Lemasle}, B., {de Boer}, T.~J.~L., {Hill}, V., {et~al.} 2014, \aap, 572, A88
+
+\bibitem[{{Letarte} {et~al.}(2010){Letarte}, {Hill}, {Tolstoy}, {Jablonka},
+  {Shetrone}, {Venn}, {Spite}, {Irwin}, {Battaglia}, {Helmi}, {Primas},
+  {Fran{\c{c}}ois}, {Kaufer}, {Szeifert}, {Arimoto}, \&
+  {Sadakane}}]{Letarte2010}
+{Letarte}, B., {Hill}, V., {Tolstoy}, E., {et~al.} 2010, \aap, 523, A17
+
+\bibitem[{{Li} {et~al.}(2017){Li}, {Simon}, {Drlica-Wagner}, {Bechtol}, {Wang},
+  {Garc{\'\i}a-Bellido}, {Frieman}, {Marshall}, {James}, {Strigari}, {Pace},
+  {Balbinot}, {Zhang}, {Abbott}, {Allam}, {Benoit-L{\'e}vy}, {Bernstein},
+  {Bertin}, {Brooks}, {Burke}, {Carnero Rosell}, {Carrasco Kind}, {Carretero},
+  {Cunha}, {D'Andrea}, {da Costa}, {DePoy}, {Desai}, {Diehl}, {Eifler},
+  {Flaugher}, {Goldstein}, {Gruen}, {Gruendl}, {Gschwend}, {Gutierrez},
+  {Krause}, {Kuehn}, {Lin}, {Maia}, {March}, {Menanteau}, {Miquel}, {Plazas},
+  {Romer}, {Sanchez}, {Santiago}, {Schubnell}, {Sevilla-Noarbe}, {Smith},
+  {Sobreira}, {Suchyta}, {Tarle}, {Thomas}, {Tucker}, {Walker}, {Wechsler},
+  {Wester}, {Yanny}, \& {DES Collaboration}}]{Li2017}
+{Li}, T.~S., {Simon}, J.~D., {Drlica-Wagner}, A., {et~al.} 2017, \apj, 838, 8
+
+\bibitem[{{Li} {et~al.}(2018){Li}, {Simon}, {Pace}, {Torrealba}, {Kuehn},
+  {Drlica-Wagner}, {Bechtol}, {Vivas}, {van der Marel}, {Wood}, {Yanny},
+  {Belokurov}, {Jethwa}, {Zucker}, {Lewis}, {Kron}, {Nidever},
+  {S{\'a}nchez-Conde}, {Ji}, {Conn}, {James}, {Martin}, {Martinez-Delgado},
+  {No{\"e}l}, \& {MagLiteS Collaboration}}]{Li2018}
+{Li}, T.~S., {Simon}, J.~D., {Pace}, A.~B., {et~al.} 2018, \apj, 857, 145
+
+\bibitem[{{Li} {et~al.}(2021){Li}, {Ji}, {Pace}, {Erkal}, {Koposov}, {Shipp},
+  {Da Costa}, {Cullinane}, {Kuehn}, {Lewis}, {Mackey}, {Simpson}, {Zucker},
+  {Ferguson}, {Martell}, {Bland-Hawthorn}, {Balbinot}, {Tavangar},
+  {Drlica-Wagner}, {De Silva}, {Simon}, \& {S5 Collaboration}}]{Li2022}
+{Li}, T.~S., {Ji}, A.~P., {Pace}, A.~B., {et~al.} 2021, arXiv e-prints,
+  arXiv:2110.06950
+
+\bibitem[{{Limberg} {et~al.}(2021){Limberg}, {Santucci}, {Rossi}, {Queiroz},
+  {Chiappini}, {Souza}, {Perottoni}, {P{\'e}rez-Villegas}, \&
+  {Barbosa}}]{Limberg2021}
+{Limberg}, G., {Santucci}, R.~M., {Rossi}, S., {et~al.} 2021, \apjl, 913, L28
+
+\bibitem[{{Lippuner} {et~al.}(2017){Lippuner}, {Fern{\'a}ndez}, {Roberts},
+  {Foucart}, {Kasen}, {Metzger}, \& {Ott}}]{Lippuner2017}
+{Lippuner}, J., {Fern{\'a}ndez}, R., {Roberts}, L.~F., {et~al.} 2017, \mnras,
+  472, 904
+
+\bibitem[{{Lippuner} \& {Roberts}(2015)}]{Lippuner15}
+{Lippuner}, J., \& {Roberts}, L.~F. 2015, \apj, 815, 82
+
+\bibitem[{{Lodders} {et~al.}(2009){Lodders}, {Palme}, \& {Gail}}]{lodders09}
+{Lodders}, K., {Palme}, H., \& {Gail}, H.-P. 2009, Landolt B{\"o}rnstein, 712
+
+\bibitem[{{Longeard} {et~al.}(2018){Longeard}, {Martin}, {Starkenburg},
+  {Ibata}, {Collins}, {Geha}, {Laevens}, {Rich}, {Aguado}, {Arentsen},
+  {Carlberg}, {C{\^o}t{\'e}}, {Hill}, {Jablonka}, {Gonz{\'a}lez Hern{\'a}ndez},
+  {Navarro}, {S{\'a}nchez-Janssen}, {Tolstoy}, {Venn}, \&
+  {Youakim}}]{Longeard2018}
+{Longeard}, N., {Martin}, N., {Starkenburg}, E., {et~al.} 2018, \mnras, 480,
+  2609
+
+\bibitem[{{Lugaro} {et~al.}(2012){Lugaro}, {Karakas}, {Stancliffe}, \&
+  {Rijs}}]{Lugaro12}
+{Lugaro}, M., {Karakas}, A.~I., {Stancliffe}, R.~J., \& {Rijs}, C. 2012, \apj,
+  747, 2
+
+\bibitem[{{Macias} \& {Ramirez-Ruiz}(2018)}]{Macias2018}
+{Macias}, P., \& {Ramirez-Ruiz}, E. 2018, \apj, 860, 89
+
+\bibitem[{{Macias} \& {Ramirez-Ruiz}(2019)}]{Macias2019}
+---. 2019, \apjl, 877, L24
+
+\bibitem[{{Majewski} {et~al.}(2003){Majewski}, {Skrutskie}, {Weinberg}, \&
+  {Ostheimer}}]{Majewski2003}
+{Majewski}, S.~R., {Skrutskie}, M.~F., {Weinberg}, M.~D., \& {Ostheimer}, J.~C.
+  2003, \apj, 599, 1082
+
+\bibitem[{{Majewski} {et~al.}(2004){Majewski}, {Kunkel}, {Law}, {Patterson},
+  {Polak}, {Rocha-Pinto}, {Crane}, {Frinchaboy}, {Hummels}, {Johnston}, {Rhee},
+  {Skrutskie}, \& {Weinberg}}]{Majewski2004}
+{Majewski}, S.~R., {Kunkel}, W.~E., {Law}, D.~R., {et~al.} 2004, \aj, 128, 245
+
+\bibitem[{{Manwadkar} \& {Kravtsov}(2021)}]{Manwadkar2022}
+{Manwadkar}, V., \& {Kravtsov}, A. 2021, arXiv e-prints, arXiv:2112.04511
+
+\bibitem[{{Maoz} \& {Graur}(2017)}]{Maoz2017}
+{Maoz}, D., \& {Graur}, O. 2017, \apj, 848, 25
+
+\bibitem[{{Maoz} \& {Mannucci}(2012)}]{maoz12}
+{Maoz}, D., \& {Mannucci}, F. 2012, \pasa, 29, 447
+
+\bibitem[{{Mardini} {et~al.}(2022){Mardini}, {Frebel}, {Chiti}, {Meiron},
+  {Brauer}, \& {Ou}}]{Mardini2022}
+{Mardini}, M.~K., {Frebel}, A., {Chiti}, A., {et~al.} 2022, arXiv e-prints,
+  arXiv:2206.08459
+
+\bibitem[{{Marshall} {et~al.}(2019){Marshall}, {Hansen}, {Simon}, {Li},
+  {Bernstein}, {Kuehn}, {Pace}, {DePoy}, {Palmese}, {Pieres}, {Strigari},
+  {Drlica-Wagner}, {Bechtol}, {Lidman}, {Nagasawa}, {Bertin}, {Brooks},
+  {Buckley-Geer}, {Burke}, {Carnero Rosell}, {Carrasco Kind}, {Carretero},
+  {Cunha}, {D'Andrea}, {da Costa}, {De Vicente}, {Desai}, {Doel}, {Eifler},
+  {Flaugher}, {Fosalba}, {Frieman}, {Garc{\'\i}a-Bellido}, {Gaztanaga},
+  {Gerdes}, {Gruendl}, {Gschwend}, {Gutierrez}, {Hartley}, {Hollowood},
+  {Honscheid}, {Hoyle}, {James}, {Kuropatkin}, {Maia}, {Menanteau}, {Miller},
+  {Miquel}, {Plazas}, {Sanchez}, {Santiago}, {Scarpine}, {Schubnell},
+  {Serrano}, {Sevilla-Noarbe}, {Smith}, {Soares-Santos}, {Suchyta}, {Swanson},
+  {Tarle}, {Wester}, \& {DES Collaboration}}]{Marshall2019}
+{Marshall}, J.~L., {Hansen}, T., {Simon}, J.~D., {et~al.} 2019, \apj, 882, 177
+
+\bibitem[{{Matsunaga} {et~al.}(2020){Matsunaga}, {Taniguchi}, {Jian}, {Ikeda},
+  {Fukue}, {Kondo}, {Hamano}, {Kawakita}, {Kobayashi}, {Otsubo}, {Sameshima},
+  {Takenaka}, {Tsujimoto}, {Watase}, {Yasui}, \& {Yoshikawa}}]{Matsunaga2020}
+{Matsunaga}, N., {Taniguchi}, D., {Jian}, M., {et~al.} 2020, \apjs, 246, 10
+
+\bibitem[{{Matsuno} {et~al.}(2019){Matsuno}, {Aoki}, \& {Suda}}]{Matsuno2019}
+{Matsuno}, T., {Aoki}, W., \& {Suda}, T. 2019, \apjl, 874, L35
+
+\bibitem[{{Matsuno} {et~al.}(2021{\natexlab{a}}){Matsuno}, {Hirai}, {Tarumi},
+  {Hotokezaka}, {Tanaka}, \& {Helmi}}]{Matsuno2021}
+{Matsuno}, T., {Hirai}, Y., {Tarumi}, Y., {et~al.} 2021{\natexlab{a}}, \aap,
+  650, A110
+
+\bibitem[{{Matsuno} {et~al.}(2021{\natexlab{b}}){Matsuno}, {Koppelman},
+  {Helmi}, {Aoki}, {Ishigaki}, {Suda}, {Yuan}, \& {Hattori}}]{Matsuno2022}
+{Matsuno}, T., {Koppelman}, H.~H., {Helmi}, A., {et~al.} 2021{\natexlab{b}},
+  arXiv e-prints, arXiv:2111.15423
+
+\bibitem[{{Matteucci} \& {Brocato}(1990)}]{Matteucci1990}
+{Matteucci}, F., \& {Brocato}, E. 1990, \apj, 365, 539
+
+\bibitem[{{Mau} {et~al.}(2020){Mau}, {Cerny}, {Pace}, {Choi}, {Drlica-Wagner},
+  {Santana-Silva}, {Riley}, {Erkal}, {Stringfellow}, {Adam{\'o}w}, {Carlin},
+  {Gruendl}, {Hernandez-Lang}, {Kuropatkin}, {Li}, {Mart{\'\i}nez-V{\'a}zquez},
+  {Morganson}, {Mutlu-Pakdil}, {Neilsen}, {Nidever}, {Olsen}, {Sand},
+  {Tollerud}, {Tucker}, {Yanny}, {Zenteno}, {Allam}, {Barkhouse}, {Bechtol},
+  {Bell}, {Balaji}, {Crnojevi{\'c}}, {Esteves}, {Ferguson}, {Gallart},
+  {Hughes}, {James}, {Jethwa}, {Johnson}, {Kuehn}, {Majewski}, {Mao},
+  {Massana}, {McNanna}, {Monachesi}, {Nadler}, {No{\"e}l}, {Palmese},
+  {Paz-Chinchon}, {Pieres}, {Sanchez}, {Shipp}, {Simon}, {Soares-Santos},
+  {Tavangar}, {van der Marel}, {Vivas}, {Walker}, \& {Wechsler}}]{Mau2020}
+{Mau}, S., {Cerny}, W., {Pace}, A.~B., {et~al.} 2020, \apj, 890, 136
+
+\bibitem[{{McConnachie}(2012)}]{McConnachie2012}
+{McConnachie}, A.~W. 2012, \aj, 144, 4
+
+\bibitem[{{McCully} {et~al.}(2017){McCully}, {Hiramatsu}, {Howell},
+  {Hosseinzadeh}, {Arcavi}, {Kasen}, {Barnes}, {Shara}, {Williams},
+  {V{\"a}is{\"a}nen}, {Potter}, {Romero-Colmenero}, {Crawford}, {Buckley},
+  {Cooke}, {Andreoni}, {Pritchard}, {Mao}, {Gromadzki}, \&
+  {Burke}}]{McCully2017}
+{McCully}, C., {Hiramatsu}, D., {Howell}, D.~A., {et~al.} 2017, \apjl, 848, L32
+
+\bibitem[{{McWilliam}(1998)}]{mcwilliam98}
+{McWilliam}, A. 1998, AJ, 115, 1640
+
+\bibitem[{{McWilliam} {et~al.}(2018){McWilliam}, {Piro}, {Badenes}, \&
+  {Bravo}}]{McWilliam2018}
+{McWilliam}, A., {Piro}, A.~L., {Badenes}, C., \& {Bravo}, E. 2018, \apj, 857,
+  97
+
+\bibitem[{{McWilliam} {et~al.}(2013){McWilliam}, {Wallerstein}, \&
+  {Mottini}}]{McWilliam2013}
+{McWilliam}, A., {Wallerstein}, G., \& {Mottini}, M. 2013, \apj, 778, 149
+
+\bibitem[{{Mendoza-Temis} {et~al.}(2015){Mendoza-Temis}, {Wu}, {Langanke},
+  {Mart{\'\i}nez-Pinedo}, {Bauswein}, \& {Janka}}]{Mendoza-Temis2015}
+{Mendoza-Temis}, J. d.~J., {Wu}, M.-R., {Langanke}, K., {et~al.} 2015, \prc,
+  92, 055805
+
+\bibitem[{{Miller} {et~al.}(2020){Miller}, {Sprouse}, {Fryer}, {Ryan},
+  {Dolence}, {Mumpower}, \& {Surman}}]{Miller2020}
+{Miller}, J.~M., {Sprouse}, T.~M., {Fryer}, C.~L., {et~al.} 2020, \apj, 902, 66
+
+\bibitem[{{Molero} {et~al.}(2021){Molero}, {Romano}, {Reichert}, {Matteucci},
+  {Arcones}, {Cescutti}, {Simonetti}, {Hansen}, \& {Lanfranchi}}]{Molero2021}
+{Molero}, M., {Romano}, D., {Reichert}, M., {et~al.} 2021, \mnras, 505, 2913
+
+\bibitem[{{Montes} {et~al.}(2007){Montes}, {Beers}, {Cowan}, {Elliot},
+  {Farouqi}, {Gallino}, {Heil}, {Kratz}, {Pfeiffer}, {Pignatari}, \&
+  {Schatz}}]{Montes07}
+{Montes}, F., {Beers}, T.~C., {Cowan}, J., {et~al.} 2007, \apj, 671, 1685
+
+\bibitem[{{M{\"o}sta} {et~al.}(2018){M{\"o}sta}, {Roberts}, {Halevi}, {Ott},
+  {Lippuner}, {Haas}, \& {Schnetter}}]{Mosta2018}
+{M{\"o}sta}, P., {Roberts}, L.~F., {Halevi}, G., {et~al.} 2018, \apj, 864, 171
+
+\bibitem[{{Mu{\~n}oz} {et~al.}(2018){Mu{\~n}oz}, {C{\^o}t{\'e}}, {Santana},
+  {Geha}, {Simon}, {Oyarz{\'u}n}, {Stetson}, \& {Djorgovski}}]{Munoz2018}
+{Mu{\~n}oz}, R.~R., {C{\^o}t{\'e}}, P., {Santana}, F.~A., {et~al.} 2018, \apj,
+  860, 66
+
+\bibitem[{{Mucciarelli} {et~al.}(2017){Mucciarelli}, {Bellazzini}, {Ibata},
+  {Romano}, {Chapman}, \& {Monaco}}]{Mucciarelli2017}
+{Mucciarelli}, A., {Bellazzini}, M., {Ibata}, R., {et~al.} 2017, \aap, 605, A46
+
+\bibitem[{{Mumpower} {et~al.}(2016){Mumpower}, {Surman}, {McLaughlin}, \&
+  {Aprahamian}}]{Mumpower2016}
+{Mumpower}, M.~R., {Surman}, R., {McLaughlin}, G.~C., \& {Aprahamian}, A. 2016,
+  Progress in Particle and Nuclear Physics, 86, 86
+
+\bibitem[{{Mutlu-Pakdil} {et~al.}(2018){Mutlu-Pakdil}, {Sand}, {Carlin},
+  {Spekkens}, {Caldwell}, {Crnojevi{\'c}}, {Hughes}, {Willman}, \&
+  {Zaritsky}}]{Mutlu-Pakdil2018}
+{Mutlu-Pakdil}, B., {Sand}, D.~J., {Carlin}, J.~L., {et~al.} 2018, \apj, 863,
+  25
+
+\bibitem[{{Myeong} {et~al.}(2019){Myeong}, {Vasiliev}, {Iorio}, {Evans}, \&
+  {Belokurov}}]{Myeong2019}
+{Myeong}, G.~C., {Vasiliev}, E., {Iorio}, G., {Evans}, N.~W., \& {Belokurov},
+  V. 2019, \mnras, 488, 1235
+
+\bibitem[{{Naidu} {et~al.}(2020){Naidu}, {Conroy}, {Bonaca}, {Johnson}, {Ting},
+  {Caldwell}, {Zaritsky}, \& {Cargile}}]{Naidu2020}
+{Naidu}, R.~P., {Conroy}, C., {Bonaca}, A., {et~al.} 2020, \apj, 901, 48
+
+\bibitem[{{Naidu} {et~al.}(2022){Naidu}, {Ji}, {Conroy}, {Bonaca}, {Ting},
+  {Zaritsky}, {van Son}, {Broekgaarden}, {Tacchella}, {Chandra}, {Caldwell},
+  {Cargile}, \& {Speagle}}]{Naidu2022}
+{Naidu}, R.~P., {Ji}, A.~P., {Conroy}, C., {et~al.} 2022, \apjl, 926, L36
+
+\bibitem[{{Naiman} {et~al.}(2018){Naiman}, {Pillepich}, {Springel},
+  {Ramirez-Ruiz}, {Torrey}, {Vogelsberger}, {Pakmor}, {Nelson}, {Marinacci},
+  {Hernquist}, {Weinberger}, \& {Genel}}]{Naiman2018}
+{Naiman}, J.~P., {Pillepich}, A., {Springel}, V., {et~al.} 2018, \mnras, 477,
+  1206
+
+\bibitem[{{Neijssel} {et~al.}(2019){Neijssel}, {Vigna-G{\'o}mez}, {Stevenson},
+  {Barrett}, {Gaebel}, {Broekgaarden}, {de Mink}, {Sz{\'e}csi}, {Vinciguerra},
+  \& {Mandel}}]{Neijssel2019}
+{Neijssel}, C.~J., {Vigna-G{\'o}mez}, A., {Stevenson}, S., {et~al.} 2019,
+  \mnras, 490, 3740
+
+\bibitem[{{Nicholl} {et~al.}(2017){Nicholl}, {Berger}, {Kasen}, {Metzger},
+  {Elias}, {Brice{\~n}o}, {Alexander}, {Blanchard}, {Chornock},
+  {Cowperthwaite}, {Eftekhari}, {Fong}, {Margutti}, {Villar}, {Williams},
+  {Brown}, {Annis}, {Bahramian}, {Brout}, {Brown}, {Chen}, {Clemens},
+  {Dennihy}, {Dunlap}, {Holz}, {Marchesini}, {Massaro}, {Moskowitz},
+  {Pelisoli}, {Rest}, {Ricci}, {Sako}, {Soares-Santos}, \&
+  {Strader}}]{Nicholl2017}
+{Nicholl}, M., {Berger}, E., {Kasen}, D., {et~al.} 2017, \apjl, 848, L18
+
+\bibitem[{{Nidever} {et~al.}(2020){Nidever}, {Hasselquist}, {Hayes}, {Hawkins},
+  {Povick}, {Majewski}, {Smith}, {Anguiano}, {Stringfellow}, {Sobeck}, {Cunha},
+  {Beers}, {Bestenlehner}, {Cohen}, {Garcia-Hernandez}, {J{\"o}nsson},
+  {Nitschelm}, {Shetrone}, {Lacerna}, {Allende Prieto}, {Beaton}, {Dell'Agli},
+  {Fern{\'a}ndez-Trincado}, {Feuillet}, {Gallart}, {Hearty}, {Holtzman},
+  {Manchado}, {Mu{\~n}oz}, {O'Connell}, \& {Rosado}}]{Nidever2020}
+{Nidever}, D.~L., {Hasselquist}, S., {Hayes}, C.~R., {et~al.} 2020, \apj, 895,
+  88
+
+\bibitem[{{Ning} {et~al.}(2007){Ning}, {Qian}, \& {Meyer}}]{Ning2007}
+{Ning}, H., {Qian}, Y.~Z., \& {Meyer}, B.~S. 2007, \apjl, 667, L159
+
+\bibitem[{{Nishimura} {et~al.}(2017){Nishimura}, {Sawai}, {Takiwaki}, {Yamada},
+  \& {Thielemann}}]{Nishimura2017}
+{Nishimura}, N., {Sawai}, H., {Takiwaki}, T., {Yamada}, S., \& {Thielemann},
+  F.~K. 2017, \apjl, 836, L21
+
+\bibitem[{{Nishimura} {et~al.}(2015){Nishimura}, {Takiwaki}, \&
+  {Thielemann}}]{Nishimura2015}
+{Nishimura}, N., {Takiwaki}, T., \& {Thielemann}, F.-K. 2015, \apj, 810, 109
+
+\bibitem[{{Norris} {et~al.}(2017){Norris}, {Yong}, {Venn}, {Gilmore},
+  {Casagrande}, \& {Dotter}}]{Norris2017}
+{Norris}, J.~E., {Yong}, D., {Venn}, K.~A., {et~al.} 2017, \apjs, 230, 28
+
+\bibitem[{{Ojima} {et~al.}(2018){Ojima}, {Ishimaru}, {Wanajo}, {Prantzos}, \&
+  {Fran{\c{c}}ois}}]{Ojima2018}
+{Ojima}, T., {Ishimaru}, Y., {Wanajo}, S., {Prantzos}, N., \& {Fran{\c{c}}ois},
+  P. 2018, \apj, 865, 87
+
+\bibitem[{{Okamoto} {et~al.}(2008){Okamoto}, {Arimoto}, {Yamada}, \&
+  {Onodera}}]{Okamoto2008}
+{Okamoto}, S., {Arimoto}, N., {Yamada}, Y., \& {Onodera}, M. 2008, \aap, 487,
+  103
+
+\bibitem[{{Otsuki} {et~al.}(2006){Otsuki}, {Honda}, {Aoki}, {Kajino}, \&
+  {Mathews}}]{Otsuki06}
+{Otsuki}, K., {Honda}, S., {Aoki}, W., {Kajino}, T., \& {Mathews}, G.~J. 2006,
+  \apjl, 641, L117
+
+\bibitem[{{Pian} {et~al.}(2017){Pian}, {D'Avanzo}, {Benetti}, {Branchesi},
+  {Brocato}, {Campana}, {Cappellaro}, {Covino}, {D'Elia}, {Fynbo}, {Getman},
+  {Ghirlanda}, {Ghisellini}, {Grado}, {Greco}, {Hjorth}, {Kouveliotou},
+  {Levan}, {Limatola}, {Malesani}, {Mazzali}, {Melandri}, {M{\o}ller},
+  {Nicastro}, {Palazzi}, {Piranomonte}, {Rossi}, {Salafia}, {Selsing},
+  {Stratta}, {Tanaka}, {Tanvir}, {Tomasella}, {Watson}, {Yang}, {Amati},
+  {Antonelli}, {Ascenzi}, {Bernardini}, {Bo{\"e}r}, {Bufano}, {Bulgarelli},
+  {Capaccioli}, {Casella}, {Castro-Tirado}, {Chassande-Mottin}, {Ciolfi},
+  {Copperwheat}, {Dadina}, {De Cesare}, {di Paola}, {Fan}, {Gendre},
+  {Giuffrida}, {Giunta}, {Hunt}, {Israel}, {Jin}, {Kasliwal}, {Klose}, {Lisi},
+  {Longo}, {Maiorano}, {Mapelli}, {Masetti}, {Nava}, {Patricelli}, {Perley},
+  {Pescalli}, {Piran}, {Possenti}, {Pulone}, {Razzano}, {Salvaterra},
+  {Schipani}, {Spera}, {Stamerra}, {Stella}, {Tagliaferri}, {Testa}, {Troja},
+  {Turatto}, {Vergani}, \& {Vergani}}]{Pian2017}
+{Pian}, E., {D'Avanzo}, P., {Benetti}, S., {et~al.} 2017, \nat, 551, 67
+
+\bibitem[{{Placco} {et~al.}(2017){Placco}, {Holmbeck}, {Frebel}, {Beers},
+  {Surman}, {Ji}, {Ezzeddine}, {Points}, {Kaleida}, {Hansen}, {Sakari}, \&
+  {Casey}}]{placco17}
+{Placco}, V.~M., {Holmbeck}, E.~M., {Frebel}, A., {et~al.} 2017, \apj, 844, 18
+
+\bibitem[{{Placco} {et~al.}(2020){Placco}, {Santucci}, {Yuan}, {Mardini},
+  {Holmbeck}, {Wang}, {Surman}, {Hansen}, {Roederer}, {Beers}, {Choplin}, {Ji},
+  {Ezzeddine}, {Frebel}, {Sakari}, {Whitten}, \& {Zepeda}}]{placco2020}
+{Placco}, V.~M., {Santucci}, R.~M., {Yuan}, Z., {et~al.} 2020, \apj, 897, 78
+
+\bibitem[{{Pomp{\'e}ia} {et~al.}(2008){Pomp{\'e}ia}, {Hill}, {Spite}, {Cole},
+  {Primas}, {Romaniello}, {Pasquini}, {Cioni}, \& {Smecker Hane}}]{Pompeia2008}
+{Pomp{\'e}ia}, L., {Hill}, V., {Spite}, M., {et~al.} 2008, \aap, 480, 379
+
+\bibitem[{{Prantzos} {et~al.}(2020){Prantzos}, {Abia}, {Cristallo}, {Limongi},
+  \& {Chieffi}}]{Prantzos2020}
+{Prantzos}, N., {Abia}, C., {Cristallo}, S., {Limongi}, M., \& {Chieffi}, A.
+  2020, \mnras, 491, 1832
+
+\bibitem[{{Pruet} {et~al.}(2004){Pruet}, {Thompson}, \& {Hoffman}}]{Pruet2004}
+{Pruet}, J., {Thompson}, T.~A., \& {Hoffman}, R.~D. 2004, \apj, 606, 1006
+
+\bibitem[{{Qian}(2000)}]{Qian00}
+{Qian}, Y.-Z. 2000, \apjl, 534, L67
+
+\bibitem[{{Qian} \& {Woosley}(1996)}]{Qian96}
+{Qian}, Y.-Z., \& {Woosley}, S.~E. 1996, \apj, 471, 331
+
+\bibitem[{{Radice} {et~al.}(2016){Radice}, {Galeazzi}, {Lippuner}, {Roberts},
+  {Ott}, \& {Rezzolla}}]{Radice16}
+{Radice}, D., {Galeazzi}, F., {Lippuner}, J., {et~al.} 2016, \mnras,
+  arXiv:1601.02426
+
+\bibitem[{{Reggiani} {et~al.}(2021){Reggiani}, {Schlaufman}, {Casey}, {Simon},
+  \& {Ji}}]{Reggiani2021}
+{Reggiani}, H., {Schlaufman}, K.~C., {Casey}, A.~R., {Simon}, J.~D., \& {Ji},
+  A.~P. 2021, \aj, 162, 229
+
+\bibitem[{{Reichert} {et~al.}(2021){Reichert}, {Hansen}, \&
+  {Arcones}}]{Reichert2021}
+{Reichert}, M., {Hansen}, C.~J., \& {Arcones}, A. 2021, \apj, 912, 157
+
+\bibitem[{{Reichert} {et~al.}(2020){Reichert}, {Hansen}, {Hanke},
+  {Sk{\'u}lad{\'o}ttir}, {Arcones}, \& {Grebel}}]{Reichert2020}
+{Reichert}, M., {Hansen}, C.~J., {Hanke}, M., {et~al.} 2020, \aap, 641, A127
+
+\bibitem[{{Rodriguez Wimberly} {et~al.}(2019){Rodriguez Wimberly}, {Cooper},
+  {Fillingham}, {Boylan-Kolchin}, {Bullock}, \&
+  {Garrison-Kimmel}}]{RodriguezWimberly2019}
+{Rodriguez Wimberly}, M.~K., {Cooper}, M.~C., {Fillingham}, S.~P., {et~al.}
+  2019, \mnras, 483, 4031
+
+\bibitem[{{Roederer}(2013)}]{Roederer13}
+{Roederer}, I.~U. 2013, \aj, 145, 26
+
+\bibitem[{{Roederer} {et~al.}(2018{\natexlab{a}}){Roederer}, {Hattori}, \&
+  {Valluri}}]{Roederer2018}
+{Roederer}, I.~U., {Hattori}, K., \& {Valluri}, M. 2018{\natexlab{a}}, \aj,
+  156, 179
+
+\bibitem[{{Roederer} {et~al.}(2014){Roederer}, {Jacobson}, {Thanathibodee},
+  {Frebel}, \& {Toller}}]{roederer2014phos}
+{Roederer}, I.~U., {Jacobson}, H.~R., {Thanathibodee}, T., {Frebel}, A., \&
+  {Toller}, E. 2014, \apj, 797, 69
+
+\bibitem[{{Roederer} {et~al.}(2018{\natexlab{b}}){Roederer}, {Sakari},
+  {Placco}, {Beers}, {Ezzeddine}, {Frebel}, \& {Hansen}}]{Roederer18_hd}
+{Roederer}, I.~U., {Sakari}, C.~M., {Placco}, V.~M., {et~al.}
+  2018{\natexlab{b}}, \apj, 865, 129
+
+\bibitem[{{Roederer} {et~al.}(2010){Roederer}, {Sneden}, {Thompson}, {Preston},
+  \& {Shectman}}]{Roederer10}
+{Roederer}, I.~U., {Sneden}, C., {Thompson}, I.~B., {Preston}, G.~W., \&
+  {Shectman}, S.~A. 2010, \apj, 711, 573
+
+\bibitem[{{Roederer} {et~al.}(2012){Roederer}, {Lawler}, {Sobeck}, {Beers},
+  {Cowan}, {Frebel}, {Ivans}, {Schatz}, {Sneden}, \& {Thompson}}]{Roederer2012}
+{Roederer}, I.~U., {Lawler}, J.~E., {Sobeck}, J.~S., {et~al.} 2012, \apjs, 203,
+  27
+
+\bibitem[{{Roederer} {et~al.}(2016){Roederer}, {Mateo}, {Bailey}, {Song},
+  {Bell}, {Crane}, {Loebman}, {Nidever}, {Olszewski}, {Shectman}, {Thompson},
+  {Valluri}, \& {Walker}}]{Roederer2016}
+{Roederer}, I.~U., {Mateo}, M., {Bailey}, John~I., I., {et~al.} 2016, \aj, 151,
+  82
+
+\bibitem[{{Roederer} {et~al.}(2022){Roederer}, {Lawler}, {Den Hartog},
+  {Placco}, {Surman}, {Beers}, {Ezzeddine}, {Frebel}, {Hansen}, {Hattori},
+  {Holmbeck}, \& {Sakari}}]{Roederer2022}
+{Roederer}, I.~U., {Lawler}, J.~E., {Den Hartog}, E.~A., {et~al.} 2022, arXiv
+  e-prints, arXiv:2205.03426
+
+\bibitem[{{Rosswog} {et~al.}(2014){Rosswog}, {Korobkin}, {Arcones},
+  {Thielemann}, \& {Piran}}]{rosswog14}
+{Rosswog}, S., {Korobkin}, O., {Arcones}, A., {Thielemann}, F.-K., \& {Piran},
+  T. 2014, \mnras, 439, 744
+
+\bibitem[{{Sacchi} {et~al.}(2021){Sacchi}, {Richstein}, {Kallivayalil}, {van
+  der Marel}, {Libralato}, {Zivick}, {Besla}, {Brown}, {Choi}, {Deason},
+  {Fritz}, {Geha}, {Guhathakurta}, {Jeon}, {Kirby}, {Majewski}, {Patel},
+  {Simon}, {Tony Sohn}, {Tollerud}, \& {Wetzel}}]{Sacchi2021}
+{Sacchi}, E., {Richstein}, H., {Kallivayalil}, N., {et~al.} 2021, \apjl, 920,
+  L19
+
+\bibitem[{{Safarzadeh} {et~al.}(2019){Safarzadeh}, {Ramirez-Ruiz}, {Andrews},
+  {Macias}, {Fragos}, \& {Scannapieco}}]{Safarzadeh2019}
+{Safarzadeh}, M., {Ramirez-Ruiz}, E., {Andrews}, J.~J., {et~al.} 2019, \apj,
+  872, 105
+
+\bibitem[{{Safarzadeh} \& {Scannapieco}(2017)}]{Safarzadeh2017}
+{Safarzadeh}, M., \& {Scannapieco}, E. 2017, \mnras, 471, 2088
+
+\bibitem[{{Sakari} {et~al.}(2018){Sakari}, {Placco}, {Hansen}, {Holmbeck},
+  {Beers}, {Frebel}, {Roederer}, {Venn}, {Wallerstein}, {Davis}, {Farrell}, \&
+  {Yong}}]{sakari18}
+{Sakari}, C.~M., {Placco}, V.~M., {Hansen}, T., {et~al.} 2018, \apjl, 854, L20
+
+\bibitem[{{Schatz} {et~al.}(2002){Schatz}, {Toenjes}, {Pfeiffer}, {Beers},
+  {Cowan}, {Hill}, \& {Kratz}}]{schatz02}
+{Schatz}, H., {Toenjes}, R., {Pfeiffer}, B., {et~al.} 2002, \apj, 579, 626
+
+\bibitem[{{Sch{\"o}nrich} \& {Weinberg}(2019)}]{Schonrich2019}
+{Sch{\"o}nrich}, R.~A., \& {Weinberg}, D.~H. 2019, \mnras, 487, 580
+
+\bibitem[{{Shank} {et~al.}(2022){Shank}, {Beers}, {Placco}, {Limberg},
+  {Jaques}, {Yuan}, {Schlaufman}, {Casey}, {Huang}, {Lee}, {Hattori}, \&
+  {Santucci}}]{Shank2022}
+{Shank}, D., {Beers}, T.~C., {Placco}, V.~M., {et~al.} 2022, \apj, 926, 26
+
+\bibitem[{{Shappee} {et~al.}(2017){Shappee}, {Simon}, {Drout}, {Piro},
+  {Morrell}, {Prieto}, {Kasen}, {Holoien}, {Kollmeier}, {Kelson}, {Coulter},
+  {Foley}, {Kilpatrick}, {Siebert}, {Madore}, {Murguia-Berthier}, {Pan},
+  {Prochaska}, {Ramirez-Ruiz}, {Rest}, {Adams}, {Alatalo}, {Ba{\~n}ados},
+  {Baughman}, {Bernstein}, {Bitsakis}, {Boutsia}, {Bravo}, {Di Mille}, {Higgs},
+  {Ji}, {Maravelias}, {Marshall}, {Placco}, {Prieto}, \& {Wan}}]{shappee17}
+{Shappee}, B.~J., {Simon}, J.~D., {Drout}, M.~R., {et~al.} 2017, Science, 358,
+  1574
+
+\bibitem[{{Shen} {et~al.}(2015){Shen}, {Cooke}, {Ramirez-Ruiz}, {Madau},
+  {Mayer}, \& {Guedes}}]{Shen2015}
+{Shen}, S., {Cooke}, R.~J., {Ramirez-Ruiz}, E., {et~al.} 2015, \apj, 807, 115
+
+\bibitem[{{Shetrone} {et~al.}(2003){Shetrone}, {Venn}, {Tolstoy}, {Primas},
+  {Hill}, \& {Kaufer}}]{shetrone03}
+{Shetrone}, M., {Venn}, K.~A., {Tolstoy}, E., {et~al.} 2003, \aj, 125, 684
+
+\bibitem[{{Shetrone} {et~al.}(2001){Shetrone}, {C{\^o}t{\'e}}, \&
+  {Sargent}}]{Shetrone01}
+{Shetrone}, M.~D., {C{\^o}t{\'e}}, P., \& {Sargent}, W.~L.~W. 2001, \apj, 548,
+  592
+
+\bibitem[{{Shibagaki} {et~al.}(2016){Shibagaki}, {Kajino}, {Mathews}, {Chiba},
+  {Nishimura}, \& {Lorusso}}]{Shibagaki16}
+{Shibagaki}, S., {Kajino}, T., {Mathews}, G.~J., {et~al.} 2016, \apj, 816, 79
+
+\bibitem[{{Shipp} {et~al.}(2018){Shipp}, {Drlica-Wagner}, {Balbinot},
+  {Ferguson}, {Erkal}, {Li}, {Bechtol}, {Belokurov}, {Buncher}, {Carollo},
+  {Carrasco Kind}, {Kuehn}, {Marshall}, {Pace}, {Rykoff}, {Sevilla-Noarbe},
+  {Sheldon}, {Strigari}, {Vivas}, {Yanny}, {Zenteno}, {Abbott}, {Abdalla},
+  {Allam}, {Avila}, {Bertin}, {Brooks}, {Burke}, {Carretero}, {Castander},
+  {Cawthon}, {Crocce}, {Cunha}, {D'Andrea}, {da Costa}, {Davis}, {De Vicente},
+  {Desai}, {Diehl}, {Doel}, {Evrard}, {Flaugher}, {Fosalba}, {Frieman},
+  {Garc{\'\i}a-Bellido}, {Gaztanaga}, {Gerdes}, {Gruen}, {Gruendl}, {Gschwend},
+  {Gutierrez}, {Hartley}, {Honscheid}, {Hoyle}, {James}, {Johnson}, {Krause},
+  {Kuropatkin}, {Lahav}, {Lin}, {Maia}, {March}, {Martini}, {Menanteau},
+  {Miller}, {Miquel}, {Nichol}, {Plazas}, {Romer}, {Sako}, {Sanchez},
+  {Santiago}, {Scarpine}, {Schindler}, {Schubnell}, {Smith}, {Smith},
+  {Sobreira}, {Suchyta}, {Swanson}, {Tarle}, {Thomas}, {Tucker}, {Walker},
+  {Wechsler}, \& {DES Collaboration}}]{Shipp2018}
+{Shipp}, N., {Drlica-Wagner}, A., {Balbinot}, E., {et~al.} 2018, \apj, 862, 114
+
+\bibitem[{{Siegel} {et~al.}(2021){Siegel}, {Agarwal}, {Barnes}, {Metzger},
+  {Renzo}, \& {Villar}}]{Siegel2021}
+{Siegel}, D.~M., {Agarwal}, A., {Barnes}, J., {et~al.} 2021, arXiv e-prints,
+  arXiv:2111.03094
+
+\bibitem[{{Siegel} {et~al.}(2019){Siegel}, {Barnes}, \& {Metzger}}]{Siegel2019}
+{Siegel}, D.~M., {Barnes}, J., \& {Metzger}, B.~D. 2019, \nat, 569, 241
+
+\bibitem[{{Simmerer} {et~al.}(2004){Simmerer}, {Sneden}, {Cowan}, {Collier},
+  {Woolf}, \& {Lawler}}]{Simmerer04}
+{Simmerer}, J., {Sneden}, C., {Cowan}, J.~J., {et~al.} 2004, \apj, 617, 1091
+
+\bibitem[{{Simon}(2019)}]{Simon2019}
+{Simon}, J.~D. 2019, \araa, 57, 375
+
+\bibitem[{{Simon} {et~al.}(2015){Simon}, {Drlica-Wagner}, {Li}, {Nord}, {Geha},
+  {Bechtol}, {Balbinot}, {Buckley-Geer}, {Lin}, {Marshall}, {Santiago},
+  {Strigari}, {Wang}, {Wechsler}, {Yanny}, {Abbott}, {Bauer}, {Bernstein},
+  {Bertin}, {Brooks}, {Burke}, {Capozzi}, {Carnero Rosell}, {Carrasco Kind},
+  {D'Andrea}, {da Costa}, {DePoy}, {Desai}, {Diehl}, {Dodelson}, {Cunha},
+  {Estrada}, {Evrard}, {Fausti Neto}, {Fernandez}, {Finley}, {Flaugher},
+  {Frieman}, {Gaztanaga}, {Gerdes}, {Gruen}, {Gruendl}, {Honscheid}, {James},
+  {Kent}, {Kuehn}, {Kuropatkin}, {Lahav}, {Maia}, {March}, {Martini}, {Miller},
+  {Miquel}, {Ogando}, {Romer}, {Roodman}, {Rykoff}, {Sako}, {Sanchez},
+  {Schubnell}, {Sevilla}, {Smith}, {Soares-Santos}, {Sobreira}, {Suchyta},
+  {Swanson}, {Tarle}, {Thaler}, {Tucker}, {Vikram}, {Walker}, {Wester}, \& {DES
+  Collaboration}}]{Simon2015}
+{Simon}, J.~D., {Drlica-Wagner}, A., {Li}, T.~S., {et~al.} 2015, \apj, 808, 95
+
+\bibitem[{{Simon} {et~al.}(2017){Simon}, {Li}, {Drlica-Wagner}, {Bechtol},
+  {Marshall}, {James}, {Wang}, {Strigari}, {Balbinot}, {Kuehn}, {Walker},
+  {Abbott}, {Allam}, {Annis}, {Benoit-L{\'e}vy}, {Brooks}, {Buckley-Geer},
+  {Burke}, {Carnero Rosell}, {Carrasco Kind}, {Carretero}, {Cunha}, {D'Andrea},
+  {da Costa}, {DePoy}, {Desai}, {Doel}, {Fernandez}, {Flaugher}, {Frieman},
+  {Garc{\'\i}a-Bellido}, {Gaztanaga}, {Goldstein}, {Gruen}, {Gutierrez},
+  {Kuropatkin}, {Maia}, {Martini}, {Menanteau}, {Miller}, {Miquel}, {Neilsen},
+  {Nord}, {Ogando}, {Plazas}, {Romer}, {Rykoff}, {Sanchez}, {Santiago},
+  {Scarpine}, {Schubnell}, {Sevilla-Noarbe}, {Smith}, {Sobreira}, {Suchyta},
+  {Swanson}, {Tarle}, {Whiteway}, {Yanny}, \& {DES Collaboration}}]{Simon2017}
+{Simon}, J.~D., {Li}, T.~S., {Drlica-Wagner}, A., {et~al.} 2017, \apj, 838, 11
+
+\bibitem[{{Simon} {et~al.}(2020){Simon}, {Li}, {Erkal}, {Pace},
+  {Drlica-Wagner}, {James}, {Marshall}, {Bechtol}, {Hansen}, {Kuehn}, {Lidman},
+  {Allam}, {Annis}, {Avila}, {Bertin}, {Brooks}, {Burke}, {Rosell}, {Carrasco
+  Kind}, {Carretero}, {da Costa}, {De Vicente}, {Desai}, {Doel}, {Eifler},
+  {Everett}, {Fosalba}, {Frieman}, {Garc{\'\i}a-Bellido}, {Gaztanaga},
+  {Gerdes}, {Gruen}, {Gruendl}, {Gschwend}, {Gutierrez}, {Hollowood},
+  {Honscheid}, {Krause}, {Kuropatkin}, {MacCrann}, {Maia}, {March}, {Miquel},
+  {Palmese}, {Paz-Chinch{\'o}n}, {Plazas}, {Reil}, {Roodman}, {Sanchez},
+  {Santiago}, {Scarpine}, {Schubnell}, {Serrano}, {Smith}, {Suchyta}, {Tarle},
+  {Walker}, \& {DES Collaboration}}]{Simon2020}
+{Simon}, J.~D., {Li}, T.~S., {Erkal}, D., {et~al.} 2020, \apj, 892, 137
+
+\bibitem[{{Simon} {et~al.}(2021){Simon}, {Brown}, {Drlica-Wagner}, {Li},
+  {Avila}, {Bechtol}, {Clementini}, {Crnojevi{\'c}}, {Garofalo}, {Geha},
+  {Sand}, {Strader}, \& {Willman}}]{Simon2021}
+{Simon}, J.~D., {Brown}, T.~M., {Drlica-Wagner}, A., {et~al.} 2021, \apj, 908,
+  18
+
+\bibitem[{{Siqueira Mello} {et~al.}(2014){Siqueira Mello}, {Hill}, {Barbuy},
+  {Spite}, {Spite}, {Beers}, {Caffau}, {Bonifacio}, {Cayrel}, {Fran{\c{c}}ois},
+  {Schatz}, \& {Wanajo}}]{SiqueiraMello2014}
+{Siqueira Mello}, C., {Hill}, V., {Barbuy}, B., {et~al.} 2014, \aap, 565, A93
+
+\bibitem[{{Sk{\'u}lad{\'o}ttir} {et~al.}(2019){Sk{\'u}lad{\'o}ttir}, {Hansen},
+  {Salvadori}, \& {Choplin}}]{Skuladottir2019}
+{Sk{\'u}lad{\'o}ttir}, {\'A}., {Hansen}, C.~J., {Salvadori}, S., \& {Choplin},
+  A. 2019, \aap, 631, A171
+
+\bibitem[{{Smartt} {et~al.}(2017){Smartt}, {Chen}, {Jerkstrand}, {Coughlin},
+  {Kankare}, {Sim}, {Fraser}, {Inserra}, {Maguire}, {Chambers}, {Huber},
+  {Kr{\"u}hler}, {Leloudas}, {Magee}, {Shingles}, {Smith}, {Young}, {Tonry},
+  {Kotak}, {Gal-Yam}, {Lyman}, {Homan}, {Agliozzo}, {Anderson}, {Angus},
+  {Ashall}, {Barbarino}, {Bauer}, {Berton}, {Botticella}, {Bulla}, {Bulger},
+  {Cannizzaro}, {Cano}, {Cartier}, {Cikota}, {Clark}, {De Cia}, {Della Valle},
+  {Denneau}, {Dennefeld}, {Dessart}, {Dimitriadis}, {Elias-Rosa}, {Firth},
+  {Flewelling}, {Fl{\"o}rs}, {Franckowiak}, {Frohmaier}, {Galbany},
+  {Gonz{\'a}lez-Gait{\'a}n}, {Greiner}, {Gromadzki}, {Guelbenzu},
+  {Guti{\'e}rrez}, {Hamanowicz}, {Hanlon}, {Harmanen}, {Heintz}, {Heinze},
+  {Hernandez}, {Hodgkin}, {Hook}, {Izzo}, {James}, {Jonker}, {Kerzendorf},
+  {Klose}, {Kostrzewa-Rutkowska}, {Kowalski}, {Kromer}, {Kuncarayakti},
+  {Lawrence}, {Lowe}, {Magnier}, {Manulis}, {Martin-Carrillo}, {Mattila},
+  {McBrien}, {M{\"u}ller}, {Nordin}, {O'Neill}, {Onori}, {Palmerio},
+  {Pastorello}, {Patat}, {Pignata}, {Podsiadlowski}, {Pumo}, {Prentice}, {Rau},
+  {Razza}, {Rest}, {Reynolds}, {Roy}, {Ruiter}, {Rybicki}, {Salmon}, {Schady},
+  {Schultz}, {Schweyer}, {Seitenzahl}, {Smith}, {Sollerman}, {Stalder},
+  {Stubbs}, {Sullivan}, {Szegedi}, {Taddia}, {Taubenberger}, {Terreran}, {van
+  Soelen}, {Vos}, {Wainscoat}, {Walton}, {Waters}, {Weiland}, {Willman},
+  {Wiseman}, {Wright}, {Wyrzykowski}, \& {Yaron}}]{Smartt2017}
+{Smartt}, S.~J., {Chen}, T.~W., {Jerkstrand}, A., {et~al.} 2017, \nat, 551, 75
+
+\bibitem[{{Smith} {et~al.}(2021){Smith}, {Bizyaev}, {Cunha}, {Shetrone},
+  {Souto}, {Allende Prieto}, {Masseron}, {M{\'e}sz{\'a}ros}, {J{\"o}nsson},
+  {Hasselquist}, {Osorio}, {Garc{\'\i}a-Hern{\'a}ndez}, {Plez}, {Beaton},
+  {Holtzman}, {Majewski}, {Stringfellow}, \& {Sobeck}}]{Smith2021}
+{Smith}, V.~V., {Bizyaev}, D., {Cunha}, K., {et~al.} 2021, \aj, 161, 254
+
+\bibitem[{{Sneden} {et~al.}(2008){Sneden}, {Cowan}, \& {Gallino}}]{Sneden2008}
+{Sneden}, C., {Cowan}, J.~J., \& {Gallino}, R. 2008, \araa, 46, 241
+
+\bibitem[{{Sneden} {et~al.}(2000){Sneden}, {Cowan}, {Ivans}, {Fuller},
+  {Burles}, {Beers}, \& {Lawler}}]{sneden2000}
+{Sneden}, C., {Cowan}, J.~J., {Ivans}, I.~I., {et~al.} 2000, ApJ, 533, L139
+
+\bibitem[{{Sneden} {et~al.}(1994){Sneden}, {Preston}, {McWilliam}, \&
+  {Searle}}]{sneden1994}
+{Sneden}, C., {Preston}, G.~W., {McWilliam}, A., \& {Searle}, L. 1994, \apjl,
+  431, L27
+
+\bibitem[{{Sneden} {et~al.}(2003){Sneden}, {Cowan}, {Lawler}, {Ivans},
+  {Burles}, {Beers}, {Primas}, {Hill}, {Truran}, {Fuller}, {Pfeiffer}, \&
+  {Kratz}}]{Sneden03}
+{Sneden}, C., {Cowan}, J.~J., {Lawler}, J.~E., {et~al.} 2003, \apj, 591, 936
+
+\bibitem[{{Sukhbold} {et~al.}(2016){Sukhbold}, {Ertl}, {Woosley}, {Brown}, \&
+  {Janka}}]{Sukhbold2016}
+{Sukhbold}, T., {Ertl}, T., {Woosley}, S.~E., {Brown}, J.~M., \& {Janka}, H.~T.
+  2016, \apj, 821, 38
+
+\bibitem[{{Surman} {et~al.}(2008){Surman}, {McLaughlin}, {Ruffert}, {Janka}, \&
+  {Hix}}]{Surman2008}
+{Surman}, R., {McLaughlin}, G.~C., {Ruffert}, M., {Janka}, H.~T., \& {Hix},
+  W.~R. 2008, \apjl, 679, L117
+
+\bibitem[{{Surman} {et~al.}(2011){Surman}, {McLaughlin}, \&
+  {Sabbatino}}]{Surman2011}
+{Surman}, R., {McLaughlin}, G.~C., \& {Sabbatino}, N. 2011, \apj, 743, 155
+
+\bibitem[{{Surman} {et~al.}(2017){Surman}, {Mumpower}, \&
+  {McLaughlin}}]{Surman2017}
+{Surman}, R., {Mumpower}, M., \& {McLaughlin}, G. 2017, in 14th International
+  Symposium on Nuclei in the Cosmos (NIC2016), ed. S.~{Kubono}, T.~{Kajino},
+  S.~{Nishimura}, T.~{Isobe}, S.~{Nagataki}, T.~{Shima}, \& Y.~{Takeda}, 010612
+
+\bibitem[{{Takahashi} {et~al.}(1994){Takahashi}, {Witti}, \&
+  {Janka}}]{takahashi94}
+{Takahashi}, K., {Witti}, J., \& {Janka}, H.-T. 1994, \aap, 286, 857
+
+\bibitem[{{Tanaka} {et~al.}(2017){Tanaka}, {Utsumi}, {Mazzali}, {Tominaga},
+  {Yoshida}, {Sekiguchi}, {Morokuma}, {Motohara}, {Ohta}, {Kawabata}, {Abe},
+  {Aoki}, {Asakura}, {Baar}, {Barway}, {Bond}, {Doi}, {Fujiyoshi}, {Furusawa},
+  {Honda}, {Itoh}, {Kawabata}, {Kawai}, {Kim}, {Lee}, {Miyazaki}, {Morihana},
+  {Nagashima}, {Nagayama}, {Nakaoka}, {Nakata}, {Ohsawa}, {Ohshima}, {Okita},
+  {Saito}, {Sumi}, {Tajitsu}, {Takahashi}, {Takayama}, {Tamura}, {Tanaka},
+  {Terai}, {Tristram}, {Yasuda}, \& {Zenko}}]{Tanaka2017}
+{Tanaka}, M., {Utsumi}, Y., {Mazzali}, P.~A., {et~al.} 2017, \pasj, 69, 102
+
+\bibitem[{{Tanvir} {et~al.}(2017){Tanvir}, {Levan},
+  {Gonz{\'a}lez-Fern{\'a}ndez}, {Korobkin}, {Mandel}, {Rosswog}, {Hjorth},
+  {D'Avanzo}, {Fruchter}, {Fryer}, {Kangas}, {Milvang-Jensen}, {Rosetti},
+  {Steeghs}, {Wollaeger}, {Cano}, {Copperwheat}, {Covino}, {D'Elia}, {de Ugarte
+  Postigo}, {Evans}, {Even}, {Fairhurst}, {Figuera Jaimes}, {Fontes}, {Fujii},
+  {Fynbo}, {Gompertz}, {Greiner}, {Hodosan}, {Irwin}, {Jakobsson},
+  {J{\o}rgensen}, {Kann}, {Lyman}, {Malesani}, {McMahon}, {Melandri},
+  {O'Brien}, {Osborne}, {Palazzi}, {Perley}, {Pian}, {Piranomonte}, {Rabus},
+  {Rol}, {Rowlinson}, {Schulze}, {Sutton}, {Th{\"o}ne}, {Ulaczyk}, {Watson},
+  {Wiersema}, \& {Wijers}}]{Tanvir2017}
+{Tanvir}, N.~R., {Levan}, A.~J., {Gonz{\'a}lez-Fern{\'a}ndez}, C., {et~al.}
+  2017, \apjl, 848, L27
+
+\bibitem[{{Tarumi} {et~al.}(2020){Tarumi}, {Yoshida}, \& {Inoue}}]{Tarumi2020}
+{Tarumi}, Y., {Yoshida}, N., \& {Inoue}, S. 2020, \mnras, 494, 120
+
+\bibitem[{{The MSE Science Team} {et~al.}(2019){The MSE Science Team},
+  {Babusiaux}, {Bergemann}, {Burgasser}, {Ellison}, {Haggard}, {Huber},
+  {Kaplinghat}, {Li}, {Marshall}, \& et~al.}]{TheMSEScienceTeam2019}
+{The MSE Science Team}, {Babusiaux}, C., {Bergemann}, M., {et~al.} 2019, arXiv
+  e-prints, arXiv:1904.04907
+
+\bibitem[{{Theler} {et~al.}(2020){Theler}, {Jablonka}, {Lucchesi}, {Lardo},
+  {North}, {Irwin}, {Battaglia}, {Hill}, {Tolstoy}, {Venn}, {Helmi}, {Kaufer},
+  {Primas}, \& {Shetrone}}]{Theler2020}
+{Theler}, R., {Jablonka}, P., {Lucchesi}, R., {et~al.} 2020, \aap, 642, A176
+
+\bibitem[{{Tinsley}(1980)}]{Tinsley80}
+{Tinsley}, B.~M. 1980, \fcp, 5, 287
+
+\bibitem[{{Tolstoy} {et~al.}(2009){Tolstoy}, {Hill}, \& {Tosi}}]{Tolstoy2009}
+{Tolstoy}, E., {Hill}, V., \& {Tosi}, M. 2009, \araa, 47, 371
+
+\bibitem[{{Torrealba} {et~al.}(2016{\natexlab{a}}){Torrealba}, {Koposov},
+  {Belokurov}, \& {Irwin}}]{Torrealba2016}
+{Torrealba}, G., {Koposov}, S.~E., {Belokurov}, V., \& {Irwin}, M.
+  2016{\natexlab{a}}, \mnras, 459, 2370
+
+\bibitem[{{Torrealba} {et~al.}(2016{\natexlab{b}}){Torrealba}, {Koposov},
+  {Belokurov}, {Irwin}, {Collins}, {Spencer}, {Ibata}, {Mateo}, {Bonaca}, \&
+  {Jethwa}}]{Torrealba2016b}
+{Torrealba}, G., {Koposov}, S.~E., {Belokurov}, V., {et~al.}
+  2016{\natexlab{b}}, \mnras, 463, 712
+
+\bibitem[{{Torrealba} {et~al.}(2018){Torrealba}, {Belokurov}, {Koposov},
+  {Bechtol}, {Drlica-Wagner}, {Olsen}, {Vivas}, {Yanny}, {Jethwa}, {Walker},
+  {Li}, {Allam}, {Conn}, {Gallart}, {Gruendl}, {James}, {Johnson}, {Kuehn},
+  {Kuropatkin}, {Martin}, {Martinez-Delgado}, {Nidever}, {No{\"e}l}, {Simon},
+  {Stringfellow}, \& {Tucker}}]{Torrealba2018}
+{Torrealba}, G., {Belokurov}, V., {Koposov}, S.~E., {et~al.} 2018, \mnras, 475,
+  5085
+
+\bibitem[{{Travaglio} {et~al.}(2004){Travaglio}, {Gallino}, {Arnone}, {Cowan},
+  {Jordan}, \& {Sneden}}]{Travaglio04}
+{Travaglio}, C., {Gallino}, R., {Arnone}, E., {et~al.} 2004, \apj, 601, 864
+
+\bibitem[{{Troja} {et~al.}(2017){Troja}, {Piro}, {van Eerten}, {Wollaeger},
+  {Im}, {Fox}, {Butler}, {Cenko}, {Sakamoto}, {Fryer}, {Ricci}, {Lien}, {Ryan},
+  {Korobkin}, {Lee}, {Burgess}, {Lee}, {Watson}, {Choi}, {Covino}, {D'Avanzo},
+  {Fontes}, {Gonz{\'a}lez}, {Khandrika}, {Kim}, {Kim}, {Lee}, {Lee}, {Kutyrev},
+  {Lim}, {S{\'a}nchez-Ram{\'\i}rez}, {Veilleux}, {Wieringa}, \&
+  {Yoon}}]{Troja2017}
+{Troja}, E., {Piro}, L., {van Eerten}, H., {et~al.} 2017, \nat, 551, 71
+
+\bibitem[{{Tsujimoto} {et~al.}(2015){Tsujimoto}, {Ishigaki}, {Shigeyama}, \&
+  {Aoki}}]{Tsujimoto2015}
+{Tsujimoto}, T., {Ishigaki}, M.~N., {Shigeyama}, T., \& {Aoki}, W. 2015, \pasj,
+  67, L3
+
+\bibitem[{{Tsujimoto} {et~al.}(2017){Tsujimoto}, {Matsuno}, {Aoki}, {Ishigaki},
+  \& {Shigeyama}}]{Tsujimoto2017}
+{Tsujimoto}, T., {Matsuno}, T., {Aoki}, W., {Ishigaki}, M.~N., \& {Shigeyama},
+  T. 2017, \apjl, 850, L12
+
+\bibitem[{{Tsujimoto} \& {Shigeyama}(2014)}]{Tsujimoto14b}
+{Tsujimoto}, T., \& {Shigeyama}, T. 2014, \apjl, 795, L18
+
+\bibitem[{{Ural} {et~al.}(2015){Ural}, {Cescutti}, {Koch}, {Kleyna},
+  {Feltzing}, \& {Wilkinson}}]{Ural2015}
+{Ural}, U., {Cescutti}, G., {Koch}, A., {et~al.} 2015, \mnras, 449, 761
+
+\bibitem[{{van de Voort} {et~al.}(2022){van de Voort}, {Pakmor}, {Bieri}, \&
+  {Grand}}]{vandeVoort2022}
+{van de Voort}, F., {Pakmor}, R., {Bieri}, R., \& {Grand}, R. J.~J. 2022,
+  \mnras, 512, 5258
+
+\bibitem[{{van de Voort} {et~al.}(2020){van de Voort}, {Pakmor}, {Grand},
+  {Springel}, {G{\'o}mez}, \& {Marinacci}}]{vandeVoort2020}
+{van de Voort}, F., {Pakmor}, R., {Grand}, R. J.~J., {et~al.} 2020, \mnras,
+  494, 4867
+
+\bibitem[{{Van der Swaelmen} {et~al.}(2013){Van der Swaelmen}, {Hill},
+  {Primas}, \& {Cole}}]{VanderSwaelmen2013}
+{Van der Swaelmen}, M., {Hill}, V., {Primas}, F., \& {Cole}, A.~A. 2013, \aap,
+  560, A44
+
+\bibitem[{{Venn} {et~al.}(2004){Venn}, {Irwin}, {Shetrone}, {Tout}, {Hill}, \&
+  {Tolstoy}}]{Venn04}
+{Venn}, K.~A., {Irwin}, M., {Shetrone}, M.~D., {et~al.} 2004, \aj, 128, 1177
+
+\bibitem[{{Venn} {et~al.}(2012){Venn}, {Shetrone}, {Irwin}, {Hill}, {Jablonka},
+  {Tolstoy}, {Lemasle}, {Divell}, {Starkenburg}, {Letarte}, {Baldner},
+  {Battaglia}, {Helmi}, {Kaufer}, \& {Primas}}]{Venn2012}
+{Venn}, K.~A., {Shetrone}, M.~D., {Irwin}, M.~J., {et~al.} 2012, \apj, 751, 102
+
+\bibitem[{{Walker} {et~al.}(2019){Walker}, {Mart{\'\i}nez-V{\'a}zquez},
+  {Monelli}, {Vivas}, {Bono}, {Gallart}, {Cassisi}, {Andreuzzi}, {Bernard},
+  {Dall'Ora}, {Fiorentino}, {Nidever}, {Olsen}, {Pietrinferni}, \&
+  {Stetson}}]{Walker2019}
+{Walker}, A.~R., {Mart{\'\i}nez-V{\'a}zquez}, C.~E., {Monelli}, M., {et~al.}
+  2019, \mnras, 490, 4121
+
+\bibitem[{{Wanajo} \& {Ishimaru}(2006)}]{wanajo_ishimaru}
+{Wanajo}, S., \& {Ishimaru}, Y. 2006, Nuclear Physics A, 777, 676
+
+\bibitem[{{Wanajo} {et~al.}(2011){Wanajo}, {Janka}, \&
+  {M{\"u}ller}}]{Wanajo2011}
+{Wanajo}, S., {Janka}, H.-T., \& {M{\"u}ller}, B. 2011, \apjl, 726, L15
+
+\bibitem[{{Wanajo} {et~al.}(2006){Wanajo}, {Nomoto}, {Iwamoto}, {Ishimaru}, \&
+  {Beers}}]{wanajo_rs2006}
+{Wanajo}, S., {Nomoto}, K., {Iwamoto}, N., {Ishimaru}, Y., \& {Beers}, T.~C.
+  2006, ApJ, 636, 842
+
+\bibitem[{{Wanajo} {et~al.}(2014){Wanajo}, {Sekiguchi}, {Nishimura}, {Kiuchi},
+  {Kyutoku}, \& {Shibata}}]{Wanajo14}
+{Wanajo}, S., {Sekiguchi}, Y., {Nishimura}, N., {et~al.} 2014, \apjl, 789, L39
+
+\bibitem[{{Watson} {et~al.}(2019){Watson}, {Hansen}, {Selsing}, {Koch},
+  {Malesani}, {Andersen}, {Fynbo}, {Arcones}, {Bauswein}, {Covino}, {Grado},
+  {Heintz}, {Hunt}, {Kouveliotou}, {Leloudas}, {Levan}, {Mazzali}, \&
+  {Pian}}]{Watson2019}
+{Watson}, D., {Hansen}, C.~J., {Selsing}, J., {et~al.} 2019, \nat, 574, 497
+
+\bibitem[{{Webster} {et~al.}(2014){Webster}, {Sutherland}, \&
+  {Bland-Hawthorn}}]{Webster14}
+{Webster}, D., {Sutherland}, R., \& {Bland-Hawthorn}, J. 2014, \apj, 796, 11
+
+\bibitem[{{Weisz} {et~al.}(2014){Weisz}, {Dolphin}, {Skillman}, {Holtzman},
+  {Gilbert}, {Dalcanton}, \& {Williams}}]{Weisz2014}
+{Weisz}, D.~R., {Dolphin}, A.~E., {Skillman}, E.~D., {et~al.} 2014, \apj, 789,
+  147
+
+\bibitem[{{Willems} \& {Kalogera}(2004)}]{Willems2004}
+{Willems}, B., \& {Kalogera}, V. 2004, \apjl, 603, L101
+
+\bibitem[{{Willman} {et~al.}(2011){Willman}, {Geha}, {Strader}, {Strigari},
+  {Simon}, {Kirby}, {Ho}, \& {Warres}}]{Willman2011}
+{Willman}, B., {Geha}, M., {Strader}, J., {et~al.} 2011, \aj, 142, 128
+
+\bibitem[{{Willman} \& {Strader}(2012)}]{Willman2012}
+{Willman}, B., \& {Strader}, J. 2012, \aj, 144, 76
+
+\bibitem[{{Winteler} {et~al.}(2012){Winteler}, {K{\"a}ppeli}, {Perego},
+  {Arcones}, {Vasset}, {Nishimura}, {Liebend{\"o}rfer}, \&
+  {Thielemann}}]{Winteler2012}
+{Winteler}, C., {K{\"a}ppeli}, R., {Perego}, A., {et~al.} 2012, \apjl, 750, L22
+
+\bibitem[{{Woosley} \& {Hoffman}(1992)}]{Woosley92}
+{Woosley}, S.~E., \& {Hoffman}, R.~D. 1992, \apj, 395, 202
+
+\bibitem[{{Woosley} {et~al.}(1994){Woosley}, {Wilson}, {Mathews}, {Hoffman}, \&
+  {Meyer}}]{woosley94}
+{Woosley}, S.~E., {Wilson}, J.~R., {Mathews}, G.~J., {Hoffman}, R.~D., \&
+  {Meyer}, B.~S. 1994, ApJ, 433, 229
+
+\bibitem[{{Wu} {et~al.}(2016){Wu}, {Fern{\'a}ndez}, {Mart{\'\i}nez-Pinedo}, \&
+  {Metzger}}]{Wu2016}
+{Wu}, M.-R., {Fern{\'a}ndez}, R., {Mart{\'\i}nez-Pinedo}, G., \& {Metzger},
+  B.~D. 2016, \mnras, 463, 2323
+
+\bibitem[{{Yuan} {et~al.}(2020){Yuan}, {Myeong}, {Beers}, {Evans}, {Lee},
+  {Banerjee}, {Gudin}, {Hattori}, {Li}, {Matsuno}, {Placco}, {Smith},
+  {Whitten}, \& {Zhao}}]{Yuan2020}
+{Yuan}, Z., {Myeong}, G.~C., {Beers}, T.~C., {et~al.} 2020, \apj, 891, 39
+
+\end{thebibliography}
+
+\end{document}

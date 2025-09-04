@@ -1,0 +1,1082 @@
+\documentclass[twocolumn]{aastex61}
+
+% Testing aastex62 for AAS
+%\documentclass[twocolumn]{aastex62}
+%\NoNewPageAfterKeywords
+
+\usepackage[utf8]{inputenc}
+\DeclareUnicodeCharacter{2212}{-}% support older LaTeX versions
+\usepackage{graphicx}
+\graphicspath{{./figures/}{./}}
+\usepackage{amsmath}
+% \usepackage{afterpage}
+\usepackage{enumitem}
+\setenumerate{itemsep=0mm}%noitemsep}
+% \hypersetup{    
+%   urlcolor        = {blue},
+% }
+
+% \usepackage{lineno}
+% \linenumbers
+
+%ADW: These packages conflict with longtable in aastex61
+%\usepackage{caption}
+%\usepackage{subcaption}
+% \usepackage{subfigure}
+\newcommand{\EB}[1]{\textcolor{cyan}{(EB: #1)}}
+\newcommand{\ADW}[1]{\textcolor{blue}{(ADW: #1)}}
+\newcommand{\NS}[1]{\textcolor{green}{(NS: #1)}}
+\newcommand{\KB}[1]{\textcolor{brown}{(KB: #1)}}
+
+\input{commands}
+
+% \reportnum{-12.1}{\footnotesize DES-2017-0284}
+% \reportnum{-13.2}{\footnotesize FERMILAB-PUB-17-614-AE}
+
+\begin{document}
+
+\title{Stellar Streams Discovered in the Dark Energy Survey}
+
+\input{authors}
+\email{norashipp@uchicago.edu, kadrlica@fnal.gov}
+
+\begin{abstract}
+
+We perform a search for stellar streams around the Milky Way using the first three years of multi-band optical imaging data from the Dark Energy Survey (DES). 
+We use DES data covering $\roughly 5000 \deg^2$ to a depth of $g > 23.5$ with a relative photometric calibration uncertainty of $< 1\%$. 
+This data set yields unprecedented sensitivity to the stellar density field in the southern celestial hemisphere, enabling the detection of faint stellar streams to a heliocentric distance of $\roughly 50 \kpc$.
+We search for stellar streams using a matched-filter in color-magnitude space derived from a synthetic isochrone of an old, metal-poor stellar population.
+Our detection technique recovers \NKNOWN previously known thin stellar streams: Phoenix, ATLAS, Tucana III, and a possible extension of Molonglo. 
+In addition, we report the discovery of \NSTREAMS new stellar streams.
+In general, the new streams detected by DES are fainter, more distant, and lower surface brightness than streams detected by similar techniques in previous photometric surveys.
+As a by-product of our stellar stream search, we find evidence for extra-tidal stellar structure associated with \NGLOB globular clusters: NGC 288, NGC 1261, NGC 1851, and NGC 1904.
+The ever-growing sample of stellar streams will provide insight into the formation of the Galactic stellar halo, the Milky Way gravitational potential, as well as the large- and small-scale distribution of dark matter around the Milky Way.
+\end{abstract}
+
+\keywords{Galaxy: structure -- Galaxy: halo -- Local Group}
+
+\section{Introduction}
+\label{sec:intro}
+
+Stellar streams produced by the tidal disruption of globular clusters and dwarf galaxies are a prevalent feature of the Milky Way environs \citep[see][for a recent review]{Newberg:2016}.
+Observations of stellar streams can provide important constraints on the formation of the Milky Way stellar halo \citep[e.g.,][]{Johnston:1998,Bullock:2005,Bell:2008}, the shape of the Galactic gravitational field \citep[e.g.,][]{Johnston:2005,Koposov:2010,Law:2010,Bovy:2014,Bonaca:2014,Gibbons:2014,Price-Whelan:2014,Sanders:2014,Bowden:2015,Kupper:2015,Erkal:2016,Bovy:2016}, and the abundance of low-mass dark matter substructure \citep[e.g.,][]{Ibata:2002,Johnston:2002,Carlberg:2009,Yoon:2011,Carlberg:2012,Ngan:2014,Erkal:2015,Carlberg:2016a,Sanderson:2016,Sanders:2016,Bovy:2017,Erkal:2017,Sandford:2017}.
+In addition, stellar streams are a direct snapshot of hierarchical structure formation \citep{Peebles:1965,Press:1974,Blumenthal:1984} and support the standard \LCDM cosmological model \citep{Diemand:2008,Springel:2008}.
+
+Wide-area, multi-band digital sky surveys have been essential for finding and characterizing resolved stellar populations in the Galactic halo. 
+The Sloan Digital Sky Survey \citep[SDSS;][]{York:2000} revolutionized our understanding of the Milky Way stellar halo, both through improved sensitivity to diffuse components \citep[e.g.,][]{Carollo:2007,Carollo:2010,Dejong:2010,Deason:2011,An:2013,Kafle:2013,Hattori:2013,An:2015,Das:2016} and by vastly increasing the number of known satellite galaxies 
+\citep[e.g.,][]{Willman:2005a,Willman:2005b,Zucker:2006,2006ApJ...643L.103Z,2006ApJ...647L.111B,Belokurov:2007}, stellar clouds \citep[e.g.,][]{Newberg:2002,Yanny:2003,Rocha-Pinto:2004}, and stellar streams \citep[e.g.,][]{Odenkirchen:2001,Newberg:2002,Belokurov:2006,Grillmair:2006}. 
+Early techniques for detecting stellar streams used simple color and magnitude cuts to select blue main sequence turn-off (MSTO) stars \citep[e.g.,][]{Grillmair:1995,Belokurov:2006}.
+More recently, matched-filter techniques have been used to maximize the contrast between distant, metal poor stellar populations and foreground field stars to push the detection limit to lower surface brightnesses \citep[e.g.][]{Rockosi:2002}.
+The matched-filter technique has been applied broadly to other digital sky surveys including Pan-STARRs \citep{Bernard:2014,Bernard:2016,Grillmair:2017} and ATLAS \citep{Koposov:2014}.
+
+The Dark Energy Survey \citep[DES;][]{DES:2005,DES:2016} is a deep, wide-area survey with the primary goal of constraining dark energy and the nature of cosmic acceleration \citep[e.g.,][]{DES:2017}. 
+While DES was designed to probe the evolution of the universe out to $z \sim 1.2$, it has already had a major impact on ``near-field'' cosmology and Galactic archaeology. 
+Specifically, DES has nearly doubled the number of known ultra-faint dwarf galaxies \citep{Bechtol:2015,Koposov:2015,Kim:2015,Drlica-Wagner:2015}, increased the number of known faint outer-halo star clusters \citep{Pieres:2016,Luque:2016,Luque:2017,Luque:2017b}, and identified several diffuse stellar overdensities \citep{Li:2016,Pieres:2017}.
+In addition, early data from DES have been used to detect a cold stellar stream in the constellation of Phoenix \citep{Balbinot:2016} and a tidal stream associated with the ultra-faint satellite, Tucana III \citep{Drlica-Wagner:2015}.
+Here we extend the search for stellar streams with DES using a deeper, more uniform, and better calibrated data set.
+
+We perform a search for stellar streams using the first three years of DES data.
+We search for stellar streams possessing old, metal-poor stellar populations at heliocentric distances between $6\kpc \lesssim \Dsun \lesssim 63\kpc$ ($14 < \mM < 19$).
+We recover known streams within the DES footprint, including Sagittarius \citep{Newberg:2002}, ATLAS \citep{Koposov:2014}, Phoenix \citep{Balbinot:2016}, and Tucana III \citep{Drlica-Wagner:2015}. 
+In addition, we detect a possible faint extension of the Molonglo stream \citep{Grillmair:2017} in the DES data.
+Our search results in the discovery of \NSTREAMS new high-significance curvilinear stellar stream candidates.
+These new stream candidates range in distance from \CHECK{$\roughly 13\kpc$} to \CHECK{$\roughly 50\kpc$}.
+These streams are low surface brightness, \CHECK{$\mu \gtrsim 32 \magn/\asec^2$}, and push the boundary of detectability using the current generation of wide-area photometric surveys.
+As a natural by-product of a global search for extended stellar structures, we find evidence for extended extra-tidal features around the Milky Way globular clusters NGC 288, NGC 1261, NGC 1851, and NGC 1904.
+
+This paper is organized as follows.
+In \secref{data} we discuss the DES data and the construction of the stellar sample used in this work. 
+In \secref{analysis} we present our matched-filter search algorithm and maximum-likelihood techniques that we implement for characterizing stellar streams.
+In \secref{streams} we discuss the properties of previously known and newly detected stellar streams.
+We place our results in the larger context of the Milky Way in \secref{discussion} and conclude in \secref{conclusions}.
+
+
+\section{Data Set}
+\label{sec:data}
+
+\begin{figure}
+\includegraphics[width=\columnwidth]{y3a2_stellar_classification_summary_ext1_g}
+\caption{Stellar selection efficiency and galaxy contamination for the DES Y3 data evaluated from a comparison to HSC DR1 using $\sim18$~deg$^2$ of overlap in the SDSS Stripe 82 region.
+The DES efficiency is evaluated with respect to a stellar sample from HSC.
+The red shaded band indicates the faint magnitude range where the HSC data are affected by star-galaxy confusion and may be less reliable as a test sample.
+Our stellar classification primarily uses the \ngmix multi-epoch fitting size parameter and error.
+\label{fig:class}
+}
+\end{figure}
+
+
+DES is a deep, wide-area imaging survey using the Dark Energy Camera \citep[DECam;][]{Flaugher:2015} mounted on the 4-m Blanco Telescope at Cerro Tololo Inter-American Observatory in Chile. 
+DES surveys $\roughly 5000 \deg^2$ of the southern Galactic cap in five visible/near-infrared filters, $grizY$.
+Here, we use wide-field imaging data from an internal data release of the first three years of DES operations (DES Y3A2).\footnote{DES Y3A2 serves as the basis for the first public DES data release \citep[DES DR1;][]{DES:2018}. However, the internal Y3A2 data release contains improved multi-epoch photometric and morphological measurements as well as other auxiliary data products.}
+DES Y3A2 is the first data set to cover the full DES wide-area footprint, and has a median coverage of 5--6 exposures per filter \citep{Diehl:2016}. %\footnote{During the first three seasons, DES took 90s exposures in $griz$ and 45s exposures in $Y$.}
+The contiguous, uniform, wide-area imaging of DES allows for the first deep, systematic search for faint features in the Milky Way stellar halo in this region of the southern sky.
+
+The DES Y3A2 images were processed by the DES data management pipeline \citep{Morganson:2018}.
+Photometric calibration was performed via the Forward Global Calibration Method \citep[FGCM;][]{Burke:2017}, which utilized ancillary information about atmospheric and environmental conditions at the time of each exposure.
+The FGCM photometric calibration is found to have a relative photometric uniformity of $\roughly 7 \mmag$ \citep{Burke:2017} and an absolute calibration accuracy of $\roughly 3 \mmag$ \citep{DES:2018}.
+Individual exposures were remapped to a consistent pixel grid and coadded to increase imaging depth \citep{Morganson:2018}.  
+Object detection was performed on a combination of the $r + i + z$ coadded images using the \SExtractor toolkit \citep{Bertin:1996,Bertin:2002} with an object detection threshold corresponding to ${\rm S/N} \sim 10$ \citep{Morganson:2018}.
+
+While the coadded images increase our sensitivity to faint sources, depth variations and PSF discontinuities in the coadds can make it difficult to perform precise photometric and morphological measurements \citep[\eg,][]{Drlica-Wagner:2017}.
+To circumvent this issue, we used \ngmix\footnote{\url{https://github.com/esheldon/ngmix}} \citep{Sheldon:2014,Jarvis:2015,Drlica-Wagner:2017} to fit the flux and morphology of each source over all individual single-epoch images simultaneously.
+When fitting each source we masked nearby neighbors using the \code{uberseg} map, which was derived from the \sextractor coadd segmentation maps \citep[Section 5.2 of][]{Jarvis:2015}.\footnote{Masking nearby sources yields slightly less accurate photometry than the iterative multi-object fitting (MOF) described by \citet{Drlica-Wagner:2017}; however, masking is less computationally intensive and has a lower failure rate than MOF.}
+Throughout this paper, quoted magnitudes and errors were derived from fitting a PSF model to each source using \ngmix (\ie, \var{PSF\_MAG} and \var{PSF\_MAG\_ERR}).
+
+To select a high-quality stellar sample, we expanded on the star-galaxy classification procedure outlined in Appendix A of \citet{Rozo:2016}.
+We used \ngmix to fit a composite galaxy model (bulge plus disk) to each source  in all bands simultaneously \citep{Drlica-Wagner:2017}. 
+We then used the best-fit size, \var{CM\_T}, and associated uncertainty, \var{CM\_T\_ERR}, from this galaxy-model fit to distinguish point-like objects from those that are spatially extended.
+Specifically, we defined an extended classification variable, \var{NGMIX\_CLASS}, based on the sum of three selection criteria,
+
+\footnotesize 
+\begin{align}\begin{split}
+\var{NGMIX\_CLASS} = &~ ((\var{CM\_T} + 5\, \var{CM\_T\_ERR}) > 0.1) \\
+ + &~ ((\var{CM\_T} + \var{CM\_T\_ERR}) > 0.05) \\
+ + &~ ((\var{CM\_T} - \var{CM\_T\_ERR}) > 0.02). \\
+\end{split} \end{align} 
+\normalsize
+
+\noindent 
+The \ngmix composite galaxy-model fit fails for a small number of bright stars. 
+To recover those objects, we defined a second selection based on the weighted-average \sextractor quantity \var{WAVG\_SPREAD\_MODEL} measured in the DES $i$-band \citep{Morganson:2018},
+
+\footnotesize\begin{align}\begin{split}
+\var{WA}&\var{VG\_CLASS} = \\
+~&((\var{wavg\_spread\_model\_i} + 3\, \var{wavg\_spreaderr\_model\_i}) > 0.005) \\
++&((\var{wavg\_spread\_model\_i} + \var{wavg\_spreaderr\_model\_i}) > 0.003) \\
++&((\var{wavg\_spread\_model\_i} - \var{wavg\_spreaderr\_model\_i}) > 0.001).
+ \end{split}\end{align}
+\normalsize
+
+\noindent
+Both \var{NGMIX\_CLASS} and \var{WAVG\_CLASS} can have values of 0, 1, 2, or 3, with 0 being most star-like and 3 being most galaxy-like.
+Our final stellar sample used $\var{NGMIX\_CLASS} \leq 1$ when the composite-model fit succeeded and $\var{WAVG\_CLASS} \leq 1$ otherwise:
+
+\footnotesize \begin{align}
+\var{STARS} =
+\begin{cases}
+\var{NGMIX\_CLASS} \leq 1, & \text{if \ngmix fit succeeds} \\
+\var{WAVG\_CLASS} \leq 1, & \text{otherwise}
+\label{eqn:stars}
+\end{cases}
+\end{align}\normalsize
+
+Our stellar selection was designed to yield a compromise between completeness and purity in the resulting stellar sample. 
+In \figref{class} we compare our stellar classification with deeper imaging data from Hyper Suprime-Cam DR1 \citep{Aihara:2017}.
+We find that our selection is $> 90\%$ complete for $g = 23.5$ with a galaxy contamination rising from $\lesssim 5\%$ at $g \leq 22.5$ to $\roughly 30\%$ by $g \sim 23.5$.
+Throughout the paper we refer to the objects passing the selection in \eqnref{stars} as stars.
+
+We constrained our stellar sample to the range $16 < g < 23.5$. 
+The bright-end limit was imposed to avoid saturation effects from bright stars, while at the faint end we seek  to avoid spurious density fluctuations resulting from inhomogeneous survey depth and galaxy contamination. 
+Since we are primarily interested in Main Sequence (MS) and Red Giant Branch (RGB) stars associated with old, metal-poor stellar populations, we constrain our sample to the color range, $0.0 < g-r < 1.0$.
+
+In contrast to previous DES photometric calibration techniques \citep{Drlica-Wagner:2015,Drlica-Wagner:2017}, no stellar locus regression adjustment was applied to the DES Y3A2 zeropoints derived by the FGCM.
+Instead, we followed the procedure described in \citet{DES:2018} to account for interstellar dust extinction.
+We started with $E(B-V)$ values from the reddening map of \citet[SFD;][]{Schlegel:1998}.
+We computed fiducial interstellar extinction coefficients, $R_b$, for each band so that the corrections to the top-of-the-atmosphere calibrated source magnitudes are $A_b = E(B-V) \times R_b$.
+Fiducial coefficients are derived using the \citet{Fitzpatrick:1999} reddening law with $R_V = 3.1$ and the \citet{Schlafly:2011} adjusted reddening normalization parameter, $N = 0.78$. 
+We integrated over the DES standard bandpasses considering a fixed source spectrum that is constant in spectral flux density per unit wavelength.
+The resulting multiplicative coefficients for the $g$ and $r$ band are $R_g = 3.185$ and $R_r = 2.140$.\footnote{An update to the DECam standard bandpasses changed these coefficients by $<1$ \mmag for the DR1 release \citep{DES:2018}.}
+Throughout this paper, all magnitudes refer to extinction corrected PSF magnitudes derived by \ngmix.
+
+% Fracdet
+We build a high-resolution map of the DES survey coverage to account for missing survey coverage at the boundary of the footprint and gaps associated with saturated stars, bleed trails, and other instrumental signatures.
+We follow the procedure described in \citet{Drlica-Wagner:2017} to transform a vectorized representation of the survey coverage calculated by \mangle \citep{Hamilton:2004, Swanson:2008} into a \healpix \citep{Gorski:2005} coverage fraction map.
+In each $\nside = 4096$ ($\roughly 0.74 \amin^2$) \healpix pixel, we oversample the \mangle map by a factor of 64 to quantify the simultaneous coverage in the $griz$ bands.
+The \healpix nested pixelization scheme makes it trivial to degrade the resolution of this coverage fraction map by summing the coverage fraction of all high resolution pixels nested within a lower resolution pixel.
+We restrict our stream search to regions where the $griz$ detection fraction is greater than 50\%, resulting in a total solid angle of $4946 \deg^2$.
+Throughout this paper, all coordinates refer to J2000 epoch.
+% ADW: The area number is the sum of fracdet where fracdet > 0.5
+
+\section{Analysis}
+\label{sec:analysis}
+
+\begin{figure*}[th!]
+\centering
+\includegraphics[width=\textwidth]{{isochrone_selection_regions}}
+\caption{
+Binned color-magnitude diagram of DES Y3A2 stellar sources selected around the globular clusters NGC 1261 and NGC 7089 (M2), the ultra-faint dwarf galaxy Reticulum II, and the classical dwarf galaxy Sculptor. 
+For the two globular clusters, data are selected in an annulus with $0\fdg07 < r < 0\fdg12$. 
+Stellar sources are selected within $r < 0\fdg15$ of Reticulum II and $r < 0\fdg20$ of Sculptor.
+The matched-filter selection region for our stellar stream search is shown with the red outlines.
+%shown bounded by the two blue lines.
+}
+\label{fig:isosys}
+\end{figure*}
+
+\subsection{Matched-Filter Selection}
+\label{sec:filter}
+
+We searched for stellar streams using a matched-filter algorithm in color-magnitude space \citep{Rockosi:2002,Grillmair:2006,Bonaca:2012,Jethwa:2017}.
+Our matched filter is based on the synthetic isochrone of an old, $\age = 13 \Gyr$, metal-poor, \CHECK{$Z = 0.0002$ ($\feh = -1.9$)}, stellar population as constructed by \citet{Dotter:2008} and implemented in \ugali \citep{Bechtol:2015,Drlica-Wagner:2015}.
+We selected stars within a range of colors around the isochrone according to the criteria
+\begin{align}\begin{split}
+(g - r)_{\rm iso} + &E \times err(g_{\rm iso} + \mu + \Delta \mu / 2) - C_1 \\
+&< (g-r) <\\
+(g - r)_{\rm iso} + &E \times err(g_{\rm iso} + \mu - \Delta \mu / 2) + C_2.
+\label{eqn:select}
+\end{split}\end{align}
+\noindent where $(g-r)_{\rm iso}$ represents the predicted color from the synthetic isochrone at a distance modulus of $\mu = \mM$. 
+We parametrize the magnitude-dependent spread in color due to measurement uncertainties as
+\begin{align}\begin{split}
+err(g) =  0.001 + e^{(g - 27.09) / 1.09}
+\end{split}\end{align}
+\noindent where the normalization coefficients were derived from fitting the median photometric error as a function of magnitude in the $g$ band (\var{PSF\_MAG\_G} vs. \var{PSF\_MAG\_ERR\_G}). 
+We parameterize the selection region around the isochrone with a symmetric magnitude broadening, $\Delta \mu$, an asymmetric color broadening, $C_{1,2}$, and a multiplicative factor for broadening based on photometric uncertainty, $E$.
+We set the values $\Delta \mu = 0.5$, $C_{1,2} = (0.05,0.10)$ and $E = 2$ by comparing to the color-magnitude diagrams (CMDs) of old, metal-poor globular clusters and dwarf galaxies (\figref{isosys}).
+
+In \figref{isosys} we show our matched-filter selection over-plotted on binned CMDs from the globular clusters NGC 1260 and NGC 7089 (M2), the ultra-faint dwarf galaxy Reticulum II, and the classical dwarf galaxy Sculptor. % We select stars between $0\fdg02$ and $0\fdg1,\ 0\fdg1,\ 0\fdg15,\ 0\fdg2$ of these objects, respectively.
+Our selection retains $\gtrsim 90\%$ of stellar sources fainter than the MSTO in an annulus of $0\fdg07 < r < 0\fdg12$ around NGC 1260 and NGC 7089. 
+This is a conservative estimate of the true efficiency of our selection, since it does not account for contamination from Milky Way foreground stars within this annulus.
+
+In our initial search for stellar streams in Y3A2, we applied our matched-filter isochrone selection over a grid of distance moduli from $14 < m-M < 19$ spaced at intervals of $\Delta(\mM) = 0.3$. 
+This spacing between distance modulus steps was chosen so that sequential isochrone selections overlap by $\gtrsim 75\%$ to insure that streams at intermediate distance moduli were detectable \citep{Grillmair:2017}.
+For each distance modulus, we binned stars passing our matched-filter selection  into equal-area \healpix pixels with area of $\roughly 0.013 \deg^2$ ($\code{nside} = 512$).
+We divided the number of stars selected in each \healpix pixel by a map of the coverage fraction at equivalent resolution to produce a coverage-corrected map of stellar density.
+We smoothed the density maps with a 2-dimensional Gaussian symmetric beam with $\sigma = 0\fdg3$.\footnote{\url{http://healpy.readthedocs.io/en/latest/generated/healpy.sphtfunc.smoothing.html}}
+We later repeated this procedure at spacings of $\Delta(\mM) = 0.1$ and confirmed that all stream candidates were still detected.
+We show the smoothed density map after the isochrone selection in \figref{isosel}.
+
+We note that for our generic search we did not use the Milky Way foreground population to weight stars in our matched filter isochrone selection. 
+This was done to ensure that our search was agnostic to changes in the foreground/background stellar population across the footprint (i.e., close to the Galactic disk, LMC, or Sagittarius stream).
+As a validation, we repeated our search following the procedure of \citet{Rockosi:2002} to build a matched-filter isochrone from the CMDs of the globular cluster NGC 7089 and the average Milky Way foreground population.
+We apply an additive factor of $\Delta(\mM)$ to shift the CMD of NGC 7089 in distance modulus and thus select for stellar populations over a range of distances.
+We find that this procedure yields very similar results to our primary un-weighted synthetic isochrone selection technique, and all stream candidates reported here were detected by both analyses.
+
+\begin{figure*}[ht!]
+  \centering
+  \includegraphics[width=0.8\textwidth]{density_dust_m16p7_v17p2}
+  \caption{(Top) Density of stars passing the matched-filter isochrone selection at a distance modulus of $\mM = 16.7$. Stars are pixelized into equal-area \healpix pixels with area of $\roughly 0.013 \deg^2$ ($\nside=512$). Contributions from the LMC (lower left), Sagittarius stream (top center), and Galactic thick disk (lower right) can be clearly seen.
+    (Bottom) Interstellar extinction, $E(B-V)$, estimated by \citet{Schlegel:1998}.
+    Outlines of the four DES ``quadrants'' defined in \secref{streams} are overplotted.
+    Both panels are plotted in Galactic coordinates using a polar Lambert equal-area projection.
+    An animated version of this figure can be found online \href{http://home.fnal.gov/~kadrlica/movies/density_dust_v17p2.gif}{at this url}.
+}
+  \label{fig:isosel}
+\end{figure*}
+
+\begin{figure*}[ht!]
+  \centering
+  \includegraphics[width=0.8\textwidth]{residual_bkg_m16p7_v17p2}
+  \caption{(Top) Residual density of stars passing the matched-filter isochrone selection at a distance modulus of $\mM = 16.7$. 
+Regions around the LMC (lower left), Sagittarius stream (top center), and the Galactic disk (lower right) have been masked to improve the quality of the polynomial background fit. 
+In addition, small regions ($r < 1\degree$) around bright Milky Way globular clusters, satellite galaxies, and Local Group galaxies have been masked.
+    (Bottom) Smooth background fit to the stellar density using a 2-dimensional, 5th-order polynomial (gray-scale) .
+Stellar streams labeled and overplotted.
+Palca and ATLAS are traced by a second order polynomials (Sections \ref{sec:atlas} and \ref{sec:palca}, respectively), while other streams are traced by great circle arcs.
+    Both panels are plotted in Galactic coordinates using a polar Lambert equal-area projection.
+    An animated version of this figure can be found online \href{http://home.fnal.gov/~kadrlica/movies/residual_bkg_v17p2.gif}{at this url}.
+}
+  \label{fig:isosel2}
+\end{figure*}
+
+\subsection{Stream Detection}
+\label{sec:detect}
+
+The Sagittarius ($l,b \sim 160\degrees, -60\degrees$), ATLAS ($l,b \sim -130\degrees,-80\degrees$), Phoenix ($l,b \sim -70\degrees,-65\degrees$), and Tucana III ($l,b \sim -45\degrees,-55\degrees$) streams are clearly visible in smoothed density maps (\figref{isosel}).
+To further increase our sensitivity to faint stellar streams, we created a smooth model for the stellar foreground and mis-classified background galaxies.
+We mask the dense stellar regions around the Sagittarius stream, the LMC, and the Galactic plane (\figref{isosel2}) and fit a 2-dimensional, 5th-order polynomial to the distribution of smoothed stellar counts.
+We subtracted this model from the stellar density to create smooth maps of the residual stellar density (\figref{isosel2}).
+Visual inspection of the foreground-subtracted residual density maps served as the primary technique for identifying new streams.
+
+To facilitate the detection of faint streams, we repeated the procedure described above to generate residual stellar density maps for a range of isochrone selections with distance moduli between $14 \leq \mM \leq 19$ in steps of $\Delta (\mM) = 0.3$. 
+We assembled these sequences of residual density maps into animations of the isochrone-selected stellar density as a function of heliocentric distance.
+We required that stellar stream candidates appear in the residual density maps for at least two sequential distance moduli.
+The animations associated with \figref{isosel} and \figref{isosel2} contain a wealth of information about stellar structure in the Milky Way halo. 
+In this paper we specifically focus on the the most prominent stellar streams, leaving other studies of the outer halo to future work.
+
+We perform our visual search by assembling residual density maps of the full DES footprint and in smaller subregions, which we call ``quadrants''.
+Candidates identified in the residual density maps were further examined in color-magnitude space for evidence of a stellar population distinct from the Milky Way foreground (\secref{isochrone}).
+Only candidates that showed a distinct stellar locus consistent with an old, metal poor isochrone were included in our list of stellar stream candidates.
+This search resulted in the detection of the \NKNOWN previously known narrow stellar streams (ATLAS, Phoenix, Tucana III, and Molonglo) and \NSTREAMS new stream candidates.
+We report the measured and derived parameters of our stream candidates in Tables \ref{tab:params} and \ref{tab:deriv}.
+and discuss each candidate in more detail in \secref{streams}. 
+
+\newcommand{\paramcaption}{Measured parameters of stellar streams \label{tab:params}}
+\newcommand{\paramcomments}{
+Measured characteristics of stellar streams detected in DES Y3A2 data. 
+The first section reports DES measurements of previously known streams, while the second section reports narrow streams discovered by DES. 
+The broad stream/stellar overdensity, Palca, is given its own section.
+Endpoints and great circle poles are reported in Celestial coordinates and are derived from the residual stellar density analysis described in \secref{detect}. 
+Stream lengths are calculated as the angular separation between endpoints, while stream widths, $w$, come from the standard deviation of a Gaussian fit to the transverse stream profile.
+Distance moduli, ages, and metallicities were calculated by fitting a \citet{Dotter:2008} isochrone to the Hess diagrams described in \secref{isochrone}. 
+The number of stars is calculated by summing MS stars in the background-subtracted Hess diagram.
+The significance is calculated as the signal-to-noise ratio between the on-stream and off-stream regions.
+}
+\input{table_params}
+
+\newcommand{\derivcaption}{Derived parameters of stellar streams \label{tab:deriv}}
+\newcommand{\derivcomments}{
+Derived physical parameters of stellar streams detected in DES Y3A2 data. 
+Heliocentric distances are calculated by fitting a \citet{Dotter:2008} isochrone to the Hess diagrams described in \secref{isochrone} and have an error of $\roughly 20\%$. 
+Other physical parameters are derived from the measured parameters in \tabref{params} assuming this distance. 
+Stream lengths are calculated from the angular distance between the stream endpoints, while the widths represent the standard deviation of the best-fit Gaussian.
+Stellar masses, absolute magnitudes, and surface brightnesses are derived from the richness of the best-fit isochrone model assuming a \citet{Chabrier:2001} IMF.
+The absolute magnitude is derived from the DES $g$ and $r$ bands following the prescription of \citet{Bechtol:2015}.
+The surface brightness is derived assuming that 68\% of the luminosity is contained within the stream width of $\pm w$. 
+The progenitor masses are estimated using the results of \citet{Erkal:2016}. 
+}
+\input{table_deriv}
+
+\newcommand{\galactocaption}{Galactocentric parameters of stellar streams \label{tab:galacto}}
+\newcommand{\galactocomments}{
+Galactocentric parameters of stellar streams detected in DES Y3A2 data. 
+Transformation into Galactocentric coordinates performed assuming the Earth resides at $(8.3\kpc,0,0)$.
+The Galactocentric azimuthal and polar angles, ($\phi,\psi$), are defined as in Fig.\ 1 of \citet{Erkal:2016}.
+Both endpoints are assumed to be at the heliocentric distance quoted in \tabref{params}.
+}
+\input{table_galacto}
+
+\subsection{Stream Characterization}
+\label{sec:spatial}
+\label{sec:isochrone}
+
+After candidates are identified in the residual density images, we perform an iterative process to fit the characteristics of each stream:
+
+\setlist{nolistsep}
+\begin{enumerate}[noitemsep]
+\item Define stream endpoints from the residual density maps.
+\item Fit the transverse stream width to define an ``on-stream'' region.
+\item Fit isochrone parameters to the CMD of on-stream minus off-stream stars.
+\item Re-fit the transverse stream width using the best-fit isochrone selection.
+\end{enumerate}
+\noindent We describe each of these steps in more detail below.
+
+We defined the endpoints of each stream from the residual stellar density map.
+The residual stellar density map has a pixel scale of $\roughly 0\fdg1$ ($\code{nside} = 512$) and is smoothed by a Gaussian kernel with standard deviation $\sigma = 0\fdg3$.
+For narrow, prominent streams the endpoints can be measured with an accuracy of better than $0\fdg1$; however, for fainter and/or more diffuse structures, measuring endpoints becomes more uncertain.
+The stream length reported in \tabref{params} was calculated as the angular separation between the endpoints assuming that the streams follow a great circle on the sky.
+
+For each stream, we calculate the pole of a great circle passing through the endpoints and rotate into a coordinate system where the fundamental plane is aligned with the long axis of the stream.
+Following the convention of \citet{Majewski:2003}, we define (heliocentric) longitudinal and latitudinal coordinates ($\Lambda,B$) for the rotated coordinate system associated with each stream. 
+
+As an initial estimate for the width of each stream, we rotate the \healpix pixels of our raw and residual density maps into the frame of each stream.
+We then sum the content of \healpix pixels along the transverse stream dimension to provide the transverse stream profile.
+We fit the transverse stream profile with a linear foreground component and a Gaussian stream model with free normalization and standard deviation.
+The standard deviation of the best-fit Gaussian was taken as an estimate of the stream width, and was used to define signal and background regions for the color-magnitude analysis in the following section.
+We repeated this procedure after selecting stars consistent with the best-fit isochrone to derive the final stream width.
+
+Stream candidates were examined in color-magnitude space to confirm the presence of a distinct stellar population matched to an old, metal poor isochrone.
+An ``on-stream'' region was selected along the great circle connecting the stream endpoints. For most streams, this region had a width of $\pm 2w$, where $w$ is the stream width derived from the standard deviation of the best-fit Gaussian.
+Two ``off-stream'' regions were selected with the same shape as the on-stream region, but offset perpendicular to the stream axis by $\pm 4w$. In some cases this on-stream and off-stream geometry was impossible due to the boundary of the survey or the presence of large resolved stellar populations (e.g., other streams, large dwarf galaxies, etc.). The precise on- and off-stream regions selected for each stream are described in \tabref{fits}.
+When building on- and off-stream regions, we excise regions around known globular clusters and dwarf galaxies to avoid contaminating the CMD analysis.
+We calculate the effective solid angle of each region accounting for the excised regions and incomplete survey coverage using the maps described in \secref{filter}.
+We binned the stars in the on-stream region in color-magnitude space with bin size $\Delta g = 0.167$ mag and $\Delta (g-r) = 0.04$ mag.
+We calculated the effective foreground contribution in each bin of the CMD using the off-stream regions and correcting the difference in effective solid angle.
+Hess diagrams were smoothed by a 0.75 pixel Gaussian kernel, and the resulting smooth residual color-magnitude diagram was examined for the presence of a distinct stellar population. 
+
+We performed a binned maximum-likelihood fit of the smoothed two-dimensional background-subtracted Hess diagrams using a synthetic isochrone from \citet{Dotter:2008} weighted by a \citet{Chabrier:2001} initial mass function (IMF).
+We built a binned Poisson likelihood function for the observed number of stars in each CMD bin given the number of stars predicted by our isochrone model convolved by the empirically determined photometric measurement uncertainties (\secref{data}). 
+We simultaneously fit the richness, distance modulus, age, and metallicity of the isochrone model to the observed excess counts in the Hess diagram.
+The richness is a normalization parameter representing the total number of stream member stars with mass ${>}0.1 \Msolar$ \citep{Bechtol:2015}.
+For roughly half the stream candidates, the data were unable to reliably constrain all four parameters simultaneously, and we fixed the age ($\age = 13 \Gyr$) and metallicity ($Z = 0.0004$) while fitting richness and distance modulus.
+Furthermore, we note that there is a significant degeneracy between the age, metallicity, and distance modulus. 
+We estimate a systematic uncertainty on the distance modulus of $\sigma(\mM) \sim 0.4 \magn$, while spectroscopic observations are essential to break the degeneracy between age and metallicity.
+
+Several streams, specifically those closer to the Galactic plane, suffer from over- or under-subtraction due to gradients in the surrounding stellar density.
+Mis-subtraction will bias estimates of the richness and total luminosity.
+To mitigate these issues, we estimate the stellar content of each stream based on the number of MS stars within a region around the best-fit isochrone.
+We apply a narrow isochrone selection based on \eqnref{select} using the best-fit age, metallicity, and distance modulus (\tabref{params}) and the selection parameters $\Delta \mu = 0.5$, $C_{1,2} = (0.05, 0.05)$, and $E=1$.\footnote{We find that this selection is $67 \%$ efficient for  stars in the globular cluster NGC 7089 (M2). This efficiency is taken into account when calculating the richness and stellar mass.}
+We sum the content of the background-subtracted Hess diagram within this selection region.
+We then correct the number of stars for the fraction of the stream width contained in the spatial selection region, to estimate the total number of MS stream stars within the spatial and magnitude range of DES.
+We record this value as $N_*$ in \tabref{params}. 
+We then use the isochrone model along with a \citet{Chabrier:2001} IMF to estimate to total stellar mass, luminosity, and absolute magnitude in \tabref{deriv}. 
+
+We re-fit the stream width after applying an isochrone selection consistent with the best-fit isochrone.
+We also calculate the statistical significance of each stream from the on- and area-corrected off-stream regions, $S \equiv {\rm (on - off)/\sqrt{off}}$. For consistency, all on-stream regions had a width of $\pm w$ for this calculation.
+We report the measured parameters of each stream in \tabref{params} and derived physical parameters in \tabref{deriv}. 
+In addition, we use this absolute magnitude to calculate an average surface brightness, which we estimate assuming 68\% of the luminosity is contained within $\pm w$ of the stream axis.
+
+In \tabref{deriv} we also provide estimates of the progenitor masses. We use the relation between the stream width and the progenitor mass derived in \citet{Erkal:2016}. More precisely, we use Equation~(27) from \citet{Erkal:2016b}, where the progenitor mass is given in terms of the stream width as viewed from the galactic center, and the enclosed mass of the Milky Way at the stream's location. For the mass of the Milky Way, we use the best fit model in \citet{McMillan:2017} who used a range of data to constrain the Milky Way potential. We then use \textsc{galpot} \citep{Dehnen:1998} to evaluate the circular velocity (and hence the enclosed mass), as a function of Galactocentric radius. We note that this method assumes that the streams are on a circular orbit and only works on average for streams on eccentric orbits \citep{Erkal:2016}. Furthermore, this method also assumes that the streams have not fanned out significantly due to being in a non-spherical potential \citep{Erkal:2016}. As such, this method should be seen as giving a rough estimate of the progenitor mass.
+
+In \tabref{galacto} we present stream parameters in Galactocentric coordinates, assuming that the Sun is located $8.3\kpc$ from the Galactic center \citep{deGrijs:2016, Gillessen:2009}.
+Galactocentric Cartesian coordinates are provided for endpoints of each stream assuming the heliocentric distance derived in \tabref{deriv}.
+We provide longitude and co-latitude ($\phi,\psi$) for the pole of a Galactocentric orbit passing through the endpoints of each stream.\footnote{Our definition of $\phi$ and $\psi$ conforms to Figure 1 of \citet[][]{Erkal:2016}.}
+Assuming a single heliocentric distance for each stream naturally introduces a gradient in the Galactocentric radius. 
+We use the average Galactocentric radius when calculating Galactocentric great-circle orbits.
+These Galactocentric parameters are primarily used to identify potential associations in \secref{assocs}.
+
+\section{Stellar Stream Candidates}
+\label{sec:streams}
+
+As part of our search for stellar streams, we divided the DES footprint into four ``quadrants'' (Q1 -- Q4).
+These quadrants were designed to be large enough to fully contain streams spanning $>20\degrees$, while providing a more detailed view than maps of the full footprint could offer.
+These quadrants offer a useful unit to subdivide the DES stellar stream candidates and we discuss each quadrant in turn.
+We choose to name our stellar stream candidates after aquatic terms used by the geographically distinct cultures of India (Q1), Chile (Q2 and Q3), and Australia (Q4).
+
+\begin{figure}[]
+  \centering
+  \includegraphics[width=\columnwidth]{residual_q1_m15p4_v17p2_label}
+  \includegraphics[width=\columnwidth]{residual_q1_m17p5_v17p2_label}
+  \includegraphics[width=\columnwidth]{sfd_ebv_q1}
+  \caption{Residual stellar density map in Q1 after subtracting a smooth background model from the distribution of isochrone filtered stars (equal area McBryde-Thomas flat-polar quartic projection). 
+    Streams are marked with great circles that are aligned with the major axis of the stream and offset perpendicularly by 1\fdg5.
+(Top) Isochrone selection with $\mM = 16.4$. 
+(Middle) Isochrone selection with $\mM = 17.5$. 
+(Bottom) Interstellar reddening, $E(B-V)$, from \citet{Schlegel:1998}.
+    An animated version of this figure can be found online \href{http://home.fnal.gov/~kadrlica/movies/residual_q1_v17p2_label.gif}{at this url}.
+}
+  \label{fig:q1}
+\end{figure}
+
+\subsection{First Quadrant\,\footnote{
+Due to overlap with the constellation Indus, which shares a name with an Indian river, and to honor the tradition of astronomy in India, new stellar stream candidates in this quadrant are named after rivers in India (including the Indus River itself).
+}}
+\label{sec:q1}
+
+The first quadrant (Q1) covers the western portion of the DES footprint from $-45\degrees \lesssim \ra \lesssim 10\degrees$ and $-65\degrees \lesssim \dec \lesssim -40\degrees$.
+While the DES data extend to $\ra \gtrsim -55\degrees$, the low-order polynomial background fit has difficulty modeling the rapidly varying stellar density at these lower Galactic latitudes.
+Q1 includes the Tucana III satellite and stream, the two most prominent new stellar streams, Indus and Jhelum, and two lower significance streams, Chenab and Ravi.
+In addition, diffuse stellar overdensities are found at the northern ($\ra,\dec \sim -28\degrees,-42\degrees$) and southern ($\ra,\dec \sim -10\degrees, -63\degrees$) edges of Q1; however, the footprint boundary makes it difficult to perform a quantitative evaluation of these structures.
+
+\subsubsection{Tucana III Stream}
+\label{sec:tuc}
+
+The Tucana III stellar stream is located at a distance of $\roughly 25 \kpc$, extending at least $\pm 2\degrees$ from the ultra-faint satellite Tucana III \citep{Drlica-Wagner:2015}. 
+We find that Tucana III appears prominently in the Q1 residual density maps with a projected length of 5\degrees extending from \CHECK{$(-6\fdg3, -59\fdg7)$ to $(3\fdg2, -59\fdg4)$} (\figref{q1}).
+
+In \figref{tucana}, we show a Hess diagram calculated by subtracting a local background estimate derived from off-stream regions on either side of the Tucana III stream.
+Despite a well-defined MS and visible RGB, our likelihood analysis has trouble simultaneously fitting the richness, distance modulus, age, and metallicity of the Tucana III stream.
+Assuming a distance modulus of $\mM = 17.0$ \citep{Drlica-Wagner:2015} and a spectroscopically determined metallicity  $Z = 0.0001$ ($\feh = -2.24$) \citep{Simon:2017}, we find that the MSTO of Tucana III is well-described by an age of $\age = 13.5\Gyr$. 
+This is older than the $\tau = 10.9\Gyr$ reported by \citet{Drlica-Wagner:2015}, which is due in part to a correction to the synthetic isochrones using an updated version of the DECam filter throughput \citep{Li:2018}.
+In addition, the change in photometric calibration between the DES Y2Q1 and Y3A2 data sets is found to introduce a small color shift.
+
+Spectroscopic observations have been unable to conclusively classify Tucana III as an ultra-faint galaxy or star cluster \citep{Simon:2017}. 
+The unresolved velocity dispersion ($\sigma_v < 1.5 \kms$ at 95.5\% confidence) and metallicity spread ($\sigma_{\feh} < 0.19$ at 95\% confidence) are both low for an ultra-faint dwarf galaxy. 
+However, the mean metallicity ($\feh = -2.42^{+0.07}_{-0.08}$) and large physical size ($\mathrm{r_{1/2} = 44 \pm 6\ pc}$) are both unusual for a globular cluster. 
+In addition, \citet{Simon:2017} argue that the mass-to-light ratio of the core of Tucana III is larger than that of a globular cluster, $M/L >20 \Msun/\Lsun$, based on its proximity to the Galactic center and the non-detection of a velocity gradient out to 90\pc.
+The core of Tucana III lies slightly offset from the luminosity-metallicity relationship for ultra-faint galaxies \citep{Kirby:2013}.
+\citet{Simon:2017} note that if Tucana III has been stripped of $\roughly 70\%$ of its stellar mass, then it would lie directly on the metallicity-luminosity relation of ultra-faint dwarfs.
+% Stellar mass of the core is 0.8 Msun from Drlica-Wagner (2015)
+We find that the total stellar mass of the Tucana III stream is \CHECK{$2.6\times 10^3 \Msun$}, which is \CHECK{$3.25$} times the stellar mass of the Tucana III core \citep{Drlica-Wagner:2015}.
+This corresponds to a mass loss of \CHECK{$69\%$}, \CHECK{which moves the Tucana III progenitor system onto the luminosity-metallicity relationship for dwarf galaxies.}
+
+We search for indications of a distance gradient following a similar procedure to that applied to the Sagittarius stream by \citet{Koposov:2012}. 
+We transform to a coordinate system oriented along the stream axis and divide the stellar counts into 8 longitudinal bins.
+Within each longitudinal bin, we examine the mean magnitude of MSTO stars satisfying the criteria $0.20 < (g-r) < 0.24$.
+We find that the mean magnitude of the MSTO changes from $g \sim 16.75$ at the western end of the stream to $g \sim 17.19$ on the eastern end. 
+Fitting a linear gradient model to these data yields a distance gradient of $0.16 \pm 0.06 \magn \deg^{-1}$. 
+This measurement implies that the Tucana III stream spans \CHECK{$\roughly 4\kpc$} in distance with a total physical extent of \CHECK{$\roughly 4.5 \kpc$} and that it is on a radial orbit.
+%This gradient suggests that Tucana III is on a radial orbit, which is consistent with the hypothesis of \citet{Simon:2017} that Tucana III is approaching its orbital pericenter with a velocity that is predominantly along the line of sight.
+% This measurement agrees with the hypothesis of \citet{Simon:2017} that Tucana III is near its orbital pericenter with a velocity that is predominantly along the line of sight.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.7\columnwidth]{Hess_Tucana}
+\caption{Background-subtracted binned color-magnitude Hess diagram for stars associated with the Tucana III stellar stream. 
+The background is estimated from an off-stream region parallel to the stream and is area corrected and subtracted from the onstream region.
+The Hess diagram is smoothed with a 2D-Gaussian kernel with a standard deviation of 0.75 pixels.
+Darkly colored pixels correspond to higher residual stellar density while lighter pixels represent underdense regions in color-magnitude space.
+A synthetic isochrone from \citet{Dotter:2008} is over-plotted with best-fit parameters described in \tabref{params}.
+The isochrone fitting procedures are described in \secref{isochrone} and \secref{streams}.
+}
+\label{fig:tucana}
+\end{figure}
+
+\subsubsection{Indus Stream}
+
+\begin{figure*}[]
+  \centering
+  \includegraphics[width=0.24\textwidth]{{Hess_Indus}}
+  \includegraphics[width=0.24\textwidth]{{Hess_Jhelum}}
+  \includegraphics[width=0.24\textwidth]{{Hess_Chenab}}
+  \includegraphics[width=0.24\textwidth]{{Hess_Ravi}}
+  \caption{Hess diagrams for Indus (far left), Jhelum (center left), Chenab (center right), and Ravi (far right) stellar stream candidates in DES quadrant one.
+Over-plotted in each panel is a \citet{Dotter:2008} synthetic stellar isochrone with parameters determined from the best-fit in \tabref{params}.
+These panels are similar to \figref{tucana}.
+}
+  \label{fig:q1_hess}
+\end{figure*}
+
+
+Indus is the first of \CHECK{4} new stellar stream candidates detected in Q1.
+Indus has an angular extent of \CHECK{$20\fdg3$} with a projected width of \CHECK{$0\fdg83$}. 
+It may extend beyond the southern edge of the DES footprint in the direction of the SMC; however, at a best-fit distance of \CHECK{16.6\kpc ($\mM = 16.1$)}, it is unlikely that there is a physical association between the Indus stream and the Magellanic Clouds (located $\roughly 3$ times farther away).
+The physical width of the Indus stream, \CHECK{$\sigma = 240 \pc$ (${\rm FWHM} = 565 \pc$)}, is comparable to that of the Orphan stream \citep[${\rm FWHM} = 688\pc$;][]{Belokurov:2007b}, and considerably larger than known globular cluster streams.
+There is no obvious progenitor for Indus (\secref{assocs}); however, its width may indicate that the Indus stream is the disrupted remains of a faint dwarf galaxy.
+
+The MS of the Indus stream is seen prominently in color-magnitude space (\figref{q1_hess}), with an estimated absolute magnitude of \CHECK{$M_V = -6.2$} (\tabref{deriv}).
+The measured metallicity of the Indus stream, \CHECK{$Z = 0.0007$ ($\feh = -1.4$)}, is considerably higher than would be expected for a dwarf galaxy with similar luminosity \citep{Kirby:2013}.
+The proximity of the Galactic bulge makes it difficult to model the stellar foreground in the vicinity of Indus, and it is possible that foreground contamination in the RGB of Indus may be artificially inflating the measured metallicity (an even more pronounced example can be seen in Jhelum).
+
+The southern portion of the Indus stream becomes confused with a more distant diffuse stellar structure ($\mM \geq 16.5$) that extends towards the Tucana III stream. 
+Due to the incomplete southern coverage of DES, we cannot determine whether this is the signature of another stream or a diffuse stellar cloud. 
+Other DECam imaging in the regions of the Magellanic Clouds -- e.g. the Survey of the Magellanic Stellar History \citep[SMASH;][]{Nidever:2017} and the Magellanic Satellites Survey \citep[MagLiteS;]{Drlica-Wagner:2016, Pieres:2017} -- may be able to clarify this question in the near future.
+However, kinematic information will be necessary to test for any physical connection between Indus/Tucana III and this putative diffuse structure.
+
+\subsubsection{Jhelum Stream}
+
+The Jhelum stream is comparable to Indus in width, \CHECK{$w = 1\fdg16$}, and due to its orientation on the sky, a longer portion of the stream is contained within the DES footprint (\CHECK{$L \sim 29\fdg2$}).
+At a distance of 13.2\kpc ($\mM = 15.6$), Jhelum is closer than Indus; however, both streams can be detected by our isochrone selection simultaneously for distance moduli $15.0 \lesssim \mM \lesssim 16.2$.
+The average physical width of Jhelum is \CHECK{267 pc}, though narrowing is seen at the eastern end of the stream.
+While Jhelum appears curved in \figref{q1}, the observed curvature is well-matched by a celestial great circle on the sky.
+
+The Hess diagram for the Jhelum stream shows a prominent MS, but also shows some foreground contamination above the MSTO as well as some evidence of over-subtraction. In order to reduce contamination, we selected a narrower on-stream region of width $\pm w$.
+Additionally, to reduce the impact of Galactic foreground stars, we first fit the richness, distance modulus, age, and metallicity using just the eastern portion of the stream (higher Galactic latitude).
+We fix the age and metallicity at the best-fit values from this initial fit and then refit the richness and distance modulus using the full extent of the stream.
+Similar to Indus, we find a high metallicity, \CHECK{$Z = 0.0009$}, which is likely influenced by foreground contamination.
+
+The physical similarity and proximity of the Indus and Jhelum streams is suggestive of a possible physical connection between the two streams. 
+To investigate the possibility that Indus and Jhelum may be different orbital arms of the same progenitor, we transformed both into Galactocentric coordinates (\tabref{galacto}). 
+We find that the two streams are at a similar Galactocentric radius, \CHECK{$R_{\rm GC} \sim 11 - 13 \kpc$}, but that the Galactocentric great-circle orbits have poles that differ by \CHECK{$\roughly22\degrees$}.
+%Assuming a flattened Galactic potential, the change in the polar angle per orbit is 
+%\begin{equation}
+%\delta \phi = \pi (1-1/q^2) \sin(\psi)\cos(\psi)
+%\end{equation}
+For a flattening $q = 0.9$ and an initial polar angle \CHECK{$\psi = 75\degrees$}, the expected precession after one orbit is \CHECK{$\Delta \phi \sim -10\degrees$} \cite{Erkal:2016}. This suggests that if Indus and Jhelum are associated with the same progenitor, that progenitor has experienced a more highly asymmetric gravitational potential.
+Such precession is possible if the progenitor is on an eccentric orbit that takes it close to the Galactic plane, or if the Milky Way halo is more heavily flattened than previously expected.
+Additional kinematic information is necessary to confirm or refute this hypothesis.
+
+
+\subsubsection{Ravi Stream}
+\label{sec:ravi}
+
+The Ravi stream candidate is a tenuous feature detected in Q1.
+It extends from the lower region of the DES footprint up to the Q1 northern overdensity described in \secref{chenab}.
+The Ravi stream is close to the Tucana II dwarf galaxy in projection; however, a fit to the Hess diagram in \figref{q1_hess} puts it at less than half the distance.
+Due to its higher Galactic latitude and orientation nearly parallel to the Galactic plane, the CMD of Ravi appears considerably cleaner than some of the other streams in this quadrant, with a pronounced main sequence, and less indication of foreground contamination at bright magnitudes.
+We report the best-fit the age, metallicity, and distance modulus in \tabref{params}.
+
+
+\subsubsection{Chenab Stream}
+\label{sec:chenab}
+
+The Chenab stream candidate runs nearly perpendicular to Indus and Jhelum, but at a significantly larger distance of \CHECK{$39.8 \kpc$ ($\mM = 18.0$)}.
+Like the other new streams in this quadrant, Chenab has a large angular size, \CHECK{$0\fdg71$}, and a physical width of \CHECK{$\sigma = 493 \pc$}.
+The measured extent of Chenab is \CHECK{$18\fdg5$ ($12.9 \kpc$)}. 
+The analysis of the Chenab stream is complicated by contamination from Milky Way foreground.
+
+Chenab intersects a diffuse stellar overdensity near the northern edge of the DES footprint.
+This overdensity spans from $-32\degrees \lesssim \ra \lesssim -22\degrees$ and $-45\degrees \lesssim \dec \lesssim -40\degrees$ and is apparent in the residual density maps selected for isochrones between $17 < \mM < 19$.
+It is possible that this overdensity could be an extended spur of the Sagittarius stream, the ridge line of which passes $\roughly 11\degrees$ from the northwest corner of the DES footprint at a heliocentric distance of $\roughly 25 \kpc$ ($\mM \roughly 17$) \citep{Majewski:2004, Law:2005}.
+
+\subsection{Second Quadrant\,\footnote{To honor the long astronomical tradition in Chile (home of the Blanco telescope), we name stellar streams in Q2 and Q3 after Chilean rivers and aquatic terms in native Chilean tongues. Aliqa Uma is the Aymara term for "peaceful water" and Willka Yaku is the Quechua term for "sacred water."}}
+
+The second quadrant (Q2) spans from $0\degrees < \ra \lesssim 60\degrees$ and $-42\degrees < \dec < 7\degrees$ (\figref{q2}). 
+This quadrant contains the Sagittarius stream, which we have masked from our analysis in order to increase our sensitivity to fainter new streams. 
+We detect \CHECK{4} narrow streams in this region, including the previously known ATLAS \citep{Koposov:2014} stream and a possible extension of the Molonglo \citep{Grillmair:2017} stream, and two newly detected streams that we name Elqui and Aliqa Uma. 
+In addition, we find a long, diffuse structure that extends along the height of Q2 intersecting the Eridanus-Phoenix stellar overdensity lower in the DES footprint \citep{Li:2016}. 
+We name this structure the Palca stream and discuss it in more detail in \secref{palca}.
+
+\begin{figure*}[]
+  \centering
+  \includegraphics[width=0.32\textwidth]{residual_q2_m17p6_v17p2_label}
+  \includegraphics[width=0.32\textwidth]{residual_q2_m18p4_v17p2_label}
+  \includegraphics[width=0.32\textwidth]{sfd_ebv_q2}
+  \caption{Residual density maps in Q2 (similar to \figref{q1}).
+    The Sagittarius stream has been masked to optimize the search for faint stellar streams.
+    The Fornax ($\ra,\dec = 40\fdg0,-34\fdg4$) and Sculptor ($\ra,\dec = 15\fdg0,-33\fdg7$) dwarf galaxies have been masked along with several globular clusters and Local Group galaxies.
+    (Left) The residual density map for $m-M = 16.4$ showing the ATLAS and Aliqa Uma streams, with a hint of the Elqui stream.
+    (Middle) The residual density map for $m-M = 18.4$. 
+    The Elqui stream appears prominently, while the southeastern portion of ATLAS is still visible.
+    Molonglo has a relatively high metallicity (Z=0.001) and is therefore not visible with this selection.
+    (Right) Interstellar reddening,  $E(B-V)$, from \citet{Schlegel:1998}. 
+    An animated version can be found online \href{http://home.fnal.gov/~kadrlica/movies/residual_q2_v17p2_label.gif}{at this url}.
+}
+  \label{fig:q2}
+\end{figure*}
+
+\begin{figure*}
+  \centering
+  \includegraphics[width=0.24\textwidth]{{Hess_ATLAS}}
+  \includegraphics[width=0.24\textwidth]{{Hess_Molonglo}}
+  \includegraphics[width=0.24\textwidth]{{Hess_Elqui}}
+  \includegraphics[width=0.24\textwidth]{{Hess_Aliqa_Uma}}
+  \caption{Hess diagrams for the ATLAS (far left), Molonglo (center left), Elqui (center right), and Aliqa Uma (far right) stream candidates in DES quadrant two (Q2). 
+Over-plotted in each panel is a \citet{Dotter:2008} synthetic stellar isochrone with parameters determined from the best-fit in \tabref{params}.
+These panels are similar to \figref{tucana}.
+  \label{fig:q2_hess}}
+\end{figure*}
+
+\subsubsection{ATLAS Stream}
+\label{sec:atlas}
+
+The ATLAS stream is a narrow stellar stream discovered in the first data release of the VST ATLAS survey, which covered a declination slice around the stream from $-37\degrees \lesssim \dec \lesssim -25\degrees$ to a limiting magnitude of $r \sim 22$ \citep{Koposov:2014}.
+The ATLAS stream was later studied by \citet{Bernard:2016} using the larger sky coverage provided by Pan-STARRS.
+The DES analysis is deeper than both VST ATLAS and Pan-STARRS, $g = 23.5$, and extends the sky coverage around ATLAS to lower declinations.
+The ATLAS stream does not appear to extend significantly beyond the length described by \citet{Koposov:2014}, ending at \CHECK{$(\ra,\dec) \sim (30\fdg7, -33\fdg2)$}.
+At higher declination it becomes difficult to disentangle the ATLAS stream from the much more luminous Sagittarius stream before hitting the boundary of the DES footprint at $(\ra,\dec) \sim (9\fdg3, -20\fdg9)$.
+Using Pan-STARRS data, \citet{Bernard:2016} have extended ATLAS to $\dec \sim -15\degrees$ leading to a total length of $\roughly 28\degrees$, of which $22\fdg6$ is contained within DES.
+ 
+We follow the procedure described in \secref{detect} to characterize the physical properties of the ATLAS stream. 
+The deeper DES data prefer a slightly larger distance of \CHECK{22.9\kpc ($\mM \sim 16.8$)}, which is marginally consistent with the previously measured distance, $20 \pm 2 \kpc$, derived using the VST ATLAS data \citep{Koposov:2014}.
+At a distance of $22.9\kpc$, the visible portion of the ATLAS stream extends \CHECK{$9.0 \kpc$}.
+We independently fit the distance modulus to each half of the ATLAS stream and find evidence that the southwestern portion of ATLAS has a distance modulus that is $\roughly 0.3 \magn$ larger than the northeastern portion.  
+The southwestern portion of ATLAS is detectable in the residual density maps at distance modulus of $\mM > 18.0$
+The stellar density is not uniform along the length of ATLAS and we note a roughly spherical overdensity in the southwestern portion at $(\ra,\dec) = (25\fdg37,-30\fdg13)$. 
+This overdensity is visible at lower significance in Figure 1 of \citealt{Koposov:2014}.
+The DES data suggest a fainter absolute magnitude for the ATLAS stream, \CHECK{$M_V = -4.5$}, compared to that estimated in the VST ATLAS data, $M_V \sim -6$ \citep{Koposov:2014}.
+
+\figref{atlas} shows the spatial distribution of stars in a coordinate system aligned with the endpoints of the ATLAS stream.  
+Following the procedure described in \secref{spatial}, we fit the width of the ATLAS stream with a Gaussian model on top of a linear background. 
+Our measured width of the ATLAS stream, $w = 0\fdg24$, is consistent with $w = 0\fdg25$ reported by \citet{Koposov:2014}. 
+However, it is also clear in \figref{atlas} that the ATLAS stream deviates appreciably from a great circle on the sky, which would lie along the equator.
+We find that the ridgeline of the ATLAS stream is well-described over the range $9\fdg3 < \ra < 30\fdg7$ by a second-order polynomial of the form
+\begin{equation}
+\label{eqn:atlas}
+\dec = -15.637 - 0.545 (\ra) - 0.001(\ra)^2.
+\end{equation}
+
+Interestingly, \figref{atlas} also appears to show an underdensity in the stream at $\Lambda \sim 4\degrees$ which is approximately $2\fdg5$ in size. 
+We caution that this underdensity occurs in a region where the polynomial background fit is complicated by the proximity of the Sagittarius stream. 
+Over-subtraction of the background could manifest as an underdensity in the residual map.
+However, if this underdensity is real it could be due to perturbations by subhaloes around the Milky Way \citep[e.g.][]{Ibata:2002,Johnston:2002}. \citet{Erkal:2016b} estimated the typical size and number of gaps in the ATLAS stream due to subhaloes and found a characteristic gap size of $\sim 4 \degrees$ with 0.1 gaps expected. However, this prediction depends on the length of the ATLAS stream and therefore given the increased length of the ATLAS stream detected in this work and in Pan-STARRs \citep{Bernard:2016}, the predicted number of gaps is an underestimate. If the underdensity is confirmed then the gap can be used to infer the properties of the subhalo which created the gap \citep[][]{Erkal:2015b} and the statistical properties of the stream density can be used to place constraints on the number of subhaloes in the Milky Way \citep[][]{Bovy:2017}.
+
+\begin{figure*}[htb!]
+\centering
+\includegraphics[width=0.8\textwidth]{ATLAS_zoom_m16p8_v17p2}
+\caption{Residual stellar density along the ATLAS stream for a distance modulus selection of $\mM = 16.8$. Both the stellar counts and background model have been smoothed by a Gaussian kernel with width 0\fdg3. The ATLAS stream has noticeable curvature, which can be seen by comparing the best-fit second-order polynomial from \eqnref{atlas} (red solid line) to the plane of a great circle on the sky (blue dashed line).}
+\label{fig:atlas}
+\end{figure*}
+
+
+\subsubsection{Molonglo Stream}
+\label{sec:molonglo}
+
+The Molonglo stream was identified as a faint, narrow feature in data from Pan-STARRS \citep{Grillmair:2017}.
+We extrapolate Equation~(2) from \citet{Grillmair:2017} to detect a narrow, $\roughly 8\degree$ extension of the Molonglo stream in the DES data offset by $\lesssim 2 \degrees$.
+Molonglo is the only stream that is detected based on prior information from another survey and there is some risk of confirmation bias.
+In fact, Molonglo is the least apparent feature in the residual density maps, due in part to its proximity to the Sagittarius stream.
+However, the Hess diagram for Molonglo shows a clear MS and MSTO (\figref{q2_hess}), and the stream has a detection significance of \CHECK{$5.2\sigma$}.
+After fixing the age ($\age = 13.5\Gyr$) and metallicity ($Z=0.0010$) to match the Hess diagram, we fit the distance modulus and richness of Molonglo.
+We determine a distance of \CHECK{22.9\kpc ($\mM = 16.8$)}, which agrees with the estimated distance of 20\kpc from \citet{Grillmair:2017}.
+However, the foreground subtraction in this region is difficult, and the remaining contamination may have artificially inflated the metallicity.
+Our best-fit width of \CHECK{$0\fdg32$} is narrower than the $\roughly0\fdg5$ reported by \citet{Grillmair:2017}; however, it is unclear whether his width was measured after convolving with a $0\fdg4$ Gaussian kernel.
+We do not find evidence of the other three streams identified by \citet{Grillmair:2017}.
+
+\subsubsection{Elqui Stream}
+\label{sec:elqui}
+
+At a heliocentric distance of \CHECK{$D_{\sun} = 50.1 \kpc$}, the Elqui stream is the most distant stream discovered in the DES Y3A2 data.
+Fitting the southwestern and northeastern halves of Elqui independently shows a shift in distance modulus from \CHECK{18.2 to 18.5}, corresponding to a physical change in distance of \CHECK{6.5 \kpc} over a length of \CHECK{8.2 \kpc}.
+The Elqui stream is broad and may show slight curvature on the sky, which is unexpected for a stream at large Galactocentric radius. 
+The background galaxy NGC 300 resides at $(\ra,\dec) \sim (13\fdg7,-37\fdg7)$, but is unrelated to the much closer Elqui stream.
+
+Elqui resides at similar Galactocentric distance to the LMC and overlaps (in projection) the gaseous component of the Magellanic Stream \citep{Nidever:2008}.
+Transforming to the Magellanic Stream coordinates defined by \citet{Nidever:2008}, the endpoints of Elqui are located at \CHECK{$L_{\rm MS},B_{\rm MS} \approx (-49\fdg1, 1\fdg8), (-40\fdg7, 6\fdg1)$}.
+The proximity between Elqui and the Magellanic Stream suggests that Elqui may in fact be stellar ejecta from a past collision between the LMC and SMC \citep{Besla:2010,Besla:2012}.
+\citet{Besla:2012} suggests that a recent collision between the LMC and SMC could explain many of the observed features of the Magellanic system.
+If Elqui indeed formed as the result of such a collision, its existence could be used to further constrain the infall history of the Magellanic Clouds.
+
+Evidence of stellar ejecta from the Magellanic Clouds is observed elsewhere in the DES footprint.
+The so-called ``SMC northern overdensity'' \citep{Pieres:2016} is located $\roughly 8\degrees$ from the SMC on the southern edge of the DES footprint $(\ra,\dec) \sim (15\degrees, -65\degrees)$ and is visible in isochrone selections with $\mM \gtrsim 18$.
+Establishing complete DECam coverage around the Magellanic Clouds promises additional insight into how the Magellanic Clouds have shaped the Milky Way halo.
+
+\subsubsection{Aliqa Uma Stream}
+\label{sec:fornax}
+
+The Aliqa Uma stream resides at the southern end of the ATLAS stream, extending from \CHECK{$\ra,\dec \sim (31\fdg7, -31\fdg5)$ to $\ra,\dec \sim (40\fdg6, -38\fdg3)$}. 
+While the northern end of this stream is in close proximity to the southern end of the ATLAS stream, the difference in orientation and distance modulus, \CHECK{$\mM = 17.3$}, leads us to classify it as a distinct system rather than an extension of ATLAS.
+While this stream crosses close to the Fornax dwarf galaxy in projection, it is substantially closer and the two systems are very unlikely to be physically associated.
+The presence of Fornax and ATLAS bracketing the much fainter Aliqa Uma stream makes it difficult to establish a good background selection region.
+
+\subsection{Third Quadrant}
+\label{sec:q3}
+
+
+\begin{figure}[]
+  \centering
+  \includegraphics[width=\columnwidth]{residual_q3_m16p5_v17p2_label}  
+  \includegraphics[width=\columnwidth]{residual_q3_m17p6_v17p2_label}
+  \includegraphics[width=\columnwidth]{sfd_ebv_q3}
+  \caption{Residual density maps in Q3 (similar to \figref{q1}). 
+    (Top) An isochrone selection with $\mM = 16.5$ shows the Phoenix and Tubio streams superposed on the EriPhe overdensity.
+    (Middle) The Willka Yaku stream can be seen in a selection for $\mM = 17.6$.
+    (Bottom) Interstellar reddening,  $E(B-V)$, from \citet{Schlegel:1998}.
+    An animated version of this figure can be found online \href{http://home.fnal.gov/~kadrlica/movies/residual_q3_v17p2_label.gif}{at this url}.
+}
+  \label{fig:q3}
+\end{figure}
+
+
+\begin{figure*}[t]
+  \centering
+  \includegraphics[width=0.25\textwidth]{{Hess_Phoenix}}
+  \includegraphics[width=0.25\textwidth]{{Hess_Willka_Yaku}}
+  \includegraphics[width=0.25\textwidth]{{Hess_Turbio}}
+  \caption{Hess diagrams for the Phoenix (left),  Willka Yaku (center), and Turbio (right) streams found in DES Q3. 
+Over-plotted in each panel is a \citet{Dotter:2008} synthetic stellar isochrone with parameters determined from the best-fit in \tabref{params}.
+These panels are similar to \figref{tucana}.
+  \label{fig:q3_hess}}
+\end{figure*}
+
+The third DES quadrant (Q3) covers the region from $5\degrees \lesssim \ra \lesssim 60\degrees$ and $-65\degrees \lesssim \dec \lesssim -42\degrees$. 
+This quadrant resides above the LMC and SMC, and overlaps heavily with the EriPhe stellar overdensity \citep{Li:2016}.
+Several linear structures are detected in this region; however, it is difficult to conclusively differentiate them from a diffuse component of EriPhe.
+In addition to the Phoenix stream \citep{Balbinot:2016}, we identify two new stream candidates, Turbio and Willka Yaku. 
+
+\subsubsection{Phoenix Stream}
+\label{sec:phoenix}
+
+The Phoenix stream is a narrow stellar stream discovered in the DES Y1A1 data \citep{Balbinot:2016}.
+Since the DES analysis of the Phoenix stream is discussed in great detail in \citet{Balbinot:2016}, we offer only a brief discussion here.
+The Y3A2 data provide a deeper and more complete catalog with improved photometric accuracy; however, the qualitative characteristics of the Phoenix stream are predominantly unchanged.
+It remains a clumpy and knotted stream, consisting of a more-or-less symmetric distribution of overdensities.
+The parameters that we derive for the Phoenix stream largely agree with those of \citet{Balbinot:2016}.
+ We measure a distance of \CHECK{$19.1 \kpc$ ($\mM=16.4$)}, which is slightly larger than the value measured previously ($17.5 \pm 9 \kpc$).
+Similar to \citet{Balbinot:2016} we find no indication of a distance gradient.
+
+\subsubsection{Turbio Stream}
+\label{sec:turbio}
+
+We find a linear feature near the center of the EriPhe stellar overdensity, which constitutes a candidate stream named Turbio.
+While Turbio is detected above the background of EriPhe with a significance of \CHECK{$7.9\sigma$}, it would be very surprising if the two were not physically associated.
+It is likely that Turbio stands out more prominently in our analysis compared to that of \citet{Li:2016} due to improved photometric calibration ($\roughly 0.7\%$ vs.\ $\roughly 2\%$), increased depth ($g < 23.5$ vs.\ $g < 22.5$), and improved spatial resolution (smoothing kernel of $0\fdg3$ vs.\ $0\fdg5$).
+
+The MS of Turbio is detected in a Hess diagram that subtracts a neighboring region of EriPhe to the east of the structure (\figref{q3_hess}).
+We fit an isochrone with fixed age and metallicity ($\age = 13.0\Gyr$, $Z=0.0004$) and find a best-fit distance modulus of $\mM = 16.1$, which is indistinguishable from that of EriPhe and the nearby globular cluster NGC 1261.
+\citet{Li:2016} suggest that EriPhe may have a common origin with the Virgo Overdensity \citep{Juric:2008} and the Hercules-Aquila cloud \citep{Belokurov:2007c}.
+However, the orientation of Turbio is nearly perpendicular with the orbit necessary to connect these three diffuse structures.
+In addition, Turbio may constitute a dense portion of the larger Palca structure that is seen to extend northward from the EriPhe cloud.
+
+
+
+\subsubsection{Willka Yaku Stream}
+\label{sec:reticulum}
+
+Willka Yaku is a short and relatively narrow stream that extends $\roughly 6\degrees$ from the southern edge of the DES footprint.
+Willka Yaku sits on the south eastern boundary of the EriPhe cloud and we find a significant gradient in the stellar density transverse to the stream.
+To reduce the effects of foreground contamination, we fit only the more prominent northern half of the stream (\figref{q3_hess}).
+A simultaneous fit of age, metallicity, and distance modulus yields a best-fit distance of \CHECK{$34.7\kpc$ ($\mM = 17.7$)}.
+This places Willka Yaku at a significantly larger distance than EriPhe, and makes a  physical association less likely.
+
+\subsection{Fourth Quadrant\,\footnote{To honor the long tradition of astronomy in Australia (stretching back tens of thousands of years), stellar stream candidates in this quadrant are named after Aboriginal terms for rivers in Australia.}}
+\label{sec:q4}
+
+The fourth quadrant of DES (Q4) spans from $60\degrees \lesssim \ra \lesssim 95\degrees$ and $-65\degrees < \dec < -15\degrees$.
+It contains the globular clusters NGC 1851 and NGC 1904, and structure from the Monoceros Ring can be seen in the direction of the Galactic anti-center. 
+The proximity of the Monoceros and the Galactic plane make background subtraction difficult near the eastern edge of this region.
+Inspection of the residual density maps yields two stellar stream candidates, Turranburra and Wambelong, which are reasonably wide ($w \sim 0\fdg5$) and detected at moderate significance.
+
+\begin{figure*}[t]
+  \centering
+  \includegraphics[width=0.32\textwidth]{residual_q4_m16p4_v17p2_label}
+  \includegraphics[width=0.32\textwidth]{residual_q4_m17p6_v17p2_label}
+  \includegraphics[width=0.32\textwidth]{sfd_ebv_q4}
+  \caption{Residual density maps in Q4 (similar to \figref{q1}). 
+    (Left) Residual stellar density at $\mM = 16.4$ showing the Wambelong stream. 
+    (Middle) The Turranburra stream can be seen in a selection with $\mM = 17.6$.
+    (Right) Interstellar reddening,  $E(B-V)$, from \citet{Schlegel:1998}.
+    An animated version of this figure can be found online \href{http://home.fnal.gov/~kadrlica/movies/residual_q4_v17p2_label.gif}{at this url}.
+}
+  \label{fig:q4}
+\end{figure*}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.49\columnwidth]{{Hess_Turranburra}}
+  \includegraphics[width=0.49\columnwidth]{{Hess_Wambelong}}
+  \caption{Hess diagrams for the Turranburra (left) and Wambelong (right) stream candidates found in DES quadrant four (Q4). 
+Over-plotted in each panel is a \citet{Dotter:2008} synthetic stellar isochrone with parameters determined from the best-fit in \tabref{params}.
+These panels are similar to \figref{tucana}.
+  \label{fig:q4_hess}}
+\end{figure}
+
+\subsubsection{Turranburra Stream}
+\label{sec:eridanus}
+
+The Turranburra stream stretches across the northern portion of Q4, extending from \CHECK{$(\ra,\dec) = (59\fdg3, -18\fdg0)$ to $(\ra,\dec) = (75\fdg2, -26\fdg4)$}.
+The Hess diagram of this stream shows a prominent MS and a hint of an RGB (\figref{q4_hess}).
+We estimate that this structure resides at a distance of \CHECK{$27.5\kpc$} and has a width of \CHECK{$288 \pc$}.
+The physical width of Turranburra is more consistent with a dwarf galaxy progenitor, and the photometric estimate of metallicity of $Z = 0.0003$ is comparable to photometric metallicities determined for ultra-faint galaxies \citep[\eg,][]{Bechtol:2015}. 
+The extent of Turranburra is somewhat uncertain due to its proximity to the edge of the DES footprint and its diffuse nature, especially at its north western end.
+The orbit of Turranburra appears to be distinct from other known streams and globular clusters, without any obvious association or potential progenitor.
+
+\subsubsection{Wambelong Stream}
+\label{sec:wambelong}
+
+The Wambelong stream stretches northward from the eastern edge of the DES footprint, spanning \CHECK{$\roughly 14\degrees$} from \CHECK{$(\ra, \dec) \sim (90\fdg5, -45\fdg6)$ to $(\ra, \dec) \sim (79\fdg3, -34\fdg3)$}.
+The eastern extent of Wambelong is difficult to determine due to confusion with foreground stars associated with the Galactic anticenter and the Monoceros Ring \citep{Newberg:2002,Yanny:2003}.
+The signature of Wambelong peaks at a heliocentric distance of \CHECK{$\roughly 15.1\kpc$ ($\mM \sim 15.9$)} with no strong indication of a distance gradient.
+A residual overdensity at $(\ra,\dec) \sim (70\fdg4,-23\fdg9)$ is aligned with the Wambelong stream and may suggest that this stream is nearly twice as long as our conservative estimate.
+%However, it appears to be most prominent at a slightly larger distance modulus ($\mM \sim 16.7$).
+
+\subsection{Diffuse Overdensities}
+\label{sec:palca}
+
+While the search described here is optimized for $\lesssim 1\degree$-wide stellar features, we note that we are sensitive to more diffuse stellar systems.
+Without the directionality of a narrow stream, interpreting the origin and physical parameters of these diffuse structures becomes much more difficult.
+However, we do note that the DES Y3A2 data unambiguously confirms the existence of the EriPhe overdensity \citep{Li:2016}, and shows strong indications of additional substructure around or within this system.
+Apart from the aforementioned Phoenix, Turbio, and Willka Yaku streams, there are several lower significance linear structures that overlap EriPhe at a heliocentric distances of \CHECK{$\roughly 16.6\kpc$ ($\mM = 16.1$)}.
+One pronounced feature runs nearly east-west with $\delta \approx -56\degrees$ (\figref{q3}). 
+Unfortunately, image-level masking around the super-saturated star Achernar ($\ra,\dec = 24\fdg43,-57\fdg24$) complicates the interpretation of the southern portion of EriPhe.
+
+The Palca \footnote{Palca is the Quechua word for "cross of rivers."} stream is a broad curvilinear overdensity in the Y3A2 data that extends northward from EriPhe at $\ra \sim 30\degrees$.
+Palca extends from the Turbio stream in the south to the northern boundary of the DES footprint, crossing the Sagittarius stream at $\ra \sim 20\degrees$.
+Palca is more diffuse than the other streams discovered in DES Y3A2 (FWHM $\roughly 2\degrees$).
+To increase our sensitivity to this broad feature, we convolve the residual density maps by a 1\degrees kernel and plot in celestial coordinates (\figref{palca}).
+We find that the northern part of Palca is at a significantly larger distance, $\roughly 36\kpc$ ($\mM \sim 17.8$), than EriPhe.
+It is unclear whether this is a signature of a distance gradient from EriPhe to Palca, or whether these are two distinct systems.
+Assuming that Palca spans the DES footprint (i.e., overlapping with EriPhe), the ridgeline of this structure can be approximated with a second-order polynomial of the form:
+\begin{equation}
+\ra = 17.277 - 0.495 \dec -0.0046 \dec^2.
+\end{equation}
+The above equation is found to be valid for $-55\degrees < \dec < 2\fdg5$.
+Palca shows appreciable curvature on the sky, suggesting that it may be in a modestly elliptical orbit.
+The orbital trajectory of Palca is strongly misaligned with the proposed polar orbit connecting EriPhe with the Virgo Overdensity and the Hercules-Aquila cloud \citep{Li:2016}. 
+A physical association between Palca and EriPhe would disfavor this hypothesis.
+However, the orbit of Palca may be broadly consistent with another scenario proposed by \citet{Li:2016} suggesting that EriPhe may be the remnants of a disrupted dwarf galaxy originally associated with NGC 1261 and the Phoenix stream.
+
+\begin{figure*}
+  \centering
+  \includegraphics[width=0.75\textwidth]{palca_mbtpq_17p8.pdf}
+  \caption{Residual density map for an isochrone selection at $\mM = 17.8$ smoothed by a 1\degree Gaussian kernel. 
+The Palca overdensity (bracketed in red) runs along the north-south direction at $\ra \sim 30\degrees$. 
+At low declination Palca overlaps the EriPhe stellar overdensity with roughly the same orientation as the Turbio stream.
+The ATLAS, Elqui, Tucana III, Chenab, Willka Yaku, and Turranburra streams are also visible in this map.
+ \label{fig:palca}
+  }
+\end{figure*}
+
+\subsection{Globular Clusters}
+
+The DES Y3A2 footprint contains five classical globular clusters (NGC 288, NGC 1261, NGC 1851, NGC 1904, and NGC 7089) and four more distant clusters (Whiting 1, AM-1, Eridanus, and Reticulum).
+While a full investigation of globular clusters is outside the scope of the current paper, we note that our analysis is sensitive to stellar features around these clusters.
+Four of the classical globular classical clusters (NGC 288, NGC 1261, NGC 1851, and NGC 1904) show hints of extended stellar structure.\footnote{NGC 7089 (M2) is located in the narrow Stripe 82 region of the DES footprint. The narrow width of this region and the large density of foreground stars make a search for extended structure challenging.}
+These features are detectable with the generic isochrone selection described in \secref{analysis} and can be seen in the animations associated with \figref{isosel2}.
+However, to optimize our sensitivity to faint features, we built individual matched-filter selections for each cluster using the CMD of stars within an annulus of $4\farcm2 < r < 7\farcm2$ around each cluster.
+We create an optimal weighting by taking the ratio between the density (in color-magnitude space) of cluster member stars compared to the Milky Way foreground population averaged over the DES footprint, 
+\begin{equation}
+w_{i,j} = f_{\rm gc}(i,j)/f_{\rm mw}(i,j)
+\end{equation}
+where $i,j$ index the color and magnitude bins, $f_{\rm gc}(i,j)$ is the normalized density of cluster stars per bin, $f_{\rm mw}(i,j)$ is the normalized density of Milky Way stars, and $w_{i,j}$ is the weighting \citep{Rockosi:2002}.
+We mask circular regions comparable to the Jacobi radii of each cluster (\tabref{globulars}) and convolve the selected stellar density with a Gaussian kernel with $\sigma = 0\fdg25$.
+We follow the same procedure to derive a global polynomial fit to the smoothed density of selected stars and create residual density maps from the difference between the data and the polynomial fit (\figref{globulars}).
+
+We compare the observed stellar features to predictions about orbital motion and tidal tail formation in each globular cluster.
+We simulated the orbits of the globular clusters using the spray-particle implementation by \citet{Kuepper:2012}, where the  escape velocity was modified to match that observed in $N$-body simulations with realistic tidal fields \citep{Claydon:2016}.
+We assume a Milky Way potential similar to the best-fit Palomar 5 model \citep{Kuepper:2015}, but with a Jaffe bulge. 
+The cluster initial mass is obtained using the method outlined in \citet{Balbinot:2018}.  
+The tidal tail formation was simulated for the last 6\Gyr of the cluster history and particles were released every 1\Myr.
+
+The heliocentric distance, sky position, line-of-sight velocity, and integrated magnitude for each cluster was taken from \citet[updated 2010][]{Harris:1996}.
+Proper motions for NGC 288 and NGC 1851 are taken from \citet{Dinescu:1997}, for NGC 1904 we used values from \citet{Dinescu:1999}, and for NGC 1261 we used values from \citet{Dambis:2006}.
+These parameters are summarized in \tabref{globulars}.
+Our simulations assumed a Galactocentric solar position of $(8.3\kpc, 0, 0)$, a local reflex motion of $U,V,W = (11.1, 12.24, 7.25) \kms$ \citep{Schonrich:2010}, and a circular solar velocity of $U,V,W = (0, 233, 0) \kms$ \citep{Kuepper:2015}.
+
+\begin{figure*}[t]
+\centering
+  \includegraphics[width=0.24\textwidth]{ngc288_density.pdf}
+  \includegraphics[width=0.24\textwidth]{ngc1261_density.pdf}
+  \includegraphics[width=0.24\textwidth]{ngc1851_density.pdf}
+  \includegraphics[width=0.24\textwidth]{ngc1904_density.pdf}
+  \caption{
+Distribution of matched-filtered stars selected around 4 globular clusters (gray-scale image). 
+Stellar counts within the Jacobi radii of each cluster have been masked to show extra-tidal features.
+Star particles simulated using the spray-particle implementation of \citet{Kuepper:2012} are shown in red (see text for details).
+Extra-tidal features in NGC 1261 and NGC 1851 appear aligned with the simulated orbit; however, this is not the case for the other two systems.
+}
+\label{fig:globulars}
+\end{figure*}
+
+\input{table_globulars}
+
+\subsubsection{NGC 288}
+\label{sec:ngc288}
+
+NGC 288 is a globular cluster with a dynamical evolution that is strongly driven by tidal shocks \citep{Gnedin:1997}.
+\citet{Grillmair:1995} showed initial evidence for extra-tidal features using photographic photometry. 
+The analysis of NGC 288 was extended to a larger field by \citet{Leon:2000}, who reported evidence of two sets of tidal tails, extended along the direction of motion and in the direction of the Galactic center.
+Subsequently, \citet{Grillmair:2004} used 2MASS data to suggest a $\roughly 17\degrees$ tidal tail; however, this claim was later refuted by \citet{Piatti:2018} using deeper data from Pan-STARRS PS1.
+In contrast, \citet{Piatti:2018} found evidence for clumpy extra-tidal structure extending $120\pc$ ($0\fdg8$) from the cluster center.
+The DES Y3A2 data is deeper than the Pan-STARRS data analzyed by \citet{Piatti:2018} and supports previous reports of clumpy extra-tidal structure extending $\roughly 1\fdg5$ from the core of NGC 288.
+In addition, there is evidence that these extra tidal features may extend $\roughly 5\fdg5$ southward of NGC 288 (\figref{globulars}).
+This structure is misaligned with the orbital motion of NGC 288 and the vector connecting NGC 288 to the Galactic center.
+
+\subsubsection{NGC 1261}
+\label{sec:ngc1261}
+
+NGC 1261 resides in the southern portion of the DES footprint and it has been suggested that it may be associated with the Pheonix stream \citep{Balbinot:2016} and/or the EriPhe stellar overdensity \citep{Li:2016}.
+The analysis of \citet{Leon:2000} suggests the existence of a tidal tail oriented in the direction of the Galactic center.
+Recent observations with DECam have similarly detected evidence that the stellar halo of NGC 1261 extends beyond its nominal Wilson tidal radius \citep{Kuzma:2018,Carballo-Bello:2018}, but do not see any evidence of tail-like structure.
+Our observations support the existence of extra-tidal structure around NGC 1261. 
+While some of this structure appears to be aligned with the orbital motion of the cluster, it is difficult to draw any firm conclusion without more detailed analysis.
+
+\subsubsection{NGC 1851}
+\label{sec:ngc1851}
+
+Tidal tails were reported around NGC 1851 by \citet{Leon:2000}, who claimed to detect low-surface-brightness features oriented with the direction of motion of the cluster.
+However, \citet{Olszewski:2009} found no evidence of tidal tails in a more recent analysis of deeper data.
+Rather, \citet{Olszewski:2009} reported a low-surface-brightness extended stellar halo extending to \roughly 1\fdg25.
+Our residual density maps shows evidence of both an extended stellar halo around NGC 1851, and a set of faint linear features aligned with the predicted orbit (\figref{globulars}).
+The residual stellar density extends prominently to a radius $\gtr 1 \degree$ from the cluster core, agreeing with measurements of an extended stellar halo by \citet{Olszewski:2009}.
+The linear feature extends at least 5\degree to the north and south of NGC 1851.
+The orientation of these features are well-aligned with the orbital motion of NGC 1851, suggesting that these features may be tidal tails. 
+In fact, the annimation associated with \figref{isosel2} suggests that these putative tidal tails may extend $\pm 15\degrees$ or more from NGC 1851.
+The detection of extra-tidal structure associated with NGC 1851 agrees with recent work by \citet{Kuzma:2018} and \citet{Carballo-Bello:2018}.
+The DES data greatly extend the coverage around NGC 1851, and make a strong case for a ``vast stellar structure'' \citep{Carballo-Bello:2018} extending both northward and southward of this cluster.
+
+\subsubsection{NGC 1904}
+\label{sec:ngc1904}
+
+An extended halo of extra-tidal stars around NGC 1904 was first recognized by \citet{Grillmair:1995} and later by \citet{Leon:2000}. 
+We confirm the existence of extra-tidal structure extending $\roughly 1\fdg5$ from the cluster center.
+\citet{Leon:2000} suggest that the short relaxation time of NGC 1904 would cause mass segregation in the tidal tails.
+This may explain why these features were not seen with shallower observations.
+Interestingly, these structures appear to be symmetric, but are misaligned with the orbital motion of the cluster.
+Observations of NGC 1904 by \citet{Carballo-Bello:2018} reach a similar conclusion that the stellar distribution of this cluster deviates from the conventional King and Wilson models to fill, and slightly overflow, the Jacobi radius of the cluster.
+
+
+\section{Discussion}
+\label{sec:discussion}
+
+\subsection{Potential Associations with Known Systems}
+\label{sec:assocs}
+We use the recent catalog of stellar streams compiled by \citet{Mateu:2017}, augmented with the recently discovered Jet stream \citep{Jethwa:2017} to assess whether any of our stream candidates may be associated with previously detected streams located in other regions of the sky. 
+We begin by transforming the endpoints of each stream into Galactocentric Cartesian coordinates. 
+The ellipticity of these streams is poorly constrained so we assume only that the streams orbit in a plane around the Galactic Center. 
+We find the pole of each stream, $(\phi,\psi)$, defined as the positive normal vector of a plane containing both endpoints.
+Uncertainties in the pole location for our newly found streams were estimated by assuming a $20\%$ uncertainty on the heliocentric distance before converting to Galactocentric coordinates. 
+The poles for the new and previously discovered streams are shown in \figref{stream_poles}.
+
+The distribution of DES stream poles shown in the left panel of \figref{stream_poles} is clearly non-uniform.
+We do not find any strong association of stream poles coinciding with the proposed Vast Polar Structure \citep[VPOS;][]{Pawlowski:2012,Pawlowski:2015}.
+Specifically, in the left panel of \figref{stream_poles} we plot the VPOS+new pole  \citep[Table 1 of ][]{Pawlowski:2015} transformed into Galactocentric coordinates assuming a distance of $100\kpc$.
+However, the limited sky coverage of the DES footprint will bias the observable distribution of stream poles.
+To estimate this bias, we generate a uniform random sample of Galactocenric great-circle orbits with a radius of 25 kpc. 
+We calculate the fraction of each great-circle orbit contained within the DES footprint as a function of Galactocentric orbital pole and show this in the right panel of \figref{stream_poles}.  
+We find that the observed distribution of stream poles is consistent with the predictions from our simple simulation.
+The DES footprint is clearly biased against detecting streams having poles with $\psi_{\rm pole} < 15\degrees$ and $240\degrees < \phi_{\rm pole} < 320\degrees$.
+We find qualitatively similar results for random samples of orbits with Galactocentric radii of 15 kpc and 50 kpc.
+
+To investigate potential associations for the new DES streams, we plot Galactocentric great-circle orbits for the DES streams and other known streams with similar orbital poles (\figref{stream_assoc}). 
+Full phase-space information is necessary to definitively match between streams systems; however, we do note several tentative associations based on the photometrically measured properties of the DES streams.
+\figref{stream_assoc} shows a strong correspondence between Ravi and the tentative candidate RR Lyrae stream 24.5-1 \citep{Mateu:2017}.
+The poles of these two stream candidates match within \CHECK{$3\degrees$} while their distance moduli differ by \CHECK{$\Delta(\mM) \sim 0.2 \magn$} (well within the systematic error associated with our isochrone fitting).
+Such an association supports the robustness of tentative candidates identified below the conservative $>4\sigma$ significance threshold of \citet{Mateu:2017}.
+
+The orbital pole of the Hermus stream \citep{Grillmair:2014} is only $3\fdg4$ from that of Willka Yaku, but the Galactocentric distances of the two streams differ by $\roughly 16 \kpc$.
+It has previously been suggested that Hermus may be a northern extension of the Phoenix stream \citep{Grillmair:2016b}, which resides along a slightly different orbital plane, but is well-matched in distance.
+Kinematic information would help to resolve this ambiguity.
+
+Globular clusters and dwarf galaxies may provide possible progenitors for the newly discovered streams.
+The globular cluster candidate with the smallest separation is IC 4499. 
+It is within $1\fdg2$ of the great circle orbit of Turbio, and has a Galactocentric radius that differs by less than $2 \kpc$. IC 4499 is a moderate-mass, low-density cluster with signatures of an extra-tidal stellar halo \citep{Walker:2011}.
+Cetus II, an ultra-faint dwarf galaxy \citep{Drlica-Wagner:2015}, is another candidate for association. It lies $1\fdg7$ off of the great circle orbit of Ailqa Uma, has a Galactocentric radius that is $1.1 \kpc$ larger, and is located $43 \degrees$ from the nearest endpoint of the stream. 
+We note also that the tidal tails of Palomar 5 ($\Rgc = 18.2 \kpc$) have an orbital pole within $6\degrees$ of the ATLAS stream ($25 \kpc$). 
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=0.49\textwidth]{poles_for_all_streamsv5p1_w_VPOS_2015.pdf}
+\includegraphics[width=0.49\textwidth]{stream_detection_efficiency_v5p1.pdf}
+\caption{
+(Left) Galactocentric orbital poles for DES stream candidates (red triangles) and previously known streams \citep[blue circles;][]{Mateu:2017,Jethwa:2017}.
+Green shaded regions represent the $1\sigma$ uncertainty ellipses for the poles of the DES streams assuming a distance uncertainty of 20\%.
+The purple diamond shows the mean orbital pole of the proposed vast polar structure \citep{Pawlowski:2015}.
+(Right) The fraction of uniformly distributed Galactocentric great-circle orbits with $R_{GC}= 25 \kpc$ that are contained within the DES footprint.
+The DES footprint imposes a geometric bias against the detection of streams with $-60\degrees < \phi_{\rm pole} < 120\degrees$ and $\psi_{\rm pole} \lesssim 30\degrees$.
+}
+\label{fig:stream_poles}
+\end{figure*}
+
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.95\columnwidth]{stream_assoc_v5p0.pdf}
+\caption{ Great circle orbital models for 3 of the closest associations between DES and previously detected streams are plotted in Galactocentric coordinates ($\phi,\psi$). The dotted lines are great circle orbits derived from the DES stream endpoints. The solid colored lines show the locations of the streams themselves, the purple squares show the RR Lyrae \citep{Mateu:2017} that make up the stream 24.5-1.
+}
+\label{fig:stream_assoc}
+\end{figure}
+
+\citet{Agnello:2017} identified four stellar stream candidates overlapping the DES footprint using a WISE-Gaia multiple search.
+It was proposed that two of these streams, WG3 and WG4, may have associated counterparts in DES \citep{Agnello:2017}. 
+While WG3 and WG4 appear qualitatively similar to Indus and Jhelum, their absolute coordinates are offset by $\Delta \ra \sim -20\degrees$ (an angular separation of $\roughly 15\degrees$).
+We do not see any significant stellar overdensities associated with the positions of WG3 or WG4 reported by \citet{Agnello:2017}, though their proximity to the Galactic plane and unknown distance makes it difficult to quantify the lack of a DES counterpart.
+If we allow $\Delta \ra$ offsets of $\roughly 10\degree$, then we find a possible correspondence between WG1 and Wambelong.
+WG1 is offset from Wambelong by $\Delta \ra \sim -8\degrees$ (angular separation of $\roughly 6 \degrees$) and extends both northeast and southwest along a similar path.
+This observation provides circumstantial evidence in support of the longer extent of Wambelong proposed in \secref{wambelong}.
+WG2 does not correspond to any of the high-significance stream candidates reported here.
+However, WG2 appears qualitatively similar to a lower significance feature found to the southwest of NGC 1851 extending from $\ra,\dec = (56.1, -50.4)$ to $(78.5, -40.0)$ at a distance modulus of $\mM \sim 17.5$ (animation of \figref{isosel2}).
+We expect Gaia DR2 to greatly improve the power of stellar stream searches using astrometric techniques.
+
+\subsection{Milky Way Gravitational Potential}
+\label{sec:flattening}
+
+Stellar streams can be used to constrain the Milky Way gravitational potential \citep[e.g.,][]{Johnston:2005,Koposov:2010,Law:2010,Gibbons:2014,Bowden:2015,Kupper:2015,Bovy:2016}. 
+Full potential modeling is beyond the scope of this work; however, we note that the streams discovered by DES span a wide range of Galactocentric radii and should be able to constrain how the Milky Way's density profile and shape evolves with radius. 
+In this context, we expect that the ATLAS stream will be especially useful since it is long and does not lie on a great circle (see \figref{atlas}).
+
+However, even without sophisticated modeling we can make some general observations in the context of the Milky Way potential. 
+\citet{Erkal:2016} suggest that the connection between stream width and orbital inclination could provide an independent constraint on the symmetry axis and flattening of the Milky Way halo.
+In \figref{flattening}, we plot the angular stream width (as would be observed from the Galactic center) against the Galactocentric polar angle, $\psi$, and the Galactocentric azimuthal angle, $\phi$. This figure shows a large scatter, which is to be expected from a heterogeneous population of progenitors. While it is interesting to note that the streams that appear the widest are also on nearly polar orbits, interpreting any trend in this figure is subject to a number of caveats.
+
+In particular, inferences involving stream widths rely on the assumed mass, structural properties, orbit, and dynamical age of the stream and its progenitor.
+Geometric effects can cause debris in the stream plane to contribute to the perceived width as calculated by a heliocentric observer.
+Furthermore, the width can fluctuate along a stream due to the existence of nodes between the progenitor plane and the planes of the stream debris.
+Nonetheless, it is interesting to note that \figref{flattening} is in general agreement with a model where the Galactic symmetry axis is perpendicular to the plane of the disk.\footnote{We note that Figure 16 in \citet{Erkal:2016} uses an inconsistent convention for the sign of the azimuthal coordinate $\phi$.}
+
+\begin{figure}
+\includegraphics[width=\columnwidth]{mw_flattening}
+\caption{Angular widths of stellar streams detected by DES (as perceived by an observer at the Galactic center) as a function of their Galactocentric pole orientation.
+The left and right panels show the stream width as a function
+of the Galactocentric polar and azimuthal angle, respectively. 
+The curves show the expected stream width from \citet{Erkal:2016} for streams with age 4\Gyr in a potential with two different flattenings, $q = 0.9$ or $q = 0.95$.
+These curves are produced assuming a progenitor with a mass of $10^{4.5}\Msun$ on an orbit with a pericenter of 15 kpc and an apocenter of 30 kpc in a logarithmic potential with a circular velocity of 220 km/s. 
+The bunching of the polar angles of observed streams around low azimuthal angles is caused by the coverage of DES. 
+Interestingly, the widest streams (Jhelum, Indus, Ravi, and Chenab) are close to polar orientations.
+\label{fig:flattening}
+}
+\end{figure}
+
+\subsection{Stream progenitors}
+
+In Table \ref{tab:deriv} we provided estimates of the stellar mass and progenitor mass \citep[based on the stream width, see][]{Erkal:2016} of each stream. These can be combined to give a mass-to-light ratio for the progenitor. Doing this, we find that five of the streams (Tucana III, ATLAS, Phoenix, Willka Yaku, and Turbio) have mass-to-light ratios less than $\sim \CHECK{30}$, while the other eight streams have significantly higher mass-to-light ratios. Given this seeming dichotomy, it is possible that the progenitors with low mass-to-light ratios are globular clusters while those with the higher ratios are dwarf galaxies. However, since the mass-to-light ratios are all higher than expected for a globular cluster (Phoenix stream has the lowest ratio of \CHECK{10}) we cannot make any firm 
+conclusions. 
+
+These higher than expected mass-to-light ratios could be due to a variety of reasons. As discussed in \ref{sec:isochrone}, the progenitor mass estimate is only approximate and only works on average for streams on eccentric orbits. Furthermore, if the stream widths have fanned out due to evolving in a non-spherical potential \citep[e.g.][]{Erkal:2016}, the inferred progenitor masses will be overestimated. Finally, the stellar masses will be underestimated for streams that are not fully contained within the DES footprint. 
+
+\section{Conclusions}
+\label{sec:conclusions}
+
+We searched for Milky Way stellar streams by applying a matched-filter for old, metal-poor stellar populations to three years of data from DES.
+The unprecedented photometric calibration, depth, and coverage area of the DES data allow us to detect stellar streams out to a distance of $> 50 \kpc$.
+Our analysis recovers \NKNOWN narrow stellar streams previously identified within the DES footprint. 
+In addition, we detect \NSTREAMS new stellar stream candidates.
+\CHECK{In general, these newly detected streams are wider and lower surface brightness than those detected in previous surveys.}
+We find several tentative associations of these new stream candidates with stellar structures detected in other regions of the sky.
+%We do not find any preferential alignment of these streams relative to planar structures claimed in the literature \citep{Kroupa:2010,Pawlowski:2012,Sanders:2017}.
+In addition, we find evidence for extra-tidal stellar features around \NGLOB classical globular clusters.
+The current analysis makes use of three years of DES data. 
+We expect that additional DES observations, improved data reduction techniques, and improved stream detection algorithms will allow fainter and more distant streams to be detected in the near future.
+While the DES data currently provide the most sensitive wide-area view of the southern sky, they are merely a precursor for larger sky coverage that can be achieved with DECam and, eventually, the Large Synoptic Survey Telescope (LSST).
+LSST is expected to find $>100$ stellar streams with sensitivity out to the virial radius of the Milky Way \citep{LSST:2009}.
+These wide-area photometric surveys will greatly expand our ability to probe the Milky Way stellar halo, providing unprecedented insights into Galactic archaeology and near-field cosmology.
+
+\section*{Acknowledgments}
+
+We thank the attendees at the ``Science at the Calyx'' event at the Royal Botanic Garden Sydney, as well as the students of St.\ John's School in North Ryde, Sydney, for their enthusiastic contributions to the process of naming our proposed stellar streams.  
+We likewise acknowledge Aunty Maureen Sulter of the Gamilaraay nation and Mr.\ Drew Roberts of the Bundjalung nation for their gracious support of, and feedback on, this naming process.
+
+We warmly thank Colegio Antonio Varas in Vicu\~{n}a, Chile, for organizing the search for aquatic terms from the native Quechua and Aymara cultures. In particular, we thank high school students D\'{a}nae Rojas and Emerson Carvajal, their teacher Yeimy Vargas, and dozens of enthusiastic kindergarteners and first graders who selected the Chilean stream names.
+
+NS thanks the LSSTC Data Science Fellowship Program, her time as a Fellow has benefited this work.
+EB acknowledges financial support from the European Research Council (ERC-StG-335936).
+
+\input{ack}
+
+\facility{Blanco (DECam)} 
+\software{\SExtractor \citep{Bertin:1996}, \healpix \citep{Gorski:2005}\footnote{\url{http://healpix.sourceforge.net}}, \code{astropy} \citep{Astropy:2013}, \code{matplotlib} \citep{Hunter:2007}, \code{numpy} \citep{numpy:2011}, \code{scipy} \citep{scipy:2001}, \code{healpy}\footnote{\url{https://github.com/healpy/healpy}}, \code{fitsio}\footnote{\url{https://github.com/esheldon/fitsio}}, \ngmix \citep{Sheldon:2014}\footnote{\url{https://github.com/esheldon/ngmix}}, \emcee \citep{Foreman_Mackey:2013}, \ugali \citep{Bechtol:2015}\footnote{\url{https://github.com/DarkEnergySurvey/ugali}},\code{galpot} \citep{Dehnen:1998}\footnote{\url{https://github.com/PaulMcMillan-Astro/GalPot}}}
+
+\clearpage
+
+\appendix
+\numberwithin{figure}{section}
+\numberwithin{table}{section}
+
+\section{Stream fit configuration}
+\label{app:fit}
+
+\tabref{fits} contains the input specifications for the fits to each stream. The procedure for selecting on- and off-stream regions is described in \secref{isochrone}. These regions were derived in a variety of ways in order to optimize foreground subtraction and to avoid contamination by other resolved stellar populations, including other streams, globular clusters, and dwarf galaxies. For the ATLAS stream, when calculating $N_*$, we selected a region along the polynomial fit in \eqnref{atlas} to account for the curvature of the stream relative to a great circle. Due to the variation in region definitions, we list here the widths and separations of the selected regions for each stream. Additionally, we list the parameters that were fit for each stream. In many cases the data did not allow for a simultaneous fit of all parameters, so a subset of parameters were set to previously determined values or estimated by eye and held fixed.
+
+\input{table_fits.tex}
+
+\clearpage
+
+% Testing aastex62 for AAS
+%\bibliographystyle{aasjournal}
+\bibliographystyle{aasjournal2}
+\bibliography{main}
+
+
+\end{document}
+
+ 

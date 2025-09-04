@@ -66,11 +66,16 @@ def calc_cemp_fraction(df, feh_limit=-2.0, cfe_limit=0.7):
     Returns: (cemp_fraction, n_CEMP, n_tot)
     """
     df_filtered = df[df['[Fe/H]'] <= feh_limit]
+    
+    ## n_CEMP = (all measured values) + (lower limits above the cfe threshold)
     n_CEMP = len(df_filtered[df_filtered['[C/Fe]f'] >= cfe_limit])
+    # n_CEMP += len(df_filtered[(df_filtered['ll[C/Fe]f'].notna()) & (df_filtered['ll[C/Fe]f'] >= cfe_limit-0.1)]) # lower limits
+    
+    ## n_tot = (all measured values) + (lower limits above the cfe threshold) + (upper limits below the cfe threshold)
     n_tot = len(df_filtered[df_filtered['[C/Fe]f'].notna()]) # real data values
+    n_tot += len(df_filtered[(df_filtered['ll[C/Fe]f'].notna()) & (df_filtered['ll[C/Fe]f'] >= cfe_limit-0.1)]) # lower limits
     n_tot += len(df_filtered[(df_filtered['ul[C/Fe]f'].notna()) & (df_filtered['ul[C/Fe]f'] <= cfe_limit+0.1)]) # upper limits
-    # print(n_CEMP, n_tot, feh_limit, cfe_limit)
-
+    
     if n_tot == 0 and n_CEMP != 0:
         cemp_fraction = 1.0
     elif n_tot == 0 and n_CEMP == 0:
@@ -79,6 +84,8 @@ def calc_cemp_fraction(df, feh_limit=-2.0, cfe_limit=0.7):
         cemp_fraction = n_CEMP / (n_tot)
         if cemp_fraction > 1.0: 
             cemp_fraction = 1.0
+
+    # print(n_CEMP, n_tot, feh_limit, cfe_limit)
     # print(f"[Fe/H] <= {feh_limit}, [C/Fe] >= {cfe_limit}: {n_CEMP}/{n_tot} = {cemp_fraction:.2f}")
 
     if not np.isnan(cemp_fraction):
@@ -130,7 +137,7 @@ def calc_dtrans_line(feh):
 
     return Dtrans_l , Dtrans_u
     
-def calc_dtrans_columns(df):
+def calc_dtrans_columns(df, precision=2):
     """
     Calculate Dtrans values for the given dataframe. The dataframe must have
     either a [C/H]f or ul[C/H]f column. 
@@ -146,8 +153,8 @@ def calc_dtrans_columns(df):
     co_lower = 0.0 
     co_upper = -0.6
 
-    def dtrans(ch, oh):
-        return np.log10(10**ch + (0.9 * 10**oh))
+    def dtrans(ch, oh, precision=precision):
+        return normal_round(np.log10(10**ch + (0.9 * 10**oh)), precision)
     
     for i, row in df.iterrows():
         if not pd.isna(row['[C/H]f']):

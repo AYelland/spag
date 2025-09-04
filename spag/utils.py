@@ -212,13 +212,23 @@ def align_ampersands(filename, start_line, end_line):
     # Split each line by "&" and calculate max widths for each column
     split_lines = [line.split('&') for line in selected_lines]
     max_col_widths = [max(len(col.strip()) for col in column) for column in zip(*split_lines)]
-    
+
     # Reformat each line with aligned "&"
     aligned_lines = []
     for line_parts in split_lines:
-        aligned_line = ' & '.join(col.strip().ljust(width) for col, width in zip(line_parts, max_col_widths))
+        
+        ## These two lines work, but they pad the last column with white space up to the maximum width
+        # aligned_line = ' & '.join(col.strip().ljust(width) for col, width in zip(line_parts, max_col_widths))
+        # aligned_lines.append(aligned_line + '\n')
+
+        ## This works as well, without the padding on the end of each line (the last column)
+        aligned_cols = [
+            col.strip().ljust(width) if i < len(max_col_widths)-1 else col.strip()
+            for i, (col, width) in enumerate(zip(line_parts, max_col_widths))
+        ]
+        aligned_line = ' & '.join(aligned_cols)
         aligned_lines.append(aligned_line + '\n')
-    
+        
     # Replace original lines in range with aligned lines
     lines[start_line-1:end_line] = aligned_lines
     
@@ -296,9 +306,12 @@ def pad_and_round(value, precision):
     (if the rounded value has fewer decimal places).
 
     Returns:
-        str: The rounded and padded value as a string.
+        str: The rounded and padded value as a string, or an empty string if the value is NaN.
     """
-    return f"{normal_round(value, precision):.{precision}f}"
+    if pd.isna(value):
+        return ''
+    else:
+        return f"{normal_round(value, precision):.{precision}f}"
 
 ################################################################################
 ## String manipulation functions
