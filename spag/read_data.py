@@ -804,13 +804,33 @@ def load_ufds(io=None, **kwargs):
         ulX = ufd_df[f'ul{elem}']
         XH = epsX - epsX_sun_09
         ulXH = ulX - epsX_sun_09
-
-        ## Create abundance columns
+          
+        FeH = newcols['[Fe/H]']
+        ulFeH = newcols['ul[Fe/H]']
+                
+        ## Create [X/H] and [X/Fe] abundance columns
         newcols[f'[{X_name}/H]'] = XH
         newcols[f'ul[{X_name}/H]'] = ulXH
-        newcols[f'[{X_name}/Fe]'] = XH - newcols['[Fe/H]']
-        newcols[f'ul[{X_name}/Fe]'] = ulXH - newcols['[Fe/H]']
 
+        mask_FeH = pd.notna(FeH)
+        mask_ulFeH = pd.isna(FeH) & pd.notna(ulFeH)
+        mask_XH = pd.notna(XH) & pd.isna(ulXH)
+        mask_ulXH = pd.isna(XH) & pd.notna(ulXH)
+        
+        ll_XFe = np.full_like(XH, np.nan) # Default: all NaN
+        ll_XFe[mask_ulFeH & mask_XH] = XH[mask_ulFeH & mask_XH] - ulFeH[mask_ulFeH & mask_XH]
+
+        XFe = np.full_like(XH, np.nan) # Default: all NaN
+        XFe[mask_FeH & mask_XH] = XH[mask_FeH & mask_XH] - FeH[mask_FeH & mask_XH]
+
+        ul_XFe = np.full_like(XH, np.nan) # Default: all NaN
+        ul_XFe[mask_ulFeH & mask_ulXH] = np.nan ## cannot determine if upper or lower limit since FeH and XH are both upper limits
+        ul_XFe[mask_FeH & mask_ulXH] = ulXH[mask_FeH & mask_ulXH] - FeH[mask_FeH & mask_ulXH]
+
+        newcols[f'll[{X_name}/Fe]'] = ll_XFe
+        newcols[f'[{X_name}/Fe]'] = XFe
+        newcols[f'ul[{X_name}/Fe]'] = ul_XFe
+            
     ## Concatenate new columns
     newcols_df = pd.DataFrame(newcols, index=ufd_df.index)
     ufd_df = pd.concat([ufd_df, newcols_df], axis=1)
@@ -2550,6 +2570,137 @@ def load_chiti2024(io=None):
     
     return chiti2024_df
 
+def load_chiti2025(io=None):
+    """
+    Load the Chiti et al. 2025 data for the Pictor II Ultra-Faint Dwarf Galaxy.
+
+    Table 0 - Observation Table & Stellar Parameters
+    Table 2 - Abundance Table
+    """
+
+    ## Read in the data tables
+    obs_param_df = pd.read_csv(data_dir + 'abundance_tables/chiti2025/table0.csv', comment='#', na_values=['', ' ', 'nan', 'NaN', 'N/A', 'n/a'])
+    abund_df = pd.read_csv(data_dir + 'abundance_tables/chiti2025/table2.csv', comment='#', na_values=['', ' ', 'nan', 'NaN', 'N/A', 'n/a'])
+
+    ## Make the new column names
+    species = []
+    for ion in abund_df['Species'].unique():
+        species_i = ion_to_species(ion)
+        elem_i = ion_to_element(ion)
+        if species_i not in species:
+            species.append(species_i)
+
+    epscols = [make_epscol(s) for s in species]
+    ulcols = [make_ulcol(s) for s in species]
+    XHcols = [make_XHcol(s).replace(' ', '') for s in species]
+    ulXHcols = ['ul' + col for col in XHcols]
+    XFecols = [make_XFecol(s).replace(' ', '') for s in species]
+    ulXFecols = ['ul' + col for col in XFecols]
+    llXFecols = ['ll' + col for col in XFecols]
+    errcols = [make_errcol(s) for s in species]
+
+    ## New dataframe with proper columns
+    chiti2025_df = pd.DataFrame(
+                    columns=['I/O','Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
+                    'Teff','logg','Fe/H','Vmic'] + epscols + ulcols + XHcols + ulXHcols + XFecols 
+                    + llXFecols + ulXFecols + errcols)
+    for i, name in enumerate(abund_df['Name'].unique()):
+        chiti2025_df.loc[i,'Name'] = name
+        chiti2025_df.loc[i,'Simbad_Identifier'] = obs_param_df.loc[obs_param_df['Name'] == name, 'Simbad_Identifier'].values[0]        
+        chiti2025_df.loc[i,'Reference'] = 'Chiti+2025'
+        chiti2025_df.loc[i,'Ref'] = 'CHI25'
+        chiti2025_df.loc[i,'I/O'] = 1
+        chiti2025_df.loc[i,'Loc'] = 'UF'
+        chiti2025_df.loc[i,'System'] = obs_param_df.loc[obs_param_df['Name'] == name, 'System'].values[0]     
+        chiti2025_df.loc[i,'RA_hms'] = obs_param_df.loc[obs_param_df['Name'] == name, 'RA_hms'].values[0]
+        chiti2025_df.loc[i,'RA_deg'] = coord.ra_hms_to_deg(chiti2025_df.loc[i,'RA_hms'], precision=6)
+        chiti2025_df.loc[i,'DEC_dms'] = obs_param_df.loc[obs_param_df['Name'] == name, 'DEC_dms'].values[0]
+        chiti2025_df.loc[i,'DEC_deg'] = coord.dec_dms_to_deg(chiti2025_df.loc[i,'DEC_dms'], precision=2)
+        chiti2025_df.loc[i,'Teff'] = obs_param_df.loc[obs_param_df['Name'] == name, 'Teff'].values[0]
+        chiti2025_df.loc[i,'logg'] = obs_param_df.loc[obs_param_df['Name'] == name, 'logg'].values[0]
+        chiti2025_df.loc[i,'Fe/H'] = obs_param_df.loc[obs_param_df['Name'] == name, 'Fe/H'].values[0]
+        chiti2025_df.loc[i,'Vmic'] = obs_param_df.loc[obs_param_df['Name'] == name, 'Vmic'].values[0]
+
+        ## Fill in data
+        star_df = abund_df[abund_df['Name'] == name]
+        for j, row in star_df.iterrows():
+            ion = row['Species']
+            species_i = ion_to_species(ion)
+            elem_i = ion_to_element(ion)
+
+            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009')[0]
+            l_FeH = star_df.loc[star_df['Species'] == 'Fe I', 'l_[X/H]'].values[0]
+            feh_a09 = star_df.loc[star_df['Species'] == 'Fe I', '[X/H]'].values[0]
+            
+            ## Assign epsX values
+            col = make_epscol(species_i)
+            if col in epscols:
+                chiti2025_df.loc[i, col] = row['[X/H]'] + logepsX_sun_a09 if pd.isna(row['l_[X/H]']) else np.nan
+
+            ## Assign ulX values
+            col = make_ulcol(species_i)
+            if col in ulcols:
+                chiti2025_df.loc[i, col] = row['[X/H]'] + logepsX_sun_a09 if pd.notna(row['l_[X/H]']) else np.nan
+
+            ## Assign [X/H] and ul[X/H]values
+            col = make_XHcol(species_i).replace(" ", "")
+            if col in XHcols:
+                if pd.isna(row['l_[X/H]']):
+                    chiti2025_df.loc[i, col] = normal_round(row["[X/H]"], 2)
+                    chiti2025_df.loc[i, 'ul'+col] = np.nan
+                else:
+                    chiti2025_df.loc[i, col] = np.nan
+                    chiti2025_df.loc[i, 'ul'+col] = normal_round(row["[X/H]"], 2)
+                if 'e_[X/H]' in row.index:
+                    chiti2025_df.loc[i, 'e_'+col] = row['e_[X/H]']
+
+            ## Assign [X/Fe] values
+            col = make_XFecol(species_i).replace(" ", "")
+            if col in XFecols:
+                if 'Fe/Fe' in col: continue
+                if pd.notna(l_FeH) and pd.isna(row['l_[X/H]']):
+                    if l_FeH == '<':
+                        chiti2025_df.loc[i, 'll'+col] = normal_round((row["[X/H]"]) - feh_a09, 2)
+                        chiti2025_df.loc[i, col] = np.nan
+                        chiti2025_df.loc[i, 'ul'+col] = np.nan
+                    if l_FeH == '>':
+                        chiti2025_df.loc[i, 'll'+col] = np.nan
+                        chiti2025_df.loc[i, col] = np.nan
+                        chiti2025_df.loc[i, 'ul'+col] = normal_round((row["[X/H]"]) - feh_a09, 2)
+                elif pd.isna(l_FeH) and pd.notna(row['l_[X/H]']):
+                    if row['l_[X/H]'] == '<':
+                        chiti2025_df.loc[i, 'll'+col] = np.nan
+                        chiti2025_df.loc[i, col] = np.nan
+                        chiti2025_df.loc[i, 'ul'+col] = normal_round((row["[X/H]"]) - feh_a09, 2)
+                    if row['l_[X/H]'] == '>':
+                        chiti2025_df.loc[i, 'll'+col] = normal_round((row["[X/H]"]) - feh_a09, 2)
+                        chiti2025_df.loc[i, col] = np.nan
+                        chiti2025_df.loc[i, 'ul'+col] = np.nan
+                elif pd.isna(l_FeH) and pd.isna(row['l_[X/H]']):
+                    chiti2025_df.loc[i, 'll'+col] = np.nan
+                    chiti2025_df.loc[i, col] = normal_round((row["[X/H]"]) - feh_a09, 2)
+                    chiti2025_df.loc[i, 'ul'+col] = np.nan      
+                elif pd.notna(l_FeH) and pd.notna(row['l_[X/H]']): ## unknown how to resolve -- upperlimit on iron and X element
+                    chiti2025_df.loc[i, 'll'+col] = np.nan
+                    chiti2025_df.loc[i, col] = np.nan
+                    chiti2025_df.loc[i, 'ul'+col] = np.nan
+                if 'e_[X/H]' in row.index:
+                    chiti2025_df.loc[i, 'e_'+col] = row['e_[X/H]']
+
+            ## Assign error values
+            col = make_errcol(species_i)
+            if col in errcols:
+                e_logepsX = row.get('e_[X/H]', np.nan)
+                if pd.notna(e_logepsX):
+                    chiti2025_df.loc[i, col] = e_logepsX
+                else:
+                    chiti2025_df.loc[i, col] = np.nan
+    
+    ## Drop the Fe/Fe columns
+    chiti2025_df.drop(columns=['[Fe/Fe]','ul[Fe/Fe]','[FeII/Fe]','ul[FeII/Fe]'], inplace=True, errors='ignore')
+
+    return chiti2025_df
+
 def load_frebel2010b(io=None):
     """
     Sculptor (Scl) Dwarf Galaxy Star
@@ -4078,115 +4229,6 @@ def load_chiti2023(io=None):
     chiti2023_df.drop(columns=['[Fe/Fe]','ul[Fe/Fe]','[FeII/Fe]','ul[FeII/Fe]'], inplace=True, errors='ignore')
 
     return chiti2023_df
-
-def load_chiti2025(io=None):
-    """
-    Load the Chiti et al. 2025 data for the Pictor II Ultra-Faint Dwarf Galaxy.
-
-    Table 0 - Observation Table & Stellar Parameters
-    Table 2 - Abundance Table
-    """
-
-    ## Read in the data tables
-    obs_param_df = pd.read_csv(data_dir + 'abundance_tables/chiti2025/table0.csv', comment='#', na_values=['', ' ', 'nan', 'NaN', 'N/A', 'n/a'])
-    abund_df = pd.read_csv(data_dir + 'abundance_tables/chiti2025/table2.csv', comment='#', na_values=['', ' ', 'nan', 'NaN', 'N/A', 'n/a'])
-
-    ## Make the new column names
-    species = []
-    for ion in abund_df['Species'].unique():
-        species_i = ion_to_species(ion)
-        elem_i = ion_to_element(ion)
-        if species_i not in species:
-            species.append(species_i)
-
-    epscols = [make_epscol(s) for s in species]
-    ulcols = [make_ulcol(s) for s in species]
-    XHcols = [make_XHcol(s).replace(' ', '') for s in species]
-    ulXHcols = ['ul' + col for col in XHcols]
-    XFecols = [make_XFecol(s).replace(' ', '') for s in species]
-    ulXFecols = ['ul' + col for col in XFecols]
-    errcols = [make_errcol(s) for s in species]
-
-    ## New dataframe with proper columns
-    chiti2025_df = pd.DataFrame(
-                    columns=['I/O','Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
-                    'Teff','logg','Fe/H','Vmic'] + epscols + ulcols + XHcols + ulXHcols + XFecols 
-                    + ulXFecols + errcols)
-    for i, name in enumerate(abund_df['Name'].unique()):
-        chiti2025_df.loc[i,'Name'] = name
-        chiti2025_df.loc[i,'Simbad_Identifier'] = obs_param_df.loc[obs_param_df['Name'] == name, 'Simbad_Identifier'].values[0]        
-        chiti2025_df.loc[i,'Reference'] = 'Chiti+2025'
-        chiti2025_df.loc[i,'Ref'] = 'CHI25'
-        chiti2025_df.loc[i,'I/O'] = 1
-        chiti2025_df.loc[i,'Loc'] = 'UF'
-        chiti2025_df.loc[i,'System'] = obs_param_df.loc[obs_param_df['Name'] == name, 'System'].values[0]     
-        chiti2025_df.loc[i,'RA_hms'] = obs_param_df.loc[obs_param_df['Name'] == name, 'RA_hms'].values[0]
-        chiti2025_df.loc[i,'RA_deg'] = coord.ra_hms_to_deg(chiti2025_df.loc[i,'RA_hms'], precision=6)
-        chiti2025_df.loc[i,'DEC_dms'] = obs_param_df.loc[obs_param_df['Name'] == name, 'DEC_dms'].values[0]
-        chiti2025_df.loc[i,'DEC_deg'] = coord.dec_dms_to_deg(chiti2025_df.loc[i,'DEC_dms'], precision=2)
-        chiti2025_df.loc[i,'Teff'] = obs_param_df.loc[obs_param_df['Name'] == name, 'Teff'].values[0]
-        chiti2025_df.loc[i,'logg'] = obs_param_df.loc[obs_param_df['Name'] == name, 'logg'].values[0]
-        chiti2025_df.loc[i,'Fe/H'] = obs_param_df.loc[obs_param_df['Name'] == name, 'Fe/H'].values[0]
-        chiti2025_df.loc[i,'Vmic'] = obs_param_df.loc[obs_param_df['Name'] == name, 'Vmic'].values[0]
-
-        ## Fill in data
-        star_df = abund_df[abund_df['Name'] == name]
-        for j, row in star_df.iterrows():
-            ion = row['Species']
-            species_i = ion_to_species(ion)
-            elem_i = ion_to_element(ion)
-
-            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009')[0]
-            feh_a09 = star_df.loc[star_df['Species'] == 'Fe I', '[X/H]'].values[0]
-
-            ## Assign epsX values
-            col = make_epscol(species_i)
-            if col in epscols:
-                chiti2025_df.loc[i, col] = row['[X/H]'] + logepsX_sun_a09 if pd.isna(row['l_[X/H]']) else np.nan
-
-            ## Assign ulX values
-            col = make_ulcol(species_i)
-            if col in ulcols:
-                chiti2025_df.loc[i, col] = row['[X/H]'] + logepsX_sun_a09 if pd.notna(row['l_[X/H]']) else np.nan
-
-            ## Assign [X/H] and ul[X/H]values
-            col = make_XHcol(species_i).replace(" ", "")
-            if col in XHcols:
-                if pd.isna(row['l_[X/H]']):
-                    chiti2025_df.loc[i, col] = normal_round(row["[X/H]"], 2)
-                    chiti2025_df.loc[i, 'ul'+col] = np.nan
-                else:
-                    chiti2025_df.loc[i, col] = np.nan
-                    chiti2025_df.loc[i, 'ul'+col] = normal_round(row["[X/H]"], 2)
-                if 'e_[X/H]' in row.index:
-                    chiti2025_df.loc[i, 'e_'+col] = row['e_[X/H]']
-
-            ## Assign [X/Fe] values
-            col = make_XFecol(species_i).replace(" ", "")
-            if col in XFecols:
-                if pd.isna(row['l_[X/H]']):
-                    if row['l_[X/H]'] == '<' and row['l_[X/H]']
-                        chiti2025_df.loc[i, col] = normal_round((row["[X/H]"]) - feh_a09, 2)
-                        chiti2025_df.loc[i, 'ul'+col] = np.nan
-                else:
-                    chiti2025_df.loc[i, col] = np.nan
-                    chiti2025_df.loc[i, 'ul'+col] = normal_round((row["[X/H]"]) - feh_a09, 2)
-                if 'e_[X/H]' in row.index:
-                    chiti2025_df.loc[i, 'e_'+col] = row['e_[X/H]']
-
-            ## Assign error values
-            col = make_errcol(species_i)
-            if col in errcols:
-                e_logepsX = row.get('e_[X/H]', np.nan)
-                if pd.notna(e_logepsX):
-                    chiti2025_df.loc[i, col] = e_logepsX
-                else:
-                    chiti2025_df.loc[i, col] = np.nan
-    
-    ## Drop the Fe/Fe columns
-    chiti2025_df.drop(columns=['[Fe/Fe]','ul[Fe/Fe]','[FeII/Fe]','ul[FeII/Fe]'], inplace=True, errors='ignore')
-
-    return chiti2025_df
 
 def load_feltzing2009(io=None):
     """
