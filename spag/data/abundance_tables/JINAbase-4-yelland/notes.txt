@@ -1,0 +1,46 @@
+Yelland:  7908
+Mardini:  7788
+Ji:       2869
+Abohlima: 2734
+
+
+# ---------------------
+# To display the counts:
+
+abohalima_jinabase_df = rd.load_jinabase(version='abohalima', priority=None)
+ji_jinabase_df = rd.load_jinabase(version='ji', priority=None)
+mardini_jinabase_df = rd.load_jinabase(version='mardini', priority=None)
+yelland_jinabase_df = rd.load_jinabase(version='yelland', priority=None)
+
+print(f"abohalima: {abohalima_jinabase_df.shape[0]}")
+print(f"ji:        {ji_jinabase_df.shape[0]}")
+print(f"mardini:   {mardini_jinabase_df.shape[0]}")
+print(f"yelland:   {yelland_jinabase_df.shape[0]}")
+
+
+For the default_ion values for the abundance columns, it follows...
+    Default = neutral state (I)
+    ['Na','Mg','Al','Si','Ca','Cr','Mn','Fe','Co','Ni']
+
+    Default = first ionized state (II)
+    ['Sc','Ti','Sr','Y','Zr','Ba','La','Ce','Pr','Nd','Sm','Eu','Gd','Dy']
+
+    (see `get_default_ion(elem)` function in `convert.py`)
+
+
+
+:four: Notes on the Table Labels
+--------------------------------
+Location: 
+- HA: MilkyWay halo, BU: MilkyWay bulge, DS: MilkyWay disk, DW: Classical dwarf galaxies, UF: Ultra-faint dwarf galaxies, and GC: Globular clusters.
+
+Stellar types: 
+- RG: Giants, SG: Subgiants, HB: Horizontal branch and MS: Main sequence.
+
+Science keys: 
+- R1: rI-rich, R2: rII-rich, S: s-rich, RS: r/s-rich and i-rich: i-process rich.
+
+Carbon rich: 
+- CEMP: Carbon-rich & neutron-capture-rich, CEMP-no: Carbon-rich but not neutron-capture-rich. C-rich stars with [C/Fe] > 0.7.
+
+(Check Frebel & Norris 2015 for various metal-poor classifications.)

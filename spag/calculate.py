@@ -65,25 +65,25 @@ def calc_cemp_fraction(df, feh_limit=-2.0, cfe_limit=0.7):
 
     Returns: (cemp_fraction, n_CEMP, n_tot)
     """
-    df_filtered = df[df['[Fe/H]'] <= feh_limit]
+    df_filtered = df[(df['[Fe/H]'] <= feh_limit) | (df['ul[Fe/H]'] <= feh_limit)]
     
     ## n_CEMP = (all measured values) + (lower limits above the cfe threshold)
-    n_CEMP = len(df_filtered[df_filtered['[C/Fe]f'] >= cfe_limit])
-    # n_CEMP += len(df_filtered[(df_filtered['ll[C/Fe]f'].notna()) & (df_filtered['ll[C/Fe]f'] >= cfe_limit-0.1)]) # lower limits
+    n_CEMP = len(df_filtered[df_filtered['[C/Fe]f'] > cfe_limit])
+    n_CEMP += len(df_filtered[(df_filtered['ll[C/Fe]f'].notna()) & (df_filtered['ll[C/Fe]f'] >= cfe_limit-0.2)]) # lower limits
     
     ## n_tot = (all measured values) + (lower limits above the cfe threshold) + (upper limits below the cfe threshold)
     n_tot = len(df_filtered[df_filtered['[C/Fe]f'].notna()]) # real data values
-    n_tot += len(df_filtered[(df_filtered['ll[C/Fe]f'].notna()) & (df_filtered['ll[C/Fe]f'] >= cfe_limit-0.1)]) # lower limits
-    n_tot += len(df_filtered[(df_filtered['ul[C/Fe]f'].notna()) & (df_filtered['ul[C/Fe]f'] <= cfe_limit+0.1)]) # upper limits
+    n_tot += len(df_filtered[(df_filtered['ll[C/Fe]f'].notna()) & (df_filtered['ll[C/Fe]f'] >= cfe_limit-0.2)]) # lower limits
+    n_tot += len(df_filtered[(df_filtered['ul[C/Fe]f'].notna()) & (df_filtered['ul[C/Fe]f'] <= cfe_limit+0.2)]) # upper limits
     
-    if n_tot == 0 and n_CEMP != 0:
-        cemp_fraction = 1.0
-    elif n_tot == 0 and n_CEMP == 0:
+    if n_tot == 0 and n_CEMP == 0:
         cemp_fraction = -1
+    elif n_tot == 0 and n_CEMP != 0:
+        raise ValueError("n_tot is 0 but n_CEMP is not 0, which should not be possible.")
     else:
         cemp_fraction = n_CEMP / (n_tot)
         if cemp_fraction > 1.0: 
-            cemp_fraction = 1.0
+            raise ValueError("CEMP fraction is greater than 1.0, which should not be possible.")
 
     # print(n_CEMP, n_tot, feh_limit, cfe_limit)
     # print(f"[Fe/H] <= {feh_limit}, [C/Fe] >= {cfe_limit}: {n_CEMP}/{n_tot} = {cemp_fraction:.2f}")
