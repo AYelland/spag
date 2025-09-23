@@ -112,7 +112,7 @@ def classify_neutron_capture(EuFe = np.nan, BaFe = np.nan, SrFe = np.nan, PbFe =
 
     return ncap_str
 
-def classify_carbon_enhancement(CFe=np.nan, BaFe=np.nan):
+def classify_carbon_enhancement(CFe=np.nan, BaFe=np.nan, ulCFe=False, llCFe=False):
     """
     Classify the star by its carbon enhancement, based on Frebel et al. 2018 (Table 1).
     """
@@ -122,7 +122,8 @@ def classify_carbon_enhancement(CFe=np.nan, BaFe=np.nan):
     if pd.isna(CFe) or CFe == '':
         return cemp_str
     
-    if CFe > 0.7:
+    threshold = 0.7
+    if CFe > threshold:
         if (BaFe < 0.0) and cemp_str == '':
             cemp_str += 'NO' # Neutron-capture-normal
         else:

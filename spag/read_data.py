@@ -524,8 +524,8 @@ def load_jinabase(sci_key=None, io=1, load_eps=True, load_ul=True, load_XH=True,
     """
 
     ## Read data
-    data = pd.read_csv(data_dir+"abundance_tables/JINAbase-yelland/JINAbase-yelland25.csv", header=0, na_values=["*"]) #index_col=0
-    uls  = pd.read_csv(data_dir+"abundance_tables/JINAbase-yelland/JINAbase-yelland25-ulimits.csv", header=0, na_values=["*"]) #index_col=0
+    data = pd.read_csv(data_dir+"abundance_tables/JINAbase-4-yelland/JINAbase-yelland25.csv", header=0, na_values=["*"]) #index_col=0
+    uls  = pd.read_csv(data_dir+"abundance_tables/JINAbase-4-yelland/JINAbase-yelland25-ulimits.csv", header=0, na_values=["*"]) #index_col=0
     Nstars = len(data)
 
     ## Gather groups of column names
@@ -611,7 +611,7 @@ def load_jinabase(sci_key=None, io=1, load_eps=True, load_ul=True, load_XH=True,
     data['I/O'] = data['I/O'].astype(int)
 
     ## Save the processed data to a CSV file
-    data.to_csv(data_dir+"abundance_tables/JINAbase-yelland/JINAbase-yelland25-processed.csv", index=False)
+    data.to_csv(data_dir+"abundance_tables/JINAbase-4-yelland/JINAbase-yelland25-processed.csv", index=False)
 
     # Filter the dataframe based on desired version
     if version == "abohalima":
@@ -1724,7 +1724,7 @@ def load_sass_stars():
 
 ### milky way (MW)
 
-def load_placco2014(remove_atari=True, use_sass_star_abundances=False, io=1):
+def load_placco2014(remove_atari=True, remove_sass=True, use_jinabase_sass=False, io=1):
     """
     Load the Placco et al. (2014) abundance data for the Milky Way (MW) halo stars.
 
@@ -1891,14 +1891,17 @@ def load_placco2014(remove_atari=True, use_sass_star_abundances=False, io=1):
     for col in numeric_cols:
         placco2014_df[col] = pd.to_numeric(placco2014_df[col], errors='coerce')
 
-    ## Add the Simbad_Identifier, RA_hms, DEC_dms columns
-    placco2014_simbad_df = pd.read_csv(data_dir+'abundance_tables/placco2014/simbad_data.csv')
-    for name in placco2014_simbad_df['Name']:
-        placco2014_df.loc[placco2014_df['Name'] == name, 'Simbad_Identifier'] = placco2014_simbad_df.loc[placco2014_simbad_df['Name'] == name, 'MAIN_ID'].values[0]
-        placco2014_df.loc[placco2014_df['Name'] == name, 'RA_hms'] = placco2014_simbad_df.loc[placco2014_simbad_df['Name'] == name, 'RA'].values[0].replace(' ', ':')
-        placco2014_df.loc[placco2014_df['Name'] == name, 'DEC_dms'] = placco2014_simbad_df.loc[placco2014_simbad_df['Name'] == name, 'DEC'].values[0].replace(' ', ':')
-    placco2014_df = placco2014_df[[placco2014_df.columns[0]] + ['Simbad_Identifier', 'RA_hms', 'DEC_dms'] + list(placco2014_df.columns[1:-3])]
-        
+    ## Add the Simbad_Identifier, RA_hms, DEC_dms, RA_deg, DEC_deg columns
+    simbad_df = pd.read_csv(data_dir+'abundance_tables/placco2014/simbad_data.csv')
+    for name in simbad_df['Name']:
+        placco2014_df.loc[placco2014_df['Name'] == name, 'Simbad_Identifier'] = simbad_df.loc[simbad_df['Name'] == name, 'MAIN_ID'].values[0]
+        placco2014_df.loc[placco2014_df['Name'] == name, 'RA_hms'] = simbad_df.loc[simbad_df['Name'] == name, 'RA'].values[0].replace(' ', ':')
+        placco2014_df.loc[placco2014_df['Name'] == name, 'DEC_dms'] = simbad_df.loc[simbad_df['Name'] == name, 'DEC'].values[0].replace(' ', ':')
+        placco2014_df.loc[placco2014_df['Name'] == name, 'RA_deg'] = coord.ra_hms_to_deg(placco2014_df.loc[placco2014_df['Name'] == name, 'RA_hms'], precision=4)
+        placco2014_df.loc[placco2014_df['Name'] == name, 'DEC_deg'] = coord.dec_dms_to_deg(placco2014_df.loc[placco2014_df['Name'] == name, 'DEC_dms'], precision=2)
+    new_columns = ['Simbad_Identifier', 'RA_hms', 'DEC_dms', 'RA_deg', 'DEC_deg']
+    placco2014_df = placco2014_df[[placco2014_df.columns[0]] + new_columns + list(placco2014_df.columns[1:-len(new_columns)])]
+
     ## Save the pre-filtered DataFrame
     placco2014_df.to_csv(data_dir+'abundance_tables/placco2014/placco2014.csv', index=False)
 
@@ -1951,25 +1954,43 @@ def load_placco2014(remove_atari=True, use_sass_star_abundances=False, io=1):
     else:
         raise ValueError("Invalid value for 'io'. It should be 0, 1, or None.")
     
-    
-    ## Using the JINAbase values for SASS stars
-    if use_sass_star_abundances:
-        # print("Number of stars before SASS substitution:", len(placco2014_df))
-        sass_df = load_sass_stars()
-        placco2014_sass_rows = []
+    ## The SASS stars -- there are SASS stars in the Placco+2014 dataset
+    sass_df = load_sass_stars()
+    if remove_sass:
+        ## This removes the SASS stars from the Placco2014 dataset
+        mw_sass_stars = []
         for simbad_id in placco2014_df['Simbad_Identifier']:
             if simbad_id in sass_df['Simbad_Identifier'].values:
-                row = sass_df[sass_df['Simbad_Identifier'] == simbad_id].iloc[0:1].copy()
-                row['I/O'] = placco2014_df.loc[placco2014_df['Simbad_Identifier'] == simbad_id, 'I/O'].values[0]
-                placco2014_sass_rows.append(row)
-            else:
-                row = placco2014_df[placco2014_df['Simbad_Identifier'] == simbad_id].iloc[0:1].copy()
-                placco2014_sass_rows.append(row)
-        placco2014_sass_df = pd.concat(placco2014_sass_rows, ignore_index=True)
-        placco2014_df = placco2014_sass_df.copy()
-        # print("Number of stars after SASS substitution:", len(placco2014_df))
-        
-        
+                mw_sass_stars.append(simbad_id)
+        # print("Number of SASS stars:", len(mw_sass_stars))
+        # print("Number of stars before SASS star removal:", len(placco2014_df))
+        for name in mw_sass_stars:
+            placco2014_df.loc[placco2014_df['Simbad_Identifier'] == name, 'I/O'] = 0
+        placco2014_df = placco2014_df[placco2014_df['I/O'] == io]
+        # print("Number of stars after SASS removal:", len(placco2014_df))
+        print("Note: SASS stars are excluded. You are using only the Placco et al. (2014) abundance values.")
+    else:
+        ## If you want to include the SASS stars, you can choose to use either their
+        ## JINAbase abundances or their Placco et al. (2014) abundances.
+        if use_jinabase_sass:
+            # print("Number of stars before SASS substitution:", len(placco2014_df))
+            placco2014_sass_rows = []
+            for simbad_id in placco2014_df['Simbad_Identifier']:
+                if simbad_id in sass_df['Simbad_Identifier'].values:
+                    row = sass_df[sass_df['Simbad_Identifier'] == simbad_id].iloc[0:1].copy()
+                    row['I/O'] = placco2014_df.loc[placco2014_df['Simbad_Identifier'] == simbad_id, 'I/O'].values[0]
+                    placco2014_sass_rows.append(row)
+                else:
+                    row = placco2014_df[placco2014_df['Simbad_Identifier'] == simbad_id].iloc[0:1].copy()
+                    placco2014_sass_rows.append(row)
+            placco2014_sass_df = pd.concat(placco2014_sass_rows, ignore_index=True)
+            placco2014_df = placco2014_sass_df.copy()
+            # print("Number of stars after SASS substitution:", len(placco2014_df))
+            print("Note: SASS stars are included. You are using their JINAbase abundance values.")
+        else:
+            print("Note: SASS stars are included. You are using their Placco et al. (2014) abundance values.")
+    print()
+    
     ## Save the final DataFrame
     placco2014_df.to_csv(data_dir+'abundance_tables/placco2014/placco2014-processed.csv', index=False)
     
@@ -2722,22 +2743,33 @@ def load_frebel2010b(io=None):
 
     epscols = [make_epscol(s) for s in species]
     ulcols = [make_ulcol(s) for s in species]
-    XHcols = [make_XHcol(s).replace(" ", "") for s in species]
-    XFecols = [make_XFecol(s).replace(" ", "") for s in species]
+    XHcols = [make_XHcol(s).replace(' ', '') for s in species]
+    ulXHcols = ['ul' + col for col in XHcols]
+    XFecols = [make_XFecol(s).replace(' ', '') for s in species]
+    ulXFecols = ['ul' + col for col in XFecols]
+    llXFecols = ['ll' + col for col in XFecols]
     errcols = [make_errcol(s) for s in species]
 
     ## New dataframe with proper columns
-    frebel2010_df = pd.DataFrame(columns=['Name','Reference','Ref','Loc','RA_hms','RA_deg','DEC_dms','DEC_deg'] + epscols + ulcols + XHcols + XFecols + errcols)
+    frebel2010_df = pd.DataFrame(
+                    columns=['I/O','Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
+                    'Teff','logg','Fe/H','Vmic'] + epscols + ulcols + XHcols + ulXHcols + XFecols 
+                    + llXFecols + ulXFecols + errcols)
     frebel2010_df.loc[0,'Name'] = 'S1020549'
+    frebel2010_df.loc[0,'Simbad_Identifier'] = '2MASS J01004785-3341029'
     frebel2010_df.loc[0,'Reference'] = 'Frebel+2010b'
     frebel2010_df.loc[0,'Ref'] = 'FRE10b'
-    frebel2010_df.loc[0,'Loc'] = 'DW'
     frebel2010_df.loc[0,'I/O'] = 1
+    frebel2010_df.loc[0,'Loc'] = 'DW'
     frebel2010_df.loc[0,'System'] = 'Sculptor'
     frebel2010_df.loc[0,'RA_hms'] = '01:00:47.80'
     frebel2010_df.loc[0,'RA_deg'] = coord.ra_hms_to_deg(frebel2010_df.loc[0,'RA_hms'])
     frebel2010_df.loc[0,'DEC_dms'] = '-33:41:03.0'
     frebel2010_df.loc[0,'DEC_deg'] = coord.dec_dms_to_deg(frebel2010_df.loc[0,'DEC_dms'])
+    frebel2010_df.loc[0,'Teff'] = 4550
+    frebel2010_df.loc[0,'logg'] = 0.9
+    frebel2010_df.loc[0,'Fe/H'] = -3.81
+    frebel2010_df.loc[0,'Vmic'] = 2.8
 
     ## Fill in data
     for idx, row in csv_df.iterrows():

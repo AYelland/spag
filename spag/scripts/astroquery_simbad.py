@@ -5,6 +5,20 @@ from astroquery.simbad import Simbad
 from astropy.coordinates import SkyCoord
 import astropy.units as u
 
+# Example Usage:
+# From the terminal, navigate to the <path_to_spag>/spag/spag/scripts/ directory and run:
+#
+#   `python astroquery_simbad.py -i roederer2010c` # (query by identifier)
+#   `python astroquery_simbad.py -c roederer2010c` # (query by coordinates)
+#
+# ... or change the 'base_path' variable below to point to your desired directory. The script
+# does require an argument for the 'reference' though. So, if it is not used, it can be anything
+# (e.g., 'general').
+#
+#   `python astroquery_simbad.py -i general`
+#   `python astroquery_simbad.py -c general`
+#
+
 # Setup Simbad fields
 Simbad.ROW_LIMIT = 10000
 Simbad.add_votable_fields(
