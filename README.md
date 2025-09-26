@@ -5,7 +5,7 @@ SPAG has been structured in a way such that it can be installed and imported on 
 
 ```zsh
 cd /path/to/install/where/you/want/to/install/spag
-https://github.com/AYelland/spag.git
+git clone https://github.com/AYelland/spag.git
 cd spag
 python setup.py develop
 ```
@@ -13,9 +13,13 @@ python setup.py develop
 
 SPAG does have some dependence on packages that might warrent their own installation. If you have any additional questions, please reach out to Alexander Yelland (ayelland@mit.edu).
 
+## Structure
+
+THe heart of this package is in the `spag/spag/data/` directory. Here, there is tables and observational measurements from a large variety of sources. In the `/spag/spag/read_data.py` script, all of these references and tables are pulled together through different python functions. By importing the `read_data` functions into your python notebook/script, you can access all of the data very quickly.
+
 ## Citations and references
 
-If you use any of these tools in published work (especially data tables), please get in contact with me such that the proper sources are referenced for whichever parts of this tool you used. Below, I have tried to keep track of all references used in SPAG's development, though this might be incomplete.
+If you use any of these tools in published work (especially data tables), please get in contact with me such that the proper sources are referenced for whichever parts of this tool you used. Below, I have begun the process of to keeping track of all references used in SPAG's development, though this is still very incomplete.
 
 ### Solar Data
 - Asplund et al. 2009, https://ui.adsabs.harvard.edu/abs/2009ARA%26A..47..481A/abstract
