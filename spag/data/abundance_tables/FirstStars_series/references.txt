@@ -1,0 +1,55 @@
+# First Stars Series Reference
+
+### These references all correspond to the "First Stars." series published between 2002 and 2013.
+
+1. First stars. I. The extreme r-element rich, iron-poor halo giant CS 31082-001. Implications for the r-process site(s) and radioactive cosmochronology
+ --> Hill et al. 2002 - https://ui.adsabs.harvard.edu/abs/2002A%26A...387..560H/abstract
+
+2. First Stars. II. Elemental abundances in the extremely metal-poor star CS 22949--037. A diagnostic of early massive supernovae
+ --> Depagne et al. 2002 - https://ui.adsabs.harvard.edu/abs/2002A%26A...390..187D/abstract
+
+3. First Stars. III. A detailed elemental abundance study of four extremely metal-poor giant stars
+ --> Francois et al. 2003 - https://ui.adsabs.harvard.edu/abs/2003A%26A...403.1105F/abstract
+
+4. First stars IV. CS 29497-030: Evidence for operation of the s-process at very low metallicity
+ --> Sivarani et al. 2004 - https://ui.adsabs.harvard.edu/abs/2004A%26A...413.1073S/abstract
+
+5. First stars V - Abundance patterns from C to Zn and supernova yields in the early Galaxy
+ --> Cayrel et al. 2004 - https://ui.adsabs.harvard.edu/abs/2004A%26A...416.1117C/abstract
+
+6. First stars VI - Abundances of C, N, O, Li, and mixing in extremely metal-poor giants. Galactic evolution of the light elements
+ --> Spite et al. 2005 - https://ui.adsabs.harvard.edu/abs/2005A%26A...430..655S/abstract
+
+7. First stars VII - Lithium in extremely metal poor dwarfs
+ --> Bonifacio et al. 2007 - https://ui.adsabs.harvard.edu/abs/2007A%26A...462..851B/abstract
+
+8. First stars. VIII. Enrichment of the neutron-capture elements in the early Galaxy
+ --> Francios et al. 2007 - https://ui.adsabs.harvard.edu/abs/2007A%26A...476..935F/abstract
+
+9. First stars IX - Mixing in extremely metal-poor giants. Variation of the 12C/13C, [Na/Mg] and [Al/Mg] ratios
+ --> Spite et al. 2006 - https://ui.adsabs.harvard.edu/abs/2006A%26A...455..291S/abstract
+
+10. First stars X. The nature of three unevolved carbon-enhanced metal-poor stars
+ --> Sivarani et al. 2006 - https://ui.adsabs.harvard.edu/abs/2006A%26A...459..125S/abstract
+
+11. First stars XI. Chemical composition of the extremely metal-poor dwarfs in the binary CS 22876-032
+ --> Gonzalez Hernandez et al. 2008 - https://ui.adsabs.harvard.edu/abs/2008A%26A...480..233G/abstract
+
+12. First stars XII. Abundances in extremely metal-poor turnoff stars, and comparison with the giants
+ --> Bonifacio et al. 2009 - https://ui.adsabs.harvard.edu/abs/2009A%26A...501..519B/abstract
+
+13. First stars. XIII. Two extremely metal-poor RR Lyrae stars
+ --> Hansen et al. 2011 - https://ui.adsabs.harvard.edu/abs/2011A%26A...527A..65H/abstract
+
+14. First stars. XIV. Sulfur abundances in extremely metal-poor stars
+ --> Spite et at. 2011 - https://ui.adsabs.harvard.edu/abs/2011A%26A...528A...9S/abstract
+
+15. First stars. XV. Third-peak r-process element and actinide abundances in the uranium-rich star CS31082-001
+ --> Barbuy et al. 2011 - https://ui.adsabs.harvard.edu/abs/2011A%26A...534A..60B/abstract
+
+16. First stars. XVI. HST/STIS abundances of heavy elements in the uranium-rich metal-poor star CS 31082-001
+ --> Siqueira et al. 2013 - https://ui.adsabs.harvard.edu/abs/2013A%26A...550A.122S/abstract 
+
+
+## Notes
+- References (5) and (8) study the same stellar sample, but focus on different elements. With being the same spectra, we can combine the abundances into one observation.

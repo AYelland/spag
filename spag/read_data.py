@@ -1644,6 +1644,7 @@ def load_sass_stars():
     Load the SASS stars data from JINAbase, using selection filters and criteria.
     """
     jinabase_df = load_jinabase(io=None)
+    hughes2025_df = load_hughes2025()
 
     ## Selects only halo stars (or more like everything unclassified in JINAbase)
     halo_df = jinabase_df[(jinabase_df['Loc'] == 'HA') | (jinabase_df['Loc'].isin(['', 'nan', np.nan]))]
@@ -1677,10 +1678,14 @@ def load_sass_stars():
         (halo_w_c_sr_ba_df['ul[Ba/H]'].notna()) & (halo_w_c_sr_ba_df['ul[Ba/H]'].astype(float) <= -4)
     ]
 
-    ## Concatenate the two dataframes
-    sass_df = pd.concat([low_sr_ba_df, low_ulsr_ba_df, low_sr_ulba_df, low_ulsr_ulba_df], ignore_index=True)
-    sass_df['System'] = 'SASS'
+    ## Concatenate the dataframes
+    jinabase_sass_df = pd.concat([low_sr_ba_df, low_ulsr_ba_df, low_sr_ulba_df, low_ulsr_ulba_df], ignore_index=True)
+    jinabase_sass_df['System'] = 'SASS'
 
+    ## Combine with Hughes+2025 data
+    sass_df = pd.concat([jinabase_sass_df, hughes2025_df], ignore_index=True, sort=False)
+    sass_df.reset_index(drop=True, inplace=True)
+    
     ## Removing Duplicate stars 
     sass_df['I/O'] = 1  # Initialize I/O column to 1
     dups = [
@@ -2132,7 +2137,7 @@ def load_mardini2022a(io=None):
     mardini2022a_df['C_key'] = mardini2022a_df['[C/Fe]'].apply(lambda cfe: classify_carbon_enhancement(cfe) if pd.notna(cfe) else np.nan)
     mardini2022a_df['MP_key'] = mardini2022a_df['[Fe/H]'].apply(lambda feh: classify_metallicity(feh) if pd.notna(feh) else np.nan)
     mardini2022a_df['Loc'] = 'aDW'
-    mardini2022a_df['System'] = 'Atari Disk'
+    mardini2022a_df['System'] = 'Atari'
     mardini2022a_df['RA_deg'] = np.nan
     mardini2022a_df['DEC_deg'] = np.nan
 
@@ -2340,6 +2345,119 @@ def load_ou2024c(io=None):
         raise ValueError("Invalid value for 'io'. It should be 0, 1, or None.")
 
     return ou2024c_df
+
+### small accreted stellar systems (SASS)
+
+def load_hughes2025(io=None):
+    """
+    Load the Hughes et al. 2025 data for the 10 SASS stars.
+
+    Table 1 - Observations
+    Table 3 - Stellar Parameters
+    Table 6 - Abundance Table
+    """
+
+    ## Read in the data tables
+    obs_df = pd.read_csv(data_dir + "abundance_tables/hughes2025/obs_table.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    param_df = pd.read_csv(data_dir + "abundance_tables/hughes2025/param_table.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    abund_df = pd.read_csv(data_dir + "abundance_tables/hughes2025/abund_table.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+
+    ## Make the new column names
+    species = []
+    for ion in abund_df["Species"].unique():
+        species_i = ion_to_species(ion)
+        elem_i = ion_to_element(ion)
+        if species_i not in species:
+            species.append(species_i)
+
+    epscols = [make_epscol(s) for s in species]
+    ulcols = [make_ulcol(s) for s in species]
+    XHcols = [make_XHcol(s).replace(" ", "") for s in species]
+    ulXHcols = ['ul' + col for col in XHcols]
+    XFecols = [make_XFecol(s).replace(" ", "") for s in species]
+    ulXFecols = ['ul' + col for col in XFecols]
+    errcols = [make_errcol(s) for s in species]
+
+    ## New dataframe with proper columns
+    hughes2025_df = pd.DataFrame(
+                    columns=['I/O','Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
+                    'Teff','logg','Fe/H','Vmic'] + epscols + ulcols + XHcols + ulXHcols + XFecols 
+                    + ulXFecols + errcols)
+    for i, name in enumerate(abund_df['Name'].unique()):
+        hughes2025_df.loc[i,'Name'] = name
+        hughes2025_df.loc[i,'Simbad_Identifier'] = obs_df.loc[obs_df['Name'] == name, 'Simbad_Identifier'].values[0]
+        hughes2025_df.loc[i,'Reference'] = 'Hughes+2025'
+        hughes2025_df.loc[i,'Ref'] = 'HUG25'
+        hughes2025_df.loc[i,'I/O'] = 1
+        hughes2025_df.loc[i,'Loc'] = ''
+        hughes2025_df.loc[i,'System'] = 'SASS' # obs_df.loc[obs_df['Name'] == name, 'System'].values[0]
+        hughes2025_df.loc[i,'RA_hms'] = obs_df.loc[obs_df['Name'] == name, 'RA_hms'].values[0]
+        hughes2025_df.loc[i,'RA_deg'] = coord.ra_hms_to_deg(hughes2025_df.loc[i,'RA_hms'], precision=6)
+        hughes2025_df.loc[i,'DEC_dms'] = obs_df.loc[obs_df['Name'] == name, 'DEC_dms'].values[0]
+        hughes2025_df.loc[i,'DEC_deg'] = coord.dec_dms_to_deg(hughes2025_df.loc[i,'DEC_dms'], precision=2)
+        hughes2025_df.loc[i,'Teff'] = param_df.loc[param_df['Name'] == name, 'Teff'].values[0]
+        hughes2025_df.loc[i,'logg'] = param_df.loc[param_df['Name'] == name, 'logg'].values[0]
+        hughes2025_df.loc[i,'Fe/H'] = param_df.loc[param_df['Name'] == name, 'Fe/H'].values[0]
+        hughes2025_df.loc[i,'Vmic'] = param_df.loc[param_df['Name'] == name, 'Vmic'].values[0]
+
+        ## Fill in data
+        star_df = abund_df[abund_df['Name'] == name]
+        for j, row in star_df.iterrows():
+            ion = row["Species"]
+            species_i = ion_to_species(ion)
+            elem_i = ion_to_element(ion)
+
+            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009')[0]
+            feh_a09 = star_df.loc[star_df['Species'] == 'Fe I', '[X/H]'].values[0]
+            logepsX = normal_round(row["[X/H]"] + logepsX_sun_a09, 2)
+
+            ## Assign epsX values
+            col = make_epscol(species_i)
+            if col in epscols:
+                hughes2025_df.loc[i, col] = logepsX if pd.isna(row["l_[X/H]"]) else np.nan
+
+            ## Assign ulX values
+            col = make_ulcol(species_i)
+            if col in ulcols:
+                hughes2025_df.loc[i, col] = logepsX if pd.notna(row["l_[X/H]"]) else np.nan
+
+            ## Assign [X/H] and ul[X/H]values
+            col = make_XHcol(species_i).replace(" ", "")
+            if col in XHcols:
+                if pd.isna(row["l_[X/H]"]):
+                    hughes2025_df.loc[i, col] = normal_round(logepsX - logepsX_sun_a09, 2)
+                    hughes2025_df.loc[i, 'ul'+col] = np.nan
+                else:
+                    hughes2025_df.loc[i, col] = np.nan
+                    hughes2025_df.loc[i, 'ul'+col] = normal_round(logepsX - logepsX_sun_a09, 2)
+                if 'e_[X/H]' in row.index:
+                    hughes2025_df.loc[i, 'e_'+col] = row["e_[X/H]"]
+
+            ## Assign [X/Fe] values
+            col = make_XFecol(species_i).replace(" ", "")
+            if col in XFecols:
+                if pd.isna(row["l_[X/Fe]"]):
+                    hughes2025_df.loc[i, col] = normal_round((logepsX - logepsX_sun_a09) - feh_a09, 2)
+                    hughes2025_df.loc[i, 'ul'+col] = np.nan
+                else:
+                    hughes2025_df.loc[i, col] = np.nan
+                    hughes2025_df.loc[i, 'ul'+col] = normal_round((logepsX - logepsX_sun_a09) - feh_a09, 2)
+                if 'e_[X/Fe]' in row.index:
+                    hughes2025_df.loc[i, 'e_'+col] = row["e_[X/Fe]"]
+
+            ## Assign error values
+            # col = make_errcol(species_i)
+            # if col in errcols:
+            #     e_logepsX = row.get("e_logepsX", np.nan)
+            #     if pd.notna(e_logepsX):
+            #         hughes2025_df.loc[i, col] = e_logepsX
+            #     else:
+            #         hughes2025_df.loc[i, col] = np.nan
+
+    ## Drop the Fe/Fe columns
+    hughes2025_df.drop(columns=['[Fe/Fe]','ul[Fe/Fe]','[FeII/Fe]','ul[FeII/Fe]'], inplace=True, errors='ignore')
+
+    return hughes2025_df
 
 ### classical and dwarf spheroidal galaxies (dSph)
 
