@@ -2011,10 +2011,10 @@ def load_cayrel2004(io=None):
     """
 
     ## Read in the data tables
-    obs_df = pd.read_csv(data_dir + "abundance_tables/cayrel2004/table2.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
-    param_df = pd.read_csv(data_dir + "abundance_tables/cayrel2004/table4.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
-    abund_df = pd.read_csv(data_dir + "abundance_tables/cayrel2004/table8.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
-    
+    obs_df = pd.read_csv(data_dir + "abundance_tables/FirstStars_series/cayrel2004/table2.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    param_df = pd.read_csv(data_dir + "abundance_tables/FirstStars_series/cayrel2004/table4.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    abund_df = pd.read_csv(data_dir + "abundance_tables/FirstStars_series/cayrel2004/table8.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+
     ## Make the new column names
     species = []
     for ion in abund_df["Species"].unique():
