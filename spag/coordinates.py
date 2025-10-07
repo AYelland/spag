@@ -7,14 +7,9 @@ from __future__ import (division, print_function, absolute_import,
                         unicode_literals)
 
 from six import string_types
-from astropy.coordinates import SkyCoord
+import astropy.coordinates as coord
 import astropy.units as u
-from gala.coordinates import SagittariusLaw10
-
-# Ignore AstropyDeprecationWarning for SagittariusLaw10
-from astropy.utils.exceptions import AstropyDeprecationWarning
-import warnings
-warnings.filterwarnings("ignore", category=AstropyDeprecationWarning)
+import numpy as np
 
 from spag.utils import normal_round
 
@@ -187,36 +182,104 @@ def coords_equal(ra1, dec1, ra2, dec2, precision=5):
 ################################################################################
 ## Special Coordinate System Conversions
 
-def sgr_LambdaBeta(ra, dec):
+
+class Sagittarius(coord.BaseCoordinateFrame):
     """
-    ra_deg: float or str
-        Right Ascension in degrees or in the form 'hh:mm:ss.ss'
-    dec_deg: float or str
-        Declination in degrees or in the form '+dd:mm:ss.ss'
-        
-    Converts from RA, Dec coordinates into the Sagittarius (Sgr) heliocentric 
-    spherical coordinates (Lambda, Beta), where Lambda is the longitude along 
-    the Sgr stream and Beta is the latitude. Lambda is defined to be 0 degrees 
-    at the center Sgr core and increases along the stream.
+    A Heliocentric spherical coordinate system defined by the orbit
+    of the Sagittarius dwarf galaxy, as described in
     
     Majewski et al. 2003: http://adsabs.harvard.edu/abs/2003ApJ...599.1082M
     Law & Majewski 2010: http://adsabs.harvard.edu/abs/2010ApJ...714..229L
+        (further explained in https://www.stsci.edu/~dlaw/Sgr/)
     
-    https://gala.adrian.pw/en/v1.9.1/api/gala.coordinates.SagittariusLaw10.html
+    Parameters
+    ----------
+    representation : `~astropy.coordinates.BaseRepresentation` or None
+        A representation object or None to have no data (or use the other keywords)
+    Lambda : `~astropy.coordinates.Angle`, optional, must be keyword
+        The longitude-like angle corresponding to Sagittarius' orbit.
+    Beta : `~astropy.coordinates.Angle`, optional, must be keyword
+        The latitude-like angle corresponding to Sagittarius' orbit.
+    distance : `~astropy.units.Quantity`, optional, must be keyword
+        The Distance for this object along the line-of-sight.
+    pm_Lambda_cosBeta : `~astropy.units.Quantity`, optional, must be keyword
+        The proper motion along the stream in ``Lambda`` (including the
+        ``cos(Beta)`` factor) for this object (``pm_Beta`` must also be given).
+    pm_Beta : `~astropy.units.Quantity`, optional, must be keyword
+        The proper motion in Declination for this object (``pm_ra_cosdec`` must
+        also be given).
+    radial_velocity : `~astropy.units.Quantity`, optional, keyword-only
+        The radial velocity of this object.
     """
-   
-    ra_deg = ra_hms2deg(ra) if isinstance(ra, string_types) else ra
-    dec_deg = dec_dms2deg(dec) if isinstance(dec, string_types) else dec 
+    default_representation = coord.SphericalRepresentation
+    default_differential = coord.SphericalCosLatDifferential
+    frame_specific_representation_info = {
+        coord.SphericalRepresentation: [
+            coord.RepresentationMapping("lon", "Lambda"),
+            coord.RepresentationMapping("lat", "Beta"),
+            coord.RepresentationMapping("distance", "distance"),
+        ]
+    }
     
-    ## RA, Dec to ICRS Coordinates
+
+SGR_PHI = (180 + 3.75) * u.degree  # Euler angles (from Law & Majewski 2010)
+SGR_THETA = (90 - 13.46) * u.degree
+SGR_PSI = (180 + 14.111534) * u.degree
+SGR_MATRIX = (
+    np.diag([1.0, 1.0, -1.0])
+    @ coord.matrix_utilities.rotation_matrix(SGR_PSI, "z")
+    @ coord.matrix_utilities.rotation_matrix(SGR_THETA, "x")
+    @ coord.matrix_utilities.rotation_matrix(SGR_PHI, "z")
+)
+
+@coord.frame_transform_graph.transform(coord.StaticMatrixTransform, coord.Galactic, Sagittarius)
+def galactic_to_sgr():
+    """Compute the Galactic spherical to heliocentric Sgr transformation matrix."""
+    return SGR_MATRIX
+
+
+@coord.frame_transform_graph.transform(coord.StaticMatrixTransform, Sagittarius, coord.Galactic)
+def sgr_to_galactic():
+    """Compute the heliocentric Sgr to spherical Galactic transformation matrix."""
+    return SGR_MATRIX.swapaxes(-2, -1)
+
+def icrs_to_sgr(ra, dec):
+    """
+    Convert from RA, Dec coordinates to Sagittarius (Sgr) heliocentric 
+    spherical coordinates (Lambda, Beta).
+    
+    Parameters
+    ----------
+    ra : float or str
+        Right Ascension in degrees or in the form 'hh:mm:ss.ss'
+    dec : float or str
+        Declination in degrees or in the form '+dd:mm:ss.ss'
+        
+    Returns
+    -------
+    sgr_l : Angle
+        Lambda - longitude along the Sgr stream (0° at Sgr core)
+    sgr_b : Angle
+        Beta - latitude perpendicular to the stream
+    """
+    
+    # Handle string inputs
+    if isinstance(ra, str):
+        ra_deg = coord.Angle(ra, unit=u.hourangle).degree
+    else:
+        ra_deg = ra
+        
+    if isinstance(dec, str):
+        dec_deg = coord.Angle(dec, unit=u.degree).degree
+    else:
+        dec_deg = dec
+    
+    # Create ICRS coordinate
     icrs_coord = SkyCoord(ra=ra_deg*u.degree, dec=dec_deg*u.degree, frame='icrs')
     
-    ## ICRS to Galactic Coordinates
-    galactic_coord = icrs_coord.transform_to('galactic')
-    
-    ## Galactic to Sgr Coordinates (l, b) by Law & Majewski 2010
-    sgr_coord = galactic_coord.transform_to(SagittariusLaw10)
-    sgr_l = sgr_coord.Lambda.wrap_at(360 * u.deg) # wrap at 360 degrees
+    # Transform to Sagittarius coordinates
+    sgr_coord = icrs_coord.transform_to(Sagittarius())
+    sgr_l = sgr_coord.Lambda.wrap_at(360 * u.deg)
     sgr_b = sgr_coord.Beta
-
+    
     return sgr_l, sgr_b

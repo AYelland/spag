@@ -13,7 +13,7 @@ from astropy.io import fits
 
 from spag.convert import *
 from spag.utils import *
-import spag.coordinates as coord
+import spag.coordinates as scoord
 
 sns.set_palette("colorblind")
 sns_palette = sns.color_palette()
@@ -1902,8 +1902,8 @@ def load_placco2014(remove_atari=True, remove_sass=True, use_jinabase_sass=False
         placco2014_df.loc[placco2014_df['Name'] == name, 'Simbad_Identifier'] = simbad_df.loc[simbad_df['Name'] == name, 'MAIN_ID'].values[0]
         placco2014_df.loc[placco2014_df['Name'] == name, 'RA_hms'] = simbad_df.loc[simbad_df['Name'] == name, 'RA'].values[0].replace(' ', ':')
         placco2014_df.loc[placco2014_df['Name'] == name, 'DEC_dms'] = simbad_df.loc[simbad_df['Name'] == name, 'DEC'].values[0].replace(' ', ':')
-        placco2014_df.loc[placco2014_df['Name'] == name, 'RA_deg'] = coord.ra_hms_to_deg(placco2014_df.loc[placco2014_df['Name'] == name, 'RA_hms'], precision=4)
-        placco2014_df.loc[placco2014_df['Name'] == name, 'DEC_deg'] = coord.dec_dms_to_deg(placco2014_df.loc[placco2014_df['Name'] == name, 'DEC_dms'], precision=2)
+        placco2014_df.loc[placco2014_df['Name'] == name, 'RA_deg'] = scoord.ra_hms_to_deg(placco2014_df.loc[placco2014_df['Name'] == name, 'RA_hms'], precision=4)
+        placco2014_df.loc[placco2014_df['Name'] == name, 'DEC_deg'] = scoord.dec_dms_to_deg(placco2014_df.loc[placco2014_df['Name'] == name, 'DEC_dms'], precision=2)
     new_columns = ['Simbad_Identifier', 'RA_hms', 'DEC_dms', 'RA_deg', 'DEC_deg']
     placco2014_df = placco2014_df[[placco2014_df.columns[0]] + new_columns + list(placco2014_df.columns[1:-len(new_columns)])]
 
@@ -2045,9 +2045,9 @@ def load_cayrel2004(io=None):
         cayrel2004_df.loc[i,'Loc'] = 'HA'
         cayrel2004_df.loc[i,'System'] = obs_df.loc[obs_df['Name'] == name, 'System'].values[0]
         cayrel2004_df.loc[i,'RA_hms'] = obs_df.loc[obs_df['Name'] == name, 'RA_hms'].values[0]
-        cayrel2004_df.loc[i,'RA_deg'] = coord.ra_hms_to_deg(cayrel2004_df.loc[i,'RA_hms'], precision=6)
+        cayrel2004_df.loc[i,'RA_deg'] = scoord.ra_hms_to_deg(cayrel2004_df.loc[i,'RA_hms'], precision=6)
         cayrel2004_df.loc[i,'DEC_dms'] = obs_df.loc[obs_df['Name'] == name, 'DEC_dms'].values[0]
-        cayrel2004_df.loc[i,'DEC_deg'] = coord.dec_dms_to_deg(cayrel2004_df.loc[i,'DEC_dms'], precision=2)
+        cayrel2004_df.loc[i,'DEC_deg'] = scoord.dec_dms_to_deg(cayrel2004_df.loc[i,'DEC_dms'], precision=2)
         cayrel2004_df.loc[i,'Teff'] = param_df.loc[param_df['Name'] == name, 'Teff'].values[0]
         cayrel2004_df.loc[i,'logg'] = param_df.loc[param_df['Name'] == name, 'logg'].values[0]
         cayrel2004_df.loc[i,'Fe/H'] = param_df.loc[param_df['Name'] == name, 'Fe/H_m'].values[0]
@@ -2149,19 +2149,19 @@ def load_mardini2022a(io=None):
             if len(row['RA_hms']) == 10:
                 row['RA_hms'] = '0' + row['RA_hms']
                 mardini2022a_df.at[idx, 'RA_hms'] = row['RA_hms']
-            row['RA_deg'] = coord.ra_hms_to_deg(row['RA_hms'], precision=6)
+            row['RA_deg'] = scoord.ra_hms_to_deg(row['RA_hms'], precision=6)
             mardini2022a_df.at[idx, 'RA_deg'] = row['RA_deg']
 
         if pd.isna(row['DEC_deg']) and pd.notna(row['DEC_dms']):
-            row['DEC_deg'] = coord.dec_dms_to_deg(row['DEC_dms'], precision=6)
+            row['DEC_deg'] = scoord.dec_dms_to_deg(row['DEC_dms'], precision=6)
             mardini2022a_df.at[idx, 'DEC_deg'] = row['DEC_deg']
             
         if pd.isna(row['RA_hms']) and pd.notna(row['RA_deg']):
-            row['RA_hms'] = coord.ra_deg_to_hms(row['RA_deg'], precision=2)
+            row['RA_hms'] = scoord.ra_deg_to_hms(row['RA_deg'], precision=2)
             mardini2022a_df.at[idx, 'RA_hms'] = row['RA_hms']
 
         if pd.isna(row['DEC_dms']) and pd.notna(row['DEC_deg']):
-            row['DEC_dms'] = coord.dec_deg_to_dms(row['DEC_deg'], precision=2)
+            row['DEC_dms'] = scoord.dec_deg_to_dms(row['DEC_deg'], precision=2)
             mardini2022a_df.at[idx, 'DEC_dms'] = row['DEC_dms']
 
     ## Get the JINAbase Data using the JINA_ID
@@ -2252,9 +2252,9 @@ def load_mardini2024b(io=None):
         mardini2024b_df.loc[i,'Loc'] = 'DW'
         mardini2024b_df.loc[i,'System'] = obs_param_df.loc[obs_param_df['Name'] == name, 'System'].values[0]
         mardini2024b_df.loc[i,'RA_hms'] = obs_param_df.loc[obs_param_df['Name'] == name, 'RA_hms'].values[0]
-        mardini2024b_df.loc[i,'RA_deg'] = coord.ra_hms_to_deg(mardini2024b_df.loc[i,'RA_hms'], precision=6)
+        mardini2024b_df.loc[i,'RA_deg'] = scoord.ra_hms_to_deg(mardini2024b_df.loc[i,'RA_hms'], precision=6)
         mardini2024b_df.loc[i,'DEC_dms'] = obs_param_df.loc[obs_param_df['Name'] == name, 'DEC_dms'].values[0]
-        mardini2024b_df.loc[i,'DEC_deg'] = coord.dec_dms_to_deg(mardini2024b_df.loc[i,'DEC_dms'], precision=2)
+        mardini2024b_df.loc[i,'DEC_deg'] = scoord.dec_dms_to_deg(mardini2024b_df.loc[i,'DEC_dms'], precision=2)
         mardini2024b_df.loc[i,'Teff'] = obs_param_df.loc[obs_param_df['Name'] == name, 'Teff'].values[0]
         mardini2024b_df.loc[i,'logg'] = obs_param_df.loc[obs_param_df['Name'] == name, 'logg'].values[0]
         mardini2024b_df.loc[i,'Fe/H'] = obs_param_df.loc[obs_param_df['Name'] == name, 'Fe/H'].values[0]
@@ -2392,9 +2392,9 @@ def load_hughes2025(io=None):
         hughes2025_df.loc[i,'Loc'] = ''
         hughes2025_df.loc[i,'System'] = 'SASS' # obs_df.loc[obs_df['Name'] == name, 'System'].values[0]
         hughes2025_df.loc[i,'RA_hms'] = obs_df.loc[obs_df['Name'] == name, 'RA_hms'].values[0]
-        hughes2025_df.loc[i,'RA_deg'] = coord.ra_hms_to_deg(hughes2025_df.loc[i,'RA_hms'], precision=6)
+        hughes2025_df.loc[i,'RA_deg'] = scoord.ra_hms_to_deg(hughes2025_df.loc[i,'RA_hms'], precision=6)
         hughes2025_df.loc[i,'DEC_dms'] = obs_df.loc[obs_df['Name'] == name, 'DEC_dms'].values[0]
-        hughes2025_df.loc[i,'DEC_deg'] = coord.dec_dms_to_deg(hughes2025_df.loc[i,'DEC_dms'], precision=2)
+        hughes2025_df.loc[i,'DEC_deg'] = scoord.dec_dms_to_deg(hughes2025_df.loc[i,'DEC_dms'], precision=2)
         hughes2025_df.loc[i,'Teff'] = param_df.loc[param_df['Name'] == name, 'Teff'].values[0]
         hughes2025_df.loc[i,'logg'] = param_df.loc[param_df['Name'] == name, 'logg'].values[0]
         hughes2025_df.loc[i,'Fe/H'] = param_df.loc[param_df['Name'] == name, 'Fe/H'].values[0]
@@ -2559,9 +2559,9 @@ def load_chiti2024(io=None):
         chiti2024_df.loc[i,'Loc'] = 'DW'
         chiti2024_df.loc[i,'System'] = obs_df.loc[obs_df['Name'] == name, 'System'].values[0]
         chiti2024_df.loc[i,'RA_hms'] = obs_df.loc[obs_df['Name'] == name, 'RA_hms'].values[0]
-        chiti2024_df.loc[i,'RA_deg'] = coord.ra_hms_to_deg(chiti2024_df.loc[i,'RA_hms'], precision=6)
+        chiti2024_df.loc[i,'RA_deg'] = scoord.ra_hms_to_deg(chiti2024_df.loc[i,'RA_hms'], precision=6)
         chiti2024_df.loc[i,'DEC_dms'] = obs_df.loc[obs_df['Name'] == name, 'DEC_dms'].values[0]
-        chiti2024_df.loc[i,'DEC_deg'] = coord.dec_dms_to_deg(chiti2024_df.loc[i,'DEC_dms'], precision=2)
+        chiti2024_df.loc[i,'DEC_deg'] = scoord.dec_dms_to_deg(chiti2024_df.loc[i,'DEC_dms'], precision=2)
         chiti2024_df.loc[i,'Teff'] = param_df.loc[param_df['Name'] == name, 'Teff'].values[0]
         chiti2024_df.loc[i,'logg'] = param_df.loc[param_df['Name'] == name, 'logg'].values[0]
         chiti2024_df.loc[i,'Fe/H'] = param_df.loc[param_df['Name'] == name, '[Fe/H]'].values[0]
@@ -2644,9 +2644,9 @@ def load_chiti2024(io=None):
             new_row['Loc'] = 'DW'
             new_row['System'] = obs_df.loc[obs_df['Name'] == name, 'System'].values[0]
             new_row['RA_hms'] = obs_df.loc[obs_df['Name'] == name, 'RA_hms'].values[0]
-            new_row['RA_deg'] = coord.ra_hms_to_deg(obs_df.loc[obs_df['Name'] == name, 'RA_hms'].values[0], precision=6)
+            new_row['RA_deg'] = scoord.ra_hms_to_deg(obs_df.loc[obs_df['Name'] == name, 'RA_hms'].values[0], precision=6)
             new_row['DEC_dms'] = obs_df.loc[obs_df['Name'] == name, 'DEC_dms'].values[0]
-            new_row['DEC_deg'] = coord.dec_dms_to_deg(obs_df.loc[obs_df['Name'] == name, 'DEC_dms'].values[0], precision=2)
+            new_row['DEC_deg'] = scoord.dec_dms_to_deg(obs_df.loc[obs_df['Name'] == name, 'DEC_dms'].values[0], precision=2)
             new_row['Teff'] = param_df.loc[param_df['Name'] == name, 'Teff'].values[0]
             new_row['logg'] = param_df.loc[param_df['Name'] == name, 'logg'].values[0]
             new_row['Fe/H'] = param_df.loc[param_df['Name'] == name, '[Fe/H]'].values[0]
@@ -2752,9 +2752,9 @@ def load_chiti2025(io=None):
         chiti2025_df.loc[i,'Loc'] = 'UF'
         chiti2025_df.loc[i,'System'] = obs_param_df.loc[obs_param_df['Name'] == name, 'System'].values[0]     
         chiti2025_df.loc[i,'RA_hms'] = obs_param_df.loc[obs_param_df['Name'] == name, 'RA_hms'].values[0]
-        chiti2025_df.loc[i,'RA_deg'] = coord.ra_hms_to_deg(chiti2025_df.loc[i,'RA_hms'], precision=6)
+        chiti2025_df.loc[i,'RA_deg'] = scoord.ra_hms_to_deg(chiti2025_df.loc[i,'RA_hms'], precision=6)
         chiti2025_df.loc[i,'DEC_dms'] = obs_param_df.loc[obs_param_df['Name'] == name, 'DEC_dms'].values[0]
-        chiti2025_df.loc[i,'DEC_deg'] = coord.dec_dms_to_deg(chiti2025_df.loc[i,'DEC_dms'], precision=2)
+        chiti2025_df.loc[i,'DEC_deg'] = scoord.dec_dms_to_deg(chiti2025_df.loc[i,'DEC_dms'], precision=2)
         chiti2025_df.loc[i,'Teff'] = obs_param_df.loc[obs_param_df['Name'] == name, 'Teff'].values[0]
         chiti2025_df.loc[i,'logg'] = obs_param_df.loc[obs_param_df['Name'] == name, 'logg'].values[0]
         chiti2025_df.loc[i,'Fe/H'] = obs_param_df.loc[obs_param_df['Name'] == name, 'Fe/H'].values[0]
@@ -2881,9 +2881,9 @@ def load_frebel2010b(io=None):
     frebel2010_df.loc[0,'Loc'] = 'DW'
     frebel2010_df.loc[0,'System'] = 'Sculptor'
     frebel2010_df.loc[0,'RA_hms'] = '01:00:47.80'
-    frebel2010_df.loc[0,'RA_deg'] = coord.ra_hms_to_deg(frebel2010_df.loc[0,'RA_hms'])
+    frebel2010_df.loc[0,'RA_deg'] = scoord.ra_hms_to_deg(frebel2010_df.loc[0,'RA_hms'])
     frebel2010_df.loc[0,'DEC_dms'] = '-33:41:03.0'
-    frebel2010_df.loc[0,'DEC_deg'] = coord.dec_dms_to_deg(frebel2010_df.loc[0,'DEC_dms'])
+    frebel2010_df.loc[0,'DEC_deg'] = scoord.dec_dms_to_deg(frebel2010_df.loc[0,'DEC_dms'])
     frebel2010_df.loc[0,'Teff'] = 4550
     frebel2010_df.loc[0,'logg'] = 0.9
     frebel2010_df.loc[0,'Fe/H'] = -3.81
@@ -3003,9 +3003,9 @@ def load_lemasle2012(io=None):
         lemasle2012_df.loc[i,'Loc'] = 'DW'
         lemasle2012_df.loc[i,'System'] = obs_df.loc[obs_df['Name'] == name, 'System'].values[0]
         lemasle2012_df.loc[i,'RA_hms'] = obs_df.loc[obs_df['Name'] == name, 'RA_hms'].values[0]
-        lemasle2012_df.loc[i,'RA_deg'] = coord.ra_hms_to_deg(lemasle2012_df.loc[i,'RA_hms'], precision=6)
+        lemasle2012_df.loc[i,'RA_deg'] = scoord.ra_hms_to_deg(lemasle2012_df.loc[i,'RA_hms'], precision=6)
         lemasle2012_df.loc[i,'DEC_dms'] = obs_df.loc[obs_df['Name'] == name, 'DEC_dms'].values[0]
-        lemasle2012_df.loc[i,'DEC_deg'] = coord.dec_dms_to_deg(lemasle2012_df.loc[i,'DEC_dms'], precision=2)
+        lemasle2012_df.loc[i,'DEC_deg'] = scoord.dec_dms_to_deg(lemasle2012_df.loc[i,'DEC_dms'], precision=2)
         lemasle2012_df.loc[i,'Teff'] = param_df.loc[param_df['Name'] == name, 'Teff'].values[0]
         lemasle2012_df.loc[i,'logg'] = param_df.loc[param_df['Name'] == name, 'logg'].values[0]
         lemasle2012_df.loc[i,'Fe/H'] = param_df.loc[param_df['Name'] == name, 'Fe/H'].values[0]
@@ -3139,9 +3139,9 @@ def load_lemasle2014(io=None):
         lemasle2014_df.loc[i,'Loc'] = 'DW'
         lemasle2014_df.loc[i,'System'] = obs_df.loc[obs_df['Name'] == name, 'System'].values[0]
         lemasle2014_df.loc[i,'RA_hms'] = obs_df.loc[obs_df['Name'] == name, 'RA_hms'].values[0]
-        lemasle2014_df.loc[i,'RA_deg'] = coord.ra_hms_to_deg(lemasle2014_df.loc[i,'RA_hms'], precision=6)
+        lemasle2014_df.loc[i,'RA_deg'] = scoord.ra_hms_to_deg(lemasle2014_df.loc[i,'RA_hms'], precision=6)
         lemasle2014_df.loc[i,'DEC_dms'] = obs_df.loc[obs_df['Name'] == name, 'DEC_dms'].values[0]
-        lemasle2014_df.loc[i,'DEC_deg'] = coord.dec_dms_to_deg(lemasle2014_df.loc[i,'DEC_dms'], precision=2)
+        lemasle2014_df.loc[i,'DEC_deg'] = scoord.dec_dms_to_deg(lemasle2014_df.loc[i,'DEC_dms'], precision=2)
         lemasle2014_df.loc[i,'Teff'] = param_df.loc[param_df['Name'] == name, 'Teff'].values[0]
         lemasle2014_df.loc[i,'logg'] = param_df.loc[param_df['Name'] == name, 'logg'].values[0]
         lemasle2014_df.loc[i,'Fe/H'] = param_df.loc[param_df['Name'] == name, 'Fe/H'].values[0]
@@ -3303,9 +3303,9 @@ def load_letarte2010(io=None):
         letarte2010_df.loc[i,'Loc'] = 'DW'
         letarte2010_df.loc[i,'System'] = obs_param_df.loc[obs_param_df['Name'] == name, 'System'].values[0]
         letarte2010_df.loc[i,'RA_hms'] = obs_param_df.loc[obs_param_df['Name'] == name, 'RA_hms'].values[0]
-        letarte2010_df.loc[i,'RA_deg'] = coord.ra_hms_to_deg(letarte2010_df.loc[i,'RA_hms'], precision=6)
+        letarte2010_df.loc[i,'RA_deg'] = scoord.ra_hms_to_deg(letarte2010_df.loc[i,'RA_hms'], precision=6)
         letarte2010_df.loc[i,'DEC_dms'] = obs_param_df.loc[obs_param_df['Name'] == name, 'DEC_dms'].values[0]
-        letarte2010_df.loc[i,'DEC_deg'] = coord.dec_dms_to_deg(letarte2010_df.loc[i,'DEC_dms'], precision=2)
+        letarte2010_df.loc[i,'DEC_deg'] = scoord.dec_dms_to_deg(letarte2010_df.loc[i,'DEC_dms'], precision=2)
         letarte2010_df.loc[i,'Teff'] = obs_param_df.loc[obs_param_df['Name'] == name, 'Teff'].values[0]
         letarte2010_df.loc[i,'logg'] = obs_param_df.loc[obs_param_df['Name'] == name, 'logg'].values[0]
         letarte2010_df.loc[i,'Fe/H'] = obs_param_df.loc[obs_param_df['Name'] == name, 'Fe/H'].values[0]
@@ -3468,9 +3468,9 @@ def load_lucchesi2024(io=None):
         lucchesi2024_df.loc[i,'Loc'] = 'DW'
         lucchesi2024_df.loc[i,'System'] = obs_param_df.loc[obs_param_df['Name'] == name, 'System'].values[0]
         lucchesi2024_df.loc[i,'RA_hms'] = obs_param_df.loc[obs_param_df['Name'] == name, 'RA_hms'].values[0]
-        lucchesi2024_df.loc[i,'RA_deg'] = coord.ra_hms_to_deg(lucchesi2024_df.loc[i,'RA_hms'], precision=6)
+        lucchesi2024_df.loc[i,'RA_deg'] = scoord.ra_hms_to_deg(lucchesi2024_df.loc[i,'RA_hms'], precision=6)
         lucchesi2024_df.loc[i,'DEC_dms'] = obs_param_df.loc[obs_param_df['Name'] == name, 'DEC_dms'].values[0]
-        lucchesi2024_df.loc[i,'DEC_deg'] = coord.dec_dms_to_deg(lucchesi2024_df.loc[i,'DEC_dms'], precision=2)
+        lucchesi2024_df.loc[i,'DEC_deg'] = scoord.dec_dms_to_deg(lucchesi2024_df.loc[i,'DEC_dms'], precision=2)
         lucchesi2024_df.loc[i,'Teff'] = obs_param_df.loc[obs_param_df['Name'] == name, 'Teff'].values[0]
         lucchesi2024_df.loc[i,'logg'] = obs_param_df.loc[obs_param_df['Name'] == name, 'logg'].values[0]
         lucchesi2024_df.loc[i,'Fe/H'] = obs_param_df.loc[obs_param_df['Name'] == name, 'Fe/H'].values[0]
@@ -3589,9 +3589,9 @@ def load_norris2017b(io=None):
         norris2017b_df.loc[i,'Loc'] = 'DW'
         norris2017b_df.loc[i,'System'] = obs_df.loc[obs_df['Name'] == name, 'System'].values[0]
         norris2017b_df.loc[i,'RA_hms'] = obs_df.loc[obs_df['Name'] == name, 'RA_hms'].values[0]
-        norris2017b_df.loc[i,'RA_deg'] = coord.ra_hms_to_deg(norris2017b_df.loc[i,'RA_hms'], precision=6)
+        norris2017b_df.loc[i,'RA_deg'] = scoord.ra_hms_to_deg(norris2017b_df.loc[i,'RA_hms'], precision=6)
         norris2017b_df.loc[i,'DEC_dms'] = obs_df.loc[obs_df['Name'] == name, 'DEC_dms'].values[0]
-        norris2017b_df.loc[i,'DEC_deg'] = coord.dec_dms_to_deg(norris2017b_df.loc[i,'DEC_dms'], precision=2)
+        norris2017b_df.loc[i,'DEC_deg'] = scoord.dec_dms_to_deg(norris2017b_df.loc[i,'DEC_dms'], precision=2)
         norris2017b_df.loc[i,'Teff'] = param_df.loc[param_df['Name'] == name, 'Teff'].values[0]
         norris2017b_df.loc[i,'logg'] = param_df.loc[param_df['Name'] == name, 'logg'].values[0]
         norris2017b_df.loc[i,'M/H'] = param_df.loc[param_df['Name'] == name, 'M/H'].values[0]
@@ -3725,9 +3725,9 @@ def load_reggiani2021(io=None):
         reggiani2021_df.loc[i,'Loc'] = 'DW'
         reggiani2021_df.loc[i,'System'] = obs_df.loc[obs_df['Name'] == name, 'System'].values[0]
         reggiani2021_df.loc[i,'RA_hms'] = obs_df.loc[obs_df['Name'] == name, 'RA_hms'].values[0]
-        reggiani2021_df.loc[i,'RA_deg'] = coord.ra_hms_to_deg(reggiani2021_df.loc[i,'RA_hms'], precision=6)
+        reggiani2021_df.loc[i,'RA_deg'] = scoord.ra_hms_to_deg(reggiani2021_df.loc[i,'RA_hms'], precision=6)
         reggiani2021_df.loc[i,'DEC_dms'] = obs_df.loc[obs_df['Name'] == name, 'DEC_dms'].values[0]
-        reggiani2021_df.loc[i,'DEC_deg'] = coord.dec_dms_to_deg(reggiani2021_df.loc[i,'DEC_dms'], precision=2)
+        reggiani2021_df.loc[i,'DEC_deg'] = scoord.dec_dms_to_deg(reggiani2021_df.loc[i,'DEC_dms'], precision=2)
         reggiani2021_df.loc[i,'Teff'] = param_df.loc[param_df['Name'] == name, 'Teff'].values[0]
         reggiani2021_df.loc[i,'logg'] = param_df.loc[param_df['Name'] == name, 'logg'].values[0]
         reggiani2021_df.loc[i,'Fe/H'] = param_df.loc[param_df['Name'] == name, 'Fe/H'].values[0]
@@ -3849,19 +3849,19 @@ def load_sestito2024b(io=None):
             if len(row['RA_hms']) == 10:
                 row['RA_hms'] = '0' + row['RA_hms']
                 sestito2024b_df.at[idx, 'RA_hms'] = row['RA_hms']
-            row['RA_deg'] = coord.ra_hms_to_deg(row['RA_hms'], precision=6)
+            row['RA_deg'] = scoord.ra_hms_to_deg(row['RA_hms'], precision=6)
             sestito2024b_df.at[idx, 'RA_deg'] = row['RA_deg']
 
         if pd.isna(row['DEC_deg']) and pd.notna(row['DEC_dms']):
-            row['DEC_deg'] = coord.dec_dms_to_deg(row['DEC_dms'], precision=2)
+            row['DEC_deg'] = scoord.dec_dms_to_deg(row['DEC_dms'], precision=2)
             sestito2024b_df.at[idx, 'DEC_deg'] = row['DEC_deg']
 
         if pd.isna(row['RA_hms']) and pd.notna(row['RA_deg']):
-            row['RA_hms'] = coord.ra_deg_to_hms(float(row['RA_deg']), precision=2)
+            row['RA_hms'] = scoord.ra_deg_to_hms(float(row['RA_deg']), precision=2)
             sestito2024b_df.at[idx, 'RA_hms'] = row['RA_hms']
 
         if pd.isna(row['DEC_dms']) and pd.notna(row['DEC_deg']):
-            row['DEC_dms'] = coord.dec_deg_to_dms(float(row['DEC_deg']), precision=2)
+            row['DEC_dms'] = scoord.dec_deg_to_dms(float(row['DEC_deg']), precision=2)
             sestito2024b_df.at[idx, 'DEC_dms'] = row['DEC_dms']
 
     # Categorize columns & reorder dataFrame
@@ -3940,9 +3940,9 @@ def load_shetrone2003(io=None):
         shetrone2003_df.loc[i,'System'] = obs_df.loc[obs_df['Name'] == name, 'System'].values[0]
         if pd.notna(obs_df.loc[obs_df['Name'] == name, 'RA_hms'].values[0]):
             shetrone2003_df.loc[i,'RA_hms'] = obs_df.loc[obs_df['Name'] == name, 'RA_hms'].values[0]
-            shetrone2003_df.loc[i,'RA_deg'] = coord.ra_hms_to_deg(shetrone2003_df.loc[i,'RA_hms'], precision=6)
+            shetrone2003_df.loc[i,'RA_deg'] = scoord.ra_hms_to_deg(shetrone2003_df.loc[i,'RA_hms'], precision=6)
             shetrone2003_df.loc[i,'DEC_dms'] = obs_df.loc[obs_df['Name'] == name, 'DEC_dms'].values[0]
-            shetrone2003_df.loc[i,'DEC_deg'] = coord.dec_dms_to_deg(shetrone2003_df.loc[i,'DEC_dms'], precision=2)
+            shetrone2003_df.loc[i,'DEC_deg'] = scoord.dec_dms_to_deg(shetrone2003_df.loc[i,'DEC_dms'], precision=2)
         shetrone2003_df.loc[i,'Teff'] = param_df.loc[param_df['Name'] == name, 'Teff'].values[0]
         shetrone2003_df.loc[i,'logg'] = param_df.loc[param_df['Name'] == name, 'logg'].values[0]
         shetrone2003_df.loc[i,'Fe/H'] = param_df.loc[param_df['Name'] == name, 'Fe/H'].values[0]
@@ -4067,9 +4067,9 @@ def load_venn2012(io=None):
         venn2012_df.loc[i,'Loc'] = 'DW'
         venn2012_df.loc[i,'System'] = obs_df.loc[obs_df['Name'] == name, 'System'].values[0]
         venn2012_df.loc[i,'RA_hms'] = obs_df.loc[obs_df['Name'] == name, 'RA_hms'].values[0]
-        venn2012_df.loc[i,'RA_deg'] = coord.ra_hms_to_deg(venn2012_df.loc[i,'RA_hms'], precision=6)
+        venn2012_df.loc[i,'RA_deg'] = scoord.ra_hms_to_deg(venn2012_df.loc[i,'RA_hms'], precision=6)
         venn2012_df.loc[i,'DEC_dms'] = obs_df.loc[obs_df['Name'] == name, 'DEC_dms'].values[0]
-        venn2012_df.loc[i,'DEC_deg'] = coord.dec_dms_to_deg(venn2012_df.loc[i,'DEC_dms'], precision=2)
+        venn2012_df.loc[i,'DEC_deg'] = scoord.dec_dms_to_deg(venn2012_df.loc[i,'DEC_dms'], precision=2)
         venn2012_df.loc[i,'Teff'] = param_df.loc[param_df['Name'] == name, 'Teff'].values[0]
         venn2012_df.loc[i,'logg'] = param_df.loc[param_df['Name'] == name, 'logg'].values[0]
         venn2012_df.loc[i,'Fe/H'] = param_df.loc[param_df['Name'] == name, 'Fe/H'].values[0]
@@ -4199,9 +4199,9 @@ def load_chiti2018b(io=None):
         chiti2018b_df.loc[i,'Loc'] = 'UF'
         chiti2018b_df.loc[i,'System'] = obs_df.loc[obs_df['Name'] == name, 'System'].values[0]     
         chiti2018b_df.loc[i,'RA_hms'] = obs_df.loc[obs_df['Name'] == name, 'RA_hms'].values[0]
-        chiti2018b_df.loc[i,'RA_deg'] = coord.ra_hms_to_deg(chiti2018b_df.loc[i,'RA_hms'], precision=6)
+        chiti2018b_df.loc[i,'RA_deg'] = scoord.ra_hms_to_deg(chiti2018b_df.loc[i,'RA_hms'], precision=6)
         chiti2018b_df.loc[i,'DEC_dms'] = obs_df.loc[obs_df['Name'] == name, 'DEC_dms'].values[0]
-        chiti2018b_df.loc[i,'DEC_deg'] = coord.dec_dms_to_deg(chiti2018b_df.loc[i,'DEC_dms'], precision=2)
+        chiti2018b_df.loc[i,'DEC_deg'] = scoord.dec_dms_to_deg(chiti2018b_df.loc[i,'DEC_dms'], precision=2)
         chiti2018b_df.loc[i,'Teff'] = param_df.loc[param_df['Name'] == name, 'Teff'].values[0]
         chiti2018b_df.loc[i,'logg'] = param_df.loc[param_df['Name'] == name, 'logg'].values[0]
         chiti2018b_df.loc[i,'Fe/H'] = param_df.loc[param_df['Name'] == name, 'Fe/H'].values[0]
@@ -4313,9 +4313,9 @@ def load_chiti2023(io=None):
         chiti2023_df.loc[i,'Loc'] = 'UF'
         chiti2023_df.loc[i,'System'] = obs_df.loc[obs_df['Name'] == name, 'System'].values[0]     
         chiti2023_df.loc[i,'RA_hms'] = obs_df.loc[obs_df['Name'] == name, 'RA_hms'].values[0]
-        chiti2023_df.loc[i,'RA_deg'] = coord.ra_hms_to_deg(chiti2023_df.loc[i,'RA_hms'], precision=6)
+        chiti2023_df.loc[i,'RA_deg'] = scoord.ra_hms_to_deg(chiti2023_df.loc[i,'RA_hms'], precision=6)
         chiti2023_df.loc[i,'DEC_dms'] = obs_df.loc[obs_df['Name'] == name, 'DEC_dms'].values[0]
-        chiti2023_df.loc[i,'DEC_deg'] = coord.dec_dms_to_deg(chiti2023_df.loc[i,'DEC_dms'], precision=2)
+        chiti2023_df.loc[i,'DEC_deg'] = scoord.dec_dms_to_deg(chiti2023_df.loc[i,'DEC_dms'], precision=2)
         chiti2023_df.loc[i,'Teff'] = param_df.loc[param_df['Name'] == name, 'Teff'].values[0]
         chiti2023_df.loc[i,'logg'] = param_df.loc[param_df['Name'] == name, 'logg'].values[0]
         chiti2023_df.loc[i,'Fe/H'] = param_df.loc[param_df['Name'] == name, 'Fe/H'].values[0]
@@ -4422,9 +4422,9 @@ def load_feltzing2009(io=None):
         feltzing2009_df.loc[i,'Loc'] = 'UF'
         feltzing2009_df.loc[i,'System'] = obs_param_df.loc[obs_param_df['Name'] == name, 'System'].values[0]
         feltzing2009_df.loc[i,'RA_hms'] = obs_param_df.loc[obs_param_df['Name'] == name, 'RA_hms'].values[0]
-        feltzing2009_df.loc[i,'RA_deg'] = coord.ra_hms_to_deg(feltzing2009_df.loc[i,'RA_hms'], precision=6)
+        feltzing2009_df.loc[i,'RA_deg'] = scoord.ra_hms_to_deg(feltzing2009_df.loc[i,'RA_hms'], precision=6)
         feltzing2009_df.loc[i,'DEC_dms'] = obs_param_df.loc[obs_param_df['Name'] == name, 'DEC_dms'].values[0]
-        feltzing2009_df.loc[i,'DEC_deg'] = coord.dec_dms_to_deg(feltzing2009_df.loc[i,'DEC_dms'], precision=2)
+        feltzing2009_df.loc[i,'DEC_deg'] = scoord.dec_dms_to_deg(feltzing2009_df.loc[i,'DEC_dms'], precision=2)
         feltzing2009_df.loc[i,'Teff'] = obs_param_df.loc[obs_param_df['Name'] == name, 'Teff'].values[0]
         feltzing2009_df.loc[i,'logg'] = obs_param_df.loc[obs_param_df['Name'] == name, 'logg'].values[0]
         feltzing2009_df.loc[i,'Fe/H'] = obs_param_df.loc[obs_param_df['Name'] == name, 'Fe/H'].values[0]
@@ -4533,9 +4533,9 @@ def load_francois2016(io=None):
         francois2016_df.loc[i,'Loc'] = 'UF'
         francois2016_df.loc[i,'System'] = obs_df.loc[obs_df['Name'] == name, 'System'].values[0]
         francois2016_df.loc[i,'RA_hms'] = obs_df.loc[obs_df['Name'] == name, 'RA_hms'].values[0]
-        francois2016_df.loc[i,'RA_deg'] = coord.ra_hms_to_deg(francois2016_df.loc[i,'RA_hms'], precision=6)
+        francois2016_df.loc[i,'RA_deg'] = scoord.ra_hms_to_deg(francois2016_df.loc[i,'RA_hms'], precision=6)
         francois2016_df.loc[i,'DEC_dms'] = obs_df.loc[obs_df['Name'] == name, 'DEC_dms'].values[0]
-        francois2016_df.loc[i,'DEC_deg'] = coord.dec_dms_to_deg(francois2016_df.loc[i,'DEC_dms'], precision=2)
+        francois2016_df.loc[i,'DEC_deg'] = scoord.dec_dms_to_deg(francois2016_df.loc[i,'DEC_dms'], precision=2)
         francois2016_df.loc[i,'Teff'] = param_df.loc[param_df['Name'] == name, 'Teff'].values[0]
         francois2016_df.loc[i,'logg'] = param_df.loc[param_df['Name'] == name, 'logg'].values[0]
         francois2016_df.loc[i,'Fe/H'] = param_df.loc[param_df['Name'] == name, 'Fe/H'].values[0]
@@ -4637,9 +4637,9 @@ def load_frebel2010a(io=None):
         frebel2010a_df.loc[i,'Loc'] = 'UF'
         frebel2010a_df.loc[i,'System'] = obs_param_df.loc[obs_param_df['Name'] == name, 'System'].values[0]     
         frebel2010a_df.loc[i,'RA_hms'] = obs_param_df.loc[obs_param_df['Name'] == name, 'RA_hms'].values[0]
-        frebel2010a_df.loc[i,'RA_deg'] = coord.ra_hms_to_deg(frebel2010a_df.loc[i,'RA_hms'], precision=6)
+        frebel2010a_df.loc[i,'RA_deg'] = scoord.ra_hms_to_deg(frebel2010a_df.loc[i,'RA_hms'], precision=6)
         frebel2010a_df.loc[i,'DEC_dms'] = obs_param_df.loc[obs_param_df['Name'] == name, 'DEC_dms'].values[0]
-        frebel2010a_df.loc[i,'DEC_deg'] = coord.dec_dms_to_deg(frebel2010a_df.loc[i,'DEC_dms'], precision=2)
+        frebel2010a_df.loc[i,'DEC_deg'] = scoord.dec_dms_to_deg(frebel2010a_df.loc[i,'DEC_dms'], precision=2)
         frebel2010a_df.loc[i,'Teff'] = obs_param_df.loc[obs_param_df['Name'] == name, 'Teff'].values[0]
         frebel2010a_df.loc[i,'logg'] = obs_param_df.loc[obs_param_df['Name'] == name, 'logg'].values[0]
         frebel2010a_df.loc[i,'Fe/H'] = obs_param_df.loc[obs_param_df['Name'] == name, 'Fe/H'].values[0]
@@ -4747,9 +4747,9 @@ def load_frebel2013(io=None):
         frebel2013_df.loc[i,'Loc'] = 'UF'
         frebel2013_df.loc[i,'System'] = obs_df.loc[obs_df['Name'] == name, 'System'].values[0]
         frebel2013_df.loc[i,'RA_hms'] = obs_df.loc[obs_df['Name'] == name, 'RA_hms'].values[0]
-        frebel2013_df.loc[i,'RA_deg'] = coord.ra_hms_to_deg(frebel2013_df.loc[i,'RA_hms'], precision=6)
+        frebel2013_df.loc[i,'RA_deg'] = scoord.ra_hms_to_deg(frebel2013_df.loc[i,'RA_hms'], precision=6)
         frebel2013_df.loc[i,'DEC_dms'] = obs_df.loc[obs_df['Name'] == name, 'DEC_dms'].values[0]
-        frebel2013_df.loc[i,'DEC_deg'] = coord.dec_dms_to_deg(frebel2013_df.loc[i,'DEC_dms'], precision=2)
+        frebel2013_df.loc[i,'DEC_deg'] = scoord.dec_dms_to_deg(frebel2013_df.loc[i,'DEC_dms'], precision=2)
         frebel2013_df.loc[i,'Teff'] = param_df.loc[param_df['Name'] == name, 'Teff'].values[0]
         frebel2013_df.loc[i,'logg'] = param_df.loc[param_df['Name'] == name, 'logg'].values[0]
         frebel2013_df.loc[i,'Fe/H'] = param_df.loc[param_df['Name'] == name, 'Fe/H'].values[0]
@@ -4858,9 +4858,9 @@ def load_frebel2014(io=None):
         frebel2014_df.loc[i,'Loc'] = 'UF'
         frebel2014_df.loc[i,'System'] = 'Segue 1'
         frebel2014_df.loc[i,'RA_hms'] = obs_df.loc[obs_df['Name'] == name, 'RA_hms'].values[0]
-        frebel2014_df.loc[i,'RA_deg'] = coord.ra_hms_to_deg(frebel2014_df.loc[i,'RA_hms'], precision=6)
+        frebel2014_df.loc[i,'RA_deg'] = scoord.ra_hms_to_deg(frebel2014_df.loc[i,'RA_hms'], precision=6)
         frebel2014_df.loc[i,'DEC_dms'] = obs_df.loc[obs_df['Name'] == name, 'DEC_dms'].values[0]
-        frebel2014_df.loc[i,'DEC_deg'] = coord.dec_dms_to_deg(frebel2014_df.loc[i,'DEC_dms'], precision=2)
+        frebel2014_df.loc[i,'DEC_deg'] = scoord.dec_dms_to_deg(frebel2014_df.loc[i,'DEC_dms'], precision=2)
         frebel2014_df.loc[i,'Teff'] = param_df.loc[param_df['Name'] == name, 'Teff'].values[0]
         frebel2014_df.loc[i,'logg'] = param_df.loc[param_df['Name'] == name, 'logg'].values[0]
         frebel2014_df.loc[i,'Fe/H'] = param_df.loc[param_df['Name'] == name, 'Fe/H'].values[0]
@@ -4967,9 +4967,9 @@ def load_frebel2016(io=None):
         frebel2016_df.loc[i,'Loc'] = 'UF'
         frebel2016_df.loc[i,'System'] = obs_param_df.loc[obs_param_df['Name'] == name, 'System'].values[0]
         frebel2016_df.loc[i,'RA_hms'] = obs_param_df.loc[obs_param_df['Name'] == name, 'RA_hms'].values[0]
-        frebel2016_df.loc[i,'RA_deg'] = coord.ra_hms_to_deg(frebel2016_df.loc[i,'RA_hms'], precision=6)
+        frebel2016_df.loc[i,'RA_deg'] = scoord.ra_hms_to_deg(frebel2016_df.loc[i,'RA_hms'], precision=6)
         frebel2016_df.loc[i,'DEC_dms'] = obs_param_df.loc[obs_param_df['Name'] == name, 'DEC_dms'].values[0]
-        frebel2016_df.loc[i,'DEC_deg'] = coord.dec_dms_to_deg(frebel2016_df.loc[i,'DEC_dms'], precision=2)
+        frebel2016_df.loc[i,'DEC_deg'] = scoord.dec_dms_to_deg(frebel2016_df.loc[i,'DEC_dms'], precision=2)
         frebel2016_df.loc[i,'Teff'] = obs_param_df.loc[obs_param_df['Name'] == name, 'Teff'].values[0]
         frebel2016_df.loc[i,'logg'] = obs_param_df.loc[obs_param_df['Name'] == name, 'logg'].values[0]
         frebel2016_df.loc[i,'Fe/H'] = obs_param_df.loc[obs_param_df['Name'] == name, 'Fe/H'].values[0]
@@ -5078,9 +5078,9 @@ def load_gilmore2013(io=None):
         gilmore2013_df.loc[i,'Loc'] = 'UF'
         gilmore2013_df.loc[i,'System'] = obs_df.loc[obs_df['Name'] == name, 'System'].values[0]     
         gilmore2013_df.loc[i,'RA_hms'] = obs_df.loc[obs_df['Name'] == name, 'RA_hms'].values[0]
-        gilmore2013_df.loc[i,'RA_deg'] = coord.ra_hms_to_deg(gilmore2013_df.loc[i,'RA_hms'], precision=6)
+        gilmore2013_df.loc[i,'RA_deg'] = scoord.ra_hms_to_deg(gilmore2013_df.loc[i,'RA_hms'], precision=6)
         gilmore2013_df.loc[i,'DEC_dms'] = obs_df.loc[obs_df['Name'] == name, 'DEC_dms'].values[0]
-        gilmore2013_df.loc[i,'DEC_deg'] = coord.dec_dms_to_deg(gilmore2013_df.loc[i,'DEC_dms'], precision=2)
+        gilmore2013_df.loc[i,'DEC_deg'] = scoord.dec_dms_to_deg(gilmore2013_df.loc[i,'DEC_dms'], precision=2)
         gilmore2013_df.loc[i,'Teff'] = param_df.loc[param_df['Name'] == name, 'Teff_GM'].values[0]
         gilmore2013_df.loc[i,'logg'] = param_df.loc[param_df['Name'] == name, 'logg_GM'].values[0]
         gilmore2013_df.loc[i,'Fe/H'] = param_df.loc[param_df['Name'] == name, 'Fe/H_GM'].values[0]
@@ -5206,9 +5206,9 @@ def load_roederer2016b(io=None):
         roederer2016b_df.loc[i,'Loc'] = 'UF'
         roederer2016b_df.loc[i,'System'] = obs_df.loc[obs_df['Name'] == name, 'System'].values[0]
         roederer2016b_df.loc[i,'RA_hms'] = obs_df.loc[obs_df['Name'] == name, 'RA_hms'].values[0]
-        roederer2016b_df.loc[i,'RA_deg'] = coord.ra_hms_to_deg(roederer2016b_df.loc[i,'RA_hms'], precision=6)
+        roederer2016b_df.loc[i,'RA_deg'] = scoord.ra_hms_to_deg(roederer2016b_df.loc[i,'RA_hms'], precision=6)
         roederer2016b_df.loc[i,'DEC_dms'] = obs_df.loc[obs_df['Name'] == name, 'DEC_dms'].values[0]
-        roederer2016b_df.loc[i,'DEC_deg'] = coord.dec_dms_to_deg(roederer2016b_df.loc[i,'DEC_dms'], precision=2)
+        roederer2016b_df.loc[i,'DEC_deg'] = scoord.dec_dms_to_deg(roederer2016b_df.loc[i,'DEC_dms'], precision=2)
         roederer2016b_df.loc[i,'Teff'] = param_df.loc[param_df['Name'] == name, 'Teff'].values[0]
         roederer2016b_df.loc[i,'logg'] = param_df.loc[param_df['Name'] == name, 'logg'].values[0]
         roederer2016b_df.loc[i,'M/H'] = param_df.loc[param_df['Name'] == name, 'M/H'].values[0]
@@ -5308,9 +5308,9 @@ def load_hansent2017(io=None):
     hansent2017_df['Loc'] = 'UF'
     hansent2017_df['System'] = 'Tucana III'
     hansent2017_df['RA_hms'] = data_df['RA_hms'].astype(str)   
-    hansent2017_df['RA_deg'] = coord.ra_hms_to_deg(hansent2017_df['RA_hms'], precision=6)
+    hansent2017_df['RA_deg'] = scoord.ra_hms_to_deg(hansent2017_df['RA_hms'], precision=6)
     hansent2017_df['DEC_dms'] = data_df['DEC_dms'].astype(str)
-    hansent2017_df['DEC_deg'] = coord.dec_dms_to_deg(hansent2017_df['DEC_dms'], precision=2)
+    hansent2017_df['DEC_deg'] = scoord.dec_dms_to_deg(hansent2017_df['DEC_dms'], precision=2)
     hansent2017_df['Teff'] = data_df['Teff'].astype(float)
     hansent2017_df['logg'] = data_df['logg'].astype(float)
     hansent2017_df['Fe/H'] = data_df['Fe/H'].astype(float)
@@ -5412,9 +5412,9 @@ def load_hansent2020a(io=None):
         hansent2020a_df.loc[i,'Loc'] = 'UF'
         hansent2020a_df.loc[i,'System'] = 'Grus II'
         hansent2020a_df.loc[i,'RA_hms'] = obs_df.loc[obs_df['Name'] == name, 'RA_hms'].values[0]
-        hansent2020a_df.loc[i,'RA_deg'] = coord.ra_hms_to_deg(hansent2020a_df.loc[i,'RA_hms'], precision=6)
+        hansent2020a_df.loc[i,'RA_deg'] = scoord.ra_hms_to_deg(hansent2020a_df.loc[i,'RA_hms'], precision=6)
         hansent2020a_df.loc[i,'DEC_dms'] = obs_df.loc[obs_df['Name'] == name, 'DEC_dms'].values[0]
-        hansent2020a_df.loc[i,'DEC_deg'] = coord.dec_dms_to_deg(hansent2020a_df.loc[i,'DEC_dms'], precision=2)
+        hansent2020a_df.loc[i,'DEC_deg'] = scoord.dec_dms_to_deg(hansent2020a_df.loc[i,'DEC_dms'], precision=2)
         hansent2020a_df.loc[i,'Teff'] = param_df.loc[param_df['Name'] == name, 'Teff'].values[0]
         hansent2020a_df.loc[i,'logg'] = param_df.loc[param_df['Name'] == name, 'logg'].values[0]
         hansent2020a_df.loc[i,'Fe/H'] = param_df.loc[param_df['Name'] == name, 'Fe/H'].values[0]
@@ -5521,9 +5521,9 @@ def load_hansent2024(io=None):
         hansent2024_df.loc[i,'Loc'] = 'UF'
         hansent2024_df.loc[i,'System'] = 'Tucana V'
         hansent2024_df.loc[i,'RA_hms'] = obs_df.loc[obs_df['Name'] == name, 'RA_hms'].values[0]
-        hansent2024_df.loc[i,'RA_deg'] = coord.ra_hms_to_deg(hansent2024_df.loc[i,'RA_hms'], precision=6)
+        hansent2024_df.loc[i,'RA_deg'] = scoord.ra_hms_to_deg(hansent2024_df.loc[i,'RA_hms'], precision=6)
         hansent2024_df.loc[i,'DEC_dms'] = obs_df.loc[obs_df['Name'] == name, 'DEC_dms'].values[0]
-        hansent2024_df.loc[i,'DEC_deg'] = coord.dec_dms_to_deg(hansent2024_df.loc[i,'DEC_dms'], precision=2)
+        hansent2024_df.loc[i,'DEC_deg'] = scoord.dec_dms_to_deg(hansent2024_df.loc[i,'DEC_dms'], precision=2)
         hansent2024_df.loc[i,'Teff'] = param_df.loc[param_df['Name'] == name, 'Teff'].values[0]
         hansent2024_df.loc[i,'logg'] = param_df.loc[param_df['Name'] == name, 'logg'].values[0]
         hansent2024_df.loc[i,'Fe/H'] = param_df.loc[param_df['Name'] == name, 'Fe/H'].values[0]
@@ -5631,9 +5631,9 @@ def load_ishigaki2014b(exclude_mw_halo_ref_stars=True, io=None):
         ishigaki2014b_df.loc[i,'Loc'] = 'UF'
         ishigaki2014b_df.loc[i,'System'] = obs_df.loc[obs_df['Name'] == name, 'System'].values[0]
         ishigaki2014b_df.loc[i,'RA_hms'] = obs_df.loc[obs_df['Name'] == name, 'RA_hms'].values[0]
-        ishigaki2014b_df.loc[i,'RA_deg'] = coord.ra_hms_to_deg(ishigaki2014b_df.loc[i,'RA_hms'], precision=6)
+        ishigaki2014b_df.loc[i,'RA_deg'] = scoord.ra_hms_to_deg(ishigaki2014b_df.loc[i,'RA_hms'], precision=6)
         ishigaki2014b_df.loc[i,'DEC_dms'] = obs_df.loc[obs_df['Name'] == name, 'DEC_dms'].values[0]
-        ishigaki2014b_df.loc[i,'DEC_deg'] = coord.dec_dms_to_deg(ishigaki2014b_df.loc[i,'DEC_dms'], precision=2)
+        ishigaki2014b_df.loc[i,'DEC_deg'] = scoord.dec_dms_to_deg(ishigaki2014b_df.loc[i,'DEC_dms'], precision=2)
         ishigaki2014b_df.loc[i,'Teff'] = param_df.loc[param_df['Name'] == name, 'Teff'].values[0]
         ishigaki2014b_df.loc[i,'logg'] = param_df.loc[param_df['Name'] == name, 'logg'].values[0]
         ishigaki2014b_df.loc[i,'Fe/H'] = param_df.loc[param_df['Name'] == name, 'Fe/H'].values[0]
@@ -5746,9 +5746,9 @@ def load_ji2016a(io=None):
         ji2016a_df.loc[i,'Loc'] = 'UF'
         ji2016a_df.loc[i,'System'] = obs_df.loc[obs_df['Name'] == name, 'System'].values[0]
         ji2016a_df.loc[i,'RA_hms'] = obs_df.loc[obs_df['Name'] == name, 'RA_hms'].values[0]
-        ji2016a_df.loc[i,'RA_deg'] = coord.ra_hms_to_deg(ji2016a_df.loc[i,'RA_hms'], precision=6)
+        ji2016a_df.loc[i,'RA_deg'] = scoord.ra_hms_to_deg(ji2016a_df.loc[i,'RA_hms'], precision=6)
         ji2016a_df.loc[i,'DEC_dms'] = obs_df.loc[obs_df['Name'] == name, 'DEC_dms'].values[0]
-        ji2016a_df.loc[i,'DEC_deg'] = coord.dec_dms_to_deg(ji2016a_df.loc[i,'DEC_dms'], precision=2)
+        ji2016a_df.loc[i,'DEC_deg'] = scoord.dec_dms_to_deg(ji2016a_df.loc[i,'DEC_dms'], precision=2)
         ji2016a_df.loc[i,'Teff'] = param_df.loc[param_df['Name'] == name, 'Teff'].values[0]
         ji2016a_df.loc[i,'logg'] = param_df.loc[param_df['Name'] == name, 'logg'].values[0]
         ji2016a_df.loc[i,'Fe/H'] = param_df.loc[param_df['Name'] == name, 'Fe/H'].values[0]
@@ -5855,9 +5855,9 @@ def load_ji2016b(io=None):
         ji2016b_df.loc[i,'Loc'] = 'UF'
         ji2016b_df.loc[i,'System'] = obs_param_df.loc[obs_param_df['Name'] == name, 'System'].values[0]     
         ji2016b_df.loc[i,'RA_hms'] = obs_param_df.loc[obs_param_df['Name'] == name, 'RA_hms'].values[0]
-        ji2016b_df.loc[i,'RA_deg'] = coord.ra_hms_to_deg(ji2016b_df.loc[i,'RA_hms'], precision=6)
+        ji2016b_df.loc[i,'RA_deg'] = scoord.ra_hms_to_deg(ji2016b_df.loc[i,'RA_hms'], precision=6)
         ji2016b_df.loc[i,'DEC_dms'] = obs_param_df.loc[obs_param_df['Name'] == name, 'DEC_dms'].values[0]
-        ji2016b_df.loc[i,'DEC_deg'] = coord.dec_dms_to_deg(ji2016b_df.loc[i,'DEC_dms'], precision=2)
+        ji2016b_df.loc[i,'DEC_deg'] = scoord.dec_dms_to_deg(ji2016b_df.loc[i,'DEC_dms'], precision=2)
         ji2016b_df.loc[i,'Teff'] = obs_param_df.loc[obs_param_df['Name'] == name, 'Teff'].values[0]
         ji2016b_df.loc[i,'logg'] = obs_param_df.loc[obs_param_df['Name'] == name, 'logg'].values[0]
         ji2016b_df.loc[i,'Fe/H'] = obs_param_df.loc[obs_param_df['Name'] == name, 'Fe/H'].values[0]
@@ -5964,9 +5964,9 @@ def load_ji2018(io=None):
         ji2018_df.loc[i,'Loc'] = 'UF'
         ji2018_df.loc[i,'System'] = obs_param_df.loc[obs_param_df['Name'] == name, 'System'].values[0]
         ji2018_df.loc[i,'RA_hms'] = obs_param_df.loc[obs_param_df['Name'] == name, 'RA_hms'].values[0]
-        ji2018_df.loc[i,'RA_deg'] = coord.ra_hms_to_deg(ji2018_df.loc[i,'RA_hms'], precision=6)
+        ji2018_df.loc[i,'RA_deg'] = scoord.ra_hms_to_deg(ji2018_df.loc[i,'RA_hms'], precision=6)
         ji2018_df.loc[i,'DEC_dms'] = obs_param_df.loc[obs_param_df['Name'] == name, 'DEC_dms'].values[0]
-        ji2018_df.loc[i,'DEC_deg'] = coord.dec_dms_to_deg(ji2018_df.loc[i,'DEC_dms'], precision=2)
+        ji2018_df.loc[i,'DEC_deg'] = scoord.dec_dms_to_deg(ji2018_df.loc[i,'DEC_dms'], precision=2)
         ji2018_df.loc[i,'Teff'] = obs_param_df.loc[obs_param_df['Name'] == name, 'Teff'].values[0]
         ji2018_df.loc[i,'logg'] = obs_param_df.loc[obs_param_df['Name'] == name, 'logg'].values[0]
         ji2018_df.loc[i,'Fe/H'] = obs_param_df.loc[obs_param_df['Name'] == name, 'Fe/H'].values[0]
@@ -6077,9 +6077,9 @@ def load_ji2019a(io=None):
         ji2019a_df.loc[i,'Loc'] = 'UF'
         ji2019a_df.loc[i,'System'] = obs_df.loc[obs_df['Name'] == name, 'System'].values[0]
         ji2019a_df.loc[i,'RA_hms'] = obs_df.loc[obs_df['Name'] == name, 'RA_hms'].values[0]
-        ji2019a_df.loc[i,'RA_deg'] = coord.ra_hms_to_deg(ji2019a_df.loc[i,'RA_hms'], precision=6)
+        ji2019a_df.loc[i,'RA_deg'] = scoord.ra_hms_to_deg(ji2019a_df.loc[i,'RA_hms'], precision=6)
         ji2019a_df.loc[i,'DEC_dms'] = obs_df.loc[obs_df['Name'] == name, 'DEC_dms'].values[0]
-        ji2019a_df.loc[i,'DEC_deg'] = coord.dec_dms_to_deg(ji2019a_df.loc[i,'DEC_dms'], precision=2)
+        ji2019a_df.loc[i,'DEC_deg'] = scoord.dec_dms_to_deg(ji2019a_df.loc[i,'DEC_dms'], precision=2)
         ji2019a_df.loc[i,'Teff'] = param_df.loc[param_df['Name'] == name, 'Teff'].values[0]
         ji2019a_df.loc[i,'logg'] = param_df.loc[param_df['Name'] == name, 'logg'].values[0]
         ji2019a_df.loc[i,'Fe/H'] = param_df.loc[param_df['Name'] == name, 'Fe/H'].values[0]
@@ -6193,9 +6193,9 @@ def load_ji2020a(io=None):
         ji2020a_df.loc[i,'Loc'] = 'UF'
         ji2020a_df.loc[i,'System'] = obs_df.loc[obs_df['Name'] == name, 'System'].values[0]
         ji2020a_df.loc[i,'RA_hms'] = obs_df.loc[obs_df['Name'] == name, 'RA_hms'].values[0]
-        ji2020a_df.loc[i,'RA_deg'] = coord.ra_hms_to_deg(ji2020a_df.loc[i,'RA_hms'], precision=6)
+        ji2020a_df.loc[i,'RA_deg'] = scoord.ra_hms_to_deg(ji2020a_df.loc[i,'RA_hms'], precision=6)
         ji2020a_df.loc[i,'DEC_dms'] = obs_df.loc[obs_df['Name'] == name, 'DEC_dms'].values[0]
-        ji2020a_df.loc[i,'DEC_deg'] = coord.dec_dms_to_deg(ji2020a_df.loc[i,'DEC_dms'], precision=2)
+        ji2020a_df.loc[i,'DEC_deg'] = scoord.dec_dms_to_deg(ji2020a_df.loc[i,'DEC_dms'], precision=2)
         ji2020a_df.loc[i,'Teff'] = param_df.loc[param_df['Name'] == name, 'Teff'].values[0]
         ji2020a_df.loc[i,'logg'] = param_df.loc[param_df['Name'] == name, 'logg'].values[0]
         ji2020a_df.loc[i,'M/H'] = param_df.loc[param_df['Name'] == name, '[M/H]'].values[0]
@@ -6302,9 +6302,9 @@ def load_kirby2017b(io=None):
         kirby2017b_df.loc[i,'Loc'] = 'UF'
         kirby2017b_df.loc[i,'System'] = obs_param_df.loc[obs_param_df['Name'] == name, 'System'].values[0]
         kirby2017b_df.loc[i,'RA_hms'] = obs_param_df.loc[obs_param_df['Name'] == name, 'RA_hms'].values[0]
-        kirby2017b_df.loc[i,'RA_deg'] = coord.ra_hms_to_deg(kirby2017b_df.loc[i,'RA_hms'], precision=6)
+        kirby2017b_df.loc[i,'RA_deg'] = scoord.ra_hms_to_deg(kirby2017b_df.loc[i,'RA_hms'], precision=6)
         kirby2017b_df.loc[i,'DEC_dms'] = obs_param_df.loc[obs_param_df['Name'] == name, 'DEC_dms'].values[0]
-        kirby2017b_df.loc[i,'DEC_deg'] = coord.dec_dms_to_deg(kirby2017b_df.loc[i,'DEC_dms'], precision=2)
+        kirby2017b_df.loc[i,'DEC_deg'] = scoord.dec_dms_to_deg(kirby2017b_df.loc[i,'DEC_dms'], precision=2)
         kirby2017b_df.loc[i,'Teff'] = obs_param_df.loc[obs_param_df['Name'] == name, 'Teff'].values[0]
         kirby2017b_df.loc[i,'logg'] = obs_param_df.loc[obs_param_df['Name'] == name, 'logg'].values[0]
         kirby2017b_df.loc[i,'Fe/H'] = obs_param_df.loc[obs_param_df['Name'] == name, 'Fe/H'].values[0]
@@ -6411,9 +6411,9 @@ def load_koch2008c(io=None):
         koch2008c_df.loc[i,'Loc'] = 'UF'
         koch2008c_df.loc[i,'System'] = obs_param_df.loc[obs_param_df['Name'] == name, 'System'].values[0]
         koch2008c_df.loc[i,'RA_hms'] = obs_param_df.loc[obs_param_df['Name'] == name, 'RA_hms'].values[0]
-        koch2008c_df.loc[i,'RA_deg'] = coord.ra_hms_to_deg(koch2008c_df.loc[i,'RA_hms'], precision=6)
+        koch2008c_df.loc[i,'RA_deg'] = scoord.ra_hms_to_deg(koch2008c_df.loc[i,'RA_hms'], precision=6)
         koch2008c_df.loc[i,'DEC_dms'] = obs_param_df.loc[obs_param_df['Name'] == name, 'DEC_dms'].values[0]
-        koch2008c_df.loc[i,'DEC_deg'] = coord.dec_dms_to_deg(koch2008c_df.loc[i,'DEC_dms'], precision=2)
+        koch2008c_df.loc[i,'DEC_deg'] = scoord.dec_dms_to_deg(koch2008c_df.loc[i,'DEC_dms'], precision=2)
         koch2008c_df.loc[i,'Teff'] = obs_param_df.loc[obs_param_df['Name'] == name, 'Teff'].values[0]
         koch2008c_df.loc[i,'logg'] = obs_param_df.loc[obs_param_df['Name'] == name, 'logg'].values[0]
         koch2008c_df.loc[i,'Fe/H'] = obs_param_df.loc[obs_param_df['Name'] == name, 'Fe/H'].values[0]
@@ -6519,9 +6519,9 @@ def load_koch2013b(io=None):
         koch2013b_df.loc[i,'Loc'] = 'UF'
         koch2013b_df.loc[i,'System'] = obs_param_df.loc[obs_param_df['Name'] == name, 'System'].values[0]
         koch2013b_df.loc[i,'RA_hms'] = obs_param_df.loc[obs_param_df['Name'] == name, 'RA_hms'].values[0]
-        koch2013b_df.loc[i,'RA_deg'] = coord.ra_hms_to_deg(koch2013b_df.loc[i,'RA_hms'], precision=6)
+        koch2013b_df.loc[i,'RA_deg'] = scoord.ra_hms_to_deg(koch2013b_df.loc[i,'RA_hms'], precision=6)
         koch2013b_df.loc[i,'DEC_dms'] = obs_param_df.loc[obs_param_df['Name'] == name, 'DEC_dms'].values[0]
-        koch2013b_df.loc[i,'DEC_deg'] = coord.dec_dms_to_deg(koch2013b_df.loc[i,'DEC_dms'], precision=2)
+        koch2013b_df.loc[i,'DEC_deg'] = scoord.dec_dms_to_deg(koch2013b_df.loc[i,'DEC_dms'], precision=2)
         koch2013b_df.loc[i,'Teff'] = obs_param_df.loc[obs_param_df['Name'] == name, 'Teff'].values[0]
         koch2013b_df.loc[i,'logg'] = obs_param_df.loc[obs_param_df['Name'] == name, 'logg'].values[0]
         koch2013b_df.loc[i,'Fe/H'] = obs_param_df.loc[obs_param_df['Name'] == name, 'Fe/H'].values[0]
@@ -6590,9 +6590,9 @@ def load_lai2011(io=None):
         lai2011_df.loc[i,'Loc'] = 'UF'
         lai2011_df.loc[i,'System'] = data_df.loc[data_df['Name'] == name, 'System'].values[0]
         lai2011_df.loc[i,'RA_hms'] = data_df.loc[data_df['Name'] == name, 'RA_hms'].values[0]
-        lai2011_df.loc[i,'RA_deg'] = coord.ra_hms_to_deg(lai2011_df.loc[i,'RA_hms'], precision=6)
+        lai2011_df.loc[i,'RA_deg'] = scoord.ra_hms_to_deg(lai2011_df.loc[i,'RA_hms'], precision=6)
         lai2011_df.loc[i,'DEC_dms'] = data_df.loc[data_df['Name'] == name, 'DEC_dms'].values[0]
-        lai2011_df.loc[i,'DEC_deg'] = coord.dec_dms_to_deg(lai2011_df.loc[i,'DEC_dms'], precision=2)
+        lai2011_df.loc[i,'DEC_deg'] = scoord.dec_dms_to_deg(lai2011_df.loc[i,'DEC_dms'], precision=2)
         lai2011_df.loc[i,'Teff'] = data_df.loc[data_df['Name'] == name, 'Teff'].values[0]
         lai2011_df.loc[i,'logg'] = data_df.loc[data_df['Name'] == name, 'logg'].values[0]
         lai2011_df.loc[i,'Vmic'] = data_df.loc[data_df['Name'] == name, 'Vmic'].values[0]
@@ -6673,9 +6673,9 @@ def load_marshall2019(io=None):
         marshall2019_df.loc[i,'Loc'] = 'UF'
         marshall2019_df.loc[i,'System'] = obs_df.loc[obs_df['Name'] == name, 'System'].values[0]
         marshall2019_df.loc[i,'RA_hms'] = obs_df.loc[obs_df['Name'] == name, 'RA_hms'].values[0]
-        marshall2019_df.loc[i,'RA_deg'] = coord.ra_hms_to_deg(marshall2019_df.loc[i,'RA_hms'], precision=6)
+        marshall2019_df.loc[i,'RA_deg'] = scoord.ra_hms_to_deg(marshall2019_df.loc[i,'RA_hms'], precision=6)
         marshall2019_df.loc[i,'DEC_dms'] = obs_df.loc[obs_df['Name'] == name, 'DEC_dms'].values[0]
-        marshall2019_df.loc[i,'DEC_deg'] = coord.dec_dms_to_deg(marshall2019_df.loc[i,'DEC_dms'], precision=2)
+        marshall2019_df.loc[i,'DEC_deg'] = scoord.dec_dms_to_deg(marshall2019_df.loc[i,'DEC_dms'], precision=2)
         marshall2019_df.loc[i,'Teff'] = param_df.loc[param_df['Name'] == name, 'Teff'].values[0]
         marshall2019_df.loc[i,'logg'] = param_df.loc[param_df['Name'] == name, 'logg'].values[0]
         marshall2019_df.loc[i,'Fe/H'] = param_df.loc[param_df['Name'] == name, 'Fe/H'].values[0]
@@ -6784,9 +6784,9 @@ def load_nagasawa2018(io=None):
         nagasawa2018_df.loc[i,'Loc'] = 'UF'
         nagasawa2018_df.loc[i,'System'] = obs_df.loc[obs_df['Name'] == name, 'System'].values[0]
         nagasawa2018_df.loc[i,'RA_hms'] = obs_df.loc[obs_df['Name'] == name, 'RA_hms'].values[0]
-        nagasawa2018_df.loc[i,'RA_deg'] = coord.ra_hms_to_deg(nagasawa2018_df.loc[i,'RA_hms'], precision=6)
+        nagasawa2018_df.loc[i,'RA_deg'] = scoord.ra_hms_to_deg(nagasawa2018_df.loc[i,'RA_hms'], precision=6)
         nagasawa2018_df.loc[i,'DEC_dms'] = obs_df.loc[obs_df['Name'] == name, 'DEC_dms'].values[0]
-        nagasawa2018_df.loc[i,'DEC_deg'] = coord.dec_dms_to_deg(nagasawa2018_df.loc[i,'DEC_dms'], precision=2)
+        nagasawa2018_df.loc[i,'DEC_deg'] = scoord.dec_dms_to_deg(nagasawa2018_df.loc[i,'DEC_dms'], precision=2)
         nagasawa2018_df.loc[i,'Teff'] = param_df.loc[param_df['Name'] == name, 'Teff'].values[0]
         nagasawa2018_df.loc[i,'logg'] = param_df.loc[param_df['Name'] == name, 'logg'].values[0]
         nagasawa2018_df.loc[i,'Fe/H'] = param_df.loc[param_df['Name'] == name, 'Fe/H'].values[0]
@@ -6894,9 +6894,9 @@ def load_norris2010a(io=None):
         norris2010a_df.loc[i,'Loc'] = 'UF'
         norris2010a_df.loc[i,'System'] = obs_df.loc[obs_df['Name'] == name, 'System'].values[0]     
         norris2010a_df.loc[i,'RA_hms'] = obs_df.loc[obs_df['Name'] == name, 'RA_hms'].values[0]
-        norris2010a_df.loc[i,'RA_deg'] = coord.ra_hms_to_deg(norris2010a_df.loc[i,'RA_hms'], precision=6)
+        norris2010a_df.loc[i,'RA_deg'] = scoord.ra_hms_to_deg(norris2010a_df.loc[i,'RA_hms'], precision=6)
         norris2010a_df.loc[i,'DEC_dms'] = obs_df.loc[obs_df['Name'] == name, 'DEC_dms'].values[0]
-        norris2010a_df.loc[i,'DEC_deg'] = coord.dec_dms_to_deg(norris2010a_df.loc[i,'DEC_dms'], precision=2)
+        norris2010a_df.loc[i,'DEC_deg'] = scoord.dec_dms_to_deg(norris2010a_df.loc[i,'DEC_dms'], precision=2)
         norris2010a_df.loc[i,'Teff'] = obs_df.loc[obs_df['Name'] == name, 'Teff'].values[0]
         norris2010a_df.loc[i,'logg'] = obs_df.loc[obs_df['Name'] == name, 'logg'].values[0]
         norris2010a_df.loc[i,'M/H'] = obs_df.loc[obs_df['Name'] == name, 'M/H'].values[0]
@@ -7004,9 +7004,9 @@ def load_norris2010b(io=None):
         norris2010b_df.loc[i,'Loc'] = 'UF'
         norris2010b_df.loc[i,'System'] = obs_df.loc[obs_df['Name'] == name, 'System'].values[0]     
         norris2010b_df.loc[i,'RA_hms'] = obs_df.loc[obs_df['Name'] == name, 'RA_hms'].values[0]
-        norris2010b_df.loc[i,'RA_deg'] = coord.ra_hms_to_deg(norris2010b_df.loc[i,'RA_hms'], precision=6)
+        norris2010b_df.loc[i,'RA_deg'] = scoord.ra_hms_to_deg(norris2010b_df.loc[i,'RA_hms'], precision=6)
         norris2010b_df.loc[i,'DEC_dms'] = obs_df.loc[obs_df['Name'] == name, 'DEC_dms'].values[0]
-        norris2010b_df.loc[i,'DEC_deg'] = coord.dec_dms_to_deg(norris2010b_df.loc[i,'DEC_dms'], precision=2)
+        norris2010b_df.loc[i,'DEC_deg'] = scoord.dec_dms_to_deg(norris2010b_df.loc[i,'DEC_dms'], precision=2)
         norris2010b_df.loc[i,'Teff'] = obs_df.loc[obs_df['Name'] == name, 'Teff'].values[0]
         norris2010b_df.loc[i,'logg'] = obs_df.loc[obs_df['Name'] == name, 'logg'].values[0]
         norris2010b_df.loc[i,'Fe/H'] = obs_df.loc[obs_df['Name'] == name, 'Fe/H'].values[0]
@@ -7097,9 +7097,9 @@ def load_norris2010c(load_gilmore2013=False, io=None):
         norris2010c_df.loc[i,'Loc'] = 'UF'
         norris2010c_df.loc[i,'System'] = csv_df.loc[csv_df['Name'] == name, 'System'].values[0]     
         norris2010c_df.loc[i,'RA_hms'] = csv_df.loc[csv_df['Name'] == name, 'RA_hms'].values[0]
-        norris2010c_df.loc[i,'RA_deg'] = coord.ra_hms_to_deg(norris2010c_df.loc[i,'RA_hms'], precision=6)
+        norris2010c_df.loc[i,'RA_deg'] = scoord.ra_hms_to_deg(norris2010c_df.loc[i,'RA_hms'], precision=6)
         norris2010c_df.loc[i,'DEC_dms'] = csv_df.loc[csv_df['Name'] == name, 'DEC_dms'].values[0]
-        norris2010c_df.loc[i,'DEC_deg'] = coord.dec_dms_to_deg(norris2010c_df.loc[i,'DEC_dms'], precision=2)
+        norris2010c_df.loc[i,'DEC_deg'] = scoord.dec_dms_to_deg(norris2010c_df.loc[i,'DEC_dms'], precision=2)
         norris2010c_df.loc[i,'Teff'] = csv_df.loc[csv_df['Name'] == name, 'Teff'].values[0]
         norris2010c_df.loc[i,'logg'] = csv_df.loc[csv_df['Name'] == name, 'logg'].values[0]
         norris2010c_df.loc[i,'Fe/H'] = csv_df.loc[csv_df['Name'] == name, '[Fe/H]'].values[0]
@@ -7163,9 +7163,9 @@ def load_roederer2014b(io=None):
         roederer2014b_df.loc[i,'Loc'] = 'UF'
         roederer2014b_df.loc[i,'System'] = obs_param_df.loc[obs_param_df['Name'] == name, 'System'].values[0]
         roederer2014b_df.loc[i,'RA_hms'] = obs_param_df.loc[obs_param_df['Name'] == name, 'RA_hms'].values[0]
-        roederer2014b_df.loc[i,'RA_deg'] = coord.ra_hms_to_deg(roederer2014b_df.loc[i,'RA_hms'], precision=6)
+        roederer2014b_df.loc[i,'RA_deg'] = scoord.ra_hms_to_deg(roederer2014b_df.loc[i,'RA_hms'], precision=6)
         roederer2014b_df.loc[i,'DEC_dms'] = obs_param_df.loc[obs_param_df['Name'] == name, 'DEC_dms'].values[0]
-        roederer2014b_df.loc[i,'DEC_deg'] = coord.dec_dms_to_deg(roederer2014b_df.loc[i,'DEC_dms'], precision=2)
+        roederer2014b_df.loc[i,'DEC_deg'] = scoord.dec_dms_to_deg(roederer2014b_df.loc[i,'DEC_dms'], precision=2)
         roederer2014b_df.loc[i,'Teff'] = obs_param_df.loc[obs_param_df['Name'] == name, 'Teff'].values[0]
         roederer2014b_df.loc[i,'logg'] = obs_param_df.loc[obs_param_df['Name'] == name, 'logg'].values[0]
         roederer2014b_df.loc[i,'Fe/H'] = obs_param_df.loc[obs_param_df['Name'] == name, 'Fe/H'].values[0]
@@ -7272,9 +7272,9 @@ def load_simon2010(io=None):
         simon2010_df.loc[i,'Loc'] = 'UF'
         simon2010_df.loc[i,'System'] = obs_param_df.loc[obs_param_df['Name'] == name, 'System'].values[0]
         simon2010_df.loc[i,'RA_hms'] = obs_param_df.loc[obs_param_df['Name'] == name, 'RA_hms'].values[0]
-        simon2010_df.loc[i,'RA_deg'] = coord.ra_hms_to_deg(simon2010_df.loc[i,'RA_hms'], precision=6)
+        simon2010_df.loc[i,'RA_deg'] = scoord.ra_hms_to_deg(simon2010_df.loc[i,'RA_hms'], precision=6)
         simon2010_df.loc[i,'DEC_dms'] = obs_param_df.loc[obs_param_df['Name'] == name, 'DEC_dms'].values[0]
-        simon2010_df.loc[i,'DEC_deg'] = coord.dec_dms_to_deg(simon2010_df.loc[i,'DEC_dms'], precision=2)
+        simon2010_df.loc[i,'DEC_deg'] = scoord.dec_dms_to_deg(simon2010_df.loc[i,'DEC_dms'], precision=2)
         simon2010_df.loc[i,'Teff'] = obs_param_df.loc[obs_param_df['Name'] == name, 'Teff'].values[0]
         simon2010_df.loc[i,'logg'] = obs_param_df.loc[obs_param_df['Name'] == name, 'logg'].values[0]
         simon2010_df.loc[i,'Fe/H'] = obs_param_df.loc[obs_param_df['Name'] == name, 'Fe/H'].values[0]
@@ -7381,9 +7381,9 @@ def load_sbordone2007(io=None):
         sbordone2007_df.loc[i,'Loc'] = obs_param_df.loc[obs_param_df['Name'] == name, 'Loc'].values[0]
         sbordone2007_df.loc[i,'System'] = obs_param_df.loc[obs_param_df['Name'] == name, 'System'].values[0]     
         sbordone2007_df.loc[i,'RA_hms'] = obs_param_df.loc[obs_param_df['Name'] == name, 'RA_hms'].values[0]
-        sbordone2007_df.loc[i,'RA_deg'] = coord.ra_hms_to_deg(sbordone2007_df.loc[i,'RA_hms'], precision=6)
+        sbordone2007_df.loc[i,'RA_deg'] = scoord.ra_hms_to_deg(sbordone2007_df.loc[i,'RA_hms'], precision=6)
         sbordone2007_df.loc[i,'DEC_dms'] = obs_param_df.loc[obs_param_df['Name'] == name, 'DEC_dms'].values[0]
-        sbordone2007_df.loc[i,'DEC_deg'] = coord.dec_dms_to_deg(sbordone2007_df.loc[i,'DEC_dms'], precision=2)
+        sbordone2007_df.loc[i,'DEC_deg'] = scoord.dec_dms_to_deg(sbordone2007_df.loc[i,'DEC_dms'], precision=2)
         sbordone2007_df.loc[i,'Teff'] = obs_param_df.loc[obs_param_df['Name'] == name, 'Teff'].values[0]
         sbordone2007_df.loc[i,'logg'] = obs_param_df.loc[obs_param_df['Name'] == name, 'logg'].values[0]
         sbordone2007_df.loc[i,'Fe/H'] = obs_param_df.loc[obs_param_df['Name'] == name, 'Fe/H'].values[0]
@@ -7490,9 +7490,9 @@ def load_spite2018(io=None):
         spite2018_df.loc[i,'Loc'] = 'UF'
         spite2018_df.loc[i,'System'] = obs_param_df.loc[obs_param_df['Name'] == name, 'System'].values[0]
         spite2018_df.loc[i,'RA_hms'] = obs_param_df.loc[obs_param_df['Name'] == name, 'RA_hms'].values[0]
-        spite2018_df.loc[i,'RA_deg'] = coord.ra_hms_to_deg(spite2018_df.loc[i,'RA_hms'], precision=6)
+        spite2018_df.loc[i,'RA_deg'] = scoord.ra_hms_to_deg(spite2018_df.loc[i,'RA_hms'], precision=6)
         spite2018_df.loc[i,'DEC_dms'] = obs_param_df.loc[obs_param_df['Name'] == name, 'DEC_dms'].values[0]
-        spite2018_df.loc[i,'DEC_deg'] = coord.dec_dms_to_deg(spite2018_df.loc[i,'DEC_dms'], precision=2)
+        spite2018_df.loc[i,'DEC_deg'] = scoord.dec_dms_to_deg(spite2018_df.loc[i,'DEC_dms'], precision=2)
         spite2018_df.loc[i,'Teff'] = obs_param_df.loc[obs_param_df['Name'] == name, 'Teff'].values[0]
         spite2018_df.loc[i,'logg'] = obs_param_df.loc[obs_param_df['Name'] == name, 'logg'].values[0]
         spite2018_df.loc[i,'Fe/H'] = obs_param_df.loc[obs_param_df['Name'] == name, 'Fe/H'].values[0]
@@ -7603,9 +7603,9 @@ def load_waller2023(io=None):
         waller2023_df.loc[i,'Loc'] = 'UF'
         waller2023_df.loc[i,'System'] = obs_df.loc[obs_df['Name'] == name, 'System'].values[0]
         waller2023_df.loc[i,'RA_hms'] = obs_df.loc[obs_df['Name'] == name, 'RA_hms'].values[0]
-        waller2023_df.loc[i,'RA_deg'] = coord.ra_hms_to_deg(waller2023_df.loc[i,'RA_hms'], precision=6)
+        waller2023_df.loc[i,'RA_deg'] = scoord.ra_hms_to_deg(waller2023_df.loc[i,'RA_hms'], precision=6)
         waller2023_df.loc[i,'DEC_dms'] = obs_df.loc[obs_df['Name'] == name, 'DEC_dms'].values[0]
-        waller2023_df.loc[i,'DEC_deg'] = coord.dec_dms_to_deg(waller2023_df.loc[i,'DEC_dms'], precision=2)
+        waller2023_df.loc[i,'DEC_deg'] = scoord.dec_dms_to_deg(waller2023_df.loc[i,'DEC_dms'], precision=2)
         waller2023_df.loc[i,'Teff'] = param_df.loc[param_df['Name'] == name, 'Teff'].values[0]
         waller2023_df.loc[i,'logg'] = param_df.loc[param_df['Name'] == name, 'logg'].values[0]
         waller2023_df.loc[i,'Fe/H'] = param_df.loc[param_df['Name'] == name, 'Fe/H'].values[0]
@@ -7728,9 +7728,9 @@ def load_webber2023(io=None):
         webber2023_df.loc[i,'Loc'] = 'UF'
         webber2023_df.loc[i,'System'] = obs_df.loc[obs_df['Name'] == name, 'System'].values[0]
         webber2023_df.loc[i,'RA_hms'] = obs_df.loc[obs_df['Name'] == name, 'RA_hms'].values[0]
-        webber2023_df.loc[i,'RA_deg'] = coord.ra_hms_to_deg(webber2023_df.loc[i,'RA_hms'], precision=6)
+        webber2023_df.loc[i,'RA_deg'] = scoord.ra_hms_to_deg(webber2023_df.loc[i,'RA_hms'], precision=6)
         webber2023_df.loc[i,'DEC_dms'] = obs_df.loc[obs_df['Name'] == name, 'DEC_dms'].values[0]
-        webber2023_df.loc[i,'DEC_deg'] = coord.dec_dms_to_deg(webber2023_df.loc[i,'DEC_dms'], precision=2)
+        webber2023_df.loc[i,'DEC_deg'] = scoord.dec_dms_to_deg(webber2023_df.loc[i,'DEC_dms'], precision=2)
         webber2023_df.loc[i,'Teff'] = param_df.loc[param_df['Name'] == name, 'Teff'].values[0]
         webber2023_df.loc[i,'logg'] = param_df.loc[param_df['Name'] == name, 'logg'].values[0]
         webber2023_df.loc[i,'Fe/H'] = param_df.loc[param_df['Name'] == name, 'Fe/H'].values[0]
@@ -7853,9 +7853,9 @@ def load_gull2021(io=None):
         gull2021_df.loc[i,'Loc'] = 'SS'
         gull2021_df.loc[i,'System'] = obs_df.loc[obs_df['Name'] == name, 'System'].values[0]
         gull2021_df.loc[i,'RA_hms'] = obs_df.loc[obs_df['Name'] == name, 'RA_hms'].values[0]
-        gull2021_df.loc[i,'RA_deg'] = coord.ra_hms_to_deg(gull2021_df.loc[i,'RA_hms'], precision=6)
+        gull2021_df.loc[i,'RA_deg'] = scoord.ra_hms_to_deg(gull2021_df.loc[i,'RA_hms'], precision=6)
         gull2021_df.loc[i,'DEC_dms'] = obs_df.loc[obs_df['Name'] == name, 'DEC_dms'].values[0]
-        gull2021_df.loc[i,'DEC_deg'] = coord.dec_dms_to_deg(gull2021_df.loc[i,'DEC_dms'], precision=2)
+        gull2021_df.loc[i,'DEC_deg'] = scoord.dec_dms_to_deg(gull2021_df.loc[i,'DEC_dms'], precision=2)
         gull2021_df.loc[i,'Teff'] = param_df.loc[param_df['Name'] == name, 'Teff'].values[0]
         gull2021_df.loc[i,'logg'] = param_df.loc[param_df['Name'] == name, 'logg'].values[0]
         gull2021_df.loc[i,'Fe/H'] = param_df.loc[param_df['Name'] == name, 'Fe/H'].values[0]
@@ -7974,9 +7974,9 @@ def load_ji2020b(io=None):
         ji2020b_df.loc[i,'Loc'] = 'SS'
         ji2020b_df.loc[i,'System'] = obs_df.loc[obs_df['Name'] == name, 'System'].values[0]
         ji2020b_df.loc[i,'RA_hms'] = obs_df.loc[obs_df['Name'] == name, 'RA_hms'].values[0]
-        ji2020b_df.loc[i,'RA_deg'] = coord.ra_hms_to_deg(ji2020b_df.loc[i,'RA_hms'], precision=6)
+        ji2020b_df.loc[i,'RA_deg'] = scoord.ra_hms_to_deg(ji2020b_df.loc[i,'RA_hms'], precision=6)
         ji2020b_df.loc[i,'DEC_dms'] = obs_df.loc[obs_df['Name'] == name, 'DEC_dms'].values[0]
-        ji2020b_df.loc[i,'DEC_deg'] = coord.dec_dms_to_deg(ji2020b_df.loc[i,'DEC_dms'], precision=2)
+        ji2020b_df.loc[i,'DEC_deg'] = scoord.dec_dms_to_deg(ji2020b_df.loc[i,'DEC_dms'], precision=2)
         ji2020b_df.loc[i,'Teff'] = param_df.loc[param_df['Name'] == name, 'Teff'].values[0]
         ji2020b_df.loc[i,'logg'] = param_df.loc[param_df['Name'] == name, 'logg'].values[0]
         ji2020b_df.loc[i,'M/H'] = param_df.loc[param_df['Name'] == name, 'M/H'].values[0]
@@ -8078,9 +8078,9 @@ def load_martin2022a(io=None):
         martin2022a_df.loc[i,'Loc'] = 'SS'
         martin2022a_df.loc[i,'System'] = obs_df.loc[obs_df['Name'] == name, 'System'].values[0]
         martin2022a_df.loc[i,'RA_deg'] = obs_df.loc[obs_df['Name'] == name, 'RA_deg'].values[0]
-        martin2022a_df.loc[i,'RA_hms'] = coord.ra_deg_to_hms(martin2022a_df.loc[i,'RA_deg'], precision=6)
+        martin2022a_df.loc[i,'RA_hms'] = scoord.ra_deg_to_hms(martin2022a_df.loc[i,'RA_deg'], precision=6)
         martin2022a_df.loc[i,'DEC_deg'] = obs_df.loc[obs_df['Name'] == name, 'DEC_deg'].values[0]
-        martin2022a_df.loc[i,'DEC_dms'] = coord.dec_deg_to_dms(martin2022a_df.loc[i,'DEC_deg'], precision=2)
+        martin2022a_df.loc[i,'DEC_dms'] = scoord.dec_deg_to_dms(martin2022a_df.loc[i,'DEC_deg'], precision=2)
 
         ## Abundance Table 1, for Gemini/GRACES observations
         if name in abund_df1['Name'].values:
@@ -8238,9 +8238,9 @@ def load_roederer2010a(io=None):
         roederer2010a_df.loc[i,'Loc'] = 'SS'
         roederer2010a_df.loc[i,'System'] = obs_df.loc[obs_df['Name'] == name, 'System'].values[0]
         roederer2010a_df.loc[i,'RA_hms'] = obs_df.loc[obs_df['Name'] == name, 'RA_hms'].values[0]
-        roederer2010a_df.loc[i,'RA_deg'] = coord.ra_hms_to_deg(roederer2010a_df.loc[i,'RA_hms'], precision=6)
+        roederer2010a_df.loc[i,'RA_deg'] = scoord.ra_hms_to_deg(roederer2010a_df.loc[i,'RA_hms'], precision=6)
         roederer2010a_df.loc[i,'DEC_dms'] = obs_df.loc[obs_df['Name'] == name, 'DEC_dms'].values[0]
-        roederer2010a_df.loc[i,'DEC_deg'] = coord.dec_dms_to_deg(roederer2010a_df.loc[i,'DEC_dms'], precision=2)
+        roederer2010a_df.loc[i,'DEC_deg'] = scoord.dec_dms_to_deg(roederer2010a_df.loc[i,'DEC_dms'], precision=2)
         roederer2010a_df.loc[i,'Teff'] = param_df.loc[param_df['Name'] == name, 'Teff'].values[0]
         roederer2010a_df.loc[i,'logg'] = param_df.loc[param_df['Name'] == name, 'logg'].values[0]
         roederer2010a_df.loc[i,'M/H'] = param_df.loc[param_df['Name'] == name, 'M/H'].values[0]
@@ -8355,9 +8355,9 @@ def load_roederer2019(io=None):
         roederer2019_df.loc[i,'Loc'] = 'SS'
         roederer2019_df.loc[i,'System'] = obs_param_df.loc[obs_param_df['Name'] == name, 'System'].values[0]
         roederer2019_df.loc[i,'RA_hms'] = obs_param_df.loc[obs_param_df['Name'] == name, 'RA_hms'].values[0]
-        roederer2019_df.loc[i,'RA_deg'] = coord.ra_hms_to_deg(roederer2019_df.loc[i,'RA_hms'], precision=6)
+        roederer2019_df.loc[i,'RA_deg'] = scoord.ra_hms_to_deg(roederer2019_df.loc[i,'RA_hms'], precision=6)
         roederer2019_df.loc[i,'DEC_dms'] = obs_param_df.loc[obs_param_df['Name'] == name, 'DEC_dms'].values[0]
-        roederer2019_df.loc[i,'DEC_deg'] = coord.dec_dms_to_deg(roederer2019_df.loc[i,'DEC_dms'], precision=2)
+        roederer2019_df.loc[i,'DEC_deg'] = scoord.dec_dms_to_deg(roederer2019_df.loc[i,'DEC_dms'], precision=2)
         roederer2019_df.loc[i,'Teff'] = obs_param_df.loc[obs_param_df['Name'] == name, 'Teff'].values[0]
         roederer2019_df.loc[i,'logg'] = obs_param_df.loc[obs_param_df['Name'] == name, 'logg'].values[0]
         roederer2019_df.loc[i,'M/H'] = obs_param_df.loc[obs_param_df['Name'] == name, 'M/H'].values[0]
@@ -8501,19 +8501,19 @@ def load_apogee_sgr():
             if len(row['RA_hms']) == 10:
                 row['RA_hms'] = '0' + row['RA_hms']
                 df.at[idx, 'RA_hms'] = row['RA_hms']
-            row['RA_deg'] = coord.ra_hms_to_deg(row['RA_hms'], precision=6)
+            row['RA_deg'] = scoord.ra_hms_to_deg(row['RA_hms'], precision=6)
             df.at[idx, 'RA_deg'] = row['RA_deg']
 
         if pd.isna(row['DEC_deg']) and pd.notna(row['DEC_dms']):
-            row['DEC_deg'] = coord.dec_dms_to_deg(row['DEC_dms'], precision=2)
+            row['DEC_deg'] = scoord.dec_dms_to_deg(row['DEC_dms'], precision=2)
             df.at[idx, 'DEC_deg'] = row['DEC_deg']
 
         if pd.isna(row['RA_hms']) and pd.notna(row['RA_deg']):
-            row['RA_hms'] = coord.ra_deg_to_hms(float(row['RA_deg']), precision=2)
+            row['RA_hms'] = scoord.ra_deg_to_hms(float(row['RA_deg']), precision=2)
             df.at[idx, 'RA_hms'] = row['RA_hms']
 
         if pd.isna(row['DEC_dms']) and pd.notna(row['DEC_deg']):
-            row['DEC_dms'] = coord.dec_deg_to_dms(float(row['DEC_deg']), precision=2)
+            row['DEC_dms'] = scoord.dec_deg_to_dms(float(row['DEC_deg']), precision=2)
             df.at[idx, 'DEC_dms'] = row['DEC_dms']
 
     XHcol_from_XFecol(df)
