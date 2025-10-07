@@ -275,7 +275,7 @@ def icrs_to_sgr(ra, dec):
         dec_deg = dec
     
     # Create ICRS coordinate
-    icrs_coord = SkyCoord(ra=ra_deg*u.degree, dec=dec_deg*u.degree, frame='icrs')
+    icrs_coord = coord.SkyCoord(ra=ra_deg*u.degree, dec=dec_deg*u.degree, frame='icrs')
     
     # Transform to Sagittarius coordinates
     sgr_coord = icrs_coord.transform_to(Sagittarius())
