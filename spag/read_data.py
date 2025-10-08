@@ -2001,19 +2001,70 @@ def load_placco2014(remove_atari=True, remove_sass=True, use_jinabase_sass=False
     
     return placco2014_df
 
-def load_cayrel2004(io=None):
+def load_cayrel2004():
     """
-    Load the Cayrel et al. 2004 data for Milky Way halo data.
+    Loads the Cayrel et al. 2004 & Francois et al. 2007 data for Milky Way halo data. 
+    This paper is part of "First Stars." series (First Stars. V.), where the heavy element
+    abundance values are taken from Francois et al. 2007 (First Stars. VIII.).
 
-    Table 2 - Observation Table
-    Table 4 - Stellar Parameters
-    Table 8 - Abundance Table
+    Table 2 - Cayrel+2004 Observation Table
+    Table 4 - Cayrel+2004 Stellar Parameters
+    Table 8 - Cayrel+2004 Abundance Table
+    Table 3,4,5 - Francois+2007 Abundance Table
     """
 
     ## Read in the data tables
-    obs_df = pd.read_csv(data_dir + "abundance_tables/first_stars/cayrel2004/table2.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
-    param_df = pd.read_csv(data_dir + "abundance_tables/first_stars/cayrel2004/table4.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
-    abund_df = pd.read_csv(data_dir + "abundance_tables/first_stars/cayrel2004/table8.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    obs_df = pd.read_csv(data_dir + "abundance_tables/cayrel2004/table2.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    param_df = pd.read_csv(data_dir + "abundance_tables/cayrel2004/table4.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    c04_abund_df = pd.read_csv(data_dir + "abundance_tables/cayrel2004/table8.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    f07_abund_df = pd.read_csv(data_dir + "abundance_tables/francois2007/table3_4_5.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    
+    # -------------------------------------
+    ## Modify Cayrel+2004 Abundance Table
+    c04_abund_df = c04_abund_df.drop(columns=['Seq', '[Fe/H]'])
+    c04_abund_df = c04_abund_df.rename(columns={'Nlines': 'N'})
+    c04_abund_df = c04_abund_df[['Name', 'Species', 'N', 'l_logepsX', 'logepsX', 'l_[X/H]', '[X/H]', 'l_[X/Fe]', '[X/Fe]', 'e_[X/H]']]
+    # -------------------------------------
+    ## Modify François+2007 Abundance Table
+    f07_abund_list = []
+    for i, row in f07_abund_df.iterrows():
+        for col in row.index:
+            if '/Fe]' in col:
+                elem = col.replace("[", "").replace("/Fe]", "").split("/")[0]
+                N_elem = row['N_'+elem]
+                ion = ion_from_col(col)
+                
+                ## Converting between Solar Abundances: Grevesse & Sauval 1998 --> Asplund 2009
+                FeH_g98 = row['[Fe/H]'] # Note: these [Fe/H] values are [Fe/H]_c values from Cayrel+2004 (avg of Fe I and Fe II)
+                logepsFe = eps_from_XH(FeH_g98, 'Fe', version='grevesse1998')
+                FeH_a09 = XH_from_eps(logepsFe, 'Fe', version='asplund2009')
+                
+                ## Limit Flags
+                l_logepsX = '<' if '<' in str(row[col]) else np.nan
+                l_XH = '<' if '<' in str(row[col]) else np.nan
+                l_XFe = '<' if '<' in str(row[col]) else np.nan
+
+                ## Abundance Calculations (Asplund 2009)
+                XFe_g98 = float(row[col].replace('<', '')) if l_XFe == '<' else float(row[col])
+                logepsX = eps_from_XFe(XFe_g98, FeH_g98, elem, version='grevesse1998')
+                XH = XH_from_eps(logepsX, elem, version='asplund2009')
+                XFe = XFe_from_eps(logepsX, FeH_a09, elem, version='asplund2009')
+                e_XH = np.nan
+
+                ## Add to list, converted into DataFrame after loop
+                f07_abund_list.append((row['Name'], ion, N_elem, l_logepsX, logepsX, l_XH, XH, l_XFe, XFe, e_XH))
+
+    f07_abund_df = pd.DataFrame(f07_abund_list, columns=['Name', 'Species', 'N', 'l_logepsX', 'logepsX', 'l_[X/H]', '[X/H]', 'l_[X/Fe]', '[X/Fe]', 'e_[X/H]'])
+    # -------------------------------------
+    ## Combine the two abundance tables
+    abund_df = (
+        pd.concat([c04_abund_df, f07_abund_df], ignore_index=True)
+        .assign(Z=lambda df: df['Species'].map(ion_to_atomic_number))
+        .sort_values(['Name', 'Z'])
+        .drop(columns='Z')
+        .reset_index(drop=True)
+    )
+    # -------------------------------------
 
     ## Make the new column names
     species = []
@@ -2053,7 +2104,6 @@ def load_cayrel2004(io=None):
         cayrel2004_df.loc[i,'Fe/H'] = param_df.loc[param_df['Name'] == name, 'Fe/H_m'].values[0]
         cayrel2004_df.loc[i,'Vmic'] = param_df.loc[param_df['Name'] == name, 'Vmic'].values[0]
 
-
         ## Fill in data
         star_df = abund_df[abund_df['Name'] == name]
         for j, row in star_df.iterrows():
@@ -2084,8 +2134,8 @@ def load_cayrel2004(io=None):
                 else:
                     cayrel2004_df.loc[i, col] = np.nan
                     cayrel2004_df.loc[i, 'ul'+col] = normal_round(row["logepsX"] - logepsX_sun_a09, 2)
-                if 'e_[X/H]' in row.index:
-                    cayrel2004_df.loc[i, 'e_'+col] = row["e_[X/H]"]
+                # if 'e_[X/H]' in row.index:
+                #     cayrel2004_df.loc[i, 'e_'+col] = row["e_[X/H]"]
 
             ## Assign [X/Fe] values
             col = make_XFecol(species_i).replace(" ", "")
@@ -2096,8 +2146,8 @@ def load_cayrel2004(io=None):
                 else:
                     cayrel2004_df.loc[i, col] = np.nan
                     cayrel2004_df.loc[i, 'ul'+col] = normal_round((row["logepsX"] - logepsX_sun_a09) - feh_a09, 2)
-                if 'e_[X/Fe]' in row.index:
-                    cayrel2004_df.loc[i, 'e_'+col] = row["e_[X/Fe]"]
+                # if 'e_[X/Fe]' in row.index:
+                #     cayrel2004_df.loc[i, 'e_'+col] = row["e_[X/Fe]"]
 
             ## Assign error values
             col = make_errcol(species_i)
@@ -2111,7 +2161,30 @@ def load_cayrel2004(io=None):
     ## Drop the Fe/Fe columns
     cayrel2004_df.drop(columns=['[Fe/Fe]','ul[Fe/Fe]','[FeII/Fe]','ul[FeII/Fe]'], inplace=True, errors='ignore')
 
+    ## Sort by RA_deg, DEC_deg
+    cayrel2004_df = cayrel2004_df.sort_values(['RA_deg', 'DEC_deg']).reset_index(drop=True)
+    
     return cayrel2004_df
+
+def load_francois2007():
+    """
+    Loads the Francois et al. 2007 & Cayrel et al. 2004 data for Milky Way halo data. 
+    This paper is part of "First Stars." series (First Stars. VIII.), where the stellar parameters 
+    are taken from Cayrel et al. 2004 (First Stars. V.) along with the [Fe/H] and 
+    light chemical abundances.
+
+    Table 2 - Cayrel+2004 Observation Table
+    Table 4 - Cayrel+2004 Stellar Parameters
+    Table 8 - Cayrel+2004 Abundance Table
+    Table 3,4,5 - Francois+2007 Abundance Table
+    """
+    francois2007_df = load_cayrel2004()
+    
+    ## Change out the Reference and Ref columns
+    francois2007_df['Reference'] = 'Francois+2007'
+    francois2007_df['Ref'] = 'FRA07'
+
+    return francois2007_df
 
 ### milky way accreted dwarf galaxies (Acc. dSph)
 
