@@ -1645,9 +1645,11 @@ def load_sass_stars():
     """
     jinabase_df = load_jinabase(io=None)
     hughes2025_df = load_hughes2025()
+    francois2007_df = load_francois2007()
 
     ## Selects only halo stars (or more like everything unclassified in JINAbase)
     halo_df = jinabase_df[(jinabase_df['Loc'] == 'HA') | (jinabase_df['Loc'].isin(['', 'nan', np.nan]))]
+    halo_df = pd.concat([halo_df, francois2007_df], ignore_index=True, sort=False)
 
     ## Has C measurements
     halo_w_c_df = halo_df[
@@ -1681,8 +1683,11 @@ def load_sass_stars():
     ## Concatenate the dataframes
     jinabase_sass_df = pd.concat([low_sr_ba_df, low_ulsr_ba_df, low_sr_ulba_df, low_ulsr_ulba_df], ignore_index=True)
     jinabase_sass_df['System'] = 'SASS'
-
-    ## Combine with Hughes+2025 data
+    
+    ## Remove all Roederer+2014b stars, due to low temperature and questionable abundances
+    jinabase_sass_df = jinabase_sass_df[jinabase_sass_df['Reference'] != 'Roederer+2014b']
+    
+    ## Combine with other Datasets
     sass_df = pd.concat([jinabase_sass_df, hughes2025_df], ignore_index=True, sort=False)
     sass_df.reset_index(drop=True, inplace=True)
     
@@ -1694,28 +1699,32 @@ def load_sass_stars():
         ('Li+2015c', 'LAMOSTJ1313-0552'),
         ('Hansen_T+2014', 'HE1310-0536'),
         ('Aoki+2005', 'BS16084-160'),
+        ('Roederer+2014a', 'CS22891-200'),
         ('Roederer+2014b', 'CS22891-200'),
-        ('Hollek+2011', 'CS22891-200'),
         ('McWilliam+1995', 'CS22891-200'),
-        ('Norris+2001', 'CS22885-096'),
+        ('Roederer+2014b', 'CS22885-096'),
         ('McWilliam+1995', 'CS22885-096'),
+        ('Lai+2008', 'CS 30336-049'),
+        ('Aoki+2005', 'CS29516-041'),
         ('McWilliam+1995', 'CS22949-048'),
         ('Roederer+2014b', 'BD+44493'),
-        ('McWilliam+1995', 'CD-38245'),
-        ('Norris+2001', 'CD-38245'),
+        ('Roederer+2014b', 'CD-38245'),
         ('Ezzeddine+2020', '2MASS J00463619-3739335'),
-        ('Yong+2013', 'CS30336-049'),
+        ('Norris+2001', 'CD-38245'),
+        ('McWilliam+1995', 'CD-38245'),
         ('Yong+2013', 'HE0057-5959'),
         ('Cohen+2008', 'HE1347-1025'),
         ('Cohen+2008', 'HE1356-0622'),
         ('Holmbeck+2020', 'J07123398-4814049'),
-        ('Collet+2006', 'HE0107-52401D'),
-        ('Collet+2006', 'HE0107-52403D'),
+        ('Aoki+2005', 'CS30325-094'),
         ('McWilliam+1995', 'CS22968-014'),
         ('Roederer+2014b', 'CS22968-014'),
         ('Frebel+2008', 'HE1327-23263D'),
+        ('Cohen+2013', 'BS16467-062'),
         ('Cohen+2008', 'BS16467-062'),
         ('Hansen_T+2014', 'HE2239-5019'),
+        ('Collet+2006', 'HE0107-52401D'),
+        ('Collet+2006', 'HE0107-52403D'),
         ('Keller+2014', 'NAMESMSSJ031300.36-670839.3') # has carbon, but uppper limit in iron --> ignore this star (not a duplicate)
     ]
     for ref, name in dups:
@@ -1762,7 +1771,15 @@ def load_placco2014(remove_atari=True, remove_sass=True, use_jinabase_sass=False
     placco2014_df["Reference"] = placco2014_df["Reference"].str.replace(r' et al\. \(', r'+', regex=True) \
                                                            .str.replace(r'\)', '', regex=True) \
                                                            .str.replace(r' and [^ ]+ \((\d{4})', r'+\1', regex=True)
-    placco2014_df['Ref'] = placco2014_df['Reference'].str[:3].str.upper() + placco2014_df['Reference'].str[-2:]
+    ref_mask = placco2014_df['Reference'].str[-1].str.isalpha()
+    placco2014_df.loc[ref_mask, 'Ref'] = (
+        placco2014_df.loc[ref_mask, 'Reference'].str[:3].str.upper() +
+        placco2014_df.loc[ref_mask, 'Reference'].str[-3:]
+    )
+    placco2014_df.loc[~ref_mask, 'Ref'] = (
+        placco2014_df.loc[~ref_mask, 'Reference'].str[:3].str.upper() +
+        placco2014_df.loc[~ref_mask, 'Reference'].str[-2:]
+    )
 
     placco2014_df.rename(columns={"l_[N/Fe]": "ul[N/Fe]"}, inplace=True)
     placco2014_df.loc[placco2014_df['ul[N/Fe]'] == '{<=}', 'ul[N/Fe]'] = placco2014_df['[N/Fe]']
