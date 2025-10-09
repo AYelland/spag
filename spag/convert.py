@@ -657,7 +657,7 @@ def getelem(elem, lower=False, keep_species=False):
             elem = common_molecule_name_to_colname[elem]
 
         elif elem[-1]=='I': #Check for ionization
-            # print('4')
+            # print('3')
             if ' ' not in elem:
                 if elem[0]=='I':
                     assert elem=='I'*len(elem)
@@ -668,7 +668,6 @@ def getelem(elem, lower=False, keep_species=False):
                     elem = elem[:-1] + ' I'
             
             species = element_to_species(elem)
-
             if species in common_isotope_species_to_colname.keys():
                 elem = common_isotope_species_to_colname[species]
             elif species in common_molecule_species_to_name.keys():
@@ -678,14 +677,18 @@ def getelem(elem, lower=False, keep_species=False):
                 elem = elem.split()[0]
 
         else:
-            # print('5')
+            # print('4')
             species = element_to_species(elem)
-            elem = species_to_element(species)
-            elem = elem.replace(' ', '')
-            # elem = elem.split()[0]
-        
+            if species in common_isotope_species_to_colname.keys():
+                elem = common_isotope_species_to_colname[species]
+            elif species in common_molecule_species_to_name.keys():
+                elem = common_molecule_name_to_colname[common_molecule_species_to_name[species]]
+            else:
+                elem = species_to_element(species)
+                elem = elem.split()[0]
+
     elif isinstance(elem, (int, np.integer)):
-        # print('6')
+        # print('5')
 
         Z = int(elem)
         try:
@@ -696,7 +699,7 @@ def getelem(elem, lower=False, keep_species=False):
                 elem = common_molecule_name_to_colname[common_molecule_species_to_name[Z]]
 
     elif isinstance(elem, float):
-        # print('7')
+        # print('6')
         species = elem
         
         if species in common_isotope_species_to_colname.keys():

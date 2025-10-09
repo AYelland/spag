@@ -2176,7 +2176,7 @@ def load_cayrel2004():
                     cayrel2004_df.loc[i, col] = np.nan
 
     ## Drop the Fe/Fe columns
-    cayrel2004_df.drop(columns=['[Fe/Fe]','ul[Fe/Fe]','[FeII/Fe]','ul[FeII/Fe]'], inplace=True, errors='ignore')
+    cayrel2004_df.drop(columns=[col for col in cayrel2004_df.columns if 'Fe/Fe' in col or 'Fe2/Fe' in col], inplace=True, errors='ignore')
 
     ## Sort by RA_deg, DEC_deg
     cayrel2004_df = cayrel2004_df.sort_values(['RA_deg', 'DEC_deg']).reset_index(drop=True)
@@ -2405,7 +2405,7 @@ def load_mardini2024b(io=None):
                     mardini2024b_df.loc[i, col] = np.nan
 
     ## Drop the Fe/Fe columns
-    mardini2024b_df.drop(columns=['[Fe/Fe]','ul[Fe/Fe]','[FeII/Fe]','ul[FeII/Fe]'], inplace=True, errors='ignore')
+    mardini2024b_df.drop(columns=[col for col in mardini2024b_df.columns if 'Fe/Fe' in col or 'Fe2/Fe' in col], inplace=True, errors='ignore')
 
     ## Filter the DataFrame based on the I/O column
     if io == 0 or io == 1:
@@ -2545,7 +2545,7 @@ def load_hughes2025(io=None):
             #         hughes2025_df.loc[i, col] = np.nan
 
     ## Drop the Fe/Fe columns
-    hughes2025_df.drop(columns=['[Fe/Fe]','ul[Fe/Fe]','[FeII/Fe]','ul[FeII/Fe]'], inplace=True, errors='ignore')
+    hughes2025_df.drop(columns=[col for col in hughes2025_df.columns if 'Fe/Fe' in col or 'Fe2/Fe' in col], inplace=True, errors='ignore')
 
     return hughes2025_df
 
@@ -2716,7 +2716,7 @@ def load_chiti2024(io=None):
                     chiti2024_df.loc[i, col] = np.nan
 
     ## Drop the Fe/Fe columns
-    chiti2024_df.drop(columns=['[Fe/Fe]','ul[Fe/Fe]','[FeII/Fe]','ul[FeII/Fe]'], inplace=True, errors='ignore')
+    chiti2024_df.drop(columns=[col for col in chiti2024_df.columns if 'Fe/Fe' in col or 'Fe2/Fe' in col], inplace=True, errors='ignore')
 
     ## Add the addtional abundances not in the Supplementary Data Table 1
     abund_df2 = pd.read_csv(data_dir + "abundance_tables/chiti2024/table_abund2.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
@@ -2787,7 +2787,7 @@ def load_chiti2024(io=None):
                     chiti2024_df.loc[chiti2024_df['Name'] == name, col] = abund_df2.loc[abund_df2['Name'] == name, col].values[0]
 
     ## Drop the Fe/Fe columns
-    chiti2024_df.drop(columns=['[Fe/Fe]','ul[Fe/Fe]','[FeII/Fe]','ul[FeII/Fe]'], inplace=True, errors='ignore')
+    chiti2024_df.drop(columns=[col for col in chiti2024_df.columns if 'Fe/Fe' in col or 'Fe2/Fe' in col], inplace=True, errors='ignore')
 
     ## Filter the DataFrame based on the I/O column
     if io == 0 or io == 1:
@@ -2926,7 +2926,7 @@ def load_chiti2025(io=None):
                     chiti2025_df.loc[i, col] = np.nan
     
     ## Drop the Fe/Fe columns
-    chiti2025_df.drop(columns=['[Fe/Fe]','ul[Fe/Fe]','[FeII/Fe]','ul[FeII/Fe]'], inplace=True, errors='ignore')
+    chiti2025_df.drop(columns=[col for col in chiti2025_df.columns if 'Fe/Fe' in col or 'Fe2/Fe' in col], inplace=True, errors='ignore')
 
     return chiti2025_df
 
@@ -3163,7 +3163,7 @@ def load_lemasle2012(io=None):
                     #         lemasle2012_df.loc[i, col] = np.nan
 
     ## Drop the Fe/Fe columns
-    lemasle2012_df.drop(columns=['[Fe/Fe]','ul[Fe/Fe]','[FeII/Fe]','ul[FeII/Fe]'], inplace=True, errors='ignore')
+    lemasle2012_df.drop(columns=[col for col in lemasle2012_df.columns if 'Fe/Fe' in col or 'Fe2/Fe' in col], inplace=True, errors='ignore')
 
     ## Filter the DataFrame based on the I/O column
     if io == 0 or io == 1:
@@ -3331,7 +3331,7 @@ def load_lemasle2014(io=None):
                             lemasle2014_df.loc[i, col] = np.nan
 
     ## Drop the Fe/Fe columns
-    lemasle2014_df.drop(columns=['[Fe/Fe]','ul[Fe/Fe]','[FeII/Fe]','ul[FeII/Fe]'], inplace=True, errors='ignore')
+    lemasle2014_df.drop(columns=[col for col in lemasle2014_df.columns if 'Fe/Fe' in col or 'Fe2/Fe' in col], inplace=True, errors='ignore')
 
     ## Filter the DataFrame based on the I/O column
     if io == 0 or io == 1:
@@ -3501,7 +3501,7 @@ def load_letarte2010(io=None):
                             letarte2010_df.loc[i, col] = np.nan
 
     ## Drop the Fe/Fe columns
-    letarte2010_df.drop(columns=['[Fe/Fe]','ul[Fe/Fe]','[FeII/Fe]','ul[FeII/Fe]'], inplace=True, errors='ignore')
+    letarte2010_df.drop(columns=[col for col in letarte2010_df.columns if 'Fe/Fe' in col or 'Fe2/Fe' in col], inplace=True, errors='ignore')
 
     ## Filter the DataFrame based on the I/O column
     if io == 0 or io == 1:
@@ -3621,7 +3621,7 @@ def load_lucchesi2024(io=None):
                     lucchesi2024_df.loc[i, col] = np.nan
 
     ## Drop the Fe/Fe columns
-    lucchesi2024_df.drop(columns=['[Fe/Fe]','ul[Fe/Fe]','[FeII/Fe]','ul[FeII/Fe]'], inplace=True, errors='ignore')
+    lucchesi2024_df.drop(columns=[col for col in lucchesi2024_df.columns if 'Fe/Fe' in col or 'Fe2/Fe' in col], inplace=True, errors='ignore')
 
     ## Filter the DataFrame based on the I/O column
     if io == 0 or io == 1:
@@ -3742,7 +3742,7 @@ def load_norris2017b(io=None):
                     norris2017b_df.loc[i, col] = np.nan
 
     ## Drop the Fe/Fe columns
-    norris2017b_df.drop(columns=['[Fe/Fe]','ul[Fe/Fe]','[FeII/Fe]','ul[FeII/Fe]'], inplace=True, errors='ignore')
+    norris2017b_df.drop(columns=[col for col in norris2017b_df.columns if 'Fe/Fe' in col or 'Fe2/Fe' in col], inplace=True, errors='ignore')
     
     ## Filter the DataFrame based on the I/O column
     if io == 0 or io == 1:
@@ -3878,7 +3878,7 @@ def load_reggiani2021(io=None):
                     reggiani2021_df.loc[i, col] = np.nan
 
     ## Drop the Fe/Fe columns
-    reggiani2021_df.drop(columns=['[Fe/Fe]','ul[Fe/Fe]','[FeII/Fe]','ul[FeII/Fe]'], inplace=True, errors='ignore')
+    reggiani2021_df.drop(columns=[col for col in reggiani2021_df.columns if 'Fe/Fe' in col or 'Fe2/Fe' in col], inplace=True, errors='ignore')
 
     ## Filter the DataFrame based on the I/O column
     if io == 0 or io == 1:
@@ -4101,7 +4101,7 @@ def load_shetrone2003(io=None):
                     shetrone2003_df.loc[i, col] = np.nan
 
     ## Drop the Fe/Fe columns
-    shetrone2003_df.drop(columns=['[Fe/Fe]','ul[Fe/Fe]','[FeII/Fe]','ul[FeII/Fe]'], inplace=True, errors='ignore')
+    shetrone2003_df.drop(columns=[col for col in shetrone2003_df.columns if 'Fe/Fe' in col or 'Fe2/Fe' in col], inplace=True, errors='ignore')
     
     ## Filter the DataFrame based on the I/O column
     if io == 0 or io == 1:
@@ -4228,7 +4228,7 @@ def load_venn2012(io=None):
                     venn2012_df.loc[i, col] = np.nan
 
     ## Drop the Fe/Fe columns
-    venn2012_df.drop(columns=['[Fe/Fe]','ul[Fe/Fe]','[FeII/Fe]','ul[FeII/Fe]'], inplace=True, errors='ignore')
+    venn2012_df.drop(columns=[col for col in venn2012_df.columns if 'Fe/Fe' in col or 'Fe2/Fe' in col], inplace=True, errors='ignore')
     
     ## Filter the DataFrame based on the I/O column
     if io == 0 or io == 1:
@@ -4352,7 +4352,7 @@ def load_chiti2018b(io=None):
                     chiti2018b_df.loc[i, col] = np.nan
     
     ## Drop the Fe/Fe columns
-    chiti2018b_df.drop(columns=['[Fe/Fe]','ul[Fe/Fe]','[FeII/Fe]','ul[FeII/Fe]'], inplace=True, errors='ignore')
+    chiti2018b_df.drop(columns=[col for col in chiti2018b_df.columns if 'Fe/Fe' in col or 'Fe2/Fe' in col], inplace=True, errors='ignore')
 
     return chiti2018b_df
 
@@ -4466,7 +4466,7 @@ def load_chiti2023(io=None):
                     chiti2023_df.loc[i, col] = np.nan
 
     ## Drop the Fe/Fe columns
-    chiti2023_df.drop(columns=['[Fe/Fe]','ul[Fe/Fe]','[FeII/Fe]','ul[FeII/Fe]'], inplace=True, errors='ignore')
+    chiti2023_df.drop(columns=[col for col in chiti2023_df.columns if 'Fe/Fe' in col or 'Fe2/Fe' in col], inplace=True, errors='ignore')
 
     return chiti2023_df
 
@@ -4575,7 +4575,7 @@ def load_feltzing2009(io=None):
                     feltzing2009_df.loc[i, col] = np.nan
 
     ## Drop the Fe/Fe columns
-    feltzing2009_df.drop(columns=['[Fe/Fe]','ul[Fe/Fe]','[FeII/Fe]','ul[FeII/Fe]'], inplace=True, errors='ignore')
+    feltzing2009_df.drop(columns=[col for col in feltzing2009_df.columns if 'Fe/Fe' in col or 'Fe2/Fe' in col], inplace=True, errors='ignore')
 
     return feltzing2009_df
 
@@ -4790,7 +4790,7 @@ def load_frebel2010a(io=None):
                     frebel2010a_df.loc[i, col] = np.nan
 
     ## Drop the Fe/Fe columns
-    frebel2010a_df.drop(columns=['[Fe/Fe]','ul[Fe/Fe]','[FeII/Fe]','ul[FeII/Fe]'], inplace=True, errors='ignore')
+    frebel2010a_df.drop(columns=[col for col in frebel2010a_df.columns if 'Fe/Fe' in col or 'Fe2/Fe' in col], inplace=True, errors='ignore')
 
     return frebel2010a_df
 
@@ -4900,7 +4900,7 @@ def load_frebel2013(io=None):
                     frebel2013_df.loc[i, col] = np.nan
 
     ## Drop the Fe/Fe columns
-    frebel2013_df.drop(columns=['[Fe/Fe]','ul[Fe/Fe]','[FeII/Fe]','ul[FeII/Fe]'], inplace=True, errors='ignore')
+    frebel2013_df.drop(columns=[col for col in frebel2013_df.columns if 'Fe/Fe' in col or 'Fe2/Fe' in col], inplace=True, errors='ignore')
 
     return frebel2013_df
 
@@ -5011,7 +5011,7 @@ def load_frebel2014(io=None):
                     frebel2014_df.loc[i, col] = np.nan
 
     ## Drop the Fe/Fe columns
-    frebel2014_df.drop(columns=['[Fe/Fe]','ul[Fe/Fe]','[FeII/Fe]','ul[FeII/Fe]'], inplace=True, errors='ignore')
+    frebel2014_df.drop(columns=[col for col in frebel2014_df.columns if 'Fe/Fe' in col or 'Fe2/Fe' in col], inplace=True, errors='ignore')
 
     return frebel2014_df
 
@@ -5120,7 +5120,7 @@ def load_frebel2016(io=None):
                     frebel2016_df.loc[i, col] = np.nan
 
     ## Drop the Fe/Fe columns
-    frebel2016_df.drop(columns=['[Fe/Fe]','ul[Fe/Fe]','[FeII/Fe]','ul[FeII/Fe]'], inplace=True, errors='ignore')
+    frebel2016_df.drop(columns=[col for col in frebel2016_df.columns if 'Fe/Fe' in col or 'Fe2/Fe' in col], inplace=True, errors='ignore')
 
     return frebel2016_df
 
@@ -5248,7 +5248,7 @@ def load_gilmore2013(io=None):
             gilmore2013_df.loc[idx, '[C/Fe]'] = gilmore2013_df.loc[idx, '[C/H]'] - gilmore2013_df.loc[idx, '[Fe/H]'] 
 
     ## Drop the Fe/Fe columns
-    gilmore2013_df.drop(columns=['[Fe/Fe]','ul[Fe/Fe]','[FeII/Fe]','ul[FeII/Fe]'], inplace=True, errors='ignore')
+    gilmore2013_df.drop(columns=[col for col in gilmore2013_df.columns if 'Fe/Fe' in col or 'Fe2/Fe' in col], inplace=True, errors='ignore')
 
     return gilmore2013_df
 
@@ -5359,7 +5359,7 @@ def load_roederer2016b(io=None):
                     roederer2016b_df.loc[i, col] = np.nan
 
     ## Drop the Fe/Fe columns
-    roederer2016b_df.drop(columns=['[Fe/Fe]','ul[Fe/Fe]','[FeII/Fe]','ul[FeII/Fe]'], inplace=True, errors='ignore')
+    roederer2016b_df.drop(columns=[col for col in roederer2016b_df.columns if 'Fe/Fe' in col or 'Fe2/Fe' in col], inplace=True, errors='ignore')
 
     return roederer2016b_df
 
@@ -5456,7 +5456,7 @@ def load_hansent2017(io=None):
             hansent2017_df[errcol] = np.nan
 
     ## Drop the Fe/Fe columns
-    hansent2017_df.drop(columns=['[Fe/Fe]','ul[Fe/Fe]','[FeII/Fe]','ul[FeII/Fe]'], inplace=True, errors='ignore')
+    hansent2017_df.drop(columns=[col for col in hansent2017_df.columns if 'Fe/Fe' in col or 'Fe2/Fe' in col], inplace=True, errors='ignore')
 
     return hansent2017_df
 
@@ -5565,7 +5565,7 @@ def load_hansent2020a(io=None):
                     hansent2020a_df.loc[i, col] = np.nan
 
     ## Drop the Fe/Fe columns
-    hansent2020a_df.drop(columns=['[Fe/Fe]','ul[Fe/Fe]','[FeII/Fe]','ul[FeII/Fe]'], inplace=True, errors='ignore')
+    hansent2020a_df.drop(columns=[col for col in hansent2020a_df.columns if 'Fe/Fe' in col or 'Fe2/Fe' in col], inplace=True, errors='ignore')
 
     return hansent2020a_df
 
@@ -5674,7 +5674,7 @@ def load_hansent2024(io=None):
                     hansent2024_df.loc[i, col] = np.nan
 
     ## Drop the Fe/Fe columns
-    hansent2024_df.drop(columns=['[Fe/Fe]','ul[Fe/Fe]','[FeII/Fe]','ul[FeII/Fe]'], inplace=True, errors='ignore')
+    hansent2024_df.drop(columns=[col for col in hansent2024_df.columns if 'Fe/Fe' in col or 'Fe2/Fe' in col], inplace=True, errors='ignore')
 
     return hansent2024_df
 
@@ -5788,7 +5788,7 @@ def load_ishigaki2014b(exclude_mw_halo_ref_stars=True, io=None):
         ishigaki2014b_df = ishigaki2014b_df[~ishigaki2014b_df['Name'].isin(['HD216143', 'HD85773'])]
 
     ## Drop the Fe/Fe columns
-    ishigaki2014b_df.drop(columns=['[Fe/Fe]','ul[Fe/Fe]','[FeII/Fe]','ul[FeII/Fe]'], inplace=True, errors='ignore')
+    ishigaki2014b_df.drop(columns=[col for col in ishigaki2014b_df.columns if 'Fe/Fe' in col or 'Fe2/Fe' in col], inplace=True, errors='ignore')
 
     return ishigaki2014b_df
 
@@ -5899,7 +5899,7 @@ def load_ji2016a(io=None):
                     ji2016a_df.loc[i, col] = np.nan
 
     ## Drop the Fe/Fe columns
-    ji2016a_df.drop(columns=['[Fe/Fe]','ul[Fe/Fe]','[FeII/Fe]','ul[FeII/Fe]'], inplace=True, errors='ignore')
+    ji2016a_df.drop(columns=[col for col in ji2016a_df.columns if 'Fe/Fe' in col or 'Fe2/Fe' in col], inplace=True, errors='ignore')
 
     return ji2016a_df
 
@@ -6008,7 +6008,7 @@ def load_ji2016b(io=None):
                     ji2016b_df.loc[i, col] = np.nan
 
     ## Drop the Fe/Fe columns
-    ji2016b_df.drop(columns=['[Fe/Fe]','ul[Fe/Fe]','[FeII/Fe]','ul[FeII/Fe]'], inplace=True, errors='ignore')
+    ji2016b_df.drop(columns=[col for col in ji2016b_df.columns if 'Fe/Fe' in col or 'Fe2/Fe' in col], inplace=True, errors='ignore')
 
     return ji2016b_df
 
@@ -6117,7 +6117,7 @@ def load_ji2018(io=None):
                     ji2018_df.loc[i, col] = np.nan
 
     ## Drop the Fe/Fe columns
-    ji2018_df.drop(columns=['[Fe/Fe]','ul[Fe/Fe]','[FeII/Fe]','ul[FeII/Fe]'], inplace=True, errors='ignore')
+    ji2018_df.drop(columns=[col for col in ji2018_df.columns if 'Fe/Fe' in col or 'Fe2/Fe' in col], inplace=True, errors='ignore')
 
     return ji2018_df
 
@@ -6230,7 +6230,7 @@ def load_ji2019a(io=None):
                     ji2019a_df.loc[i, col] = np.nan
 
     ## Drop the Fe/Fe columns
-    ji2019a_df.drop(columns=['[Fe/Fe]','ul[Fe/Fe]','[FeII/Fe]','ul[FeII/Fe]'], inplace=True, errors='ignore')
+    ji2019a_df.drop(columns=[col for col in ji2019a_df.columns if 'Fe/Fe' in col or 'Fe2/Fe' in col], inplace=True, errors='ignore')
 
     return ji2019a_df
 
@@ -6346,7 +6346,7 @@ def load_ji2020a(io=None):
                     ji2020a_df.loc[i, col] = np.nan
 
     ## Drop the Fe/Fe columns
-    ji2020a_df.drop(columns=['[Fe/Fe]','ul[Fe/Fe]','[FeII/Fe]','ul[FeII/Fe]'], inplace=True, errors='ignore')
+    ji2020a_df.drop(columns=[col for col in ji2020a_df.columns if 'Fe/Fe' in col or 'Fe2/Fe' in col], inplace=True, errors='ignore')
 
     return ji2020a_df
 
@@ -6455,7 +6455,7 @@ def load_kirby2017b(io=None):
                     kirby2017b_df.loc[i, col] = np.nan
 
     ## Drop the Fe/Fe columns
-    kirby2017b_df.drop(columns=['[Fe/Fe]','ul[Fe/Fe]','[FeII/Fe]','ul[FeII/Fe]'], inplace=True, errors='ignore')
+    kirby2017b_df.drop(columns=[col for col in kirby2017b_df.columns if 'Fe/Fe' in col or 'Fe2/Fe' in col], inplace=True, errors='ignore')
 
     return kirby2017b_df
 
@@ -6572,7 +6572,7 @@ def load_koch2008c(io=None):
                     koch2008c_df.loc[i, col] = np.nan
 
     ## Drop the Fe/Fe columns
-    koch2008c_df.drop(columns=['[Fe/Fe]','ul[Fe/Fe]','[FeII/Fe]','ul[FeII/Fe]'], inplace=True, errors='ignore')
+    koch2008c_df.drop(columns=[col for col in koch2008c_df.columns if 'Fe/Fe' in col or 'Fe2/Fe' in col], inplace=True, errors='ignore')
 
     return koch2008c_df
 
@@ -6826,7 +6826,7 @@ def load_marshall2019(io=None):
                     marshall2019_df.loc[i, col] = np.nan
 
     ## Drop the Fe/Fe columns
-    marshall2019_df.drop(columns=['[Fe/Fe]','ul[Fe/Fe]','[FeII/Fe]','ul[FeII/Fe]'], inplace=True, errors='ignore')
+    marshall2019_df.drop(columns=[col for col in marshall2019_df.columns if 'Fe/Fe' in col or 'Fe2/Fe' in col], inplace=True, errors='ignore')
 
     return marshall2019_df
 
@@ -6937,7 +6937,7 @@ def load_nagasawa2018(io=None):
                     nagasawa2018_df.loc[i, col] = np.nan
 
     ## Drop the Fe/Fe columns
-    nagasawa2018_df.drop(columns=['[Fe/Fe]','ul[Fe/Fe]','[FeII/Fe]','ul[FeII/Fe]'], inplace=True, errors='ignore')
+    nagasawa2018_df.drop(columns=[col for col in nagasawa2018_df.columns if 'Fe/Fe' in col or 'Fe2/Fe' in col], inplace=True, errors='ignore')
 
     return nagasawa2018_df
 
@@ -7047,7 +7047,7 @@ def load_norris2010a(io=None):
                     norris2010a_df.loc[i, col] = np.nan
 
     ## Drop the Fe/Fe columns
-    norris2010a_df.drop(columns=['[Fe/Fe]','ul[Fe/Fe]','[FeII/Fe]','ul[FeII/Fe]'], inplace=True, errors='ignore')
+    norris2010a_df.drop(columns=[col for col in norris2010a_df.columns if 'Fe/Fe' in col or 'Fe2/Fe' in col], inplace=True, errors='ignore')
 
     return norris2010a_df
 
@@ -7157,7 +7157,7 @@ def load_norris2010b(io=None):
                     norris2010b_df.loc[i, col] = np.nan
 
     ## Drop the Fe/Fe columns
-    norris2010b_df.drop(columns=['[Fe/Fe]','ul[Fe/Fe]','[FeII/Fe]','ul[FeII/Fe]'], inplace=True, errors='ignore')
+    norris2010b_df.drop(columns=[col for col in norris2010b_df.columns if 'Fe/Fe' in col or 'Fe2/Fe' in col], inplace=True, errors='ignore')
 
     return norris2010b_df
 
@@ -7316,7 +7316,7 @@ def load_roederer2014b(io=None):
                     roederer2014b_df.loc[i, col] = np.nan
 
     ## Drop the Fe/Fe columns
-    roederer2014b_df.drop(columns=['[Fe/Fe]','ul[Fe/Fe]','[FeII/Fe]','ul[FeII/Fe]'], inplace=True, errors='ignore')
+    roederer2014b_df.drop(columns=[col for col in roederer2014b_df.columns if 'Fe/Fe' in col or 'Fe2/Fe' in col], inplace=True, errors='ignore')
 
     return roederer2014b_df
 
@@ -7425,7 +7425,7 @@ def load_simon2010(io=None):
                     simon2010_df.loc[i, col] = np.nan
 
     ## Drop the Fe/Fe columns
-    simon2010_df.drop(columns=['[Fe/Fe]','ul[Fe/Fe]','[FeII/Fe]','ul[FeII/Fe]'], inplace=True, errors='ignore')
+    simon2010_df.drop(columns=[col for col in simon2010_df.columns if 'Fe/Fe' in col or 'Fe2/Fe' in col], inplace=True, errors='ignore')
 
     return simon2010_df
 
@@ -7534,7 +7534,7 @@ def load_sbordone2007(io=None):
                     sbordone2007_df.loc[i, col] = np.nan
 
     ## Drop the Fe/Fe columns
-    sbordone2007_df.drop(columns=['[Fe/Fe]','ul[Fe/Fe]','[FeII/Fe]','ul[FeII/Fe]'], inplace=True, errors='ignore')
+    sbordone2007_df.drop(columns=[col for col in sbordone2007_df.columns if 'Fe/Fe' in col or 'Fe2/Fe' in col], inplace=True, errors='ignore')
 
     return sbordone2007_df
 
@@ -7643,7 +7643,7 @@ def load_spite2018(io=None):
                     spite2018_df.loc[i, col] = np.nan
 
     ## Drop the Fe/Fe columns
-    spite2018_df.drop(columns=['[Fe/Fe]','ul[Fe/Fe]','[FeII/Fe]','ul[FeII/Fe]'], inplace=True, errors='ignore')
+    spite2018_df.drop(columns=[col for col in spite2018_df.columns if 'Fe/Fe' in col or 'Fe2/Fe' in col], inplace=True, errors='ignore')
 
     return spite2018_df
 
@@ -7770,7 +7770,7 @@ def load_waller2023(io=None):
                     waller2023_df.loc[i, col] = np.nan
 
     ## Drop the Fe/Fe columns
-    waller2023_df.drop(columns=['[Fe/Fe]','ul[Fe/Fe]','[FeII/Fe]','ul[FeII/Fe]'], inplace=True, errors='ignore')
+    waller2023_df.drop(columns=[col for col in waller2023_df.columns if 'Fe/Fe' in col or 'Fe2/Fe' in col], inplace=True, errors='ignore')
 
     return waller2023_df
 
@@ -7881,7 +7881,7 @@ def load_webber2023(io=None):
                     webber2023_df.loc[i, col] = np.nan
 
     ## Drop the Fe/Fe columns
-    webber2023_df.drop(columns=['[Fe/Fe]','ul[Fe/Fe]','[FeII/Fe]','ul[FeII/Fe]'], inplace=True, errors='ignore')
+    webber2023_df.drop(columns=[col for col in webber2023_df.columns if 'Fe/Fe' in col or 'Fe2/Fe' in col], inplace=True, errors='ignore')
 
     return webber2023_df
 
@@ -8006,7 +8006,7 @@ def load_gull2021(io=None):
                     gull2021_df.loc[i, col] = np.nan
 
     ## Drop the Fe/Fe columns
-    gull2021_df.drop(columns=['[Fe/Fe]','ul[Fe/Fe]','[FeII/Fe]','ul[FeII/Fe]'], inplace=True, errors='ignore')
+    gull2021_df.drop(columns=[col for col in gull2021_df.columns if 'Fe/Fe' in col or 'Fe2/Fe' in col], inplace=True, errors='ignore')
 
     ## Filter the DataFrame based on the I/O column
     if io == 0 or io == 1:
@@ -8127,7 +8127,7 @@ def load_ji2020b(io=None):
                     ji2020b_df.loc[i, col] = np.nan
 
     ## Drop the Fe/Fe columns
-    ji2020b_df.drop(columns=['[Fe/Fe]','ul[Fe/Fe]','[FeII/Fe]','ul[FeII/Fe]'], inplace=True, errors='ignore')
+    ji2020b_df.drop(columns=[col for col in ji2020b_df.columns if 'Fe/Fe' in col or 'Fe2/Fe' in col], inplace=True, errors='ignore')
 
     ## Filter the DataFrame based on the I/O column
     if io == 0 or io == 1:
@@ -8391,7 +8391,7 @@ def load_roederer2010a(io=None):
                     roederer2010a_df.loc[i, col] = np.nan
 
     ## Drop the Fe/Fe columns
-    roederer2010a_df.drop(columns=['[Fe/Fe]','ul[Fe/Fe]','[FeII/Fe]','ul[FeII/Fe]'], inplace=True, errors='ignore')
+    roederer2010a_df.drop(columns=[col for col in roederer2010a_df.columns if 'Fe/Fe' in col or 'Fe2/Fe' in col], inplace=True, errors='ignore')
 
     ## Filter the DataFrame based on the I/O column
     if io == 0 or io == 1:
@@ -8508,7 +8508,7 @@ def load_roederer2019(io=None):
                     roederer2019_df.loc[i, col] = np.nan
 
     ## Drop the Fe/Fe columns
-    roederer2019_df.drop(columns=['[Fe/Fe]','ul[Fe/Fe]','[FeII/Fe]','ul[FeII/Fe]'], inplace=True, errors='ignore')
+    roederer2019_df.drop(columns=[col for col in roederer2019_df.columns if 'Fe/Fe' in col or 'Fe2/Fe' in col], inplace=True, errors='ignore')
 
     ## Filter the DataFrame based on the I/O column
     if io == 0 or io == 1:
