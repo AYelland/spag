@@ -840,42 +840,42 @@ def ulcol(elem):
         if elem=="alpha": return "ulalpha"
         else: raise
     
-def XHcol(elem,keep_species=False):
+def XHcol(elem, keep_species=False):
     """
     Returns the [X/H] column name for an element
     """
     try:
-        return '['+getelem(elem,keep_species=keep_species)+'/H]'
+        return '['+getelem(elem, keep_species=keep_species)+'/H]'
     except ValueError:
         if elem=="alpha": return "[alpha/H]"
         else: raise
 
-def ulXHcol(elem,keep_species=False):
+def ulXHcol(elem, keep_species=False):
     """
     Returns the ul[X/H] column name for an element
     """
     try:
-        return 'ul['+getelem(elem,keep_species=keep_species)+'/H]'
+        return 'ul['+getelem(elem, keep_species=keep_species)+'/H]'
     except ValueError:
         if elem=="alpha": return "ul[alpha/H]"
         else: raise
 
-def XFecol(elem,keep_species=False):
+def XFecol(elem, keep_species=False):
     """
     Returns the [X/Fe] column name for an element
     """
     try:
-        return '['+getelem(elem,keep_species=keep_species)+'/Fe]'
+        return '['+getelem(elem, keep_species=keep_species)+'/Fe]'
     except ValueError:
         if elem=="alpha": return "[alpha/Fe]"
         else: raise
 
-def ulXFecol(elem,keep_species=False):
+def ulXFecol(elem, keep_species=False):
     """
     Returns the ul[X/Fe] column name for an element
     """
     try:
-        return 'ul['+getelem(elem,keep_species=keep_species)+'/Fe]'
+        return 'ul['+getelem(elem, keep_species=keep_species)+'/Fe]'
     except ValueError:
         if elem=="alpha": return "ul[alpha/Fe]"
         else: raise
