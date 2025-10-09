@@ -1639,7 +1639,7 @@ def load_ursaminor(jinabase=None, **kwargs):
 
     return ursaminor_df
 
-def load_sass_stars():
+def load_sass_stars_new():
     """
     Load the SASS stars data from JINAbase, using selection filters and criteria.
     """
@@ -1685,7 +1685,7 @@ def load_sass_stars():
     jinabase_sass_df['System'] = 'SASS'
     
     ## Remove all Roederer+2014b stars, due to low temperature and questionable abundances
-    jinabase_sass_df = jinabase_sass_df[jinabase_sass_df['Reference'] != 'Roederer+2014b']
+    # jinabase_sass_df = jinabase_sass_df[jinabase_sass_df['Reference'] != 'Roederer+2014b']
     
     ## Combine with other Datasets
     sass_df = pd.concat([jinabase_sass_df, hughes2025_df], ignore_index=True, sort=False)
@@ -1694,8 +1694,9 @@ def load_sass_stars():
     ## Removing Duplicate stars 
     sass_df['I/O'] = 1  # Initialize I/O column to 1
     dups = [
+        ('Norris+2001', 'CS22172-002'),
         ('Holmbeck+2020', 'J03142084-1035112'),
-        ('Roederer+2014b', 'HE1012-1540'),
+        ('Roederer+2014a', 'HE1012-1540'),
         ('Li+2015c', 'LAMOSTJ1313-0552'),
         ('Hansen_T+2014', 'HE1310-0536'),
         ('Aoki+2005', 'BS16084-160'),
@@ -1703,11 +1704,12 @@ def load_sass_stars():
         ('Roederer+2014b', 'CS22891-200'),
         ('McWilliam+1995', 'CS22891-200'),
         ('Roederer+2014b', 'CS22885-096'),
+        ('Norris+2001', 'CS22885-096'),
         ('McWilliam+1995', 'CS22885-096'),
-        ('Lai+2008', 'CS 30336-049'),
+        ('Yong+2013', 'CS30336-049'),
         ('Aoki+2005', 'CS29516-041'),
         ('McWilliam+1995', 'CS22949-048'),
-        ('Roederer+2014b', 'BD+44493'),
+        ('Roederer+2014a', 'BD+44493'),
         ('Roederer+2014b', 'CD-38245'),
         ('Ezzeddine+2020', '2MASS J00463619-3739335'),
         ('Norris+2001', 'CD-38245'),
@@ -1715,17 +1717,21 @@ def load_sass_stars():
         ('Yong+2013', 'HE0057-5959'),
         ('Cohen+2008', 'HE1347-1025'),
         ('Cohen+2008', 'HE1356-0622'),
-        ('Holmbeck+2020', 'J07123398-4814049'),
-        ('Aoki+2005', 'CS30325-094'),
-        ('McWilliam+1995', 'CS22968-014'),
+        ('Rasmussen+2020', 'RAVE J071234.0-481405'),
         ('Roederer+2014b', 'CS22968-014'),
+        ('Cohen+2013', 'CS22968-014'),
+        ('McWilliam+1995', 'CS22968-014'),
+        ('Aoki+2005', 'CS30325-094'),
         ('Frebel+2008', 'HE1327-23263D'),
         ('Cohen+2013', 'BS16467-062'),
         ('Cohen+2008', 'BS16467-062'),
         ('Hansen_T+2014', 'HE2239-5019'),
         ('Collet+2006', 'HE0107-52401D'),
         ('Collet+2006', 'HE0107-52403D'),
-        ('Keller+2014', 'NAMESMSSJ031300.36-670839.3') # has carbon, but uppper limit in iron --> ignore this star (not a duplicate)
+        
+        ('Roederer+2014b', 'CS22952-015'), # we have measurements from Francois+2007 that don't make the cut (Sr too high), so we cut this star here
+        ('Roederer+2014b', 'CS22189-009'), # we have measurements from Francois+2007 that don't make the cut (Sr too high), so we cut this star here
+        # ('Keller+2014', 'NAMESMSSJ031300.36-670839.3') # this star has carbon, but uppper limit in iron --> ignore this star (not a duplicate)
     ]
     for ref, name in dups:
         sass_df.loc[(sass_df['Name'] == name) & (sass_df['Reference'] == ref), 'I/O'] = 0
