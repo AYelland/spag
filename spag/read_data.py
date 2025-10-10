@@ -1639,7 +1639,7 @@ def load_ursaminor(jinabase=None, **kwargs):
 
     return ursaminor_df
 
-def load_sass_stars_new():
+def load_sass_stars():
     """
     Load the SASS stars data from JINAbase, using selection filters and criteria.
     """
