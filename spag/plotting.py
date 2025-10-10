@@ -19,19 +19,20 @@ sns_palette = sns.color_palette()
 
 # script_dir = "/".join(IPython.extract_module_locals()[1]["__vsc_ipynb_file__"].split("/")[:-1]) + "/" # use this if in ipython
 script_dir = os.path.dirname(os.path.realpath(__file__))+"/" # use this if not in ipython (i.e. terminal script)
-data_dir = "/Users/ayelland/Research/metal-poor-stars/data/"
-plotting_dir = script_dir+"plots/"
-if not os.path.exists(plotting_dir):
-    os.makedirs(plotting_dir)
+data_dir = script_dir+"data/"
+# plotting_dir = script_dir+"plots/"
+# if not os.path.exists(plotting_dir):
+#     os.makedirs(plotting_dir)
 
 
 ################################################################################
 ## Read-in the solar abundnace table for r- and s-process elements
 
-solar = pd.read_csv(data_dir+"solar_r_s_fractions.dat", delim_whitespace=True, names=['elem','Z','rproc','sproc','total','rfrac','sfrac'])
+solar = pd.read_csv(data_dir+"solar/solar_r_s_fractions.csv", comment='#')
 
-solar['logeps_r'] = np.log10(solar['rproc'])
-solar['logeps_s'] = np.log10(solar['sproc'])
+solar[['logeps_r','logeps_s']] = np.log10(
+    solar[['rproc','sproc']].where(solar[['rproc','sproc']] > 0)
+)
 
 solar_Z = np.array(solar['Z'])
 solar_logeps_r = np.array(solar['logeps_r'])
@@ -145,6 +146,6 @@ def plot_solar_r_s_process():
     ax.legend()
 
     ## Save the plot
-    if not os.path.exists(plotting_dir):
-        os.makedirs(plotting_dir)
-    plt.savefig(plotting_dir+"solar_rproc.png", dpi=300, bbox_inches='tight') #, transparent=True)
+    # if not os.path.exists(plotting_dir):
+    #     os.makedirs(plotting_dir)
+    # plt.savefig(plotting_dir+"solar_rproc.png", dpi=300, bbox_inches='tight') #, transparent=True)

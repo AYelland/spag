@@ -11,7 +11,7 @@ import astropy.coordinates as coord
 import astropy.units as u
 import numpy as np
 
-from spag.utils import normal_round
+from spag.utils import *
 
 ################################################################################
 ## Utility Functions

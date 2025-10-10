@@ -12,8 +12,8 @@ import warnings
 
 ## Regular expressions
 import re
-m_XH = re.compile('\[(\D+)/H\]')
-m_XFe= re.compile('\[(\D+)/Fe\]')
+m_XH = re.compile(r'\[(\D+)/H\]')
+m_XFe= re.compile(r'\[(\D+)/Fe\]')
 
 ## SPAG imports
 import spag.periodic_table  as pt

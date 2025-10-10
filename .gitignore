@@ -33,3 +33,4 @@ data/fits_smh/
 # Ignore local build folders
 build*/
 dist/
+spag/plots/
