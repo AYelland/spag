@@ -9,9 +9,17 @@ git clone https://github.com/AYelland/spag.git
 cd spag
 python setup.py develop
 ```
-(`python setup.py install` could also work if `develop` is not working for you)
+(`python setup.py install` could also work(?) if `develop` is not working for you)
 
-SPAG does have some dependence on packages that might warrent their own installation. If you have any additional questions, please reach out to Alexander Yelland (ayelland@mit.edu).
+SPAG does have some dependence on packages that might warrant their own installation in your conda or virtual environment. This includes...
+- numpy
+- pandas
+- scipy
+- astropy
+- sqlalchemy
+- seaborn
+
+If you have any additional questions, please reach out to Alexander Yelland (ayelland@mit.edu).
 
 ## Structure
 
