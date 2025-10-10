@@ -1,3 +1,7 @@
+This data was originally loaded and made to be added to JINAbase.
+
+---
+
 In "First Stars. V.", the [Fe/H]_c value reported in the stellar 
 parameter table is the average of the measured Fe I and Fe II abundnaces.
 
@@ -6,3 +10,9 @@ parameter table is the average of the measured Fe I and Fe II abundnaces.
 In "First Stars. VIII.", these [Fe/H]_c values are reported as
 the true values of iron abundance and used wen calculating [X/Fe]
 abundances (alongside Grevesse and Savaul 1998/2000 solar abundances.)
+
+---
+
+Now, it has been loaded in with the other references, such that it will be added with the other references later on.
+
+---

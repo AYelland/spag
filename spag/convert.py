@@ -657,7 +657,7 @@ def getelem(elem, lower=False, keep_species=False):
             elem = common_molecule_name_to_colname[elem]
 
         elif elem[-1]=='I': #Check for ionization
-            # print('4')
+            # print('3')
             if ' ' not in elem:
                 if elem[0]=='I':
                     assert elem=='I'*len(elem)
@@ -668,7 +668,6 @@ def getelem(elem, lower=False, keep_species=False):
                     elem = elem[:-1] + ' I'
             
             species = element_to_species(elem)
-
             if species in common_isotope_species_to_colname.keys():
                 elem = common_isotope_species_to_colname[species]
             elif species in common_molecule_species_to_name.keys():
@@ -678,14 +677,18 @@ def getelem(elem, lower=False, keep_species=False):
                 elem = elem.split()[0]
 
         else:
-            # print('5')
+            # print('4')
             species = element_to_species(elem)
-            elem = species_to_element(species)
-            elem = elem.replace(' ', '')
-            # elem = elem.split()[0]
-        
+            if species in common_isotope_species_to_colname.keys():
+                elem = common_isotope_species_to_colname[species]
+            elif species in common_molecule_species_to_name.keys():
+                elem = common_molecule_name_to_colname[common_molecule_species_to_name[species]]
+            else:
+                elem = species_to_element(species)
+                elem = elem.split()[0]
+
     elif isinstance(elem, (int, np.integer)):
-        # print('6')
+        # print('5')
 
         Z = int(elem)
         try:
@@ -696,7 +699,7 @@ def getelem(elem, lower=False, keep_species=False):
                 elem = common_molecule_name_to_colname[common_molecule_species_to_name[Z]]
 
     elif isinstance(elem, float):
-        # print('7')
+        # print('6')
         species = elem
         
         if species in common_isotope_species_to_colname.keys():
@@ -840,42 +843,42 @@ def ulcol(elem):
         if elem=="alpha": return "ulalpha"
         else: raise
     
-def XHcol(elem,keep_species=False):
+def XHcol(elem, keep_species=False):
     """
     Returns the [X/H] column name for an element
     """
     try:
-        return '['+getelem(elem,keep_species=keep_species)+'/H]'
+        return '['+getelem(elem, keep_species=keep_species)+'/H]'
     except ValueError:
         if elem=="alpha": return "[alpha/H]"
         else: raise
 
-def ulXHcol(elem,keep_species=False):
+def ulXHcol(elem, keep_species=False):
     """
     Returns the ul[X/H] column name for an element
     """
     try:
-        return 'ul['+getelem(elem,keep_species=keep_species)+'/H]'
+        return 'ul['+getelem(elem, keep_species=keep_species)+'/H]'
     except ValueError:
         if elem=="alpha": return "ul[alpha/H]"
         else: raise
 
-def XFecol(elem,keep_species=False):
+def XFecol(elem, keep_species=False):
     """
     Returns the [X/Fe] column name for an element
     """
     try:
-        return '['+getelem(elem,keep_species=keep_species)+'/Fe]'
+        return '['+getelem(elem, keep_species=keep_species)+'/Fe]'
     except ValueError:
         if elem=="alpha": return "[alpha/Fe]"
         else: raise
 
-def ulXFecol(elem,keep_species=False):
+def ulXFecol(elem, keep_species=False):
     """
     Returns the ul[X/Fe] column name for an element
     """
     try:
-        return 'ul['+getelem(elem,keep_species=keep_species)+'/Fe]'
+        return 'ul['+getelem(elem, keep_species=keep_species)+'/Fe]'
     except ValueError:
         if elem=="alpha": return "ul[alpha/Fe]"
         else: raise
@@ -1040,29 +1043,29 @@ def jinabasecol_from_col(col):
 # Quick abundance conversion functions
 ################################################################################
 
-def XH_from_eps(eps, elem, precision=2):
+def XH_from_eps(eps, elem, precision=2, version='asplund2009'):
     """
     Converts log(eps) to [X/H]
     """
-    return normal_round(eps - rd.get_solar(elem)[0], precision=precision)
+    return normal_round(eps - rd.get_solar(elem, version)[0], precision=precision)
 
-def eps_from_XH(XH, elem, precision=2):
+def eps_from_XH(XH, elem, precision=2, version='asplund2009'):
     """
     Converts [X/H] to log(eps)
     """
-    return normal_round(XH + rd.get_solar(elem)[0], precision=precision)
+    return normal_round(XH + rd.get_solar(elem, version)[0], precision=precision)
 
-def XFe_from_eps(eps, FeH, elem, precision=2):
+def XFe_from_eps(eps, FeH, elem, precision=2, version='asplund2009'):
     """
     Converts log(eps) to [X/Fe]
     """
-    return normal_round(eps - rd.get_solar(elem)[0] - FeH, precision=precision)
+    return normal_round(eps - rd.get_solar(elem, version)[0] - FeH, precision=precision)
 
-def eps_from_XFe(XFe, FeH, elem, precision=2):
+def eps_from_XFe(XFe, FeH, elem, precision=2, version='asplund2009'):
     """
     Converts [X/Fe] to log(eps)
     """
-    return  normal_round(XFe+ rd.get_solar(elem)[0] + FeH, precision=precision)
+    return  normal_round(XFe+ rd.get_solar(elem, version)[0] + FeH, precision=precision)
 
 def XFe_from_XH(XH, FeH, precision=2):
     """
