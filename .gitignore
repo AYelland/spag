@@ -29,3 +29,7 @@ env/
 # Ignore all files in the data/ directory
 data/fits/
 data/fits_smh/
+
+# Ignore local build folders
+build*/
+dist/
