@@ -4,8 +4,10 @@
 __version__ = "0.1"
 
 # Import modules
-from .read_data import *
+from .calculate import *
 from .convert import *
-from .periodic_table import *
 from .coordinates import *
+from .periodic_table import *
+from .plotting import *
+from .read_data import *
 from .utils import *
