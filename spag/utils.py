@@ -23,8 +23,8 @@ datapath = os.path.join(basepath,"data")
 
 ## Regular expressions
 import re
-m_XH = re.compile('\[(\D+)/H\]')
-m_XFe= re.compile('\[(\D+)/Fe\]')
+m_XH = re.compile(r'\[(\D+)/H\]')
+m_XFe= re.compile(r'\[(\D+)/Fe\]')
 
 # SPAG imports
 from spag.convert import *
