@@ -11,6 +11,12 @@ python setup.py develop
 ```
 (`python setup.py install` could also work(?) if `develop` is not working for you)
 
+If you need to uninstall `spag` for some reason, you can confirm the location of the install and remove it with:
+```zsh
+pip show spag
+pip uninstall spag
+```
+
 SPAG does have some dependence on packages that might warrant their own installation in your conda or virtual environment. This includes...
 - numpy
 - pandas
