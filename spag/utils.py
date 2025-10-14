@@ -2,203 +2,88 @@
 
 """ Utility functions from extracting and manipulating data """
 
-from __future__ import (division, print_function, absolute_import,
-                        unicode_literals)
+from __future__ import (division, print_function, absolute_import, unicode_literals)
 
 import numpy as np
 import pandas as pd
-from astropy.io import ascii
-from astropy.table import Table
-from astropy import table
-from astropy import coordinates as coord
-from astropy import units as u
-
-import warnings
-
-from six import string_types
-
-import os
-basepath = os.path.dirname(__file__)
-datapath = os.path.join(basepath,"data")
-
-## Regular expressions
 import re
-m_XH = re.compile(r'\[(\D+)/H\]')
-m_XFe= re.compile(r'\[(\D+)/Fe\]')
 
-# SPAG imports
-from spag.convert import *
-import spag.periodic_table  as pt
-import spag.read_data as rd
+# import os
+# basepath = os.path.dirname(__file__)
+# datapath = os.path.join(basepath,"data")
 
+from spag.periodic_table import pt_dict
 
 ################################################################################
-## Stellar Abundance Classification functions
+## Roman numeral conversion functions
 
-def classify_metallicity(FeH):
-    """
-    Classify the star by its metallicity, based on Frebel et al. 2018 (Table 1).
-    """
-    metallicity_str = ''
+def int_to_roman(n):
+    """ Convert an integer to Roman numerals. """
+    roman_int_dict = {'I': 1, 'IV': 4, 'V': 5, 'IX': 9, 'X': 10, 'XL': 40, \
+                      'L': 50, 'XC': 90, 'C': 100, 'CD': 400, 'D': 500, \
+                      'CM': 900, 'M': 1000}
+    roman_numeral = ''
+    for numeral, value in sorted(roman_int_dict.items(), key=lambda x: x[1], reverse=True):
+        while n >= value:
+            roman_numeral += numeral
+            n -= value
+    
+    return roman_numeral
 
-    if FeH > 0.0:
-        metallicity_str = 'MR'
-    elif FeH <= 0.0 and FeH > -1.0:
-        metallicity_str = 'SUN'
-    elif FeH <= -1.0 and FeH > -2.0:
-        metallicity_str = 'MP'
-    elif FeH <= -2.0 and FeH > -3.0:
-        metallicity_str = 'VMP'
-    elif FeH <= -3.0 and FeH > -4.0:
-        metallicity_str = 'EMP'
-    elif FeH <= -4.0 and FeH > -5.0:
-        metallicity_str = 'UMP'
-    elif FeH <= -5.0 and FeH > -6.0:
-        metallicity_str = 'HMP'
-    elif FeH <= -6.0 and FeH > -7.0:
-        metallicity_str = 'MMP'
-    elif FeH <= -7.0 and FeH > -8.0:
-        metallicity_str = 'SMP'
-    elif FeH <= -8.0 and FeH > -9.0:
-        metallicity_str = 'OMP'
-    elif FeH <= -9.0 and FeH > -10.0:
-        metallicity_str = 'GMP'
-    elif FeH <= -10.0:
-        metallicity_str = 'RMP'
+def roman_to_int(roman):
+    """ Convert a Roman numeral to an integer, up to several thousand. """
+    roman = roman.upper()
+    roman_int_dict = {'I': 1, 'IV': 4, 'V': 5, 'IX': 9, 'X': 10, 'XL': 40, \
+                      'L': 50, 'XC': 90, 'C': 100, 'CD': 400, 'D': 500, \
+                      'CM': 900, 'M': 1000}
+    value = 0
+    for i in range(len(roman)):
+        if i > 0 and roman_int_dict[roman[i]] > roman_int_dict[roman[i - 1]]:
+            value += roman_int_dict[roman[i]] - 2 * roman_int_dict[roman[i - 1]]
+        else:
+            value += roman_int_dict[roman[i]]
+    return value
+
+################################################################################
+## Column name manipulation functions
+
+def identify_prefix(col):
+    """
+    Identifies the prefix of a column name
+    """
+    m_XH = re.compile(r'\[(\D+)/H\]')
+    m_XFe= re.compile(r'\[(\D+)/Fe\]')
+    for prefix in ['eps','e_','ul','XH','XFe']:
+        if prefix in col:
+            return prefix, col[len(prefix):]
+        if prefix=='XH':
+            matches = m_XH.findall(col)
+            if len(matches)==1: return prefix,matches[0]
+        if prefix=='XFe':
+            matches = m_XFe.findall(col)
+            if len(matches)==1: return prefix,matches[0]
+    raise ValueError("Invalid column:"+str(col))
+
+################################################################################
+## Validation/Testing Functions
+
+def element_matches_atomic_number(elem, Z):
+    """
+    elem: str
+        Element symbol.
+    Z: int
+        Atomic number.
+        
+    Returns True if the element symbol matches the atomic number, and False
+    otherwise.    
+    """
+    
+    if elem != pt_dict[Z]:
+        return False
     else:
-        metallicity_str = 'NaN'
-    
-    return metallicity_str
+        return True
 
-def classify_neutron_capture(EuFe = np.nan, BaFe = np.nan, SrFe = np.nan, PbFe = np.nan, LaFe = np.nan, HfFe = np.nan, IrFe = np.nan):
-    """
-    Classify the star by its neutron-capture abundance pattern, based on Frebel et al. 2018 (Table 1) & Holmbeck et al. 2020 (Section 4.1).
-    """
-    ncap_str = ''
 
-    BaEu = BaFe - EuFe
-    BaPb = BaFe - PbFe
-    SrBa = SrFe - BaFe
-    SrEu = SrFe - EuFe
-    LaEu = LaFe - EuFe
-    HfIr = HfFe - IrFe
-
-    # if (EuFe < 0.4):
-    #     ncap_str += ', ' if ncap_str else ''
-    #     ncap_str += 'R0' #if (EuFe <= 0.3) else '~R0'
-    if (EuFe > 0.3 and EuFe <= 0.7) and (BaEu < 0.0):
-        ncap_str += ', ' if ncap_str else ''
-        ncap_str += 'R1'
-    if (EuFe > 0.7) and (BaEu < 0.0):
-        ncap_str += ', ' if ncap_str else ''
-        ncap_str += 'R2'
-    if (EuFe < 0.3) and (SrBa > 0.5 and SrEu > 0.0):
-        ncap_str += ', ' if ncap_str else ''
-        ncap_str += 'RL'
-    if (BaFe > 1.0) and (BaEu > 0.5):
-        if ~pd.isna(BaPb):
-            if (BaPb > -1.5):
-                ncap_str += ', ' if ncap_str else ''
-                ncap_str += 'S'
-        else:
-            ncap_str += ', ' if ncap_str else ''
-            ncap_str += 'S'
-    if (BaEu > 0.0 and BaEu < 0.5) and (BaPb > -1.0 and BaPb < -0.5):
-        ncap_str += ', ' if ncap_str else ''
-        ncap_str += 'RS'
-    if (LaEu > 0.0 and LaEu < 0.6) and (HfIr > 0.7 and HfIr < 1.3):
-        ncap_str += ', ' if ncap_str else ''
-        ncap_str += 'I'
-
-    return ncap_str
-
-def classify_carbon_enhancement(CFe=np.nan, BaFe=np.nan, ulCFe=False, llCFe=False):
-    """
-    Classify the star by its carbon enhancement, based on Frebel et al. 2018 (Table 1).
-    """
-    cemp_str = ''
-    
-    # if CFe is NaN, it will not contribute to the classification
-    if pd.isna(CFe) or CFe == '':
-        return cemp_str
-    
-    threshold = 0.7
-    if CFe > threshold:
-        if (BaFe < 0.0) and cemp_str == '':
-            cemp_str += 'NO' # Neutron-capture-normal
-        else:
-            cemp_str += 'CE' # Carbon-enhanced
-    # else:
-    #     cemp_str = 'C' # Carbon-poor
-    
-    return cemp_str
-
-def classify_alpha_enhancement(MgFe, SiFe, CaFe, TiFe):
-    """
-    Classify the star by its alpha-enhancement, based on Frebel et al. 2018 (Table 1).
-    """
-
-    assert not any(pd.isna(val) for val in [MgFe, SiFe, CaFe, TiFe]), "One or more input values are NaN"
-
-    alpha_str = ''
-
-    alphaFe = np.nanmean([MgFe, SiFe, CaFe, TiFe])
-    if (alphaFe > 0.35 and alphaFe < 0.45):
-        alpha_str = 'alpha'
-
-    return alpha_str
-
-def combine_classification(df, c_key_col='C_key', ncap_key_col='Ncap_key', output_col='Class'):
-    """
-    Combine carbon and neutron-capture classifications into a unified CEMP classification.
-
-    Parameters:
-        df (pd.DataFrame): Input DataFrame.
-        c_key_col (str): Column name for carbon classification (e.g., 'C_key').
-        ncap_key_col (str): Column name for neutron-capture classification (e.g., 'Ncap_key').
-        output_col (str): Name of the new combined classification column.
-
-    Returns:
-        pd.DataFrame: DataFrame with a new column `output_col`.
-    """
-
-    def classify(c_key, ncap_key):
-        c_key = np.nan if c_key == '' else c_key
-        ncap_key = np.nan if ncap_key == '' else ncap_key
-        if pd.notna(c_key) and pd.notna(ncap_key):
-            combo = c_key + '+' + ncap_key
-            mapping = {
-                'CE+RS': 'CEMP-r/s',
-                'CE+S': 'CEMP-s',
-                'CE+I': 'CEMP-i',
-                'CE+R1': 'CEMP-rI',
-                'CE+R2': 'CEMP-rII',
-                'CE+RL': 'CEMP-r-lim'
-            }
-            return mapping.get(combo, combo)
-        elif pd.notna(c_key):
-            if c_key == 'CE':
-                return 'CEMP'
-            elif c_key == 'NO':
-                return 'CEMP-no'
-            else:
-                return c_key
-        elif pd.notna(ncap_key):
-            return {
-                'R1': 'rI',
-                'R2': 'rII',
-                'S': 's',
-                'RS': 'r/s',
-                'I': 'i',
-                'RL': 'r-lim'
-            }.get(ncap_key, ncap_key)
-        else:
-            return ''
-
-    df[output_col] = df.apply(lambda row: classify(row[c_key_col], row[ncap_key_col]), axis=1)
-    
-    return df
-    
 ################################################################################
 ## Formatting and converting datafiles
 
@@ -236,7 +121,6 @@ def align_ampersands(filename, start_line, end_line):
     # Write the modified lines back to the file
     with open(filename, 'w') as file:
         file.writelines(lines)
-
 
 ################################################################################
 ## Rounding functions
@@ -294,7 +178,6 @@ def round_to_nearest(x, base=0.5, how="normal"):
     else:
         raise ValueError(f"Invalid rounding method: {how}")
 
-
 def pad_and_round(value, precision):
     """
     value: float
@@ -350,7 +233,6 @@ def find_common_start(strlist):
         strlist.append(common)
         prev = common
     return get_common_letters(strlist)
-
 
 ################################################################################
 ## Plotting functions

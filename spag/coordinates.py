@@ -3,8 +3,8 @@
 
 """ Astronomy coordinate conversion functions. """
 
-from __future__ import (division, print_function, absolute_import,
-                        unicode_literals)
+from __future__ import (division, print_function, absolute_import, unicode_literals)
+
 
 from six import string_types
 import astropy.coordinates as coord

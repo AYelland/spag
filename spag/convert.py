@@ -2,8 +2,8 @@
 
 """ Utility functions from Spectroscopy Made Hard """
 
-from __future__ import (division, print_function, absolute_import,
-                        unicode_literals)
+from __future__ import (division, print_function, absolute_import, unicode_literals)
+
 
 from six import string_types
 import numpy as np
@@ -19,44 +19,8 @@ m_XFe= re.compile(r'\[(\D+)/Fe\]')
 import spag.periodic_table  as pt
 from spag.periodic_table import pt_list, pt_dict
 from spag.utils import *
-import spag.read_data as rd
+from spag.solar import *
 
-# Functions to import when using 'from spag.utils import *'
-# __all__ =  ["element_to_species", "element_to_atomic_number",
-#             "species_to_element", "species_to_atomic_number",
-#             "atomic_number_to_species", "atomic_number_to_element",
-#             "element_matches_atomic_number",
-#             "elems_isotopes_ion_to_species", "species_to_elems_isotopes_ion"]
-
-################################################################################
-## Roman numeral conversion functions
-
-def int_to_roman(n):
-    """ Convert an integer to Roman numerals. """
-    roman_int_dict = {'I': 1, 'IV': 4, 'V': 5, 'IX': 9, 'X': 10, 'XL': 40, \
-                      'L': 50, 'XC': 90, 'C': 100, 'CD': 400, 'D': 500, \
-                      'CM': 900, 'M': 1000}
-    roman_numeral = ''
-    for numeral, value in sorted(roman_int_dict.items(), key=lambda x: x[1], reverse=True):
-        while n >= value:
-            roman_numeral += numeral
-            n -= value
-    
-    return roman_numeral
-
-def roman_to_int(roman):
-    """ Convert a Roman numeral to an integer, up to several thousand. """
-    roman = roman.upper()
-    roman_int_dict = {'I': 1, 'IV': 4, 'V': 5, 'IX': 9, 'X': 10, 'XL': 40, \
-                      'L': 50, 'XC': 90, 'C': 100, 'CD': 400, 'D': 500, \
-                      'CM': 900, 'M': 1000}
-    value = 0
-    for i in range(len(roman)):
-        if i > 0 and roman_int_dict[roman[i]] > roman_int_dict[roman[i - 1]]:
-            value += roman_int_dict[roman[i]] - 2 * roman_int_dict[roman[i - 1]]
-        else:
-            value += roman_int_dict[roman[i]]
-    return value
 
 ################################################################################
 ## SMH Molecular Species and Uncommon Isotopes Identification by Atomic Number (Z)
@@ -165,22 +129,86 @@ common_isotope_species_to_colname = {
 }
 
 ################################################################################
-## Element, atomic number, and species conversion functions
+## Baseline Functions for the Conversions
 
-def identify_prefix(col):
+def getelem(elem, lower=False, keep_species=False):
     """
-    Identifies the prefix of a column name
+    Converts an element's common name to a standard formatted chemical symbol
     """
-    for prefix in ['eps','e_','ul','XH','XFe']:
-        if prefix in col:
-            return prefix, col[len(prefix):]
-        if prefix=='XH':
-            matches = m_XH.findall(col)
-            if len(matches)==1: return prefix,matches[0]
-        if prefix=='XFe':
-            matches = m_XFe.findall(col)
-            if len(matches)==1: return prefix,matches[0]
-    raise ValueError("Invalid column:"+str(col))
+        
+    if isinstance(elem, string_types):
+        prefix = None
+        try:
+            prefix,elem_ = identify_prefix(elem)
+            elem = elem_
+        except ValueError:
+            pass
+
+        if pt.element_query(elem) != None: # No ionization, e.g. Ti
+            # print('1')
+            elem = pt.element_query(elem).symbol
+                
+        elif elem in common_molecule_name_to_colname.keys():
+            # print('2')
+            elem = common_molecule_name_to_colname[elem]
+
+        elif elem[-1]=='I': #Check for ionization
+            # print('3')
+            if ' ' not in elem:
+                if elem[0]=='I':
+                    assert elem=='I'*len(elem)
+                    elem = 'I'
+                elif elem[-2:]=='II':
+                    elem = elem[:-2] + ' II'
+                elif elem[-1]=='I':
+                    elem = elem[:-1] + ' I'
+            
+            species = element_to_species(elem)
+            if species in common_isotope_species_to_colname.keys():
+                elem = common_isotope_species_to_colname[species]
+            elif species in common_molecule_species_to_name.keys():
+                elem = common_molecule_name_to_colname[common_molecule_species_to_name[species]]
+            else:
+                elem = species_to_element(species)
+                elem = elem.split()[0]
+
+        else:
+            # print('4')
+            species = element_to_species(elem)
+            if species in common_isotope_species_to_colname.keys():
+                elem = common_isotope_species_to_colname[species]
+            elif species in common_molecule_species_to_name.keys():
+                elem = common_molecule_name_to_colname[common_molecule_species_to_name[species]]
+            else:
+                elem = species_to_element(species)
+                elem = elem.split()[0]
+
+    elif isinstance(elem, (int, np.integer)):
+        # print('5')
+
+        Z = int(elem)
+        try:
+            elem = pt.element_query(Z).symbol
+            if keep_species: elem = elem + ' ' + 'I'*get_default_ion(elem)
+        except:
+            if Z in common_molecule_species_to_name.keys():
+                elem = common_molecule_name_to_colname[common_molecule_species_to_name[Z]]
+
+    elif isinstance(elem, float):
+        # print('6')
+        species = elem
+        
+        if species in common_isotope_species_to_colname.keys():
+            elem = common_isotope_species_to_colname[species]
+        elif species in common_molecule_species_to_name.keys():
+            elem = common_molecule_name_to_colname[common_molecule_species_to_name[species]]
+        
+        if isinstance(elem, float):
+            elem = species_to_element(species)
+            if not keep_species: elem = elem.split()[0]
+
+    if lower: elem = elem.replace(' ','').lower()
+    return elem
 
 def get_default_ion(elem):
     """
@@ -204,7 +232,30 @@ def get_default_ion(elem):
     else:
         warnings.warn("get_default_ion: {} not in defaults, returning 0".format(elem))
         return 0
-    
+
+def get_star_abunds(starname,data,type):
+    """
+    Input: starname, DataFrame, and type of abundance to extract ('eps', 'XH', 'XFe', 'e_', 'ul')
+    Returns: a pandas Series of abundances for a star by extracting the columns of the specified type
+    """
+    assert type in ['eps','XH','XFe','e_','ul']
+    star = data.ix[starname]
+    colnames = _getcolnames(data,type)
+    if len(colnames)==0: raise ValueError("{} not in data".format(type))
+    abunds = np.array(star[colnames])
+    elems = [getelem(elem) for elem in colnames]
+    return pd.Series(abunds,index=elems)
+
+def format_elemstr(elem):
+    """
+    Capitalizes the first letter of an element string
+    """
+    assert len(elem) <= 2 and len(elem) >= 1
+    return elem[0].upper() + elem[1:].lower()
+
+################################################################################
+## Element, atomic number, and species conversion functions
+
 def element_to_species(element_repr):
     """
     element_repr: str
@@ -515,9 +566,6 @@ def ion_to_atomic_number(ion):
     # print(f"ion_to_atomic_number: {ion} -> {species} -> {Z}")
     return Z
 
-################################################################################
-## Molecule Species Identification by Elements, Isotopes, and Ionization State
-
 def elems_isotopes_ion_to_species(elem1,elem2,isotope1,isotope2,ion):
     """
     elem1: str
@@ -635,181 +683,8 @@ def species_to_elems_isotopes_ion(species):
         isotope2 = 0
     return elem1,elem2,isotope1,isotope2,ion
 
-def getelem(elem, lower=False, keep_species=False):
-    """
-    Converts an element's common name to a standard formatted chemical symbol
-    """
-        
-    if isinstance(elem, string_types):
-        prefix = None
-        try:
-            prefix,elem_ = identify_prefix(elem)
-            elem = elem_
-        except ValueError:
-            pass
-
-        if pt.element_query(elem) != None: # No ionization, e.g. Ti
-            # print('1')
-            elem = pt.element_query(elem).symbol
-                
-        elif elem in common_molecule_name_to_colname.keys():
-            # print('2')
-            elem = common_molecule_name_to_colname[elem]
-
-        elif elem[-1]=='I': #Check for ionization
-            # print('3')
-            if ' ' not in elem:
-                if elem[0]=='I':
-                    assert elem=='I'*len(elem)
-                    elem = 'I'
-                elif elem[-2:]=='II':
-                    elem = elem[:-2] + ' II'
-                elif elem[-1]=='I':
-                    elem = elem[:-1] + ' I'
-            
-            species = element_to_species(elem)
-            if species in common_isotope_species_to_colname.keys():
-                elem = common_isotope_species_to_colname[species]
-            elif species in common_molecule_species_to_name.keys():
-                elem = common_molecule_name_to_colname[common_molecule_species_to_name[species]]
-            else:
-                elem = species_to_element(species)
-                elem = elem.split()[0]
-
-        else:
-            # print('4')
-            species = element_to_species(elem)
-            if species in common_isotope_species_to_colname.keys():
-                elem = common_isotope_species_to_colname[species]
-            elif species in common_molecule_species_to_name.keys():
-                elem = common_molecule_name_to_colname[common_molecule_species_to_name[species]]
-            else:
-                elem = species_to_element(species)
-                elem = elem.split()[0]
-
-    elif isinstance(elem, (int, np.integer)):
-        # print('5')
-
-        Z = int(elem)
-        try:
-            elem = pt.element_query(Z).symbol
-            if keep_species: elem = elem + ' ' + 'I'*get_default_ion(elem)
-        except:
-            if Z in common_molecule_species_to_name.keys():
-                elem = common_molecule_name_to_colname[common_molecule_species_to_name[Z]]
-
-    elif isinstance(elem, float):
-        # print('6')
-        species = elem
-        
-        if species in common_isotope_species_to_colname.keys():
-            elem = common_isotope_species_to_colname[species]
-        elif species in common_molecule_species_to_name.keys():
-            elem = common_molecule_name_to_colname[common_molecule_species_to_name[species]]
-        
-        if isinstance(elem, float):
-            elem = species_to_element(species)
-            if not keep_species: elem = elem.split()[0]
-
-    if lower: elem = elem.replace(' ','').lower()
-    return elem
-
-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-
-## Validation/Testing Functions
-
-def element_matches_atomic_number(elem, Z):
-    """
-    elem: str
-        Element symbol.
-    Z: int
-        Atomic number.
-        
-    Returns True if the element symbol matches the atomic number, and False
-    otherwise.    
-    """
-    
-    if elem != pt_dict[Z]:
-        return False
-    else:
-        return True
-
 ################################################################################
 # Utility functions for column names
-
-def _getcolnames(df,prefix):
-    """
-    Returns a list of all columns with a specific prefix
-    """
-    allnames = []
-    for col in df:
-        try:
-            this_prefix,elem = identify_prefix(col)
-        except ValueError:
-            continue
-        if this_prefix==prefix: allnames.append(col)
-    return allnames
-
-def epscolnames(df):
-    """
-    Returns a list of all log(eps) columns
-    """
-    return _getcolnames(df,'eps')
-
-def errcolnames(df):
-    """
-    Returns a list of all error columns
-    """
-    return _getcolnames(df,'e_')
-
-def ulcolnames(df):
-    """
-    Returns a list of all upper limit columns
-    """
-    allnames = []
-    for col in df:
-        if col.startswith('ul') and not col.startswith('ul['):
-            allnames.append(col)
-    return allnames
-
-def XHcolnames(df):
-    """
-    Returns a list of all [X/H] columns
-    """
-    allnames = []
-    for col in df:
-        if col.startswith('[') and col.endswith('/H]'):
-            allnames.append(col)
-    return allnames
-
-def ulXHcolnames(df):
-    """
-    Returns a list of all ul[X/H] columns
-    """
-    allnames = []
-    for col in df:
-        if col.startswith('ul[') and col.endswith('/H]'):
-            allnames.append(col)
-    return allnames
-    
-def XFecolnames(df):
-    """
-    Returns a list of all [X/Fe] columns
-    """
-    allnames = []
-    for col in df:
-        if col.startswith('[') and col.endswith('/Fe]'):
-            allnames.append(col)
-    return allnames
-
-def ulXFecolnames(df):
-    """
-    Returns a list of all ul[X/Fe] columns
-    """
-    allnames = []
-    for col in df:
-        if col.startswith('ul[') and col.endswith('/Fe]'):
-            allnames.append(col)
-    return allnames
 
 def epscol(elem):
     """
@@ -891,6 +766,85 @@ def ABcol(elems):
     A,B = elems
     return '['+getelem(A)+'/'+getelem(B)+']'
 
+## ---
+
+def _getcolnames(df,prefix):
+    """
+    Returns a list of all columns with a specific prefix
+    """
+    allnames = []
+    for col in df:
+        try:
+            this_prefix,elem = identify_prefix(col)
+        except ValueError:
+            continue
+        if this_prefix==prefix: allnames.append(col)
+    return allnames
+
+def epscolnames(df):
+    """
+    Returns a list of all log(eps) columns
+    """
+    return _getcolnames(df,'eps')
+
+def errcolnames(df):
+    """
+    Returns a list of all error columns
+    """
+    return _getcolnames(df,'e_')
+
+def ulcolnames(df):
+    """
+    Returns a list of all upper limit columns
+    """
+    allnames = []
+    for col in df:
+        if col.startswith('ul') and not col.startswith('ul['):
+            allnames.append(col)
+    return allnames
+
+def XHcolnames(df):
+    """
+    Returns a list of all [X/H] columns
+    """
+    allnames = []
+    for col in df:
+        if col.startswith('[') and col.endswith('/H]'):
+            allnames.append(col)
+    return allnames
+
+def ulXHcolnames(df):
+    """
+    Returns a list of all ul[X/H] columns
+    """
+    allnames = []
+    for col in df:
+        if col.startswith('ul[') and col.endswith('/H]'):
+            allnames.append(col)
+    return allnames
+    
+def XFecolnames(df):
+    """
+    Returns a list of all [X/Fe] columns
+    """
+    allnames = []
+    for col in df:
+        if col.startswith('[') and col.endswith('/Fe]'):
+            allnames.append(col)
+    return allnames
+
+def ulXFecolnames(df):
+    """
+    Returns a list of all ul[X/Fe] columns
+    """
+    allnames = []
+    for col in df:
+        if col.startswith('ul[') and col.endswith('/Fe]'):
+            allnames.append(col)
+    return allnames
+
+## ---
+
 def make_epscol(species):
     """
     Converts species to a formatted log(eps) column name
@@ -933,12 +887,46 @@ def make_ulXFecol(species):
     """
     return ulXFecol(species)
 
-def format_elemstr(elem):
+################################################################################
+# Quick abundance conversion functions
+
+def XH_from_eps(eps, elem, precision=2, version='asplund2009'):
     """
-    Capitalizes the first letter of an element string
+    Converts log(eps) to [X/H]
     """
-    assert len(elem) <= 2 and len(elem) >= 1
-    return elem[0].upper() + elem[1:].lower()
+    return normal_round(eps - get_solar(elem, version)[0], precision=precision)
+
+def eps_from_XH(XH, elem, precision=2, version='asplund2009'):
+    """
+    Converts [X/H] to log(eps)
+    """
+    return normal_round(XH + get_solar(elem, version)[0], precision=precision)
+
+def XFe_from_eps(eps, FeH, elem, precision=2, version='asplund2009'):
+    """
+    Converts log(eps) to [X/Fe]
+    """
+    return normal_round(eps - get_solar(elem, version)[0] - FeH, precision=precision)
+
+def eps_from_XFe(XFe, FeH, elem, precision=2, version='asplund2009'):
+    """
+    Converts [X/Fe] to log(eps)
+    """
+    return  normal_round(XFe+ get_solar(elem, version)[0] + FeH, precision=precision)
+
+def XFe_from_XH(XH, FeH, precision=2):
+    """
+    Converts [X/H] to [X/Fe]
+    """
+    return normal_round(XH - FeH, precision=precision)
+
+def XH_from_XFe(XFe, FeH, precision=2):
+    """
+    Converts [X/Fe] to [X/H]
+    """
+    return normal_round(XFe + FeH, precision=precision)
+
+## ---
 
 def getcolion(col):
     """
@@ -1038,63 +1026,9 @@ def jinabasecol_from_col(col):
         return elem.title()  # Return the element name capitalized
     else:
         raise ValueError(f"Column {col} not recognized for species extraction")
-    
-################################################################################
-# Quick abundance conversion functions
-################################################################################
-
-def XH_from_eps(eps, elem, precision=2, version='asplund2009'):
-    """
-    Converts log(eps) to [X/H]
-    """
-    return normal_round(eps - rd.get_solar(elem, version)[0], precision=precision)
-
-def eps_from_XH(XH, elem, precision=2, version='asplund2009'):
-    """
-    Converts [X/H] to log(eps)
-    """
-    return normal_round(XH + rd.get_solar(elem, version)[0], precision=precision)
-
-def XFe_from_eps(eps, FeH, elem, precision=2, version='asplund2009'):
-    """
-    Converts log(eps) to [X/Fe]
-    """
-    return normal_round(eps - rd.get_solar(elem, version)[0] - FeH, precision=precision)
-
-def eps_from_XFe(XFe, FeH, elem, precision=2, version='asplund2009'):
-    """
-    Converts [X/Fe] to log(eps)
-    """
-    return  normal_round(XFe+ rd.get_solar(elem, version)[0] + FeH, precision=precision)
-
-def XFe_from_XH(XH, FeH, precision=2):
-    """
-    Converts [X/H] to [X/Fe]
-    """
-    return normal_round(XH - FeH, precision=precision)
-
-def XH_from_XFe(XFe, FeH, precision=2):
-    """
-    Converts [X/Fe] to [X/H]
-    """
-    return normal_round(XFe + FeH, precision=precision)
 
 ################################################################################
 # Utility functions operating on standardized DataFrame columns
-################################################################################
-
-def get_star_abunds(starname,data,type):
-    """
-    Input: starname, DataFrame, and type of abundance to extract ('eps', 'XH', 'XFe', 'e_', 'ul')
-    Returns: a pandas Series of abundances for a star by extracting the columns of the specified type
-    """
-    assert type in ['eps','XH','XFe','e_','ul']
-    star = data.ix[starname]
-    colnames = _getcolnames(data,type)
-    if len(colnames)==0: raise ValueError("{} not in data".format(type))
-    abunds = np.array(star[colnames])
-    elems = [getelem(elem) for elem in colnames]
-    return pd.Series(abunds,index=elems)
 
 def XHcol_from_epscol(df):
     """
@@ -1103,7 +1037,7 @@ def XHcol_from_epscol(df):
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")
         epscols = epscolnames(df)
-        asplund = rd.get_solar(epscols)
+        asplund = get_solar(epscols)
         for col in epscols:
             if XHcol(col) in df: warnings.warn("{} already in DataFrame, replacing".format(XHcol(col)))
             eps_star = pd.to_numeric(df[col], errors='coerce')  # ensures proper float conversion
@@ -1118,7 +1052,7 @@ def XHcol_from_XFecol(df):
         warnings.simplefilter("ignore")
         XFecols = XFecolnames(df)
         assert '[Fe/H]' in df
-        asplund = rd.get_solar(XFecols)
+        asplund = get_solar(XFecols)
         feh = df['[Fe/H]']
         for col in XFecols:
             if XHcol(col) in df: warnings.warn("{} already in DataFrame, replacing".format(XHcol(col)))
@@ -1132,7 +1066,7 @@ def XFecol_from_epscol(df):
         warnings.simplefilter("ignore")
         epscols = epscolnames(df)
         assert 'epsfe' in epscols
-        asplund = rd.get_solar(epscols)
+        asplund = get_solar(epscols)
         epsfe_star = pd.to_numeric(df['epsfe'], errors='coerce')
         epsfe_solar = float(asplund['epsfe'])
         FeH = df['epsfe'].astype(float) - float(asplund['epsfe'])
@@ -1151,7 +1085,7 @@ def epscol_from_XHcol(df):
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")
         XHcols = XHcolnames(df)
-        asplund = rd.get_solar(XHcols)
+        asplund = get_solar(XHcols)
         for col in XHcols:
             if epscol(col) in df: warnings.warn("{} already in DataFrame, replacing".format(epscol(col)))
             df[epscol(col)] = df[col] + float(asplund[col])
@@ -1178,7 +1112,7 @@ def epscol_from_XFecol(df):
         warnings.simplefilter("ignore")
         XFecols = XFecolnames(df)
         assert '[Fe/H]' in df
-        asplund = rd.get_solar(XFecols)
+        asplund = get_solar(XFecols)
         feh = df['[Fe/H]']
         for col in XFecols:
             df[epscol(col)] = df[col] + feh + float(asplund[col])
@@ -1191,7 +1125,7 @@ def XHcol_from_XFecol(df):
         warnings.simplefilter("ignore")
         XFecols = XFecolnames(df)
         assert '[Fe/H]' in df
-        asplund = rd.get_solar(XFecols)
+        asplund = get_solar(XFecols)
         feh = df['[Fe/H]']
         for col in XFecols:
             if XHcol(col) in df: warnings.warn("{} already in DataFrame, replacing".format(XHcol(col)))
@@ -1204,7 +1138,7 @@ def ulcol_from_ulXHcol(df):
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")
         ulXHcols = ulXHcolnames(df)
-        asplund = rd.get_solar(ulXHcols)
+        asplund = get_solar(ulXHcols)
         for col in ulXHcols:
             if ulcol(col) in df: warnings.warn("{} already in DataFrame, replacing".format(ulcol(col)))
             ulXH_star = pd.to_numeric(df[col], errors='coerce')  # ensures proper float conversion
@@ -1218,7 +1152,7 @@ def ulXHcol_from_ulcol(df):
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")
         ulcols = ulcolnames(df)
-        asplund = rd.get_solar(ulcols)
+        asplund = get_solar(ulcols)
         for col in ulcols:
             if ulXHcol(col) in df: warnings.warn("{} already in DataFrame, replacing".format(ulXHcol(col)))
             ul_eps_star = pd.to_numeric(df[col], errors='coerce')  # ensures proper float conversion
@@ -1233,7 +1167,7 @@ def ulXHcol_from_ulXFecol(df):
         warnings.simplefilter("ignore")
         XFecols = XFecolnames(df)
         assert '[Fe/H]' in df
-        asplund = rd.get_solar(XFecols)
+        asplund = get_solar(XFecols)
         feh = df['[Fe/H]']
         for col in XFecols:
             if col=='[Fe/H]': continue
@@ -1250,7 +1184,7 @@ def ulXFecol_from_ulcol(df):
         warnings.simplefilter("ignore")
         epscols = epscolnames(df)
         assert 'epsfe' in epscols
-        asplund = rd.get_solar(epscols)
+        asplund = get_solar(epscols)
         epsfe_star = pd.to_numeric(df['epsfe'], errors='coerce')
         epsfe_solar = float(asplund['epsfe'])
         FeH = df['epsfe'].astype(float) - float(asplund['epsfe'])
