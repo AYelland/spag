@@ -1,0 +1,13 @@
+Table 6
+Comparison of Model Atmosphere Parameters
+
+
+Class^a	Number	Avg. T_eff	DeltaT_eff	sigmaT_eff	Avg. log g	Deltalog g	sigmalog g	Avg. [M/H]	Delta[M/H]	sigma[M/H]	Avg. v_t	Deltav_t	sigmav_t
+		(K)	(K)	(K)	(cgs)	(cgs)	(cgs)		(dex)	(dex)	(km s^-1)	(km s^-1)	(km s^-1)
+MS	143	6240	+362	12	4.31	+0.57	0.03	-2.24	+0.26	0.01	1.37	+0.07	0.02
+SG	53	5965	+319	26	3.67	+0.40	0.05	-2.39	+0.18	0.02	1.48	+0.16	0.02
+RG	79	5079	+311	10	2.25	+0.86	0.04	-2.72	+0.34	0.02	1.71	+0.12	0.01
+HB	35	5808	+98	25	2.52	+0.78	0.05	-2.32	+0.25	0.02	2.56	+0.08	0.01
+BS	1	7451	-49	 ... 	3.11	+0.61	 ... 	-2.20	+0.15	 ... 	2.02	+0.07	 ...
+Note. "Avg." refers to the mean of the updated stellar parameter of all stars in the respective evolutionary class. "Delta" refers to the mean difference in the respective stellar parameter for each star in an evolutionary class. "sigma" refers to the standard deviation of the difference of the stellar parameter for stars in an evolutionary class, divided by the square root of the total number of stars in that evolutionary class.
+^a The classification scheme is defined as follows. BS: blue-straggler-like stars warmer than the main-sequence turnoff; HB: stars on the horizontal branch; MS: stars on the main sequence; RG: stars on the red giant branch; SG: stars on the subgiant branch.
