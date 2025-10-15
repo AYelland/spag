@@ -1,2 +1,54 @@
-Name,Simbad_Identifier,System,RA_hms,DEC_dms
-J2213-5137,TYC 8444-76-1,,22:13:20.49,-51:37:38.7
+Table 1 
+Properties of J2213-5137
+
+
+Quantity	Symbol	Value	Units	Reference	
+Astrometric Properties					
+					
+R.A.	alpha (J2000)	22:13:20.49	hh:mm:ss.ss	Gaia DR3 (Lindegren et al. 2021)	
+Decl.	delta (J2000)	-51:37:38.7	dd:mm:ss.s	Gaia DR3 (Lindegren et al. 2021)	
+Galactic longitude	ell	342.4	degrees	Gaia DR3 (Lindegren et al. 2021)	
+Galactic latitude	b	-51.6	degrees	Gaia DR3 (Lindegren et al. 2021)	
+Proper motion (alpha)	mu _alpha*	7.012 +or- 0.017	mas yr^-1	Gaia DR3 (Lindegren et al. 2021)	
+Proper motion (delta)	mu _delta	-17.524 +or- 0.019	mas yr^-1	Gaia DR3 (Lindegren et al. 2021)	
+Parallax	piv	0.4647 +or- 0.0186	mas	Gaia DR3 (Lindegren et al. 2021)	
+Distance	D	${2.01}_{-0.10}^{+0.08}$	kpc	Bailer-Jones et al. (2021)	
+Galactocentric coordinates (Cartesian)	(x, y, z)	($-{6.99}_{-0.04}^{+0.05}$, $-{0.38}_{-0.01}^{+0.01}$, $-{1.58}_{-0.06}^{+0.06}$)	kpc	this study	
+Galactocentric distance	R	${7.00}_{-0.05}^{+0.04}$	kpc	this study	
+					
+Kinematic Properties					
+					
+Radial velocity	v _r	120.59 +or- 1.36	km s^-1	RAVE DR5 (Kunder et al. 2017) ^a	
+Radial velocity	v _r	119.12 +or- 0.47	km s^-1	Gaia DR3 (Katz et al. 2023)	
+Radial velocity	v _r	117.5 +or- 0.3	km s^-1	this study ^b	
+Galactocentric velocity (Cartesian)	(v _x, v _y, v _z)	(${32.1}_{-1.9}^{+1.8}$, ${52.1}_{-6.7}^{+6.2}$, $-{80.1}_{-0.3}^{+0.3}$)	km s^-1	this study	
+Galactocentric velocity (cylindrical)	(v _R, v _z, v _phi)	($-{34.9}_{-2.0}^{+2.2}$, $-{80.1}_{-0.3}^{+0.3}$, ${50.3}_{-6.7}^{+6.2}$)	km s^-1	this study	
+Integrals of motion	(J _r, J _z, J _phi)	(${332.9}_{-16.8}^{+18.5}$, ${174.2}_{-4.1}^{+4.2}$, ${352.0}_{-48.8}^{+45.8}$)	kpc km s^-1	this study	
+Orbital pericenter	r _peri	${1.12}_{-0.15}^{+0.15}$	kpc	this study	
+Orbital apocenter	r _apo	${7.20}_{-0.04}^{+0.04}$	kpc	this study	
+Maximum orbital distance from Galactic midplane	$| {z}_{\max }| $	${4.04}_{-0.13}^{+0.14}$	kpc	this study	
+Orbital eccentricity	e	${0.73}_{-0.03}^{+0.03}$	cdots	this study	
+					
+Photometric Properties					
+					
+NUV magnitude	NUV	15.748 +or- 0.012	mag	GALEX (Bianchi et al. 2017)	
+B magnitude	B	12.223 +or- 0.008	mag	APASS (Munari et al. 2014)	
+V magnitude	V	11.630 +or- 0.02	mag	APASS (Munari et al. 2014)	
+G magnitude	G	11.446 +or- 0.003	mag	Gaia DR3 (Riello et al. 2021)	
+BP magnitude	G _BP	11.788 +or- 0.003	mag	Gaia DR3 (Riello et al. 2021)	
+RP magnitude	G _RP	10.928 +or- 0.004	mag	Gaia DR3 (Riello et al. 2021)	
+J magnitude	J	10.311 +or- 0.026	mag	2MASS (Cutri et al. 2003)	
+H magnitude	H	9.949 +or- 0.025	mag	2MASS (Cutri et al. 2003)	
+K _s magnitude	K _s	9.863 +or- 0.023	mag	2MASS (Cutri et al. 2003)	
+Color excess	E(B - V)	0.017 +or- 0.01	mag	Schlafly & Finkbeiner (2011)	
+Bolometric correction	BC _V	-0.31 +or- 0.04	mag	Casagrande & VandenBerg (2014)	
+					
+Model Atmosphere					
+					
+Effective temperature	T _eff	5509 +or- 43 (stat.) +or- 72 (sys.)	K	this study	
+Log of surface gravity	log g	2.28 +or- 0.06	(cgs)	this study	
+Microturbulent velocity	v _t	2.25 +or- 0.10	km s^-1	this study	
+Metallicity	[Fe/H]	-2.20 +or- 0.12	cdots	this study	
+Notes.
+^a 2009/08/20.
+^b Calculated from three separate MIKE observations: RV = 117.5 +or- 0.7 km s^-1 on 2021/12/05 at UT = 00:33; RV = 117.8 +or- 0.7 km s^-1 on 2022/07/22 at UT = 05:45; and RV = 117.3 +or- 0.7 km s^-1 on 2022/08/18 at UT = 04:25.

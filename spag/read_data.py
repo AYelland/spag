@@ -1772,8 +1772,8 @@ def load_roederer2024b():
     """
 
     ## Read in the data tables
-    obs_df = pd.read_csv(data_dir + "abundance_tables/roederer2024b/table1.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
-    param_df = pd.read_csv(data_dir + "abundance_tables/roederer2024b/table2.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    obs_df = pd.read_csv(data_dir + "abundance_tables/roederer2024b/table1a.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    param_df = pd.read_csv(data_dir + "abundance_tables/roederer2024b/table1b.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
     abund_df = pd.read_csv(data_dir + "abundance_tables/roederer2024b/table3.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
 
     ## Make the new column names
@@ -1800,7 +1800,7 @@ def load_roederer2024b():
     for i, name in enumerate(abund_df['Name'].unique()):
         roederer2024b_df.loc[i,'Name'] = name
         roederer2024b_df.loc[i,'Simbad_Identifier'] = obs_df.loc[obs_df['Name'] == name, 'Simbad_Identifier'].values[0]
-        roederer2024b_df.loc[i,'Reference'] = 'roederer+2024b'
+        roederer2024b_df.loc[i,'Reference'] = 'Roederer+2024b'
         roederer2024b_df.loc[i,'Ref'] = 'ROE24b'
         roederer2024b_df.loc[i,'I/O'] = 1
         roederer2024b_df.loc[i,'Loc'] = 'HA' # [HA, BU, DS, DW, UF, GC]
@@ -1838,7 +1838,7 @@ def load_roederer2024b():
             ## Assign [X/H] and ul[X/H]values
             col = make_XHcol(species_i).replace(" ", "")
             if col in XHcols:
-                if pd.isna(row["l_[X/H]"]):
+                if pd.isna(row["l_logepsX"]):
                     roederer2024b_df.loc[i, col] = normal_round(row["logepsX"] - logepsX_sun_a09, 2)
                     roederer2024b_df.loc[i, 'ul'+col] = np.nan
                 else:
