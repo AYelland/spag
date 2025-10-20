@@ -10,9 +10,10 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 from astropy.io import fits
+from astropy.table import Table
 
 from spag.convert import *
-# from spag.columns import *
+from spag.classification import *
 from spag.utils import *
 import spag.coordinates as scoord
 from spag.solar import *
@@ -6246,10 +6247,10 @@ def load_lai2011(io=None):
         lai2011_df.loc[i,'Vmic'] = data_df.loc[data_df['Name'] == name, 'Vmic'].values[0]
 
         ## Fill in the Iron and Carbon Data
-        logepsFe_sun_a05 = rd.get_solar('Fe', version='asplund2005')[0]
-        logepsFe_sun_a09 = rd.get_solar('Fe', version='asplund2009')[0]
-        logepsC_sun_a05 = rd.get_solar('C', version='asplund2005')[0]
-        logepsC_sun_a09 = rd.get_solar('C', version='asplund2009')[0]
+        logepsFe_sun_a05 = get_solar('Fe', version='asplund2005')[0]
+        logepsFe_sun_a09 = get_solar('Fe', version='asplund2009')[0]
+        logepsC_sun_a05 = get_solar('C', version='asplund2005')[0]
+        logepsC_sun_a09 = get_solar('C', version='asplund2009')[0]
 
         feh_a05 = data_df.loc[data_df['Name'] == name, '[Fe/H]'].values[0]
         cfe_a05 = data_df.loc[data_df['Name'] == name, '[C/Fe]'].values[0]
