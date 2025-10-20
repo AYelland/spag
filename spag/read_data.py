@@ -266,7 +266,7 @@ def load_ufds(io=None, **kwargs):
 
     for ref, name in dups:
         ufd_df.loc[(ufd_df['Name'] == name) & (ufd_df['Reference'] == ref), 'I/O'] = 0
-    # ufd_df = ufd_df[ufd_df['I/O'] == 1]
+    # ufd_df = ufd_df[ufd_df['I/O'] == 1].reset_index(drop=True)
 
     return ufd_df
 
@@ -356,7 +356,7 @@ def load_stellar_streams(**kwargs):
     ]
     for ref, name in dups:
         ss_df.loc[(ss_df['Name'] == name) & (ss_df['Reference'] == ref), 'I/O'] = 0
-    # ss_df = ss_df[ss_df['I/O'] == 1]
+    # ss_df = ss_df[ss_df['I/O'] == 1].reset_index(drop=True)
 
     return ss_df
 
@@ -450,7 +450,7 @@ def load_carina(jinabase=None, **kwargs):
     ]
     for ref, name in dups:
         carina_df.loc[(carina_df['Name'] == name) & (carina_df['Reference'] == ref), 'I/O'] = 0
-    # carina_df = carina_df[carina_df['I/O'] == 1]
+    # carina_df = carina_df[carina_df['I/O'] == 1].reset_index(drop=True)
 
     return carina_df
 
@@ -512,7 +512,7 @@ def load_draco(jinabase=None, **kwargs):
     dups = []
     for ref, name in dups:
         draco_df.loc[(draco_df['Name'] == name) & (draco_df['Reference'] == ref), 'I/O'] = 0
-    # draco_df = draco_df[draco_df['I/O'] == 1]
+    # draco_df = draco_df[draco_df['I/O'] == 1].reset_index(drop=True)
 
     return draco_df
 
@@ -581,7 +581,7 @@ def load_fornax(jinabase=None, **kwargs):
     ]
     for ref, name in dups:
         fornax_df.loc[(fornax_df['Name'] == name) & (fornax_df['Reference'] == ref), 'I/O'] = 0
-    # fornax_df = fornax_df[fornax_df['I/O'] == 1]
+    # fornax_df = fornax_df[fornax_df['I/O'] == 1].reset_index(drop=True)
 
     return fornax_df
 
@@ -787,7 +787,7 @@ def load_sagittarius(jinabase=None, include_medres=True, include_apogee=False, *
     ]
     for ref, name in dups:
         sagittarius_df.loc[(sagittarius_df['Name'] == name) & (sagittarius_df['Reference'] == ref), 'I/O'] = 0
-    # sagittarius_df = sagittarius_df[sagittarius_df['I/O'] == 1]
+    # sagittarius_df = sagittarius_df[sagittarius_df['I/O'] == 1].reset_index(drop=True)
 
     return sagittarius_df
 
@@ -953,7 +953,7 @@ def load_sextans(jinabase=None, **kwargs):
     dups = []
     for ref, name in dups:
         sextans_df.loc[(sextans_df['Name'] == name) & (sextans_df['Reference'] == ref), 'I/O'] = 0
-    # sextans_df = sextans_df[sextans_df['I/O'] == 1]
+    # sextans_df = sextans_df[sextans_df['I/O'] == 1].reset_index(drop=True)
 
     return sextans_df
 
@@ -1039,9 +1039,10 @@ def load_sass_stars():
     halo_df = pd.concat([halo_df, francois2007_df], ignore_index=True, sort=False)
 
     ## Has C measurements
-    halo_w_c_df = halo_df[
-        (halo_df['[C/H]'].notna() | halo_df['ul[C/H]'].notna())
-    ]
+    halo_w_c_df = halo_df.copy()
+    # halo_w_c_df = halo_df[
+    #     (halo_df['[C/H]'].notna() | halo_df['ul[C/H]'].notna())
+    # ]
 
     ## Has Sr and/or Ba measurements
     halo_w_c_sr_ba_df = halo_w_c_df[
@@ -1115,14 +1116,21 @@ def load_sass_stars():
         ('Hansen_T+2014', 'HE2239-5019'),
         ('Collet+2006', 'HE0107-52401D'),
         ('Collet+2006', 'HE0107-52403D'),
+
+        ('Ryan+1996', 'CS22172-002'), # doesn't have carbon
+        ('Ryan+1996', 'CS22885-096'), # doesn't have carbon
+        ('Ryan+1996', 'CD-38245'), # doesn't have carbon
+        ('Ryan+1996', 'CS22968-014'), # doesn't have carbon
+        ('Collet+2006', 'HE1327-23261D'), # doesn't have carbon
+        ('Collet+2006', 'HE1327-23263D'), # doesn't have carbon
         
         ('Roederer+2014b', 'CS22952-015'), # we have measurements from Francois+2007 that don't make the cut (Sr too high), so we cut this star here
         ('Roederer+2014b', 'CS22189-009'), # we have measurements from Francois+2007 that don't make the cut (Sr too high), so we cut this star here
-        # ('Keller+2014', 'NAMESMSSJ031300.36-670839.3') # this star has carbon, but uppper limit in iron --> ignore this star (not a duplicate)
+        ('Keller+2014', 'NAMESMSSJ031300.36-670839.3') # this star has carbon, but uppper limit in iron --> ignore this star (not a duplicate)
     ]
     for ref, name in dups:
         sass_df.loc[(sass_df['Name'] == name) & (sass_df['Reference'] == ref), 'I/O'] = 0
-    sass_df = sass_df[sass_df['I/O'] == 1]
+    sass_df = sass_df[sass_df['I/O'] == 1].reset_index(drop=True)
     
     return sass_df
 
@@ -2142,13 +2150,13 @@ def load_chiti2018a(data_subset='merged'):
         return chiti2018a_df
     elif data_subset == 'mage':
         # Return only the MagE data
-        return chiti2018a_df[chiti2018a_df['Instrument'] == 'MagE']
+        return chiti2018a_df[chiti2018a_df['Instrument'] == 'MagE'].reset_index(drop=True)
     elif data_subset == 'm2fs':
         # Return only the M2FS data
-        return chiti2018a_df[chiti2018a_df['Instrument'] == 'M2FS']
+        return chiti2018a_df[chiti2018a_df['Instrument'] == 'M2FS'].reset_index(drop=True)
     elif data_subset == 'merged':
         # Return the merged data (MagE and M2FS combined)
-        return chiti2018a_df[chiti2018a_df['I/O'] == 1]
+        return chiti2018a_df[chiti2018a_df['I/O'] == 1].reset_index(drop=True)
     else:
         raise ValueError("Invalid data_subset value. Choose from 'all', 'mage', 'm2fs', or 'merged'.")
 
