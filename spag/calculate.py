@@ -53,6 +53,117 @@ def calc_carbon_correction(logg, feh, cfe):
         correction = None
     return correction
 
+## Calculate carbon corrections
+def calc_carbon_correction_for_df(df, ulim_shift=0.3, ll_cfe_exist=True):
+
+    ## Identify entries with missing values for logg, feh, cfe
+    missing_logg_mask = df['logg'].isna()
+    missing_feh_mask  = df['[Fe/H]'].isna() & df['ul[Fe/H]'].isna()
+    if ll_cfe_exist:
+        missing_cfe_mask = (df['[C/Fe]'].isna() & df['ll[C/Fe]'].isna() & df['ul[C/Fe]'].isna())
+    else:
+        missing_cfe_mask = df['[C/Fe]'].isna() & df['ul[C/Fe]'].isna()
+        
+    missing_values_df = df.loc[missing_logg_mask | missing_feh_mask | missing_cfe_mask].copy()
+    print("Entries with missing values (logg, feh, cfe): ", missing_values_df.shape[0])
+    for name in missing_values_df['Simbad_Identifier'].values:
+        print(f"   {name}")
+
+    ## Calculate correction values
+    print("Number of Entries in Datatable: ", len(df))
+    for i, row in df.iterrows():
+        ### logg
+        logg = row['logg']
+        
+        ### feh
+        if pd.notna(row['[Fe/H]']):
+            feh = row['[Fe/H]']
+        else:
+            feh = float(row['ul[Fe/H]']) - ulim_shift
+
+        ### cfe
+        if ll_cfe_exist:
+            if pd.notna(row['[C/Fe]']) and pd.isna(row['ll[C/Fe]']) and pd.isna(row['ul[C/Fe]']):
+                cfe = float(row['[C/Fe]'])
+            elif pd.isna(row['[C/Fe]']) and pd.notna(row['ll[C/Fe]']) and pd.isna(row['ul[C/Fe]']):
+                cfe = float(row['ll[C/Fe]'])
+            elif pd.isna(row['[C/Fe]']) and pd.isna(row['ll[C/Fe]']) and pd.notna(row['ul[C/Fe]']):
+                cfe = float(row['ul[C/Fe]']) - ulim_shift
+            else:
+                cfe = np.nan
+                print(f"No [C/Fe] value found for star {row['Name']}, {row['Reference']}, {row['System']}")
+        else:
+            if pd.notna(row['[C/Fe]']) and pd.isna(row['ul[C/Fe]']):
+                cfe = float(row['[C/Fe]'])
+            elif pd.isna(row['[C/Fe]']) and pd.notna(row['ul[C/Fe]']):
+                cfe = float(row['ul[C/Fe]']) - ulim_shift
+            else:
+                cfe = np.nan
+                print(f"No [C/Fe] value found for star {row['Name']}, {row['Reference']}, {row['System']}")
+
+        ### correction (epsc_c)
+        if pd.isna(logg) or pd.isna(feh) or pd.isna(cfe):
+            df.at[i, 'epsc_c'] = np.nan
+        else:
+            correction = calc_carbon_correction(logg, feh, cfe)
+            df.at[i, 'epsc_c'] = correction
+
+    print("Number of Entries in Datatable: ", len(df))
+    print("Number of Entries in Datatable, without correction: ", len(df.loc[(df['epsc_c'].isna())]))
+
+    ## Applying the correction to create [C/H]f and [C/Fe]f columns
+    df['ulc_f'] = np.nan
+    df['epsc_f'] = np.nan
+
+    for i, row in df.iterrows():
+
+        if pd.notna(row['epsc']) and pd.isna(row['ulc']):
+            if isinstance(row['[C/H]'], str):
+                df.at[i, 'epsc_f'] = float(row['epsc']) + row['epsc_c']
+                df.at[i, '[C/H]f'] = float(row['[C/H]']) + row['epsc_c']
+                df.at[i, '[C/Fe]f'] = float(row['[C/Fe]']) + row['epsc_c']
+                if ll_cfe_exist: 
+                    df.at[i, 'll[C/Fe]f'] = row['ll[C/Fe]'] + row['epsc_c']
+            elif isinstance(row['[C/H]'], (int, float)):
+                df.at[i, 'epsc_f'] = row['epsc'] + row['epsc_c']
+                df.at[i, '[C/H]f'] = row['[C/H]'] + row['epsc_c']
+                df.at[i, '[C/Fe]f'] = row['[C/Fe]'] + row['epsc_c']
+                if ll_cfe_exist:
+                    df.at[i, 'll[C/Fe]f'] = row['ll[C/Fe]'] + row['epsc_c']
+            else:
+                print("Error: [C/H] is not a correct value type.", i)
+
+        elif pd.isna(row['epsc']) and pd.notna(row['ulc']):
+            if isinstance(row['ul[C/H]'], str):
+                df.at[i, 'ulc_f'] = float(row['ulc']) + row['epsc_c']
+                df.at[i, 'ul[C/H]f'] = float(row['ul[C/H]']) + row['epsc_c']
+                df.at[i, 'ul[C/Fe]f'] = float(row['ul[C/Fe]']) + row['epsc_c']
+            elif isinstance(row['ul[C/H]'], (int, float)):
+                df.at[i, 'ulc_f'] = row['ulc'] + row['epsc_c']
+                df.at[i, 'ul[C/H]f'] = row['ul[C/H]'] + row['epsc_c']
+                df.at[i, 'ul[C/Fe]f'] = row['ul[C/Fe]'] + row['epsc_c']
+            else:
+                print("Error: ul[C/H] is not a correct value type.", i)
+                    
+    ## Apply spag.utils.normal_round() to new columns
+    new_cols = ['epsc_c', 'epsc_f', 'ulc_f', '[C/H]f', 'ul[C/H]f', 'ul[C/Fe]f', '[C/Fe]f']
+    new_cols += ['ll[C/Fe]f'] if ll_cfe_exist else []
+    for col in new_cols:
+        for i, row in df.iterrows():
+            if isinstance(row[col], str) and row[col] != '':  # Check for non-empty string
+                df.at[i, col] = normal_round(float(row[col]), 2)
+            elif isinstance(row[col], (int, float)):
+                df.at[i, col] = normal_round(row[col], 2)
+            elif row[col] == '':
+                df.at[i, col] = np.nan  # Convert the empty string to np.nan (or keep as empty string)
+            else:
+                print("Error: {} is not a correct value type.".format(col), i)
+
+            ## Remove 'nan' strings from the data
+            if 'nan' in str(row[col]):
+                df.at[i, col] = np.nan
+                
+    return df
 
 ################################################################################
 ## Calculating the CEMP fraction
