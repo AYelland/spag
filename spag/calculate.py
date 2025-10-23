@@ -66,8 +66,8 @@ def calc_carbon_correction_for_df(df, ulim_shift=0.3, ll_cfe_exist=True):
         
     missing_values_df = df.loc[missing_logg_mask | missing_feh_mask | missing_cfe_mask].copy()
     print("Entries with missing values (logg, feh, cfe): ", missing_values_df.shape[0])
-    for name in missing_values_df['Simbad_Identifier'].values:
-        print(f"   {name}")
+    for name, id in zip(missing_values_df['Name'].values, missing_values_df['Simbad_Identifier'].values):
+        print(f"   {name} ({id})")
 
     ## Calculate correction values
     print("Number of Entries in Datatable: ", len(df))
@@ -125,9 +125,9 @@ def calc_carbon_correction_for_df(df, ulim_shift=0.3, ll_cfe_exist=True):
                 if ll_cfe_exist: 
                     df.at[i, 'll[C/Fe]f'] = row['ll[C/Fe]'] + row['epsc_c']
             elif isinstance(row['[C/H]'], (int, float)):
-                df.at[i, 'epsc_f'] = row['epsc'] + row['epsc_c']
-                df.at[i, '[C/H]f'] = row['[C/H]'] + row['epsc_c']
-                df.at[i, '[C/Fe]f'] = row['[C/Fe]'] + row['epsc_c']
+                df.at[i, 'epsc_f'] = float(row['epsc']) + row['epsc_c']
+                df.at[i, '[C/H]f'] = float(row['[C/H]']) + row['epsc_c']
+                df.at[i, '[C/Fe]f'] = float(row['[C/Fe]']) + row['epsc_c']
                 if ll_cfe_exist:
                     df.at[i, 'll[C/Fe]f'] = row['ll[C/Fe]'] + row['epsc_c']
             else:
@@ -139,9 +139,9 @@ def calc_carbon_correction_for_df(df, ulim_shift=0.3, ll_cfe_exist=True):
                 df.at[i, 'ul[C/H]f'] = float(row['ul[C/H]']) + row['epsc_c']
                 df.at[i, 'ul[C/Fe]f'] = float(row['ul[C/Fe]']) + row['epsc_c']
             elif isinstance(row['ul[C/H]'], (int, float)):
-                df.at[i, 'ulc_f'] = row['ulc'] + row['epsc_c']
-                df.at[i, 'ul[C/H]f'] = row['ul[C/H]'] + row['epsc_c']
-                df.at[i, 'ul[C/Fe]f'] = row['ul[C/Fe]'] + row['epsc_c']
+                df.at[i, 'ulc_f'] = float(row['ulc']) + row['epsc_c']
+                df.at[i, 'ul[C/H]f'] = float(row['ul[C/H]']) + row['epsc_c']
+                df.at[i, 'ul[C/Fe]f'] = float(row['ul[C/Fe]']) + row['epsc_c']
             else:
                 print("Error: ul[C/H] is not a correct value type.", i)
                     
@@ -299,5 +299,10 @@ def calc_dtrans_columns(df, precision=2):
     for col in ['Dtrans_u', 'Dtrans_ulim', 'Dtrans_l', 'Dtrans_llim']:
         if col not in df.columns:
             df[col] = np.nan
+
+    ## Round the calculated values
+    for i, row in df.iterrows():
+        for col in ['Dtrans_u', 'Dtrans_ulim', 'Dtrans_l', 'Dtrans_llim']:
+            df.at[i, col] = normal_round(row[col], 2)
 
     return df
