@@ -210,16 +210,23 @@ def calc_cemp_fraction(df, feh_limit=-2.0, cfe_limit=0.7):
 def calc_dtrans(ch):
     """
     Calculate Dtrans values for the given [C/H] value.
+    
+        Dtrans = log10(10^[C/H] + 0.9 * 10^[O/H])
+    
+    (assumes carbon and oxygen production are correlated 
+    within -0.6 <= [C/O] <= 0.0, where [O/H] = [C/H] - [C/O])
+    
+    Returns: (Dtrans_l, Dtrans_u)
     """
     
     assert isinstance(ch, (float, int)), "Input ch must be a float or int"
 
     # [C/O] values, representing the delta (dex) between C and O abundances
-    co_lower = 0.0 
-    co_upper = -0.6
+    co_l = 0.0 # use the higher [C/O] value for lower [O/H] ==> lower Dtrans value
+    co_u = -0.6 # use the lower [C/O] value for higher [O/H] ==> upper Dtrans value
 
-    oh_l = ch - co_lower
-    oh_u = ch - co_upper
+    oh_l = ch - co_l
+    oh_u = ch - co_u
 
     Dtrans_l = np.log10(10**ch + (0.9 * 10**oh_l))
     Dtrans_u = np.log10(10**ch + (0.9 * 10**oh_u))
