@@ -36,7 +36,7 @@ group.add_argument("-c", "--coordinates", action="store_true", help="Use coordin
 args = parser.parse_args()
 reference = args.reference
 # base_path = f"/Users/ayelland/Research/metal-poor-stars/spag/spag/data/abundance_tables/{reference}"
-base_path = "/Users/ayelland/Research/metal-poor-stars/project/carbon-project-2025/"
+base_path = f"C:/Users/Jacky Li/School Stuff Main/sophomore fall/Stars UROP/spag/data/abundance_tables/{reference}"
 input_file = os.path.join(base_path, "astroquery.csv")
 
 # Collect results
@@ -67,13 +67,13 @@ for idx, row in coord_df.iterrows():
                 df = pd.DataFrame([{
                     'Found': False,
                     'JINA_ID': jinaid if 'jinaid' in locals() else None,
-                    'Query_ID': identifier, 
+                    'Query_ID': identifier,
                     'RA_input': ra_hms if 'ra_hms' in locals() else None,
-                    'DEC_input': dec_dms if 'dec_dms' in locals() else None 
+                    'DEC_input': dec_dms if 'dec_dms' in locals() else None
                 }])
         except Exception as e:
             df = pd.DataFrame([{
-                'Found': False, 
+                'Found': False,
                 'JINA_ID': jinaid if 'jinaid' in locals() else None,
                 'Query_ID': identifier,
                 'RA_input': ra_hms if 'ra_hms' in locals() else None,
