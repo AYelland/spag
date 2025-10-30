@@ -1763,8 +1763,9 @@ def load_roederer2024b():
     """
 
     ## Read in the data tables
-    obs_df = pd.read_csv(data_dir + "abundance_tables/roederer2024b/table1.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
-    param_df = pd.read_csv(data_dir + "abundance_tables/roederer2024b/table2.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    obs_param_df = pd.read_csv(data_dir + "abundance_tables/roederer2024b/table1.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    obs_df = pd.read_csv(data_dir + "abundance_tables/roederer2024b/table1a.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    param_df = pd.read_csv(data_dir + "abundance_tables/roederer2024b/table1b.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
     abund_df = pd.read_csv(data_dir + "abundance_tables/roederer2024b/table3.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
 
     ## Make the new column names
@@ -1791,10 +1792,10 @@ def load_roederer2024b():
     for i, name in enumerate(abund_df['Name'].unique()):
         roederer2024b_df.loc[i,'Name'] = name
         roederer2024b_df.loc[i,'Simbad_Identifier'] = obs_df.loc[obs_df['Name'] == name, 'Simbad_Identifier'].values[0]
-        roederer2024b_df.loc[i,'Reference'] = 'roederer+2024b'
+        roederer2024b_df.loc[i,'Reference'] = 'Roederer+2024b'
         roederer2024b_df.loc[i,'Ref'] = 'ROE24b'
         roederer2024b_df.loc[i,'I/O'] = 1
-        roederer2024b_df.loc[i,'Loc'] = 'HA' # [HA, BU, DS, DW, UF, GC]
+        roederer2024b_df.loc[i,'Loc'] = np.nan # [HA, BU, DS, DW, UF, GC]
         roederer2024b_df.loc[i,'System'] = obs_df.loc[obs_df['Name'] == name, 'System'].values[0]
         roederer2024b_df.loc[i,'RA_hms'] = obs_df.loc[obs_df['Name'] == name, 'RA_hms'].values[0]
         roederer2024b_df.loc[i,'RA_deg'] = scoord.ra_hms_to_deg(roederer2024b_df.loc[i,'RA_hms'], precision=6)
