@@ -35,8 +35,8 @@ group.add_argument("-c", "--coordinates", action="store_true", help="Use coordin
 
 args = parser.parse_args()
 reference = args.reference
-# base_path = f"/Users/ayelland/Research/metal-poor-stars/spag/spag/data/abundance_tables/{reference}"
-base_path = f"C:/Users/Jacky Li/School Stuff Main/sophomore fall/Stars UROP/spag/data/abundance_tables/{reference}"
+base_path = f"/Users/ayelland/Research/metal-poor-stars/spag/spag/data/abundance_tables/{reference}"
+# base_path = f"C:/Users/Jacky Li/School Stuff Main/sophomore fall/Stars UROP/spag/data/abundance_tables/{reference}"
 input_file = os.path.join(base_path, "astroquery.csv")
 
 # Collect results
