@@ -22,6 +22,7 @@ SPAG does have some dependence on packages that might warrant their own installa
 - pandas
 - scipy
 - astropy
+- astroquery
 - sqlalchemy
 - seaborn
 
