@@ -1,0 +1,207 @@
+J/ApJS/274/39   DR5 of the R-Process Alliance: GTC sp.   (Bandyopadhyay+, 2024)
+================================================================================
+The R-Process Alliance: fifth Data Release from the search for
+r-process-enhanced metal-poor stars in the Galactic halo with the GTC.
+    Bandyopadhyay A., Ezzeddine R., Allende Prieto C., Aria N., Shah S.P.,
+    Beers T.C., Frebel A., Hansen T.T., Holmbeck E.M., Placco V.M.,
+    Roederer I.U., Sakari C.M.
+   <Astrophys. J. Suppl. Ser., 274, 39 (2024)>
+   =2024ApJS..274...39B
+================================================================================
+ADC_Keywords: Spectra, optical; Stars, metal-deficient; Radial velocities;
+              Infrared sources; Equivalent widths; Abundances; Stars, halo
+Keywords: Stellar abundances ; R-process ; Nucleosynthesis ;
+          Population II stars ; Milky Way stellar halo ;
+          High resolution spectroscopy ; CEMP stars ; Nuclear astrophysics
+
+Abstract:
+    Understanding the abundance pattern of metal-poor stars and the
+    production of heavy elements through various nucleosynthesis processes
+    offers crucial insights into the chemical evolution of the Milky Way,
+    revealing primary sites and major sources of rapid neutron-capture
+    process (r-process) material in the Universe. In this fifth data
+    release from the R-Process Alliance (RPA), we present the detailed
+    chemical abundances of 41 faint (down to V=15.8) and extremely
+    metal-poor (down to [Fe/H]=-3.3) halo stars selected from the RPA. We
+    obtained high-resolution spectra for these objects with the HORuS
+    spectrograph on the Gran Telescopio Canarias. We measure the
+    abundances of light, {alpha}, Fe-peak, and neutron-capture elements.
+    We report the discovery of five carbon-enhanced metal-poor, one
+    limited-r, three r-I, and four r-II stars, and six Mg-poor stars. We
+    also identify one star of a possible globular cluster origin at an
+    extremely low metallicity at [Fe/H]=-3.0. This adds to the growing
+    evidence of a lower-limit metallicity floor for globular cluster
+    abundances. We use the abundances of Fe-peak elements and the
+    {alpha}-elements to investigate the contributions from different
+    nucleosynthesis channels in the progenitor supernovae. We find the
+    distribution of [Mg/Eu] as a function of [Fe/H] to have different
+    enrichment levels, indicating different possible pathways and sites of
+    their production. We also reveal differences in the trends of the
+    neutron-capture element abundances of Sr, Ba, and Eu of various r-I
+    and r-II stars from the RPA data releases, which provide constraints
+    on their nucleosynthesis sites and subsequent evolution.
+
+Description:
+    The observing program was carried out as a part of the R-Process
+    Alliance (RPA) "snapshot" survey efforts, during which moderately
+    high-resolution (R~30000) spectra at intermediate signal-to-noise
+    ratios (SNR; ~30) are obtained in order to identify new
+    r-process-enhanced (RPE) stars.
+
+    The targets were observed at a spectral resolving power of R~25000,
+    using the High Optical Resolution Spectrograph (HORuS) on the 10.4m
+    Gran Telescopio Canarias (GTC) located on La Palma, Canary Islands,
+    Spain. Spectra for 45 metal-poor stars were obtained as a part of the
+    FILLER program on the GTC in 2020. Data for four objects had to be
+    discarded due to poor quality, reducing the number of stars in this
+    study to 41. The exposure times varied between 600s and 2000s.
+
+File Summary:
+--------------------------------------------------------------------------------
+ FileName    Lrecl  Records  Explanations
+--------------------------------------------------------------------------------
+ReadMe          80        .  This file
+table1.dat      85       41  Observational details of the target stars
+table2.dat      76       41  Stellar atmospheric parameters of the target stars
+table5.dat      69     5524  Atomic line properties, equivalent widths,
+                              absolute abundances, and measurement uncertainties
+                              of the target stars
+--------------------------------------------------------------------------------
+
+See also:
+ II/246  : 2MASS All-Sky Catalog of Point Sources (Cutri+ 2003)
+ V/156   : LAMOST DR7 catalogs (Luo+, 2019)
+ III/283 : RAVE 6th data release (Steinmetz+, 2020)
+ I/355   : Gaia DR3 Part 1. Main source (Gaia Collaboration, 2022)
+ J/AJ/90/2089     : Stars of very low metal abundance. I (Beers+, 1985)
+ J/AJ/103/1987    : Stars of very low metal abundance (Beers+ 1992)
+ J/ApJ/595/1154   : Oxygen abundances in metal-poor stars (Fulbright+, 2003)
+ J/A+A/416/1117   : Abundances in the early Galaxy (Cayrel+, 2004)
+ J/ApJ/617/1091   : La and Eu abundances in 85 stars (Simmerer+, 2004)
+ J/AJ/130/2140    : Abundances & velocities in globular clusters (Pritzl+, 2005)
+ J/ApJ/655/492    : Equivalent widths of 26 metal-poor stars (Aoki+, 2007)
+ J/ApJ/681/1524   : Detailed abundances for 28 metal-poor stars (Lai+, 2008)
+ J/A+A/490/777    : Abundances of Population II stars in NGC 6397 (Lind+, 2008)
+ J/A+A/501/519    : Extremely metal-poor turnoff stars abund. (Bonifacio+, 2009)
+ J/A+A/505/139    : Abundances of red giants in 17 GCs (Carretta+, 2009)
+ J/ApJ/724/341    : Nucleosynthesis of massive metal-free stars (Heger+, 2010)
+ J/AJ/141/175     : Abundances in M15 RGB/RHB stars (Sobeck+, 2011)
+ J/ApJS/199/38    : Presupernova evolution (Limongi+, 2012)
+ J/ApJ/757/164    : Oxygen abundances of dwarf stars (Ramirez+, 2012)
+ J/ApJ/769/87     : Kinematics of halo red giants (Carollo+, 2013)
+ J/ApJ/778/56     : Hamburg/ESO Survey extremely metal-poor stars (Cohen+, 2013)
+ J/ApJ/769/57     : Equivalent widths of metal-poor stars (Frebel+, 2013)
+ J/ApJ/762/26     : Most metal-poor stars. II. 190 Gal. halo stars (Yong+, 2013)
+ J/ApJ/788/180    : Very metal-poor stars in the MW's halo (Carollo+, 2014)
+ J/ApJ/797/21     : Carbon-enhanced metal-poor stars (Placco+, 2014)
+ J/ApJ/797/69     : Abundances of late-type stars (Roederer+, 2014)
+ J/AJ/147/136     : Stars of very low metal abundance. VI. (Roederer+, 2014)
+ J/A+A/579/A28    : Abundances of 3 CEMP stars (Bonifacio+, 2015)
+ J/ApJ/830/93     : Abundances of Ret II brightest red giant members (Ji+, 2016)
+ J/AJ/151/82      : The 4 brightest red giants in Ret 2 (Roederer+, 2016)
+ J/ApJ/833/20     : Carbon-enhanced metal-poor (CEMP) star abund. (Yoon+, 2016)
+ J/ApJ/847/142    : Ultra-metal-poor stars LTE & NLTE abund. (Ezzeddine+, 2017)
+ J/MNRAS/465/501  : APOGEE N-rich stars in inner Galaxy (Schiavon+, 2017)
+ J/ApJ/864/43     : Abund. of 3 bright extremely metal-poor giants (Cain+, 2018)
+ J/ApJ/869/50     : Barium abundances of red giant branch stars (Duggan+, 2018)
+ J/ApJ/858/92     : RPA Southern Pilot Search of 107 Stars (Hansen+, 2018)
+ J/AJ/155/256     : Sp. validation of RAVE metal-poor stars (Placco+, 2018)
+ J/AJ/156/179     : r-process-enhanced field stars kinematics (Roederer+, 2018)
+ J/ApJ/868/110    : R-Process Alliance: 1st release in Gal. halo (Sakari+, 2018)
+ J/A+A/630/A104   : Disk and halo stars C, O and Fe abundances (Amarsi+, 2019)
+ J/A+A/631/A80    : Mn lines formation in late-type stars (Bergemann+, 2019)
+ J/MNRAS/490/2219 : s-process enhanced stars in LAMOST (Norfolk+, 2019)
+ J/ApJ/870/122    : Sp. of low-metallicity star candidates (Placco+, 2019)
+ J/ApJ/883/84     : MIKE obs. of 2 metal-poor stars in Sylgr (Roederer+, 2019)
+ J/ApJ/890/119    : Iron abund. in 3 very metal-poor stars (Cowan+, 2020)
+ J/ApJ/898/150    : High-res. MIKE obs. of metal-poor stars (Ezzeddine+, 2020)
+ J/ApJS/249/30    : RPA: metal-poor star spectroscopy (Holmbeck+, 2020)
+ J/ApJ/897/78     : RAVE J183013.5-455510 equivalent-widths (Placco+, 2020)
+ J/A+A/654/A170   : Abundances of metal-poor stars (Matas Pinto+, 2021)
+ J/other/Nat/601.45 : C-19 stream members (Martin+, 2022)
+ J/ApJS/260/27    : R-Process Alliance: UV sp. of HD 222925 (Roederer+, 2022)
+ J/A+A/671/A124   : Composition of 206 SMC red giants (Mucciarelli+, 2023)
+ J/A+A/682/A116   : Galactic halo stars abundances (Nissen+, 2024)
+
+Byte-by-byte Description of file: table1.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units    Label   Explanations
+--------------------------------------------------------------------------------
+   1-  5 A5     ---      ---     [2MASS]
+   7- 23 A17    ---      2MASS   2MASS identifier (JHHMMSSss+DDMMSSs)
+      25 A1     ---    f_2MASS   Flag on 2MASS (1)
+  27- 28 I2     h        RAh     Hour of right ascension (J2000)
+  30- 31 I2     min      RAm     Minute of right ascension (J2000)
+  33- 38 F6.3   s        RAs     Second of right ascension (J2000)
+      40 A1     ---      DE-     Sign of declination (J2000)
+  41- 42 I2     deg      DEd     Degree of declination (J2000)
+  44- 45 I2     arcmin   DEm     Arcminute of declination (J2000)
+  47- 51 F5.2   arcsec   DEs     Arcsecond of declination (J2000)
+  53- 57 F5.2   mag      Vmag    [10.7/15.81]? Visual magnitude
+  59- 63 F5.2   mag      Jmag    [10.4/13.74] J-band magnitude
+  65- 68 I4     s        Exp     [600/2000] Exposure time
+  70- 71 I2     ---      SNR     [9/48] Signal-to-noise ratio at 5000{AA}
+  73- 78 F6.1   km/s     RVGaia  [-285.9/353.4]? Radial velocity from Gaia
+  80- 85 F6.1   km/s     HRV     [-392.2/353.4] Heliocentric radial velocity
+                                  from our spectra
+--------------------------------------------------------------------------------
+Note (1): Flag as follows:
+  a = Likely binary star, based on the reported RUWE from Gaia.
+  b = Potential binary star, based on deviations in RV of more than 1{sigma}
+      between the Gaia RVs and our determination.
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table2.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units     Label    Explanations
+--------------------------------------------------------------------------------
+   1-  5 A5     ---       ---      [2MASS]
+   7- 23 A17    ---       2MASS    2MASS identifier (JHHMMSSss+DDMMSSs)
+  25- 28 I4     K         Teff     [4140/5900] LTE effective temperature
+  30- 33 F4.2   [cm/s2]   logg     [0.02/3.92] LTE log of surface gravity
+  35- 38 F4.2   km/s      Vt       [0.49/3.46] LTE microturbulent velocity
+  40- 44 F5.2   [-]       [Fe/H]   [-3.45/-0.19] LTE metallicity
+  46- 49 I4     K         Teffc    [4396/5980] LTE_corr_ effective
+                                    temperature (2)
+  51- 54 F4.2   [cm/s2]   loggc    [0.58/4.13] LTE_corr_ log of surface gravity
+  56- 59 F4.2   km/s      Vtc      [0.92/3.81] LTE_corr_ microturbulent velocity
+  61- 65 F5.2   [-]       [Fe/H]c  [-3.3/-0.14] LTE_corr_ metallicity
+  67- 70 F4.2   [-]       sigma    [0.11/0.29] {sigma}_[FeI/H]_
+  72- 73 I2     ---       NFeI     [32/92] Number of FeI lines
+  75- 76 I2     ---       NFeII    [3/14] Number of FeII lines
+--------------------------------------------------------------------------------
+Note (2): The corrected Teff were determined following the empirical calibration
+    of the derived Teff to a photometric scale as given by
+    Frebel+ 2013ApJ...769...57F: T_eff_(FR13_corr_)=0.9xT_eff_(LTE)+670
+--------------------------------------------------------------------------------
+
+
+Byte-by-byte Description of file: table5.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units    Label    Explanations
+--------------------------------------------------------------------------------
+   1-  5 A5     ---      ---      [2MASS]
+   7- 23 A17    ---      2MASS    2MASS identifier (JHHMMSSss+DDMMSSs)
+  25- 28 F4.1   ---      Species  [11.0/30.0] Species code identifier (1)
+  30- 37 F8.3   10-10m   Wave     [3842/6768] Wavelength; Angstroms
+  39- 43 F5.3   eV       ExPot    [0/4.6] Excitation potential
+  45- 50 F6.3   [-]      loggf    [-4.8/0.64] log oscillator strength
+  52- 57 F6.2   10-13m   EW       [1.5/447] Equivalent width; milli-Angstroms
+  59- 62 F4.2   10-13m e_EW       [0.1/2] Uncertainty in EW
+  64- 69 F6.3   [-]      A(X)     [-0.52/7.74] log absolute abundance
+--------------------------------------------------------------------------------
+Note (1): In the code, XX.Y, XX is the atomic number and Y is the ionization,
+          e.g. 11.0 is Na I, 21.1 is Sc II, etc.
+--------------------------------------------------------------------------------
+
+History:
+    From electronic version of the journal
+
+References:
+    Hansen et al.      DR1-S.   2018ApJ...858...92H   Cat. J/ApJ/858/92
+    Sakari et al.      DR1-N.   2018ApJ...868..110S   Cat. J/ApJ/868/110
+    Ezzeddine et al.   MIKE     2020ApJ...898..150E   Cat. J/ApJ/898/150
+    Holmbeck et al.    DR4      2020ApJS..249...30H   Cat. J/ApJS/249/30
+
+================================================================================
+(End)                    Prepared by [AAS], Emmanuelle Perret [CDS]  11-Mar-2025
