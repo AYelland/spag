@@ -1,0 +1,82 @@
+\begin{deluxetable*}{ccccccccccccccccc}
+\tablecaption{Eu, Pb, Th, and U Abundance Ratios:\ Uncertainties, Producion Ratios, and Inferred Ages
+\label{tab:uranium}}
+\tablewidth{0pt}
+\tabletypesize{\small} %\scriptsize}
+\tablehead{
+\colhead{(1)} &
+\colhead{(2)} &
+\colhead{(3)} &
+\colhead{(4)} &
+\colhead{(5)} &
+\colhead{(6)} &
+\colhead{(7)} &
+\colhead{(8)} &
+\colhead{(9)} &
+\colhead{(10)} &
+\colhead{} &
+\colhead{(11)} &
+\colhead{(12)} &
+\colhead{(13)} &
+\colhead{(14)} &
+\colhead{(15)} &
+\colhead{(16)} \\
+\hline
+\colhead{\logeps{X}} &
+\colhead{Value} &
+\colhead{$\sigma_{\log gf}$} &
+\colhead{$\sigma_{\rm atm}$} &
+\colhead{$\sigma_{\rm fit}$} &
+\colhead{$\sigma_{\rm total}$} &
+\multicolumn{4}{c}{Production Ratios} &
+\colhead{} &
+\multicolumn{4}{c}{Age} &
+\colhead{$\sigma_{\rm age,\,PR}$} &
+\colhead{$\sigma_{\rm age,\,obs}$} \\
+\cline{7-10} \cline{12-15} \\
+\colhead{} &
+\colhead{} &
+\colhead{} &
+\colhead{} &
+\colhead{} &
+\colhead{} &
+\colhead{C02} &
+\colhead{S02} &
+\colhead{K07} &
+\colhead{H17} &
+\colhead{} &
+\colhead{C02} &
+\colhead{S02} &
+\colhead{K07} &
+\colhead{H17} & 
+\colhead{} &
+\colhead{}
+}
+\startdata
+% The ages are computed using ~/data/rprocess/rpa/j2213-5137/age.py
+Th/Eu  & $-$0.55 &  0.01 &  0.04 &  0.06 &  0.08 & $-$0.29 & $-$0.33 & $-$0.34 & $-$0.24 && 12.0  & 10.3  &   9.9 &  14.6 & 4.5   & 3.7   \\
+U/Eu   & $-$1.51 &  0.05 &  0.04 &  0.15 &  0.16 & $-$0.55 & $-$0.55 & $-$0.54 & $-$0.52 && 14.2  & 14.1  &  14.4 &  14.7 & 1.5   & 2.4   \\
+U/Th   & $-$0.96 &  0.05 &  0.01 &  0.15 &  0.16 & $-$0.26 & $-$0.22 & $-$0.20 & $-$0.28 && 15.1  & 16.2  &  16.5 &  14.8 & 2.2   & 3.5   \\
+Pb/Eu  & $<$0.73 &\nodata&\nodata&\nodata&\nodata& \nodata & \nodata &    0.61 & \nodata &&\nodata&\nodata& (any) &\nodata&\nodata&\nodata\\
+Pb/Th  & $<$1.28 &\nodata&\nodata&\nodata&\nodata& \nodata & \nodata &    0.95 & \nodata &&\nodata&\nodata&$<$11.6&\nodata& 4.3   &\nodata\\
+Pb/U   & $<$2.24 &\nodata&\nodata&\nodata&\nodata& \nodata & \nodata &    0.81 & \nodata &&\nodata&\nodata&$<$14.2&\nodata& 1.5   &\nodata\\
+\hline                                                                                                                                    
+Mean   &         &       &       &       &       &         &         &         &         && 13.8  & 13.5  &  13.6 &  14.7 &       &       
+\enddata
+\tablecomments{%
+All ages are reported in units of Gyr.
+$\sigma_{\rm age,\,PR}$ is the component of the age uncertainty 
+due to an uncertainty in the $\log$ of the production ratio
+of 0.1~dex ($\approx 20$~\%).
+$\sigma_{\rm age,\,obs}$ is the component of the age uncertainty
+due to observational uncertainties (column 6).
+}
+%\tablenotetext{a}{%
+%}
+\tablereferences{%
+C02 = \citet{cowan02}, based on \citet{cowan99};
+S02 = \citet{schatz02};
+K07 = \citet{kratz07}, ``fit2'', including Pb predictions from \citet{roederer09b};
+H17 = \citet{hill17}.
+}
+\end{deluxetable*}
