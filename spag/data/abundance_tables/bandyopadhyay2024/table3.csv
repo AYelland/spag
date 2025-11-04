@@ -1,0 +1,23 @@
+Table 3 
+Example Systematic Uncertainties for 2MASS J02462013-1518418
+
+
+Element	DeltaT _eff	Delta$\mathrm{log}g$	Deltanu _micr	Total	
+	(dex)	(dex)	(dex)	(dex)	
+CH (syn)	+0.19	-0.07	-0.02	0.20	
+Na I	+0.14	-0.05	-0.07	0.16	
+Mg I	+0.11	-0.07	-0.02	0.13	
+Al I	+0.15	-0.09	-0.09	0.20	
+Si I	+0.11	-0.03	-0.04	0.12	
+Ca I	+0.13	-0.04	-0.07	0.15	
+Sc II (syn)	+0.10	+0.05	-0.06	0.13	
+Ti I	+0.19	-0.02	-0.03	0.19	
+Ti II	+0.08	+0.06	-0.05	0.11	
+V II	+0.09	+0.04	-0.06	0.12	
+Cr I	+0.19	-0.03	-0.08	0.21	
+Mn I	+0.28	-0.04	-0.04	0.29	
+Co I (syn)	+0.20	-0.07	-0.03	0.21	
+Ni I	+0.16	-0.05	-0.08	0.19	
+Sr II (syn)	+0.18	+0.08	-0.09	0.22	
+Ba II (syn)	+0.17	+0.09	-0.10	0.22	
+Eu II (syn)	+0.13	+0.11	+0.06	0.18	
