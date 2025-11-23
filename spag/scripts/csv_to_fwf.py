@@ -22,15 +22,20 @@ def csv_to_fwf(input_csv, output_fwf):
     print(f"CSV converted to FWF: {output_fwf}")
 
 if __name__ == "__main__":
-    if len(sys.argv) != 4:
-        print("Usage: python script.py [fwf_to_csv|csv_to_fwf] input_file output_file")
-        sys.exit(1)
 
-    mode, input_file, output_file = sys.argv[1], sys.argv[2], sys.argv[3]
+    if len(sys.argv) > 1:
+        if len(sys.argv) != 4:
+            print("Usage: python script.py [fwf_to_csv|csv_to_fwf] input_file output_file")
+            sys.exit(1)
+        mode, input_file, output_file = sys.argv[1], sys.argv[2], sys.argv[3]
+    else:
+        mode = input("Enter mode\n1) fwf_to_csv\n2) csv_to_fwf\n>> ")
+        input_file = input("Enter input file path: ")
+        output_file = input("Enter output file path: ")
 
-    if mode == 'fwf_to_csv':
+    if mode == 'fwf_to_csv' or mode == '1':
         fwf_to_csv(input_file, output_file)
-    elif mode == 'csv_to_fwf':
+    elif mode == 'csv_to_fwf' or mode == '2':
         csv_to_fwf(input_file, output_file)
     else:
         print("Invalid mode. Use 'fwf_to_csv' or 'csv_to_fwf'.")
