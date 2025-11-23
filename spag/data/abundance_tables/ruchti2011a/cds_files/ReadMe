@@ -1,0 +1,169 @@
+J/ApJ/737/9  RAVE spectroscopic data of stars in the thick disk  (Ruchti+, 2011)
+================================================================================
+Observational properties of the metal-poor thick disk of the Milky Way and
+insights into its origins.
+    Ruchti G.R., Fulbright J.P., Wyse R.F.G., Gilmore G.F., Bienayme O.,
+    Bland-Hawthorn J., Gibson B.K., Grebel E.K., Helmi A., Munari U.,
+    Navarro J.F., Parker Q.A., Reid W., Seabroke G.M., Siebert A., Siviero A.,
+    Steinmetz M., Watson F.G., Williams M., Zwitter T.
+   <Astrophys. J., 737, 9 (2011)>
+   =2011ApJ...737....9R
+================================================================================
+ADC_Keywords: Abundances ; Radial velocities ; Stars, giant ; Stars, distances ;
+              Milky Way
+Keywords: Galaxy: abundances - Galaxy: disk - stars: abundances -
+          stars: late-type
+
+Abstract:
+    We have undertaken the study of the elemental abundances and kinematic
+    properties of a metal-poor sample of candidate thick-disk stars
+    selected from the Radial Velocity Experiment spectroscopic survey of
+    bright stars to differentiate among the present scenarios of the
+    formation of the thick disk. In this paper, we report on a sample of
+    214 red giant branch, 31 red clump/horizontal branch, and 74
+    main-sequence/sub-giant branch metal-poor stars, which serves to
+    augment our previous sample of only giant stars. We find that the
+    thick disk [{alpha}/Fe] ratios are enhanced and have little variation
+    (<0.1dex), in agreement with our previous study. The augmented sample
+    further allows, for the first time, investigation of the gradients in
+    the metal-poor thick disk.
+
+Description:
+    All candidate stars were first selected from the internal RAVE catalog
+    (Version DR2; see Cat. III/265). Observations were conducted during
+    the period between 2007 May and 2009 February. All high-resolution
+    spectra were obtained using one of the following echelle
+    spectrographs: MIKE on the Magellan-Clay telescope at Las Campanas
+    Observatory in Chile, FEROS on the MPG 2.2m telescope at ESO La Silla
+    Observatory in Chile, UCLES on the Anglo-Australian telescope in
+    Australia, and the ARC echelle spectrograph on the Apache Point 3.5m
+    telescope in New Mexico. The instrumental setups gave resolving powers
+    between 35000 and 45000, providing complete spectral coverage from
+    3500{AA} to 9500{AA}, except for UCLES which had complete spectral
+    coverage between 4460{AA} and 7270{AA}.
+
+File Summary:
+--------------------------------------------------------------------------------
+ FileName   Lrecl  Records   Explanations
+--------------------------------------------------------------------------------
+ReadMe         80        .   This file
+table1.dat     55      328   Observational data
+table2.dat     68      319   Atmospheric and abundance-ratio data
+table3.dat     87      319   Kinematic data
+table4.dat     60      319   Orbital parameters
+--------------------------------------------------------------------------------
+
+See also:
+ III/265 : RAVE 3rd data release (Siebert+, 2011)
+ J/A+A/522/A54  : Distance determination for RAVE stars. II. (Zwitter+, 2010)
+ J/A+A/513/A35  : Abundances of Galactic red giants (Alves-Brito+, 2010)
+ J/A+A/511/A90  : RAVE DR2 distance catalogue (Breddels+, 2010)
+ J/ApJ/725/L186 : Orbital eccentricities of 31535 G-dwarfs (Dierickx+, 2010)
+ J/MNRAS/367/1329 : Elemental abundances for 176 stars (Reddy+, 2006)
+ J/AJ/131/431   : Abundances of Galactic G dwarfs (Brewer+, 2006)
+ J/A+A/438/139  : Abundances in Milky Way's disk (Soubiran+, 2005)
+ J/A+A/418/551  : Galactic disk stars abundances & vel. (Mishenina+, 2004)
+ J/A+A/410/527  : Abundances in the Galactic disk (Bensby+, 2003)
+ J/A+A/398/141  : Vertical distribution of galactic disk stars (Soubiran+, 2003)
+ J/AJ/120/1841  : Abundances & Kinematics of Halo & Disk Stars (Fulbright 2000)
+
+Byte-by-byte Description of file: table1.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1- 16  A16   ---     Name      Star name
+  18- 24  F7.3  deg     RAdeg     Right Ascension in decimal degrees (J2000)
+  26- 32  F7.3  deg     DEdeg     Declination in decimal degrees (J2000)
+  34- 37  F4.1  mag     Imag      [9/11.9] RAVE I band magnitude
+  39- 47  A9    ---     Date      Observation date; yyyymmdd or yyyycombo (1)
+  49- 51  A3    ---     Obs       Observatory code (2)
+  53- 55  I3    pix-1   S/N       [100/280] Estimated signal to noise between
+                                  5500-6000{AA}
+--------------------------------------------------------------------------------
+Note (1): 2009combo or 2007combo refers to the combined spectra from two
+          different nights of the same run. For APO runs, "combo" refers to
+          combined spectra from different runs.
+Note (2): Observatory code as follows:
+    LCO = Las Campanas Observatory Magellan-Clay telescope
+    APO = Apache Point 3.5-m telescope;
+    AAT = Anglo-Australian telescope;
+    ESO = ESO La Silla Observatory MPG 2.2-m telescope.
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table2.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label    Explanations
+--------------------------------------------------------------------------------
+   1- 16  A16   ---     Name     Star name
+  18- 21  I4    K       Teff     [4043/6496] Effective temperature
+  23- 26  F4.2  [cm/s2] log(g)   [0.66/4.44] Log of the surface gravity
+  28- 32  F5.2  [Sun]   [Fe/H]   [-2.83/-0.37] Log of the FeII/H abundance ratio
+  34- 37  F4.1  km/s    Vturb    [-0.1/5.9] Microturbulent velocity {xi}
+  39- 43  F5.2  [-]     [Mg]     Log of the Mg/FeI abundance ratio
+  45- 50  F6.2  [-]     [Si]     ?=-99.99 Log of the Si/FeI abundance ratio
+  52- 56  F5.2  [-]     [Ca]     Log of the Ca/FeI abundance ratio
+  58- 62  F5.2  [-]     [TiI]    Log of the TiI/FeI abundance ratio
+  64- 68  F5.2  [-]     [TiII]   Log of the TiII/FeII abundance ratio
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table3.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label   Explanations
+--------------------------------------------------------------------------------
+   1- 16  A16   ---     Name    Star name
+  18- 22  I5    pc      Dist    [89/15699] Distance
+  24- 29  F6.1  km/s    Vhel    [-145.8/248.7] Heliocentric velocity
+  31- 36  F6.1  km/s    Vpi     Velocity component in radial direction toward
+                                Galactic center V_{Pi}_
+  38- 42  F5.1  km/s  e_Vpi     Uncertainty in Vpi
+  44- 49  F6.1  km/s    Vth     Velocity component in direction of
+                                Galactic rotation V_{Theta}_
+  51- 55  F5.1  km/s  e_Vth     Uncertainty in Vth
+  57- 62  F6.1  km/s    VZ      Velocity component perpendicular to
+                                Galactic Plane V_Z_
+  64- 68  F5.1  km/s  e_VZ      Uncertainty in VZ
+  70- 73  F4.2  ---     Pthin   Thin disk PDF value (1)
+  75- 78  F4.2  ---     Pthick  Thick disk PDF value (1)
+  80- 83  F4.2  ---     Phalo   Halo PDF value (1)
+  85- 87  F3.1  ---     Pop     [1/3] Galactic population assignment (2)
+--------------------------------------------------------------------------------
+Note (1):  In the analysis, additional intermediate populations were
+     considered; PDF values are the sum of the probabilities (normalized)
+     obtained from all Monte Carlo realizations for each Galactic population.
+Note (2): Populations are numbered as: 
+    1 = thin disk;
+    2 = thick disk;
+    3 = halo
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table4.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1- 16  A16   ---     Name      Star name
+  18- 20  I3    ---     Norb      [2/614] Number of orbits
+  22- 25  F4.1  kpc     Rper.a    [0/15.9] Perigalactic radius from all orbits
+  27- 32  F6.1  kpc     Rapo.a    Apogalactic radius from all orbits (1)
+  34- 39  F6.1  kpc     Zmax.a    Maximum vertical distance from all orbits
+  41- 44  F4.1  kpc     Rper.f    Perigalactic radius from final orbit
+  46- 50  F5.1  kpc     Rapo.f    Apogalactic radius from final orbit (1)
+  52- 56  F5.1  kpc     Zmax.f    Maximum vertical distance from final orbit
+  58- 60  F3.1  ---     e         [0/1] Orbit Eccentricity
+--------------------------------------------------------------------------------
+Note (1): Stars with Apogalactic radii >100kpc have larger distance errors
+          and/or high proper motion errors.
+--------------------------------------------------------------------------------
+
+Nomenclature notes:
+   Star names follow three formats: <CHHMMSSs+DDMMSS>, <JHMMSS.s+DDMMSS> or
+   <TFFFF_NNNNN_N>. These objects are <RAVE JHHMMSS.s+DDMMSS> in Simbad (See
+   "RAVE" column in Cat. III/265. <TFFFF_NNNNN_N> = TYC FFFF NNNNN N.
+
+History:
+   From electronic version of the journal
+
+References:
+   Ruchti et al. Thick Disk as Traced by the Alpha Elements. 2010ApJ...721L..92R
+
+================================================================================
+(End)                 Greg Schwarz [AAS], Emmanuelle Perret [CDS]    07-Jan-2013
