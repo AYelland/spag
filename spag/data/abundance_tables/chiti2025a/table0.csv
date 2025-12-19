@@ -1,0 +1,2 @@
+Name,Simbad_Identifier,System,RA_hms,DEC_dms,Date,Instrument,gmag,Vel,e_Vel,Teff,e_Teff,logg,e_logg,Fe/H,Vmic
+PicII-503,Gaia DR3 5480105831331104384,Pictor II,06:43:59.01,-60:08:24.93,02 Jan 2025,MagE,20.35,331.7,3.1,5320,150,2.71,0.30,-4.63,1.6

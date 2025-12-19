@@ -1,0 +1,370 @@
+J/ApJ/868/110  R-Process Alliance: 1st release in Galactic halo  (Sakari+, 2018)
+================================================================================
+The R-Process Alliance: first release from the northern search for
+r-process-enhanced metal-poor stars in the Galactic halo.
+    Sakari C.M., Placco V.M., Farrell E.M., Roederer I.U., Wallerstein G.,
+    Beers T.C., Ezzeddine R., Frebel A., Hansen T., Holmbeck E.M., Sneden C.,
+    Cowan J.J., Venn K.A., Davis C.E., Matijevic G., Wyse R.F.G.,
+    Bland-Hawthorn J., Chiappini C., Freeman K.C., Gibson B.K., Grebel E.K.,
+    Helmi A., Kordopatis G., Kunder A., Navarro J., Reid W., Seabroke G.,
+    Steinmetz M., Watson F.
+   <Astrophys. J., 868, 110 (2018)>
+   =2018ApJ...868..110S
+================================================================================
+ADC_Keywords: Stars, metal-deficient; Abundances; Equivalent widths;
+              Radial velocities; Spectra, optical; Stars, halo
+Keywords: Galaxy: formation ; stars: abundances ; stars: atmospheres ;
+          stars: fundamental parameters
+
+Abstract:
+    This paper presents the detailed abundances and r-process
+    classifications of 125 newly identified metal-poor stars as part of an
+    ongoing collaboration, the R-Process Alliance. The stars were
+    identified as metal-poor candidates from the RAdial Velocity
+    Experiment (RAVE) and were followed up at high spectral resolution
+    (R~31500) with the 3.5m telescope at Apache Point Observatory. The
+    atmospheric parameters were determined spectroscopically from FeI
+    lines, taking into account <3D> non-LTE corrections and using
+    differential abundances with respect to a set of standards. Of the 125
+    new stars, 124 have [Fe/H]{<}-1.5, 105 have [Fe/H]{<}-2.0, and 4 have
+    [Fe/H]{<}-3.0. Nine new carbon-enhanced metal-poor stars have been
+    discovered, three of which are enhanced in r-process elements.
+    Abundances of neutron-capture elements reveal 60 new r-I stars (with
+    +0.3<=[Eu/Fe]<=+1.0 and [Ba/Eu]<0) and 4 new r-II stars (with
+    [Eu/Fe]>+1.0). Nineteen stars are found to exhibit a "limited-r"
+    signature ([Sr/Ba]>+0.5, [Ba/Eu]<0). For the r-II stars, the second-
+    and third-peak main r-process patterns are consistent with the
+    r-process signature in other metal-poor stars and the Sun. The
+    abundances of the light, {alpha}, and Fe-peak elements match those of
+    typical Milky Way (MW) halo stars, except for one r-I star that has
+    high Na and low Mg, characteristic of globular cluster stars.
+    Parallaxes and proper motions from the second Gaia data release yield
+    UVW space velocities for these stars that are consistent with
+    membership in the MW halo. Intriguingly, all r-II and the majority of
+    r-I stars have retrograde orbits, which may indicate an accretion
+    origin.
+
+Description:
+    All targets were observed in 2015-2017 with the Astrophysical Research
+    Consortium (ARC) 3.5m telescope at Apache Point Observatory (APO). The
+    seeing ranged from 0.6" to 2", with a median value of 1.15". The ARC
+    Echelle Spectrograph (ARCES) was utilized in its default setting, with
+    a spectral resolution of R~31500, covering the entire optical range,
+    from 3800 to 10400{AA}.
+
+File Summary:
+--------------------------------------------------------------------------------
+ FileName    Lrecl  Records  Explanations
+--------------------------------------------------------------------------------
+ReadMe          80        .  This file
+table1.dat     133      149  Targets
+table3.dat      86      125  Atmospheric parameters and [C/Fe]: target stars
+table5.dat     112      145  The r-process-enhancement classifications and Sr,
+                              Ba, and Eu Abundance Ratios
+table6.dat     365      145  Elemental abundances
+table9.dat      56      125  LTE atmospheric parameters: target stars
+ew.dat          44    76625  Equivalent widths for the 125 target stars
+                              (from Table 12)
+abund.dat       47    10875  Abundances for the 125 target stars
+                              from synthesized lines (from Table 13)
+--------------------------------------------------------------------------------
+
+See also:
+ I/311   : Hipparcos, the New Reduction (van Leeuwen, 2007)
+ III/279 : RAVE 5th data release (Kunder+, 2017)
+ I/347   : Dist to 1.33 billion stars in Gaia DR2 (Bailer-Jones+, 2018)
+ I/345   : Gaia DR2 (Gaia Collaboration, 2018)
+ J/AJ/128/1177    : Galactic stellar abundances (Venn+, 2004)
+ J/A+A/439/129    : HERES II. Spectroscopic analysis (Barklem+, 2005)
+ J/ApJ/636/821    : Abundances of Baade's Window K giants (Fulbright+, 2006)
+ J/MNRAS/367/1329 : Elemental abundances for 176 stars (Reddy+, 2006)
+ J/AJ/135/1551    : Abundances of stars in 47 Tuc (Koch+, 2008)
+ J/A+A/505/139    : Abundances of red giants in 17 GCls (Carretta+, 2009)
+ J/A+A/511/L10    : Abundances and space velocities of 94 stars (Nissen+, 2010)
+ J/A+A/512/A54    : Teff and Fbol from Infrared Flux Method (Casagrande+, 2010)
+ J/ApJ/724/975    : Heavy elements abund of metal-poor stars (Roederer+, 2010)
+ J/ApJ/737/9      : RAVE spectro data stars in the thick disk (Ruchti+, 2011)
+ J/ApJ/743/140    : Abund (Be,{alpha}) in metal-poor stars (Boesgaard+, 2011)
+ J/ApJ/742/54     : CASH project II. 14 extrem metal-poor stars (Hollek+, 2011)
+ J/AJ/141/175     : Abundances in M15 RGB/RHB stars (Sobeck+, 2011)
+ J/ApJ/750/76     : r-process peaks elements in HD 160617 (Roederer+, 2012)
+ J/ApJ/769/57     : Equivalent widths of metal-poor stars (Frebel+, 2013)
+ J/ApJ/778/56     : Hamburg/ESO Survey extremely metal-poor stars (Cohen+, 2013)
+ J/ApJ/778/149    : Abundances for 3 stars in Sgr dSph (McWilliam+, 2013)
+ J/MNRAS/429/126  : Atmospheric parameters from Fe lines (Ruchti+, 2013)
+ J/A+A/569/A43    : HE 2252-4225 abundance analysis (Mashonkina+, 2014)
+ J/AJ/147/136     : Stars of low metal abundance. VI. (Roederer+, 2014)
+ J/ApJ/797/13     : Abundances of bright metal-poor stars (Schlaufman+, 2014)
+ J/ApJ/797/21     : Carbon-enhanced metal-poor stars (Placco+, 2014)
+ J/ApJ/814/121    : CASH project. III. The CEMP star HE0414-0343 (Hollek+, 2015)
+ J/ApJ/830/93     : Abundances of the Ret II brightest red giants  (Ji+, 2016)
+ J/A+A/586/A67    : G64-12 and G64-37 linelist and EWs (Reggiani+, 2016)
+ J/AJ/151/82      : Brightest red giants in UFD galaxy Ret 2 (Roederer+, 2016)
+ J/ApJ/838/90     : Abundance analysis of 9 metal-poor stars (O'Malley+, 2017)
+ J/ApJ/844/18     : RAVE J203843.2-002333 high-resolution spectro (Placco+,2017)
+ J/ApJ/847/142    : Metal-poor stars LTE and NLTE abundances (Ezzeddine+, 2017)
+ J/A+A/607/A91    : CS 29497-004 abundances (Hill+, 2017)
+ J/A+A/608/A46    : Constraining cosmic scatter (Reggiani+, 2017)
+ J/MNRAS/465/501  : APOGEE N-rich stars in inner Galaxy (Schiavon+, 2017)
+ J/A+A/612/A90    : Inelastic Fe+H collision data (Barklem, 2018)
+ J/ApJ/862/174    : Spectroscopy obs. of RAVE J094921.8-161722 (Gull+, 2018)
+ J/ApJ/858/92     : RPA Southern Pilot Search of 107 Stars (Hansen+, 2018)
+ J/ApJ/864/43     : Abundances of 3 bright EMP giants (Cain+, 2018)
+ J/ApJ/865/129    : Abundance analysis of HD 222925 (Roederer+, 2018)
+ J/AJ/155/256     : Spectro validation of RAVE metal-poor stars (Placco+, 2018)
+ J/AJ/156/179  : High r-process-enhanced field stars kinematics (Roederer+,2018)
+ J/A+A/622/L4  : Carbon and oxygen in metal-poor halo stars (Amarsi+, 2019)
+
+Byte-by-byte Description of file: table1.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units    Label     Explanations
+--------------------------------------------------------------------------------
+   1- 19 A19    ---      Name      RAVE, 2MASS, or SIMBAD identifier
+  21- 22 I2     h        RAh       [0/23] Hour of right ascension (J2000)
+  24- 25 I2     min      RAm       Minute of right ascension (J2000)
+  27- 31 F5.2   s        RAs       Second of right ascension (J2000)
+      33 A1     ---      DE-       Sign of the declination (J2000)
+  34- 35 I2     deg      DEd       Degree of declination (J2000)
+  37- 38 I2     arcmin   DEm       Arcminute of declination (J2000)
+  40- 43 F4.1   arcsec   DEs       Arcsecond of declination (J2000)
+  45- 49 F5.2   mag      Vmag      [6/13.2]? Johnson V-band magnitude
+  51- 87 A37    ---      Date      Observing dates
+  89- 92 I4     s        Time      [600/6300] Exposure time
+  94- 96 I3     pix-1    S/N4400   [10/200] Signal to noise ration at 4400{AA};
+                                    2.5 pix/element
+  98-100 I3     pix-1    S/N6500   [45/500] Signal to nose ratio at 6500{AA};
+                                    2.5 pix/element
+ 102-107 F6.1   km/s     HRV       [-333/423] Heliocentric Radial Velocity
+ 109-111 F3.1   km/s   e_HRV       [0.5/6] Uncertainty in HRV (1)
+ 113-115 A3     ---    f_Name      Sample flag (2)
+     117 A1     ---      Bin       [B] Binary flag (3)
+ 119-133 A15    ---      ID        Abbreviated ID as in Tables 3, 5 and 12, 13;
+                                    column added by CDS
+--------------------------------------------------------------------------------
+Note (1): Based on the uncertainty in the mean, with an adopted
+           minimum of 0.5km/s.
+Note (2): Flag as follows:
+    P18 = medium-resolution follow-up of Placco+ (2018ApJ...626..465P);
+    std = previously observed by others.
+Note (3):
+    B   = Based on radial velocity variations, this object is a suspected
+          or confirmed binary.
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table3.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units    Label      Explanations
+--------------------------------------------------------------------------------
+   1- 12 A12   ---       ID         Abbreviated RAVE or 2MASS ID
+  14- 28 A15   ---       Std        Standard star for differential analysis
+  30- 33 I4    K         Teff       [4060/6590] Effective temperature (1)
+  35- 38 F4.2  [cm/s2]   log(g)     [0.02/4.6] Surface gravity (1)
+  40- 43 F4.2  km/s      xi         [0.9/3.1] Microturbulent Velocity (1)
+  45- 49 F5.2  [Sun]     [FeI/H]    [-3.4/-1.2] The [Fe I/H] abundance
+                                     relative to the Sun
+  51- 54 F4.2  [Sun]   e_[FeI/H]    [0.01/0.05] Random error in [FeI/H] (2)
+  56- 58 I3    ---     o_[FeI/H]    [18/106] Number of FeI lines used in [FeI/H]
+  60- 64 F5.2  [Sun]     [FeII/H]   [-3.5/-1.2] The [Fe II/H] abundance
+                                     relative to the Sun
+  66- 69 F4.2  [Sun]   e_[FeII/H]   [0.01/0.2] Random Error in [FeI/H] (2)
+  71- 72 I2    ---     o_[FeII/H]   [1/27] Number of FeII lines used in [FeII/H]
+      74 A1    ---     l_[C/Fe]     Limit flag on [C/Fe]
+  75- 79 F5.2  [Sun]     [C/Fe]     [-0.5/1.9] The [C/Fe] abundance relative
+                                     to the sun (3)
+  81- 84 F4.2  [Sun]   e_[C/Fe]     [0.07/0.4]? Random error in [C/Fe]
+      86 A1    ---       CEMP       [C] CEMP star flag (4)
+--------------------------------------------------------------------------------
+Note (1): Errors in the atmospheric parameters are discussed in Section 3.4.
+Note (2): The random error in the mean, and is the line-to-line dispersion
+          divided by (N)^0.5^, where N is the number of spectral lines.
+Note (3): Corrected for evolutionary effects (Placco+ 2014, J/ApJ/797/21).
+Note (4):
+    C = The star's high [C/Fe] makes it a CEMP star, according to the
+         [C/Fe]>+0.7 criterion.
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table5.dat
+--------------------------------------------------------------------------------
+ Bytes Format    Units   Label    Explanations
+--------------------------------------------------------------------------------
+     1     A1    ---     Set      Target set: S=standard; T=target
+  3- 17   A15    ---     ID       SIMBAD designation or truncated RAVE, 2MASS ID
+ 19- 31   A13    ---     Class    Classification of the star corresponding to
+                                   Sr, Ba and Eu abundances
+     33    A1    ---   f_Class    [bc]? Flag on class (1)
+     35    A1    ---   l_[Sr/Fe]  Limit flag on [Sr/Fe]
+ 37- 41  F5.2    [Sun]   [Sr/Fe]  [-2.1/0.9] Abundance ratio [Sr/Fe]
+ 43- 46  F4.2    [Sun] e_[Sr/Fe]  [0/0.3]? Error on [Sr/Fe]
+     48    I1    ---   o_[Sr/Fe]  [1/2]? Number of Sr lines
+ 50- 54  F5.2    [Sun]   [Ba/Fe]  [-2.3/1.3] Abundance ratio [Ba/Fe]
+ 56- 59  F4.2    [Sun] e_[Ba/Fe]  [0/0.2] Error on [Ba/Fe]
+     61    I1    ---   o_[Ba/Fe]  [1/4] Number of Ba lines
+     63    A1    ---   l_[Eu/Fe]  Limit flag on [Eu/Fe]
+ 65- 69  F5.2    [Sun]   [Eu/Fe]  [-0.6/2.2] Abundance ratio [Eu/Fe]
+ 71- 74  F4.2    [Sun] e_[Eu/Fe]  [0/0.3]? Error on [Eu/Fe]
+     76    I1    ---   o_[Eu/Fe]  [1/5]? Number of Eu lines
+     78    A1    ---   l_[Eu/Fe]2 Limit flag on [Eu/Fe]2
+ 80- 84  F5.2    [Sun]   [Eu/Fe]2 [-1.4/0.9]? Second Eu upper limit, see Flag a
+     86    A1    ---   f_[Eu/Fe]2 [a]? Flag on [Eu/Fe]2 (1)
+     88    A1    ---   l_[Ba/Eu]  Limit flag on [Ba/Eu]
+ 90- 94  F5.2    [Sun]   [Ba/Eu]  [-2.9/0.6] Abundance ratio [Ba/Eu]
+ 96- 99  F4.2    [Sun] e_[Ba/Eu]  [0/0.3]? Error on [Ba/Eu]
+    101    A1    ---   l_[Sr/Ba]  Limit flag on [Sr/Ba]
+103-107  F5.2    [Sun]   [Sr/Ba]  [-1/1.9] Abundance ratio [Sr/Ba]
+109-112  F4.2    [Sun] e_[Sr/Ba]  [0/0.4]? Error on [Sr/Ba]
+--------------------------------------------------------------------------------
+Note (1): Flag as follow:
+ a = This Eu upper limit can be lowered by assuming [Ba/Eu]>-0.89, as
+      required by the solar r-process residual Burris+ (2000ApJ...544..302B)
+ b = Ruchti+ 2011 (J/ApJ/737/9) did not determine abundances of
+      neutron-capture elements and therefore did not detect the r-process
+      enhancement in these stars.
+ c = The r/s designation is based on the criteria from
+      Beers & Christlieb (2005ARA&A..43..531B), though note that this
+      category may also contain stars with signatures of an intermediate, or
+      i-, process (e.g., Cowan & Rose (1977ApJ...212..149C);
+      Hampel+ (2016ApJ...831..171H).
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table6.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label      Explanations
+--------------------------------------------------------------------------------
+   1- 19 A19    ---     Name       SIMBAD, RAVE, or 2MASS ID
+  21- 25 F5.2   [Sun]   [O/Fe]     [0.4/1.1]?=-9.99 The [O/Fe] abundance ratio
+  27- 30 F4.2   [Sun] e_[O/Fe]     [0.05/0.1]?=0 Random error in [O/Fe]
+      32 I1     ---   o_[O/Fe]     [0/2] Number of O lines
+  34- 38 F5.2   [Sun]   [Na/Fe]    [-0.5/0.8]?=-9.99 The [Na/Fe] abundance ratio
+  40- 43 F4.2   [Sun] e_[Na/Fe]    [0.02/0.2]?=0 Random error in [Na/Fe]
+      45 I1     ---   o_[Na/Fe]    [0/4] Number of Na lines
+  47- 51 F5.2   [Sun]   [Mg/Fe]    [0.06/1.1]?=-9.99 The [Mg/Fe] abundance ratio
+  53- 56 F4.2   [Sun] e_[Mg/Fe]    [0.01/0.2]?=0 Random error in [Mg/Fe]
+      58 I1     ---   o_[Mg/Fe]    [0/5] Number of Mg lines
+  60- 64 F5.2   [Sun]   [Si/Fe]    [0.1/1.7]?=-9.99 The [Si/Fe] abundance ratio
+  66- 69 F4.2   [Sun] e_[Si/Fe]    [0.01/0.8]?=0 Random error in [Si/Fe]
+  71- 72 I2     ---   o_[Si/Fe]    [0/20] Number of Si lines
+  74- 78 F5.2   [Sun]   [K/Fe]     [-0.3/1.1]?=-9.99 The [K/Fe] abundance ratio
+  80- 83 F4.2   [Sun] e_[K/Fe]     [0.1]?=0 Random error in [K/Fe]
+      85 I1     ---   o_[K/Fe]     [0/1] Number of K lines
+  87- 90 F4.2   [Sun]   [Ca/Fe]    [0.1/0.6] The [Ca/Fe] abundance ratio
+  92- 95 F4.2   [Sun] e_[Ca/Fe]    [0/0.04] Random error in [Ca/Fe]
+  97- 98 I2     ---   o_[Ca/Fe]    [3/26] Number of Ca lines
+ 100-104 F5.2   [Sun]   [Sc/Fe]    [-0.6/0.5] The [Sc/Fe] abundance ratio
+ 106-109 F4.2   [Sun] e_[Sc/Fe]    [0.01/0.1] Random error in [Sc/Fe]
+ 111-112 I2     ---   o_[Sc/Fe]    [3/14] Number of Sc lines
+ 114-118 F5.2   [Sun]   [TiI/Fe]   [-0.2/0.6]?=-9.99 [TiI/Fe] abundance ratio
+ 120-123 F4.2   [Sun] e_[TiI/Fe]   [0.01/0.1]?=0 Random error in [TiI/Fe]
+ 125-126 I2     ---   o_[TiI/Fe]   [0/26] Number of Ti I lines
+ 128-132 F5.2   [Sun]   [TiII/Fe]  [-0.2/0.6] The [TiII/Fe] abundance ratio
+ 134-137 F4.2   [Sun] e_[TiII/Fe]  [0/0.06] Random error in [TiII/Fe]
+ 139-140 I2     ---   o_[TiII/Fe]  [7/36] Number of Ti II lines
+ 142-146 F5.2   [Sun]   [V/Fe]     [-0.8/3.4]?=-9.99 The [V/Fe] abundance ratio
+ 148-151 F4.2   [Sun] e_[V/Fe]     [0.01/1.5]?=0 Random error in [V/Fe]
+ 153-154 I2     ---   o_[V/Fe]     [0/12] Number of V lines
+ 156-160 F5.2   [Sun]   [Cr/Fe]    [-0.3/1.4]?=-9.99 The [Cr/Fe] abundance ratio
+ 162-165 F4.2   [Sun] e_[Cr/Fe]    [0.01/0.4]?=0 Random error in [Cr/Fe]
+     167 I1     ---   o_[Cr/Fe]    [0/5] Number of Cr lines
+ 169-173 F5.2   [Sun]   [Mn/Fe]    [-0.9/0.4]?=-9.99 The [Mn/Fe] abundance ratio
+ 175-178 F4.2   [Sun] e_[Mn/Fe]    [0.01/0.3]?=0 Random error in [Mn/Fe]
+     180 I1     ---   o_[Mn/Fe]    [0/6] Number of Mn lines
+ 182-186 F5.2   [Sun]   [Co/Fe]    [-0.7/1]?=-9.99 The [Co/Fe] abundance ratio
+ 188-191 F4.2   [Sun] e_[Co/Fe]    [0.01/0.4]?=0 Random error in [Co/Fe]
+     193 I1     ---   o_[Co/Fe]    [0/4] Number of Co lines
+ 195-199 F5.2   [Sun]   [Ni/Fe]    [-0.3/0.6]?=-9.99 The [Ni/Fe] abundance ratio
+ 201-204 F4.2   [Sun] e_[Ni/Fe]    [0.01/0.2]?=0 Random error in [Ni/Fe]
+ 206-207 I2     ---   o_[Ni/Fe]    [0/19] Number of Ni lines
+ 209-213 F5.2   [Sun]   [Cu/Fe]    [-1.4/-0.5]?=-9.99 [Cu/Fe] abundance ratio
+ 215-218 F4.2   [Sun] e_[Cu/Fe]    [0.05/0.1]?=0 Random error in [Cu/Fe]
+     220 I1     ---   o_[Cu/Fe]    [0/3] Number of Cu lines
+ 222-226 F5.2   [Sun]   [Zn/Fe]    [-0.3/0.5]?=-9.99 The [Zn/Fe] abundance ratio
+ 228-231 F4.2   [Sun] e_[Zn/Fe]    [0.01/0.2]?=0 Random error in [Zn/Fe]
+     233 I1     ---   o_[Zn/Fe]    [0/2] Number of Zn lines
+ 235-239 F5.2   [Sun]   [Y/Fe]     [-1.1/0.5]?=-9.99 The [Y/Fe] abundance ratio
+ 241-244 F4.2   [Sun] e_[Y/Fe]     [0.01/0.2]?=0 Random error in [Y/Fe]
+     246 I1     ---   o_[Y/Fe]     [0/8] Number of Y lines
+ 248-252 F5.2   [Sun]   [Zr/Fe]    [-0.5/1]?=-9.99 The [Zr/Fe] abundance ratio
+ 254-257 F4.2   [Sun] e_[Zr/Fe]    [0.01/0.2]?=0 Random error in [Zr/Fe]
+     259 I1     ---   o_[Zr/Fe]    [0/3] Number of Zr lines
+ 261-265 F5.2   [Sun]   [La/Fe]    [-0.4/1.5]?=-9.99 The [La/Fe] abundance ratio
+ 267-270 F4.2   [Sun] e_[La/Fe]    [0.02/0.2]?=0 Random error in [La/Fe]
+     272 I1     ---   o_[La/Fe]    [0/6] Number of La lines
+ 274-278 F5.2   [Sun]   [Ce/Fe]    [-0.4/1.3]?=-9.99 The [Ce/Fe] abundance ratio
+ 280-283 F4.2   [Sun] e_[Ce/Fe]    [0.01/0.2]?=0 Random error in [Ce/Fe]
+ 285-286 I2     ---   o_[Ce/Fe]    [0/17] Number of Ce lines
+ 288-292 F5.2   [Sun]   [Pr/Fe]    [0.08/1.7]?=-9.99 The [Pr/Fe] abundance ratio
+ 294-297 F4.2   [Sun] e_[Pr/Fe]    [0.01/0.2]?=0 Random error in [Pr/Fe]
+     299 I1     ---   o_[Pr/Fe]    [0/5] Number of Pr lines
+ 301-305 F5.2   [Sun]   [Nd/Fe]    [-0.4/1.6]?=-9.99 The [Nd/Fe] abundance ratio
+ 307-310 F4.2   [Sun] e_[Nd/Fe]    [0.02/0.1]?=0 Random error in [Nd/Fe]
+ 312-313 I2     ---   o_[Nd/Fe]    [0/20] Number of Nd lines
+ 315-319 F5.2   [Sun]   [Sm/Fe]    [-0.06/1.8]?=-9.99 [Sm/Fe] abundance ratio
+ 321-324 F4.2   [Sun] e_[Sm/Fe]    [0.02/0.2]?=0 Random error in [Sm/Fe]
+     326 I1     ---   o_[Sm/Fe]    [0/5] Number of Sm lines
+ 328-332 F5.2   [Sun]   [Dy/Fe]    [0.08/2.5]?=-9.99 The [Dy/Fe] abundance ratio
+ 334-337 F4.2   [Sun] e_[Dy/Fe]    [0.02/0.2]?=0 Random error in [Dy/Fe]
+     339 I1     ---   o_[Dy/Fe]    [0/7] Number of Dy lines
+ 341-345 F5.2   [Sun]   [Os/Fe]    [0/2]?=-9.99 The [Os/Fe] abundance ratio
+ 347-350 F4.2   [Sun] e_[Os/Fe]    [0.05/0.2]?=0 Random error in [Os/Fe]
+     352 I1     ---   o_[Os/Fe]    [0/3] Number of Os lines
+ 354-358 F5.2   [Sun]   [Th/Fe]    [0/1.7]?=-9.99 The [Th/Fe] abundance ratio
+ 360-363 F4.2   [Sun] e_[Th/Fe]    [0.07/10]?=0 Random error in [Th/Fe]
+     365 I1     ---   o_[Th/Fe]    [0/2] Number of Th lines
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table9.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units     Label     Explanations
+--------------------------------------------------------------------------------
+   1- 19  A19   ---       Name      SIMBAD, RAVE, or 2MASS ID (1)
+  21- 24  I4    K         Teff      [4060/6590] LTE effective temperature
+  26- 29  F4.2  [cm/s2]   log(g)    [0.02/4.6] Surface gravity
+  31- 34  F4.2  km/s      xi        [1.1/3.6] Microturbulent velocity
+  36- 40  F5.2  [Sun]     [FeI/H]   [-3.4/-1.2] The [FeI/H] abundance ratio
+  42- 45  F4.2  [Sun]   e_[FeI/H]   [0/0.2] Random Error in [FeI/H]
+  47- 51  F5.2  [Sun]     [FeII/H]  [-3.9/-1.2] The [FeII/H] abundance ratio
+  53- 56  F4.2  [Sun]   e_[FeII/H]  [0/0.2] Random Error in [FeII/H]
+--------------------------------------------------------------------------------
+Note (1): RAVE J085805.9-080917 has been removed from this table because it
+  was published separately in another paper by Cain+ 2018, J/ApJ/864/43
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: ew.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units     Label      Explanations
+--------------------------------------------------------------------------------
+   1- 12 A12    ---       ID         Target designation (JHHMM+DDMM or
+                                       2MJHHMM+DDMM)
+  14- 21 F8.3   0.1nm     lambda     [4020.9/7932.4] Spectral line
+                                       wavelength; in units of Angstroms
+  23- 26 F4.1   ---       El         [12/28] Element and ionization state
+  27- 31 F5.2   eV        EP         [0/6] Excitation Potential
+  32- 37 F6.2   [-]       log(gf)    [-6/0.6] log statistical weight &
+                                      oscillator strength
+  39- 44 F6.1   10-13m    EW         [12.4/148.7]?=-99.9 Equivalent width;
+                                      in units of milli-Angstroms
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: abund.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label      Explanations
+--------------------------------------------------------------------------------
+   1- 12 A12    ---     ID         Target designation (JHHMM+DDMM or
+                                    2MJHHMM+DDMM)
+  14- 21 F8.3   0.1nm   lambda     [4019.1/6774.3] Spectral line wavelength
+  23- 23 A1     ---     Flag       [H] HFS or isotopic splitting flag
+  25- 28 F4.1   ---     El         [3/90.1] Element and ionization state
+  30- 33 F4.2   eV      EP         [0/4.1] Excitation Potential
+  35- 40 F6.2   [-]     log(gf)    [-10.3/0.6] log statistical weight &
+                                    oscillator strength
+  42- 47 F6.2   [-]     logeps     [-2.8/8.5]?=-99.9 log epsilon(X);
+                                    in units of milli-Angstroms
+--------------------------------------------------------------------------------
+
+Acknowledgements:
+    Charli Sakari [University of Washington -- uw.edu]
+
+History:
+    From electronic version of the journal
+
+================================================================================
+(End)                           Prepared by [AAS], Coralie Fix [CDS] 23-Oct-2019

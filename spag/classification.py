@@ -11,12 +11,29 @@ import pandas as pd
 ################################################################################
 ## Stellar Abundance Classification functions
 
-def classify_metallicity(FeH):
+def fill_with_limits(value, ll_value, ul_value):
+    """
+    Fill value with lower or upper limit if value is NaN.
+    Returns the filled value and flags indicating if lower or upper limit was used.
+    """
+    f_ll, f_ul = False, False
+    if pd.isna(value) and value is not None:
+        if pd.notna(ll_value) and ll_value is not None:
+            value = ll_value
+            f_ll = True
+        elif pd.notna(ul_value) and ul_value is not None:
+            value = ul_value
+            f_ul = True
+    return value, f_ll, f_ul
+
+def classify_metallicity(FeH, ulFeH=None):
     """
     Classify the star by its metallicity, based on Frebel et al. 2018 (Table 1).
     """
+    ## Use upper limit if actual value is not available
+    FeH, _, _ = fill_with_limits(FeH, None, ulFeH)
+    
     metallicity_str = ''
-
     if FeH > 0.0:
         metallicity_str = 'MR'
     elif FeH <= 0.0 and FeH > -1.0:
@@ -46,20 +63,31 @@ def classify_metallicity(FeH):
     
     return metallicity_str
 
-def classify_neutron_capture(EuFe = np.nan, BaFe = np.nan, SrFe = np.nan, PbFe = np.nan, LaFe = np.nan, HfFe = np.nan, IrFe = np.nan):
+def classify_neutron_capture(EuFe = np.nan, 
+                             BaFe = np.nan, 
+                             SrFe = np.nan, 
+                             PbFe = np.nan, 
+                             LaFe = np.nan, 
+                             HfFe = np.nan, 
+                             IrFe = np.nan):
     """
-    Classify the star by its neutron-capture abundance pattern, based on Frebel et al. 2018 (Table 1) & Holmbeck et al. 2020 (Section 4.1).
+    Classify the star by its neutron-capture abundance pattern, based on 
+    Frebel et al. 2018 (Table 1) & Holmbeck et al. 2020 (Section 4.1).
+    
+    Note: We do not classify stars based on lower or upper limits of any
+    chemical abundances.
     """
     ncap_str = ''
 
+    ## We do not classify
     BaEu = BaFe - EuFe
     BaPb = BaFe - PbFe
     SrBa = SrFe - BaFe
     SrEu = SrFe - EuFe
     LaEu = LaFe - EuFe
     HfIr = HfFe - IrFe
-
-    # if (EuFe < 0.4):
+    
+    # if (EuFe < 0.4) and (not f_ulEuFe):
     #     ncap_str += ', ' if ncap_str else ''
     #     ncap_str += 'R0' #if (EuFe <= 0.3) else '~R0'
     if (EuFe > 0.3 and EuFe <= 0.7) and (BaEu < 0.0):
@@ -88,20 +116,33 @@ def classify_neutron_capture(EuFe = np.nan, BaFe = np.nan, SrFe = np.nan, PbFe =
 
     return ncap_str
 
-def classify_carbon_enhancement(CFe=np.nan, BaFe=np.nan, ulCFe=False, llCFe=False):
+def classify_carbon_enhancement(CFe=np.nan, llCFe=None, ulCFe=None,
+                                BaFe=np.nan, llBaFe=None, ulBaFe=None,
+                                threshold=0.7):
     """
     Classify the star by its carbon enhancement, based on Frebel et al. 2018 (Table 1).
     """
     cemp_str = ''
     
-    # if CFe is NaN, it will not contribute to the classification
-    if pd.isna(CFe) or CFe == '':
+    ## Use limits if actual value is not available
+    CFe, f_llCFe, f_ulCFe = fill_with_limits(CFe, llCFe, ulCFe)
+    BaFe, f_llBaFe, f_ulBaFe = fill_with_limits(BaFe, llBaFe, ulBaFe)
+            
+    ## if CFe is NaN, it will not be classified with respect to carbon.
+    ## if CFe is an upper-limit, it cannot classified as carbon-enhanced.
+    ## (though, we could classify it as not carbon-enhanced, but the base assumption is that
+    ## stars are not typically carbon-enhanced)
+    if (pd.isna(CFe) or CFe == '') or (f_ulCFe):
         return cemp_str
     
-    threshold = 0.7
-    if CFe > threshold:
-        if (BaFe < 0.0) and cemp_str == '':
+    ## Assume a 0.2 dex uncertainty on the lower limit. Below 0.5 is unclassifiable.
+    if f_llCFe: threshold -= 0.2
+        
+    if CFe >= threshold:
+        if (BaFe < 0.0) and (not f_llBaFe):
             cemp_str += 'NO' # Neutron-capture-normal
+        elif (BaFe >= 0.0) and (not f_ulBaFe):
+            cemp_str += 'CE' # Carbon-enhanced
         else:
             cemp_str += 'CE' # Carbon-enhanced
     # else:
@@ -139,8 +180,8 @@ def combine_classification(df, c_key_col='C_key', ncap_key_col='Ncap_key', outpu
     """
 
     def classify(c_key, ncap_key):
-        c_key = np.nan if c_key == '' else c_key
-        ncap_key = np.nan if ncap_key == '' else ncap_key
+        c_key = np.nan if (c_key == '' or c_key == 'nan') else c_key
+        ncap_key = np.nan if (ncap_key == '' or ncap_key == 'nan') else ncap_key
         if pd.notna(c_key) and pd.notna(ncap_key):
             combo = c_key + '+' + ncap_key
             mapping = {
@@ -149,7 +190,13 @@ def combine_classification(df, c_key_col='C_key', ncap_key_col='Ncap_key', outpu
                 'CE+I': 'CEMP-i',
                 'CE+R1': 'CEMP-rI',
                 'CE+R2': 'CEMP-rII',
-                'CE+RL': 'CEMP-r-lim'
+                'CE+RL': 'CEMP-r-lim',
+                'NO+RS': 'CEMP-r/s',
+                'NO+S': 'CEMP-s',
+                'NO+I': 'CEMP-i',
+                'NO+R1': 'CEMP-rI',
+                'NO+R2': 'CEMP-rII',
+                'NO+RL': 'CEMP-r-lim'
             }
             return mapping.get(combo, combo)
         elif pd.notna(c_key):
