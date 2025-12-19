@@ -1,4 +1,4 @@
-Star ID,T _eff,$\mathrm{log}g$,xi _t,[Fe/H],T _eff,$\mathrm{log}g$,xi _t,[Fe/H],sigma _[Fe I/H],N_Fe I,N_Fe II
+Star ID,Teff,$\mathrm{log}g$,xi _t,[Fe/H],T _eff,$\mathrm{log}g$,xi _t,[Fe/H],sigma _[Fe I/H],N_Fe I,N_Fe II
 2MASS J00125284+4726278,4400,0.03,1.91,-2.68,4630,0.82,2.01,-2.5,0.23,77,11
 2MASS J01171437+2911580,4414,0.12,1.7,-2.72,4643,0.88,1.58,-2.6,0.21,92,14
 2MASS J01261714+2620558,4875,2.74,1.21,-0.93,5057,3.28,1.33,-0.76,0.17,53,8
