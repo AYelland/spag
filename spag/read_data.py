@@ -236,20 +236,20 @@ def load_ufds(io=None, **kwargs):
         ('Francois+2016' , 'BooII-7'),
         ('Francois+2016' , 'BooII-15'),
         ('Gilmore+2013'  , 'BooI-127'),
-        ('Ishigaki+2014b', 'BooI-094'),
-        ('Ishigaki+2014b', 'BooI-117'),
-        ('Ishigaki+2014b', 'BooI-127'),
+        ('Ishigaki+2014' , 'BooI-094'),
+        ('Ishigaki+2014' , 'BooI-117'),
+        ('Ishigaki+2014' , 'BooI-127'),
         ('Ji+2016b'      , 'DES J033523-540407'),
         ('Ji+2016b'      , 'DES J033607-540235'),
         ('Ji+2016b'      , 'DES J033531-540148'),
-        ('Ji+2019'      , 'TriII-40'),
+        ('Ji+2019'       , 'TriII-40'),
         ('Koch+2013b'    , '42795'),
         ('Koch+2013b'    , '42241'),
         ('Koch+2013b'    , '42149'),
         ('Koch+2013b'    , '41460'),
-        ('Lai+2011'      , 'BooI-01'),
-        ('Lai+2011'      , 'BooI-24'),
-        ('Lai+2011'      , 'BooI-21'),
+        ('Lai+2011b'     , 'BooI-01'),
+        ('Lai+2011b'     , 'BooI-24'),
+        ('Lai+2011b'     , 'BooI-21'),
         ('Norris+2010c'  , 'BooI-911'),
         ('Norris+2010c'  , 'Seg1-71'),
         ('Norris+2010c'  , 'Seg1-31'),
@@ -259,15 +259,15 @@ def load_ufds(io=None, **kwargs):
         ('Roederer+2016b', 'Star 1'),
 
         # temporary, switch to the 'Norris+2010c' reference in the future
-        ('Ishigaki+2014b', 'BooI-121'),
-        ('Ishigaki+2014b', 'BooI-009'),
+        ('Ishigaki+2014' , 'BooI-121'),
+        ('Ishigaki+2014' , 'BooI-009'),
         # ('Norris+2010c'  , 'BooI-121'), #used for the carbon abundances
         # ('Norris+2010c'  , 'BooI-9'), #used for the carbon abundances
     ]
 
     for ref, name in dups:
         ufd_df.loc[(ufd_df['Name'] == name) & (ufd_df['Reference'] == ref), 'I/O'] = 0
-    # ufd_df = ufd_df[ufd_df['I/O'] == 1].reset_index(drop=True)
+    ufd_df = ufd_df[ufd_df['I/O'] == 1].reset_index(drop=True)
 
     return ufd_df
 
@@ -357,7 +357,7 @@ def load_stellar_streams(**kwargs):
     ]
     for ref, name in dups:
         ss_df.loc[(ss_df['Name'] == name) & (ss_df['Reference'] == ref), 'I/O'] = 0
-    # ss_df = ss_df[ss_df['I/O'] == 1].reset_index(drop=True)
+    ss_df = ss_df[ss_df['I/O'] == 1].reset_index(drop=True)
 
     return ss_df
 
@@ -451,7 +451,7 @@ def load_carina(jinabase=None, **kwargs):
     ]
     for ref, name in dups:
         carina_df.loc[(carina_df['Name'] == name) & (carina_df['Reference'] == ref), 'I/O'] = 0
-    # carina_df = carina_df[carina_df['I/O'] == 1].reset_index(drop=True)
+    carina_df = carina_df[carina_df['I/O'] == 1].reset_index(drop=True)
 
     return carina_df
 
@@ -513,7 +513,7 @@ def load_draco(jinabase=None, **kwargs):
     dups = []
     for ref, name in dups:
         draco_df.loc[(draco_df['Name'] == name) & (draco_df['Reference'] == ref), 'I/O'] = 0
-    # draco_df = draco_df[draco_df['I/O'] == 1].reset_index(drop=True)
+    draco_df = draco_df[draco_df['I/O'] == 1].reset_index(drop=True)
 
     return draco_df
 
@@ -582,7 +582,7 @@ def load_fornax(jinabase=None, **kwargs):
     ]
     for ref, name in dups:
         fornax_df.loc[(fornax_df['Name'] == name) & (fornax_df['Reference'] == ref), 'I/O'] = 0
-    # fornax_df = fornax_df[fornax_df['I/O'] == 1].reset_index(drop=True)
+    fornax_df = fornax_df[fornax_df['I/O'] == 1].reset_index(drop=True)
 
     return fornax_df
 
@@ -768,27 +768,27 @@ def load_sagittarius(jinabase=None, include_medres=True, include_apogee=False, *
 
     ## Removing Duplicate stars 
     dups = [
-        ('Sestito+2024' , 'Pristine_185053.71-313317.7'),
-        ('Sestito+2024' , 'Pristine_185210.30-315413.2'),
-        ('Sestito+2024' , 'Pristine_185704.51-301021.6'),
-        ('Sestito+2024' , 'Pristine_190612.10-315504.4'),
-        ('Sestito+2024' , 'Pristine_184431.86-293145.0'),
-        ('Sestito+2024' , 'Pristine_184853.44-302718.4'),
-        ('Sestito+2024' , 'Pristine_184957.04-291425.1'),
-        ('Sestito+2024' , 'Pristine_185129.00-300942.8'),
-        ('Sestito+2024' , 'Pristine_185347.87-314747.6'),
-        ('Sestito+2024' , 'Pristine_185855.01-301522.2'),
+        ('Sestito+2024d', 'Pristine_185538.63-302704.3'),
+        ('Sestito+2024b', 'Pristine_185053.71-313317.7'),
+        ('Sestito+2024d', 'Pristine_185210.30-315413.2'),
         ('Sestito+2024b', 'Pristine_185210.30-315413.2'),
-        ('Sestito+2024b', 'Pristine_185248.45-293223.4'),
+        ('Sestito+2024d', 'Pristine_185248.45-293223.4'),
+        ('Sestito+2024d', 'Pristine_185704.51-301021.6'),
         ('Sestito+2024b', 'Pristine_185704.51-301021.6'),
         ('Sestito+2024b', 'Pristine_190612.10-315504.4'),
-        ('Sestito+2024b', 'Pristine_185538.63-302704.3'),
-        ('Sestito+2024b', 'Pristine_184759.63-315322.5'),
-        ('Sestito+2024b', 'Pristine_184843.24-314626.8'),
+        ('Sestito+2024d', 'Pristine_190612.10-315504.4'),
+        # ('Sestito+2024d', 'Pristine_184431.86-293145.0'),
+        ('Sestito+2024d', 'Pristine_184759.63-315322.5'),
+        ('Sestito+2024d', 'Pristine_184843.24-314626.8'),
+        # ('Sestito+2024d', 'Pristine_184853.44-302718.4'),
+        # ('Sestito+2024d', 'Pristine_184957.04-291425.1'),
+        # ('Sestito+2024d', 'Pristine_185129.00-300942.8'),
+        # ('Sestito+2024d', 'Pristine_185347.87-314747.6'),
+        # ('Sestito+2024d', 'Pristine_185855.01-301522.2'),
     ]
     for ref, name in dups:
         sagittarius_df.loc[(sagittarius_df['Name'] == name) & (sagittarius_df['Reference'] == ref), 'I/O'] = 0
-    # sagittarius_df = sagittarius_df[sagittarius_df['I/O'] == 1].reset_index(drop=True)
+    sagittarius_df = sagittarius_df[sagittarius_df['I/O'] == 1].reset_index(drop=True)
 
     return sagittarius_df
 
@@ -818,7 +818,7 @@ def load_sculptor(jinabase=None, **kwargs):
     # sestito2023_df = load_sestito2023() ## not created yet
     shetrone2003_df = jinabase[jinabase['Reference'] == 'Shetrone+2003']
     simon2015_df = jinabase[jinabase['Reference'] == 'Simon+2015']
-    skuladottir2015_df = jinabase[jinabase['Reference'] == 'Skuladottir+2015']
+    skuladottir2015_df = jinabase[jinabase['Reference'] == 'Skuladottir+2015a']
     # skuladottir2017_df = load_skuladottir2017() ## not created yet
     skuladottir2019_df = jinabase[jinabase['Reference'] == 'Skuladottir+2019']
     # skuladottir2024_df = load_skuladottir2024() ## not created yet
@@ -893,7 +893,7 @@ def load_sculptor(jinabase=None, **kwargs):
     ]
     for ref, name in dups:
         sculptor_df.loc[(sculptor_df['Name'] == name) & (sculptor_df['Reference'] == ref), 'I/O'] = 0
-    # sculptor_df = sculptor_df[sculptor_df['I/O'] == 1]
+    sculptor_df = sculptor_df[sculptor_df['I/O'] == 1].reset_index(drop=True)
 
     return sculptor_df
 
@@ -954,7 +954,7 @@ def load_sextans(jinabase=None, **kwargs):
     dups = []
     for ref, name in dups:
         sextans_df.loc[(sextans_df['Name'] == name) & (sextans_df['Reference'] == ref), 'I/O'] = 0
-    # sextans_df = sextans_df[sextans_df['I/O'] == 1].reset_index(drop=True)
+    sextans_df = sextans_df[sextans_df['I/O'] == 1].reset_index(drop=True)
 
     return sextans_df
 
@@ -1023,11 +1023,11 @@ def load_ursaminor(jinabase=None, **kwargs):
     ]
     for ref, name in dups:
         ursaminor_df.loc[(ursaminor_df['Name'] == name) & (ursaminor_df['Reference'] == ref), 'I/O'] = 0
-    # ursaminor_df = ursaminor_df[ursaminor_df['I/O'] == 1]
+    ursaminor_df = ursaminor_df[ursaminor_df['I/O'] == 1]
 
     return ursaminor_df
 
-def load_sass_stars():
+def load_sass_stars(remove_dups_io=1, **kwargs):
     """
     Load the SASS stars data from JINAbase, using selection filters and criteria.
     """
@@ -1084,54 +1084,62 @@ def load_sass_stars():
     sass_df['I/O'] = 1  # Initialize I/O column to 1
     dups = [
         ('Norris+2001', 'CS22172-002'),
+        ('Ryan+1996', 'CS22172-002'), # note: doesn't have carbon
         ('Holmbeck+2020', 'J03142084-1035112'),
         ('Roederer+2014a', 'HE1012-1540'),
         ('Li+2015c', 'LAMOSTJ1313-0552'),
         ('Hansen_T+2014', 'HE1310-0536'),
         ('Aoki+2005c', 'BS16084-160'),
         ('Roederer+2014a', 'CS22891-200'),
-        ('Roederer+2014b', 'CS22891-200'),
+        ('Roederer+2014c', 'CS22891-200'),
         ('McWilliam+1995', 'CS22891-200'),
-        ('Roederer+2014b', 'CS22885-096'),
+        ('Roederer+2014c', 'CS22885-096'),
         ('Norris+2001', 'CS22885-096'),
         ('McWilliam+1995', 'CS22885-096'),
-        ('Yong+2013', 'CS30336-049'),
+        ('Ryan+1996', 'CS22885-096'), # note: doesn't have carbon
+        ('Yong+2013a', 'CS30336-049'),
         ('Aoki+2005c', 'CS29516-041'),
         ('McWilliam+1995', 'CS22949-048'),
         ('Roederer+2014a', 'BD+44493'),
-        ('Roederer+2014b', 'CD-38245'),
+        ('Roederer+2014c', 'CD-38245'),
         ('Ezzeddine+2020', '2MASS J00463619-3739335'),
         ('Norris+2001', 'CD-38245'),
         ('McWilliam+1995', 'CD-38245'),
-        ('Yong+2013', 'HE0057-5959'),
+        ('Ryan+1996', 'CD-38245'), # note: doesn't have carbon
+        ('Yong+2013a', 'HE0057-5959'),
         ('Cohen+2008', 'HE1347-1025'),
         ('Cohen+2008', 'HE1356-0622'),
         ('Rasmussen+2020', 'RAVE J071234.0-481405'),
-        ('Roederer+2014b', 'CS22968-014'),
+        ('Roederer+2014c', 'CS22968-014'),
         ('Cohen+2013', 'CS22968-014'),
         ('McWilliam+1995', 'CS22968-014'),
+        ('Ryan+1996', 'CS22968-014'), # note: doesn't have carbon
         ('Aoki+2005c', 'CS30325-094'),
         ('Frebel+2008a', 'HE1327-23263D'),
+        ('Collet+2006', 'HE1327-23261D'), # note: doesn't have carbon
+        ('Collet+2006', 'HE1327-23263D'), # note: doesn't have carbon
         ('Cohen+2013', 'BS16467-062'),
         ('Cohen+2008', 'BS16467-062'),
         ('Hansen_T+2014', 'HE2239-5019'),
         ('Collet+2006', 'HE0107-52401D'),
         ('Collet+2006', 'HE0107-52403D'),
-
-        ('Ryan+1996', 'CS22172-002'), # doesn't have carbon
-        ('Ryan+1996', 'CS22885-096'), # doesn't have carbon
-        ('Ryan+1996', 'CD-38245'), # doesn't have carbon
-        ('Ryan+1996', 'CS22968-014'), # doesn't have carbon
-        ('Collet+2006', 'HE1327-23261D'), # doesn't have carbon
-        ('Collet+2006', 'HE1327-23263D'), # doesn't have carbon
         
-        ('Roederer+2014b', 'CS22952-015'), # we have measurements from Francois+2007 that don't make the cut (Sr too high), so we cut this star here
-        ('Roederer+2014b', 'CS22189-009'), # we have measurements from Francois+2007 that don't make the cut (Sr too high), so we cut this star here
-        ('Keller+2014', 'NAMESMSSJ031300.36-670839.3') # this star has carbon, but uppper limit in iron --> ignore this star (not a duplicate)
+        ('Roederer+2014c', 'CS22952-015'), # we have measurements from Francois+2007 that don't make the cut (Sr too high), so we cut this star here
+        ('Roederer+2014c', 'CS22189-009'), # we have measurements from Francois+2007 that don't make the cut (Sr too high), so we cut this star here
+        
+        ## not a duplicate, but sometimes removed due to upper limit in iron (has carbon)
+        # ('Keller+2014', 'NAMESMSSJ031300.36-670839.3')
     ]
     for ref, name in dups:
         sass_df.loc[(sass_df['Name'] == name) & (sass_df['Reference'] == ref), 'I/O'] = 0
-    sass_df = sass_df[sass_df['I/O'] == 1].reset_index(drop=True)
+
+    ## Using the I/O column to filter the data
+    if remove_dups_io == 0 or remove_dups_io == 1:
+        sass_df = sass_df[sass_df['I/O'] == remove_dups_io].reset_index(drop=True)
+    elif remove_dups_io is None:
+        pass
+    else:
+        raise ValueError("Invalid value for 'remove_dups_io'. It should be 0, 1, or None.")
     
     return sass_df
 
@@ -1140,7 +1148,7 @@ def load_sass_stars():
 
 ### JINAbase Data Read-in
 
-def load_jinabase(sci_key=None, io=1, load_eps=True, load_ul=True, load_XH=True, load_XFe=True, load_aux=True, name_as_index=False, feh_ulim=None, version="yelland"):
+def load_jinabase(sci_key=None, io=1, load_eps=True, load_ll=True, load_ul=True, load_XH=True, load_XFe=True, load_aux=True, name_as_index=False, feh_ulim=None, version="yelland"):
     """
     sci_key: str or None
         A label used for interesting stars in the JINAbase database. There are four different types of keys.
@@ -1158,6 +1166,8 @@ def load_jinabase(sci_key=None, io=1, load_eps=True, load_ul=True, load_XH=True,
         The flag for which duplicate entries, prioritizing some sources/observations over others. (0/1)
     load_eps: bool
         Load the log(eps) columns from the JINAbase database.
+    load_ll: bool
+        Load the lower limit value columns from the JINAbase database.
     load_ul: bool
         Load the upper limit value columns from the JINAbase database.
     load_XH: bool
@@ -1221,6 +1231,8 @@ def load_jinabase(sci_key=None, io=1, load_eps=True, load_ul=True, load_XH=True,
         XFecol_from_epscol(data)
         if load_ul:
             ulXFecol_from_ulcol(data)
+        if load_ll:
+            llXFecol_from_ulfecol(data)
             
     ## Combine the auxiliary columns with the element abundance columns
     if load_aux:
@@ -1297,20 +1309,26 @@ def load_jinabase(sci_key=None, io=1, load_eps=True, load_ul=True, load_XH=True,
 
 ### milky way (MW)
 
-def load_placco2014c(remove_atari=True, remove_sass=True, use_jinabase_sass=False, io=1):
+def load_placco2014c(remove_atari=True, remove_sass=True, remove_dups=True, use_jinabase_sass=False, io=1):
     """
     Load the Placco et al. (2014) abundance data for the Milky Way (MW) halo stars.
 
-    616 stars - total number of placco stars
-    505 stars - with all CEMP-s/i stars removed (-111)
-    486 stars - with all atari stars removed (-19, Note: really -21 but 2 were already removed)
-    478 stars - with duplicates removed (-8)
+    616 stars - total number of stars in Placco et al. (2014c) data-set
+    505 stars - with all CEMP-s/i stars removed
+        (-111; following Placco+2014c work with [Ba/Fe] > 0.6)
+    497 stars - with duplicates removed 
+        (-8;   actually -11, but 3 were already removed from CEMP-s/i cut)
+    478 stars - with all atari stars removed 
+        (-19;  actually -21, but 2 were already removed from CEMP-s/i cut)
+    437 stars - with all SASS stars removed 
+        (-41;  actually -43 of the 77 SASS stars, but 2 were already removed from duplicates cut)
 
-    By default, we read-in the filtered/cleaned data-set (478 stars), though with the 
-    `io` argument, you can choose to read-in the original data-set (616 stars) as well.
+    By default, we read-in the filtered/cleaned data-set (437 stars) with 111 stars removed by Placco 
+    and 68 stars removed by Yelland, though with the `io` argument, you can choose to read-in the 
+    original data-set (616 stars) as well or versions of the data-set with only some of the filters applied.
     """
 
-    placco2014c_df = pd.read_csv(data_dir+"abundance_tables/placco2014c/table3.csv")
+    placco2014c_df = pd.read_csv(data_dir+"abundance_tables/placco2014c/cds_files/table3_mod.csv") # using modified table for correct reference labeling
 
     ## Rename, Clean-up, and Add-to Reference Columns
     placco2014c_df.rename(columns={"Ref": "Reference"}, inplace=True)
@@ -1477,69 +1495,61 @@ def load_placco2014c(remove_atari=True, remove_sass=True, use_jinabase_sass=Fals
     placco2014c_df.to_csv(data_dir+'abundance_tables/placco2014c/placco2014c.csv', index=False)
 
     ## Removing Atari Stars
-    if remove_atari:
+    if remove_atari: # 21 stars, but only 19 removed here since 2 were already removed in the CEMP-s/i cut
         atari_stars = [
-            'BPS BS 16928-0053',
-            'BPS CS 22186-0023',
-            'BPS CS 22948-0104',
-            'BPS CS 22960-0064',
-            'BPS CS 29506-0007',
-            'BPS CS 30306-0132',
-            'BPS CS 31079-0028',
-            'HD   2796',
-            'HD  23798',
-            'HD 119516',
-            'HE 0017-4346',
-            'HE 0023-4825',
-            'TYC 4928-1438-1', 
-            'HE 1300+0157',
-            'TYC 4961-1053-1', 
-            'HE 1413-1954',
-            'HE 1424-0241',
-            'HE 2259-3407',
-            'HE 2318-1621',
-            'UCAC3 215-112497', 
-            '2MASS J12450268-0738469'
+            ('Yong+2013a', 'BPS BS 16928-0053'),
+            ('Barklem+2005b', 'BPS CS 22186-0023'),
+            ('Masseron+2012', 'BPS CS 22948-0104'),
+            ('Roederer+2014a', 'BPS CS 22960-0064'),
+            ('Yong+2013a', 'BPS CS 29506-0007'),
+            ('Yong+2013a', 'BPS CS 30306-0132'),
+            ('Yong+2013a', 'BPS CS 31079-0028'),
+            ('Yong+2013a', 'HD   2796'),
+            ('Simmerer+2004', 'HD  23798'),
+            ('Simmerer+2004', 'HD 119516'),
+            ('Cohen+2013', 'HE 0017-4346'),
+            ('Barklem+2005b', 'HE 0023-4825'),
+            ('Hollek+2011', 'TYC 4928-1438-1'),
+            ('Yong+2013a', 'HE 1300+0157'),
+            ('Hollek+2011', 'TYC 4961-1053-1'),
+            ('Barklem+2005b', 'HE 1413-1954'),
+            ('Yong+2013a', 'HE 1424-0241'),
+            ('Barklem+2005b', 'HE 2259-3407'),
+            ('Placco+2014a', 'HE 2318-1621'),
+            ('Caffau+2011d', 'UCAC3 215-112497'),
+            ('Aoki+2013a', '2MASS J12450268-0738469')
         ]
-        placco2014c_df.loc[placco2014c_df['Simbad_Identifier'].isin(atari_stars), 'I/O'] = 0
+        for ref, simbad_id in atari_stars:
+            placco2014c_df.loc[(placco2014c_df['Simbad_Identifier'] == simbad_id) & (placco2014c_df['Reference'] == ref), 'I/O'] = 0
 
-    # Removing Duplicate stars 
-    dups = [
-        'CS 29497-040',
-        'HE 0132-2439',
-        'HE 0305-5442',
-        'CS 22948-066',
-        'CS 29493-090',
-        'CS 30327-038',
-        'CS 22949-037',
-        'CS 22957-027'
-    ]
-    for name in dups:
-        placco2014c_df.loc[placco2014c_df['Name'] == name, 'I/O'] = 0
-
-    ## Using the I/O column to filter the data
-    if io == 0 or io == 1:
-        placco2014c_df = placco2014c_df[placco2014c_df['I/O'] == io]
-    elif io is None:
-        pass
-    else:
-        raise ValueError("Invalid value for 'io'. It should be 0, 1, or None.")
+    # Removing Duplicate stars
+    if remove_dups: # 11 stars, but only 8 removed here since 3 were already removed in the CEMP-s/i cut
+        dups = [
+            ('Cohen+2013', 'HE 0058-0244'),
+            ('Roederer+2014a', 'CS 22948-066'),
+            ('Masseron+2012', 'CS 22949-008b'),
+            ('Roederer+2014a', 'CS 22949-037'),
+            ('Roederer+2014a', 'CS 22957-027'),
+            ('Thompson+2008', 'CS 22964-161b'),
+            ('Cohen+2013', 'HE 0305-5442'),
+            ('Barklem+2005b', 'CS 29493-090'),
+            ('Lai+2007', 'CS 29497-040'),
+            ('Aoki+2005c', 'CS 30327-038'),
+            ('Yong+2013a', 'HE 0132-2439'),
+        ]
+        for ref, name in dups:
+            placco2014c_df.loc[(placco2014c_df['Name'] == name) & (placco2014c_df['Reference'] == ref), 'I/O'] = 0
     
-    ## The SASS stars -- there are SASS stars in the Placco+2014 dataset
+    ## Removing SASS stars -- yes, there are SASS stars in the Placco+2014 dataset
     sass_df = load_sass_stars()
     if remove_sass:
-        ## This removes the SASS stars from the placco2014c dataset
         mw_sass_stars = []
         for simbad_id in placco2014c_df['Simbad_Identifier']:
             if simbad_id in sass_df['Simbad_Identifier'].values:
                 mw_sass_stars.append(simbad_id)
-        # print("Number of SASS stars:", len(mw_sass_stars))
-        # print("Number of stars before SASS star removal:", len(placco2014c_df))
         for name in mw_sass_stars:
             placco2014c_df.loc[placco2014c_df['Simbad_Identifier'] == name, 'I/O'] = 0
-        placco2014c_df = placco2014c_df[placco2014c_df['I/O'] == io]
-        # print("Number of stars after SASS removal:", len(placco2014c_df))
-        print("Note: SASS stars are excluded. You are using only the Placco et al. (2014) abundance values.")
+        if io == 1: print("Note: SASS stars are excluded. You are using only the Placco et al. (2014) abundance values.")
     else:
         ## If you want to include the SASS stars, you can choose to use either their
         ## JINAbase abundances or their Placco et al. (2014) abundances.
@@ -1548,19 +1558,29 @@ def load_placco2014c(remove_atari=True, remove_sass=True, use_jinabase_sass=Fals
             placco2014c_sass_rows = []
             for simbad_id in placco2014c_df['Simbad_Identifier']:
                 if simbad_id in sass_df['Simbad_Identifier'].values:
+                    ## Use the JINAbase abundance values for SASS stars
                     row = sass_df[sass_df['Simbad_Identifier'] == simbad_id].iloc[0:1].copy()
                     row['I/O'] = placco2014c_df.loc[placco2014c_df['Simbad_Identifier'] == simbad_id, 'I/O'].values[0]
                     placco2014c_sass_rows.append(row)
                 else:
+                    ## Use the Placco+2014 abundance values for non-SASS stars
                     row = placco2014c_df[placco2014c_df['Simbad_Identifier'] == simbad_id].iloc[0:1].copy()
                     placco2014c_sass_rows.append(row)
             placco2014c_sass_df = pd.concat(placco2014c_sass_rows, ignore_index=True)
             placco2014c_df = placco2014c_sass_df.copy()
             # print("Number of stars after SASS substitution:", len(placco2014c_df))
-            print("Note: SASS stars are included. You are using their JINAbase abundance values.")
+            if io == 1: print("Note: SASS stars are included. You are using their JINAbase abundance values.")
         else:
-            print("Note: SASS stars are included. You are using their Placco et al. (2014) abundance values.")
+            if io == 1: print("Note: SASS stars are included. You are using their Placco et al. (2014) abundance values.")
     print()
+    
+    ## Using the I/O column to filter the data
+    if io == 0 or io == 1:
+        placco2014c_df = placco2014c_df[placco2014c_df['I/O'] == io].reset_index(drop=True)
+    elif io is None:
+        pass
+    else:
+        raise ValueError("Invalid value for 'io'. It should be 0, 1, or None.")
     
     ## Save the final DataFrame
     placco2014c_df.to_csv(data_dir+'abundance_tables/placco2014c/placco2014c-processed.csv', index=False)
@@ -4781,7 +4801,7 @@ def load_gilmore2013(io=None):
                 else:
                     gilmore2013_df.loc[i, col] = np.nan
 
-    ## Get the Carbon data from Norris+2010c & Lai+2011
+    ## Get the Carbon data from Norris+2010c & Lai+2011b
     norris2010c_df = load_norris2010c(load_gilmore2013=True)
     norris2010c_df = norris2010c_df[norris2010c_df['Reference'] == 'Gilmore+2013']
     for name in gilmore2013_df['Name'].unique():
@@ -4791,8 +4811,8 @@ def load_gilmore2013(io=None):
             gilmore2013_df.loc[idx, 'epsc'] = norris2010c_df[norris2010c_df['Name'] == name]['epsc'].values[0]
             gilmore2013_df.loc[idx, '[C/H]'] = norris2010c_df[norris2010c_df['Name'] == name]['[C/H]'].values[0]
         elif name == 'BooI-119':
-            ## Lai et al. 2011. 'BooI-119' was named 'Boo21' ([C/Fe] = 2.2)
-            ### I calculated the epsc value, and converted back to [C/Fe] and [C/H] using Asplund+2009 solar abundances.
+            ## Lai et al. 2011b. 'BooI-119' was named 'Boo21' ([C/Fe] = 2.2)
+            ### I manually calculated the epsc value, and converted back to [C/Fe] and [C/H] using Asplund+2009 solar abundances.
             idx = gilmore2013_df[gilmore2013_df['Name'] == name].index[0]
             gilmore2013_df.loc[idx, 'epsc'] = 6.8 # = (cfe + feh) + epsc_sun = ((2.2) + (-3.79)) + (8.39) w/ epsc_sun = 8.39 in Asplund+2005
             gilmore2013_df.loc[idx, '[C/H]'] = gilmore2013_df.loc[idx, 'epsc'] - get_solar('C')[0] # epsc_sun = 8.43 in Asplund+2009
@@ -5231,7 +5251,7 @@ def load_hansent2024(io=None):
 
 def load_ishigaki2014(exclude_mw_halo_ref_stars=True, io=None):
     """
-    Load the Francois et al. 2016 data for the Bootes I Ultra-Faint Dwarf Galaxy.
+    Load the Ishigaki et al. 2014 data for the Bootes I Ultra-Faint Dwarf Galaxy.
 
     Table 1 - Observation Table
     Table 3 - Stellar Parameters
