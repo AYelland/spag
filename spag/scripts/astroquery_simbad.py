@@ -44,7 +44,7 @@ if args.identifier:
 
 ## Input File.
 # base_path = f"/Users/ayelland/Research/metal-poor-stars/spag/spag/data/abundance_tables/{reference}"
-base_path = "/Users/ayelland/Research/metal-poor-stars/project/sass-paper-2025/andales_sass_sample/"
+base_path = "/Users/ayelland/Research/metal-poor-stars/project/carbon-project-2025/duplicates/"
 input_file = os.path.join(base_path, "astroquery.csv")
 
 ## Collect results.
