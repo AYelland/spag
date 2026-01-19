@@ -242,7 +242,7 @@ def load_ufds(io=None, **kwargs):
         ('Ji+2016b'      , 'DES J033523-540407'),
         ('Ji+2016b'      , 'DES J033607-540235'),
         ('Ji+2016b'      , 'DES J033531-540148'),
-        ('Ji+2019'       , 'TriII-40'),
+        ('Ji+2019a'      , 'TriII-40'),
         ('Koch+2013b'    , '42795'),
         ('Koch+2013b'    , '42241'),
         ('Koch+2013b'    , '42149'),
@@ -258,11 +258,11 @@ def load_ufds(io=None, **kwargs):
         ('Roederer+2016b', 'Star 2'),
         ('Roederer+2016b', 'Star 1'),
 
-        # temporary, switch to the 'Norris+2010c' reference in the future
-        ('Ishigaki+2014' , 'BooI-121'),
-        ('Ishigaki+2014' , 'BooI-009'),
-        # ('Norris+2010c'  , 'BooI-121'), #used for the carbon abundances
-        # ('Norris+2010c'  , 'BooI-9'), #used for the carbon abundances
+        ## temporary choices for carbon abundances
+        # ('Norris+2010c'  , 'BooI-121'), # comment if you need carbon abundances
+        ('Ishigaki+2014' , 'BooI-121'), # comment otherwise
+        # ('Norris+2010c'  , 'BooI-9'), # comment if you need carbon abundances
+        ('Ishigaki+2014' , 'BooI-009'), # comment otherwise
     ]
 
     for ref, name in dups:
@@ -448,6 +448,7 @@ def load_carina(jinabase=None, **kwargs):
     ## Removing Duplicate stars 
     dups = [
         ('Venn+2012', 'Car-7002'), # duplicate with a LUC24 star
+        ('Lemasle+2012', 'MKV0925') # duplicate with a LUC24 star
     ]
     for ref, name in dups:
         carina_df.loc[(carina_df['Name'] == name) & (carina_df['Reference'] == ref), 'I/O'] = 0
@@ -779,14 +780,14 @@ def load_sagittarius(jinabase=None, include_medres=True, include_apogee=False, *
         ('Sestito+2024b', 'Pristine_185704.51-301021.6'),
         ('Sestito+2024b', 'Pristine_190612.10-315504.4'),
         ('Sestito+2024d', 'Pristine_190612.10-315504.4'),
-        # ('Sestito+2024d', 'Pristine_184431.86-293145.0'),
+        ('Sestito+2024b', 'Pristine_184431.86-293145.0'), # chose Sestito+2024b for carbon abundance over Sestito+2024d
         ('Sestito+2024d', 'Pristine_184759.63-315322.5'),
         ('Sestito+2024d', 'Pristine_184843.24-314626.8'),
-        # ('Sestito+2024d', 'Pristine_184853.44-302718.4'),
-        # ('Sestito+2024d', 'Pristine_184957.04-291425.1'),
-        # ('Sestito+2024d', 'Pristine_185129.00-300942.8'),
-        # ('Sestito+2024d', 'Pristine_185347.87-314747.6'),
-        # ('Sestito+2024d', 'Pristine_185855.01-301522.2'),
+        ('Sestito+2024b', 'Pristine_184853.44-302718.4'), # chose Sestito+2024b for carbon abundance over Sestito+2024d
+        ('Sestito+2024b', 'Pristine_184957.04-291425.1'), # chose Sestito+2024b for carbon abundance over Sestito+2024d
+        ('Sestito+2024b', 'Pristine_185129.00-300942.8'), # chose Sestito+2024b for carbon abundance over Sestito+2024d
+        ('Sestito+2024b', 'Pristine_185347.87-314747.6'), # chose Sestito+2024b for carbon abundance over Sestito+2024d
+        ('Sestito+2024b', 'Pristine_185855.01-301522.2'), # chose Sestito+2024b for carbon abundance over Sestito+2024d
     ]
     for ref, name in dups:
         sagittarius_df.loc[(sagittarius_df['Name'] == name) & (sagittarius_df['Reference'] == ref), 'I/O'] = 0
@@ -869,28 +870,37 @@ def load_sculptor(jinabase=None, **kwargs):
     sculptor_df = sculptor_df[auxcols + epscols + ulcols + XHcols + XFecols + ulXHcols + ulXFecols  + ecols + eXHcols + eXFecols]
 
     ## Removing Duplicate stars 
-    dups = [
+    dups = [     
         ('Chiti+2018a', '10_7_923'), 
-        ('Hill+2019', 'Scl_ET0237'),
-        ('Hill+2019', 'Scl_ET0232'),
-        ('Hill+2019', 'Scl_ET0236'),
-        ('Simon+2015', 'Scl6_6_402'),
-        ('Chiti+2018a', '6_6_402'),
-        ('Hill+2019', 'Scl_ET0051'),
-        ('Chiti+2018a', '10_8_1072'),
-        ('Chiti+2018a', '10_8_2818'),
-        ('Hill+2019', 'Scl_ET0369'),
-        ('Chiti+2018a', '10_8_320'),
         ('Chiti+2018a', '11_1_4296'),
+        ('Chiti+2018a', '6_6_402'),
+        ('Simon+2015', 'SclS1020549'),
+        ('Chiti+2018a', '10_8_1072'),
+        ('Chiti+2018a', '10_8_320'),
+        ('Chiti+2018a', '10_8_2818'),
         
-        ## temporary, change in the future if not doing carbon analysis
-        ('Hill+2019', 'Scl_ET0322'),
-        ('Hill+2019', 'Scl_ET0238'),
-        ('Hill+2019', 'Scl_ET0320'),
-        ('Hill+2019', 'Scl_ET0239'),
-        # ('Chiti+2018a', '10_8_3315'),
-        # ('Chiti+2018a', '11_1_2583'),
-        # ('Chiti+2018a', '11_1_3738'),
+        ('Hill+2019', 'Scl_ET0237'), # comment otherwise
+        # ('Chiti+2018a', '7_3_243'),    # comment for carbon abundance
+        
+        ('Hill+2019', 'Scl_ET0232'), # comment otherwise
+        # ('Chiti+2018a', '7_4_1514'),   # comment for carbon abundance
+        
+        ('Hill+2019', 'Scl_ET0369'), # comment otherwise
+        # ('Chiti+2018a', '10_8_2908'),  # comment for carbon abundance
+        
+        ('Hill+2019', 'Scl_ET0320'), # comment otherwise
+        # ('Chiti+2018a', '11_1_3738'),  # comment for carbon abundance
+        
+        ('Hill+2019', 'Scl_ET0238'), # comment otherwise
+        # ('Chiti+2018a', '11_1_2583'), # comment for carbon abundance
+        
+        ('Hill+2019', 'Scl_ET0322'), # comment otherwise
+        # ('Chiti+2018a', '10_8_3315'), # comment for carbon abundance
+        
+        ## previously considered duplicates, but I don't know why they were...
+        # ('Hill+2019', 'Scl_ET0236'),
+        # ('Hill+2019', 'Scl_ET0051'),
+        # ('Hill+2019', 'Scl_ET0239'),
         # ('Chiti+2018a', '11_1_4824'),
     ]
     for ref, name in dups:
@@ -1036,39 +1046,39 @@ def load_sass_stars(remove_dups_io=1, **kwargs):
     jinabase_df = load_jinabase(io=None)
     hughes2025_df = load_hughes2025()
     francois2007_df = load_francois2007()
+    nordlander2019_df = load_nordlander2019()
 
     ## Selects only halo stars (or more like everything unclassified in JINAbase)
     halo_df = jinabase_df[(jinabase_df['Loc'] == 'HA') | (jinabase_df['Loc'].isin(['', 'nan', np.nan]))]
-    halo_df = pd.concat([halo_df, francois2007_df], ignore_index=True, sort=False)
+    halo_df = pd.concat([halo_df, francois2007_df, nordlander2019_df], ignore_index=True, sort=False)
 
     ## Has C measurements
-    halo_w_c_df = halo_df.copy()
-    # halo_w_c_df = halo_df[
+    # halo_df = halo_df[
     #     (halo_df['[C/H]'].notna() | halo_df['ul[C/H]'].notna())
     # ]
 
     ## Has Sr and/or Ba measurements
-    halo_w_c_sr_ba_df = halo_w_c_df[
-        (halo_w_c_df['[Sr/H]'].notna() | halo_w_c_df['ul[Sr/H]'].notna()) &
-        (halo_w_c_df['[Ba/H]'].notna() | halo_w_c_df['ul[Ba/H]'].notna())
+    halo_w_sr_ba_df = halo_df[
+        (halo_df['[Sr/H]'].notna() | halo_df['ul[Sr/H]'].notna()) &
+        (halo_df['[Ba/H]'].notna() | halo_df['ul[Ba/H]'].notna())
     ]
 
     ## Has low Sr and Ba abundances
-    low_sr_ba_df = halo_w_c_sr_ba_df[
-        (halo_w_c_sr_ba_df['[Sr/H]'].notna()) & (halo_w_c_sr_ba_df['[Sr/H]'].astype(float) <= -4.5) & 
-        (halo_w_c_sr_ba_df['[Ba/H]'].notna()) & (halo_w_c_sr_ba_df['[Ba/H]'].astype(float) <= -4)
+    low_sr_ba_df = halo_w_sr_ba_df[
+        (halo_w_sr_ba_df['[Sr/H]'].notna()) & (halo_w_sr_ba_df['[Sr/H]'].astype(float) <= -4.5) & 
+        (halo_w_sr_ba_df['[Ba/H]'].notna()) & (halo_w_sr_ba_df['[Ba/H]'].astype(float) <= -4)
     ]
-    low_ulsr_ba_df = halo_w_c_sr_ba_df[
-        (halo_w_c_sr_ba_df['ul[Sr/H]'].notna()) & (halo_w_c_sr_ba_df['ul[Sr/H]'].astype(float) <= -4.5) & 
-        (halo_w_c_sr_ba_df['[Ba/H]'].notna()) & (halo_w_c_sr_ba_df['[Ba/H]'].astype(float) <= -4)
+    low_ulsr_ba_df = halo_w_sr_ba_df[
+        (halo_w_sr_ba_df['ul[Sr/H]'].notna()) & (halo_w_sr_ba_df['ul[Sr/H]'].astype(float) <= -4.5) & 
+        (halo_w_sr_ba_df['[Ba/H]'].notna()) & (halo_w_sr_ba_df['[Ba/H]'].astype(float) <= -4)
     ]
-    low_sr_ulba_df = halo_w_c_sr_ba_df[
-        (halo_w_c_sr_ba_df['[Sr/H]'].notna()) & (halo_w_c_sr_ba_df['[Sr/H]'].astype(float) <= -4.5) & 
-        (halo_w_c_sr_ba_df['ul[Ba/H]'].notna()) & (halo_w_c_sr_ba_df['ul[Ba/H]'].astype(float) <= -4)
+    low_sr_ulba_df = halo_w_sr_ba_df[
+        (halo_w_sr_ba_df['[Sr/H]'].notna()) & (halo_w_sr_ba_df['[Sr/H]'].astype(float) <= -4.5) & 
+        (halo_w_sr_ba_df['ul[Ba/H]'].notna()) & (halo_w_sr_ba_df['ul[Ba/H]'].astype(float) <= -4)
     ]
-    low_ulsr_ulba_df = halo_w_c_sr_ba_df[
-        (halo_w_c_sr_ba_df['ul[Sr/H]'].notna()) & (halo_w_c_sr_ba_df['ul[Sr/H]'].astype(float) <= -4.5) & 
-        (halo_w_c_sr_ba_df['ul[Ba/H]'].notna()) & (halo_w_c_sr_ba_df['ul[Ba/H]'].astype(float) <= -4)
+    low_ulsr_ulba_df = halo_w_sr_ba_df[
+        (halo_w_sr_ba_df['ul[Sr/H]'].notna()) & (halo_w_sr_ba_df['ul[Sr/H]'].astype(float) <= -4.5) & 
+        (halo_w_sr_ba_df['ul[Ba/H]'].notna()) & (halo_w_sr_ba_df['ul[Ba/H]'].astype(float) <= -4)
     ]
 
     ## Concatenate the dataframes
@@ -2122,6 +2132,116 @@ def load_hughes2025(io=None):
     hughes2025_df.drop(columns=[col for col in hughes2025_df.columns if 'Fe/Fe' in col or 'Fe2/Fe' in col], inplace=True, errors='ignore')
 
     return hughes2025_df
+
+def load_nordlander2019(io=None):
+    """
+    Load the Nordlander et al. 2019 data for the halo/SASS star SMSS J160540.18-144323.1 (SMSS 1605-1443).
+
+    Table 1 - Observations
+    Table 2 - Stellar Parameters
+    Table 3 - Abundance Table
+    """
+
+    ## Read in the data tables
+    obs_param_df = pd.read_csv(data_dir + "abundance_tables/nordlander2019/table0.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    abund_df = pd.read_csv(data_dir + "abundance_tables/nordlander2019/table1.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+
+    ## Make the new column names
+    species = []
+    for ion in abund_df["Species"].unique():
+        species_i = ion_to_species(ion)
+        elem_i = ion_to_element(ion)
+        if species_i not in species:
+            species.append(species_i)
+
+    epscols = [make_epscol(s) for s in species]
+    ulcols = [make_ulcol(s) for s in species]
+    XHcols = [make_XHcol(s).replace(" ", "") for s in species]
+    ulXHcols = ['ul' + col for col in XHcols]
+    XFecols = [make_XFecol(s).replace(" ", "") for s in species]
+    ulXFecols = ['ul' + col for col in XFecols]
+    errcols = [make_errcol(s) for s in species]
+
+    ## New dataframe with proper columns
+    nordlander2019_df = pd.DataFrame(
+                    columns=['I/O','Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
+                    'Teff','logg','Fe/H','Vmic'] + epscols + ulcols + XHcols + ulXHcols + XFecols 
+                    + ulXFecols + errcols)
+    for i, name in enumerate(abund_df['Name'].unique()):
+        nordlander2019_df.loc[i,'Name'] = name
+        nordlander2019_df.loc[i,'Simbad_Identifier'] = obs_param_df.loc[obs_param_df['Name'] == name, 'Simbad_Identifier'].values[0]
+        nordlander2019_df.loc[i,'Reference'] = 'Nordlander+2019'
+        nordlander2019_df.loc[i,'Ref'] = 'NORt19'
+        nordlander2019_df.loc[i,'I/O'] = 1
+        nordlander2019_df.loc[i,'Loc'] = 'UF' # [HA, BU, DS, DW, UF, GC]
+        nordlander2019_df.loc[i,'System'] = obs_param_df.loc[obs_param_df['Name'] == name, 'System'].values[0]
+        nordlander2019_df.loc[i,'RA_hms'] = obs_param_df.loc[obs_param_df['Name'] == name, 'RA_hms'].values[0]
+        nordlander2019_df.loc[i,'RA_deg'] = scoord.ra_hms_to_deg(nordlander2019_df.loc[i,'RA_hms'], precision=6)
+        nordlander2019_df.loc[i,'DEC_dms'] = obs_param_df.loc[obs_param_df['Name'] == name, 'DEC_dms'].values[0]
+        nordlander2019_df.loc[i,'DEC_deg'] = scoord.dec_dms_to_deg(nordlander2019_df.loc[i,'DEC_dms'], precision=2)
+        nordlander2019_df.loc[i,'Teff'] = obs_param_df.loc[obs_param_df['Name'] == name, 'Teff'].values[0]
+        nordlander2019_df.loc[i,'logg'] = obs_param_df.loc[obs_param_df['Name'] == name, 'logg'].values[0]
+        nordlander2019_df.loc[i,'Fe/H'] = obs_param_df.loc[obs_param_df['Name'] == name, 'Fe/H'].values[0]
+        nordlander2019_df.loc[i,'Vmic'] = obs_param_df.loc[obs_param_df['Name'] == name, 'Vmic'].values[0]
+
+        ## Fill in data
+        star_df = abund_df[abund_df['Name'] == name]
+        for j, row in star_df.iterrows():
+            ion = row["Species"]
+            species_i = ion_to_species(ion)
+            elem_i = ion_to_element(ion)
+
+            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009')[0]
+            logepsFe_a09 = star_df.loc[star_df['Species'] == 'Fe I', 'logepsX'].values[0]
+            feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009')[0]
+
+            ## Assign epsX values
+            col = make_epscol(species_i)
+            if col in epscols:
+                nordlander2019_df.loc[i, col] = row["logepsX"] if pd.isna(row["l_logepsX"]) else np.nan
+
+            ## Assign ulX values
+            col = make_ulcol(species_i)
+            if col in ulcols:
+                nordlander2019_df.loc[i, col] = row["logepsX"] if pd.notna(row["l_logepsX"]) else np.nan
+
+            ## Assign [X/H] and ul[X/H]values
+            col = make_XHcol(species_i).replace(" ", "")
+            if col in XHcols:
+                if pd.isna(row["l_[X/H]"]):
+                    nordlander2019_df.loc[i, col] = normal_round(row["logepsX"] - logepsX_sun_a09, 2)
+                    nordlander2019_df.loc[i, 'ul'+col] = np.nan
+                else:
+                    nordlander2019_df.loc[i, col] = np.nan
+                    nordlander2019_df.loc[i, 'ul'+col] = normal_round(row["logepsX"] - logepsX_sun_a09, 2)
+                if 'e_[X/H]' in row.index:
+                    nordlander2019_df.loc[i, 'e_'+col] = row["e_[X/H]"]
+
+            ## Assign [X/Fe] values
+            col = make_XFecol(species_i).replace(" ", "")
+            if col in XFecols:
+                if pd.isna(row["l_[X/Fe]"]):
+                    nordlander2019_df.loc[i, col] = normal_round((row["logepsX"] - logepsX_sun_a09) - feh_a09, 2)
+                    nordlander2019_df.loc[i, 'ul'+col] = np.nan
+                else:
+                    nordlander2019_df.loc[i, col] = np.nan
+                    nordlander2019_df.loc[i, 'ul'+col] = normal_round((row["logepsX"] - logepsX_sun_a09) - feh_a09, 2)
+                if 'e_[X/Fe]' in row.index:
+                    nordlander2019_df.loc[i, 'e_'+col] = row["e_[X/Fe]"]
+
+            ## Assign error values
+            col = make_errcol(species_i)
+            if col in errcols:
+                e_logepsX = np.sqrt(row.get("e_logepsX_stat", np.nan)**2 + row.get("e_logepsX_sys", np.nan)**2)
+                if pd.notna(e_logepsX):
+                    nordlander2019_df.loc[i, col] = e_logepsX
+                else:
+                    nordlander2019_df.loc[i, col] = np.nan
+
+    ## Drop the Fe/Fe columns
+    nordlander2019_df.drop(columns=[col for col in nordlander2019_df.columns if 'Fe/Fe' in col or 'Fe2/Fe' in col], inplace=True, errors='ignore')
+
+    return nordlander2019_df
 
 ### classical and dwarf spheroidal galaxies (dSph)
 
