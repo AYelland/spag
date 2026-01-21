@@ -53,6 +53,7 @@ def load_accreted_dwarfs(io=None, **kwargs):
     df_list = [
         load_atari(), #jinabase=jinabase_df),
         load_gse(), #jinabase=jinabase_df)
+        load_lmc(), #jinabase=jinabase_df),
         load_sass_stars()
     ]
 
@@ -81,7 +82,7 @@ def load_classical_dwarfs(io=1, **kwargs):
         load_draco(jinabase=jinabase_df),
         load_fornax(jinabase=jinabase_df),
         load_leoI(jinabase=jinabase_df),
-        load_lmc(jinabase=jinabase_df),
+        # load_lmc(jinabase=jinabase_df),
         load_sagittarius(jinabase=jinabase_df),
         load_sculptor(jinabase=jinabase_df),
         load_sextans(jinabase=jinabase_df),
@@ -682,6 +683,7 @@ def load_lmc(jinabase=None, **kwargs):
     chiti2024_df = load_chiti2024()
     reggiani2021_df = load_reggiani2021()
     ji2025_df = load_ji2025()
+    lucey2026_df = load_lucey2026()
 
     ## Add filters for specific references
     reggiani2021_df = reggiani2021_df[reggiani2021_df['System'] == 'Large Magellanic Cloud']
@@ -690,7 +692,8 @@ def load_lmc(jinabase=None, **kwargs):
     lmc_df = pd.concat([
             chiti2024_df,
             reggiani2021_df,
-            ji2025_df
+            ji2025_df,
+            lucey2026_df
         ], ignore_index=True, sort=False)
 
     if 'ul[C/Fe]' not in lmc_df.columns:
@@ -3439,6 +3442,82 @@ def load_lucchesi2024(io=None):
         raise ValueError("Invalid value for 'io'. It should be 0, 1, or None.")
     
     return lucchesi2024_df
+
+def load_lucey2026(io=None):
+    """
+    Load the Lucey et al. 2026 data for the first five CEMP stars in the Large Magellanic Cloud.
+
+    Table 1 - Contains all data available in the paper, including observational data, stellar parameters, and iron & carbon abundances.
+    """
+
+    ## Read in the data tables
+    obs_param_abund_df = pd.read_csv(data_dir + "abundance_tables/lucey2026/table1.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+
+    ## Make the new column names
+    species = []
+    for ion in ['Fe I', 'C-H']:
+        species_i = ion_to_species(ion)
+        elem_i = ion_to_element(ion)
+        if species_i not in species:
+            species.append(species_i)
+
+    epscols = [make_epscol(s) for s in species]
+    ulcols = [make_ulcol(s) for s in species]
+    XHcols = [make_XHcol(s).replace(" ", "") for s in species]
+    ulXHcols = ['ul' + col for col in XHcols]
+    XFecols = [make_XFecol(s).replace(" ", "") for s in species]
+    ulXFecols = ['ul' + col for col in XFecols]
+    errcols = [make_errcol(s) for s in species]
+
+    ## New dataframe with proper columns
+    lucey2026_df = pd.DataFrame(
+                    columns=['I/O','Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
+                    'Teff','logg','Fe/H','Vmic'] + epscols + ulcols + XHcols + ulXHcols + XFecols 
+                    + ulXFecols + errcols)
+    for i, name in enumerate(obs_param_abund_df['Name'].unique()):
+        lucey2026_df.loc[i,'Name'] = name
+        lucey2026_df.loc[i,'Simbad_Identifier'] = obs_param_abund_df.loc[obs_param_abund_df['Name'] == name, 'Query_Identifier'].values[0]
+        lucey2026_df.loc[i,'Reference'] = 'Lucey+2026'
+        lucey2026_df.loc[i,'Ref'] = 'LUCm26'
+        lucey2026_df.loc[i,'I/O'] = 1
+        lucey2026_df.loc[i,'Loc'] = 'DW' # [HA, BU, DS, DW, UF, GC]
+        lucey2026_df.loc[i,'System'] = obs_param_abund_df.loc[obs_param_abund_df['Name'] == name, 'System'].values[0]
+        lucey2026_df.loc[i,'RA_hms'] = obs_param_abund_df.loc[obs_param_abund_df['Name'] == name, 'RA_hms'].values[0]
+        lucey2026_df.loc[i,'RA_deg'] = scoord.ra_hms_to_deg(lucey2026_df.loc[i,'RA_hms'], precision=6)
+        lucey2026_df.loc[i,'DEC_dms'] = obs_param_abund_df.loc[obs_param_abund_df['Name'] == name, 'DEC_dms'].values[0]
+        lucey2026_df.loc[i,'DEC_deg'] = scoord.dec_dms_to_deg(lucey2026_df.loc[i,'DEC_dms'], precision=2)
+        lucey2026_df.loc[i,'Teff'] = obs_param_abund_df.loc[obs_param_abund_df['Name'] == name, 'Teff'].values[0]
+        lucey2026_df.loc[i,'logg'] = obs_param_abund_df.loc[obs_param_abund_df['Name'] == name, 'logg'].values[0]
+        lucey2026_df.loc[i,'Fe/H'] = obs_param_abund_df.loc[obs_param_abund_df['Name'] == name, '[Fe/H]'].values[0]
+        lucey2026_df.loc[i,'Vmic'] = np.nan #obs_param_abund_df.loc[obs_param_abund_df['Name'] == name, 'Vmic'].values[0]
+
+        ## Fill in abundance data manually
+        feh_a09 = obs_param_abund_df.loc[obs_param_abund_df['Name'] == name, '[Fe/H]'].values[0]
+        logepsFe_a09 = feh_a09 + get_solar('Fe', version='asplund2009')[0]
+        e_feh = obs_param_abund_df.loc[obs_param_abund_df['Name'] == name, 'e_[Fe/H]'].values[0]
+
+        cfe_a09 = obs_param_abund_df.loc[obs_param_abund_df['Name'] == name, '[C/Fe]'].values[0]
+        ch_a09 = cfe_a09 + feh_a09
+        logepsC_a09 = ch_a09 + get_solar('C', version='asplund2009')[0]
+        e_cfe = obs_param_abund_df.loc[obs_param_abund_df['Name'] == name, 'e_[C/Fe]'].values[0]
+
+        lucey2026_df.loc[i,'epsfe'] = logepsFe_a09
+        lucey2026_df.loc[i,'epsc'] = logepsC_a09
+        lucey2026_df.loc[i,'ulfe'] = np.nan
+        lucey2026_df.loc[i,'ulc'] = np.nan
+        lucey2026_df.loc[i,'[Fe/H]'] = feh_a09
+        lucey2026_df.loc[i,'[C/H]'] = ch_a09
+        lucey2026_df.loc[i,'ul[Fe/H]'] = np.nan
+        lucey2026_df.loc[i,'ul[C/H]'] = np.nan
+        lucey2026_df.loc[i,'[C/Fe]'] = cfe_a09
+        lucey2026_df.loc[i,'ul[C/Fe]'] = np.nan
+        lucey2026_df.loc[i,'e_fe'] = e_feh
+        lucey2026_df.loc[i,'e_c'] = e_cfe
+
+    ## Drop the Fe/Fe columns
+    lucey2026_df.drop(columns=[col for col in lucey2026_df.columns if 'Fe/Fe' in col or 'Fe2/Fe' in col], inplace=True, errors='ignore')
+
+    return lucey2026_df
 
 def load_norris2017b(io=None):
     """
