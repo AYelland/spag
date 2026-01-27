@@ -3491,6 +3491,11 @@ def load_lucey2026(io=None):
         lucey2026_df.loc[i,'Fe/H'] = obs_param_abund_df.loc[obs_param_abund_df['Name'] == name, '[Fe/H]'].values[0]
         lucey2026_df.loc[i,'Vmic'] = np.nan #obs_param_abund_df.loc[obs_param_abund_df['Name'] == name, 'Vmic'].values[0]
 
+        ## Classification Keys
+        lucey2026_df.loc[i,'C_key'] = 'CE'
+        lucey2026_df.loc[i,'Ncap_key'] = 'S'
+        lucey2026_df.loc[i,'MP_key'] = classify_metallicity(obs_param_abund_df.loc[obs_param_abund_df['Name'] == name, '[Fe/H]'].values[0])
+
         ## Fill in abundance data manually
         feh_a09 = obs_param_abund_df.loc[obs_param_abund_df['Name'] == name, '[Fe/H]'].values[0]
         logepsFe_a09 = feh_a09 + get_solar('Fe', version='asplund2009')[0]
