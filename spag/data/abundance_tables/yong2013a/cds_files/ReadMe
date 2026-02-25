@@ -1,0 +1,295 @@
+J/ApJ/762/26  Most metal-poor stars. II. 190 Galactic halo stars  (Yong+, 2013)
+================================================================================
+The most metal-poor stars.
+II. Chemical abundances of 190 metal-poor stars including 10 new stars
+with [Fe/H] <= -3.5.
+    Yong D., Norris J.E., Bessell M.S., Christlieb N., Asplund M., Beers T.C.,
+    Barklem P.S., Frebel A., Ryan S.G.
+   <Astrophys. J., 762, 26 (2013)>
+   =2013ApJ...762...26Y
+================================================================================
+ADC_Keywords: Abundances ; Stars, halo ; Stars, metal-deficient ;
+              Effective temperatures
+Keywords: early universe; Galaxy: formation; Galaxy: halo;
+          nuclear reactions, nucleosynthesis, abundances; stars: abundances
+
+Abstract:
+    We present a homogeneous chemical abundance analysis of 16 elements in
+    190 metal-poor Galactic halo stars (38 program and 152 literature
+    objects). The sample includes 171 stars with [Fe/H]<=-2.5, of which 86
+    are extremely metal poor, [Fe/H]<=-3.0. Our program stars include 10
+    new objects with [Fe/H]<=-3.5. We identify a sample of "normal"
+    metal-poor stars and measure the trends between [X/Fe] and [Fe/H], as
+    well as the dispersion about the mean trend for this sample. Using
+    this mean trend, we identify objects that are chemically peculiar
+    relative to "normal" stars at the same metallicity. These chemically
+    unusual stars include CEMP-no objects, one star with high [Si/Fe],
+    another with high [Ba/Sr], and one with unusually low [X/Fe] for all
+    elements heavier than Na. The Sr and Ba abundances indicate that there
+    may be two nucleosynthetic processes at lowest metallicity that are
+    distinct from the main r-process. Finally, for many elements, we find
+    a significant trend between [X/Fe] versus T_eff_, which likely
+    reflects non-LTE and/or three-dimensional effects. Such trends
+    demonstrate that care must be exercised when using abundance
+    measurements in metal-poor stars to constrain chemical evolution
+    and/or nucleosynthesis predictions.
+
+Description:
+    In Norris et al. (2013; Paper I, Cat. J/ApJ/762/25) we describe
+    high-resolution spectroscopic observations of 38 program stars
+    (obtained in 2007-2008 using the Keck, Magellan, and VLT telescopes),
+    including the discovery and sample selection, equivalent-width
+    measurements, radial velocities, and line list. Our sample comprises
+    34 stars original to the present work, together with four for which
+    published abundances already exist, or which are the subject of
+    analyses currently underway.
+
+File Summary:
+--------------------------------------------------------------------------------
+ FileName  Lrecl  Records   Explanations
+--------------------------------------------------------------------------------
+ReadMe        80        .   This file
+table1.dat    66       47   Model atmosphere parameters and [Fe/H] for the 38
+                            program stars
+table2.dat    45       47   C and N abundances for the 38 program stars
+table3.dat    53      752   Chemical abundances (Na-Ba) for the program stars
+table4.dat    63      752   Abundance errors from uncertainties in atmospheric
+                            parameters for the 38 program stars
+table6.dat    76      152   Model atmosphere parameters and [Fe/H] for the
+                            literature Sample
+table7.dat   122      152   Chemical abundances (C-Ba) for the literature sample
+table9.dat   183      199   Model atmosphere parameters and chemical abundances,
+                            [X/Fe], for the complete sample (literature+program)
+--------------------------------------------------------------------------------
+
+See also:
+ II/294  : The SDSS Photometric Catalog, Release 7 (Adelman-McCarthy+, 2009)
+ VII/233 : The 2MASS Extended sources (IPAC/UMass, 2003-2006)
+ J/ApJ/762/27     : Pap. III: metallicity distribution function (Yong+, 2013)
+ J/ApJ/762/25     : Pap. I: Discovery, data & atmospheric param. (Norris+, 2013)
+ J/A+A/541/A143   : NLTE Corrections of the Ca lines (Spite+, 2012)
+ J/ApJS/199/38    : Presupernova evolution (Limongi+, 2012)
+ J/ApJ/742/54     : CASH project II. Extremely metal-poor stars (Hollek+, 2011)
+ J/A+A/534/A136   : Halo red giants from the SEGUE survey (Martell+, 2011)
+ J/MNRAS/412/843  : SAGA extremely metal-poor stars (Suda+, 2011)
+ J/MNRAS/403/1413 : Updated stellar yields from AGB models (Karakas, 2010)
+ J/ApJ/724/975    : Metal-poor stars heavy element abundances (Roederer+, 2010)
+ J/ApJ/724/341    : Nucleosynthesis of massive metal-free stars (Heger+, 2010)
+ J/ApJ/711/350    : Metal-poor giant Boo-1137 abundances (Norris+, 2010)
+ J/A+A/513/A35    : Abundances of Galactic red giants (Alves-Brito+, 2010)
+ J/A+A/512/A54    : Teff and Fbol from Infrared Flux Method (Casagrande+, 2010)
+ J/A+A/511/L10    : Abundances and space velocities of 94 stars (Nissen+, 2010)
+ J/A+A/509/A93    : Carbon-enhanced metal-poor stars (Masseron+, 2010)
+ J/A+A/503/545    : EWs of Li, Na, Fe, Ca in NGC 6397 (Lind+, 2009)
+ J/A+A/503/541    : Late-type stars neutral Li non-LTE estimations (Lind+, 2009)
+ J/A+A/501/519    : Extremely metal-poor stars abundances (Bonifacio+, 2009)
+ J/AJ/137/272     : Space velocities orbits in the MW halo (Roederer+ 2009)
+ J/ApJ/681/1524   : Detailed abundances for 28 metal-poor stars (Lai+, 2008)
+ J/ApJ/658/1203   : Nitrogen-enhanced metal-poor stars (Johnson+, 2007)
+ J/ApJ/658/367    : Abundances of carbon stars in Galactic halo (Komiya+, 2007)
+ J/ApJ/655/492    : Equivalent widths of 26 metal-poor stars (Aoki+, 2007)
+ J/AJ/132/137     : Extremely metal-poor carbon stars abundances (Cohen+, 2006)
+ J/A+A/439/129    : HERES II. Spectroscopic analysis (Barklem+, 2005)
+ J/A+A/420/183    : Spectro. survey in solar neighborhood (Allende Prieto+ 2004)
+ J/A+A/416/1117   : Abundances in the early Galaxy (Cayrel+, 2004)
+ J/MNRAS/340/304  : [X/Fe] of Galactic disc F and G dwarfs (Reddy+, 2003)
+ J/A+A/326/751    : Chemical composition of halo and disk stars (Nissen+, 1997)
+
+Byte-by-byte Description of file: table[16].dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label   Explanations
+--------------------------------------------------------------------------------
+   1- 14  A14   ---     Name    Star name
+      16  A1    ---   f_Name    [cd] assumed gravity (G1)
+  18- 19  I2    h       RAh     2MASS hour of right ascension (J2000)
+  21- 22  I2    min     RAm     2MASS minute of right ascension (J2000)
+  24- 27  F4.1  s       RAs     2MASS second of right ascension (J2000)
+      29  A1    ---     DE-     2MASS sign of declination (J2000)
+  30- 31  I2    deg     DEd     2MASS degree of declination (J2000)
+  33- 34  I2    arcmin  DEm     2MASS arcminute of declination (J2000)
+  36- 39  F4.1  arcsec  DEs     2MASS arcsecond of declination (J2000)
+  41- 44  I4    K       Teff    [4430/6635]? Effective temperature
+  46- 49  F4.2 [cm/s2]  logg    [0.7/4.7]? log of surface gravity
+  51- 53  F3.1  km/s    xi      [0.3/3.4]? Turbulent velocity ({xi}_t_)
+  55- 58  F4.1  [-]     [M/H]   [-5.5/-1]? Model metallicity [M/H]
+  60- 64  F5.2  [-]     [Fe/H]  [-5.8/-1]? Derived iron abundance [Fe/H]
+      66  I1    ---     C-rich  [0/1]? Carbon-rich source code (0=C-normal) (G2)
+  68- 76  A9    ---     Ref     Reference source codes (only for table 6) (G3)
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table2.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1- 14  A14   ---     Name      Star name
+      16  A1    ---   f_Name      [cd] assumed gravity (G1)
+      18  A1    ---   l_A(C)      Limit flag on A(C)
+  20- 23  F4.2  ---     A(C)      [4.5/8.3] C abundance
+      25  A1    ---   l_[C/Fe]    Limit flag on [C/Fe]
+  27- 31  F5.2  ---     [C/Fe]    [-0.27/2.82] [C/Fe] abundance ratio
+      33  A1    ---   l_A(N)      Limit flag on A(N)
+  35- 38  F4.2  ---     A(N)      [4.7/7.5]? N abundance
+      40  A1    ---   l_[N/Fe]    Limit flag on [N/Fe]
+  42- 45  F4.2  ---     [N/Fe]    [0.42/2.91]? [N/Fe] abundance ratio
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table3.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label   Explanations
+--------------------------------------------------------------------------------
+   1-  5  A5    ---     Ion     Ion identification
+   7- 20  A14   ---     Name    Star identifier
+      22  A1    ---   f_Name    [cd] assumed gravity (G1)
+      24  A1    ---   l_A(X)    Limit on A(X)
+  25- 30  F6.2  [-]     A(X)    [-3.5/6.1]? Log abundance in Ion
+  32- 34  I3    ---   o_A(X)    [1/102]? Number of lines used to determine A(X)
+  36- 39  F4.2  [-]   s_A(X)    [0/0.6]? Standard error of the mean in A(X)
+  41- 44  F4.2  [-]   e_A(X)    [0.08/0.6]? Total error in A(X) (1)
+      46  A1    ---   l_X/Fe    Limit flag on X/Fe
+  47- 51  F5.2  [-]     X/Fe    [-4.1/2.2]? Log of the Ion/Fe abundance
+      53  A1    ---   f_X/Fe    [efg] How X/Fe was determined (2)
+--------------------------------------------------------------------------------
+Note (1): Total error is the quadratic sum of the updated random error and the
+          systematic error (see Section 2.3 for details).
+Note (2): Flag as follows:
+    e = Abundances, or limits, were determined from spectrum synthesis of
+        the 4102.94{AA} Si line.
+    f = Abundances limits were determined from the 4077.71{AA} Sr line.
+    g = Abundances limits were determined from the 4554.03{AA} Ba line.
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table4.dat
+--------------------------------------------------------------------------------
+  Bytes Format Units   Label Explanations
+--------------------------------------------------------------------------------
+  1- 14 A14    ---     Name  Star name
+     16 A1     ---   f_Name  [cd] assumed gravity (G1)
+ 18- 34 A17    ---     Param Parameter identifier
+ 36- 40 F5.2   [-]     DT    [-0.1/0.2]? Abundance error from 100K change
+ 42- 46 F5.2   [-]     Dlogg [-0.2/0.2]? Abundance error from 0.3dex log(g)
+                              change
+ 48- 52 F5.2   [-]     Dxi   [-0.2/0.03]? Abundance error from 0.3km/s {xi}_t_
+                              change
+ 54- 58 F5.2   [-]     DM/H  [-0.2/0.2]? Abundance error from 0.3dex M/H change
+ 60- 63 F4.2   [-]     DX/Fe [0.01/0.3]? Abundance error from 1dex [X/Fe] change
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table7.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label    Explanations
+--------------------------------------------------------------------------------
+   1- 14 A14    ---     Name     Star identifier
+      18 A1     ---   l_C/Fe     Limit flag on C/Fe
+  19- 24 F6.2   [-]     C/Fe     [-0.8/4.3]? Log of the C/Fe abundance (1)
+      26 A1     ---   l_N/Fe     Limit flag on N/Fe
+  27- 32 F6.2   [-]     N/Fe     [-0.8/4.6]? Log of the N/Fe abundance (1)
+  34- 38 F5.2   [-]     Na/Fe    [-0.4/2.5]? Log of the Na/Fe abundance
+  40- 44 F5.2   [-]     Mg/Fe    ? Log of the Mg/Fe abundance
+  46- 50 F5.2   [-]     Al/Fe    [-1.2/1.3]? Log of the Al/Fe abundance
+  52- 56 F5.2   [-]     Si/Fe    [-0.9/1]? Log of the Si/Fe abundance
+  58- 62 F5.2   [-]     Ca/Fe    ? Log of the Ca/Fe abundance
+  64- 68 F5.2   [-]     Sc/Fe    ? Log of the Sc/Fe abundance
+  70- 74 F5.2   [-]     TiI/Fe   ? Log of the Ti I/Fe abundance
+  76- 80 F5.2   [-]     TiII/Fe  ? Log of the Ti II/Fe abundance
+  82- 86 F5.2   [-]     Cr/Fe    ? Log of the Cr/Fe abundance
+  88- 92 F5.2   [-]     Mn/Fe    [-1/0.2]? Log of the Mn/Fe abundance
+  94- 98 F5.2   [-]     FeII/H   [-4.2/-1.3]? Log of the FeII/H abundance
+ 100-104 F5.2   [-]     Co/Fe    ? Log of the Co/Fe abundance
+ 106-110 F5.2   [-]     Ni/Fe    ? Log of the Ni/Fe abundance
+ 112-116 F5.2   [-]     Sr/Fe    [-2.1/1.9]? Log of the Sr/Fe abundance
+ 118-122 F5.2   [-]     Ba/Fe    [-2.1/2.7]? Log of the Ba/Fe abundance
+--------------------------------------------------------------------------------
+Note (1): For [C/Fe] and [N/Fe], the values are taken from the literature
+          reference.
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table9.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units     Label   Explanations
+--------------------------------------------------------------------------------
+   1- 14 A14    ---       Name    Star identifier
+      18 A1     ---     f_Name    [cd] assumed gravity (G1)
+  20- 21 I2     h         RAh     2MASS Hour of Right Ascension (J2000)
+  23- 24 I2     min       RAm     2MASS Minute of Right Ascension (J2000)
+  26- 29 F4.1   s         RAs     2MASS Second of Right Ascension (J2000)
+      31 A1     ---       DE-     2MASS Sign of the Declination (J2000)
+  32- 33 I2     deg       DEd     2MASS Degree of Declination (J2000)
+  35- 36 I2     arcmin    DEm     2MASS Arcminute of Declination (J2000)
+  38- 41 F4.1   arcsec    DEs     2MASS Arcsecond of Declination (J2000)
+  43- 46 I4     K         Teff    [4430/6635] Effective temperature
+  48- 51 F4.2   [cm/s2]   log(g)  [0.7/4.7]? Log of the surface gravity
+  53- 57 F5.2   [-]       Fe/H    [-5.8/-1]? Log of the Fe/H abundance
+      59 I1     ---       C-rich  [0/1]? Carbon rich source (0=C-normal) (G2)
+      61 A1     ---     l_C       Limit flag on C
+  62- 67 F6.2   [-]       C       [-0.8/4.3]? Log of the C abundance (1)
+      69 A1     ---     l_N       Limit flag on N
+  70- 75 F6.2   [-]       N       [-0.8/4.6]? Log of the N abundance (1)
+  77- 81 F5.2   [-]       Na      [-0.5/2.5]? Log of the Na abundance
+  83- 87 F5.2   [-]       Mg      ? Log of the Mg abundance
+  89- 93 F5.2   [-]       Al      [-1.2/1.3]? Log of the Al abundance
+      95 A1     ---     l_Si      Limit flag on Si
+  96-100 F5.2   [-]       Si      [-0.9/2]? Log of the Si abundance
+ 102-106 F5.2   [-]       Ca      ? Log of the Ca abundance
+ 108-112 F5.2   [-]       Sc      ? Log of the Sc abundance
+ 114-118 F5.2   [-]       TiI     ? Log of the Ti I abundance
+ 120-124 F5.2   [-]       TiII    ? Log of the Ti II abundance
+ 126-130 F5.2   [-]       Cr      ? Log of the Cr abundance
+ 132-136 F5.2   [-]       Mn      [-1/0.2]? Log of the Mn abundance
+ 138-142 F5.2   [-]       FeII    [-4.2/-1.3]? Log of the Fe II abundance
+ 144-148 F5.2   [-]       Co      ? Log of the Co abundance
+ 150-154 F5.2   [-]       Ni      ? Log of the Ni abundance
+     156 A1     ---     l_Sr      Limit flag on Sr
+ 157-161 F5.2   [-]       Sr      [-2.3/1.9]? Log of the Sr abundance
+     163 A1     ---     f_Sr      [f] Abundance from literature (2)
+     165 A1     ---     l_Ba      Limit flag on Ba
+ 166-170 F5.2   [-]       Ba      [-2.1/2.7]? Log of the Ba abundance
+     172 A1     ---     f_Ba      [f] Abundance from literature (2)
+ 174-183 A10    ---       Ref     Reference(s) code (G3)
+--------------------------------------------------------------------------------
+Note (1): For literature stars, [C/Fe] and [N/Fe] values are taken from the
+          literature reference.
+Note (2):
+    f = This abundance, or limit, was taken from the literature source.
+--------------------------------------------------------------------------------
+
+Global notes:
+Note (G1): Flag Jas follows:
+   c = For this set of results, a dwarf gravity is assumed
+       (see Section 2.1 for details).
+   d = For this set of results, a subgiant gravity is assumed
+       (see Section 2.1 for details).
+Note (G2): Flag is:
+   1 = carbon-enhanced metal-poor (CEMP) object, adopting the Aoki et al.
+       (2007, Cat. J/ApJ/655/492) definition
+   0 = C-normal (see Section 7.1 for details).
+Note (G3): Reference as follows:
+  1 = Aoki et al. (2002PASJ...54..933A);
+  2 = Aoki et al. (2006ApJ...639..897A);
+  3 = Aoki et al. (2007, Cat. J/ApJ/655/492);
+  4 = Aoki et al. (2008ApJ...678.1351A);
+  5 = Bonifacio et al. (2007A&A...462..851B, 2009, Cat. J/A+A/501/519);
+  6 = Carretta et al. (2002AJ....124..481C); Cohen et al. (2002AJ....124..470C);
+  7 = Cayrel et al. (2004, Cat. J/A+A/416/1117);
+  8 = Christlieb et al. (2004ApJ...603..708C);
+  9 = Cohen et al. (2004ApJ...612.1107C);
+ 10 = Cohen et al. (2006, Cat. J/AJ/132/137);
+ 11 = Cohen et al. (2008ApJ...672..320C);
+ 12 = Frebel et al. (2007ApJ...658..534F);
+ 13 = Honda et al. (2004ApJS..152..113H);
+ 14 = Lai et al. (2008, Cat. J/ApJ/681/1524);
+ 15 = Norris et al. (2001ApJ...561.1034N);
+ 16 = Norris et al. (2007ApJ...670..774N);
+--------------------------------------------------------------------------------
+
+History:
+    From electronic version of the journal
+  * 27-Oct-2014: Insert into VizieR
+  * 20-Feb-2014: Coordinates corrected for HE 0355-3728 in tables 1 and 9;
+     we acknowledge the author David Yong (Australian National University).
+
+References:
+    Norris et al.   Paper I.    2013ApJ...762...25N   Cat. J/ApJ/762/25
+    Yong et al.     Paper III.  2013ApJ...762...27Y   Cat. J/ApJ/762/27
+
+================================================================================
+(End)                 Greg Schwarz [AAS], Emmanuelle Perret [CDS]    28-Aug-2014

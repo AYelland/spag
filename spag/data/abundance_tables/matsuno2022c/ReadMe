@@ -1,0 +1,107 @@
+J/A+A/661/A103    High-precision chemical abundances of Sequoia (Matsuno+, 2022)
+================================================================================
+High-precision chemical abundances of Galactic building blocks.
+The distinct chemical abundance sequence of Sequoia.
+    Matsuno T., Koppelman H.H., Helmi A., Aoki W., Ishigaki M.N., Suda T.,
+    Yuan Z., Hattori K.
+    <Astron. Astrophys. 661, A103 (2022)>
+    =2022A&A...661A.103M        (SIMBAD/NED BibCode)
+================================================================================
+ADC_Keywords: Stars, halo ; Abundances ; Spectroscopy ; Equivalent widths ;
+              Optical
+Keywords: stars: abundances - Galaxy: abundances - Galaxy: halo
+
+Abstract:
+    Sequoia is a retrograde kinematic substructures in the nearby Galactic
+    halo, whose properties are a matter of debate. For example, previous
+    studies do not necessarily agree on the chemical abundances of Sequoia
+    stars, which are important for understanding its nature. We
+    characterize the chemical properties of a sample of stars from Sequoia
+    by determining high-precision abundances. Methods: We measure
+    abundances of Na, Mg, Si, Ti, Cr, Mn, Ni, Zn, Y, and Ba from a
+    differential abundance analysis on high signal-to-noise ratio,
+    high-resolution spectra from new observations and from archival data.
+    We compare precisely-measured chemical abundances of 12 Sequoia
+    candidates with those of typical halo stars from literature, which
+    include also stars from Gaia-Enceladus. This allows us to characterize
+    Sequoia and compare it to another Galactic building block. The
+    comparison is made after putting all the abundances onto the same
+    scale using standard stars. There are significant difference in
+    [Na/Fe], [Mg/Fe], [Ca/Fe], [Ti/Fe], [Zn/Fe], and [Y/Fe] between
+    Sequoia and Gaia-Enceladus stars at -1.8<[Fe/H]<-1.4 in the sense
+    that these abundance ratios are lower in Sequoia. These differences
+    are similar to those seen between Gaia-Enceladus and in-situ stars at
+    higher metallicity, suggesting that Sequoia is affected by type~Ia
+    supernovae at lower metallicity than Gaia-Enceladus. We also confirm
+    that the low [Mg/Fe] of Sequoia is seen in literature and in surveys,
+    namely APOGEE DR16 and GALAH DR3, if the stars are kinematically
+    selected in the same way. Sequoia stars have a distinct chemical
+    abundance pattern and can be chemically separated from in-situ stars
+    or Gaia-Enceladus stars if abundances are measured with sufficient
+    precision, namely sigma([X/Fe])<0.07dex.
+
+Description:
+    We tabulate measured equivalent widths and their uncertainties
+    together with information on the lines, such as wavelength, excitation
+    potential, and log(gf)-values. We also include line-by-line
+    abundances, for which we also provide uncertainties due to stellar
+    parameters and equivalent widths. The weights used to compute the best
+    estimate of the abundance of each species is also included. These data
+    can be used to reproduce all the figures and the abundance table.
+
+File Summary:
+--------------------------------------------------------------------------------
+ FileName      Lrecl  Records   Explanations
+--------------------------------------------------------------------------------
+ReadMe            80        .   This file
+list.dat          65       15   List of studied stars
+line.dat         104     3173   Line list
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: list.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1- 10  A10   ---     Object    Object name used in this study
+  13- 14  I2    h       RAh       Right ascension (J2000)
+  16- 17  I2    min     RAm       Right ascension (J2000)
+  19- 23  F5.2  s       RAs       Right ascension (J2000)
+      25  A1    ---     DE-       Declination sign (J2000)
+  26- 27  I2    deg     DEd       Declination (J2000)
+  29- 30  I2    arcmin  DEm       Declination (J2000)
+  32- 35  F4.1  arcsec  DEs       Declination (J2000)
+  37- 65  A29   ---     OName     Gaia EDR3 name (Gaia EDR3 NNNNNNNNNNNNNNNNNNN)
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: line.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label    Explanations
+--------------------------------------------------------------------------------
+   1- 10  A10   ---     Object   Object name used in this study
+  12- 15  A4    ---     species  Name of the species
+  17- 24  F8.3  0.1nm   lambda   Wavelength
+  26- 30  F5.3  eV      chi      Excitation potential
+  32- 37  F6.3  ---     loggf    loggf value
+  39- 43  F5.1  0.1pm   EW       Equivalent width (m{AA})
+  45- 48  F4.1  0.1pm e_EW       Uncertainty in equivalent width (m{AA})
+  50- 55  F6.3  ---     A        Abundance from this line
+  57- 62  F6.3  ---    eAteff    Uncertainty in abundance due to
+                                  effective temperature
+  64- 69  F6.3  ---    eAlogg    Uncertainty in abundance due to
+                                  surface gravity
+  71- 76  F6.3  ---    eAvt      Uncertainty in abundance due to
+                                  microturbulent velocity
+  78- 83  F6.3  ---    eA[Fe/H]  Uncertainty in abundance due to metallicity
+  85- 89  A5    ---    eAEW      Uncertainty in abundance due to
+                                  equivalent widths of this star and
+                                  the reference star
+  91- 95  F5.3  ---    sX        Uncertainty floor
+  97-104  F8.3  ---     Weight   Weight used to obtain the best estimate for
+                                  the abundance of the species
+--------------------------------------------------------------------------------
+
+Acknowledgements:
+     Tadafumi Matsuno, matsuno(at)astro.rug.nl
+
+================================================================================
+(End)                                        Patricia Vannier [CDS]  19-Apr-2022

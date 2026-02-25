@@ -758,6 +758,16 @@ def ulXFecol(elem, keep_species=False):
         if elem=="alpha": return "ul[alpha/Fe]"
         else: raise
 
+def llXFecol(elem, keep_species=False):
+    """
+    Returns the ll[X/Fe] column name for an element
+    """
+    try:
+        return 'll['+getelem(elem, keep_species=keep_species)+'/Fe]'
+    except ValueError:
+        if elem=="alpha": return "ll[alpha/Fe]"
+        else: raise
+        
 def ABcol(elems):
     """
     Input a tuple of elements, returns the column name for the pair
@@ -800,6 +810,16 @@ def ulcolnames(df):
     allnames = []
     for col in df:
         if col.startswith('ul') and not col.startswith('ul['):
+            allnames.append(col)
+    return allnames
+
+def llcolnames(df):
+    """
+    Returns a list of all lower limit columns
+    """
+    allnames = []
+    for col in df:
+        if col.startswith('ll') and not col.startswith('ll['):
             allnames.append(col)
     return allnames
 
@@ -1185,8 +1205,6 @@ def ulXFecol_from_ulcol(df):
         epscols = epscolnames(df)
         assert 'epsfe' in epscols
         asplund = get_solar(epscols)
-        epsfe_star = pd.to_numeric(df['epsfe'], errors='coerce')
-        epsfe_solar = float(asplund['epsfe'])
         FeH = df['epsfe'].astype(float) - float(asplund['epsfe'])
         ulcols = ulcolnames(df)
         for epscol, ulcol in zip(epscols, ulcols):
@@ -1197,6 +1215,26 @@ def ulXFecol_from_ulcol(df):
             ulXH = (ul_eps_star - eps_solar).apply(lambda x: normal_round(x, precision=2))
             df[ulXFecol(epscol)] = (ulXH - FeH).apply(lambda x: normal_round(x, precision=2))
 
+def llXFecol_from_ulfecol(df):
+    """
+    Converts the upper limit log(eps) columns to ul[X/Fe] columns
+    """
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore")
+        epscols = epscolnames(df)
+        ulcols = ulcolnames(df)
+        assert ('ulfe' in ulcols) and ('ulfe' in df.columns)
+        asplund = get_solar(epscols)
+        ulFeH = df['ulfe'].astype(float) - float(asplund['epsfe'])
+        for epscol, ulcol in zip(epscols, ulcols):
+            if ulcol=='ulfe': continue
+            if llXFecol(epscol) in df: warnings.warn("{} already in DataFrame, replacing".format(llXFecol(ulcol)))
+            eps_star = pd.to_numeric(df[epscol], errors='coerce')
+            eps_solar = float(asplund[epscol])
+            XH_star = eps_star - eps_solar
+            llXFe = XH_star - ulFeH
+            df[llXFecol(epscol)] = llXFe.apply(lambda x: normal_round(x, precision=2))
+            
 ################################################################################
 ## Random Conversion Functions
 
