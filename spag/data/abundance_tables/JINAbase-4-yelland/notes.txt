@@ -29,7 +29,7 @@ For the default_ion values for the abundance columns, it follows...
 
 
 
-:four: Notes on the Table Labels
+Notes on the Table Labels
 --------------------------------
 Location: 
 - HA: MilkyWay halo, BU: MilkyWay bulge, DS: MilkyWay disk, DW: Classical dwarf galaxies, UF: Ultra-faint dwarf galaxies, and GC: Globular clusters.
@@ -44,3 +44,9 @@ Carbon rich:
 - CEMP: Carbon-rich & neutron-capture-rich, CEMP-no: Carbon-rich but not neutron-capture-rich. C-rich stars with [C/Fe] > 0.7.
 
 (Check Frebel & Norris 2015 for various metal-poor classifications.)
+
+Comments on Specific Stars
+--------------------------------
+- For HE1327-23261D & HE1327-23263D in Frebel+2008a, the Si I upper limit is published in Ji+2014a (co-authored by Frebel).
+- For HE0557-4840 in Norris+2007, the Si I upper limit is published in Ji+2014a (co-authored by Frebel).
+- For HE0107-5240 in Aguado+2022, the Si I upper limit is published in Ji+2014a (co-authored by Frebel).

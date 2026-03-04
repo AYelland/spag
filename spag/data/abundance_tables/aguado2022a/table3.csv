@@ -1,0 +1,13 @@
+# Orbit Parameters of HE 0107-5240 from the McMC Analysis (Keplerian Orbit)
+
+Parameter,Units,McMC_priors,Results,p_error,m_error
+k_2,km/s,"LU(0.1, 5)",1.78,+0.16,-0.11
+P_2,d,"LU(1000, 75000)",13009,+1496,-1370
+T_2-2450000,d,"U(-4000, 3500)",-1630,+1246,-1438
+omega,rad,"U(-pi, pi)",-1.81,+0.27,-0.41
+e,,"U(0, 1)",0.31,+0.11,-0.10
+jitter_UVES,km/s,"LU(0.01, 5.0)",0.21,+0.06,-0.05
+jitter_HRS,km/s,"LU(0.01, 5.0)",0.09,+0.29,-0.07
+jitter_ESPRESSO,km/s,"LU(0.01, 5.0)",0.03,+0.01,-0.01
+jitter_HARPS,km/s,"LU(0.01, 5.0)",0.09,+0.24,-0.07
+gamma-46.5,km/s,"U(-3.0, 3.0)",0.27,+0.14,-0.19

@@ -125,7 +125,7 @@ def align_ampersands(filename, start_line, end_line):
 ################################################################################
 ## Rounding functions
 
-from decimal import Decimal, ROUND_HALF_UP
+from decimal import Decimal, ROUND_HALF_UP, ROUND_HALF_DOWN
 
 def normal_round(value, precision=2):
     """
@@ -141,8 +141,11 @@ def normal_round(value, precision=2):
     """
     value = Decimal(str(value)) # Convert to string first to avoid floating point precision issues
     multiplier = Decimal('1.' + '0' * precision)  # Decimal precision
-    return float(value.quantize(multiplier, rounding=ROUND_HALF_UP))
-
+    if value >= 0:
+        return float(value.quantize(multiplier, rounding=ROUND_HALF_UP))
+    else:
+        return float(value.quantize(multiplier, rounding=ROUND_HALF_DOWN))
+    
 def round_to_nearest(x, base=0.5, how="normal"):
     """
     x: float or array-like
@@ -196,6 +199,34 @@ def pad_and_round(value, precision):
         return ''
     else:
         return f"{normal_round(value, precision):.{precision}f}"
+    
+## Other rounding functions (https://realpython.com/python-rounding)
+def truncate(n, decimals=0):
+    multiplier = 10**decimals
+    return np.trunc(n * multiplier) / multiplier
+
+def round_up(n, decimals=0):
+    multiplier = 10**decimals
+    return np.ceil(n * multiplier) / multiplier
+
+def round_down(n, decimals=0):
+    multiplier = 10**decimals
+    return np.floor(n * multiplier) / multiplier
+
+def round_half_up(n, decimals=0):
+    multiplier = 10**decimals
+    return np.floor(n * multiplier + 0.5) / multiplier
+
+def round_half_down(n, decimals=0):
+    multiplier = 10**decimals
+    return np.ceil(n * multiplier - 0.5) / multiplier
+
+def round_half_away_from_zero(n, decimals=0):
+    rounded_abs = round_half_up(np.abs(n), decimals)
+    return np.copysign(rounded_abs, n)
+
+def round_half_to_even(n, decimals=0):
+    return np.round(n, decimals=decimals)
 
 ################################################################################
 ## String manipulation functions

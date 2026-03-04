@@ -1047,7 +1047,7 @@ def load_sass_stars(remove_dups_io=1, **kwargs):
     Load the SASS stars data from JINAbase, using selection filters and criteria.
     """
     jinabase_df = load_jinabase(io=None)
-    hughes2025_df = load_hughes2025()
+    hughes2026_df = load_hughes2026()
     francois2007_df = load_francois2007()
     nordlander2019_df = load_nordlander2019()
 
@@ -1092,7 +1092,7 @@ def load_sass_stars(remove_dups_io=1, **kwargs):
     # jinabase_sass_df = jinabase_sass_df[jinabase_sass_df['Reference'] != 'Roederer+2014b']
     
     ## Combine with other Datasets
-    sass_df = pd.concat([jinabase_sass_df, hughes2025_df], ignore_index=True, sort=False)
+    sass_df = pd.concat([jinabase_sass_df, hughes2026_df], ignore_index=True, sort=False)
     sass_df.reset_index(drop=True, inplace=True)
     
     ## Removing Duplicate stars 
@@ -1861,13 +1861,14 @@ def load_mardini2022a(io=None):
         mardini2022a_df['ul[C/Fe]'] = mardini2022a_df['ul[C/Fe]'].fillna(sub_jinabase_df['ul[C/Fe]'])
 
     ## Manually added datafields
-    mardini2022a_df.loc[mardini2022a_df['Name'] == '2MASS J12450268-0738469', 'Ncap_key'] = 'S'  # halo reference star
-    mardini2022a_df.loc[mardini2022a_df['Name'] == 'HE 0017-4346', 'Ncap_key'] = 'S'          # [C/Fe] = 3.02
-    mardini2022a_df.loc[mardini2022a_df['Name'] == 'HE 1413-1954', 'C_key'] = 'NO'      # [C/Fe] = 1.44
-    mardini2022a_df.loc[mardini2022a_df['Name'] == 'HE 1300+0157', 'C_key'] = 'NO'            # (HE 1300+0157, https://www.aanda.org/articles/aa/pdf/2019/03/aa34601-18.pdf)
+    mardini2022a_df.loc[mardini2022a_df['Name'] == '2MASS J12450268-0738469', 'Ncap_key'] = 'S' # halo reference star
+    mardini2022a_df.loc[mardini2022a_df['Name'] == 'HE 0017-4346', 'Ncap_key'] = 'S' # [C/Fe] = 3.02
+    mardini2022a_df.loc[mardini2022a_df['Name'] == 'HE 1413-1954', 'C_key'] = 'NO' # [C/Fe] = 1.44
+    mardini2022a_df.loc[mardini2022a_df['Name'] == 'HE 1300+0157', 'C_key'] = 'NO' # (HE 1300+0157, https://www.aanda.org/articles/aa/pdf/2019/03/aa34601-18.pdf)
     mardini2022a_df.loc[mardini2022a_df['Reference'] == 'Aguado+2017', 'logg'] = 4.9
     mardini2022a_df.loc[mardini2022a_df['Name'] == 'SDSS J124719.46-034152.4', 'logg'] = 4.0
     mardini2022a_df.loc[mardini2022a_df['Name'] == 'SDSS J105519.28+232234.0', 'logg'] = 4.9
+    mardini2022a_df.loc[mardini2022a_df['Name'] == 'UCAC3 215-112497', 'Name'] = 'SDSS J102915.14+172927.9' # update name to common name
     
     ## Reset the index
     sub_jinabase_df = sub_jinabase_df.reset_index()
@@ -2025,7 +2026,7 @@ def load_ou2024c(io=None):
 
 ### small accreted stellar systems (SASS)
 
-def load_hughes2025(io=None):
+def load_hughes2026(io=None):
     """
     Load the Hughes et al. 2025 data for the 10 SASS stars.
 
@@ -2035,9 +2036,9 @@ def load_hughes2025(io=None):
     """
 
     ## Read in the data tables
-    obs_df = pd.read_csv(data_dir + "abundance_tables/hughes2025/obs_table.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
-    param_df = pd.read_csv(data_dir + "abundance_tables/hughes2025/param_table.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
-    abund_df = pd.read_csv(data_dir + "abundance_tables/hughes2025/abund_table.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    obs_df = pd.read_csv(data_dir + "abundance_tables/hughes2026/obs_table.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    param_df = pd.read_csv(data_dir + "abundance_tables/hughes2026/param_table.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    abund_df = pd.read_csv(data_dir + "abundance_tables/hughes2026/abund_table.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
 
     ## Make the new column names
     species = []
@@ -2056,26 +2057,26 @@ def load_hughes2025(io=None):
     errcols = [make_errcol(s) for s in species]
 
     ## New dataframe with proper columns
-    hughes2025_df = pd.DataFrame(
+    hughes2026_df = pd.DataFrame(
                     columns=['I/O','Name','Simbad_Identifier','Reference','Ref','Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
                     'Teff','logg','Fe/H','Vmic'] + epscols + ulcols + XHcols + ulXHcols + XFecols 
                     + ulXFecols + errcols)
     for i, name in enumerate(abund_df['Name'].unique()):
-        hughes2025_df.loc[i,'Name'] = name
-        hughes2025_df.loc[i,'Simbad_Identifier'] = obs_df.loc[obs_df['Name'] == name, 'Simbad_Identifier'].values[0]
-        hughes2025_df.loc[i,'Reference'] = 'Hughes+2025'
-        hughes2025_df.loc[i,'Ref'] = 'HUG25'
-        hughes2025_df.loc[i,'I/O'] = 1
-        hughes2025_df.loc[i,'Loc'] = ''
-        hughes2025_df.loc[i,'System'] = 'SASS' # obs_df.loc[obs_df['Name'] == name, 'System'].values[0]
-        hughes2025_df.loc[i,'RA_hms'] = obs_df.loc[obs_df['Name'] == name, 'RA_hms'].values[0]
-        hughes2025_df.loc[i,'RA_deg'] = scoord.ra_hms_to_deg(hughes2025_df.loc[i,'RA_hms'], precision=6)
-        hughes2025_df.loc[i,'DEC_dms'] = obs_df.loc[obs_df['Name'] == name, 'DEC_dms'].values[0]
-        hughes2025_df.loc[i,'DEC_deg'] = scoord.dec_dms_to_deg(hughes2025_df.loc[i,'DEC_dms'], precision=2)
-        hughes2025_df.loc[i,'Teff'] = param_df.loc[param_df['Name'] == name, 'Teff'].values[0]
-        hughes2025_df.loc[i,'logg'] = param_df.loc[param_df['Name'] == name, 'logg'].values[0]
-        hughes2025_df.loc[i,'Fe/H'] = param_df.loc[param_df['Name'] == name, 'Fe/H'].values[0]
-        hughes2025_df.loc[i,'Vmic'] = param_df.loc[param_df['Name'] == name, 'Vmic'].values[0]
+        hughes2026_df.loc[i,'Name'] = name
+        hughes2026_df.loc[i,'Simbad_Identifier'] = obs_df.loc[obs_df['Name'] == name, 'Simbad_Identifier'].values[0]
+        hughes2026_df.loc[i,'Reference'] = 'Hughes+2026'
+        hughes2026_df.loc[i,'Ref'] = 'HUG26'
+        hughes2026_df.loc[i,'I/O'] = 1
+        hughes2026_df.loc[i,'Loc'] = ''
+        hughes2026_df.loc[i,'System'] = 'SASS' # obs_df.loc[obs_df['Name'] == name, 'System'].values[0]
+        hughes2026_df.loc[i,'RA_hms'] = obs_df.loc[obs_df['Name'] == name, 'RA_hms'].values[0]
+        hughes2026_df.loc[i,'RA_deg'] = scoord.ra_hms_to_deg(hughes2026_df.loc[i,'RA_hms'], precision=6)
+        hughes2026_df.loc[i,'DEC_dms'] = obs_df.loc[obs_df['Name'] == name, 'DEC_dms'].values[0]
+        hughes2026_df.loc[i,'DEC_deg'] = scoord.dec_dms_to_deg(hughes2026_df.loc[i,'DEC_dms'], precision=2)
+        hughes2026_df.loc[i,'Teff'] = param_df.loc[param_df['Name'] == name, 'Teff'].values[0]
+        hughes2026_df.loc[i,'logg'] = param_df.loc[param_df['Name'] == name, 'logg'].values[0]
+        hughes2026_df.loc[i,'Fe/H'] = param_df.loc[param_df['Name'] == name, 'Fe/H'].values[0]
+        hughes2026_df.loc[i,'Vmic'] = param_df.loc[param_df['Name'] == name, 'Vmic'].values[0]
 
         ## Fill in data
         star_df = abund_df[abund_df['Name'] == name]
@@ -2091,50 +2092,50 @@ def load_hughes2025(io=None):
             ## Assign epsX values
             col = make_epscol(species_i)
             if col in epscols:
-                hughes2025_df.loc[i, col] = logepsX if pd.isna(row["l_[X/H]"]) else np.nan
+                hughes2026_df.loc[i, col] = logepsX if pd.isna(row["l_[X/H]"]) else np.nan
 
             ## Assign ulX values
             col = make_ulcol(species_i)
             if col in ulcols:
-                hughes2025_df.loc[i, col] = logepsX if pd.notna(row["l_[X/H]"]) else np.nan
+                hughes2026_df.loc[i, col] = logepsX if pd.notna(row["l_[X/H]"]) else np.nan
 
             ## Assign [X/H] and ul[X/H]values
             col = make_XHcol(species_i).replace(" ", "")
             if col in XHcols:
                 if pd.isna(row["l_[X/H]"]):
-                    hughes2025_df.loc[i, col] = normal_round(logepsX - logepsX_sun_a09, 2)
-                    hughes2025_df.loc[i, 'ul'+col] = np.nan
+                    hughes2026_df.loc[i, col] = normal_round(logepsX - logepsX_sun_a09, 2)
+                    hughes2026_df.loc[i, 'ul'+col] = np.nan
                 else:
-                    hughes2025_df.loc[i, col] = np.nan
-                    hughes2025_df.loc[i, 'ul'+col] = normal_round(logepsX - logepsX_sun_a09, 2)
+                    hughes2026_df.loc[i, col] = np.nan
+                    hughes2026_df.loc[i, 'ul'+col] = normal_round(logepsX - logepsX_sun_a09, 2)
                 if 'e_[X/H]' in row.index:
-                    hughes2025_df.loc[i, 'e_'+col] = row["e_[X/H]"]
+                    hughes2026_df.loc[i, 'e_'+col] = row["e_[X/H]"]
 
             ## Assign [X/Fe] values
             col = make_XFecol(species_i).replace(" ", "")
             if col in XFecols:
                 if pd.isna(row["l_[X/Fe]"]):
-                    hughes2025_df.loc[i, col] = normal_round((logepsX - logepsX_sun_a09) - feh_a09, 2)
-                    hughes2025_df.loc[i, 'ul'+col] = np.nan
+                    hughes2026_df.loc[i, col] = normal_round((logepsX - logepsX_sun_a09) - feh_a09, 2)
+                    hughes2026_df.loc[i, 'ul'+col] = np.nan
                 else:
-                    hughes2025_df.loc[i, col] = np.nan
-                    hughes2025_df.loc[i, 'ul'+col] = normal_round((logepsX - logepsX_sun_a09) - feh_a09, 2)
+                    hughes2026_df.loc[i, col] = np.nan
+                    hughes2026_df.loc[i, 'ul'+col] = normal_round((logepsX - logepsX_sun_a09) - feh_a09, 2)
                 if 'e_[X/Fe]' in row.index:
-                    hughes2025_df.loc[i, 'e_'+col] = row["e_[X/Fe]"]
+                    hughes2026_df.loc[i, 'e_'+col] = row["e_[X/Fe]"]
 
             ## Assign error values
             # col = make_errcol(species_i)
             # if col in errcols:
             #     e_logepsX = row.get("e_logepsX", np.nan)
             #     if pd.notna(e_logepsX):
-            #         hughes2025_df.loc[i, col] = e_logepsX
+            #         hughes2026_df.loc[i, col] = e_logepsX
             #     else:
-            #         hughes2025_df.loc[i, col] = np.nan
+            #         hughes2026_df.loc[i, col] = np.nan
 
     ## Drop the Fe/Fe columns
-    hughes2025_df.drop(columns=[col for col in hughes2025_df.columns if 'Fe/Fe' in col or 'Fe2/Fe' in col], inplace=True, errors='ignore')
+    hughes2026_df.drop(columns=[col for col in hughes2026_df.columns if 'Fe/Fe' in col or 'Fe2/Fe' in col], inplace=True, errors='ignore')
 
-    return hughes2025_df
+    return hughes2026_df
 
 def load_nordlander2019(io=None):
     """
