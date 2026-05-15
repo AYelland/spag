@@ -1,0 +1,111 @@
+J/A+A/640/A81       Abundances of 72 solar-type stars            (Nissen+, 2020)
+================================================================================
+High-precision abundances of elements in solar-type stars.
+Evidence of two distinct sequences in abundance-age relations.
+    Nissen P.E., Christensen-Dalsgaard J., Mosumgaard J.R., Silva Aguirre V.,
+    Spitoni E., Verma K.
+    <Astron. Astrophys. 640, A81 (2020)>
+    =2020A&A...640A..81N        (SIMBAD/NED BibCode)
+================================================================================
+ADC_Keywords: Milky Way ; Stars, G-type ; Abundances
+Keywords: stars: solar-type - stars: fundamental parameters -
+          stars: abundances - Galaxy: disk - Galaxy: evolution
+
+Abstract:
+    Previous high-precision studies of abundances of elements in solar
+    twin stars are extended to a wider metallicity range to see how the
+    trends of element ratios with stellar age depend on [Fe/H].
+
+    HARPS spectra with S/N>~600 at {lambda}~6000{AA} were analysed with
+    MARCS model atmospheres to obtain 1D LTE abundances of C, O, Na, Mg,
+    Al, Si, Ca, Ti, Cr, Fe, Ni, Sr, and Y in 72 solar-type stars including
+    the binary star zeta Reticuli and ASTEC stellar models were used to
+    determine stellar ages from effective temperatures, luminosities
+    obtained via Gaia DR2 parallaxes, and heavy element abundances.
+
+    The age-metallicity distribution appears to consist of the following
+    two distinct populations: a sequence of old stars with a steep rise of
+    [Fe/H] to  ~+0.3 dex at an age of ~7Gyr and a younger sequence with
+    [Fe/H] increasing from about -0.3dex to ~+0.2dex over the last
+    6Gyr. Furthermore, the trends of several abundance ratios, [O/Fe],
+    [Na/Fe], [Ca/Fe], and [Ni/Fe], as a function of stellar age, split
+    into two corresponding sequences. The [Y/Mg]-age relation, on the
+    other hand, shows no offset between the two age sequences and has no
+    significant dependence on [Fe/H], but the components of a visual
+    binary star, {zeta} Reticuli, have a large and puzzling deviation.
+
+    The split of the age-metallicity distribution into two sequences may
+    be interpreted as evidence of two episodes of accretion of gas onto
+    the Galactic disk with a quenching of star formation in between. Some
+    of the [X/Fe]-age relations support this scenario but other relations
+    are not so easy to explain, which calls for a deeper study of
+    systematic errors in the derived abundances as a function of [Fe/H],
+    in particular 3D non-LTE effects.
+
+Description:
+    Stellar parameters are given in Table 1 and abundance ratios with
+    respect to Fe in Table 2.
+
+File Summary:
+--------------------------------------------------------------------------------
+ FileName      Lrecl  Records   Explanations
+--------------------------------------------------------------------------------
+ReadMe            80        .   This file
+table1.dat        94       72   Stellar parameters
+table2.dat       104       72   Abundance ratios
+--------------------------------------------------------------------------------
+
+See also:
+ J/AJ/105/2299   : Li abundance of solar-type stars. II. (Soderblom+, 1993)
+ J/A+A/327/587   : Abundances of 9 solar-type stars (Tomkin+ 1997)
+ J/PASJ/57/65    : CNO abundances of solar-type stars (Takeda+, 2005)
+ J/A+A/468/663   : Li abundances in solar-analog stars (Takeda+, 2007)
+ J/A+A/508/L17   : Abundances in solar analogs (Ramirez+, 2009)
+ J/A+A/515/A93   : Li abundances in solar-analog stars. II. (Takeda+, 2010)
+ J/ApJ/839/94    : Abundances of solar twins from Keck/HIRES (Bedell+, 2017)
+ J/ApJ/865/68    : Abundances for 79 Sun-like stars within 100pc (Bedell+, 2018)
+ J/MNRAS/423/122 : Abundances of 93 solar-type Kepler targets (Bruntt+, 2012)
+
+Byte-by-byte Description of file: table1.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label       Explanations
+--------------------------------------------------------------------------------
+   1-  8  I8    ---     HD          HD number
+   9- 14  I6    K       Teff        Effective temperature
+  15- 22  F8.3  [cm/s2] logg-sp     logarithmic spectroscopic gravity
+  23- 29  F7.2  km/s    Vturb       Microturbulence parameter
+  30- 37  F8.3  [Sun]   [Fe/H]      Logarithmic Fe/H ratio
+  38- 45  F8.3  [Sun]   [alpha/Fe]  Logarithmic alpha/Fe ratio
+  46- 54  F9.4  ---     Zs          Stellar surface heavy element fraction
+  55- 62  F8.3  [Sun]   logL        Logarithmic stellar luminosity
+  63- 68  F6.1  Gyr     Age         Stellar age
+  69- 73  F5.1  Gyr   e_Age         1-sigma error of stellar age
+  74- 80  F7.2  [Sun]   Mass        Stellar mass
+  81- 87  F7.3  [cm/s2] logg-ph     logarithmic photometric gravity
+  88- 94  F7.3  ---     Ys          Stellar surface helium fraction
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table2.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1-  8  I8    ---     HD        HD number
+   9- 16  F8.3  [Sun]   [C/Fe]    Logarithmic C/Fe ratio
+  17- 24  F8.3  [Sun]   [O/Fe]    Logarithmic O/Fe ratio
+  25- 32  F8.3  [Sun]   [Na/Fe]   Logarithmic Na/Fe ratio
+  33- 40  F8.3  [Sun]   [Mg/Fe]   Logarithmic Mg/Fe ratio
+  41- 48  F8.3  [Sun]   [Al/Fe]   Logarithmic Al/Fe ratio
+  49- 56  F8.3  [Sun]   [Si/Fe]   Logarithmic Si/Fe ratio
+  57- 64  F8.3  [Sun]   [Ca/Fe]   Logarithmic Ca/Fe ratio
+  65- 72  F8.3  [Sun]   [Ti/Fe]   Logarithmic Ti/Fe ratio
+  73- 80  F8.3  [Sun]   [Cr/Fe]   Logarithmic Cr/Fe ratio
+  81- 88  F8.3  [Sun]   [Ni/Fe]   Logarithmic Ni/Fe ratio
+  89- 96  F8.3  [Sun]   [Sr/Fe]   Logarithmic Ni/Fe ratio
+  97-104  F8.3  [Sun]   [Y/Fe]    Logarithmic Y/Fe ratio
+--------------------------------------------------------------------------------
+
+Acknowledgements:
+   Poul Erik Nissen, pen(at)phys.au.dk
+
+================================================================================
+(End)  Poul Erik Nissen [Aarhus University], Patricia Vannier [CDS]  18-Jun-2020

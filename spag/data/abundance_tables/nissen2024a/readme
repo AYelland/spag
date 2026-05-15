@@ -1,0 +1,120 @@
+J/A+A/682/A116      Galactic halo stars abundances               (Nissen+, 2024)
+================================================================================
+Abundances of iron-peak elements in accreted and in situ born Galactic halo
+stars.
+    Nissen P.E., Amarsi A.M., Skuladottir A., Schuster W.J.
+    <Astron. Astrophys. 682, A116 (2024)>
+    =2024A&A...682A.116N        (SIMBAD/NED BibCode)
+================================================================================
+ADC_Keywords: Milky Way ; Populations, stellar ; Abundances
+Keywords: stars: abundances - stars: atmospheres - supernovae: general -
+          Galaxy: halo - Galaxy: formation
+
+Abstract:
+    Studies of the element abundances and kinematics of stars belonging to
+    the Galactic halo have revealed the existence of two distinct
+    populations: accreted stars with a low [alpha/Fe] ratio and in situ
+    born stars with a higher ratio.
+
+    Previous work on the abundances of C, O, Na, Mg, Si, Ca, Ti, Cr, Mn,
+    Fe, Ni, Cu, and Zn in high-alpha and low-alpha halo stars is extended
+    to include the abundances of Sc, V, and Co, enabling us to study the
+    nucleosynthesis of all iron-peak elements along with the lighter
+    elements.
+
+    The Sc, V, and Co abundances were determined from a 1D MARCS
+    model-atmosphere analysis of equivalent widths of atomic lines in high
+    signal-to-noise, high resolution spectra assuming local thermodynamic
+    equilibrium (LTE). In addition, new 3D and/or non-LTE calculations
+    were used to correct the 1D LTE abundances for several elements
+    including consistent 3D non-LTE calculations for Mg.
+
+    The two populations of accreted and in situ born stars are well
+    separated in diagrams showing [Sc/Fe], [V/Fe], and [Co/Fe] as a
+    function of [Fe/H]. The [X/Mg] versus [Mg/H] trends for high-alpha and
+    low-alpha stars were used to determine the yields of core-collapse and
+    Type Ia supernovae. The largest Type Ia contribution occurs for Cr,
+    Mn, and Fe, whereas Cu is a pure core-collapse element. Sc, Ti, V, Co,
+    Ni, and Zn represent intermediate cases. A comparison with yields
+    calculated for supernova models shows poor agreement for the
+    core-collapse yields. The Ia yields suggest that
+    sub-Chandrasekhar-mass Type Ia supernovae provide a dominant
+    contribution to the chemical evolution of the host galaxies of the
+    low-alpha stars. A substructure in the abundances and kinematics of
+    the low-alpha stars suggests that they arise from at least two
+    different satellite accretion events, Gaia-Sausage-Enceladus and
+    Thamnos.
+
+Description:
+    Elemental abundances were determined from equivalent widths of atomic
+    lines measured in high signal-to-noise, high resolution spectra for 85
+    stars, either accreted from dwarf galaxies or born in situ in the
+    Galaxy. For several elements, 3D and/or non-LTE calculations were used
+    to correct 1D LTE abundances derived from a 1D MARCS model-atmosphere
+    analysis.
+
+    Stellar parameters (Teff, logg, [Fe/H], and microturbulence) adopted
+    from Nissen et al. (2014A&A...568A..25N, Cat. J/A+A/568/A25) are given
+    together with abundances of C, O, Na, Mg, Si, Ca, Sc, Ti, V, Cr, Mn,
+    Fe, Co, Ni, Cu, and Zn.
+
+File Summary:
+--------------------------------------------------------------------------------
+ FileName      Lrecl  Records   Explanations
+--------------------------------------------------------------------------------
+ReadMe            80        .   This file
+tablea1.dat      189       85   Stellar parameters and abundances
+--------------------------------------------------------------------------------
+
+See also:
+   J/A+A/568/A25 : C and O abundances in stellar populations (Nissen+, 2014)
+
+Byte-by-byte Description of file: tablea1.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1- 11  A11   ---     Star      Name of star
+  13- 16  I4    K       Teff      Effective temperature
+  19- 22  F4.2  [cm/s2] logg      Logarithm of surface gravity
+  25- 29  F5.2  [Sun]   [Fe/H]1D  1D LTE iron abundance
+  32- 35  F4.2  km/s    Vturb     Microturbulence velocity
+  38- 42  F5.2  [Sun]   [C/H]     ?=9.99 3D non-LTE carbon abundance (1)
+  45- 49  F5.2  [Sun]   [O/H]     ?=9.99 3D non-LTE oxygen abundance (1)
+  52- 56  F5.2  [Sun]   [Na/H]    1D non-LTE sodium abundance
+  59- 63  F5.2  [Sun]   [Na/H]cor 1D non-LTE sodium abundance correction
+  66- 70  F5.2  [Sun]   [Mg/H]    3D non-LTE magnesium abundance
+  73- 77  F5.2  [Sun]   [Mg/H]cor 3D non-LTE magnesium abundance correction
+  80- 84  F5.2  [Sun]   [Si/H]    1D non-LTE silicon abundance
+  87- 91  F5.2  [Sun]   [Si/H]cor 1D non-LTE silicon abundance correction
+  94- 98  F5.2  [Sun]   [Ca/H]    1D non-LTE calcium abundance
+ 101-105  F5.2  [Sun]   [Ca/H]cor 1D non-LTE calcium abundance correction
+ 108-112  F5.2  [Sun]   [Sc/H]    1D LTE scandium abundance
+ 115-119  F5.2  [Sun]   [Ti/H]    1D LTE titanium abundance
+ 122-126  F5.2  [Sun]   [V/H]     ?=9.99 1D LTE vanadium abundance (1)
+ 129-133  F5.2  [Sun]   [Cr/H]    1D LTE chromium abundance
+ 136-140  F5.2  [Sun]   [Mn/H]    1D non-LTE manganese abundance
+ 143-147  F5.2  [Sun]   [Mn/H]cor 1D non-LTE manganese abundance correction
+ 150-154  F5.2  [Sun]   [Fe/H]3D  3D LTE iron abundance
+ 157-161  F5.2  [Sun]   [Co/H]    ?=9.99 1D LTE cobalt abundance (1)
+ 164-168  F5.2  [Sun]   [Ni/H]    1D LTE nickel abundance
+ 171-175  F5.2  [Sun]   [Cu/H]    ?=9.99 1D non-LTE copper abundance (1)
+ 178-182  F5.2  [Sun]   [Zn/H]    1D LTE zinc abundance
+     185  I1    ---     Pop       [1/3] Population assigned in the paper (2)
+ 187-189  A3    ---     Bin       Information on binarity (3)
+--------------------------------------------------------------------------------
+Note (1): Missing abundance is assigned a value of 9.99.
+Note (2): Population membership as follows:
+          1 = high-alpha star with halo kinematics
+          2 = low-alpha star with halo kinematics
+          3 = high-alpha star with thick disk kinematics
+Note (3): Binarity
+          SB1 = single-lined spectroscopic binary according to SIMBAD database
+          SB2 = double-lined spectroscopic binary according to this paper
+          D   = double star according to SIMBAD database
+-------------------------------------------------------------------------------
+
+Acknowledgements:
+   Poul Erik Nissen, pen(at)phys.au.dk
+
+================================================================================
+(End)  Poul Erik Nissen [Aarhus University], Patricia Vannier [CDS]  15-Dec-2023
