@@ -127,7 +127,7 @@ def align_ampersands(filename, start_line, end_line):
 
 from decimal import Decimal, ROUND_HALF_UP, ROUND_HALF_DOWN
 
-def normal_round(value, precision=2):
+def normal_round(value, precision=2, abs_round=True):
     """
     value: float
         The value to round.
@@ -139,12 +139,18 @@ def normal_round(value, precision=2):
     Returns:
         float: The rounded value.
     """
+    if pd.isna(value) or value is None:
+        return value
+    
     value = Decimal(str(value)) # Convert to string first to avoid floating point precision issues
     multiplier = Decimal('1.' + '0' * precision)  # Decimal precision
-    if value >= 0:
+    if abs_round:
         return float(value.quantize(multiplier, rounding=ROUND_HALF_UP))
     else:
-        return float(value.quantize(multiplier, rounding=ROUND_HALF_DOWN))
+        if value >= 0:
+            return float(value.quantize(multiplier, rounding=ROUND_HALF_UP))
+        else:
+            return float(value.quantize(multiplier, rounding=ROUND_HALF_DOWN))
     
 def round_to_nearest(x, base=0.5, how="normal"):
     """
@@ -199,7 +205,26 @@ def pad_and_round(value, precision):
         return ''
     else:
         return f"{normal_round(value, precision):.{precision}f}"
+
+def round_half_up_sigfig(x, decimals=3):
+    """Format number in scientific notation with round-half-up."""
+    decimals = decimals - 1  # Adjust decimals to account for the leading digit in scientific notation
     
+    # Determine the exponent
+    if x == 0:
+        return "0.00e+00"
+    
+    exponent = int(f"{x:.0e}".split('e')[1])
+    
+    # Scale to get mantissa
+    mantissa = Decimal(str(x)) / Decimal(10) ** exponent
+    
+    # Round mantissa
+    quantizer = Decimal(10) ** (-decimals)
+    mantissa_rounded = mantissa.quantize(quantizer, rounding=ROUND_HALF_UP)
+    
+    return float(f"{float(mantissa_rounded):.{decimals}f}e{exponent:+03d}")
+
 ## Other rounding functions (https://realpython.com/python-rounding)
 def truncate(n, decimals=0):
     multiplier = 10**decimals

@@ -34,3 +34,6 @@ data/fits_smh/
 build*/
 dist/
 spag/plots/
+
+# under construction
+statistics.py

@@ -1,0 +1,61 @@
+Table 1 
+Observational Data for Gaia DR3 5262850721755411072
+
+
+Quantity	Symbol	Value	Unit	Source	Reference	
+R.A.	alpha (J2000)	108.91087	deg	Gaia DR3	Gaia Collaboration et al. (2023)	
+Decl.	delta (J2000)	-73.58142	deg	Gaia DR3	Gaia Collaboration et al. (2023)	
+Galactic Longitude	ell	284.97496	deg	Gaia DR3	Gaia Collaboration et al. (2023)	
+Galactic Latitude	b	-24.25953	deg	Gaia DR3	Gaia Collaboration et al. (2023)	
+Parallax	piv	-0.0064 +or- 0.0172	mas	Gaia DR3	Gaia Collaboration et al. (2023)	
+Proper Motion (alpha)	mu_alpha_,_lowast^a	3.767 +or- 0.022	mas yr^-1	Gaia DR3	Gaia Collaboration et al. (2023)	
+Proper Motion (delta)	mu_delta	2.627 +or- 0.022	mas yr^-1	Gaia DR3	Gaia Collaboration et al. (2023)	
+						
+Mass	M_sstarf	0.78 +or- 0.10	M_sun	Assumed	This work	
+						
+B Magnitude	B	16.467	mag	APASS^b DR9	A. A. Henden et al. (2016)	
+V Magnitude	V	15.362	mag	APASS DR9	A. A. Henden et al. (2016)	
+G Magnitude	G	14.995	mag	Gaia DR3	Gaia Collaboration et al. (2023)	
+BP Magnitude	BP	15.648	mag	Gaia DR3	Gaia Collaboration et al. (2023)	
+RP Magnitude	RP	14.203	mag	Gaia DR3	Gaia Collaboration et al. (2023)	
+J Magnitude	J	13.161	mag	2MASS	cdots	
+H Magnitude	H	12.579	mag	2MASS	M. F. Skrutskie et al. (2006)	
+K Magnitude	K	12.466	mag	2MASS	M. F. Skrutskie et al. (2006)	
+W1 Magnitude	W1	12.311	mag	AllWISE^c	R. M. Cutri et al. (2021)	
+W2 Magnitude	W2	12.272	mag	AllWISE	R. M. Cutri et al. (2021)	
+g Magnitude	g	15.682	mag	SkyMapper DR4	C. A. Onken et al. (2024)	
+r Magnitude	r	15.053	mag	SkyMapper DR4	C. A. Onken et al. (2024)	
+i Magnitude	i	14.550	mag	SkyMapper DR4	C. A. Onken et al. (2024)	
+z Magnitude	z	14.304	mag	SkyMapper DR4	C. A. Onken et al. (2024)	
+						
+Color Excess	E(B - V)	0.1622	mag	IRSA^d	E. F. Schlafly & D. P. Finkbeiner (2011)	
+Extinction (V)	A_V	0.503	mag	Equation (2)	E. F. Schlafly & D. P. Finkbeiner (2011)	
+Extinction (G)	A_G	0.397 +or- 0.005	mag	Equation (3)	S. Wang & X. Chen (2019)	
+Bolometric Correction	BC(G)	-0.568 +or- 0.022	mag	bcutil^e	L. Casagrande & D. A. VandenBerg (2018)	
+						
+Line-of-sight Velocity	v_los	+428.7 +or- 2.0	km s^-1	MIKE/Magellan	This work	
+						
+Effective Temperature	T_eff	4596 +or- 65	K	color-T_eff-[Fe/H]^f	This work	
+		4742	K	Data driven	R. Andrae et al. (2023)	
+		4803${}_{-51}^{+161}$	K	StarHorse	F. Anders et al. (2022)	
+Log of Surface Gravity	${\mathrm{log}}\,g$	0.88 +or- 0.15	[cgs]	Isochrone^g	This work	
+		1.38	[cgs]	Data driven	R. Andrae et al. (2023)	
+		1.52${}_{-0.25}^{+0.18}$	[cgs]	StarHorse	F. Anders et al. (2022)	
+Microturbulence Velocity	xi	2.27 +or- 0.10	km s^-1	${\mathrm{log}}\,g$-xi^h	This work	
+Metallicity	[Fe/H]	-4.82 +or- 0.25	dex	MIKE/Magellan	This work	
+		-3.5	dex	Data driven	This work	
+		-2.9	dex	Data driven	R. Andrae et al. (2023)	
+		<-2.9	dex	Model grid	M. K. Mardini et al. (2025, in preparation)	
+						
+Distance Modulus	mu	16.9 +or- 0.4	mag	Equation (1)	This work	
+Heliocentric Distance	d_helio	24.1${}_{-4.1}^{+4.9}$	kpc	10^[(mu+5)/5]-3	This work	
+		15.8${}_{-4.2}^{+3.4}$	kpc	StarHorse	F. Anders et al. (2022)	
+Notes.
+^a mu_alpha,lowast = mu_alpha cos delta.
+^b The AAVSO Photometric All-Sky Survey.
+^c Wide-field Infrared Survey Explorer.
+^d Infrared Science Archive (https://irsa.ipac.caltech.edu/).
+^e https://github.com/casaluca/bolometric-corrections/tree/master
+^f A. Mucciarelli et al. (2021).
+^g S. Yi et al. (2001); P. Demarque et al. (2004).
+^h P. S. Barklem et al. (2005; quadratic fit by A. P. Ji et al. 2023).

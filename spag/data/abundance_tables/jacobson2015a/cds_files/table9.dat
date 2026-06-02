@@ -1,0 +1,22 @@
+Table 9 
+Linear Regression Results
+
+
+	This Study				Yong et al. (2013a)				Cayrel et al. (2004)				Cohen et al. (2013)			
+[X/Fe]	Slope	Error	rms		Slope	Error	rms		Slope	Error	rms		Slope^a	Error	rms	
+			(dex)				(dex)				(dex)				(dex)	
+Na I	+0.01	0.08	0.27		+0.30	0.07	0.21		+0.403	0.010	0.25		cdots	cdots	cdots	
+Mg I	-0.16	0.03	0.09		-0.03	0.04	0.13		+0.035	0.003	0.13		+0.00	cdots	0.17	
+Al I	-0.18	0.07	0.26		+0.11	0.06	0.17		+0.047	0.005	0.18		-0.06	cdots	0.24	
+Si I	-0.21	0.07	0.23		-0.30	0.18	0.26		+0.032	0.004	0.15		-0.18	cdots	0.20	
+Ca I	-0.08	0.02	0.08		+0.02	0.03	0.10		+0.074	0.002	0.10		+0.00	cdots	0.15	
+Sc II	-0.09	0.05	0.17		+0.08	0.05	0.13		+0.034	0.002	0.11		+0.04	cdots	0.14	
+Ti I	-0.05	0.03	0.09		-0.10	0.04	0.11		-0.014	0.001	0.09		+0.14	cdots	0.14	
+Ti II	+0.07	0.03	0.09		+0.14	0.04	0.13		-0.014	0.001	0.09		+0.14	cdots	0.14	
+Cr I	+0.23	0.03	0.10		+0.15	0.03	0.10		+0.117	0.000	0.05		+0.24	cdots	0.13	
+Mn I	+0.14	0.03	0.15		+0.33	0.06	0.15		+0.030	0.003	0.12		+0.24	cdots	0.16	
+Co I	-0.09	0.05	0.20		-0.38	0.04	0.04		-0.131	0.002	0.13		-0.20	cdots	0.16	
+Ni I	+0.01	0.04	0.13		-0.02	0.04	0.13		-0.003	0.002	0.11		-0.06	cdots	0.21	
+Zn I	-0.49	0.09	0.15		cdots	cdots	cdots		-0.271	0.002	0.11		+0.00	cdots	0.25	
+Note.
+^a Slope calculated subtracting $\langle [{\rm{X}}/\mathrm{Fe}]\rangle $ values at $[\mathrm{Fe}/{\rm{H}}]=-3.0$ from values at $[\mathrm{Fe}/{\rm{H}}]=-3.5$ in Table 13 of Cohen et al. (2013).

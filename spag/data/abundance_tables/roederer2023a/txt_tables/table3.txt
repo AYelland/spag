@@ -1,0 +1,14 @@
+Table 3 
+Model Atmosphere Parameters
+
+
+Star Name	T _eff	log g	v _t	[M/H] ^a	[Fe I/H] ^b	
+	(K)		(km s^-1)			
+J1008+0001	4405	1.07	2.25	-3.43	-2.97	
+J1010-0220	4405	0.79	2.15	-3.03	-3.34	
+J1015-0238	4441	0.79	2.35	-2.73	-2.64	
+J1018-0155	4423	0.72	2.45	-2.89	-2.81	
+J1018-0209	4396	0.67	2.45	-2.86	-2.75	
+Notes.
+^a [M/H] equiv [Fe II/H].
+^b Includes NLTE correction.
