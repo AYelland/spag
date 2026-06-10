@@ -1,0 +1,28 @@
+[project]
+name = "spag"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "AYelland", email = "amyelland3@gmail.com" }
+]
+requires-python = ">=3.9"
+dependencies = [
+    "astropy>=6.0.1",
+    "astroquery>=0.4.11",
+    "corner>=2.2.3",
+    "ipykernel>=6.31.0",
+    "numpy>=1.26.4",
+    "pandas>=2.3.3",
+    "pip>=26.0.1",
+    "scipy>=1.13.1",
+    "seaborn>=0.13.2",
+    "sqlalchemy>=2.0.50",
+]
+
+[project.scripts]
+spag = "spag:main"
+
+[build-system]
+requires = ["uv_build>=0.11.19,<0.12.0"]
+build-backend = "uv_build"

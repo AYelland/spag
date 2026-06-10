@@ -577,7 +577,7 @@ def plot_cempfrac_distributions(stats_dict, n_iterations):
             ylim = np.max(histy) * 1.3
             
         # Plot mean line
-        ax.vlines(mean, -1, 1, linestyle='dashed', color=icolor, label=f'{label_prefix}$\mu =$ {mean:.2f}', zorder=1)
+        ax.vlines(mean, -1, 1, linestyle='dashed', color=icolor, label=fr'{label_prefix}$\mu =$ {mean:.2f}', zorder=1)
         
         # Plot sigma regions
         sigma_colors = [icolor if icolor != 'k' else 'cadetblue' for _ in sigma_levels]
@@ -586,7 +586,7 @@ def plot_cempfrac_distributions(stats_dict, n_iterations):
             ax.axvspan(
                 mean - sigma_level*stddev, mean + sigma_level*stddev, 
                 alpha=sigma_alphas[i], color=sigma_colors[i],
-                label=f'{label_prefix}{sigma_level}$\sigma = \pm$ {sigma_level*stddev:.2f}', zorder=0
+                label=fr'{label_prefix}{sigma_level}$\sigma = \pm$ {sigma_level*stddev:.2f}', zorder=0
             )
         
         # Set aesthetics
