@@ -19,7 +19,6 @@ dependencies = [
     "corner>=2.2.3",
     "numpy>=1.26.4",
     "pandas>=2.3.3",
-    "pip>=26.0.1",
     "scipy>=1.13.1",
     "seaborn>=0.13.2",
     "sqlalchemy>=2.0.50",
