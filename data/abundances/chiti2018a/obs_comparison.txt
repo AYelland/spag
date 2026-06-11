@@ -1,7 +1,7 @@
 ``` python
 
-mage_df = pd.read_csv(data_dir + "abundance_tables/chiti2018a/table5.csv", comment='#')
-m2fs_df = pd.read_csv(data_dir + "abundance_tables/chiti2018a/table6.csv", comment='#')
+mage_df = pd.read_csv(data_dir + "abundances/chiti2018a/table5.csv", comment='#')
+m2fs_df = pd.read_csv(data_dir + "abundances/chiti2018a/table6.csv", comment='#')
 
 m2fs_only_names = []
 mage_only_names = []

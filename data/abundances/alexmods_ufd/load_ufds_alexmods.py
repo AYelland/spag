@@ -5,7 +5,7 @@ def load_ufds_alexmods():
     Returns:
         pd.DataFrame: A cleaned DataFrame with numerical abundance columns and separate upper limit columns.
     """
-    ufd_df = pd.read_csv(data_dir + "abundance_tables/alexmods_ufd/alexmods_ufd_yelland.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    ufd_df = pd.read_csv(data_dir + "abundances/alexmods_ufd/alexmods_ufd_yelland.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
 
     # Identify abundance columns
     abundance_cols = [col for col in ufd_df.columns if col.startswith("[") and (col.endswith("Fe]") or col.endswith("H]"))]

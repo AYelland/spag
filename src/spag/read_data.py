@@ -1218,8 +1218,8 @@ def load_jinabase(sci_key=None, io=1, load_eps=True, load_ll=True, load_ul=True,
     """
 
     ## Read data
-    data = pd.read_csv(data_dir+"abundance_tables/JINAbase-4-yelland/JINAbase-yelland25.csv", header=0, na_values=["*"]) #index_col=0
-    uls  = pd.read_csv(data_dir+"abundance_tables/JINAbase-4-yelland/JINAbase-yelland25-ulimits.csv", header=0, na_values=["*"]) #index_col=0
+    data = pd.read_csv(data_dir+"abundances/JINAbase-4-yelland/JINAbase-yelland25.csv", header=0, na_values=["*"]) #index_col=0
+    uls  = pd.read_csv(data_dir+"abundances/JINAbase-4-yelland/JINAbase-yelland25-ulimits.csv", header=0, na_values=["*"]) #index_col=0
     Nstars = len(data)
 
     ## Gather groups of column names
@@ -1307,7 +1307,7 @@ def load_jinabase(sci_key=None, io=1, load_eps=True, load_ll=True, load_ul=True,
     data['I/O'] = data['I/O'].astype(int)
 
     ## Save the processed data to a CSV file
-    data.to_csv(data_dir+"abundance_tables/JINAbase-4-yelland/JINAbase-yelland25-processed.csv", index=False)
+    data.to_csv(data_dir+"abundances/JINAbase-4-yelland/JINAbase-yelland25-processed.csv", index=False)
 
     # Filter the dataframe based on desired version
     if version == "abohalima":
@@ -1359,7 +1359,7 @@ def load_placco2014c(remove_atari=True, remove_sass=True, remove_dups=True, use_
     original data-set (616 stars) as well or versions of the data-set with only some of the filters applied.
     """
 
-    placco2014c_df = pd.read_csv(data_dir+"abundance_tables/placco2014c/cds_files/table3_mod.csv") # using modified table for correct reference labeling
+    placco2014c_df = pd.read_csv(data_dir+"abundances/placco2014c/cds_files/table3_mod.csv") # using modified table for correct reference labeling
 
     ## Rename, Clean-up, and Add-to Reference Columns
     placco2014c_df.rename(columns={"Ref": "Reference"}, inplace=True)
@@ -1512,7 +1512,7 @@ def load_placco2014c(remove_atari=True, remove_sass=True, remove_dups=True, use_
         placco2014c_df[col] = pd.to_numeric(placco2014c_df[col], errors='coerce')
 
     ## Add the Simbad_Identifier, RA_hms, DEC_dms, RA_deg, DEC_deg columns
-    simbad_df = pd.read_csv(data_dir+'abundance_tables/placco2014c/simbad_data.csv')
+    simbad_df = pd.read_csv(data_dir+'abundances/placco2014c/simbad_data.csv')
     for name in simbad_df['Name']:
         placco2014c_df.loc[placco2014c_df['Name'] == name, 'Simbad_Identifier'] = simbad_df.loc[simbad_df['Name'] == name, 'MAIN_ID'].values[0]
         placco2014c_df.loc[placco2014c_df['Name'] == name, 'RA_hms'] = simbad_df.loc[simbad_df['Name'] == name, 'RA'].values[0].replace(' ', ':')
@@ -1523,7 +1523,7 @@ def load_placco2014c(remove_atari=True, remove_sass=True, remove_dups=True, use_
     placco2014c_df = placco2014c_df[[placco2014c_df.columns[0]] + new_columns + list(placco2014c_df.columns[1:-len(new_columns)])]
 
     ## Save the pre-filtered DataFrame
-    placco2014c_df.to_csv(data_dir+'abundance_tables/placco2014c/placco2014c.csv', index=False)
+    placco2014c_df.to_csv(data_dir+'abundances/placco2014c/placco2014c.csv', index=False)
 
     ## Removing Atari Stars
     if remove_atari: # 21 stars, but only 19 removed here since 2 were already removed in the CEMP-s/i cut
@@ -1614,7 +1614,7 @@ def load_placco2014c(remove_atari=True, remove_sass=True, remove_dups=True, use_
         raise ValueError("Invalid value for 'io'. It should be 0, 1, or None.")
     
     ## Save the final DataFrame
-    placco2014c_df.to_csv(data_dir+'abundance_tables/placco2014c/placco2014c-processed.csv', index=False)
+    placco2014c_df.to_csv(data_dir+'abundances/placco2014c/placco2014c-processed.csv', index=False)
     
     return placco2014c_df
 
@@ -1631,10 +1631,10 @@ def load_cayrel2004():
     """
 
     ## Read in the data tables
-    obs_df = pd.read_csv(data_dir + "abundance_tables/cayrel2004/table2.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
-    param_df = pd.read_csv(data_dir + "abundance_tables/cayrel2004/table4.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
-    c04_abund_df = pd.read_csv(data_dir + "abundance_tables/cayrel2004/table8.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
-    f07_abund_df = pd.read_csv(data_dir + "abundance_tables/francois2007/table3_4_5.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    obs_df = pd.read_csv(data_dir + "abundances/cayrel2004/table2.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    param_df = pd.read_csv(data_dir + "abundances/cayrel2004/table4.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    c04_abund_df = pd.read_csv(data_dir + "abundances/cayrel2004/table8.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    f07_abund_df = pd.read_csv(data_dir + "abundances/francois2007/table3_4_5.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
     
     # -------------------------------------
     ## Modify Cayrel+2004 Abundance Table
@@ -1812,7 +1812,7 @@ def load_mardini2022a(io=None):
     Load the data from Mardini et al. (2022), Table 5, for stars in the Atari Disk (Atr) region.
     """
 
-    mardini2022a_df = pd.read_csv(data_dir+'abundance_tables/mardini2022a/tab5_yelland.csv', comment='#')
+    mardini2022a_df = pd.read_csv(data_dir+'abundances/mardini2022a/tab5_yelland.csv', comment='#')
 
     ## Add and rename the necessary columns
     # mardini2022a_df.rename(columns={'source_id':'Name', 'ra':'RA_hms', 'dec':'DEC_deg', 'teff':'Teff'}, inplace=True)
@@ -1900,7 +1900,7 @@ def load_mardini2022a(io=None):
     
     ## Save the processed data to a CSV file
     mardini2022a_df.sort_values(by='[Fe/H]', ascending=False, inplace=True)
-    mardini2022a_df.to_csv(data_dir+'abundance_tables/mardini2022a/tab5_processed.csv', index=False)
+    mardini2022a_df.to_csv(data_dir+'abundances/mardini2022a/tab5_processed.csv', index=False)
 
     return mardini2022a_df
 
@@ -1914,9 +1914,9 @@ def load_mardini2022b(io=None):
     """
 
     ## Read in the data tables
-    obs_df = pd.read_csv(data_dir + "abundance_tables/mardini2022b/table0.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
-    param_df = pd.read_csv(data_dir + "abundance_tables/mardini2022b/table0.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
-    abund_df = pd.read_csv(data_dir + "abundance_tables/mardini2022b/table2.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    obs_df = pd.read_csv(data_dir + "abundances/mardini2022b/table0.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    param_df = pd.read_csv(data_dir + "abundances/mardini2022b/table0.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    abund_df = pd.read_csv(data_dir + "abundances/mardini2022b/table2.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
 
     ## Make the new column names
     species = []
@@ -2024,8 +2024,8 @@ def load_mardini2024b(io=None):
     """
 
     ## Read in the data tables
-    obs_param_df = pd.read_csv(data_dir + "abundance_tables/mardini2024b/table1.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
-    abund_df = pd.read_csv(data_dir + "abundance_tables/mardini2024b/table2.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    obs_param_df = pd.read_csv(data_dir + "abundances/mardini2024b/table1.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    abund_df = pd.read_csv(data_dir + "abundances/mardini2024b/table2.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
     
     ## Make the new column names
     species = []
@@ -2138,7 +2138,7 @@ def load_ou2024c(io=None):
 
     Load the data from Ou+2024, Table 1, for stars in the GSE dwarf galaxy.
     """
-    ou2024c_df = pd.read_csv(data_dir+'abundance_tables/ou2024c/ou2024c-yelland.csv', comment='#')
+    ou2024c_df = pd.read_csv(data_dir+'abundances/ou2024c/ou2024c-yelland.csv', comment='#')
     ou2024c_df['I/O'] = 1
 
     ## Filter the DataFrame based on the I/O column
@@ -2163,9 +2163,9 @@ def load_hughes2026(io=None):
     """
 
     ## Read in the data tables
-    obs_df = pd.read_csv(data_dir + "abundance_tables/hughes2026/obs_table.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
-    param_df = pd.read_csv(data_dir + "abundance_tables/hughes2026/param_table.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
-    abund_df = pd.read_csv(data_dir + "abundance_tables/hughes2026/abund_table.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    obs_df = pd.read_csv(data_dir + "abundances/hughes2026/obs_table.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    param_df = pd.read_csv(data_dir + "abundances/hughes2026/param_table.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    abund_df = pd.read_csv(data_dir + "abundances/hughes2026/abund_table.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
 
     ## Make the new column names
     species = []
@@ -2274,8 +2274,8 @@ def load_nordlander2019(io=None):
     """
 
     ## Read in the data tables
-    obs_param_df = pd.read_csv(data_dir + "abundance_tables/nordlander2019/table0.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
-    abund_df = pd.read_csv(data_dir + "abundance_tables/nordlander2019/table1.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    obs_param_df = pd.read_csv(data_dir + "abundances/nordlander2019/table0.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    abund_df = pd.read_csv(data_dir + "abundances/nordlander2019/table1.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
 
     ## Make the new column names
     species = []
@@ -2387,7 +2387,7 @@ def load_chiti2018a(data_subset='merged'):
     """
 
     ## Load the combined table (created by Alex Yelland)
-    chiti2018a_df = pd.read_csv(data_dir+'abundance_tables/chiti2018a/chiti2018a.csv', comment='#')
+    chiti2018a_df = pd.read_csv(data_dir+'abundances/chiti2018a/chiti2018a.csv', comment='#')
     chiti2018a_df['I/O'] = chiti2018a_df['I/O'].astype(int)
 
     ## Add/Fill a epsfe column, calculating the value from [Fe/H]
@@ -2438,9 +2438,9 @@ def load_chiti2024(io=None):
     """
 
     ## Read in the data tables
-    obs_df = pd.read_csv(data_dir + "abundance_tables/chiti2024/table_obs.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
-    param_df = pd.read_csv(data_dir + "abundance_tables/chiti2024/table_param.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
-    abund_df1 = pd.read_csv(data_dir + "abundance_tables/chiti2024/table_abund1.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    obs_df = pd.read_csv(data_dir + "abundances/chiti2024/table_obs.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    param_df = pd.read_csv(data_dir + "abundances/chiti2024/table_param.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    abund_df1 = pd.read_csv(data_dir + "abundances/chiti2024/table_abund1.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
 
     ## Make the new column names
     species = []
@@ -2544,7 +2544,7 @@ def load_chiti2024(io=None):
     chiti2024_df.drop(columns=[col for col in chiti2024_df.columns if 'Fe/Fe' in col or 'Fe2/Fe' in col], inplace=True, errors='ignore')
 
     ## Add the addtional abundances not in the Supplementary Data Table 1
-    abund_df2 = pd.read_csv(data_dir + "abundance_tables/chiti2024/table_abund2.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    abund_df2 = pd.read_csv(data_dir + "abundances/chiti2024/table_abund2.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
     
     for i, name in enumerate(abund_df2['Name'].unique()):
         if name not in chiti2024_df['Name'].values:
@@ -2633,8 +2633,8 @@ def load_chiti2025a(io=None):
     """
 
     ## Read in the data tables
-    obs_param_df = pd.read_csv(data_dir + 'abundance_tables/chiti2025a/table0.csv', comment='#', na_values=['', ' ', 'nan', 'NaN', 'N/A', 'n/a'])
-    abund_df = pd.read_csv(data_dir + 'abundance_tables/chiti2025a/table2.csv', comment='#', na_values=['', ' ', 'nan', 'NaN', 'N/A', 'n/a'])
+    obs_param_df = pd.read_csv(data_dir + 'abundances/chiti2025a/table0.csv', comment='#', na_values=['', ' ', 'nan', 'NaN', 'N/A', 'n/a'])
+    abund_df = pd.read_csv(data_dir + 'abundances/chiti2025a/table2.csv', comment='#', na_values=['', ' ', 'nan', 'NaN', 'N/A', 'n/a'])
 
     ## Make the new column names
     species = []
@@ -2762,7 +2762,7 @@ def load_frebel2010b(io=None):
     Load the data from Frebel+2010b, Table 1, for star S1020549.
     """
     
-    csv_df = pd.read_csv(data_dir+'abundance_tables/frebel2010b/table1_S1020549.csv', comment='#')
+    csv_df = pd.read_csv(data_dir+'abundances/frebel2010b/table1_S1020549.csv', comment='#')
 
     ## Column names
     species = []
@@ -2880,9 +2880,9 @@ def load_ji2026(io=None):
     """
 
     ## Read in the data tables
-    obs_df = pd.read_csv(data_dir + "abundance_tables/ji2026/table0.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
-    param_df = pd.read_csv(data_dir + "abundance_tables/ji2026/table0.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
-    abund_df = pd.read_csv(data_dir + "abundance_tables/ji2026/table1.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    obs_df = pd.read_csv(data_dir + "abundances/ji2026/table0.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    param_df = pd.read_csv(data_dir + "abundances/ji2026/table0.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    abund_df = pd.read_csv(data_dir + "abundances/ji2026/table1.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
 
     ## Make the new column names
     species = []
@@ -2993,9 +2993,9 @@ def load_lemasle2012(io=None):
     """
 
     ## Read in the data tables
-    obs_df = pd.read_csv(data_dir + "abundance_tables/lemasle2012/table3.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
-    param_df = pd.read_csv(data_dir + "abundance_tables/lemasle2012/table5.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
-    abund_df = pd.read_csv(data_dir + "abundance_tables/lemasle2012/table7_table8.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    obs_df = pd.read_csv(data_dir + "abundances/lemasle2012/table3.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    param_df = pd.read_csv(data_dir + "abundances/lemasle2012/table5.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    abund_df = pd.read_csv(data_dir + "abundances/lemasle2012/table7_table8.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
 
     obs_df = obs_df[~(obs_df['Memb'] == 'non-member')]
     
@@ -3125,9 +3125,9 @@ def load_lemasle2014(io=None):
     """
 
     ## Read in the data tables
-    obs_df = pd.read_csv(data_dir + "abundance_tables/lemasle2014/tablea3.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
-    param_df = pd.read_csv(data_dir + "abundance_tables/lemasle2014/table3.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
-    abund_df = pd.read_csv(data_dir + "abundance_tables/lemasle2014/tablea5.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    obs_df = pd.read_csv(data_dir + "abundances/lemasle2014/tablea3.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    param_df = pd.read_csv(data_dir + "abundances/lemasle2014/table3.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    abund_df = pd.read_csv(data_dir + "abundances/lemasle2014/tablea5.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
     
     ## Make the new column names
     species = []
@@ -3290,8 +3290,8 @@ def load_letarte2010(io=None):
     """
 
     ## Read in the data tables
-    obs_param_df = pd.read_csv(data_dir + "abundance_tables/letarte2010/tablea2_tablea3.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
-    abund_df = pd.read_csv(data_dir + "abundance_tables/letarte2010/tablea5.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    obs_param_df = pd.read_csv(data_dir + "abundances/letarte2010/tablea2_tablea3.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    abund_df = pd.read_csv(data_dir + "abundances/letarte2010/tablea5.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
     
     ## Make the new column names
     species = []
@@ -3461,9 +3461,9 @@ def load_limberg2025a(io=None):
     """
 
     ## Read in the data tables
-    obs_df = pd.read_csv(data_dir + "abundance_tables/limberg2025a/table0.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
-    param_df = pd.read_csv(data_dir + "abundance_tables/limberg2025a/table0.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
-    abund_df = pd.read_csv(data_dir + "abundance_tables/limberg2025a/table2.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    obs_df = pd.read_csv(data_dir + "abundances/limberg2025a/table0.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    param_df = pd.read_csv(data_dir + "abundances/limberg2025a/table0.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    abund_df = pd.read_csv(data_dir + "abundances/limberg2025a/table2.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
 
     ## Make the new column names
     species = []
@@ -3574,8 +3574,8 @@ def load_lucchesi2024(io=None):
     """
 
     ## Read in the data tables
-    obs_param_df = pd.read_csv(data_dir + "abundance_tables/lucchesi2024/table0.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
-    abund_df = pd.read_csv(data_dir + "abundance_tables/lucchesi2024/tablea4.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    obs_param_df = pd.read_csv(data_dir + "abundances/lucchesi2024/table0.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    abund_df = pd.read_csv(data_dir + "abundances/lucchesi2024/tablea4.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
     
     ## Make the new column names
     species = []
@@ -3690,7 +3690,7 @@ def load_lucey2026(io=None):
     """
 
     ## Read in the data tables
-    obs_param_abund_df = pd.read_csv(data_dir + "abundance_tables/lucey2026/table1.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    obs_param_abund_df = pd.read_csv(data_dir + "abundances/lucey2026/table1.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
 
     ## Make the new column names
     species = []
@@ -3775,9 +3775,9 @@ def load_norris2017b(io=None):
     """
     
     ## Read in the data tables
-    obs_df = pd.read_csv(data_dir + "abundance_tables/norris2017b/table1.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
-    param_df = pd.read_csv(data_dir + "abundance_tables/norris2017b/table5.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
-    abund_df = pd.read_csv(data_dir + "abundance_tables/norris2017b/table6.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    obs_df = pd.read_csv(data_dir + "abundances/norris2017b/table1.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    param_df = pd.read_csv(data_dir + "abundances/norris2017b/table5.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    abund_df = pd.read_csv(data_dir + "abundances/norris2017b/table6.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
     
     ## Make the new column names
     species = []
@@ -3890,7 +3890,7 @@ def load_ou2025(io=None):
 
     Load the data from Ou+2025 for stars in the Sagittarius dwarf galaxy.
     """
-    ou2025_df = pd.read_csv(data_dir+'abundance_tables/ou2025/ou2025-yelland.csv', comment='#')
+    ou2025_df = pd.read_csv(data_dir+'abundances/ou2025/ou2025-yelland.csv', comment='#')
     ou2025_df['I/O'] = 1
 
     ## Filter the DataFrame based on the I/O column
@@ -3912,9 +3912,9 @@ def load_reggiani2021(io=None):
     Table 5 - Abundance Table
     """
 
-    obs_df = pd.read_csv(data_dir + 'abundance_tables/reggiani2021/table1.csv', comment='#', na_values=['', ' ', 'nan', 'NaN', 'N/A', 'n/a'])
-    param_df = pd.read_csv(data_dir + 'abundance_tables/reggiani2021/table3.csv', comment='#', na_values=['', ' ', 'nan', 'NaN', 'N/A', 'n/a'])
-    abund_df = pd.read_csv(data_dir + 'abundance_tables/reggiani2021/table5.csv', comment='#', na_values=['', ' ', 'nan', 'NaN', 'N/A', 'n/a'])
+    obs_df = pd.read_csv(data_dir + 'abundances/reggiani2021/table1.csv', comment='#', na_values=['', ' ', 'nan', 'NaN', 'N/A', 'n/a'])
+    param_df = pd.read_csv(data_dir + 'abundances/reggiani2021/table3.csv', comment='#', na_values=['', ' ', 'nan', 'NaN', 'N/A', 'n/a'])
+    abund_df = pd.read_csv(data_dir + 'abundances/reggiani2021/table5.csv', comment='#', na_values=['', ' ', 'nan', 'NaN', 'N/A', 'n/a'])
 
     species = []
     for ion in abund_df["Species"].unique():
@@ -4030,9 +4030,9 @@ def load_roederer2023a(io=None):
     """
 
     ## Read in the data tables
-    obs_df = pd.read_csv(data_dir + "abundance_tables/roederer2023a/table1.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
-    param_df = pd.read_csv(data_dir + "abundance_tables/roederer2023a/table3.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
-    abund_df = pd.read_csv(data_dir + "abundance_tables/roederer2023a/table567_lte.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    obs_df = pd.read_csv(data_dir + "abundances/roederer2023a/table1.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    param_df = pd.read_csv(data_dir + "abundances/roederer2023a/table3.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    abund_df = pd.read_csv(data_dir + "abundances/roederer2023a/table567_lte.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
 
     ## Make the new column names
     species = []
@@ -4138,7 +4138,7 @@ def load_sestito2024b(io=None):
     Load the data from Sestito for stars in the Sagittarius dwarf galaxy, focused on Carbon.
     PIGS IX (Table 4) is used for this dataset.
     """
-    sestito2024b_df = pd.read_csv(data_dir+'abundance_tables/sestito2024b/sestito2024b-yelland.csv', comment='#')
+    sestito2024b_df = pd.read_csv(data_dir+'abundances/sestito2024b/sestito2024b-yelland.csv', comment='#')
     sestito2024b_df['I/O'] = 1
 
     ## Filter the DataFrame based on the I/O column
@@ -4158,7 +4158,7 @@ def load_sestito2024d(io=None):
     Load the data from Sestito et al. 2024b for stars in the Sagittarius dwarf galaxy. This is low/med-resolution 
     photometry from the PIGS X survey.
     """
-    sestito2024d_df = pd.read_csv(data_dir+'abundance_tables/sestito2024d/membpara.csv', comment='#')
+    sestito2024d_df = pd.read_csv(data_dir+'abundances/sestito2024d/membpara.csv', comment='#')
 
     ## Add and rename the necessary columns
     sestito2024d_df.rename(columns={'PIGS':'Name', 'RAdeg':'RA_deg', 'DEdeg':'DEC_deg', 'GaiaDR3':'Simbad_Identifier', 'RV':'Vel', 'e_RV':'e_Vel'}, inplace=True)
@@ -4237,9 +4237,9 @@ def load_shetrone2003(io=None):
     """
     
     ## Read in the data tables
-    obs_df = pd.read_csv(data_dir + "abundance_tables/shetrone2003/table0.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
-    param_df = pd.read_csv(data_dir + "abundance_tables/shetrone2003/table5.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
-    abund_df = pd.read_csv(data_dir + "abundance_tables/shetrone2003/table7_8_9_10.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    obs_df = pd.read_csv(data_dir + "abundances/shetrone2003/table0.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    param_df = pd.read_csv(data_dir + "abundances/shetrone2003/table5.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    abund_df = pd.read_csv(data_dir + "abundances/shetrone2003/table7_8_9_10.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
 
     ## Make the new column names
     species = []
@@ -4365,9 +4365,9 @@ def load_venn2012(io=None):
     """
     
     ## Read in the data tables
-    obs_df = pd.read_csv(data_dir + "abundance_tables/venn2012/table1.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
-    param_df = pd.read_csv(data_dir + "abundance_tables/venn2012/table6.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
-    abund_df = pd.read_csv(data_dir + "abundance_tables/venn2012/table10_11_12_13.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    obs_df = pd.read_csv(data_dir + "abundances/venn2012/table1.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    param_df = pd.read_csv(data_dir + "abundances/venn2012/table6.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    abund_df = pd.read_csv(data_dir + "abundances/venn2012/table10_11_12_13.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
     
     ## Make the new column names
     species = []
@@ -4494,9 +4494,9 @@ def load_chiti2018b(io=None):
     """
 
     ## Read in the data tables
-    obs_df = pd.read_csv(data_dir + 'abundance_tables/chiti2018b/table1.csv', comment='#', na_values=['', ' ', 'nan', 'NaN', 'N/A', 'n/a'])
-    param_df = pd.read_csv(data_dir + 'abundance_tables/chiti2018b/table2.csv', comment='#', na_values=['', ' ', 'nan', 'NaN', 'N/A', 'n/a'])
-    abund_df = pd.read_csv(data_dir + 'abundance_tables/chiti2018b/table3.csv', comment='#', na_values=['', ' ', 'nan', 'NaN', 'N/A', 'n/a'])
+    obs_df = pd.read_csv(data_dir + 'abundances/chiti2018b/table1.csv', comment='#', na_values=['', ' ', 'nan', 'NaN', 'N/A', 'n/a'])
+    param_df = pd.read_csv(data_dir + 'abundances/chiti2018b/table2.csv', comment='#', na_values=['', ' ', 'nan', 'NaN', 'N/A', 'n/a'])
+    abund_df = pd.read_csv(data_dir + 'abundances/chiti2018b/table3.csv', comment='#', na_values=['', ' ', 'nan', 'NaN', 'N/A', 'n/a'])
     
     abund_df['l_logepsX'] = abund_df['l_[X/H]']
     abund_df['logepsX'] = abund_df['[X/H]'] + abund_df['logepsX_sun']
@@ -4608,9 +4608,9 @@ def load_chiti2023(io=None):
     """
 
     ## Read in the data tables
-    obs_df = pd.read_csv(data_dir + 'abundance_tables/chiti2023/table1.csv', comment='#', na_values=['', ' ', 'nan', 'NaN', 'N/A', 'n/a'])
-    param_df = pd.read_csv(data_dir + 'abundance_tables/chiti2023/table2.csv', comment='#', na_values=['', ' ', 'nan', 'NaN', 'N/A', 'n/a'])
-    abund_df = pd.read_csv(data_dir + 'abundance_tables/chiti2023/table3.csv', comment='#', na_values=['', ' ', 'nan', 'NaN', 'N/A', 'n/a'])
+    obs_df = pd.read_csv(data_dir + 'abundances/chiti2023/table1.csv', comment='#', na_values=['', ' ', 'nan', 'NaN', 'N/A', 'n/a'])
+    param_df = pd.read_csv(data_dir + 'abundances/chiti2023/table2.csv', comment='#', na_values=['', ' ', 'nan', 'NaN', 'N/A', 'n/a'])
+    abund_df = pd.read_csv(data_dir + 'abundances/chiti2023/table3.csv', comment='#', na_values=['', ' ', 'nan', 'NaN', 'N/A', 'n/a'])
     
     abund_df['l_logepsX'] = abund_df['l_[X/H]']
     abund_df['logepsX'] = abund_df['[X/H]'] + abund_df['logepsX_sun']
@@ -4721,8 +4721,8 @@ def load_feltzing2009(io=None):
     """
 
     ## Read in the data tables
-    obs_param_df = pd.read_csv(data_dir + "abundance_tables/feltzing2009/table1a.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
-    abund_df = pd.read_csv(data_dir + "abundance_tables/feltzing2009/table1b.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    obs_param_df = pd.read_csv(data_dir + "abundances/feltzing2009/table1a.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    abund_df = pd.read_csv(data_dir + "abundances/feltzing2009/table1b.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
     
     ## Make the new column names
     species = []
@@ -4833,9 +4833,9 @@ def load_francois2016(io=None):
           Here, I convert the abundances to the Asplund et al. (2009) solar abundances, which are used in SPAG.
     """
 
-    obs_df = pd.read_csv(data_dir + 'abundance_tables/francois2016/table1.csv', comment='#', na_values=['', ' ', 'nan', 'NaN', 'N/A', 'n/a'])
-    param_df = pd.read_csv(data_dir + 'abundance_tables/francois2016/table3.csv', comment='#', na_values=['', ' ', 'nan', 'NaN', 'N/A', 'n/a'])
-    abund_df = pd.read_csv(data_dir + 'abundance_tables/francois2016/table6.csv', comment='#', na_values=['', ' ', 'nan', 'NaN', 'N/A', 'n/a'])
+    obs_df = pd.read_csv(data_dir + 'abundances/francois2016/table1.csv', comment='#', na_values=['', ' ', 'nan', 'NaN', 'N/A', 'n/a'])
+    param_df = pd.read_csv(data_dir + 'abundances/francois2016/table3.csv', comment='#', na_values=['', ' ', 'nan', 'NaN', 'N/A', 'n/a'])
+    abund_df = pd.read_csv(data_dir + 'abundances/francois2016/table6.csv', comment='#', na_values=['', ' ', 'nan', 'NaN', 'N/A', 'n/a'])
 
     elements = []
     for col in abund_df.columns:
@@ -4935,8 +4935,8 @@ def load_frebel2010a(io=None):
     """
 
     ## Read in the data tables
-    obs_param_df = pd.read_csv(data_dir + "abundance_tables/frebel2010a/table1_table2_table5.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
-    abund_df = pd.read_csv(data_dir + "abundance_tables/frebel2010a/table6_table7.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    obs_param_df = pd.read_csv(data_dir + "abundances/frebel2010a/table1_table2_table5.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    abund_df = pd.read_csv(data_dir + "abundances/frebel2010a/table6_table7.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
     
     ## Make the new column names
     species = []
@@ -5044,9 +5044,9 @@ def load_frebel2013c(io=None):
     """
 
     ## Read in the data tables
-    obs_df = pd.read_csv(data_dir + "abundance_tables/frebel2013c/table2.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
-    param_df = pd.read_csv(data_dir + "abundance_tables/frebel2013c/table3.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
-    abund_df = pd.read_csv(data_dir + "abundance_tables/frebel2013c/table4.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    obs_df = pd.read_csv(data_dir + "abundances/frebel2013c/table2.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    param_df = pd.read_csv(data_dir + "abundances/frebel2013c/table3.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    abund_df = pd.read_csv(data_dir + "abundances/frebel2013c/table4.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
     
     ## Make the new column names
     species = []
@@ -5156,9 +5156,9 @@ def load_frebel2014(io=None):
     J100714+160154 is an s-process star.
     """
 
-    obs_df = pd.read_csv(data_dir + 'abundance_tables/frebel2014/table1.csv', comment='#', na_values=['', ' ', 'nan', 'NaN', 'N/A', 'n/a'])
-    param_df = pd.read_csv(data_dir + 'abundance_tables/frebel2014/table3.csv', comment='#', na_values=['', ' ', 'nan', 'NaN', 'N/A', 'n/a'])
-    abund_df = pd.read_csv(data_dir + 'abundance_tables/frebel2014/table4.csv', comment='#', na_values=['', ' ', 'nan', 'NaN', 'N/A', 'n/a'])
+    obs_df = pd.read_csv(data_dir + 'abundances/frebel2014/table1.csv', comment='#', na_values=['', ' ', 'nan', 'NaN', 'N/A', 'n/a'])
+    param_df = pd.read_csv(data_dir + 'abundances/frebel2014/table3.csv', comment='#', na_values=['', ' ', 'nan', 'NaN', 'N/A', 'n/a'])
+    abund_df = pd.read_csv(data_dir + 'abundances/frebel2014/table4.csv', comment='#', na_values=['', ' ', 'nan', 'NaN', 'N/A', 'n/a'])
 
     species = []
     for ion in abund_df["Species"].unique():
@@ -5265,8 +5265,8 @@ def load_frebel2016(io=None):
     """
 
     ## Read in the data tables
-    obs_param_df = pd.read_csv(data_dir + "abundance_tables/frebel2016/table1.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
-    abund_df = pd.read_csv(data_dir + "abundance_tables/frebel2016/table3.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    obs_param_df = pd.read_csv(data_dir + "abundances/frebel2016/table1.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    abund_df = pd.read_csv(data_dir + "abundances/frebel2016/table3.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
     
     ## Make the new column names
     species = []
@@ -5375,9 +5375,9 @@ def load_gilmore2013(io=None):
     '''
 
     ## Read in the data tables
-    obs_df = pd.read_csv(data_dir + 'abundance_tables/gilmore2013/table1.csv', comment='#', na_values=['', ' ', 'nan', 'NaN', 'N/A', 'n/a'])
-    param_df = pd.read_csv(data_dir + 'abundance_tables/gilmore2013/table3.csv', comment='#', na_values=['', ' ', 'nan', 'NaN', 'N/A', 'n/a'])
-    abund_df = pd.read_csv(data_dir + 'abundance_tables/gilmore2013/table6.csv', comment='#', na_values=['', ' ', 'nan', 'NaN', 'N/A', 'n/a'])
+    obs_df = pd.read_csv(data_dir + 'abundances/gilmore2013/table1.csv', comment='#', na_values=['', ' ', 'nan', 'NaN', 'N/A', 'n/a'])
+    param_df = pd.read_csv(data_dir + 'abundances/gilmore2013/table3.csv', comment='#', na_values=['', ' ', 'nan', 'NaN', 'N/A', 'n/a'])
+    abund_df = pd.read_csv(data_dir + 'abundances/gilmore2013/table6.csv', comment='#', na_values=['', ' ', 'nan', 'NaN', 'N/A', 'n/a'])
     
     ## Make the new column names
     species = []
@@ -5503,9 +5503,9 @@ def load_roederer2016b(io=None):
     """
 
     ## Read in the data tables
-    obs_df = pd.read_csv(data_dir + "abundance_tables/roederer2016b/table1.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
-    param_df = pd.read_csv(data_dir + "abundance_tables/roederer2016b/table4.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
-    abund_df = pd.read_csv(data_dir + "abundance_tables/roederer2016b/table67.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    obs_df = pd.read_csv(data_dir + "abundances/roederer2016b/table1.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    param_df = pd.read_csv(data_dir + "abundances/roederer2016b/table4.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    abund_df = pd.read_csv(data_dir + "abundances/roederer2016b/table67.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
 
     ## Make the new column names
     species = []
@@ -5610,7 +5610,7 @@ def load_hansent2017(io=None):
     '''
 
     ## Read in the data tables
-    data_df = pd.read_csv(data_dir + 'abundance_tables/hansent2017/table3.csv', comment='#', na_values=['', ' ', 'nan', 'NaN', 'N/A', 'n/a'])
+    data_df = pd.read_csv(data_dir + 'abundances/hansent2017/table3.csv', comment='#', na_values=['', ' ', 'nan', 'NaN', 'N/A', 'n/a'])
 
     elements = [col.replace('[','').replace('/H]', '') for col in data_df.columns if ((col.startswith('[')) & (col.endswith('/H]')))]
     elements += [col.replace('ul[','').replace('/H]', '') for col in data_df.columns if ((col.startswith('ul[')) & (col.endswith('/H]')))]
@@ -5710,9 +5710,9 @@ def load_hansent2020a(io=None):
     Table 5 - Abundance Table
     """
 
-    obs_df = pd.read_csv(data_dir + 'abundance_tables/hansent2020a/table1.csv', comment='#', na_values=['', ' ', 'nan', 'NaN', 'N/A', 'n/a'])
-    param_df = pd.read_csv(data_dir + 'abundance_tables/hansent2020a/table2.csv', comment='#', na_values=['', ' ', 'nan', 'NaN', 'N/A', 'n/a'])
-    abund_df = pd.read_csv(data_dir + 'abundance_tables/hansent2020a/table5.csv', comment='#', na_values=['', ' ', 'nan', 'NaN', 'N/A', 'n/a'])
+    obs_df = pd.read_csv(data_dir + 'abundances/hansent2020a/table1.csv', comment='#', na_values=['', ' ', 'nan', 'NaN', 'N/A', 'n/a'])
+    param_df = pd.read_csv(data_dir + 'abundances/hansent2020a/table2.csv', comment='#', na_values=['', ' ', 'nan', 'NaN', 'N/A', 'n/a'])
+    abund_df = pd.read_csv(data_dir + 'abundances/hansent2020a/table5.csv', comment='#', na_values=['', ' ', 'nan', 'NaN', 'N/A', 'n/a'])
 
     species = []
     for ion in abund_df["Species"].unique():
@@ -5819,9 +5819,9 @@ def load_hansent2024(io=None):
     Table 4 - Abundance Table
     """
 
-    obs_df = pd.read_csv(data_dir + 'abundance_tables/hansent2024/table1.csv', comment='#', na_values=['', ' ', 'nan', 'NaN', 'N/A', 'n/a'])
-    param_df = pd.read_csv(data_dir + 'abundance_tables/hansent2024/table2.csv', comment='#', na_values=['', ' ', 'nan', 'NaN', 'N/A', 'n/a'])
-    abund_df = pd.read_csv(data_dir + 'abundance_tables/hansent2024/table4.csv', comment='#', na_values=['', ' ', 'nan', 'NaN', 'N/A', 'n/a'])
+    obs_df = pd.read_csv(data_dir + 'abundances/hansent2024/table1.csv', comment='#', na_values=['', ' ', 'nan', 'NaN', 'N/A', 'n/a'])
+    param_df = pd.read_csv(data_dir + 'abundances/hansent2024/table2.csv', comment='#', na_values=['', ' ', 'nan', 'NaN', 'N/A', 'n/a'])
+    abund_df = pd.read_csv(data_dir + 'abundances/hansent2024/table4.csv', comment='#', na_values=['', ' ', 'nan', 'NaN', 'N/A', 'n/a'])
 
     species = []
     for ion in abund_df["Species"].unique():
@@ -5928,9 +5928,9 @@ def load_ishigaki2014(exclude_mw_halo_ref_stars=True, io=None):
     Table 5 - Abundance Table
     """
 
-    obs_df = pd.read_csv(data_dir + 'abundance_tables/ishigaki2014/table1.csv', comment='#', na_values=['', ' ', 'nan', 'NaN', 'N/A', 'n/a'])
-    param_df = pd.read_csv(data_dir + 'abundance_tables/ishigaki2014/table3.csv', comment='#', na_values=['', ' ', 'nan', 'NaN', 'N/A', 'n/a'])
-    abund_df = pd.read_csv(data_dir + 'abundance_tables/ishigaki2014/table5.csv', comment='#', na_values=['', ' ', 'nan', 'NaN', 'N/A', 'n/a'])
+    obs_df = pd.read_csv(data_dir + 'abundances/ishigaki2014/table1.csv', comment='#', na_values=['', ' ', 'nan', 'NaN', 'N/A', 'n/a'])
+    param_df = pd.read_csv(data_dir + 'abundances/ishigaki2014/table3.csv', comment='#', na_values=['', ' ', 'nan', 'NaN', 'N/A', 'n/a'])
+    abund_df = pd.read_csv(data_dir + 'abundances/ishigaki2014/table5.csv', comment='#', na_values=['', ' ', 'nan', 'NaN', 'N/A', 'n/a'])
     
     ## Make the new column names
     species = []
@@ -6043,9 +6043,9 @@ def load_ji2016a(io=None):
     """
 
     ## Read in the data tables
-    obs_df = pd.read_csv(data_dir + "abundance_tables/ji2016a/table1.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
-    param_df = pd.read_csv(data_dir + "abundance_tables/ji2016a/table3.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
-    abund_df = pd.read_csv(data_dir + "abundance_tables/ji2016a/table4.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    obs_df = pd.read_csv(data_dir + "abundances/ji2016a/table1.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    param_df = pd.read_csv(data_dir + "abundances/ji2016a/table3.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    abund_df = pd.read_csv(data_dir + "abundances/ji2016a/table4.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
     
     ## Make the new column names
     species = []
@@ -6153,8 +6153,8 @@ def load_ji2016b(io=None):
     """
 
     ## Read in the data tables
-    obs_param_df = pd.read_csv(data_dir + "abundance_tables/ji2016b/table1.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
-    abund_df = pd.read_csv(data_dir + "abundance_tables/ji2016b/table3.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    obs_param_df = pd.read_csv(data_dir + "abundances/ji2016b/table1.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    abund_df = pd.read_csv(data_dir + "abundances/ji2016b/table3.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
     
     ## Make the new column names
     species = []
@@ -6262,8 +6262,8 @@ def load_ji2018(io=None):
     """
 
     ## Read in the data tables
-    obs_param_df = pd.read_csv(data_dir + "abundance_tables/ji2018/table0.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
-    abund_df = pd.read_csv(data_dir + "abundance_tables/ji2018/table2.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    obs_param_df = pd.read_csv(data_dir + "abundances/ji2018/table0.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    abund_df = pd.read_csv(data_dir + "abundances/ji2018/table2.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
 
     ## Make the new column names
     species = []
@@ -6372,9 +6372,9 @@ def load_ji2019a(io=None):
     """
 
     ## Read in the data tables
-    obs_df = pd.read_csv(data_dir + "abundance_tables/ji2019a/table1.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
-    param_df = pd.read_csv(data_dir + "abundance_tables/ji2019a/table3.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
-    abund_df = pd.read_csv(data_dir + "abundance_tables/ji2019a/table4.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    obs_df = pd.read_csv(data_dir + "abundances/ji2019a/table1.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    param_df = pd.read_csv(data_dir + "abundances/ji2019a/table3.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    abund_df = pd.read_csv(data_dir + "abundances/ji2019a/table4.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
 
     param_df = param_df[param_df['Ref'] == 'TW']
     
@@ -6486,10 +6486,10 @@ def load_ji2020a(io=None):
     """
 
     ## Read in the data tables
-    obs_df = pd.read_csv(data_dir + "abundance_tables/ji2020a/table1.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
-    rv_df = pd.read_csv(data_dir + "abundance_tables/ji2020a/table2.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
-    param_df = pd.read_csv(data_dir + "abundance_tables/ji2020a/table3.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
-    abund_df = pd.read_csv(data_dir + "abundance_tables/ji2020a/table6.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    obs_df = pd.read_csv(data_dir + "abundances/ji2020a/table1.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    rv_df = pd.read_csv(data_dir + "abundances/ji2020a/table2.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    param_df = pd.read_csv(data_dir + "abundances/ji2020a/table3.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    abund_df = pd.read_csv(data_dir + "abundances/ji2020a/table6.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
     
     abund_df['l_[X/H]'] = abund_df['l_logepsX']
     abund_df['l_[X/Fe]'] = abund_df['l_logepsX']
@@ -6600,8 +6600,8 @@ def load_kirby2017b(io=None):
     """
 
     ## Read in the data tables
-    obs_param_df = pd.read_csv(data_dir + "abundance_tables/kirby2017b/table0.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
-    abund_df = pd.read_csv(data_dir + "abundance_tables/kirby2017b/table6.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    obs_param_df = pd.read_csv(data_dir + "abundances/kirby2017b/table0.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    abund_df = pd.read_csv(data_dir + "abundances/kirby2017b/table6.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
     
     ## Make the new column names
     species = []
@@ -6709,8 +6709,8 @@ def load_koch2008c(io=None):
     """
 
     ## Read in the data tables
-    obs_param_df = pd.read_csv(data_dir + "abundance_tables/koch2008c/table0.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
-    abund_df = pd.read_csv(data_dir + "abundance_tables/koch2008c/table1.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    obs_param_df = pd.read_csv(data_dir + "abundances/koch2008c/table0.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    abund_df = pd.read_csv(data_dir + "abundances/koch2008c/table1.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
     
     ## Make the new column names
     species = []
@@ -6826,8 +6826,8 @@ def load_koch2013b(io=None):
     """
 
     ## Read in the data tables
-    obs_param_df = pd.read_csv(data_dir + "abundance_tables/koch2013b/table0.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
-    abund_df = pd.read_csv(data_dir + "abundance_tables/koch2013b/table1.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    obs_param_df = pd.read_csv(data_dir + "abundances/koch2013b/table0.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    abund_df = pd.read_csv(data_dir + "abundances/koch2013b/table1.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
 
     epscols = ['epsfe', 'epsca', 'epsba']
     ulcols = ['ulca', 'ulba']
@@ -6906,7 +6906,7 @@ def load_lai2011b(io=None):
     """
 
     ## Read in the data tables
-    data_df = pd.read_csv(data_dir + "abundance_tables/lai2011b/table1.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    data_df = pd.read_csv(data_dir + "abundances/lai2011b/table1.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
 
     ## New dataframe with proper columns
     lai2011b_df = pd.DataFrame(
@@ -6970,9 +6970,9 @@ def load_marshall2019(io=None):
     """
 
     ## Read in the data tables
-    obs_df = pd.read_csv(data_dir + "abundance_tables/marshall2019/table1.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
-    param_df = pd.read_csv(data_dir + "abundance_tables/marshall2019/table2.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
-    abund_df = pd.read_csv(data_dir + "abundance_tables/marshall2019/table4.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    obs_df = pd.read_csv(data_dir + "abundances/marshall2019/table1.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    param_df = pd.read_csv(data_dir + "abundances/marshall2019/table2.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    abund_df = pd.read_csv(data_dir + "abundances/marshall2019/table4.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
     
     ## Make the new column names
     species = []
@@ -7081,9 +7081,9 @@ def load_nagasawa2018(io=None):
     """
 
     ## Read in the data tables
-    obs_df = pd.read_csv(data_dir + "abundance_tables/nagasawa2018/table1_table2.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
-    param_df = pd.read_csv(data_dir + "abundance_tables/nagasawa2018/table4.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
-    abund_df = pd.read_csv(data_dir + "abundance_tables/nagasawa2018/table5.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    obs_df = pd.read_csv(data_dir + "abundances/nagasawa2018/table1_table2.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    param_df = pd.read_csv(data_dir + "abundances/nagasawa2018/table4.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    abund_df = pd.read_csv(data_dir + "abundances/nagasawa2018/table5.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
     
     ## Make the new column names
     species = []
@@ -7193,8 +7193,8 @@ def load_norris2010a(io=None):
     """
 
     ## Read in the data tables
-    obs_df = pd.read_csv(data_dir + 'abundance_tables/norris2010a/table0_obs.csv', comment='#', na_values=['', ' ', 'nan', 'NaN', 'N/A', 'n/a'])
-    abund_df = pd.read_csv(data_dir + 'abundance_tables/norris2010a/table2.csv', comment='#', na_values=['', ' ', 'nan', 'NaN', 'N/A', 'n/a'])
+    obs_df = pd.read_csv(data_dir + 'abundances/norris2010a/table0_obs.csv', comment='#', na_values=['', ' ', 'nan', 'NaN', 'N/A', 'n/a'])
+    abund_df = pd.read_csv(data_dir + 'abundances/norris2010a/table2.csv', comment='#', na_values=['', ' ', 'nan', 'NaN', 'N/A', 'n/a'])
     
     ## Make the new column names
     species = []
@@ -7303,8 +7303,8 @@ def load_norris2010b(io=None):
     """
 
     ## Read in the data tables
-    obs_df = pd.read_csv(data_dir + 'abundance_tables/norris2010b/table0_obs.csv', comment='#', na_values=['', ' ', 'nan', 'NaN', 'N/A', 'n/a'])
-    abund_df = pd.read_csv(data_dir + 'abundance_tables/norris2010b/table2.csv', comment='#', na_values=['', ' ', 'nan', 'NaN', 'N/A', 'n/a'])
+    obs_df = pd.read_csv(data_dir + 'abundances/norris2010b/table0_obs.csv', comment='#', na_values=['', ' ', 'nan', 'NaN', 'N/A', 'n/a'])
+    abund_df = pd.read_csv(data_dir + 'abundances/norris2010b/table2.csv', comment='#', na_values=['', ' ', 'nan', 'NaN', 'N/A', 'n/a'])
     
     ## Make the new column names
     species = []
@@ -7413,7 +7413,7 @@ def load_norris2010c(load_gilmore2013=False, io=None):
     """
 
     ## Read in the data tables
-    csv_df = pd.read_csv(data_dir + 'abundance_tables/norris2010c/table0_combined.csv', comment='#', na_values=['', ' ', 'nan', 'NaN', 'N/A', 'n/a'])
+    csv_df = pd.read_csv(data_dir + 'abundances/norris2010c/table0_combined.csv', comment='#', na_values=['', ' ', 'nan', 'NaN', 'N/A', 'n/a'])
 
     ## New dataframe with proper columns
     norris2010c_df = pd.DataFrame(
@@ -7461,8 +7461,8 @@ def load_roederer2014b(io=None):
     """
 
     ## Read in the data tables
-    obs_param_df = pd.read_csv(data_dir + "abundance_tables/roederer2014b/table0.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
-    abund_df = pd.read_csv(data_dir + "abundance_tables/roederer2014b/table3.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    obs_param_df = pd.read_csv(data_dir + "abundances/roederer2014b/table0.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    abund_df = pd.read_csv(data_dir + "abundances/roederer2014b/table3.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
     
     ## Make the new column names
     species = []
@@ -7570,8 +7570,8 @@ def load_simon2010(io=None):
     """
 
     ## Read in the data tables
-    obs_param_df = pd.read_csv(data_dir + "abundance_tables/simon2010/table0.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
-    abund_df = pd.read_csv(data_dir + "abundance_tables/simon2010/table2.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    obs_param_df = pd.read_csv(data_dir + "abundances/simon2010/table0.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    abund_df = pd.read_csv(data_dir + "abundances/simon2010/table2.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
     
     ## Make the new column names
     species = []
@@ -7679,8 +7679,8 @@ def load_sbordone2007(io=None):
     """
 
     ## Read in the data tables
-    obs_param_df = pd.read_csv(data_dir + "abundance_tables/sbordone2007/table1.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
-    abund_df = pd.read_csv(data_dir + "abundance_tables/sbordone2007/table456a_long.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    obs_param_df = pd.read_csv(data_dir + "abundances/sbordone2007/table1.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    abund_df = pd.read_csv(data_dir + "abundances/sbordone2007/table456a_long.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
     
     ## Make the new column names
     species = []
@@ -7788,8 +7788,8 @@ def load_spite2018(io=None):
     """
 
     ## Read in the data tables
-    obs_param_df = pd.read_csv(data_dir + "abundance_tables/spite2018/table0.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
-    abund_df = pd.read_csv(data_dir + "abundance_tables/spite2018/table2.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    obs_param_df = pd.read_csv(data_dir + "abundances/spite2018/table0.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    abund_df = pd.read_csv(data_dir + "abundances/spite2018/table2.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
     
     ## Make the new column names
     species = []
@@ -7898,9 +7898,9 @@ def load_waller2023(io=None):
     """
 
     ## Read in the data tables
-    obs_df = pd.read_csv(data_dir + "abundance_tables/waller2023/table1.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
-    param_df = pd.read_csv(data_dir + "abundance_tables/waller2023/table3.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
-    abund_df = pd.read_csv(data_dir + "abundance_tables/waller2023/table7.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    obs_df = pd.read_csv(data_dir + "abundances/waller2023/table1.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    param_df = pd.read_csv(data_dir + "abundances/waller2023/table3.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    abund_df = pd.read_csv(data_dir + "abundances/waller2023/table7.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
     
     abund_df = abund_df[abund_df['LTE/NLTE'] == 'LTE']
 
@@ -8025,9 +8025,9 @@ def load_webber2023(io=None):
     """
 
     ## Read in the data tables
-    obs_df = pd.read_csv(data_dir + "abundance_tables/webber2023/table1.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
-    param_df = pd.read_csv(data_dir + "abundance_tables/webber2023/table3.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
-    abund_df = pd.read_csv(data_dir + "abundance_tables/webber2023/table4.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    obs_df = pd.read_csv(data_dir + "abundances/webber2023/table1.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    param_df = pd.read_csv(data_dir + "abundances/webber2023/table3.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    abund_df = pd.read_csv(data_dir + "abundances/webber2023/table4.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
     
     ## Make the new column names
     species = []
@@ -8150,9 +8150,9 @@ def load_gull2021(io=None):
     """
 
     ## Read in the data tables
-    obs_df = pd.read_csv(data_dir + "abundance_tables/gull2021/table1.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
-    param_df = pd.read_csv(data_dir + "abundance_tables/gull2021/table3.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
-    abund_df = pd.read_csv(data_dir + "abundance_tables/gull2021/table5.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    obs_df = pd.read_csv(data_dir + "abundances/gull2021/table1.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    param_df = pd.read_csv(data_dir + "abundances/gull2021/table3.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    abund_df = pd.read_csv(data_dir + "abundances/gull2021/table5.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
 
     ## Make the new column names
     species = []
@@ -8271,9 +8271,9 @@ def load_ji2020b(io=None):
     """
 
     ## Read in the data tables
-    obs_df = pd.read_csv(data_dir + "abundance_tables/ji2020b/table1.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
-    param_df = pd.read_csv(data_dir + "abundance_tables/ji2020b/table2.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
-    abund_df = pd.read_csv(data_dir + "abundance_tables/ji2020b/table6.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    obs_df = pd.read_csv(data_dir + "abundances/ji2020b/table1.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    param_df = pd.read_csv(data_dir + "abundances/ji2020b/table2.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    abund_df = pd.read_csv(data_dir + "abundances/ji2020b/table6.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
 
     ## Make the new column names
     species = []
@@ -8390,9 +8390,9 @@ def load_martin2022a(io=None):
     """
 
     ## Read in the data tables
-    obs_df = pd.read_csv(data_dir + "abundance_tables/martin2022a/table2.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
-    abund_df1 = pd.read_csv(data_dir + "abundance_tables/martin2022a/table3_mod.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
-    abund_df2 = pd.read_csv(data_dir + "abundance_tables/martin2022a/table5.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    obs_df = pd.read_csv(data_dir + "abundances/martin2022a/table2.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    abund_df1 = pd.read_csv(data_dir + "abundances/martin2022a/table3_mod.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    abund_df2 = pd.read_csv(data_dir + "abundances/martin2022a/table5.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
     abund_df2 = abund_df2[abund_df2['Code'] == 'W']
 
     ## New dataframe with proper columns
@@ -8535,9 +8535,9 @@ def load_roederer2010a(io=None):
     """
 
     ## Read in the data tables
-    obs_df = pd.read_csv(data_dir + "abundance_tables/roederer2010a/table2.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
-    param_df = pd.read_csv(data_dir + "abundance_tables/roederer2010a/table5.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
-    abund_df = pd.read_csv(data_dir + "abundance_tables/roederer2010a/table7-8-9-10.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    obs_df = pd.read_csv(data_dir + "abundances/roederer2010a/table2.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    param_df = pd.read_csv(data_dir + "abundances/roederer2010a/table5.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    abund_df = pd.read_csv(data_dir + "abundances/roederer2010a/table7-8-9-10.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
 
     ## Make the new column names
     species = []
@@ -8653,8 +8653,8 @@ def load_roederer2019(io=None):
     """
 
     ## Read in the data tables
-    obs_param_df = pd.read_csv(data_dir + "abundance_tables/roederer2019/table1.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
-    abund_df = pd.read_csv(data_dir + "abundance_tables/roederer2019/table3.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    obs_param_df = pd.read_csv(data_dir + "abundances/roederer2019/table1.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+    abund_df = pd.read_csv(data_dir + "abundances/roederer2019/table3.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
 
     ## Make the new column names
     species = []
@@ -8780,7 +8780,7 @@ def load_apogee_sgr():
     -1.9 < GAIA_PMDEC < -0.9
     (400 STARS)
     """
-    tab = Table.read(data_dir+"abundance_tables/APOGEE/apogee_sgr.fits")
+    tab = Table.read(data_dir+"abundances/APOGEE/apogee_sgr.fits")
     tab.rename_column("APOGEE_ID","Name")
     cols_to_keep = ["Name","RA","DEC","M_H_ERR","ALPHA_M","ALPHA_M_ERR","TEFF_ERR","LOGG_ERR"]
     tab.rename_columns(["TEFF","LOGG","VMICRO","M_H"], ["Teff","logg","Vmic","mh"])

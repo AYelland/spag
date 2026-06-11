@@ -1,17 +1,22 @@
+[build-system]
+requires = ["uv_build>=0.11.19,<0.12.0"]
+build-backend = "uv_build"
+
 [project]
 name = "spag"
-version = "0.1.0"
-description = "Add your description here"
+version = "1.1.0"
+description = "Stellar Patterns and Abundances in Galaxies: a toolkit adn database for stellar and galactic archaeology research."
+keywords = ["astronomy", "astrophysics", "stellar abundances", "metal-poor stars", "stellar archaeology"]
 readme = "README.md"
+license = { file = "LICENSE" }
 authors = [
-    { name = "AYelland", email = "amyelland3@gmail.com" }
+    { name = "AYelland", email = "ayelland@mit.edu" }
 ]
-requires-python = ">=3.9"
+requires-python = ">=3.14"
 dependencies = [
     "astropy>=6.0.1",
     "astroquery>=0.4.11",
     "corner>=2.2.3",
-    "ipykernel>=6.31.0",
     "numpy>=1.26.4",
     "pandas>=2.3.3",
     "pip>=26.0.1",
@@ -20,9 +25,12 @@ dependencies = [
     "sqlalchemy>=2.0.50",
 ]
 
-[project.scripts]
-spag = "spag:main"
+[project.urls]
+Homepage = "https://github.com/ayelland/spag"
+Repository = "https://github.com/ayelland/spag"
+Issues = "https://github.com/ayelland/spag/issues"
 
-[build-system]
-requires = ["uv_build>=0.11.19,<0.12.0"]
-build-backend = "uv_build"
+[dependency-groups]
+dev = [
+    "ipykernel>=7.3.0",
+]

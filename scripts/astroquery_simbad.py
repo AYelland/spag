@@ -29,7 +29,7 @@ Simbad.add_votable_fields(
 ## Argument parser.
 parser = argparse.ArgumentParser(description="Query SIMBAD with identifiers or coordinates.")
 parser.add_argument("id_column", type=str, help="Name of the identifier column in the input file. (Name, Simbad_Identifier, Query_ID, etc.)")
-parser.add_argument("reference", type=str, help="Name of the subdirectory inside abundance_tables/")
+parser.add_argument("reference", type=str, help="Name of the subdirectory inside abundances/")
 
 group = parser.add_mutually_exclusive_group(required=True)
 group.add_argument("-i", "--identifier", action="store_true", help="Use object identifiers for query")
@@ -43,7 +43,7 @@ if args.identifier:
     query_id_column = args.id_column
 
 ## Input File.
-base_path = f"/Users/ayelland/Research/metal-poor-stars/spag/spag/data/abundance_tables/{reference}"
+base_path = f"/Users/ayelland/Research/metal-poor-stars/spag/spag/data/abundances/{reference}"
 # base_path = "/Users/ayelland/Research/metal-poor-stars/project/carbon-project-2025/duplicates/"
 input_file = os.path.join(base_path, "astroquery.csv")
 
