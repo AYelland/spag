@@ -30,7 +30,7 @@ If you have any additional questions, please reach out to Alexander Yelland (aye
 
 ## Structure
 
-THe heart of this package is in the `spag/spag/data/` directory. Here, there is tables and observational measurements from a large variety of sources. In the `/spag/spag/read_data.py` script, all of these references and tables are pulled together through different python functions. By importing the `read_data` functions into your python notebook/script, you can access all of the data very quickly.
+THe heart of this package is in the `spag/data/` directory. Here, there is tables and observational measurements from a large variety of sources. In the `/spag/src/read_data.py` script, all of these references and tables are pulled together through different python functions. By importing the `read_data` functions into your python notebook/script, you can access all of the data very quickly.
 
 ## Citations and references
 

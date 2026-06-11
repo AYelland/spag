@@ -42,7 +42,7 @@ import spag.coordinates as coord
 
 # script_dir = "/".join(IPython.extract_module_locals()[1]["__vsc_ipynb_file__"].split("/")[:-1]) + "/"
 script_dir = os.path.dirname(os.path.realpath(__file__))+"/"
-data_dir = '/Users/ayelland/Research/metal-poor-stars/spag/spag/data/abundances/'
+data_dir = '/Users/ayelland/Research/metal-poor-stars/spag/data/abundances/'
 
 with open(os.path.join(script_dir, 'create-tables-0-date.txt'), 'r') as f:
     date = f.readline().strip()

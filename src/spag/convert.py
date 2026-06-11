@@ -914,25 +914,25 @@ def XH_from_eps(eps, elem, precision=2, version='asplund2009'):
     """
     Converts log(eps) to [X/H]
     """
-    return normal_round(eps - get_solar(elem, version)[0], precision=precision)
+    return normal_round(eps - get_solar(elem, version).values[0], precision=precision)
 
 def eps_from_XH(XH, elem, precision=2, version='asplund2009'):
     """
     Converts [X/H] to log(eps)
     """
-    return normal_round(XH + get_solar(elem, version)[0], precision=precision)
+    return normal_round(XH + get_solar(elem, version).values[0], precision=precision)
 
 def XFe_from_eps(eps, FeH, elem, precision=2, version='asplund2009'):
     """
     Converts log(eps) to [X/Fe]
     """
-    return normal_round(eps - get_solar(elem, version)[0] - FeH, precision=precision)
+    return normal_round(eps - get_solar(elem, version).values[0] - FeH, precision=precision)
 
 def eps_from_XFe(XFe, FeH, elem, precision=2, version='asplund2009'):
     """
     Converts [X/Fe] to log(eps)
     """
-    return  normal_round(XFe+ get_solar(elem, version)[0] + FeH, precision=precision)
+    return  normal_round(XFe+ get_solar(elem, version).values[0] + FeH, precision=precision)
 
 def XFe_from_XH(XH, FeH, precision=2):
     """

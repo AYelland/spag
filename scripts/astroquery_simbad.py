@@ -6,7 +6,7 @@ from astropy.coordinates import SkyCoord
 import astropy.units as u
 
 ## Example Usage:
-## From the terminal, navigate to the <path_to_spag>/spag/spag/scripts/ directory and run:
+## From the terminal, navigate to the <path_to_spag>/spag/scripts/ directory and run:
 ##
 ##   `python astroquery_simbad.py -i Name roederer2010c` # (query by identifier)
 ##   `python astroquery_simbad.py -c roederer2010c` # (query by coordinates)
@@ -43,7 +43,7 @@ if args.identifier:
     query_id_column = args.id_column
 
 ## Input File.
-base_path = f"/Users/ayelland/Research/metal-poor-stars/spag/spag/data/abundances/{reference}"
+base_path = f"/Users/ayelland/Research/metal-poor-stars/spag/data/abundances/{reference}"
 # base_path = "/Users/ayelland/Research/metal-poor-stars/project/carbon-project-2025/duplicates/"
 input_file = os.path.join(base_path, "astroquery.csv")
 

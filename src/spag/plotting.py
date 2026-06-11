@@ -19,7 +19,7 @@ sns_palette = sns.color_palette()
 
 # script_dir = "/".join(IPython.extract_module_locals()[1]["__vsc_ipynb_file__"].split("/")[:-1]) + "/" # use this if in ipython
 script_dir = os.path.dirname(os.path.realpath(__file__))+"/" # use this if not in ipython (i.e. terminal script)
-data_dir = script_dir+"data/"
+data_dir = script_dir+"../../data/"
 # plotting_dir = script_dir+"plots/"
 # if not os.path.exists(plotting_dir):
 #     os.makedirs(plotting_dir)
@@ -144,6 +144,7 @@ def plot_solar_r_s_process():
     ax.grid(True, which='major', linestyle='-', linewidth=1)
     ax.grid(True, which='minor', linestyle='-', linewidth=0.3)
     ax.legend()
+    ax.show()
 
     ## Save the plot
     # if not os.path.exists(plotting_dir):

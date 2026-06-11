@@ -26,9 +26,7 @@ sns_palette = sns.color_palette()
 
 # script_dir = "/".join(IPython.extract_module_locals()[1]["__vsc_ipynb_file__"].split("/")[:-1]) + "/" # use this if in ipython
 script_dir = os.path.dirname(os.path.realpath(__file__))+"/" # use this if not in ipython (i.e. terminal script)
-data_dir = script_dir+"data/"
-plots_dir = script_dir+"plots/"
-linelist_dir = script_dir+"linelists/"
+data_dir = script_dir+"../../data/"
 
 ################################################################################
 ## Group of Systems Read-in
@@ -164,7 +162,7 @@ def load_ufds(io=None, **kwargs):
     ufd_df = ufd_df[auxcols + epscols + ulcols]
 
     ## Compute [Fe/H] and ul[Fe/H]
-    epsfe_sun_a09 = get_solar('Fe', version='asplund2009')[0]
+    epsfe_sun_a09 = get_solar('Fe', version='asplund2009').values[0]
     newcols = {
         '[Fe/H]': ufd_df['epsfe'] - epsfe_sun_a09,
         'ul[Fe/H]': ufd_df['ulfe'] - epsfe_sun_a09,
@@ -184,7 +182,7 @@ def load_ufds(io=None, **kwargs):
         el = elem.title().replace('1','').replace('2','')
 
         try:
-            epsX_sun_09 = get_solar(el, version='asplund2009')[0]
+            epsX_sun_09 = get_solar(el, version='asplund2009').values[0]
         except:
             print(f"Warning: Could not get solar abundance for {el}, skipping...")
             continue
@@ -312,7 +310,7 @@ def load_stellar_streams(**kwargs):
     ss_df = ss_df[auxcols + epscols + ulcols]
 
     ## Compute [Fe/H] and ul[Fe/H]
-    epsfe_sun_a09 = get_solar('Fe', version='asplund2009')[0]
+    epsfe_sun_a09 = get_solar('Fe', version='asplund2009').values[0]
     newcols = {
         '[Fe/H]': ss_df['epsfe'] - epsfe_sun_a09,
         'ul[Fe/H]': ss_df['ulfe'] - epsfe_sun_a09,
@@ -331,7 +329,7 @@ def load_stellar_streams(**kwargs):
         el = elem.title().replace('1','').replace('2','')
 
         try:
-            epsX_sun_09 = get_solar(el, version='asplund2009')[0]
+            epsX_sun_09 = get_solar(el, version='asplund2009').values[0]
         except:
             print(f"Warning: Could not get solar abundance for {el}, skipping...")
             continue
@@ -1243,7 +1241,7 @@ def load_jinabase(sci_key=None, io=1, load_eps=True, load_ll=True, load_ul=True,
     uls_values = data.where(uls_mask)  # Extract only the upper limit values from 'data' (keep NaN for others)
     for col in uls_values.columns:
         uls_values.rename(columns={col: "ul"+col[3:]}, inplace=True) # from epsX to ulX
-    uls_values = uls_values.applymap(lambda x: float(x.strip("<")) if isinstance(x, str) and x.strip().startswith("<") else np.nan)
+    uls_values = uls_values.map(lambda x: float(x.strip("<")) if isinstance(x, str) and x.strip().startswith("<") else np.nan)
 
     data_matrix = data.to_numpy()  # Convert data DataFrame to NumPy array
     data_matrix[uls_mask] = np.nan # Set values in `data_matrix` to NaN wherever `uls_mask` is True
@@ -1378,16 +1376,19 @@ def load_placco2014c(remove_atari=True, remove_sass=True, remove_dups=True, use_
     
     ## Modifying and Renaming Abundance Columns
     placco2014c_df.rename(columns={"l_[N/Fe]": "ul[N/Fe]"}, inplace=True)
-    placco2014c_df.loc[placco2014c_df['ul[N/Fe]'] == '{<=}', 'ul[N/Fe]'] = placco2014c_df['[N/Fe]']
-    placco2014c_df.loc[placco2014c_df['ul[N/Fe]'] == placco2014c_df['[N/Fe]'], '[N/Fe]'] = ''
-    
+    mask_N = placco2014c_df['ul[N/Fe]'] == '{<=}'
+    placco2014c_df.loc[mask_N, 'ul[N/Fe]'] = placco2014c_df.loc[mask_N, '[N/Fe]'].astype(str)
+    placco2014c_df.loc[mask_N, '[N/Fe]'] = np.nan
+
     placco2014c_df.rename(columns={"l_[Sr/Fe]": "ul[Sr/Fe]"}, inplace=True)
-    placco2014c_df.loc[placco2014c_df['ul[Sr/Fe]'] == '{<=}', 'ul[Sr/Fe]'] = placco2014c_df['[Sr/Fe]']
-    placco2014c_df.loc[placco2014c_df['ul[Sr/Fe]'] == placco2014c_df['[Sr/Fe]'], '[Sr/Fe]'] = ''
-    
+    mask_Sr = placco2014c_df['ul[Sr/Fe]'] == '{<=}'
+    placco2014c_df.loc[mask_Sr, 'ul[Sr/Fe]'] = placco2014c_df.loc[mask_Sr, '[Sr/Fe]'].astype(str)
+    placco2014c_df.loc[mask_Sr, '[Sr/Fe]'] = np.nan
+
     placco2014c_df.rename(columns={"l_[Ba/Fe]": "ul[Ba/Fe]"}, inplace=True)
-    placco2014c_df.loc[placco2014c_df['ul[Ba/Fe]'] == '{<=}', 'ul[Ba/Fe]'] = placco2014c_df['[Ba/Fe]']
-    placco2014c_df.loc[placco2014c_df['ul[Ba/Fe]'] == placco2014c_df['[Ba/Fe]'], '[Ba/Fe]'] = ''
+    mask_Ba = placco2014c_df['ul[Ba/Fe]'] == '{<=}'
+    placco2014c_df.loc[mask_Ba, 'ul[Ba/Fe]'] = placco2014c_df.loc[mask_Ba, '[Ba/Fe]'].astype(str)
+    placco2014c_df.loc[mask_Ba, '[Ba/Fe]'] = np.nan
 
     placco2014c_df.rename(columns={'[C/Fe]c': '[C/Fe]f'}, inplace=True)
     placco2014c_df.rename(columns={'Del[C/Fe]': '[C/Fe]c'}, inplace=True)
@@ -1728,9 +1729,9 @@ def load_cayrel2004():
             species_i = ion_to_species(ion)
             elem_i = ion_to_element(ion)
 
-            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009')[0]
+            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009').values[0]
             logepsFe_a09 = star_df.loc[star_df['Species'] == 'Fe I', 'logepsX'].values[0]
-            feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009')[0]
+            feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009').values[0]
 
             ## Assign epsX values
             col = make_epscol(species_i)
@@ -1963,9 +1964,9 @@ def load_mardini2022b(io=None):
             species_i = ion_to_species(ion)
             elem_i = ion_to_element(ion)
 
-            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009')[0]
+            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009').values[0]
             logepsFe_a09 = star_df.loc[star_df['Species'] == 'Fe I', 'logepsX'].values[0]
-            feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009')[0]
+            feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009').values[0]
 
             ## Assign epsX values
             col = make_epscol(species_i)
@@ -2072,9 +2073,9 @@ def load_mardini2024b(io=None):
             species_i = ion_to_species(ion)
             elem_i = ion_to_element(ion)
 
-            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009')[0]
+            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009').values[0]
             logepsFe_a09 = star_df.loc[star_df['Species'] == 'Fe I', 'logepsX'].values[0]
-            feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009')[0]
+            feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009').values[0]
 
             ## Assign epsX values
             col = make_epscol(species_i)
@@ -2212,7 +2213,7 @@ def load_hughes2026(io=None):
             species_i = ion_to_species(ion)
             elem_i = ion_to_element(ion)
 
-            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009')[0]
+            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009').values[0]
             feh_a09 = star_df.loc[star_df['Species'] == 'Fe I', '[X/H]'].values[0]
             logepsX = normal_round(row["[X/H]"] + logepsX_sun_a09, 2)
 
@@ -2322,9 +2323,9 @@ def load_nordlander2019(io=None):
             species_i = ion_to_species(ion)
             elem_i = ion_to_element(ion)
 
-            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009')[0]
+            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009').values[0]
             logepsFe_a09 = star_df.loc[star_df['Species'] == 'Fe I', 'logepsX'].values[0]
-            feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009')[0]
+            feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009').values[0]
 
             ## Assign epsX values
             col = make_epscol(species_i)
@@ -2493,9 +2494,9 @@ def load_chiti2024(io=None):
             ion_i = species_to_ion(species_i)
             elem_i = species_to_element(species_i)
 
-            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009')[0]
+            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009').values[0]
             logepsFe_a09 = star_df.loc[star_df['Species'] == 26.0, 'logepsX'].values[0]
-            feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009')[0]
+            feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009').values[0]
 
             ## Assign epsX values
             col = make_epscol(species_i)
@@ -2572,7 +2573,7 @@ def load_chiti2024(io=None):
 
                 species_i = species_from_col(col)
                 elem_i = species_to_element(species_i)
-                logepsX_sun_a09 = get_solar(elem_i, version='asplund2009')[0]
+                logepsX_sun_a09 = get_solar(elem_i, version='asplund2009').values[0]
                 feh_a09 = abund_df2.loc[abund_df2['Name'] == name, '[Fe/H]'].values[0]
 
                 if col.startswith('[') and col.endswith('/H]'):
@@ -2682,7 +2683,7 @@ def load_chiti2025a(io=None):
             species_i = ion_to_species(ion)
             elem_i = ion_to_element(ion)
 
-            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009')[0]
+            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009').values[0]
             l_FeH = star_df.loc[star_df['Species'] == 'Fe I', 'l_[X/H]'].values[0]
             feh_a09 = star_df.loc[star_df['Species'] == 'Fe I', '[X/H]'].values[0]
             
@@ -2931,9 +2932,9 @@ def load_ji2026(io=None):
             species_i = ion_to_species(ion)
             elem_i = ion_to_element(ion)
 
-            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009')[0]
+            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009').values[0]
             logepsFe_a09 = star_df.loc[star_df['Species'] == 'Fe I', 'logepsX'].values[0]
-            feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009')[0]
+            feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009').values[0]
 
             ## Assign epsX values
             col = make_epscol(species_i)
@@ -3051,9 +3052,9 @@ def load_lemasle2012(io=None):
                 else:
                     continue
 
-                logepsX_sun_a09 = get_solar(elem_i, version='asplund2009')[0]
-                logepsFe_a09 = star_df['[Fe I/H]'].values[0] + get_solar('Fe', version='asplund2009')[0]
-                feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009')[0]
+                logepsX_sun_a09 = get_solar(elem_i, version='asplund2009').values[0]
+                logepsFe_a09 = star_df['[Fe I/H]'].values[0] + get_solar('Fe', version='asplund2009').values[0]
+                feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009').values[0]
 
                 logepsX = row[col] + logepsX_sun_a09
 
@@ -3179,7 +3180,7 @@ def load_lemasle2014(io=None):
         star_df = abund_df[abund_df['Name'] == name]
         for j, row in star_df.iterrows():
 
-            logepsFe_sun_a09 = get_solar('Fe', version='asplund2009')[0]
+            logepsFe_sun_a09 = get_solar('Fe', version='asplund2009').values[0]
             feh_a09 = star_df['[FeI/H]'].values[0]
             logepsFe_a09 = feh_a09 + logepsFe_sun_a09
 
@@ -3199,7 +3200,7 @@ def load_lemasle2014(io=None):
                     species_i = ion_to_species(ion)
                     elem_i = ion_to_element(ion)
 
-                    logepsX_sun_a09 = get_solar(elem_i, version='asplund2009')[0]
+                    logepsX_sun_a09 = get_solar(elem_i, version='asplund2009').values[0]
 
                 
                 if j_col.startswith('[') and j_col.endswith('/H]'):
@@ -3343,10 +3344,10 @@ def load_letarte2010(io=None):
         star_df = abund_df[abund_df['Name'] == name]
         for j, row in star_df.iterrows():
 
-            logepsFe_sun_a89 = get_solar(elem_i, version='anders1989')[0]
+            logepsFe_sun_a89 = get_solar(elem_i, version='anders1989').values[0]
             feh_a89 = star_df['[FeI/H]'].values[0]
             logepsFe = feh_a89 + logepsFe_sun_a89
-            feh_a09 = logepsFe - get_solar('Fe', version='asplund2009')[0]
+            feh_a09 = logepsFe - get_solar('Fe', version='asplund2009').values[0]
 
             
             for j_col in row.index:
@@ -3366,10 +3367,10 @@ def load_letarte2010(io=None):
 
                     if elem_i in ['Ti','Fe','La']:
                         ## using the Grevesse & Sauval 1998 values for these 3 elements (in text)
-                        logepsX_sun_a89 = get_solar(elem_i, version='grevesse1998')[0] 
+                        logepsX_sun_a89 = get_solar(elem_i, version='grevesse1998').values[0] 
                     else:
-                        logepsX_sun_a89 = get_solar(elem_i, version='anders1989')[0]
-                    logepsX_sun_a09 = get_solar(elem_i, version='asplund2009')[0]
+                        logepsX_sun_a89 = get_solar(elem_i, version='anders1989').values[0]
+                    logepsX_sun_a09 = get_solar(elem_i, version='asplund2009').values[0]
 
                 
                 if j_col.startswith('[') and j_col.endswith('/H]'):
@@ -3510,9 +3511,9 @@ def load_limberg2025a(io=None):
             species_i = ion_to_species(ion)
             elem_i = ion_to_element(ion)
 
-            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009')[0]
+            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009').values[0]
             logepsFe_a09 = star_df.loc[star_df['Species'] == 'Fe I', 'logepsX'].values[0]
-            feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009')[0]
+            feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009').values[0]
 
             ## Assign epsX values
             col = make_epscol(species_i)
@@ -3622,9 +3623,9 @@ def load_lucchesi2024(io=None):
             species_i = ion_to_species(ion)
             elem_i = ion_to_element(ion)
 
-            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009')[0]
+            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009').values[0]
             logepsFe_a09 = star_df.loc[star_df['Species'] == 'Fe I', 'logepsX'].values[0]
-            feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009')[0]
+            feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009').values[0]
 
             ## Assign epsX values
             col = make_epscol(species_i)
@@ -3737,12 +3738,12 @@ def load_lucey2026(io=None):
 
         ## Fill in abundance data manually
         feh_a09 = obs_param_abund_df.loc[obs_param_abund_df['Name'] == name, '[Fe/H]'].values[0]
-        logepsFe_a09 = feh_a09 + get_solar('Fe', version='asplund2009')[0]
+        logepsFe_a09 = feh_a09 + get_solar('Fe', version='asplund2009').values[0]
         e_feh = obs_param_abund_df.loc[obs_param_abund_df['Name'] == name, 'e_[Fe/H]'].values[0]
 
         cfe_a09 = obs_param_abund_df.loc[obs_param_abund_df['Name'] == name, '[C/Fe]'].values[0]
         ch_a09 = cfe_a09 + feh_a09
-        logepsC_a09 = ch_a09 + get_solar('C', version='asplund2009')[0]
+        logepsC_a09 = ch_a09 + get_solar('C', version='asplund2009').values[0]
         e_cfe = obs_param_abund_df.loc[obs_param_abund_df['Name'] == name, 'e_[C/Fe]'].values[0]
 
         lucey2026_df.loc[i,'epsfe'] = logepsFe_a09
@@ -3824,9 +3825,9 @@ def load_norris2017b(io=None):
             species_i = ion_to_species(ion)
             elem_i = ion_to_element(ion)
 
-            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009')[0]
+            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009').values[0]
             logepsFe_a09 = star_df.loc[star_df['Species'] == 'Fe I', 'logepsX'].values[0]
-            feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009')[0]
+            feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009').values[0]
 
             ## Assign epsX values
             col = make_epscol(species_i)
@@ -3960,9 +3961,9 @@ def load_reggiani2021(io=None):
             species_i = ion_to_species(ion)
             elem_i = ion_to_element(ion)
 
-            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009')[0]
+            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009').values[0]
             logepsFe_a09 = star_df.loc[star_df['Species'] == 'Fe I', 'logepsX'].values[0]
-            feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009')[0]
+            feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009').values[0]
 
             ## Assign epsX values
             col = make_epscol(species_i)
@@ -4079,9 +4080,9 @@ def load_roederer2023a(io=None):
             species_i = ion_to_species(ion)
             elem_i = ion_to_element(ion)
 
-            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009')[0]
+            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009').values[0]
             logepsFe_a09 = star_df.loc[star_df['Species'] == 'Fe I', 'logepsX'].values[0]
-            feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009')[0]
+            feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009').values[0]
 
             ## Assign epsX values
             col = make_epscol(species_i)
@@ -4308,7 +4309,7 @@ def load_shetrone2003(io=None):
                 shetrone2003_df.loc[i, col] = logepsX if pd.notna(row["l_[X/Fe]"]) else np.nan
 
             ## Assign [X/H] and ul[X/H]values
-            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009')[0]
+            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009').values[0]
             col = make_XHcol(species_i).replace(" ", "")
             if col in XHcols:
                 if pd.isna(row["l_[X/H]"]):
@@ -4418,10 +4419,10 @@ def load_venn2012(io=None):
             if ion not in ['Fe I']:
                 xfe_a09 = row["[X/Fe]"]
                 feh_a09 = star_df.loc[star_df['Species'] == 'Fe I', '[X/H]'].values[0]
-                logepsX_sun_a09 = get_solar(elem_i, version='asplund2009')[0]
+                logepsX_sun_a09 = get_solar(elem_i, version='asplund2009').values[0]
                 logepsX = normal_round(xfe_a09 + feh_a09 + logepsX_sun_a09, 2)
             else:
-                logepsX_sun_a09 = get_solar(elem_i, version='asplund2009')[0]
+                logepsX_sun_a09 = get_solar(elem_i, version='asplund2009').values[0]
                 logepsX = normal_round(row["[X/H]"] + logepsX_sun_a09, 2)
 
             ## Assign epsX values
@@ -4435,7 +4436,7 @@ def load_venn2012(io=None):
                 venn2012_df.loc[i, col] = logepsX if pd.notna(row["l_[X/Fe]"]) else np.nan
 
             ## Assign [X/H] and ul[X/H]values
-            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009')[0]
+            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009').values[0]
             col = make_XHcol(species_i).replace(" ", "")
             if col in XHcols:
                 if pd.isna(row["l_[X/H]"]):
@@ -4546,9 +4547,9 @@ def load_chiti2018b(io=None):
             species_i = ion_to_species(ion)
             elem_i = ion_to_element(ion)
 
-            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009')[0]
+            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009').values[0]
             logepsFe_a09 = star_df.loc[star_df['Species'] == 'Fe I', 'logepsX'].values[0]
-            feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009')[0]
+            feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009').values[0]
 
             ## Assign epsX values
             col = make_epscol(species_i)
@@ -4660,9 +4661,9 @@ def load_chiti2023(io=None):
             species_i = ion_to_species(ion)
             elem_i = ion_to_element(ion)
 
-            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009')[0]
+            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009').values[0]
             logepsFe_a09 = star_df.loc[star_df['Species'] == 'Fe I', 'logepsX'].values[0]
-            feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009')[0]
+            feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009').values[0]
 
             ## Assign epsX values
             col = make_epscol(species_i)
@@ -4769,9 +4770,9 @@ def load_feltzing2009(io=None):
             species_i = ion_to_species(ion)
             elem_i = ion_to_element(ion)
 
-            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009')[0]
+            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009').values[0]
             logepsFe_a09 = star_df.loc[star_df['Species'] == 'Fe I', 'logepsX'].values[0]
-            feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009')[0]
+            feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009').values[0]
 
             ## Assign epsX values
             col = make_epscol(species_i)
@@ -4890,7 +4891,7 @@ def load_francois2016(io=None):
             # errcol = 'e_' + XFecol
 
             ## epsX and ulX
-            solar_logepsX_g1998 = get_solar(elem, version='grevesse1998')[0]
+            solar_logepsX_g1998 = get_solar(elem, version='grevesse1998').values[0]
             if col.startswith('[') and col.endswith('/H]'): # only used for [Fe/H]
                 if pd.isna(row['l_'+XH]):
                     francois2016_df.loc[i, epsX] = normal_round(row[col] + solar_logepsX_g1998, 2)
@@ -4907,7 +4908,7 @@ def load_francois2016(io=None):
                     francois2016_df.loc[i, ulX] = normal_round(row[col] + row['[Fe/H]'] + solar_logepsX_g1998, 2)
 
             ## XH and ulXH
-            solar_logepsX_a2009 = get_solar(elem, version='asplund2009')[0]
+            solar_logepsX_a2009 = get_solar(elem, version='asplund2009').values[0]
             if pd.isna(row['l_'+col]):
                 francois2016_df.loc[i, XH] = normal_round(francois2016_df.loc[i, epsX] - solar_logepsX_a2009, 2)
                 francois2016_df.loc[i, ulXH] = np.nan
@@ -4983,9 +4984,9 @@ def load_frebel2010a(io=None):
             species_i = ion_to_species(ion)
             elem_i = ion_to_element(ion)
 
-            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009')[0]
+            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009').values[0]
             logepsFe_a09 = star_df.loc[star_df['Species'] == 'Fe I', 'logepsX'].values[0]
-            feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009')[0]
+            feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009').values[0]
 
             ## Assign epsX values
             col = make_epscol(species_i)
@@ -5093,9 +5094,9 @@ def load_frebel2013c(io=None):
             species_i = ion_to_species(ion)
             elem_i = ion_to_element(ion)
 
-            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009')[0]
+            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009').values[0]
             logepsFe_a09 = star_df.loc[star_df['Species'] == 'Fe I', 'logepsX'].values[0]
-            feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009')[0]
+            feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009').values[0]
 
             ## Assign epsX values
             col = make_epscol(species_i)
@@ -5204,9 +5205,9 @@ def load_frebel2014(io=None):
             species_i = ion_to_species(ion)
             elem_i = ion_to_element(ion)
 
-            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009')[0]
+            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009').values[0]
             logepsFe_a09 = star_df.loc[star_df['Species'] == 'Fe I', 'logepsX'].values[0]
-            feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009')[0]
+            feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009').values[0]
 
             ## Assign epsX values
             col = make_epscol(species_i)
@@ -5313,9 +5314,9 @@ def load_frebel2016(io=None):
             species_i = ion_to_species(ion)
             elem_i = ion_to_element(ion)
 
-            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009')[0]
+            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009').values[0]
             logepsFe_a09 = star_df.loc[star_df['Species'] == 'Fe I', 'logepsX'].values[0]
-            feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009')[0]
+            feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009').values[0]
 
             ## Assign epsX values
             col = make_epscol(species_i)
@@ -5424,9 +5425,9 @@ def load_gilmore2013(io=None):
             species_i = ion_to_species(ion)
             elem_i = ion_to_element(ion)
 
-            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009')[0]
+            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009').values[0]
             logepsFe_a09 = star_df.loc[star_df['Species'] == 'Fe I', 'logepsX_GM'].values[0]
-            feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009')[0]
+            feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009').values[0]
 
             ## Assign epsX values
             col = make_epscol(species_i)
@@ -5485,7 +5486,7 @@ def load_gilmore2013(io=None):
             ### I manually calculated the epsc value, and converted back to [C/Fe] and [C/H] using Asplund+2009 solar abundances.
             idx = gilmore2013_df[gilmore2013_df['Name'] == name].index[0]
             gilmore2013_df.loc[idx, 'epsc'] = 6.8 # = (cfe + feh) + epsc_sun = ((2.2) + (-3.79)) + (8.39) w/ epsc_sun = 8.39 in Asplund+2005
-            gilmore2013_df.loc[idx, '[C/H]'] = gilmore2013_df.loc[idx, 'epsc'] - get_solar('C')[0] # epsc_sun = 8.43 in Asplund+2009
+            gilmore2013_df.loc[idx, '[C/H]'] = gilmore2013_df.loc[idx, 'epsc'] - get_solar('C').values[0] # epsc_sun = 8.43 in Asplund+2009
             gilmore2013_df.loc[idx, '[C/Fe]'] = gilmore2013_df.loc[idx, '[C/H]'] - gilmore2013_df.loc[idx, '[Fe/H]'] 
 
     ## Drop the Fe/Fe columns
@@ -5552,9 +5553,9 @@ def load_roederer2016b(io=None):
             species_i = ion_to_species(ion)
             elem_i = ion_to_element(ion)
 
-            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009')[0]
+            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009').values[0]
             logepsFe_a09 = star_df.loc[star_df['Species'] == 'Fe I', 'logepsX'].values[0]
-            feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009')[0]
+            feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009').values[0]
 
             ## Assign epsX values
             col = make_epscol(species_i)
@@ -5682,13 +5683,13 @@ def load_hansent2017(io=None):
         if epsX in data_df.columns:
             hansent2017_df[epsX] = data_df[epsX].astype(float)
         else:
-            hansent2017_df[epsX] = hansent2017_df[XH] + get_solar(elem, version='asplund2009')[0]
+            hansent2017_df[epsX] = hansent2017_df[XH] + get_solar(elem, version='asplund2009').values[0]
 
         # ulX
         if ulX in data_df.columns:
             hansent2017_df[ulX] = data_df[ulX]
         else:
-            hansent2017_df[ulX] = hansent2017_df[ulXH] + get_solar(elem, version='asplund2009')[0]
+            hansent2017_df[ulX] = hansent2017_df[ulXH] + get_solar(elem, version='asplund2009').values[0]
 
         # e_[X/Fe]
         if errX in data_df.columns:
@@ -5758,9 +5759,9 @@ def load_hansent2020a(io=None):
             species_i = ion_to_species(ion)
             elem_i = ion_to_element(ion)
 
-            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009')[0]
+            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009').values[0]
             logepsFe_a09 = star_df.loc[star_df['Species'] == 'Fe I', 'logepsX'].values[0]
-            feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009')[0]
+            feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009').values[0]
 
             ## Assign epsX values
             col = make_epscol(species_i)
@@ -5867,9 +5868,9 @@ def load_hansent2024(io=None):
             species_i = ion_to_species(ion)
             elem_i = ion_to_element(ion)
 
-            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009')[0]
+            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009').values[0]
             logepsFe_a09 = star_df.loc[star_df['Species'] == 'Fe I', 'logepsX'].values[0]
-            feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009')[0]
+            feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009').values[0]
 
             ## Assign epsX values
             col = make_epscol(species_i)
@@ -5977,9 +5978,9 @@ def load_ishigaki2014(exclude_mw_halo_ref_stars=True, io=None):
             species_i = ion_to_species(ion)
             elem_i = ion_to_element(ion)
 
-            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009')[0]
+            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009').values[0]
             logepsFe_a09 = star_df.loc[star_df['Species'] == 'Fe I', 'logepsX'].values[0]
-            feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009')[0]
+            feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009').values[0]
             
             ## Assign epsX values
             col = make_epscol(species_i)
@@ -6092,9 +6093,9 @@ def load_ji2016a(io=None):
             species_i = ion_to_species(ion)
             elem_i = ion_to_element(ion)
 
-            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009')[0]
+            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009').values[0]
             logepsFe_a09 = star_df.loc[star_df['Species'] == 'Fe I', 'logepsX'].values[0]
-            feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009')[0]
+            feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009').values[0]
 
             ## Assign epsX values
             col = make_epscol(species_i)
@@ -6201,9 +6202,9 @@ def load_ji2016b(io=None):
             species_i = ion_to_species(ion)
             elem_i = ion_to_element(ion)
 
-            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009')[0]
+            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009').values[0]
             logepsFe_a09 = star_df.loc[star_df['Species'] == 'Fe I', 'logepsX'].values[0]
-            feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009')[0]
+            feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009').values[0]
 
             ## Assign epsX values
             col = make_epscol(species_i)
@@ -6310,9 +6311,9 @@ def load_ji2018(io=None):
             species_i = ion_to_species(ion)
             elem_i = ion_to_element(ion)
 
-            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009')[0]
+            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009').values[0]
             logepsFe_a09 = star_df.loc[star_df['Species'] == 'Fe I', 'logepsX_w'].values[0]
-            feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009')[0]
+            feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009').values[0]
 
             ## Assign epsX values
             col = make_epscol(species_i)
@@ -6423,9 +6424,9 @@ def load_ji2019a(io=None):
             species_i = ion_to_species(ion)
             elem_i = ion_to_element(ion)
 
-            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009')[0]
+            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009').values[0]
             logepsFe_a09 = star_df.loc[star_df['Species'] == 'Fe I', 'logepsX'].values[0]
-            feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009')[0]
+            feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009').values[0]
 
             ## Assign epsX values
             col = make_epscol(species_i)
@@ -6539,9 +6540,9 @@ def load_ji2020a(io=None):
             species_i = ion_to_species(ion)
             elem_i = ion_to_element(ion)
 
-            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009')[0]
+            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009').values[0]
             logepsFe_a09 = star_df.loc[star_df['Species'] == 'Fe I', 'logepsX'].values[0]
-            feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009')[0]
+            feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009').values[0]
 
             ## Assign epsX values
             col = make_epscol(species_i)
@@ -6648,9 +6649,9 @@ def load_kirby2017b(io=None):
             species_i = ion_to_species(ion)
             elem_i = ion_to_element(ion)
 
-            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009')[0]
+            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009').values[0]
             logepsFe_a09 = star_df.loc[star_df['Species'] == 'Fe I', 'logepsX'].values[0]
-            feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009')[0]
+            feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009').values[0]
 
             ## Assign epsX values
             col = make_epscol(species_i)
@@ -6761,10 +6762,10 @@ def load_koch2008c(io=None):
             if ion not in ['Fe I', 'Fe II']:
                 xfe_a05 = row["[X/Fe]"]
                 feh_a05 = star_df.loc[star_df['Species'] == 'Fe I', '[X/H]'].values[0]
-                logepsX_sun_a05 = get_solar(elem_i, version='asplund2005')[0]
+                logepsX_sun_a05 = get_solar(elem_i, version='asplund2005').values[0]
                 logepsX = normal_round(xfe_a05 + feh_a05 + logepsX_sun_a05, 2)
             else:
-                logepsX_sun_a05 = get_solar(elem_i, version='asplund2005')[0]
+                logepsX_sun_a05 = get_solar(elem_i, version='asplund2005').values[0]
                 logepsX = normal_round(row["[X/H]"] + logepsX_sun_a05, 2)
             
             ## Assign epsX values
@@ -6778,7 +6779,7 @@ def load_koch2008c(io=None):
                 koch2008c_df.loc[i, col] = logepsX if pd.notna(row["l_[X/Fe]"]) else np.nan
 
             ## Assign [X/H] and ul[X/H]values
-            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009')[0]
+            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009').values[0]
             col = make_XHcol(species_i).replace(" ", "")
             if col in XHcols:
                 if pd.isna(row["l_[X/H]"]):
@@ -6859,9 +6860,9 @@ def load_koch2013b(io=None):
         koch2013b_df.loc[i,'Vmic'] = obs_param_df.loc[obs_param_df['Name'] == name, 'Vmic'].values[0]
 
         ## Fill in data
-        logepsFe_sun_a09 = get_solar('Fe', version='asplund2009')[0]
-        logepsCa_sun_a09 = get_solar('Ca', version='asplund2009')[0]
-        logepsBa_sun_a09 = get_solar('Ba', version='asplund2009')[0]
+        logepsFe_sun_a09 = get_solar('Fe', version='asplund2009').values[0]
+        logepsCa_sun_a09 = get_solar('Ca', version='asplund2009').values[0]
+        logepsBa_sun_a09 = get_solar('Ba', version='asplund2009').values[0]
 
         koch2013b_df.loc[i,'epsfe'] = normal_round(abund_df.loc[abund_df['Name'] == name, '[Fe/H]'].values[0] + logepsFe_sun_a09, 2)
         koch2013b_df.loc[i,'[Fe/H]'] = normal_round(abund_df.loc[abund_df['Name'] == name, '[Fe/H]'].values[0], 2)
@@ -6929,10 +6930,10 @@ def load_lai2011b(io=None):
         lai2011b_df.loc[i,'Vmic'] = data_df.loc[data_df['Name'] == name, 'Vmic'].values[0]
 
         ## Fill in the Iron and Carbon Data
-        logepsFe_sun_a05 = get_solar('Fe', version='asplund2005')[0]
-        logepsFe_sun_a09 = get_solar('Fe', version='asplund2009')[0]
-        logepsC_sun_a05 = get_solar('C', version='asplund2005')[0]
-        logepsC_sun_a09 = get_solar('C', version='asplund2009')[0]
+        logepsFe_sun_a05 = get_solar('Fe', version='asplund2005').values[0]
+        logepsFe_sun_a09 = get_solar('Fe', version='asplund2009').values[0]
+        logepsC_sun_a05 = get_solar('C', version='asplund2005').values[0]
+        logepsC_sun_a09 = get_solar('C', version='asplund2009').values[0]
 
         feh_a05 = data_df.loc[data_df['Name'] == name, '[Fe/H]'].values[0]
         cfe_a05 = data_df.loc[data_df['Name'] == name, '[C/Fe]'].values[0]
@@ -7019,9 +7020,9 @@ def load_marshall2019(io=None):
             species_i = ion_to_species(ion)
             elem_i = ion_to_element(ion)
 
-            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009')[0]
+            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009').values[0]
             logepsFe_a09 = star_df.loc[star_df['Species'] == 'Fe I', 'logepsX'].values[0]
-            feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009')[0]
+            feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009').values[0]
 
             ## Assign epsX values
             col = make_epscol(species_i)
@@ -7130,9 +7131,9 @@ def load_nagasawa2018(io=None):
             species_i = ion_to_species(ion)
             elem_i = ion_to_element(ion)
 
-            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009')[0]
+            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009').values[0]
             logepsFe_a09 = star_df.loc[star_df['Species'] == 'Fe I', 'logepsX'].values[0]
-            feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009')[0]
+            feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009').values[0]
 
             ## Assign epsX values
             col = make_epscol(species_i)
@@ -7240,9 +7241,9 @@ def load_norris2010a(io=None):
             species_i = ion_to_species(ion)
             elem_i = ion_to_element(ion)
             
-            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009')[0]
+            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009').values[0]
             logepsFe_a09 = star_df.loc[star_df['Species'] == 'Fe I', 'logepsX'].values[0]
-            feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009')[0]
+            feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009').values[0]
 
             ## Assign epsX values
             col = make_epscol(species_i)
@@ -7350,9 +7351,9 @@ def load_norris2010b(io=None):
             species_i = ion_to_species(ion)
             elem_i = ion_to_element(ion)
             
-            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009')[0]
+            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009').values[0]
             logepsFe_a09 = star_df.loc[star_df['Species'] == 'Fe I', 'logepsX'].values[0]
-            feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009')[0]
+            feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009').values[0]
 
             ## Assign epsX values
             col = make_epscol(species_i)
@@ -7436,10 +7437,10 @@ def load_norris2010c(load_gilmore2013=False, io=None):
         norris2010c_df.loc[i,'Fe/H'] = csv_df.loc[csv_df['Name'] == name, '[Fe/H]'].values[0]
         norris2010c_df.loc[i,'Vmic'] = np.nan
 
-        logepsFe_sun_a05 = get_solar('Fe', version='asplund2005')[0]
-        logepsFe_sun_a09 = get_solar('Fe', version='asplund2009')[0]
-        logepsC_sun_a05 = get_solar('C', version='asplund2005')[0]
-        logepsC_sun_a09 = get_solar('C', version='asplund2009')[0]
+        logepsFe_sun_a05 = get_solar('Fe', version='asplund2005').values[0]
+        logepsFe_sun_a09 = get_solar('Fe', version='asplund2009').values[0]
+        logepsC_sun_a05 = get_solar('C', version='asplund2005').values[0]
+        logepsC_sun_a09 = get_solar('C', version='asplund2009').values[0]
 
         norris2010c_df.loc[i,'epsfe'] = normal_round(csv_df.loc[csv_df['Name'] == name,'[Fe/H]'].values[0] + logepsFe_sun_a05, 2)
         norris2010c_df.loc[i,'[Fe/H]'] = normal_round(norris2010c_df.loc[i,'epsfe'] - logepsFe_sun_a09, 2)
@@ -7509,9 +7510,9 @@ def load_roederer2014b(io=None):
             species_i = ion_to_species(ion)
             elem_i = ion_to_element(ion)
 
-            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009')[0]
+            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009').values[0]
             logepsFe_a09 = star_df.loc[star_df['Species'] == 'Fe I', 'logepsX'].values[0]
-            feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009')[0]
+            feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009').values[0]
 
             ## Assign epsX values
             col = make_epscol(species_i)
@@ -7618,9 +7619,9 @@ def load_simon2010(io=None):
             species_i = ion_to_species(ion)
             elem_i = ion_to_element(ion)
 
-            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009')[0]
+            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009').values[0]
             logepsFe_a09 = star_df.loc[star_df['Species'] == 'Fe I', 'logepsX'].values[0]
-            feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009')[0]
+            feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009').values[0]
 
             ## Assign epsX values
             col = make_epscol(species_i)
@@ -7727,9 +7728,9 @@ def load_sbordone2007(io=None):
             species_i = ion_to_species(ion)
             elem_i = ion_to_element(ion)
 
-            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009')[0]
+            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009').values[0]
             logepsFe_a09 = star_df.loc[star_df['Species'] == 'Fe I', 'logepsX'].values[0]
-            feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009')[0]
+            feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009').values[0]
 
             ## Assign epsX values
             col = make_epscol(species_i)
@@ -7836,9 +7837,9 @@ def load_spite2018(io=None):
             species_i = ion_to_species(ion)
             elem_i = ion_to_element(ion)
 
-            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009')[0]
+            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009').values[0]
             logepsFe_a09 = star_df.loc[star_df['Species'] == 'Fe I', 'logepsX'].values[0]
-            feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009')[0]
+            feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009').values[0]
             
             ## Assign epsX values
             col = make_epscol(species_i)
@@ -7949,9 +7950,9 @@ def load_waller2023(io=None):
             species_i = ion_to_species(ion)
             elem_i = ion_to_element(ion)
 
-            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009')[0]
+            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009').values[0]
             logepsFe_a09 = star_df.loc[star_df['Species'] == 'Fe I', '[X/H]'].values[0] + star_df.loc[star_df['Species'] == 'Fe I', 'logepsX_sun'].values[0]
-            feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009')[0]
+            feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009').values[0]
 
             if ion == 'Fe I' or ion == 'Fe II':
                 xfe = row["[X/Fe]"]
@@ -8074,9 +8075,9 @@ def load_webber2023(io=None):
             species_i = ion_to_species(ion)
             elem_i = ion_to_element(ion)
 
-            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009')[0]
+            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009').values[0]
             logepsFe_a09 = star_df.loc[star_df['Species'] == 'Fe I', 'logepsX'].values[0]
-            feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009')[0]
+            feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009').values[0]
 
             ## Assign epsX values
             col = make_epscol(species_i)
@@ -8199,9 +8200,9 @@ def load_gull2021(io=None):
             species_i = ion_to_species(ion)
             elem_i = ion_to_element(ion)
 
-            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009')[0]
+            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009').values[0]
             logepsFe_a09 = star_df.loc[star_df['Species'] == 'Fe I', 'logepsX'].values[0]
-            feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009')[0]
+            feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009').values[0]
 
             ## Assign epsX values
             col = make_epscol(species_i)
@@ -8320,9 +8321,9 @@ def load_ji2020b(io=None):
             species_i = ion_to_species(ion)
             elem_i = ion_to_element(ion)
 
-            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009')[0]
+            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009').values[0]
             logepsFe_a09 = star_df.loc[star_df['Species'] == 'Fe I', 'logepsX'].values[0]
-            feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009')[0]
+            feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009').values[0]
 
             ## Assign epsX values
             col = make_epscol(species_i)
@@ -8449,12 +8450,12 @@ def load_martin2022a(io=None):
             martin2022a_df.loc[i, 'ul[Cr/Fe]'] = martin2022a_df.loc[i, 'ul[Cr/H]'] - martin2022a_df.loc[i, '[Fe/H]']
             martin2022a_df.loc[i, 'ul[Ba/Fe]'] = martin2022a_df.loc[i, 'ul[Ba/H]'] - martin2022a_df.loc[i, '[Fe/H]']
 
-            logepsFe_a09 = get_solar('Fe', version='asplund2009')[0]
-            logepsNa_a09 = get_solar('Na', version='asplund2009')[0]
-            logepsMg_a09 = get_solar('Mg', version='asplund2009')[0]
-            logepsCa_a09 = get_solar('Ca', version='asplund2009')[0]
-            logepsCr_a09 = get_solar('Cr', version='asplund2009')[0]
-            logepsBa_a09 = get_solar('Ba', version='asplund2009')[0]
+            logepsFe_a09 = get_solar('Fe', version='asplund2009').values[0]
+            logepsNa_a09 = get_solar('Na', version='asplund2009').values[0]
+            logepsMg_a09 = get_solar('Mg', version='asplund2009').values[0]
+            logepsCa_a09 = get_solar('Ca', version='asplund2009').values[0]
+            logepsCr_a09 = get_solar('Cr', version='asplund2009').values[0]
+            logepsBa_a09 = get_solar('Ba', version='asplund2009').values[0]
 
             martin2022a_df.loc[i, 'epsfe'] = abund_df1.loc[abund_df1['Name'] == name, '[FeI/H]'].values[0] + logepsFe_a09
             martin2022a_df.loc[i, 'epsfe2'] = abund_df1.loc[abund_df1['Name'] == name, '[FeII/H]'].values[0] + logepsFe_a09
@@ -8480,9 +8481,9 @@ def load_martin2022a(io=None):
             martin2022a_df.loc[i,'M/H'] = abund_df2.loc[abund_df2['Name'] == name, '[M/H]'].values[0]
             martin2022a_df.loc[i,'Vmic'] = np.nan
 
-            logepsFe_a09 = get_solar('Fe', version='asplund2009')[0]
-            logepsCa_a09 = get_solar('Ca', version='asplund2009')[0]
-            logepsC_a09 = get_solar('C', version='asplund2009')[0]
+            logepsFe_a09 = get_solar('Fe', version='asplund2009').values[0]
+            logepsCa_a09 = get_solar('Ca', version='asplund2009').values[0]
+            logepsC_a09 = get_solar('C', version='asplund2009').values[0]
 
             if (pd.isna(martin2022a_df.loc[i, '[Fe/H]']) and pd.isna(martin2022a_df.loc[i, 'ul[Fe/H]'])):
                 martin2022a_df.loc[i, '[Fe/H]'] = abund_df2.loc[abund_df2['Name'] == name, '[Fe/H]'].values[0]
@@ -8584,9 +8585,9 @@ def load_roederer2010a(io=None):
             species_i = ion_to_species(ion)
             elem_i = ion_to_element(ion)
 
-            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009')[0]
+            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009').values[0]
             logepsFe_a09 = star_df.loc[star_df['Species'] == 'Fe I', 'logepsX'].values[0]
-            feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009')[0]
+            feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009').values[0]
 
             ## Assign epsX values
             col = make_epscol(species_i)
@@ -8701,9 +8702,9 @@ def load_roederer2019(io=None):
             species_i = ion_to_species(ion)
             elem_i = ion_to_element(ion)
 
-            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009')[0]
+            logepsX_sun_a09 = get_solar(elem_i, version='asplund2009').values[0]
             logepsFe_a09 = star_df.loc[star_df['Species'] == 'Fe I', 'logepsX'].values[0]
-            feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009')[0]
+            feh_a09 = logepsFe_a09 - get_solar('Fe', version='asplund2009').values[0]
 
             ## Assign epsX values
             col = make_epscol(species_i)
