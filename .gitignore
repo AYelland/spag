@@ -19,6 +19,6 @@ env/
 *.swp
 .DS_Store
 
-# under construction
-statistics.py
-setup.py
+# # under construction
+# statistics.py
+# setup.py

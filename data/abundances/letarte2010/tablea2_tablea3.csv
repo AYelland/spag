@@ -1,4 +1,4 @@
-Name,Simbad_Identifier,Loc,System,RA_hms,DEC_dms,T(V-I),T(V-J),T(V-H),T(V-K),Tavg,logg1,BC,Mbol,Teff,logg,Fe/H,Vmic,EWmin
+Name,Simbad_Identifier,Loc,System,RA_hms,DEC_dms,T(V-I),T(V-J),T(V-H),T(V-K),Tavg,logg1,BC,Mbol,Teff,logg,M/H,Vmic,EWmin
 BL038,[WMO2009] For-0956,DW,Fornax,02:40:20.45,-34:24:00.1,3984,3976,3996,3964,3980,0.69,-0.93,-3.32,3980,0.69,-0.88,2.2,14.24
 BL045,[WMO2009] For-1877,DW,Fornax,02:40:07.52,-34:23:31.8,4114,4134,4128,4110,4122,0.85,-0.77,-3.07,4122,0.85,-1.09,2.1,12.15
 BL052,[WMO2009] For-1255,DW,Fornax,02:40:10.42,-34:25:17.6,4009,3999,3995,3984,3997,0.72,-0.91,-3.27,3997,0.72,-1.02,2.4,14.24

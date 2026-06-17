@@ -1,6 +1,6 @@
 # Only a stub. Online version should be complete. It hasn't been posted to CDS yet. -AY 2025/06/05
 
-Name,Species,D_Teff,D_logg,D_Vmic,D_Fe/H,e_sys
+Name,Species,D_Teff,D_logg,D_Vmic,D_M/H,e_sys
 TucV-1,C-H,0.10,-0.07,-0.01,0.03,0.07
 TucV-1,C-N,0.20,-0.02,0.00,0.04,0.00
 TucV-1,O I,-0.07,0.10,-0.01,0.01,0.43

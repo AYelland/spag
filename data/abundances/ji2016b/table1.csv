@@ -1,4 +1,4 @@
-ID,Name,Simbad_Identifier,System,RA_hms,DEC_dms,t_exp,Vmag,SNR4250,SNR6000,Vel,e_Vel,Teff,e_Teff,logg,e_logg,Vmic,e_Vmic,Fe/H
+ID,Name,Simbad_Identifier,System,RA_hms,DEC_dms,t_exp,Vmag,SNR4250,SNR6000,Vel,e_Vel,Teff,e_Teff,logg,e_logg,Vmic,e_Vmic,M/H
 A,DES J033523-540407,[KCB2015] Reti 4,Reticulum II,03:35:23.85,-54:04:07.58,75,16.04,22,47,66.8,0.1,4608,157,1.00,0.30,2.40,0.29,-3.01
 B,DES J033607-540235,[KCB2015] Reti 18,Reticulum II,03:36:07.76,-54:02:35.51,110,17.11,12,27,62.7,0.1,4833,166,1.55,0.34,2.15,0.28,-2.97
 C,DES J033447-540525,DES J033447.93-540525.0,Reticulum II,03:34:47.95,-54:05:24.97,58,17.20,11,22,62.0,0.1,4900,170,1.70,0.31,1.90,0.28,-2.91

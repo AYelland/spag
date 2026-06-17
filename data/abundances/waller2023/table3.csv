@@ -1,4 +1,4 @@
-Name,Teff,e_Teff,logg,e_logg,Vmic,e_Vmic,Fe/H,e_Fe/H,Vel,e_Vel
+Name,Teff,e_Teff,logg,e_logg,Vmic,e_Vmic,M/H,e_M/H,Vel,e_Vel
 ComBer-1,4385,81,0.33,0.12,2.1,0.1,-2.88,0.15,91.76,0.18
 ComBer-2,4879,99,1.24,0.12,2.5,0.1,-2.16,0.12,95.86,0.27
 BooI-2,4390,70,0.41,0.08,2.3,0.1,-2.49,0.14,99.25,1.09

@@ -1,4 +1,4 @@
-StarID,Name,Simbad_Identifier,Loc,System,RA_hms,DEC_dms,Vmag,V-I,B-V,Teff,logg,Vmic,Fe/H
+StarID,Name,Simbad_Identifier,Loc,System,RA_hms,DEC_dms,Vmag,V-I,B-V,Teff,logg,Vmic,M/H
 432,Sgr-432,[MBC98a] Sgr1 432,DW,Sagittarius,18:53:50.75,-30:27:27.3,17.700,1.013,,4713,2.2,1.20,-0.89
 628,Sgr-628,[MBC98a] Sgr1 628,DW,Sagittarius,18:53:47.91,-30:26:14.5,18.228,1.040,,4656,2.1,1.75,-0.28
 635,Sgr-635,[MBC98a] Sgr1 635,DW,Sagittarius,18:53:51.05,-30:26:48.3,18.186,1.074,,4588,2.1,1.50,-0.36

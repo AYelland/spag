@@ -1,4 +1,4 @@
-Name,System,sub_System,Teff,logg,Vmic,Fe/H,[C/Fe]_corr,[N/Fe]_uncorr
+Name,System,sub_System,Teff,logg,Vmic,M/H,[C/Fe]_corr,[N/Fe]_uncorr
 BM-235,Helmi,trail,4780,1.50,2.05,-1.63,-0.04,0.30
 HE0033-2141,Helmi,trail,4910,1.60,1.70,-2.91,0.43,
 HE0050-0918,Helmi,trail,5310,2.10,2.00,-1.37,-0.25,0.60

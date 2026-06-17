@@ -1,4 +1,4 @@
-Name,Ref,Teff,e_Teff,logg,e_logg,Vmic,e_Vmic,Fe/H,e_Fe/H
+Name,Ref,Teff,e_Teff,logg,e_logg,Vmic,e_Vmic,M/H,e_M/H
 GruI-032,TW,4495,155,0.85,0.37,2.60,0.32,-2.57,0.19
 GruI-032,W16,4270,69,0.72,0.22,2.0,,-2.69,0.10
 GruI-038,TW,4660,158,1.45,0.39,2.40,0.32,-2.50,0.24

@@ -1,4 +1,4 @@
-Name,Simbad_Identifier,System,Loc,RA_hms,DEC_dms,Vmag,Imag,Jmag,Hmag,Kmag,Teff,logg,Vmic,Fe/H,Intrument
+Name,Simbad_Identifier,System,Loc,RA_hms,DEC_dms,Vmag,Imag,Jmag,Hmag,Kmag,Teff,logg,Vmic,M/H,Intrument
 fnx_06_019,[BTH2006] fnx-06 019,Fornax,DW,02:37:00.91,-34:10:43.10,18.336,17.062,16.005,15.455,15.310,4280,0.68,1.80,-2.92,UVES
 fnx0579x-1,[BTH2006] fnx-05 791,Fornax,DW,02:40:47.79,-34:26:46.50,18.220,16.910,16.090,15.532,15.393,4255,0.62,1.70,-2.73,UVES
 car1_t174,[FNB2015] CC 13080,Carina,DW,06:41:58.72,-51:06:40.30,19.170,18.030,17.112,16.612,16.531,4650,1.42,1.90,-3.01,X-Shooter
