@@ -1,4 +1,4 @@
-Name,Species,N,l_logepsX,logepsX,e_logepsX,l_[X/Fe]_LTE,[X/Fe]_LTE,l_[X/Fe]_NLTE,[X/Fe]_NLTE,e_[X/Fe]
+Name,Ion,N,l_logepsX,logepsX,e_logepsX,l_[X/Fe]_LTE,[X/Fe]_LTE,l_[X/Fe]_NLTE,[X/Fe]_NLTE,e_[X/Fe]
 J1202-0020,Li I,1,,2.08,0.09,,,,2.02,0.09
 J1202-0020,C-H,,<,6.50,,<,+1.03,,,
 J1202-0020,C-N,,<,8.00,,<,+3.13,,,

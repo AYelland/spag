@@ -1,4 +1,4 @@
-Species, N  , ID                      , l_logepsX, logepsX, e_logepsX, l_[X/H], [X/H], l_[X/Fe], [X/Fe]
+Ion, N  , ID                      , l_logepsX, logepsX, e_logepsX, l_[X/H], [X/H], l_[X/Fe], [X/Fe]
 C-H    ,   2, SMSS J000113.96-363337.9,          , 5.78   ,      0.02,        , -2.65,         , -0.33
 C-H    ,   2, SMSS J001039.86-525851.4,          , 5.88   ,      0.03,        , -2.55,         , -0.23
 C-H    ,   2, SMSS J001952.15-525803.0,          , 5.62   ,      0.02,        , -2.81,         , -0.25

@@ -1,4 +1,4 @@
-Name,Simbad_Identifier,Species,N_lines,l_logepsX,logepsX,e_logepsX,l_[X/H],[X/H],l_[X/Fe],[X/Fe]
+Name,Simbad_Identifier,Ion,N_lines,l_logepsX,logepsX,e_logepsX,l_[X/H],[X/H],l_[X/Fe],[X/Fe]
 J100714,SDSS J100714+160154,C-H,1,,8.45,0.20,,0.02,,1.44
 J100714,SDSS J100714+160154,Na I,2,,4.79,0.12,,-1.46,,-0.04
 J100714,SDSS J100714+160154,Mg I,7,,6.56,0.18,,-1.04,,0.38

@@ -1,4 +1,4 @@
-Name,Species,lambda,chi,loggf,l_EW,EW,l_logepsX,logepsX
+Name,Ion,lambda,chi,loggf,l_EW,EW,l_logepsX,logepsX
 BooI-980,C-H,4313,,,,syn,,4.97
 BooI-980,C-H,4323,,,,syn,,4.97
 BooI-980,Na I,5889.950,0.00,0.108,,153.6,,3.56

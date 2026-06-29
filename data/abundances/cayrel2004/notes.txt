@@ -13,6 +13,5 @@ abundances (alongside Grevesse and Savaul 1998/2000 solar abundances.)
 
 ---
 
-Now, it has been loaded in with the other references, such that it will be added with the other references later on.
-
+Now, it has been loaded in with the other references.
 ---

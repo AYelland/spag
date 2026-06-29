@@ -1,4 +1,4 @@
-Name,Species,f_Species,N,logepsX_sun,l_[X/H],[X/H],u_[X/H],l_[X/Fe],[X/Fe],u_[X/Fe],e_logepsX
+Name,Ion,f_Ion,N,logepsX_sun,l_[X/H],[X/H],u_[X/H],l_[X/Fe],[X/Fe],u_[X/Fe],e_logepsX
 TucII-301,C-H,,2,8.43,,-2.79,,,0.62,,0.23
 #TucII-301,C-H,b,2,8.43,,-2.50,,,0.91,,0.23
 TucII-301,Na I,,2,6.24,,-3.28,,,0.13,,0.29

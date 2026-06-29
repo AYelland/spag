@@ -1,4 +1,4 @@
-StarID,Name,Species,logepsX_sun,l_logepsX,logepsX,e_logepsX
+StarID,Name,Ion,logepsX_sun,l_logepsX,logepsX,e_logepsX
 432,Sgr-432,O I,8.72,,8.03,
 432,Sgr-432,Ce II,1.58,,0.78,
 432,Sgr-432,Mg I,7.58,,6.64,0.01

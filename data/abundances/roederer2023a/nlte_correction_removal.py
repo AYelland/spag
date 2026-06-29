@@ -66,12 +66,12 @@ for star_name in abunds['Name'].unique():
         print("-------------------")
         
         # Current Abundance
-        logepsX_curr = star_abunds[star_abunds['Species'] == ion]['logepsX'].values[0]
+        logepsX_curr = star_abunds[star_abunds['Ion'] == ion]['logepsX'].values[0]
         print(f'Curr {ion:<5}: ', normal_round(logepsX_curr, 2))
 
         # NLTE & LTE Abundance
-        line_logepsX = np.array(star_lines[star_lines['Species'] == ion]['logepsX'].values)
-        line_corr = np.array(star_lines[star_lines['Species'] == ion]['NLTEcorr'].values)
+        line_logepsX = np.array(star_lines[star_lines['Ion'] == ion]['logepsX'].values)
+        line_corr = np.array(star_lines[star_lines['Ion'] == ion]['NLTEcorr'].values)
         lines_used = len(line_logepsX[~np.isnan(line_logepsX)])
         
         line_logepsX_NLTE = np.append(line_logepsX, line_corr)
@@ -82,12 +82,12 @@ for star_name in abunds['Name'].unique():
         print(f'LTE  {ion:<5}: ', normal_round(logepsX_LTE, 2))
         
         # Set New Abundance as LTE value
-        star_abunds.loc[star_abunds['Species'] == ion, 'logepsX'] = normal_round(logepsX_LTE, 2)
-        print(f'New  {ion:<5}: ', star_abunds[star_abunds['Species'] == ion]['logepsX'].values[0])
+        star_abunds.loc[star_abunds['Ion'] == ion, 'logepsX'] = normal_round(logepsX_LTE, 2)
+        print(f'New  {ion:<5}: ', star_abunds[star_abunds['Ion'] == ion]['logepsX'].values[0])
 
     print("=========================================")
     new_abunds = pd.concat([new_abunds, star_abunds], ignore_index=True)
 
-new_abunds = new_abunds[['Name', 'Species', 'Z', 'logepsX_sun', 'N', 'l_logepsX', 'logepsX', 'e_logepsX']]
+new_abunds = new_abunds[['Name', 'Ion', 'Z', 'logepsX_sun', 'N', 'l_logepsX', 'logepsX', 'e_logepsX']]
 new_abunds.to_csv(data_dir + 'roederer2023a/table567_lte.csv', index=False)
     

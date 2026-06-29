@@ -1,6 +1,6 @@
 
 
-Name,Species,LTE/NLTE,logepsX_sun,l_[X/H],[X/H],e_[X/H],l_[X/Fe],[X/Fe],e_[X/Fe]
+Name,Ion,LTE/NLTE,logepsX_sun,l_[X/H],[X/H],e_[X/H],l_[X/Fe],[X/Fe],e_[X/Fe]
 ComBer-1,Fe I,LTE,7.50,,-2.88,0.15,,,
 ComBer-1,Fe II,LTE,7.50,,-2.97,0.11,,,
 ComBer-1,Na I,LTE,6.24,,,,,0.30,0.24

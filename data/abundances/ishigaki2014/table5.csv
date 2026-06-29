@@ -1,5 +1,5 @@
 
-Name,Species,logepsX_sun,l_logepsX,logepsX,l_[X/H],[X/H],l_[X/Fe],[X/Fe],N,e_line,e_tot
+Name,Ion,logepsX_sun,l_logepsX,logepsX,l_[X/H],[X/H],l_[X/Fe],[X/Fe],N,e_line,e_tot
 BooI-009,Fe I,7.50,,4.86,,-2.64,,-2.64,38,0.04,0.14
 BooI-009,Fe II,7.50,,4.59,,-2.91,,-2.91,2,0.01,0.10
 BooI-009,C-H,8.43,<,5.50,<,-2.93,<,-0.29,1,,

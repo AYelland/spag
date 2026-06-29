@@ -1,4 +1,4 @@
-Name       , Species, l_logepsX, logepsX, e_logepsX
+Name       , Ion, l_logepsX, logepsX, e_logepsX
 BD +17 3248, Fe I   ,          , -0.75  ,      0.14
 BD +17 3248, Ag I   ,          , -0.75  ,      0.14
 BD +17 3248, Pd I   ,          , -0.05  ,      0.09

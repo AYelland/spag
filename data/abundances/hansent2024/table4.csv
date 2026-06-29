@@ -1,4 +1,4 @@
-Name,Species,N,l_logepsX,logepsX,l_[X/H],[X/H],e_[X/H],l_[X/Fe],[X/Fe],e_[X/Fe]
+Name,Ion,N,l_logepsX,logepsX,l_[X/H],[X/H],e_[X/H],l_[X/Fe],[X/Fe],e_[X/Fe]
 TucV-1,C-H,,,+5.99,,-2.44,0.13,,+1.11,0.11
 #TucV-1,C_corr,,,+6.65,,-1.78,0.13,,+1.77,0.11
 TucV-1,C-N,,,+6.09,,-1.75,0.35,,+1.81,0.34

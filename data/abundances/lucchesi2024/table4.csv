@@ -1,4 +1,4 @@
-Name,Species,+D_Teff_logepsX,-D_Teff_logepsX,+D_logg_logepsX,-D_logg_logepsX,+D_Vmic_logepsX,-D_Vmic_logepsX
+Name,Ion,+D_Teff_logepsX,-D_Teff_logepsX,+D_logg_logepsX,-D_logg_logepsX,+D_Vmic_logepsX,-D_Vmic_logepsX
 fnx_06_019,Fe I,+0.14,-0.15,+0.00,+0.00,-0.03,+0.03
 fnx_06_019,Fe II,-0.02,+0.04,+0.05,-0.05,+0.02,+0.02
 fnx_06_019,C I,+0.13,-0.08,+0.00,+0.01,+0.00,+0.00

@@ -1,4 +1,4 @@
-Name,Species,e_Teff,e_logg,e_[M/H],e_Vmic,e_[X/Fe]
+Name,Ion,e_Teff,e_logg,e_[M/H],e_Vmic,e_[X/Fe]
 Boo-1137,C-H,0.28,-0.08,0.00,0.00,0.29
 Boo-1137,N-H,0.38,-0.08,0.00,0.00,0.39
 Boo-1137,Na I,-0.02,0.00,0.00,-0.03,0.03

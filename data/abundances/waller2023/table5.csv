@@ -1,4 +1,4 @@
-Name,Species,D_Teff,D_logg,D_M/H,D_Vmic,e_EW,e_SYN,D_EW,D_syn
+Name,Ion,D_Teff,D_logg,D_M/H,D_Vmic,e_EW,e_SYN,D_EW,D_syn
 ComBer-1,Fe I,0.14,0.00,0.04,0.01,0.02,0.05,0.15,0.15
 ComBer-1,Fe II,0.04,0.02,0.01,0.01,0.10,0.14,0.11,0.15
 ComBer-1,Na I,0.18,0.01,0.06,0.03,0.14,0.17,0.24,0.26

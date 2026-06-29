@@ -1,4 +1,4 @@
-Name,Species,e_stat,D_Teff,D_logg,D_Vmic,e_tot
+Name,Ion,e_stat,D_Teff,D_logg,D_Vmic,e_tot
 300S-1,C-H,0.21,0.30,-0.05,-0.02,0.37
 300S-1,Na I,0.08,0.16,-0.10,-0.04,0.21
 300S-1,Mg I,0.07,0.16,-0.11,-0.05,0.21

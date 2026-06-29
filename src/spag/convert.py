@@ -71,11 +71,17 @@ common_molecule_species_to_elems = {
     840: ["Zr", "O"]
     }
 common_molecule_name_to_colname = {
-    'C-N':  'N', 'N-C':  'N',
-    'C-H':  'C', 'H-C':  'C',
-    'C-C':  'C-C',
-    'O-H':  'O-H', 'H-O':  'O-H',
-    'N-H':  'N-H', 'H-N':  'N-H',
+    'C-N':  'N',     'Fe-H': 'Fe-H',
+    'N-C':  'N',     'H-Fe': 'Fe-H',
+    'C-H':  'C',     'Si-H': 'Si-H',
+    'H-C':  'C',     'H-Si': 'Si-H',
+    'C-C':  'C-C',   'Ti-O': 'Ti-O',
+    'O-H':  'O-H',   'O-Ti': 'Ti-O',
+    'H-O':  'O-H',   'V-O':  'V-O',
+    'N-H':  'N-H',   'O-V':  'V-O',
+    'H-N':  'N-H',   'Zr-O': 'Zr-O',
+    'Mg-H': 'Mg-H',  'O-Zr': 'Zr-O',
+    'H-Mg': 'Mg-H'
     }
 common_molecule_colname_to_name = {
     v: k for k, v in common_molecule_name_to_colname.items()
@@ -230,8 +236,9 @@ def get_default_ion(elem):
     elif elem in default_to_2:
         return 2
     else:
-        warnings.warn("get_default_ion: {} not in defaults, returning 0".format(elem))
-        return 0
+        raise ValueError(f"Element '{elem}' is not recognized by get_default_ion(). Is '{elem}' a molecule or an uncommon isotope?")
+        # warnings.warn("get_default_ion: {} not in defaults, returning 0".format(elem))
+        # return 0
 
 def get_star_abunds(starname,data,type):
     """
@@ -345,21 +352,25 @@ def element_to_ion(element_repr, state=None):
         try:
             elem = element_repr.title().strip().split()[0]
             if not elem.isalpha():
+                if '-' in elem:
+                    raise ValueError(f"Element {elem} is a molecule, not an element.")
+                # Trailing digit encodes ionisation state (e.g. 'Fe2' → Fe II, 'Ti1' → Ti I)
+                ionization_state = int(elem[-1])
                 elem = elem[:-1]
-            ionization_state = get_default_ion(elem)
+            else:
+                # No digit present — use the default ionisation state for this element
+                ionization_state = get_default_ion(elem)
             return f"{elem} {int_to_roman(ionization_state)}"
 
         except ValueError:
-            molecule = element_repr.strip().split()[0]
-            Z = element_to_atomic_number(molecule)
-            elem = atomic_number_to_element(Z)
-            print(f"element_to_ion: {molecule} -> {Z} -> {elem}")
-
-            ionization_state = get_default_ion(elem)
-            if ionization_state == 0:
-                return f"{elem}"
+            if ('-' in element_repr) & (element_repr in common_molecule_name_to_colname.keys()):
+                molecule_in = element_repr
             else:
-                return f"{elem} {int_to_roman(ionization_state)}"
+                molecule_in = common_molecule_colname_to_name[element_repr]
+            species = element_to_species(molecule_in)
+            molecule_out = species_to_element(species)
+            # print(f"element_to_ion: {element_repr} -> {species} -> {molecule_out}")
+            return molecule_out
     else:
         return f"{element_repr.title()} {int_to_roman(state)}"
 
@@ -708,6 +719,16 @@ def e_ABcol(elem1, elem2):
     """
     return f"e_[{getelem(elem1)}/{getelem(elem2)}]"
 
+def llcol(elem):
+    """
+    Returns the lower limit column name for an element
+    """
+    try:
+        return 'll'+getelem(elem,lower=True)
+    except ValueError:
+        if elem=="alpha": return "llalpha"
+        else: raise
+        
 def ulcol(elem):
     """
     Returns the upper limit column name for an element
@@ -728,6 +749,16 @@ def XHcol(elem, keep_species=False):
         if elem=="alpha": return "[alpha/H]"
         else: raise
 
+def llXHcol(elem, keep_species=False):
+    """
+    Returns the ll[X/H] column name for an element
+    """
+    try:
+        return 'll['+getelem(elem, keep_species=keep_species)+'/H]'
+    except ValueError:
+        if elem=="alpha": return "ll[alpha/H]"
+        else: raise
+        
 def ulXHcol(elem, keep_species=False):
     """
     Returns the ul[X/H] column name for an element
@@ -748,6 +779,16 @@ def XFecol(elem, keep_species=False):
         if elem=="alpha": return "[alpha/Fe]"
         else: raise
 
+def llXFecol(elem, keep_species=False):
+    """
+    Returns the ll[X/Fe] column name for an element
+    """
+    try:
+        return 'll['+getelem(elem, keep_species=keep_species)+'/Fe]'
+    except ValueError:
+        if elem=="alpha": return "ll[alpha/Fe]"
+        else: raise
+        
 def ulXFecol(elem, keep_species=False):
     """
     Returns the ul[X/Fe] column name for an element
@@ -842,7 +883,17 @@ def ulXHcolnames(df):
         if col.startswith('ul[') and col.endswith('/H]'):
             allnames.append(col)
     return allnames
-    
+
+def llXHcolnames(df):
+    """
+    Returns a list of all ll[X/H] columns
+    """
+    allnames = []
+    for col in df:
+        if col.startswith('ll[') and col.endswith('/H]'):
+            allnames.append(col)
+    return allnames
+
 def XFecolnames(df):
     """
     Returns a list of all [X/Fe] columns
@@ -863,6 +914,16 @@ def ulXFecolnames(df):
             allnames.append(col)
     return allnames
 
+def llXFecolnames(df):
+    """
+    Returns a list of all ll[X/Fe] columns
+    """
+    allnames = []
+    for col in df:
+        if col.startswith('ll[') and col.endswith('/Fe]'):
+            allnames.append(col)
+    return allnames
+
 ## ---
 
 def make_epscol(species):
@@ -870,6 +931,12 @@ def make_epscol(species):
     Converts species to a formatted log(eps) column name
     """
     return epscol(species)
+
+def make_llcol(species):
+    """
+    Converts species to a formatted lower limit column name
+    """
+    return llcol(species)
 
 def make_ulcol(species):
     """
@@ -889,6 +956,12 @@ def make_XHcol(species):
     """
     return XHcol(species)
 
+def make_llXHcol(species):
+    """
+    Converts species to a formatted ll[X/H] column name
+    """
+    return llXHcol(species)
+
 def make_ulXHcol(species):
     """
     Converts species to a formatted ul[X/H] column name
@@ -900,6 +973,12 @@ def make_XFecol(species):
     Converts species to a formatted [X/Fe] column name
     """
     return XFecol(species)
+
+def make_llXFecol(species):
+    """
+    Converts species to a formatted ll[X/Fe] column name
+    """
+    return llXFecol(species)
 
 def make_ulXFecol(species):
     """

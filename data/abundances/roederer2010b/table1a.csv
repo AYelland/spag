@@ -1,4 +1,4 @@
-Name,Species,Z,lambda,chi,loggf,Ref,logepsX,Instrument
+Name,Ion,Z,lambda,chi,loggf,Ref,logepsX,Instrument
 BD +17 3248,Cd I,48,2288.02,0.00,+0.15,1,-0.03,STIS
 BD +17 3248,Lu II,71,2615.41,0.00,+0.11,2,-1.58,STIS
 BD +17 3248,Hf II,72,2638.72,0.00,-0.17,3,-0.62,STIS

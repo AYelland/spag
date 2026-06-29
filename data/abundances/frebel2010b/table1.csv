@@ -1,4 +1,4 @@
-Name,Species,l_logepsX,logepsX,l_[X/H],[X/H],l_[X/Fe],[X/Fe],N_lines,e_random,e_systematic
+Name,Ion,l_logepsX,logepsX,l_[X/H],[X/H],l_[X/Fe],[X/Fe],N_lines,e_random,e_systematic
 S1020549,C-H,<,4.78,<,-3.65,<,0.16,1,,
 S1020549,Na I,,2.31,,-3.93,,-0.12,2,0.07,0.22
 S1020549,Si I,,4.66,,-2.85,,0.96,1,0.30,0.39

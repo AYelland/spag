@@ -1,4 +1,4 @@
-ID,Name,Species,N,l_logepsX,logepsX,e_logepsX,l_[X/H],[X/H],l_[X/Fe],[X/Fe]
+ID,Name,Ion,N,l_logepsX,logepsX,e_logepsX,l_[X/H],[X/H],l_[X/Fe],[X/Fe]
 A,DES J033523-540407,C,2,,6.07,0.15,,-2.36,,0.65
 A,DES J033523-540407,Na I,2,,3.53,0.11,,-2.71,,0.30
 A,DES J033523-540407,Mg I,4,,5.05,0.25,,-2.55,,0.46

@@ -1,4 +1,4 @@
-Name,Species,N,logepsX_sun,l_logepsX,logepsX,l_[X/Fe],[X/Fe],e_logepsX,e_[X/Fe]
+Name,Ion,N,logepsX_sun,l_logepsX,logepsX,l_[X/Fe],[X/Fe],e_logepsX,e_[X/Fe]
 J2213-5137,Li I,1,,<,0.70,<,,,
 J2213-5137,C-H,1,8.43,,6.61,,+0.38,0.30,0.30
 J2213-5137,N-H,1,7.83,<,6.30,<,+0.67,,

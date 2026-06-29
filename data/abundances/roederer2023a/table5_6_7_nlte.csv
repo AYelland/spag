@@ -1,4 +1,4 @@
-Name,Species,Z,logepsX_sun,N,l_logepsX,logepsX,l_[X/H],[X/H],l_[X/Fe],[X/Fe],e_logepsX,e_[X/H],e_[X/Fe]
+Name,Ion,Z,logepsX_sun,N,l_logepsX,logepsX,l_[X/H],[X/H],l_[X/Fe],[X/Fe],e_logepsX,e_[X/H],e_[X/Fe]
 J1008+0001,Li I,3,,1,<,0.25,,,,,,,
 J1008+0001,C-H,6,8.43,1,,7.00,,,,1.54,0.20,,0.20
 J1008+0001,C-N,7,7.83,1,,6.70,,,,1.84,0.30,,0.30

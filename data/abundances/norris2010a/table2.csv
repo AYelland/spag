@@ -1,4 +1,4 @@
-Name,Species,N,l_logepsX,logepsX,e_logepsX,l_[X/Fe],[X/Fe]
+Name,Ion,N,l_logepsX,logepsX,e_logepsX,l_[X/Fe],[X/Fe]
 Boo-1137,C-H,syn,,4.98,0.20,,0.25
 Boo-1137,N-H,syn,,5.22,0.30,,1.10
 Boo-1137,O I,1,<,6.94,,<,1.94

@@ -1,4 +1,4 @@
-Name, Species, lambda , chi , loggf, r_loggf, f_EW, EW
+Name, Ion, lambda , chi , loggf, r_loggf, f_EW, EW
 Star 1, Mg I   , 4571.1 , 0.0 , -5.62,       1,       ,  45.2
 Star 1, Mg I   , 4702.99, 4.33, -0.38,       1,       ,  63.9
 Star 1, Mg I   , 5172.68, 2.71, -0.45,       2,       , 144.7

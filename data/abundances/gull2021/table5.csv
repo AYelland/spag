@@ -1,4 +1,4 @@
-Name,System,sub_System,Species,N,l_logepsX,logepsX,l_[X/H],[X/H],l_[X/Fe],[X/Fe],e_logepsX
+Name,System,sub_System,Ion,N,l_logepsX,logepsX,l_[X/H],[X/H],l_[X/Fe],[X/Fe],e_logepsX
 BM-235,Helmi,trail,C-H,2,,6.37,,-2.06,,-0.04,0.1
 BM-235,Helmi,trail,C-N,1,,6.6,,-1.23,,0.4,0.3
 BM-235,Helmi,trail,N-H,1,,6.4,,-1.43,,0.2,0.3

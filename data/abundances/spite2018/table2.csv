@@ -1,4 +1,4 @@
-Name,Species,N,logepsX_sun,l_logepsX,logepsX,e_logepsX,[X/H],[X/Fe]
+Name,Ion,N,logepsX_sun,l_logepsX,logepsX,e_logepsX,[X/H],[X/Fe]
 PscII-10694,Fe I,15,7.52,,4.92,0.10,-2.60,
 PscII-10694,C-H,,8.50,,6.98,,-1.52,+1.08
 PscII-10694,C-C,,8.50,,7.28,,-1.23,+1.38

@@ -1,4 +1,4 @@
-Name,Species,N,l_logepsX,logepsX,l_[X/H],[X/H],l_[X/Fe],[X/Fe],e_logepsX
+Name,Ion,N,l_logepsX,logepsX,l_[X/H],[X/H],l_[X/Fe],[X/Fe],e_logepsX
 TriII-40,Li I,1,<,0.65,<,-0.40,<,+2.53,
 TriII-40,C I,syn,,5.42,,-3.01,,-0.09,0.15
 TriII-40,O I,1,<,6.77,<,-1.92,<,+1.00,

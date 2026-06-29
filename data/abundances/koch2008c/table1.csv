@@ -1,4 +1,4 @@
-Name,Species,N,l_[X/H],[X/H],l_[X/Fe],[X/Fe],e_[X/Fe]
+Name,Ion,N,l_[X/H],[X/H],l_[X/Fe],[X/Fe],e_[X/Fe]
 #Her-2,Fe (CaT),,,-2.39,,,0.13
 Her-2,Fe I,24,,-2.02,,,0.20
 Her-2,Fe II,3,,-1.78,,,0.21

@@ -1,5 +1,5 @@
 # choosing to use the weighted values... (see paper)
-Name,Species,N,l_logepsX,logepsX,l_[X/H],[X/H],l_[X/Fe],[X/Fe]
+Name,Ion,N,l_logepsX,logepsX,l_[X/H],[X/H],l_[X/Fe],[X/Fe]
 DES J033523-540407,C-H,2,,5.97,,-2.46,,0.58
 DES J033523-540407,C-N,1,,6.23,,-1.60,,1.44
 DES J033523-540407,O I,2,,7.14,,-1.55,,1.49

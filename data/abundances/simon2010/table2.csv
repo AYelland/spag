@@ -1,4 +1,4 @@
-Name,Species,N,l_logepsX,logepsX,l_[X/H],[X/H],l_[X/Fe],[X/Fe],e_stat,e_sys
+Name,Ion,N,l_logepsX,logepsX,l_[X/H],[X/H],l_[X/Fe],[X/Fe],e_stat,e_sys
 LeoIV-S1,Fe I,50,,4.31,,-3.09,,,0.03,0.27
 LeoIV-S1,Fe II,5,,4.62,,-2.89,,,0.19,0.14
 LeoIV-S1,C-H,syn,<,5.16,<,,<,0.32,,

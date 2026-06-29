@@ -1,4 +1,4 @@
-Name,Species,N,l_logepsX_w,logepsX_w,sigma_w,logepsX,sigma_stdev,sigma_SP,sigma_tot,sigma_adopted,l_[X/H],[X/H],l_[X/Fe],[X/Fe]
+Name,Ion,N,l_logepsX_w,logepsX_w,sigma_w,logepsX,sigma_stdev,sigma_SP,sigma_tot,sigma_adopted,l_[X/H],[X/H],l_[X/Fe],[X/Fe]
 DES J033523-540407,C-H,2,,5.97,0.01,5.97,0.01,0.14,0.14,0.14,,-2.46,,0.58
 DES J033523-540407,C-N,1,,6.23,0.05,6.23,,0.04,0.06,0.20,,-1.60,,1.44
 DES J033523-540407,O I,2,,7.14,0.09,7.18,0.12,0.07,0.11,0.11,,-1.55,,1.49

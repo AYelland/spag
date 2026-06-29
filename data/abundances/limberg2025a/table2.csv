@@ -1,4 +1,4 @@
-Name,Species,logepsX_sun,N,l_logepsX,logepsX,l_[X/H],[X/H],l_[X/Fe],[X/Fe],e_logepsX
+Name,Ion,logepsX_sun,N,l_logepsX,logepsX,l_[X/H],[X/H],l_[X/Fe],[X/Fe],e_logepsX
 GDR3_526285,C-H,8.43,,<,4.11,<,-4.32,<,0.50,
 GDR3_526285,Na I,6.24,2,,1.77,,-4.47,,0.35,0.10
 GDR3_526285,Mg I,7.60,5,,2.94,,-4.66,,0.16,0.10

@@ -1,4 +1,4 @@
-Name,Species,N,logepsX_sun,l_logepsX,logepsX,e_logepsX,[X/H],[X/Fe]
+Name,Ion,N,logepsX_sun,l_logepsX,logepsX,e_logepsX,[X/H],[X/Fe]
 300S-1,C-H,2,8.43,,7.24,0.21,-1.19,+0.27
 300S-1,Na I,3,6.24,,4.93,0.08,-1.31,+0.15
 300S-1,Mg I,6,7.60,,6.30,0.07,-1.30,+0.16

@@ -1,5 +1,5 @@
 # Using the GM values from `table6.csv`
-ID,Name,Species,logepsX_sun,l_logepsX,logepsX,e_logepsX,N,l_[X/Fe],[X/Fe],e_[X/Fe]
+ID,Name,Ion,logepsX_sun,l_logepsX,logepsX,e_logepsX,N,l_[X/Fe],[X/Fe],e_[X/Fe]
 33,BooI-33,Na I,6.24,,4.04,,1,,0.08,0.23
 33,BooI-33,Mg I,7.60,,5.66,,1,,0.34,0.21
 33,BooI-33,Si I,7.51,,,,,,,

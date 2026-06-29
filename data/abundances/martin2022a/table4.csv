@@ -1,4 +1,5 @@
-Species,lambda,xi,loggf,l_EW_C19-99008,EW_C19-99008,n_EW_C19-99008,l_EW_C19-01984,EW_C19-01984,n_EW_C19-01984,l_EW_C19-00352,EW_C19-00352,n_EW_C19-00352,NLTEcorra,NLTEcorrb
+# Spectral lines and atomic data used for the chemical abundances for the Gemini/GRACES spectra
+Ion,lambda,xi,loggf,l_EW_C19-99008,EW_C19-99008,n_EW_C19-99008,l_EW_C19-01984,EW_C19-01984,n_EW_C19-01984,l_EW_C19-00352,EW_C19-00352,n_EW_C19-00352,NLTEcorra,NLTEcorrb
 Fe I,4890.755,2.88,-0.38,,30,,,,w,,55,,+0.18,+0.22
 Fe I,4891.492,2.85,-0.14,,40,,,39,,,,w,+0.18,+0.21
 Fe I,4918.994,2.86,-0.37,,,n,,,w,,43,,,+0.22

@@ -1,4 +1,4 @@
-Seq,Name,[Fe/H],Species,l_logepsX,logepsX,l_[X/H],[X/H],l_[X/Fe],[X/Fe],e_[X/H],Nlines
+Seq,Name,[Fe/H],Ion,l_logepsX,logepsX,l_[X/H],[X/H],l_[X/Fe],[X/Fe],e_[X/H],Nlines
 1,HD 2796,-2.47,C-H,,5.55,,-2.97,,-0.51,,
 1,HD 2796,-2.47,C-N,,,,,,,,
 1,HD 2796,-2.47,O I,,6.8,,-1.97,,0.5,,

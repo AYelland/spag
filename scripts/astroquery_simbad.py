@@ -8,22 +8,21 @@ import astropy.units as u
 ## Example Usage:
 ## From the terminal, navigate to the <path_to_spag>/spag/scripts/ directory and run:
 ##
-##   `python astroquery_simbad.py -i Name roederer2010c` # (query by identifier)
-##   `python astroquery_simbad.py -c roederer2010c` # (query by coordinates)
+##   `python astroquery_simbad.py -i QueryIDColumnName referenceYYYYx` # (query by identifier)
+##   `python astroquery_simbad.py -c QueryIDColumnName referenceYYYYx` # (query by coordinates)
 ##
 ## ... or change the 'base_path' variable below to point to your desired directory. The script
 ## does require an argument for the 'reference' (and ID column name if using -i) though. So,
 ## if it is not used in the filepath, it can be anything (e.g., 'general').
 ##
-##   `python astroquery_simbad.py -i Name general`
-##   `python astroquery_simbad.py -c general`
+##   `python astroquery_simbad.py -i QueryIDColumnName general`
 ##
 
 ## Setup Simbad fields.
 Simbad.ROW_LIMIT = 10000
 Simbad.add_votable_fields(
-    'flux(U)', 'flux(B)', 'flux(V)', 'flux(R)', 'flux(I)', 'flux(J)', 'flux(H)', 'flux(K)',
-    'otype', 'sp', 'ra', 'dec', 'pmra', 'pmdec', 'plx', 'rv_value'
+    'U', 'B', 'V', 'R', 'I', 'J', 'H', 'K',
+    'otype', 'sp', 'ra', 'dec', 'pmra', 'pmdec', 'plx_value', 'rvz_nature', 'rvz_qual'
 )
 
 ## Argument parser.
@@ -39,8 +38,8 @@ args = parser.parse_args()
 query_id_column = None
 reference = args.reference
 
-if args.identifier:
-    query_id_column = args.id_column
+# if args.identifier:
+query_id_column = args.id_column
 
 ## Input File.
 base_path = f"/Users/ayelland/Research/metal-poor-stars/spag/data/abundances/{reference}"
@@ -51,77 +50,70 @@ input_file = os.path.join(base_path, "astroquery.csv")
 results_list = []
 
 ## Load the 'astroquery.csv' file.
-coord_df = pd.read_csv(input_file)
+coord_df = pd.read_csv(input_file, comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
 
 for idx, row in coord_df.iterrows():
 
     if args.identifier:
         identifier = row.get(query_id_column, f'coord_{idx}').strip()
+        print(f"Query Identifier: {identifier}")
         if 'RA_hms' in row and 'DEC_dms' in row:
             ra_hms = row['RA_hms']
             dec_dms = row['DEC_dms']
         if 'JINA_ID' in row:
             jinaid = row['JINA_ID']
-        try:
-            result = Simbad.query_object(identifier)
-            if result is not None:
-                df = result.to_pandas()
-                df['Found'] = True
-                df['JINA_ID'] = jinaid if 'jinaid' in locals() else None
-                df['Query_ID'] = identifier
-                df['RA_input'] = ra_hms if 'ra_hms' in locals() else None
-                df['DEC_input'] = dec_dms if 'dec_dms' in locals() else None
-            else:
-                df = pd.DataFrame([{
-                    'Found': False,
-                    'JINA_ID': jinaid if 'jinaid' in locals() else None,
-                    'Query_ID': identifier, 
-                    'RA_input': ra_hms if 'ra_hms' in locals() else None,
-                    'DEC_input': dec_dms if 'dec_dms' in locals() else None 
-                }])
-        except Exception as e:
+        result = Simbad.query_object(identifier)
+        if len(result) != 0:
+            if len(result) > 1:
+                print(f"Warning: Multiple results found for {identifier} at {ra_hms}, {dec_dms}.")
+                coord_result = SkyCoord(ra=result['ra'], dec=result['dec'], unit=(u.deg, u.deg))
+                separations   = coord.separation(coord_result)
+                result        = result[[separations.argmin()]]
+            df = result.to_pandas()
+            df['Found'] = True
+            df['JINA_ID'] = jinaid if 'jinaid' in locals() else None
+            df['Query_ID'] = identifier
+            df['RA_input'] = ra_hms if 'ra_hms' in locals() else None
+            df['DEC_input'] = dec_dms if 'dec_dms' in locals() else None
+        else:
             df = pd.DataFrame([{
-                'Found': False, 
+                'Found': False,
                 'JINA_ID': jinaid if 'jinaid' in locals() else None,
-                'Query_ID': identifier,
+                'Query_ID': identifier, 
                 'RA_input': ra_hms if 'ra_hms' in locals() else None,
-                'DEC_input': dec_dms if 'dec_dms' in locals() else None,
-                'Error': str(e)
+                'DEC_input': dec_dms if 'dec_dms' in locals() else None 
             }])
         results_list.append(df)
 
     elif args.coordinates:
         identifier = row.get(query_id_column, f'coord_{idx}').strip()
+        print(f"Query Identifier: {identifier}")
         ra_hms = row['RA_hms']
         dec_dms = row['DEC_dms']
         if 'JINA_ID' in row:
             jinaid = row['JINA_ID']
-        try:
-            coord = SkyCoord(ra=ra_hms, dec=dec_dms, unit=(u.hourangle, u.deg))
-            result = Simbad.query_region(coord, radius='5s')
-            if result is not None:
-                df = result.to_pandas()
-                df['Found'] = True
-                df['JINA_ID'] = jinaid if 'jinaid' in locals() else None
-                df['Query_ID'] = identifier
-                df['RA_input'] = ra_hms
-                df['DEC_input'] = dec_dms
-            else:
-                df = pd.DataFrame([{
-                    'Found': False,
-                    'JINA_ID': jinaid if 'jinaid' in locals() else None,
-                    'Query_ID': identifier,
-                    'RA_input': ra_hms,
-                    'DEC_input': dec_dms
-                }])
-        except Exception as e:
+        coord = SkyCoord(ra=ra_hms, dec=dec_dms, unit=(u.hourangle, u.deg))
+        result = Simbad.query_region(coord, radius='5s')
+        if len(result) != 0:
+            if len(result) > 1:
+                print(f"Warning: Multiple results found for {identifier} at {ra_hms}, {dec_dms}.")
+                coord_result = SkyCoord(ra=result['ra'], dec=result['dec'], unit=(u.deg, u.deg))
+                separations   = coord.separation(coord_result)
+                result        = result[[separations.argmin()]]
+            df = result.to_pandas()
+            df['Found'] = True
+            df['JINA_ID'] = jinaid if 'jinaid' in locals() else None
+            df['Query_ID'] = identifier
+            df['RA_input'] = ra_hms
+            df['DEC_input'] = dec_dms
+
+        else:
             df = pd.DataFrame([{
                 'Found': False,
                 'JINA_ID': jinaid if 'jinaid' in locals() else None,
                 'Query_ID': identifier,
                 'RA_input': ra_hms,
-                'DEC_input': dec_dms,
-                'Error': str(e)
+                'DEC_input': dec_dms
             }])
         results_list.append(df)
 

@@ -1,8 +1,8 @@
 Table 2 
-Abundances for Individual Species
+Abundances for Individual Ion
 
 
-Species	${\mathrm{log}}\,{\epsilon }_{\odot }$ (X)	${\mathrm{log}}\,\epsilon $ (X)	[X/H]	[X/Fe]	sigma	N	
+Ion	${\mathrm{log}}\,{\epsilon }_{\odot }$ (X)	${\mathrm{log}}\,\epsilon $ (X)	[X/H]	[X/Fe]	sigma	N	
 C	8.43	<4.11	<-4.32	<+0.50	cdots	cdots	
 C_cor^a	8.43	<4.79	<-3.64	<+1.18	cdots	cdots	
 Na I	6.24	1.77	-4.47	+0.35	0.10	2	

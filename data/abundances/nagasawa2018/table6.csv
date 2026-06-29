@@ -1,4 +1,4 @@
-Name,Species,N,e_tot,D_logepsX_Teff,D_logepsX_logg,D_logepsX_Vmic,D_logepsX_tot
+Name,Ion,N,e_tot,D_logepsX_Teff,D_logepsX_logg,D_logepsX_Vmic,D_logepsX_tot
 HorI-J025540,Mg I,2,0.13,+0.14,-0.08,-0.16,0.25
 HorI-J025540,Si I,4,0.25,+0.25,+0.25,+0.25,0.45
 HorI-J025540,Ca I,4,0.03,+0.08,-0.03,-0.12,0.15

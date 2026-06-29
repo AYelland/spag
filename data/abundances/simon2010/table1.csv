@@ -1,4 +1,4 @@
-Name,Species,lambda,chi,loggf,EW,logepsX
+Name,Ion,lambda,chi,loggf,EW,logepsX
 LeoIV-S1,Na I,5889.973,0.00,0.100,220.0,3.28
 LeoIV-S1,Na I,5895.940,0.00,-0.200,160.0,2.84
 LeoIV-S1,Mg I,4571.102,0.00,-5.670,64.0,4.47

@@ -1,4 +1,4 @@
-Name,Species,N,l_logepsX,logepsX,u_logepsX,e_logepsX,l_[X/H],[X/H],u_[X/H],l_[X/Fe],[X/Fe],u_[X/Fe]
+Name,Ion,N,l_logepsX,logepsX,u_logepsX,e_logepsX,l_[X/H],[X/H],u_[X/H],l_[X/Fe],[X/Fe],u_[X/Fe]
 SDSS J135751.2+125137.0,C-H,2,,5.97,,0.30,,-2.46,,,0.41,
 SDSS J135751.2+125137.0,Na I,2,,3.92,,0.15,,-2.32,,,0.54,
 SDSS J135751.2+125137.0,Mg I,4,,5.16,,0.15,,-2.44,,,0.42,

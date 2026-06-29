@@ -1,4 +1,4 @@
-Name,Species,N,e_stat,e_sys,e_tot
+Name,Ion,N,e_stat,e_sys,e_tot
 TucII-006,C-H,2,0.27,0.51,0.58
 TucII-006,Na I,2,0.27,0.39,0.47
 TucII-006,Mg I,2,0.37,0.32,0.49

@@ -1,4 +1,4 @@
-Name,Species,N,l_logepsX,logepsX,l_[X/Fe],[X/Fe],sigma_stat,sigma_tot,sigma_I,sigma_II
+Name,Ion,N,l_logepsX,logepsX,l_[X/Fe],[X/Fe],sigma_stat,sigma_tot,sigma_I,sigma_II
 Star 1,Fe I,21,,+4.74,,-2.76,0.09,0.19,0.00,0.00
 Star 1,Fe II,0,,,,,,,,
 Star 1,C-H,1,,+5.92,,+0.25,0.25,0.31,0.31,0.31

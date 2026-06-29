@@ -1,4 +1,4 @@
-Name,Species,N,l_logepsX,logepsX,e_logepsX,l_[X/H],[X/H],l_[X/Fe],[X/Fe]
+Name,Ion,N,l_logepsX,logepsX,e_logepsX,l_[X/H],[X/H],l_[X/Fe],[X/Fe]
 2MASS J18082002-5104378,Li I,1,,1.38,0.10,,,,
 2MASS J18082002-5104378,C-H,2,,4.91,0.20,,-3.52,,0.38
 2MASS J18082002-5104378,N-H,1,<,3.47,,<,-4.36,<,-0.20

@@ -1,4 +1,4 @@
-Name,Species,N,l_logepsX,logepsX,l_[X/H],[X/H],l_[X/Fe],[X/Fe],e_logepsX,method
+Name,Ion,N,l_logepsX,logepsX,l_[X/H],[X/H],l_[X/Fe],[X/Fe],e_logepsX,method
 HorI-J025540,Mg I,2,,5.15,,-2.45,,-0.02,0.25,EW
 HorI-J025540,Si I,4,<,6.58,<,-0.93,<,+1.95,0.45,syn
 HorI-J025540,Ca I,4,,3.84,,-2.50,,-0.07,0.15,EW

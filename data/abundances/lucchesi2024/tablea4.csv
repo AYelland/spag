@@ -1,4 +1,4 @@
-Name,Species,l_logepsX,logepsX,[X/H],[X/Fe],e_[X/Fe]
+Name,Ion,l_logepsX,logepsX,[X/H],[X/Fe],e_[X/Fe]
 fnx_06_019,Fe I,,4.58,-2.92,-0.0,0.1
 fnx_06_019,Fe II,,4.67,-2.83,0.09,0.1
 fnx_06_019,C-H,,5.05,-3.38,-0.46,0.12

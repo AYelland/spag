@@ -1,5 +1,5 @@
 
-Name,Species,D_Teff,D_logg,D_Vmic,D_M/H,e_tot
+Name,Ion,D_Teff,D_logg,D_Vmic,D_M/H,e_tot
 TucIII-J00549,C-H,0.16,0.02,0.1,0.17,0.25
 TucIII-J00549,Na I,0.24,0.12,0.1,0.17,0.33
 TucIII-J00549,Mg I,0.14,0.05,0.05,0.17,0.23

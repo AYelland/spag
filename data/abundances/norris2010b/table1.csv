@@ -1,4 +1,4 @@
-Name,Species,lambda,chi,loggf,l_EW,EW,l_logepsX,logepsX
+Name,Ion,lambda,chi,loggf,l_EW,EW,l_logepsX,logepsX
 Seg 1-7,O  I,6300.304,0.00,-9.78,<,10,<,7.35
 Seg 1-7,Na I,5889.951,0.00,0.11,,104,,3.17
 Seg 1-7,Na I,5895.924,0.00,-0.19,,92,,3.20

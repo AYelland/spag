@@ -1,5 +1,5 @@
 
-Name,Species,MARCS/MOOG (logepsX),MARCS/MOOG (e_logepsX),ATLAS/WIDTH (logepsX),ATLAS/WIDTH (e_logepsX),VALD gf-values (logepsX),VALD gf-values (e_logepsX)
+Name,Ion,MARCS/MOOG (logepsX),MARCS/MOOG (e_logepsX),ATLAS/WIDTH (logepsX),ATLAS/WIDTH (e_logepsX),VALD gf-values (logepsX),VALD gf-values (e_logepsX)
 Scl-459,O I,7.39,,7.32,,7.39,
 Scl-459,Na I,4.34,0.20,4.42,0.14,4.46,0.10
 Scl-459,Mg I,6.28,0.20,6.26,0.08,6.31,0.02

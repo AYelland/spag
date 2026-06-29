@@ -83,7 +83,6 @@ def element_matches_atomic_number(elem, Z):
     else:
         return True
 
-
 ################################################################################
 ## Formatting and converting datafiles
 
@@ -127,7 +126,7 @@ def align_ampersands(filename, start_line, end_line):
 
 from decimal import Decimal, ROUND_HALF_UP, ROUND_HALF_DOWN
 
-def normal_round(value, precision=2, abs_round=True):
+def normal_round(value: float, precision: int = 2, abs_round: bool = True) -> float:
     """
     value: float
         The value to round.

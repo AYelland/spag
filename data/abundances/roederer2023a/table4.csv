@@ -1,4 +1,4 @@
-Name,Species,Wave,ExPot,loggf,e_loggf,r_loggf,EW,l_logepsX,logepsX,NLTEcorr
+Name,Ion,Wave,ExPot,loggf,e_loggf,r_loggf,EW,l_logepsX,logepsX,NLTEcorr
 J1008+0001,Li I,6707.80,0.00,0.17,0.01,1,,<,0.10,0.15
 J1008+0001,O I,6300.30,0.00,-9.82,0.03,2,,,8.07,
 J1008+0001,O I,6363.78,0.02,-10.26,0.03,2,,,8.08,

@@ -1,5 +1,5 @@
 
-Name,Species,l_logepsX,logepsX,l_[X/H],[X/H],l_[X/Fe],[X/Fe],e_logepsX_stat,e_logepsX_sys,logepsX_sun
+Name,Ion,l_logepsX,logepsX,l_[X/H],[X/H],l_[X/Fe],[X/Fe],e_logepsX_stat,e_logepsX_sys,logepsX_sun
 SMSS 1605-1443,Li I,<,0.48,<,-0.57,<,5.64,0.18,0.09,1.05
 SMSS 1605-1443,C-H,,6.07,,-2.32,,3.89,0.05,0.27,8.39
 SMSS 1605-1443,C-N,<,4.80,<,-2.98,<,3.23,0.19,0.18,7.78

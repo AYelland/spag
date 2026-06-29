@@ -1,4 +1,4 @@
-Name,Species,N,e_stat,e_sys_[X/H],e_tot_[X/H],e_sys_[X/Fe],e_tot_[X/Fe]
+Name,Ion,N,e_stat,e_sys_[X/H],e_tot_[X/H],e_sys_[X/Fe],e_tot_[X/Fe]
 TucII-301,C-H,2,0.23,0.55,0.60,0.30,0.38
 TucII-301,Na I,2,0.29,0.26,0.39,0.13,0.32
 TucII-301,Mg I,4,0.23,0.35,0.42,0.14,0.27

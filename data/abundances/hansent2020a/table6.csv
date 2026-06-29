@@ -1,4 +1,4 @@
-Name,Species,D_Teff,D_logg,D_Vmic,D_[M/H],e_sys
+Name,Ion,D_Teff,D_logg,D_Vmic,D_[M/H],e_sys
 J220423,C-H,0.27,0.12,0.04,0.04,0.43
 J220423,Na I,0.15,0.03,0.10,0.00,0.22
 J220423,Mg I,0.14,0.04,0.07,0.01,0.21

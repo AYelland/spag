@@ -1,3 +1,4 @@
+# Spectroscopic parameters and 1DLTE chemical abundances for the Gemini/GRACES spectra
 Param,LTE/NLTE,l_P1_C19-01984,P1_C19-01984,e_P1_C19-01984,l_P2_C19-99008,P2_C19-99008,e_P2_C19-99008,l_P3_C19-00352,P3_C19-00352,e_P3_C19-00352
 Teff (K),,,4928.,100.,,4881.,100.,,4958.,100.
 logg,,,1.83,0.10,,1.64,0.10,,1.89,0.10

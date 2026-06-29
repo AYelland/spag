@@ -1,4 +1,4 @@
-Name,Simbad_Identifier,System,Species,N,l_logepsX,logepsX,[X/Fe],e_[X/Fe]
+Name,Simbad_Identifier,System,Ion,N,l_logepsX,logepsX,[X/Fe],e_[X/Fe]
 J002518,J00251849-7140074,Small Magellanic Cloud,Na I,2,,4.187,0.300,0.264
 #J002518,J00251849-7140074,Small Magellanic Cloud,Na I_NLTE,2,,4.072,0.166,
 J002518,J00251849-7140074,Small Magellanic Cloud,Mg I,2,,5.710,0.493,0.287

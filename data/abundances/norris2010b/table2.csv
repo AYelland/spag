@@ -1,4 +1,4 @@
-Name,Species,N,l_logepsX,logepsX,e_logepsX,l_[X/Fe],[X/Fe],e_logepsX
+Name,Ion,N,l_logepsX,logepsX,e_logepsX,l_[X/Fe],[X/Fe],e_logepsX
 Seg 1-7,C-H,syn,,7.17,0.20,,2.30,0.30
 Seg 1-7,N-H,syn,,5.01,0.30,,0.75,0.42
 Seg 1-7,O I,1,<,7.35,,<,2.21,

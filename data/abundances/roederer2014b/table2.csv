@@ -1,4 +1,4 @@
-Name,Species,lambda,chi,loggf,Ref,EW,l_logepsX,logepsX,e_logepsX
+Name,Ion,lambda,chi,loggf,Ref,EW,l_logepsX,logepsX,e_logepsX
 Seg2-J021933,Li I,6707.80,0.00,0.17,1,,<,0.28,
 Seg2-J021933,[O I],6300.30,0.00,-9.78,4,,<,6.74,
 Seg2-J021933,O I,7771.94,9.15,0.37,4,,<,6.68,
