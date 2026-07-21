@@ -184,7 +184,7 @@ def calc_carbon_correction_for_df(df, ulim_shift=0.3, ll_cfe_exist=True):
 ################################################################################
 ## Calculating the CEMP fraction
 
-def calc_cempfrac(df, feh_limit=-2.0, cfe_limit=0.7):
+def calc_cempfrac(df, feh_limit=-2.0, cfe_limit=0.7, use_limits=True, feh_bin_width=None):
     """
     Calculate the carbon fraction for a given DataFrame and [Fe/H] limit.
 
@@ -193,16 +193,24 @@ def calc_cempfrac(df, feh_limit=-2.0, cfe_limit=0.7):
         n_cemp (int): number of CEMP stars in numerator
         n_tot (int): total number of stars in denominator
     """
-    df_filtered = df[(df['[Fe/H]'] <= feh_limit) | (df['ul[Fe/H]'] <= feh_limit)]
+    if feh_bin_width is None:
+        df_filtered = df[(df['[Fe/H]'] <= feh_limit) | (df['ul[Fe/H]'] <= feh_limit)].copy()
+    else:
+        feh_lower_limit = feh_limit - feh_bin_width
+        feh_m1 = (feh_lower_limit < df['[Fe/H]']) & (df['[Fe/H]'] <= feh_limit)
+        feh_m2 = (feh_lower_limit < df['ul[Fe/H]']) & (df['ul[Fe/H]'] <= feh_limit)
+        df_filtered = df[feh_m1 | feh_m2].copy()
     
     ## n_cemp = (all measured values) + (lower limits above the cfe threshold)
     n_cemp = len(df_filtered[df_filtered['[C/Fe]f'] >= cfe_limit])
-    n_cemp += len(df_filtered[(df_filtered['ll[C/Fe]f'].notna()) & (df_filtered['ll[C/Fe]f'] >= cfe_limit-0.2)]) # lower limits
+    if use_limits:
+        n_cemp += len(df_filtered[(df_filtered['ll[C/Fe]f'].notna()) & (df_filtered['ll[C/Fe]f'] >= cfe_limit-0.2)]) # lower limits
     
     ## n_tot = (all measured values) + (lower limits above the cfe threshold) + (upper limits below the cfe threshold)
     n_tot = len(df_filtered[df_filtered['[C/Fe]f'].notna()]) # real data values
-    n_tot += len(df_filtered[(df_filtered['ll[C/Fe]f'].notna()) & (df_filtered['ll[C/Fe]f'] >= cfe_limit-0.2)]) # lower limits
-    n_tot += len(df_filtered[(df_filtered['ul[C/Fe]f'].notna()) & (df_filtered['ul[C/Fe]f'] <= cfe_limit+0.2)]) # upper limits
+    if use_limits:
+        n_tot += len(df_filtered[(df_filtered['ll[C/Fe]f'].notna()) & (df_filtered['ll[C/Fe]f'] >= cfe_limit-0.2)]) # lower limits
+        n_tot += len(df_filtered[(df_filtered['ul[C/Fe]f'].notna()) & (df_filtered['ul[C/Fe]f'] <= cfe_limit+0.2)]) # upper limits
     
     if n_tot > 0:
         cempfrac = (n_cemp / n_tot) * 100.
@@ -229,6 +237,8 @@ def calc_cempfrac_mc(
         cfe_limit=0.7,
         cfe_stddev=0.15,
         n_iterations=10000,
+        use_limits=True,
+        feh_bin_width=None,
         print_stats=False,
         plot_distribution=False
     ):
@@ -282,7 +292,13 @@ def calc_cempfrac_mc(
     """
     
     ## Filter the DataFrame based on [Fe/H] limits
-    df_filtered = df[(df['[Fe/H]'] <= feh_limit) | (df['ul[Fe/H]'] <= feh_limit)].copy()
+    if feh_bin_width is None:
+        df_filtered = df[(df['[Fe/H]'] <= feh_limit) | (df['ul[Fe/H]'] <= feh_limit)].copy()
+    else:
+        feh_lower_limit = feh_limit - feh_bin_width
+        feh_m1 = (feh_lower_limit < df['[Fe/H]']) & (df['[Fe/H]'] <= feh_limit)
+        feh_m2 = (feh_lower_limit < df['ul[Fe/H]']) & (df['ul[Fe/H]'] <= feh_limit)
+        df_filtered = df[feh_m1 | feh_m2].copy()
     
     ## Extract relevant columns and convert to numpy arrays
     cfe = df_filtered['[C/Fe]f'].values
@@ -308,18 +324,21 @@ def calc_cempfrac_mc(
         
         ## Sample [C/Fe] values for each star (Classification uncertainty)
         sampled_cfe = np.random.normal(cfe, cfe_stddev)
-        sampled_cfe_ll = np.random.normal(cfe_ll, cfe_stddev)
-        sampled_cfe_ul = np.random.normal(cfe_ul, cfe_stddev)
+        if use_limits:
+            sampled_cfe_ll = np.random.normal(cfe_ll, cfe_stddev)
+            sampled_cfe_ul = np.random.normal(cfe_ul, cfe_stddev)
         
         ## Calculate CEMP counts for this iteration
         ### n_cemp = (all measured values) + (lower limits above the cfe threshold)
         n_cemp = len(sampled_cfe[sampled_cfe >= cfe_limit])  # real data values
-        n_cemp += len(sampled_cfe_ll[sampled_cfe_ll >= cfe_limit - 0.2])  # lower limits
+        if use_limits:
+            n_cemp += len(sampled_cfe_ll[sampled_cfe_ll >= cfe_limit - 0.2])  # lower limits
         
         ### n_tot = (all measured values) + (all lower limits) + (upper limits below the cfe threshold)
         n_tot = len(sampled_cfe)  # real data values
-        n_tot += len(sampled_cfe_ll)  # lower limits
-        n_tot += len(sampled_cfe_ul[sampled_cfe_ul <= cfe_limit + 0.2])  # upper limits
+        if use_limits:
+            n_tot += len(sampled_cfe_ll)  # lower limits
+            n_tot += len(sampled_cfe_ul[sampled_cfe_ul <= cfe_limit + 0.2])  # upper limits
 
         ## Calculate CEMP fraction
         if n_tot > 0:

@@ -1,0 +1,25 @@
+Name        , Instrument         , t_exp, Date       , UT at Mid-exposure, HJD         , RV_helio
+# Previously known r-process-enhanced stars on the red giant branch
+CS 22183-031, Magellan-Clay/MIKE ,  1400, 2006 Aug 03, 10:23             , 245 3950.935, +23.1
+CS 22892-052, Magellan-Baade/MIKE,  2400, 2003 Jun 26, 10:12             , 245 2816.928, +12.9
+            , Magellan-Clay/MIKE ,  2400, 2004 Jun 29, 09:11             , 245 3185.886, +13.0
+CS 22953-003, Magellan-Clay/MIKE ,  2000, 2006 Aug 03, 09:46             , 245 3950.910, +208.3
+CS 31082-001, Magellan-Clay/MIKE ,  1800, 2003 Jul 19, 10:27             , 245 2839.937, +138.9
+# New r-process-enhanced stars on the subgiant branch or MSTO
+CS 22886-012, Magellan-Clay/MIKE ,  3600, 2008 Sep 12, 02:59             , 245 4721.630, -56.8
+            , Magellan-Clay/MIKE ,  1800, 2009 Sep 05, 03:08             , 245 5079.636, -57.0
+CS 22943-132, Magellan-Clay/MIKE ,  1400, 2006 Aug 03, 02:19             , 245 3950.602, +18.9
+CS 22945-017, Magellan-Clay/MIKE ,  3400, 2008 Sep 11, 02:58             , 245 4720.627, +101.8
+CS 22945-058, Magellan-Clay/MIKE ,  5400, 2008 Sep 11, 04:28             , 245 4720.689, +23.1
+            , Magellan-Clay/MIKE ,  1550, 2009 Jul 26, 10:29             , 245 5038.940, +23.7
+CS 22958-052, Magellan-Clay/MIKE ,  3000, 2004 Sep 26, 09:12             , 245 3274.886, +88.9
+CS 29529-054, Magellan-Baade/MIKE,  3600, 2003 Jan 17, 03:27             , 245 2656.643, +113.3
+            , Magellan-Baade/MIKE,  6000, 2003 Jan 20, 01:08             , 245 2659.547, +112.9
+            , Magellan-Clay/MIKE ,  1900, 2009 Sep 05, 09:59             , 245 5079.917, +113.4
+# New r-process-enhanced stars on the RHB
+CS 22875-029, Magellan-Baade/MIKE,  3600, 2003 Jun 12, 09:59             , 245 2802.918, +73.1
+            , Magellan-Clay/MIKE ,  3600, 2003 Oct 12, 04:25             , 245 2924.687, +72.7
+CS 22882-001, Magellan-Baade/MIKE,  4800, 2003 Jun 15, 09:24             , 245 2805.892, +26.9
+            , Magellan-Clay/MIKE ,  6000, 2003 Oct 09, 06:05             , 245 2921.758, +26.1
+CS 22888-047, Magellan-Baade/MIKE,  4400, 2003 Jun 14, 09:00             , 245 2804.876, -158.5
+            , Magellan-Clay/MIKE ,  6000, 2003 Oct 13, 05:15             , 245 2925.723, -158.1

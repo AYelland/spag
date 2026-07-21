@@ -1,0 +1,57 @@
+Table 4 
+Comparison of Derived Model Parameters with Previous Work
+
+
+Star	T_eff	log g	[Fe/H]^a	Reference	
+BD+44 493	5040	2.10	-4.26	This study	
+	5510	3.70	-3.68	Ito et al. (2009)	
+	5430	3.40	-3.82	Ito et al. (2013)	
+CS 22877-001	4790	1.45	-3.24	This study	
+	5000	1.50	-2.88	Giridhar et al. (2001)	
+	5100	2.20	-2.71	Aoki et al. (2002a)	
+CS 22878-101	4650	1.50	-3.30	This study	
+	4790	1.15	-3.13	McWilliam et al. (1995a)	
+	4775	1.30	-3.13	Carretta et al. (2002)	
+	4800	1.30	-3.21	Cayrel et al. (2004)	
+	4789	1.72	-3.00	Lai et al. (2004)	
+	4730	1.30	-3.27	Cohen et al. (2013)	
+CS 22891-200	4490	0.50	-3.88	This study	
+	4700	0.45	-3.48	McWilliam et al. (1995a)	
+	4500	1.00	-3.92	Hollek et al. (2011)	
+CS 22893-010	5150	2.45	-2.93	This study	
+	5528	3.44	-2.50	Lai et al. (2004)	
+CS 22948-066	4830	1.55	-3.18	This study	
+	5170	1.80	-3.16	Primas et al. (1994)	
+	5020	1.45	-3.04	McWilliam et al. (1995a)	
+	5100	1.80	-3.14	Cayrel et al. (2004)	
+CS 22949-037	4630	0.95	-4.21	This study	
+	4810	2.10	-3.99	McWilliam et al. (1995a)	
+	4900	1.70	-3.79	Norris et al. (2001)	
+	4900	1.50	-3.94	Depagne et al. (2002)	
+	4915	1.70	-3.73	Cohen et al. (2008)	
+	4915	1.70	-3.93	Cohen et al. (2013)	
+CS 22957-027	5220	2.65	-3.00	This study	
+	4850	1.90	-3.38	Norris et al. (1997)	
+	4839	2.25	-3.43	Bonifacio et al. (1998)	
+	5050	2.00	-2.96	Preston & Sneden (2001)	
+	5100	1.90	-3.11	Aoki et al. (2002b)	
+	5205	2.50	-3.13	Cohen et al. (2006)	
+CS 22958-042	5760	3.55	-2.99	This study	
+	6217	3.50	-3.34	Thorburn (1994)	
+	6250	3.50	-2.93	Sivarani et al. (2006)	
+CS 29498-043	4440	0.50	-3.85	This study	
+	4400	0.60	-3.75	Aoki et al. (2002b)	
+	4600	1.20	-3.53	Aoki et al. (2004)	
+	4639	1.00	-3.49	Yong et al. (2013)	
+CS 29502-092	4820	1.50	-3.20	This study	
+	5000	2.10	-2.76	Aoki et al. (2002a)	
+	5114	2.51	-3.00	Lai et al. (2004)	
+	4890	1.72	-3.20	Lai et al. (2008)	
+	5123	2.20	-2.83	Ruchti et al. (2011a)	
+CS 30314-067	4320	0.50	-3.01	This study	
+	4400	0.70	-2.85	Aoki et al. (2002a)	
+HE 1012-1540	5230	2.65	-3.76	This study	
+	5620	3.40	-3.71	Cohen et al. (2008)	
+	5745	3.45	-3.47	Yong et al. (2013)	
+Note.
+a As derived from Fe II lines, if specified.

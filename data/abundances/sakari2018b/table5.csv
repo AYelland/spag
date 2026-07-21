@@ -1,4 +1,4 @@
-Set,ID,Class,f_Class,l_[Sr/Fe],[Sr/Fe],e_[Sr/Fe],N_[Sr/Fe],[Ba/Fe],e_[Ba/Fe],N_[Ba/Fe],l_[Eu/Fe],[Eu/Fe],e_[Eu/Fe],N_[Eu/Fe],l_[Eu/Fe]2,[Eu/Fe]2,f_[Eu/Fe]2,l_[Ba/Eu],[Ba/Eu],e_[Ba/Eu],l_[Sr/Ba],[Sr/Ba],e_[Sr/Ba]
+Set,LongName,Class,f_Class,l_[Sr/Fe],[Sr/Fe],e_[Sr/Fe],N_[Sr/Fe],[Ba/Fe],e_[Ba/Fe],N_[Ba/Fe],l_[Eu/Fe],[Eu/Fe],e_[Eu/Fe],N_[Eu/Fe],l_[Eu/Fe]2,[Eu/Fe]2,f_[Eu/Fe]2,l_[Ba/Eu],[Ba/Eu],e_[Ba/Eu],l_[Sr/Ba],[Sr/Ba],e_[Sr/Ba]
 S,CS 31082-001,r-II,,,0.27,0.1,1,1.22,0.05,3,,1.72,0.05,4,,,,,-0.5,0.07,,-0.95,0.11
 S,TYC 5861-1732-1,not-RPE,,,-0.48,0.1,1,-0.45,0.05,3,<,0.29,,,,,,>,-0.16,,,-0.03,0.11
 S,CS 22169-035,limited-r,,,-0.07,0.2,1,-1.44,0.1,2,<,0.01,,,<,-0.55,a,>,-1.45,,,1.51,0.22

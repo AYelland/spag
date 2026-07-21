@@ -1,0 +1,142 @@
+## Tellurium abundances are derived from the 2385 Å line.
+Name,Ion,l_logepsX,logepsX,e_logepsX,Reference
+BD +17 3248,Te I,,+0.70,0.30,Cowan+2002
+HD 108317,Te I,,-0.02,0.25,Roederer+2012a
+HD 128279,Te I,,-0.26,0.25,Roederer+2012a
+## the following abundances have been pasted over from the appropriate references...
+HD 108317,Fe I,,+4.97,0.15,Roederer+2012d
+HD 108317,Fe II,,+5.13,0.22,Roederer+2012d
+HD 108317,Cu I,,+0.70,0.16,Roederer+2012d
+HD 108317,Zn I,,+2.26,0.15,Roederer+2012d
+HD 108317,Ge I,,+0.17,0.17,Roederer+2012d
+HD 108317,Rb I,<,+1.40,,Roederer+2012d
+HD 108317,Sr II,,+0.48,0.19,Roederer+2012d
+HD 108317,Y II,,-0.42,0.20,Roederer+2012d
+HD 108317,Zr II,,+0.45,0.20,Roederer+2012d
+HD 108317,Nb II,,-0.86,0.19,Roederer+2012d
+HD 108317,Mo I,,-0.23,0.19,Roederer+2012d
+HD 108317,Mo II,<,+0.24,,Roederer+2012d
+HD 108317,Ru I,,-0.04,0.16,Roederer+2012d
+HD 108317,Rh I,,-0.84,0.27,Roederer+2012d
+HD 108317,Pd I,,-0.67,0.18,Roederer+2012d
+HD 108317,Ag I,,-1.34,0.21,Roederer+2012d
+HD 108317,Cd I,,-0.87,0.28,Roederer+2012d
+HD 108317,Sn I,<,+0.80,,Roederer+2012d
+# HD 108317,Te I,,+0.02,0.24,Roederer+2012d
+HD 108317,Ba II,,-0.32,0.19,Roederer+2012d
+HD 108317,La II,,-1.12,0.17,Roederer+2012d
+HD 108317,Ce II,,-0.68,0.17,Roederer+2012d
+HD 108317,Pr II,,-0.90,0.23,Roederer+2012d
+HD 108317,Nd II,,-0.71,0.18,Roederer+2012d
+HD 108317,Sm II,,-1.05,0.20,Roederer+2012d
+HD 108317,Eu II,,-1.37,0.18,Roederer+2012d
+HD 108317,Gd II,,-0.82,0.19,Roederer+2012d
+HD 108317,Tb II,,-1.30,0.29,Roederer+2012d
+HD 108317,Dy II,,-0.75,0.18,Roederer+2012d
+HD 108317,Ho II,,-1.50,0.20,Roederer+2012d
+HD 108317,Er II,,-0.94,0.18,Roederer+2012d
+HD 108317,Tm II,,-1.80,0.19,Roederer+2012d
+HD 108317,Yb II,,-1.13,0.22,Roederer+2012d
+HD 108317,Lu II,,-1.64,0.26,Roederer+2012d
+HD 108317,Hf II,,-0.99,0.27,Roederer+2012d
+HD 108317,Os I,,-0.50,0.23,Roederer+2012d
+HD 108317,Os II,,-0.88,0.26,Roederer+2012d
+HD 108317,Ir I,,-0.07,0.34,Roederer+2012d
+HD 108317,Pt I,,-0.46,0.19,Roederer+2012d
+HD 108317,Au I,,-1.64,0.30,Roederer+2012d
+HD 108317,Pb I,<,-0.26,,Roederer+2012d
+HD 108317,Bi I,<,+1.04,,Roederer+2012d
+HD 108317,Th II,,-1.99,0.21,Roederer+2012d
+HD 128279,Fe I,,+5.02,0.15,Roederer+2012d
+HD 128279,Fe II,,+5.04,0.22,Roederer+2012d
+HD 128279,Cu I,,+0.79,0.16,Roederer+2012d
+HD 128279,Zn I,,+2.18,0.15,Roederer+2012d
+HD 128279,Ge I,,-0.03,0.28,Roederer+2012d
+HD 128279,Rb I,<,+1.60,,Roederer+2012d
+HD 128279,Sr II,,-0.18,0.19,Roederer+2012d
+HD 128279,Y II,,-0.89,0.21,Roederer+2012d
+HD 128279,Zr II,,+0.00,0.20,Roederer+2012d
+HD 128279,Nb II,,-0.88,0.27,Roederer+2012d
+HD 128279,Mo I,,-0.67,0.18,Roederer+2012d
+HD 128279,Mo II,<,+0.11,,Roederer+2012d
+HD 128279,Ru I,,-0.63,0.19,Roederer+2012d
+HD 128279,Rh I,<,-0.61,,Roederer+2012d
+HD 128279,Pd I,,-1.24,0.27,Roederer+2012d
+HD 128279,Ag I,<,-1.11,,Roederer+2012d
+HD 128279,Cd I,,-1.38,0.30,Roederer+2012d
+HD 128279,Sn I,,,,Roederer+2012d
+# HD 128279,Te I,,-0.18,0.25,Roederer+2012d
+HD 128279,Ba II,,-1.03,0.18,Roederer+2012d
+HD 128279,La II,,-1.64,0.19,Roederer+2012d
+HD 128279,Ce II,,-1.15,0.18,Roederer+2012d
+HD 128279,Pr II,,,,Roederer+2012d
+HD 128279,Nd II,,-1.23,0.18,Roederer+2012d
+HD 128279,Sm II,,-1.50,0.24,Roederer+2012d
+HD 128279,Eu II,,-1.96,0.18,Roederer+2012d
+HD 128279,Gd II,,,,Roederer+2012d
+HD 128279,Tb II,,,,Roederer+2012d
+HD 128279,Dy II,,-1.35,0.20,Roederer+2012d
+HD 128279,Ho II,,-1.71,0.29,Roederer+2012d
+HD 128279,Er II,,-1.54,0.19,Roederer+2012d
+HD 128279,Tm II,,-2.24,0.21,Roederer+2012d
+HD 128279,Yb II,,-1.69,0.21,Roederer+2012d
+HD 128279,Lu II,,-1.64,0.27,Roederer+2012d
+HD 128279,Hf II,,-1.07,0.27,Roederer+2012d
+HD 128279,Os I,<,-0.39,,Roederer+2012d
+HD 128279,Os II,<,-1.19,,Roederer+2012d
+HD 128279,Ir I,<,-0.29,,Roederer+2012d
+HD 128279,Pt I,<,-1.19,,Roederer+2012d
+HD 128279,Au I,<,-0.49,,Roederer+2012d
+HD 128279,Pb I,<,-0.09,,Roederer+2012d
+HD 128279,Bi I,<,+0.91,,Roederer+2012d
+HD 128279,Th II,,,,Roederer+2012d
+BD +17 3248,Li I,<,0.2,,Cowan+2002
+BD +17 3248,C-H,,6.00,0.15,Cowan+2002
+BD +17 3248,N-H,,6.20,0.20,Cowan+2002
+BD +17 3248,O I,,7.30,0.15,Cowan+2002
+BD +17 3248,Na I,,4.19,0.04,Cowan+2002
+BD +17 3248,Mg I,,5.90,0.10,Cowan+2002
+BD +17 3248,Al I,,3.69,0.15,Cowan+2002
+BD +17 3248,Si I,,5.95,0.11,Cowan+2002
+BD +17 3248,Ca I,,4.68,0.06,Cowan+2002
+BD +17 3248,Sc II,,1.17,0.05,Cowan+2002
+BD +17 3248,Ti I,,3.23,0.09,Cowan+2002
+BD +17 3248,Ti II,,3.27,0.13,Cowan+2002
+BD +17 3248,V I,,1.86,0.01,Cowan+2002
+BD +17 3248,Cr I,,3.45,0.06,Cowan+2002
+BD +17 3248,Cr II,,3.69,0.09,Cowan+2002
+BD +17 3248,Mn I,,3.02,0.15,Cowan+2002
+BD +17 3248,Fe I,,5.44,0.08,Cowan+2002
+BD +17 3248,Fe II,,5.42,0.09,Cowan+2002
+BD +17 3248,Co I,,2.92,0.15,Cowan+2002
+BD +17 3248,Ni I,,4.10,0.16,Cowan+2002
+BD +17 3248,Cu I,,1.31,0.15,Cowan+2002
+BD +17 3248,Zn I,,2.58,0.15,Cowan+2002
+BD +17 3248,Ge I,,0.60,0.15,Cowan+2002
+BD +17 3248,Sr I,,0.90,0.15,Cowan+2002
+BD +17 3248,Sr II,,1.10,0.10,Cowan+2002
+BD +17 3248,Y II,,0.04,0.05,Cowan+2002
+BD +17 3248,Zr II,,0.76,0.14,Cowan+2002
+BD +17 3248,Nb II,,-0.18,0.15,Cowan+2002
+BD +17 3248,Pd I,,0.24,0.09,Cowan+2002
+BD +17 3248,Ag I,,-0.28,0.11,Cowan+2002
+BD +17 3248,Ba II,,0.44,0.11,Cowan+2002
+BD +17 3248,La II,,-0.42,0.05,Cowan+2002
+BD +17 3248,Ce II,,-0.18,0.06,Cowan+2002
+BD +17 3248,Pr II,,-0.71,0.05,Cowan+2002
+BD +17 3248,Nd II,,-0.07,0.17,Cowan+2002
+BD +17 3248,Sm II,,-0.42,0.14,Cowan+2002
+BD +17 3248,Eu II,,-0.67,0.05,Cowan+2002
+BD +17 3248,Gd II,,-0.26,0.09,Cowan+2002
+BD +17 3248,Tb II,,-0.91,0.05,Cowan+2002
+BD +17 3248,Dy II,,-0.03,0.07,Cowan+2002
+BD +17 3248,Ho II,,-0.70,0.17,Cowan+2002
+BD +17 3248,Er II,,-0.20,0.06,Cowan+2002
+BD +17 3248,Tm II,,-1.07,0.10,Cowan+2002
+BD +17 3248,Os I,,0.45,0.10,Cowan+2002
+BD +17 3248,Ir I,,0.30,0.13,Cowan+2002
+BD +17 3248,Pt I,,0.67,0.07,Cowan+2002
+BD +17 3248,Au I,,-0.3,0.30,Cowan+2002
+BD +17 3248,Pb I,<,0.3,0.25,Cowan+2002
+BD +17 3248,Th II,,-1.18,0.10,Cowan+2002
+BD +17 3248,U II,,-2.0,0.30,Cowan+2002

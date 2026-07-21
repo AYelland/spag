@@ -1,0 +1,2669 @@
+\documentclass[preprint]{aastex61}
+
+\usepackage{subfigure}
+\usepackage{url}
+%\usepackage{comment}
+%\usepackage{color}
+%\usepackage{dcolumn}
+%\usepackage{enumitem}
+
+
+%\providecommand{\e}[1]{\ensuremath{\times 10^{#1}}}
+
+%\setlist[enumerate]{noitemsep}
+%\setlist[enumerate,1]{leftmargin=*}
+%\setlist[itemize]{noitemsep}
+%\setlist[itemize,1]{leftmargin=*}
+%\setlist[description]{noitemsep}
+%\setlist[description,1]{leftmargin=*}
+%\setenumerate[0]{label=(\arabic*)}
+
+
+\shorttitle{The RPA: $r$-Process Enhanced Metal-Poor Stars}
+\shortauthors{Sakari et al.}
+
+
+%\makeatletter
+%\renewcommand{\thesubfigure}{\alph{subfigure}}
+%\renewcommand{\@thesubfigure}{(\alph{subfigure})\hskip\subfiglabelskip}
+%\renewcommand{\@@thesubfigure}{(\alph{subfigure})}
+
+%\makeatother
+
+\begin{document}
+
+\title{The $R$-Process Alliance: First Release from the Northern
+  Search for $r$-Process Enhanced Metal-Poor Stars in the Galactic Halo}
+
+\author{Charli M. Sakari}
+\affil{Department of Astronomy, University of Washington, Seattle WA
+98195-1580, USA}
+\email{sakaricm@u.washington.edu}
+
+\author{Vinicius M. Placco}
+\affil{Department of Physics, University of Notre Dame, Notre Dame, IN 46556,  USA}
+\affil{Joint Institute for Nuclear Astrophysics Center for the
+  Evolution of the Elements (JINA-CEE), USA}
+
+\author{Elizabeth M. Farrell}
+\affil{Department of Astronomy, University of Washington, Seattle WA
+98195-1580, USA}
+
+\author{Ian U. Roederer}
+\affil{Department of Astronomy, University of Michigan, 1085 S. University Ave.,
+ Ann Arbor, MI 48109, USA}
+\affil{Joint Institute for Nuclear Astrophysics Center for the Evolution of the 
+Elements (JINA-CEE), USA}
+
+\author{George Wallerstein}
+\affil{Department of Astronomy, University of Washington, Seattle WA
+98195-1580, USA}
+
+\author{Timothy C. Beers}
+\affil{Department of Physics, University of Notre Dame, Notre Dame, IN 46556,  USA}
+\affil{Joint Institute for Nuclear Astrophysics Center for the Evolution of the 
+Elements (JINA-CEE), USA}
+
+\author{Rana Ezzeddine}
+\affil{Department of Physics and Kavli Institute for Astrophysics and
+  Space Research, Massachusetts Institute of Technology, Cambridge, MA
+  02139, USA}
+
+\author{Anna Frebel}
+\affil{Department of Physics and Kavli Institute for Astrophysics and
+  Space Research, Massachusetts Institute of Technology, Cambridge, MA
+  02139, USA}
+
+\author{Terese Hansen}
+\affil{Observatories of the Carnegie Institution of Washington, 813
+  Santa Barbara Street, Pasadena, CA 91101, USA}
+
+\author{Erika M. Holmbeck}
+\affil{Department of Physics, University of Notre Dame, Notre Dame, IN 46556,  USA}
+\affil{Joint Institute for Nuclear Astrophysics Center for the
+  Evolution of the Elements (JINA-CEE), USA}
+
+\author{Christopher Sneden}
+\affil{Department of Astronomy and McDonald Observatory, The University of Texas, Austin, TX 78712, USA}
+
+\author{John J. Cowan}
+\affil{Homer L. Dodge Department of Physics and Astronomy, University of Oklahoma, Norman, OK 73019, USA}
+
+\author{Kim A. Venn}
+\affil{Department of Physics and Astronomy, University of Victoria,
+  Victoria, BC, Canada}
+
+\author{Christopher Evan Davis}
+\affil{Department of Astronomy, University of Washington, Seattle WA
+98195-1580, USA}
+
+\author{Gal Matijevi\v{c}}
+\affil{Leibniz Institut f\"{u}r Astrophysik Potsdam (AIP), An der
+Sterwarte 16, 14482 Potsdam, Germany}
+
+\author{Rosemary F.G. Wyse}
+\affil{Physics and Astronomy Department, Johns Hopkins University, 3400 North Charles Street, Baltimore, MD 21218, USA}
+
+\author{Joss Bland-Hawthorn}
+\affil{Sydney Institute for Astronomy, School of Physics A28, University of Sydney, NSW 2006, Australia}
+\affil{ARC Centre of Excellence for All Sky Astrophysics (ASTRO-3D), Australia}
+
+\author{Cristina Chiappini}
+\affil{Leibniz Institut f\"{u}r Astrophysik Potsdam, An der Sternwarte 16, D-14482 Potsdam, Germany}
+
+\author{Kenneth C. Freeman}
+\affil{Research School of Astronomy \& Astrophysics, The Australian National University, Cotter Road, Canberra, ACT 2611}
+
+\author{Brad K. Gibson}
+\affil{E.A. Milne Centre for Astrophysics, University of Hull, Hull,
+  HU6 7RX, United Kingdom}
+
+\author{Eva K. Grebel}
+\affil{Astronomisches Rechen-Institut, Zentrum f\"ur
+Astronomie der Universit\"at Heidelberg, M\"onchhofstr.\ 12--14,
+69120 Heidelberg, Germany}
+
+\author{Amina Helmi}
+\affil{Kapteyn Astronomical Institute, University of Groningen, P.O. Box 800,
+NL-9700 AV Groningen, The Netherlands}
+
+\author{Georges Kordopatis}
+\affil{Universit\'e C\^ote d'Azur, Observatoire de la C\^ote d'Azur, CNRS, Laboratoire Lagrange, France}
+
+\author{Andrea Kunder}
+\affil{Saint Martin's University, 5000 Abbey Way SE, Lacey, WA 98503 USA}
+
+\author{Julio Navarro}
+\affil{Department of Physics and Astronomy, University of Victoria,
+  Victoria, BC, Canada}
+
+\author{Warren Reid}
+\affil{Department of Physics and Astronomy, Macquarie University, Sydney, NSW 2109, Australia}
+\affil{Western Sydney University, Locked bag 1797, Penrith South, NSW 2751, Australia}
+
+\author{George Seabroke}
+\affil{Mullard Space Science Laboratory, University College London, Holmbury St Mary, Dorking, RH5 6NT, UK}
+
+\author{Matthias Steinmetz}
+\affil{Leibniz Institut f\"{u}r Astrophysik Potsdam (AIP), An der
+Sterwarte 16, 14482 Potsdam, Germany}
+
+\author{Fred Watson}
+\affil{Department of Industry, Innovation and Science, 105 Delhi Road, North Ryde, NSW 2113, Australia}
+
+%\correspondingauthor{Charli M. Sakari}
+
+%\author{Others?}
+%\affil{}
+%\affil{}
+
+
+\begin{abstract}
+This paper presents the detailed abundances and $r$-process
+classifications of 126 newly identified metal-poor stars as part of an
+ongoing collaboration, the $R$-Process Alliance.  The stars were
+identified as metal-poor candidates from the RAdial Velocity
+Experiment (RAVE) and were followed-up at high spectral resolution
+($R~\sim~31,500$) with the 3.5~m telescope at
+Apache Point Observatory. The atmospheric parameters were determined
+spectroscopically from \ion{Fe}{1} lines, taking into account $<$3D$>$
+non-LTE corrections and using differential abundances with respect
+to a set of standards. Of the 126 new stars, 124 have
+$[\rm{Fe/H}]<-1.5$, 105 have $[\rm{Fe/H}]<-2.0$, and 4 have
+$[\rm{Fe/H}]<-3.0$. Nine new carbon-enhanced metal-poor stars have
+been discovered, 3 of which are enhanced in $r$-process
+elements. Abundances of neutron-capture elements reveal 60 new $r$-I
+stars (with $+0.3~\le~[\rm{Eu/Fe}]~\le~+1.0$ and $[\rm{Ba/Eu}]<0$) and 4
+new $r$-II stars (with $[\rm{Eu/Fe}]>+1.0$). Nineteen stars are found
+to exhibit a ``limited-$r$'' signature ($[\rm{Sr/Ba}]>+0.5$,
+$[\rm{Ba/Eu}]<0$). For the $r$-II stars, the second- and third-peak
+main $r$-process patterns are consistent with the $r$-process
+signature in other metal-poor stars and the Sun. The abundances of
+the light, $\alpha$, and Fe-peak elements match those of typical Milky
+Way halo stars, except for one $r$-I star which has high
+Na and low Mg, characteristic of globular cluster stars. Parallaxes
+and proper motions from the second {\it Gaia} data release yield $UVW$
+space velocities for these stars which are consistent with membership
+in the Milky Way halo. Intriguingly, all $r$-II and the majority of
+$r$-I stars have retrograde orbits, which may indicate an accretion
+origin.
+\end{abstract}
+
+\keywords{stars: abundances --- stars: atmospheres --- stars: fundamental parameters --- Galaxy: formation}
+
+
+
+\section{Introduction}\label{sec:Intro}
+Metal-poor stars ($[\rm{Fe/H}]\lesssim -1.0$) have received
+significant attention in recent years, primarily because they are
+believed to be some of the oldest remaining stars in the Galaxy
+\citep{BeersChristlieb2005,FrebelNorris2015}. High-precision abundances
+of a wide variety of elements, from lithium to uranium, provide
+valuable information about the early conditions in the Milky Way (MW),
+particularly the nucleosynthesis of rare elements, yields from early
+neutron star mergers (NSMs) and supernovae, and the chemical evolution
+of the MW. The low iron content of the most metal-poor stars suggests
+that their natal gas clouds were polluted by very few stars, in some
+cases by only a single star (e.g., \citealt{Ito2009,Placco2014a}).
+Observations of the most metal-poor stars therefore provide valuable
+clues to the formation, nucleosynthetic yields, and evolutionary fates
+of the first stars and the early assembly history of the MW and its
+neighboring galaxies.
+
+The stars that are enhanced in elements that form via the rapid
+($r$-) neutron-capture process are particularly useful for
+investigating the nature of the first stars and early galaxy assembly
+(e.g.,
+\citealt{Sneden1996,Hill2002,Christlieb2004,Frebel2007,Roederer2014b,Placco2017,Hansen2018,Holmbeck2018}).
+The primary nucleosynthetic site of the $r$-process is still
+under consideration. Photometric and spectroscopic follow-up of
+GW~170817 \citep{Abbott2017} detected signatures of $r$-process
+nucleosynthesis (e.g., \citealt{Chornock2017,Drout2017,Shappee2017}),
+strongly supporting the NSM paradigm (e.g.,
+\citealt{LattimerSchramm1974,Rosswog2014,Lippuner2017}).  This
+paradigm is also supported by chemical evolution arguments
+(e.g., \citealt{Cescutti2015,Cote2017}), comparisons with other
+abundances (e.g., Mg; \citealt{MaciasRamirezRuiz2016}), and detections
+of $r$-process enrichment in the ultra faint dwarf galaxy Reticulum~II
+\citep{Ji2016,Roederer2016,Beniamini2018}.
+
+However, the {\it ubiquity} of the $r$-process \citep{Roederer2010},
+particularly in a variety of ultra faint dwarf galaxies, suggests that
+NSMs may not be the only site of the $r$-process
+\citep{TsujimotoNishimura2015,Tsujimoto2017}.  Standard core-collapse
+supernovae are unlikely to create the main $r$-process elements
+\citep{ArconesThielemann2013}; instead, the most likely
+candidate for a second site of $r$-process formation may be the ``jet
+supernovae,'' the resulting core collapse supernovae from strongly
+magnetic stars (e.g., \citealt{Winteler2012,Cescutti2015}).  The physical
+conditions (electron fraction, temperature, density), occurrence
+rates, and timescales for jet supernovae may differ from
+NSMs---naively, this could lead to different abundance patterns
+(particularly between the $r$-process peaks) and different levels of
+enrichment (e.g., see \citealt{Mosta2017}).  This then raises several
+questions. Why is the relative abundance pattern for the main
+$r$-process (barium and above) so robust across $\sim 3$ dex in
+metallicity (e.g., \citealt{Sakari2018})? (In other words, why don't
+the $r$-process yields vary?) Why is $r$-process contamination so
+ubiquitous, even in low-mass systems where $r$-process events should
+be rare? Finally, how can such low-mass systems like the ultra faint
+dwarf galaxies retain the ejecta from such energetic events? (See
+\citealt{BlandHawthorn2015} and \citealt{Beniamini2018} for
+discussions of the mass limits of dwarfs that can retain ejecta for
+subsequent star formation.) Addressing these questions requires
+collaboration between theorists, experimentalists, modelers, and
+observers.
+
+Observationally, the $r$-process-enhanced, metal-poor stars may
+provide the most useful information for identifying the site(s) of the 
+$r$-process.  There are two main reasons for this:  1) The enhancement
+in $r$-process elements ensures that spectral lines from a wide
+variety of $r$-process elements are sufficiently strong to be
+measured, while the (relative) lack of metal lines (compared to more
+metal-rich stars) reduces the severe blending typically seen in the
+blue spectral region; and 2) These stars are selected to have
+little-to-no contamination from the slow ($s$-) process, simplifying
+comparisons with models of $r$-process yields. If the enhancement in
+radioactive elements like Th and U is sufficiently high,
+cosmo-chronometric ages can also be determined (see, e.g.,
+\citealt{Holmbeck2018} and references therein).
+
+The $r$-process-enhanced, metal-poor stars have historically been
+divided into two main categories \citep{BeersChristlieb2005}: the
+$r$-I stars have $+0.3\le [\rm{Eu/Fe}]\le +1.0$, while $r$-II stars
+have $[\rm{Eu/Fe}]~>~+1.0$; both require $[\rm{Ba/Eu}]<0$ to avoid
+contamination from the $s$-process.  Prior to 2015, there were
+$\sim30$ $r$-II and $\sim 75$ $r$-I stars known, according to the
+JINAbase compilation \citep{Abohalima2017}.  Observations of
+these $r$-process-enhanced stars have found a common pattern among the
+main $r$-process elements, which is in agreement with the Solar
+$r$-process residual.  Despite the consistency of the main $r$-process
+patterns, $r$-process-enhanced stars are known to have deviations from
+the Solar pattern for the lightest and heaviest neutron-capture
+elements.  Variations in the lighter neutron-capture elements, such as
+Sr, Y, and Zr have been observed in several stars (e.g.,
+\citealt{SiqueiraMello2014,Placco2017,Spite2018}).  A new limited-$r$
+designation \citep{Frebel2018}, with $[\rm{Sr/Ba}]~>~+0.5$, has been
+created to classify stars with enhancements in these lighter elements.
+(Though note that fast rotating massive stars can create some light
+elements via the $s$-process;
+\citealt{Chiappini2011,Frischknecht2012,Cescutti2013,Frischknecht2016}. In
+highly $r$-process-enhanced stars, however, this signal may be swamped
+by the larger contribution from the $r$-process; \citealt{Spite2018}.)
+A subset of $r$-II stars ($\sim30$\%) also exhibit an enhancement in
+Th and U that is referred to as an ``actinide boost'' (e.g.,
+\citealt{Hill2002,Mashonkina2014,Holmbeck2018})---a complete
+explanation for this phenomenon remains elusive (though
+\citealt{Holmbeck2018b} propose one possible model), but it may prove 
+critical for constraining the $r$-process site(s).
+
+The numbers of stars in these categories will be important for
+understanding the source(s) of the $r$-process.  If NSMs are the
+dominant site of the $r$-process, they may be responsible for the
+enhancement in both $r$-I and $r$-II stars---if so, the relative
+frequencies of $r$-I and $r$-II stars can be compared with NSM rates.
+Finally, there has been speculation that $r$-process-enhanced stars
+may form in dwarf galaxies (e.g., Reticulum II; \citealt{Ji2016}),
+which are later accreted into the MW.  The combination of abundance
+information from high-resolution spectroscopy and proper motions and
+parallaxes from {\it Gaia} DR2 \citep{GaiaDR2REF} will enable the
+birth sites of the $r$-process-enhanced stars to be assessed, as has
+already been done for several halo $r$-II stars
+\citep{Sakari2018,Roederer2018}.
+
+These are the observational goals of the $R$-Process Alliance (RPA), a
+collaboration with the aim of identifying the site(s) of the
+$r$-process.  This paper presents the first data set from the Northern
+Hemisphere component of the RPA's search for $r$-process-enhanced
+stars in the MW; the first Southern Hemisphere data set is presented
+in \citet{Hansen2018}.  The observations and data reduction for this
+sample are outlined in Section \ref{sec:Observations}.  Section
+\ref{sec:AtmParams} presents the atmospheric parameters (temperature,
+surface gravity, and microturbulence) and Fe and C abundances of a set
+of standard stars, utilizing Local Thermodynamic Equilibrium (LTE)
+\ion{Fe}{1} abundances both with and without non-LTE (NLTE)
+corrections.  The parameters for the targets are then determined
+differentially with respect to the set of standards.  The detailed
+abundances are given in Section \ref{sec:Abunds};
+Section~\ref{sec:Discussion} then discusses the $r$-process
+classifications, the derived $r$-process patterns, implications for
+the site(s) of the $r$-process, and comparisons with other MW halo
+stars.  The choice of NLTE corrections is justified by comparisons
+with other techniques for deriving atmospheric parameters, e.g.,
+photometric temperatures, in Appendix \ref{appendix:Comp}.  LTE
+parameters and abundances are also provided in Appendix
+\ref{appendix:LTE}, and a detailed analysis of systematic errors is
+given in Appendix \ref{appendix:Errors}.  Future papers from the RPA
+will present additional discoveries of $r$-I and $r$-II stars.
+
+
+\section{Observations and Data Reduction}\label{sec:Observations}
+The metal-poor targets in this study were selected from two sources.  
+Roughly half of the stars were selected from the fourth
+\citep{RAVEDR4ref} and fifth \citep{RAVEDR5ref} data releases from the
+RAdial Velocity Experiment \citep[RAVE]{RAVEref} and the
+\citet{BaBref} sample.  These stars had their atmospheric parameters
+($T_{\rm{eff}}$, $\log g$, and [Fe/H]) and [C/Fe] ratios validated
+through optical ($3500-5500$~\AA), medium-resolution ($R~\sim~2000$)
+spectroscopy \citep{Placco2018}.  The other half were part of a
+re-analysis of RAVE data by \citet{Matijevic2017}.  The stars that
+were targeted for high-resolution follow-up all had metallicity
+estimates $[\rm{Fe/H}] \la -1.8$ and (in the case of the Placco et
+al. subsample) were not carbon enhanced. Additionally, twenty
+previously observed metal-poor stars were included to serve as
+standard stars. Altogether, 131 stars with $V$-band magnitudes between
+9 and 13 were observed, as shown in Table \ref{table:Targets1}, where
+IDs, coordinates, and magnitudes are listed.
+
+All targets were observed in 2015-2017 with the Astrophysical Research
+Consortium (ARC) 3.5~-~m telescope at Apache Point Observatory (APO).
+The seeing ranged from $0.6-2\arcsec$, with a median value of
+$1.15\arcsec$.  The ARC Echelle Spectrograph (ARCES) was utilized in
+its default setting, with a $1.6\arcsec \times 3.2\arcsec$ slit,
+providing a spectral resolution of $R\sim 31,500$.  The spectra cover
+the entire optical range, from $3800-10400$ \AA , though the S/N is
+often prohibitively low below 4000 \AA.  Initial ``snapshot'' spectra
+were taken to determine $r$-process enhancement; exposure times were
+typically adjusted to obtain S/N ratios $>30$ (per pixel) in the blue,
+which leads to S/N ratios $\ga 60$ near 6500 \AA.  Any interesting
+targets were then observed again to obtain higher S/N.  Observation
+dates, exposure times, and S/N ratios are reported in Table
+\ref{table:Targets1}.
+
+The data were reduced in the Image Reduction and Analysis Facility
+program (IRAF)\footnote{IRAF is distributed by the National Optical
+  Astronomy Observatory, which is operated by the Association of
+  Universities for Research in Astronomy, Inc., under cooperative
+  agreement with the National Science Foundation.} with the standard
+ARCES reduction recipe (see the manual by
+J. Thorburn\footnote{\url{http://astronomy.nmsu.edu:8000/apo-wiki/attachment/wiki/ARCES/Thorburn_ARCES_manual.pdf}}),
+yielding non-normalized spectra with 107 orders each.  The blaze
+function was determined empirically through Legendre polynomial fits
+to high S/N, extremely metal-poor stars.  The spectra of the other
+targets were divided by these blaze function fits and refit with
+low-order (5-7) polynomials (with strong lines, molecular bands, and
+telluric features masked out).  All spectra were shifted to the
+rest-frame through cross-correlations with a very high-resolution,
+high S/N spectrum of Arcturus (from the \citealt{Hinkle2003}
+atlas). The individual observations were then combined with average
+$\sigma$-clipping techniques, weighting the individual spectra by
+their flux near 4150 \AA.  Sample spectra around the 4205
+\AA \hspace{0.02in} \ion{Eu}{2} line are shown in Figure
+\ref{fig:SampleSpectra}.
+
+The final S/N ratios and heliocentric radial velocities are given in
+Tables \ref{table:Targets1}, while Figure \ref{fig:Velocities} shows a
+comparison with the radial velocities from RAVE and {\it Gaia} DR2
+\citep{GaiaREF,GaiaDR2REF}.  The agreement is generally excellent,
+with a small median offset and standard deviation of $-1.1\pm 3.2$ km
+s$^{-1}$ from RAVE and $-0.8\pm2.9$~km~s$^{-1}$ from {\it Gaia}.
+There are several outliers with offsets $1\sigma$ from the mean, which
+may be binaries.\footnote{Note that the radial velocity for
+  J2325$-$0815 is in agreement with {\it Gaia}, but in RAVE has been
+  marked as unreliable owing to the low S/N ratio. The RAVE value for
+  this star has been disregarded in this discussion.} In the case of
+J0145$-$2800, J0307$-$0534, and J0958$-$1446, multi-epoch observations
+in this paper show large radial velocity variations; in these cases,
+the RAVE and {\it Gaia} radial velocities also differ.  Even if these
+stars are unresolved binaries, none of the spectra show any signs of
+contamination from a companion.
+
+\begin{figure}[h!]
+\begin{center}
+\centering
+\includegraphics[scale=0.65,trim=0 0.75in 0in 0in]{Spectra.eps}
+\caption{Sample spectra for stars with a range of S/N, metallicity,
+  temperature, and $r$-process enhancement.  ``Not-RPE'' indicates
+  that the stars is not enhanced in $r$-process elements.  Three \ion{Sr}{2}, \ion{Zr}{2}, and \ion{Eu}{2} lines that were used in this analysis are identified.\label{fig:SampleSpectra}}
+\end{center}
+\end{figure}
+
+\clearpage
+
+\startlongtable
+\begin{deluxetable}{@{}ccccccccDr}
+\tabletypesize{\scriptsize}
+\tablecolumns{11}
+\tablewidth{0pt}
+\tablecaption{Targets\tablenotemark{a}\label{table:Targets1}}
+\hspace*{-2in}
+\tablehead{
+Star\tablenotemark{b} & RA & Dec & $V$                & Observation & Exposure & \multicolumn{2}{c}{S/N\tablenotemark{c}} & \multicolumn{2}{c}{$v_{\rm{helio}}$\tablenotemark{d}} & Note\tablenotemark{e}\\
+     & \multicolumn{2}{c}{(J2000)} & & Dates       & Time (s) & 4400 \AA        & 6500 \AA   & \multicolumn{2}{c}{(km s$^{-1}$)} & 
+}
+\decimals
+\startdata
+%20111118\_0003         & 00:00:22.59 & -13:02:27.5 & 12.86 & 22 Jan 2016         & & & & \multicolumn{2}{c}{} & \\
+J000738.2$-$034551     & 00:07:38.16 & $-$03:45:50.4 & 11.52 & 9, 11 Sep 2016      & 2700 & 60 & 156 & -145.9\pm1.5 & P18 \\ %R328958          
+J001236.5$-$181631     & 00:12:36.47 & $-$18:16:31.0 & 10.95 & 22 Jan, 28 Sep 2016 & 1500 & 80 & 150 & -96.4\pm0.8 &  \\ %20091024\_0006   
+J002244.9$-$172429     & 00:22:44.86 & $-$17:24:29.1 & 12.89 & 22 Jan, 28 Sep 2016 & 3600 & 18 &  62 & 91.8\pm1.4 &  \\ %20051010\_0032    
+J003052.7$-$100704     & 00:30:52.67 & $-$10:07:04.2 & 12.77 & 28 Sep 2016,        & 2700 & 25 &  60 & -88.4\pm3.0 &  \\ %20101004\_0021        
+                       &             &             &       & 2 Feb 2017          & & & & \multicolumn{2}{c}{} & \\
+J005327.8$-$025317     & 00:53:27.84 & $-$02:53:16.8 & 10.34 & 20 Jan 2016         & 2400 & 53 & 220 & -197.7\pm0.6 & P18\\ %K129514
+                       &             &             &       & 31 Jan 2017         &      &    &     & \multicolumn{2}{c}{} & \\
+J005419.7$-$061155     & 00:54:19.65 & $-$06:11:55.4 & 13.06 & 28 Sep 2016         & 1800 & 20 &  75 & -132.8\pm0.5 & \\ %20060926\_0100        
+J010727.4$-$052401     & 01:07:27.37 & $-$05:24:00.9 & 11.88 & 28 Sep 2016         & 1800 & 58 &  98 & -1.4\pm0.5 & \\ %20090919\_0100
+J012042.2$-$262205     & 01:20:42.20 & $-$26:22:04.7 & 10.21 & 22 Jan 2016         & 1200 & 43 & 100 & 15.2\pm0.5 &  \\ %20040825\_0111 
+CS 31082-0001          & 01:29:31.14 & $-$16:00:45.5 & 11.32 & 22 Jan 2016         & 1440 & 30 & 106 & 137.6\pm0.7 & Std\\
+J014519.5$-$280058     & 01:45:19.52 & $-$28:00:58.4 & 11.55 & 2 Feb, 28 Dec 2017  & 3000 & 20 &  75 &  36.9\pm3.2 & \\ %20090909\_0150  
+\enddata
+%\end{tabular}\\
+%\end{center}
+\tablenotetext{a}{Only a portion of this table is shown here to
+  demonstrate its form and content. A machine-readable version of the
+  full table is available.}
+\tablenotetext{b}{The standard stars are identified by their names in
+  SIMBAD.  Otherwise, the target stars are identified by their RAVE IDs, unless
+  preceded by ``2M'', in which case their IDs from the Two Micron All
+  Sky Survey (2MASS) are given \citep{2MASSref}.}
+\tablenotetext{c}{S/N is per pixel; there are 2.5 pixels per
+  resolution element.}
+\tablenotetext{d}{The quoted errors are based on the uncertainty in
+  the mean, with an adopted minimum of 0.5 km s$^{-1}$.}
+\tablenotetext{e}{``P18'' indicates that the target was included in
+  the medium-resolution follow-up of \citet{Placco2018}, while ``Std''
+  indicates that the star was previously observed by others.}
+\tablenotetext{f}{Based on radial velocity variations, this object is
+  a suspected or confirmed binary.}
+%\medskip
+%\raggedright .\\
+\end{deluxetable}
+
+
+\normalsize
+%\clearpage
+
+\begin{figure}[h!]
+\begin{center}
+\centering
+\subfigure{\includegraphics[scale=0.55,trim=0.3in 0in 0.45in 0.3in,clip]{CompRV.eps}}\label{fig:RV_RAVE}
+\subfigure{\includegraphics[scale=0.55,trim=0.3in 0in 0.6in 0.3in,clip]{CompRV_Gaia.eps}}\label{fig:RV_Gaia}
+\caption{A comparison of the average heliocentric radial velocities in
+  this work with those from RAVE (left) and {\it Gaia} DR2 (right).
+  There are 122 stars with RAVE velocities, and 111 with {\it Gaia}
+  DR2 velocities. The labeled outliers have offsets $>1\sigma$ from
+  the median and/or large dispersions in velocity, and may be
+  binaries.\label{fig:Velocities}}
+\end{center}
+\end{figure}
+
+
+\section{Atmospheric Parameters, Metallicities, and Carbon Abundances}\label{sec:AtmParams}
+High-resolution analyses utilize a variety of techniques to refine the
+stellar temperatures, surface gravities, microturbulent velocities,
+and metallicities, each with varying strengths and weaknesses.
+The most common way to determine atmospheric parameters is from
+the strengths of Fe lines, under assumptions of LTE.  
+  Note that the atmospheric parameters are all somewhat
+  degenerate---the assumption of LTE therefore can systematically
+  affect all the parameters.  In a typical high-resolution analysis,
+temperatures and microturbulent velocities are found by removing any
+trends in the \ion{Fe}{1} abundance with line excitation potential
+(EP) and reduced EW (REW),\footnote{REW = $\log$(EW/$\lambda$), where
+  $\lambda$ is the   wavelength of the transition.} respectively.
+However, each \ion{Fe}{1} line will have a different sensitivity to
+NLTE effects. Similarly, surface gravities are sometimes determined
+by requiring agreement between the \ion{Fe}{1} and \ion{Fe}{2}
+abundances; however, the abundances derived from \ion{Fe}{1} lines
+more sensitive to NLTE effects than those from \ion{Fe}{2} lines
+\citep{KraftIvans2003}.  There are ways to determine the stellar
+parameters that will not be as affected by NLTE effects, e.g., using
+colors \citep{RamirezMelendez2005,Casagrande2010} to determine
+temperatures or isochrones to determine surface gravities (e.g.,
+\citealt{Sakari2017}), but these techniques require some {\it a
+  priori} knowledge of the reddening, distance, etc.  Some groups also
+utilize empirical corrections to LTE spectroscopic temperatures to more
+closely match the photometric temperatures (e.g.,
+\citealt{Frebel2013}).  Recently, it has become
+  possible to apply NLTE corrections directly to the LTE abundances
+  \citep{Lind2012,Ruchti2013,Amarsi2016,Ezzeddine2017}.  This
+technique has the benefit of enabling the atmospheric parameters to be
+determined solely from the spectra.
+
+An ideal approach should provide the most accurate abundances for
+future use, while maintaining compatibility with other samples of
+metal-poor stars.  Sections \ref{subsec:StandardAtmParams} and Appendix
+\ref{appendix:Comp} demonstrate that adopting spatially- and
+temporally-averaged three-dimensional ($<$3D$>$), NLTE corrections (in
+this case from \citealt{Amarsi2016}) provide parameters that are in
+better agreement with independent methods, compared to purely
+spectroscopic LTE parameters.  Although NLTE-corrected parameters from
+$<$3D$>$ models are ultimately selected as the preferred values in
+this paper, LTE parameters and abundances are provided in Appendix
+\ref{appendix:LTE} to facilitate comparisons with LTE studies. Section
+\ref{subsec:TargetAtmParams} presents the adopted parameters for the
+target stars, Section \ref{subsec:CFe} discusses the [C/Fe] ratios,
+and Section \ref{subsec:AtmParamErrors} then discusses the
+uncertainties in these parameters.
+
+In the analyses that follow, Fe abundances are determined from
+equivalent widths (EWs), which are measured using the program {\tt
+  DAOSPEC} \citep{DAOSPECref}.  Only lines with $\rm{REW}<-4.7$ were
+used, to avoid uncertainties that arise from, e.g., uncertain damping
+constants \citep{McWilliam1995}. All abundances are determined with
+the 2017 version of {\tt MOOG} \citep{Sneden}, including an
+appropriate treatment for scattering
+\citep{Sobeck2011}.\footnote{\url{https://github.com/alexji/moog17scat}}
+Kurucz model atmospheres were used \citep{KuruczModelAtmRef}.
+For all cases below, the final atmospheric parameters are determined
+entirely from the spectra.  Surface gravities are determined by
+enforcing ionization equilibrium in iron (i.e., the surface gravities
+are adjusted so that the average \ion{Fe}{1} abundance is equal to the
+average \ion{Fe}{2} abundance).  Temperatures and microturbulent
+velocities are determined by flattening trends in \ion{Fe}{1} line
+abundances with EP and REW.  For the NLTE cases, corrrections were
+applied to LTE abundance from each \ion{Fe}{1} line, according to the
+current atmospheric parameters in that iteration.  The corrections are
+determined with the interpolation grid from
+\citet{Amarsi2016}.\footnote{\url{http://www.mso.anu.edu.au/~ama51/data/}}
+
+
+\subsection{Standard Stars}\label{subsec:StandardAtmParams}
+The parameters of the previously observed standard stars are first
+presented, to 1) establish the effects of the NLTE corrections on the
+atmospheric parameters and 2) demonstrate agreement with results from
+the literature.
+
+\subsubsection{LTE vs. NLTE}\label{subsubsec:LTEvNLTE}
+The LTE and NLTE atmospheric parameters for the standard stars are
+shown in Table \ref{table:NLTEStandardAtmParams}.  The naming
+convention of \citet{Amarsi2016} is adopted: the 1D, NLTE corrections
+are labeled ``NMARCS'' while the $<$3D$>$, NLTE corrections are
+``NMTD'' (i.e., NMARCS 3D).  These corrections were applied as in
+\citet{Ruchti2013}, using the 1D and $<$3D$>$ NLTE grids from
+\citet{Amarsi2016}.  The interpolation scheme from \citet{Lind2012}
+and \citet{Amarsi2016} is used to determine the appropriate
+corrections for each set of atmospheric parameters; these corrections
+are then applied on-the-fly to the LTE abundance from
+each \ion{Fe}{1} line (note that the NLTE corrections for the
+\ion{Fe}{2} lines are negligible; \citealt{Ruchti2013}).
+
+A qualitative trend is evident from Table
+\ref{table:NLTEStandardAtmParams}, and is demonstrated in Figure
+\ref{fig:NLTEvsLTE}.  Compared to the LTE values, the NMARCS
+corrections moderately affect $T_{\rm{eff}}$, while the NMTD
+corrections increase $T_{\rm{eff}}$.  The surface gravities
+and metallicities are also generally increased when the NLTE
+corrections are applied, while the microturbulent velocities decrease.
+These changes are most  severe at the metal-poor end and for the
+cooler giants.  It is worth noting that these changes qualitatively
+agree with the known problems that occur in purely spectroscopic LTE
+analyses, where the temperatures, surface gravities, and metallicities
+that are derived from \ion{Fe}{1} lines are known to be
+under-estimated, while the microturbulent velocities are
+over-estimated.  Appendix \ref{appendix:Comp} more completely
+validates the choice of the NMTD parameters through comparisons with
+photometric temperatures and parallax-based distances.
+
+
+
+\begin{deluxetable}{@{}lcccccccccccDD}
+\tabletypesize{\scriptsize}
+\tablecolumns{14}
+\tablewidth{0pt}
+\tablecaption{Atmospheric Parameters and [C/Fe]: Standard Stars\label{table:NLTEStandardAtmParams}}
+%\centering
+\hspace*{-4in}
+%\begin{center}
+%  \newcolumntype{d}[1]{D{,}{\pm}{#1}}
+%  \newcolumntype{e}[1]{D{.}{.}{#1}}
+%  \begin{tabular}{@{}lcccccccccd{3}@{}}
+\tablehead{
+ & \multicolumn{4}{l}{LTE} & \multicolumn{4}{l}{NMARCS} & \multicolumn{7}{l}{NMTD} \\
+     & $T_{\rm{eff}}$ & $\log g$ & $\xi\;\;\;\;$ & [Fe/H] &
+  $T_{\rm{eff}}$ & $\log g$ & $\xi\;\;\;\;$  & [Fe/H] & $T_{\rm{eff}}$
+  & $\log g$ & $\xi\;\;\;\;$  & \multicolumn{2}{r}{[Fe I/H] ($N$)\tablenotemark{a}$\;\;$} & \multicolumn{2}{r}{[C/Fe]\tablenotemark{b}$\;$} \\
+Star & (K)          & \multicolumn{3}{c}{(km s$^{-1}$)$\;\;$} & (K)          & \multicolumn{3}{c}{$\;$(km s$^{-1}$)$\;$}  & (K)          & \multicolumn{3}{c}{$\;$(km s$^{-1}$)}  & \multicolumn{1}{r}{ } & \multicolumn{2}{r}{     }
+}
+\decimals
+\startdata
+CS 31082-001    & 4827 & 1.65 & 1.70 & $-2.79$ & 4827 & 1.95 & 1.59 & $-2.68$ & 4877 & 1.95 & 1.44 & -2.64\pm0.01\;\;(87)  & 0.04\pm0.10  \\
+TYC 5861-1732-1 & 4850 & 1.77 & 1.34 & $-2.47$ & 4825 & 1.87 & 1.23 & $-2.39$ & 4925 & 2.07 & 1.16 & -2.29\pm0.02\;\;(109) & -0.29\pm0.11 \\
+CS 22169-035    & 4483 & 0.50 & 2.01 & $-3.03$ & 4458 & 0.50 & 2.03 & $-3.02$ & 4683 & 0.70 & 1.75 & -2.80\pm0.02\;\;(86)  & 0.58\pm0.10  \\
+TYC 75-1185-1   & 4793 & 1.34 & 1.72 & $-2.88$ & 4793 & 1.54 & 1.63 & $-2.79$ & 4943 & 1.94 & 1.53 & -2.63\pm0.02\;\;(89)  & 0.05\pm0.10  \\
+TYC 5911-452-1  & 6220 & 4.07 & 1.77 & $-2.32$ & 6195 & 4.27 & 1.60 & $-2.19$ & 6295 & 4.47 & 1.50 & -2.08\pm0.02\;\;(39)  & -0.15\pm0.20 \\
+TYC 5329-1927-1 & 4393 & 0.30 & 2.14 & $-2.41$ & 4368 & 0.20 & 2.12 & $-2.41$ & 4568 & 0.90 & 2.01 & -2.28\pm0.02\;\;(101) & 0.43\pm0.11  \\
+TYC 6535-3183-1 & 4320 & 0.46 & 1.92 & $-2.12$ & 4295 & 0.36 & 1.91 & $-2.15$ & 4370 & 0.56 & 1.89 & -2.09\pm0.02\;\;(103) & 0.23\pm0.10  \\
+TYC 4924-33-1   & 4831 & 1.72 & 1.69 & $-2.36$ & 4806 & 1.82 & 1.62 & $-2.30$ & 4831 & 1.72 & 1.54 & -2.28\pm0.01\;\;(112) & 0.27\pm0.10  \\
+HE 1116$-$0634  & 4248 & 0.01 & 2.17 & $-3.72$ & 4198 & 0.01 & 2.28 & $-3.75$ & 4698 & 1.11 & 1.65 & -3.28\pm0.02\;\;(58)  & 0.54\pm0.20  \\
+TYC 6088-1943-1 & 4931 & 1.95 & 1.57 & $-2.54$ & 4931 & 2.25 & 1.50 & $-2.43$ & 4956 & 2.25 & 1.34 & -2.45\pm0.01\;\;(96)  & -0.14\pm0.11 \\
+BD-13 3442      & 6299 & 3.69 & 1.50 & $-2.80$ & 6299 & 4.09 & 1.35 & $-2.64$ & 6349 & 4.29 & 1.28 & -2.56\pm0.02\;\;(14)  & <0.55        \\
+BD-01 2582      & 4960 & 2.24 & 1.46 & $-2.49$ & 4960 & 2.54 & 1.40 & $-2.37$ & 4985 & 2.44 & 1.24 & -2.33\pm0.01\;\;(100) & 0.71\pm0.10  \\
+HE 1317$-$0407  & 4660 & 0.76 & 1.87 & $-2.89$ & 4660 & 0.86 & 1.79 & $-2.83$ & 4835 & 1.16 & 1.69 & -2.66\pm0.02\;\;(86)  & 0.15\pm0.20  \\
+HE 1320$-$1339  & 4591 & 0.50 & 1.66 & $-3.06$ & 4591 & 0.60 & 1.60 & $-3.02$ & 4841 & 1.10 & 1.46 & -2.76\pm0.02\;\;(81)  & 0.0\pm0.20   \\
+HD 122563       & 4374 & 0.46 & 2.06 & $-2.96$ & 4324 & 0.26 & 2.09 & $-2.97$ & 4624 & 0.96 & 1.76 & -2.71\pm0.01\;\;(96)  & 0.49\pm0.13  \\
+TYC 4995-333-1  & 4807 & 1.16 & 1.83 & $-2.02$ & 4707 & 0.96 & 1.75 & $-2.07$ & 4707 & 0.96 & 1.71 & -2.06\pm0.02\;\;(107) & 0.14\pm0.10  \\
+HE 1523-0901    & 4290 & 0.20 & 2.13 & $-3.09$ & 4315 & 0.40 & 2.16 & $-3.06$ & 4590 & 0.90 & 1.73 & -2.81\pm0.02\;\;(79)  & 0.39\pm0.15  \\
+TYC 6900-414-1  & 4798 & 1.50 & 1.24 & $-2.45$ & 4823 & 1.80 & 1.17 & $-2.35$ & 4898 & 2.00 & 1.10 & -2.28\pm0.02\;\;(108) & -0.04\pm0.10 \\
+J2038-0023      & 4579 & 0.84 & 2.03 & $-2.89$ & 4579 & 0.94 & 1.97 & $-2.84$ & 4704 & 0.94 & 1.77 & -2.71\pm0.02\;\;(88)  & 0.59\pm0.10  \\
+BD-02 5957      & 4217 & 0.06 & 2.05 & $-3.22$ & 4192 & 0.06 & 2.10 & $-3.23$ & 4567 & 0.96 & 1.57 & -2.91\pm0.02\;\;(78)  & 0.54\pm0.10  \\
+\enddata
+%\end{tabular}\\
+%\end{center}
+\medskip
+%\raggedright \\
+\tablenotetext{a}{Note that the NLTE \ion{Fe}{2} abundances are
+  required to be equal to the \ion{Fe}{1} abundances.  The quoted
+  uncertainty is the random error in the mean, and is the
+  line-to-line dispersion divided by $\sqrt{N}$, where $N$ is the
+  number of spectral lines.} 
+\tablenotetext{b}{The [C/Fe] ratios have been corrected for
+  evolutionary effects \citep{Placco2014}.}
+%\medskip
+%\raggedright .\\
+\end{deluxetable}
+
+\begin{figure}[h!]
+\begin{center}
+\centering
+\includegraphics[scale=0.75,trim=0.5in 0.8in 1.0in 0.5in,clip]{NLTEvsLTE.eps}
+\caption{Offsets in the atmospheric parameters (NMTD $-$ LTE), as a
+  function of the NMTD parameters, for the standard stars.  In panels
+  a, b, and c, the points are color-coded according to their [Fe/H]
+  ratios, while in panel d they are color-coded according to surface
+  gravities.\label{fig:NLTEvsLTE}}
+\end{center}
+\end{figure}
+
+The NMARCS parameters were also compared with parameters derived
+using the 1D NLTE corrections following \citet{Ezzeddine2017}.  
+Similar to the process for the \citet{Amarsi2016} corrections, the 
+NLTE corrections for each \ion{Fe}{1} line were found by interpolating
+the measured EWs over a calculated grid of NLTE EWs over a dense
+parameter space in effective temperature, surface gravity,
+metallicity, and microturbulent velocity.  The 1D MARCS model
+atmospheres \citep{Gustafsson2008} were used with the NLTE radiative
+transfer code \texttt{MULTI2.3} \citep{Carlsson1986,Carlsson1992} to
+calculate the EW grid.  A comprehensive \ion{Fe}{1}/\ion{Fe}{2} model
+atom is used in the calculations, with up-to-date inelastic collisions
+with hydrogen implemented from \citet{Barklem2018}; see
+\citet{Ezzeddine2016} for more details on the atomic model and data.  
+Compared to the NMARCS values, the Ezzeddine et al. corrections lead
+to agreement in temperature within 50 K, surface gravities within 0.5
+dex, microturbulent velocities within 0.5 km~s$^{-1}$, and
+metallicities within 0.1 dex.
+
+\begin{figure}[h!]
+\begin{center}
+\centering
+\includegraphics[scale=0.75,trim=0.5in 0.8in 1.0in 0.5in,clip]{NMARCS_vs_Ezzeddine.eps}
+\caption{Offsets in the atmospheric parameters derived with 1D NLTE
+  corrections (Amarsi et al. $-$ Ezzeddine et al.) for the standard
+  stars.  Panels are color-coded as in Figure
+  \ref{fig:NLTEvsLTE}.\label{fig:NMARCS_vs_Ezzeddine}}
+\end{center}
+\end{figure}
+
+
+
+
+\subsubsection{Comparisons with Literature Values}\label{subsubsec:StdAtmParamLitComp}
+The NMTD parameters are compared to LTE and NLTE literature
+values in Figure \ref{fig:CompAbundParamLit}.  As with any set of
+spectroscopic analyses, the techniques used to derive the atmospheric
+parameters vary significantly between groups; the points in Figure
+\ref{fig:CompAbundParamLit} are therefore grouped roughly by
+technique.  Again, the results qualitatively make sense when compared
+with the LTE results from the literature (from
+\citealt{Frebel2007,Hollek2011,Roederer2014,Thanathibodee2016,Placco2017}):
+the NMTD temperatures are slightly higher than values derived
+spectroscopically, occasionally even when empirical corrections are
+included to raise the temperature.  The surface gravities are
+typically higher than the values derived with LTE ionization
+equilibrium and isochrones, while the microturbulent velocities are
+much lower than the studies that utilize LTE ionization equilibrium to
+derive surface gravities. Finally, the [Fe/H] ratios agree reasonably
+well at the metal-rich end, but become increasingly discrepant with
+lower [Fe/H].  These findings are all consistent with those from
+\citet{Amarsi2016}.
+
+\citet{Hansen2013} and \citet{Ruchti2013} adopted NLTE corrections of
+some sort in previous analyses of standard stars in this paper, albeit
+with slightly different techniques for deriving the final atmospheric
+parameters.  \citet{Hansen2013} adopted photometric temperatures and
+then applied 1D NLTE corrections to $\log g$ and [Fe/H]; the agreement
+with those points is generally good. \citet{Ruchti2013} applied 1D
+NLTE corrections to LTE abundances, as in this paper; a key
+difference, however, is that Ruchti et al. did not use \ion{Fe}{1}
+lines with $\rm{EP}<2$ eV, which they argue are more sensitive to the
+NLTE effects.  As a result, Ruchti et al. find even higher
+temperatures, surface gravities, and metallicities, values which would
+no longer agree with the previous LTE analyses, even when photometric
+temperatures and parallax-based surface gravities are adopted.
+
+Given that the spectroscopic NMTD-corrected parameters in this paper
+agree well with the photometric temperatures and gravities from the
+literature (also see Appendix \ref{appendix:Comp}), the NMTD
+parameters are adopted for the rest of the paper.
+
+\begin{figure}[h!]
+\begin{center}
+\centering
+\includegraphics[scale=0.75,trim=0.5in 0.4in 1.5in 0.35in,clip]{CompAtmParamLit.eps}
+\caption{Differences between the $<$3D$>$, NLTE (NMTD) atmospheric
+  parameters and parameters from the literature for the standard
+  stars (NMTD$-$literature).  Some stars are shown multiple times from
+  different studies. The yellow stars show comparisons with
+  spectroscopic LTE temperatures and isochrone-based surface gravities
+  from \citet{Roederer2014}.  The green circles show comparisons with
+  \citet{Frebel2007}, \citet{Hollek2011}, \citet{Thanathibodee2016},
+  and \citet{Placco2017}, LTE analyses that utilized either
+  photometric temperatures or spectroscopic temperatures with
+  corrections to match photometric temperatures, and surface gravities
+  derived by requiring ionization equilibrium.  The blue squares
+  compare with \citet{Ruchti2011}, who utilized photometric or
+  corrected LTE spectroscopic temperatures and surface gravities
+  derived from photometry.  Finally, the purple triangles show
+  comparisons with \citet{Hansen2013} and \citet{Ruchti2013}, who used
+  photometric or corrected spectroscopic temperatures and 1D NLTE
+  corrections to determine the surface gravity and metallicity.
+\label{fig:CompAbundParamLit}}
+\end{center}
+\end{figure}
+
+
+\subsubsection{The Case of HD 122563}\label{subsubsec:HD122563}
+The standard HD 122563 was one of the stars in
+\citet{Amarsi2016}, the paper which provides the $<$3D$>$, NLTE
+corrections that are used in this analysis.  Amarsi et
+al. were able to achieve ionization equilibrium with NMTD corrections
+for all of their target stars {\it except} for HD~122563.  They
+suggested that the parallax-based surface gravity from the
+literature was too high, and that $\log g\approx 1.1$ was more
+appropriate. Naturally, with the Amarsi et al. corrections the NMTD
+spectroscopic gravity in Table \ref{table:NLTEStandardAtmParams},
+$\log g = 0.96$, is indeed lower than the parallax-based value used in
+\citet{Hansen2013}. \citet{Roederer2014} also find a lower value using
+isochrones. Indeed, {\it Gaia} DR2 provides a smaller parallax and
+error than the {\it Hipparcos} value: {\it Gaia} finds a parallax of
+$3.44\pm0.06$, while {\it Hipparcos} found $4.22\pm0.35$
+\citep{HIPref}.  This suggests that the surface gravity is indeed
+lower (i.e., the star is farther away and intrinsically brighter) than
+previously predicted (also see Section \ref{subsec:CompGAIA}).
+
+
+\subsection{Atmospheric Parameters: Target Stars}\label{subsec:TargetAtmParams}
+Beyond the choice of LTE or NLTE, stellar abundance analyses suffer
+from a variety of other systematic errors as a result of, e.g., atomic
+data, choice of model atmospheres, etc.  These effects have been
+mitigated in the past by performing {\it differential} analyses with
+respect to a set of standard stars.  A differential
+  analysis reduces the systematic offsets relative to the standard
+  star, enabling higher precision parameters and abundances to be
+  determined.  This type of analysis has been performed on both
+metal-rich
+\citep{Fulbright2006,Fulbright2007,KochMcWilliam2008,McWilliam2013,Sakari2017}
+and metal-poor stars \citep{OMalley2017,Reggiani2016,Reggiani2017} and
+is the approach that is chosen for the target stars.  The stars
+identified in Table \ref{table:FinalAtmParams} are used as the
+differential standards.
+
+Each target is matched up with a standard star based on its initial
+atmospheric parameters, and $\Delta \log \epsilon$(\ion{Fe}{1})
+abundances are calculated for each line with respect to the standard,
+again using NLTE $<$3D$>$ corrections.  Flattening the slopes in 
+$\Delta \log \epsilon$(\ion{Fe}{1}) with EP and REW provide the
+relative temperature and microturbulent velocity offsets for the
+target, while the offset between the $\Delta
+\log\epsilon$(\ion{Fe}{1}) and $\Delta \log \epsilon$(\ion{Fe}{2})
+abundances is then used to determine the relative $\log g$.  These
+relative offsets are then applied to the NLTE atmospheric parameters
+of the standard stars.  If the atmospheric parameters are
+  in better agreement with another standard, the more appropriate
+  standard is selected and the process is redone.  Note that the
+  choice of standard does not significantly affect the final
+  atmospheric parameters, unless the two stars have very different
+  parameters (and therefore few lines in common); in this case, the
+  final atmospheric parameters indicate that another standard would be
+  more appropriate. This process is very similar to that of
+\citet{OMalley2017}, except that this analysis utilizes $<$3D$>$ NLTE
+corrections.
+
+The final NMTD atmospheric parameters are shown in Table
+\ref{table:FinalAtmParams}.  Because LTE parameters are still widely
+used in the community, LTE parameters are also provided in Appendix
+\ref{appendix:LTE}.  However, it is worth noting that the NMTD values
+in this paper produce similar results to the photometric temperatures
+and gravities, and the LTE values may not be the best choice for
+comparisons with literature values.
+
+The spectroscopic temperatures, gravities, and metallicities can be
+directly compared to stellar isochrones, e.g., the BaSTI/Teramo models
+\citep{BaSTIref}.  Figure \ref{fig:HRD} shows a spectroscopic
+HR-Diagram with the standard and target stars color-coded by [Fe/H].
+Overplotted are 14 Gyr, $\alpha$-enhanced BaSTI isochrones at
+$[\rm{Fe/H}] = -1.84$, $-2.14$ and $-2.62$.  The BaSTI isochrones
+persist through the AGB phase; extended AGBs with a mass-loss
+parameter of $\eta=-0.2$ are shown. Some of the brightest stars are
+slightly hotter than the RGB for their [Fe/H], indicating that they
+may be AGB stars.  Four of the targets are main-sequence stars.
+
+
+\begin{figure}[h!]
+\begin{center}
+\centering
+\includegraphics[scale=0.65,trim=0.8in 0.4in 0.5in 0.35in,clip]{HRD.eps}
+\caption{A Hertzsprung-Russell diagram showing surface gravity versus
+  effective temperature.  The standard stars are shown in the left
+  panel, while the targets are shown in the right panel; both are
+  color-coded by [Fe/H].  Three BaSTI isochrones are shown, with
+  $[\rm{Fe/H}] = -1.84$, $-2.14$, and $-2.62$ (both with
+  $[\alpha/\rm{Fe}]=+0.4$ and ages of 14 Gyr).\label{fig:HRD}}
+\end{center}
+\end{figure}
+
+
+
+\startlongtable
+\begin{deluxetable}{@{}cccccDDD}
+\tabletypesize{\scriptsize}
+\tablecolumns{8}
+\tablewidth{0pt}
+\tablecaption{Atmospheric Parameters and [C/Fe]: Target Stars\tablenotemark{a}\label{table:FinalAtmParams}}
+%\centering
+\hspace*{-4in}
+%\begin{center}
+%  \newcolumntype{d}[1]{D{,}{\pm}{#1}}
+%  \newcolumntype{e}[1]{D{.}{.}{#1}}
+%  \begin{tabular}{@{}lcccccccccd{3}@{}}
+\tablehead{
+Star & Reference Standard & $T_{\rm{eff}}$ (K)\tablenotemark{b} &
+$\log g$\tablenotemark{b} & $\xi$ (km/s)\tablenotemark{b} &
+\multicolumn{2}{c}{[\ion{Fe}{1}/H] ($N$)\tablenotemark{c}} & \multicolumn{2}{c}{[\ion{Fe}{2}/H] ($N$)\tablenotemark{c}} & \multicolumn{2}{c}{[C/Fe]\tablenotemark{d}}
+}
+\decimals
+\startdata
+J0007$-$0345   & TYC 5329-1927-1  & 4663 & 1.48 & 2.07 & -2.09\pm0.01\;\;(91)  & -2.10\pm0.03\;\;(24) &  0.17\pm0.07 \\ %DONE!
+J0012$-$1816   & BD$-$01 2582       & 4985 & 2.44 & 1.27 & -2.28\pm0.01\;\;(94)  & -2.27\pm0.02\;\;(17) & -0.26\pm0.15 \\ %DONE!
+J0022$-$1724   & HE 1116-0634     & 4718 & 1.11 & 1.29 & -3.38\pm0.03\;\;(30)  & -3.44\pm0.11\;\;(3)  &  1.87\pm0.13\tablenotemark{e} \\ %DONE!
+J0030$-$1007   & TYC 4924-33-1    & 4831 & 1.48 & 1.97 & -2.35\pm0.02\;\;(90)  & -2.34\pm0.06\;\;(14) &  0.50\pm0.20 \\ %DONE!
+J0053$-$0253   & TYC 6535-3183-1  & 4370 & 0.56 & 1.81 & -2.16\pm0.01\;\;(93)  & -2.16\pm0.04\;\;(25) &  0.40\pm0.07 \\ %DONE!
+J0054$-$0611   & TYC 4995-333-1   & 4707 & 1.03 & 1.74 & -2.32\pm0.02\;\;(89)  & -2.37\pm0.08\;\;(15) &  0.50\pm0.14 \\ %DONE!
+J0107$-$0524   & BD$-$01 2582       & 5225 & 3.03 & 1.20 & -2.32\pm0.01\;\;(82)  & -2.36\pm0.03\;\;(13) & -0.09\pm0.07 \\ %DONE!
+J0145$-$2800   & TYC 4995-333-1   & 4582 & 0.69 & 1.57 & -2.60\pm0.02\;\;(79)  & -2.58\pm0.05\;\;(12) &  0.34\pm0.15 \\ %DONE!
+J0156$-$1402   & TYC 4995-333-1   & 4622 & 1.09 & 2.27 & -2.08\pm0.02\;\;(86)  & -2.07\pm0.05\;\;(20) &  0.37\pm0.13 \\ %DONE!
+%20120908\_0202 & None             & 5556 & 3.41 & 1.14 & -1.65\pm0.01\;\;(116) & -1.60\pm0.04\;\;(21) & -0.15\pm0.13 \\ %DONE!  MOVE TO STDS!!!!!!!!
+2MJ0213$-$0005 & TYC 5911-452-1   & 6225 & 4.54 & 2.33 & -1.88\pm0.02\;\;(38)  & -1.93\pm0.08\;\;(5)  & -0.38\pm0.07 \\ %DONE!
+\enddata
+%\end{tabular}\\
+%\end{center}
+\tablenotetext{a}{Only a portion of this table is shown here to
+  demonstrate its form and content. A machine-readable version of the
+  full table is available.}
+\tablenotetext{b}{Errors in the atmospheric parameters are discussed
+  in Section \ref{subsec:AtmParamErrors}.}
+\tablenotetext{c}{The quoted uncertainty is the random error in the
+  mean, and is the line-to-line dispersion divided by $\sqrt{N}$,
+  where $N$ is the number of spectral lines.}
+\tablenotetext{d}{The [C/Fe] ratios have been corrected for
+  evolutionary effects \citep{Placco2014}.}
+\tablenotetext{e}{The star's high [C/Fe] makes it a CEMP star,
+  according to the $[\rm{C/Fe}]>+0.7$ criterion.}
+%\medskip
+%\raggedright .\\
+\end{deluxetable}
+
+A small number of stars were also erroneously flagged as metal-poor
+($[\rm{Fe/H}]<-1$) in the moderate-resolution observations.  These
+stars are shown in Table \ref{table:BadGuys}, and include hot,
+metal-rich stars and cool M dwarfs.
+
+
+\begin{deluxetable}{@{}cc}
+\tabletypesize{\scriptsize}
+\tablecolumns{2}
+\tablewidth{0pt}
+\tablecaption{Stars that are Likely not Metal-Poor}\label{table:BadGuys}
+%\centering
+\hspace*{-4in}
+%\begin{center}
+%  \newcolumntype{d}[1]{D{,}{\pm}{#1}}
+%  \newcolumntype{e}[1]{D{.}{.}{#1}}
+%  \begin{tabular}{@{}lcccccccccd{3}@{}}
+\tablehead{
+ & Type
+}
+\startdata
+J0120$-$2622       & Hot, metal-rich star\\  %20040825_0111
+%J022938.7-130747       & Hot, modestly metal-poor star ($[\rm{Fe/H}] \sim -1.2$)\\ %20040902_0231
+%J045623.2-153258       & Metal-rich star ($[\rm{Fe/H}] \sim -0.5$)\\ %20121015\_0454 (NOTE: There is a nearby star, may be the MP candidate)
+J0958$-$0323       & Hot, modestly metal-rich star ($[\rm{Fe/H}] \sim -0.8$)\\ %R026608
+J1555$-$0359       & M star\\ %R052288
+%J181146.8-212609       & Modestly metal-poor star ($[\rm{Fe/H}] \sim -1.2$)\\ %20061021\_1813
+\enddata
+%\end{tabular}\\
+%\end{center}
+%\medskip
+%\raggedright .\\
+\end{deluxetable}
+
+\subsection{Carbon}\label{subsec:CFe}
+Carbon abundances were determined from syntheses of the CH $G$-band at
+4312 \AA \hspace{0.025in} and the neighboring feature at 4323 \AA.  In
+some stars, particularly the hotter ones, only upper limits are
+available.  The evolutionary corrections of \citet{Placco2014} were
+applied to account for C depletion after the first dredge up.  Most of
+the stars have [C/Fe] ratios that are consistent with typical
+metal-poor MW halo stars, though there are a few carbon-enhanced
+metal-poor (CEMP) stars with $[\rm{C/Fe}]~>~+~0.7$.  One of the standards,
+BD$-$01 2582, is a CEMP star, in agreement with \citet{Roederer2014}.
+Of the targets, eight are found to be CEMP stars---these stars will be
+further classified according to their $r$- and $s$-process enrichment
+in Section \ref{subsec:TargetAbunds}.
+
+\subsection{Uncertainties in Atmospheric Parameters}\label{subsec:AtmParamErrors}
+Uncertainties in the atmospheric parameters are calculated for
+seven standard stars covering a range in [Fe/H], temperature, and
+surface gravity.  The full details are given in Appendix
+\ref{appendix:Errors}.  Briefly, because the parameters are determined
+from Fe lines, the uncertainties increase with decreasing [Fe/H] and
+increasing temperature, a natural result of having fewer \ion{Fe}{1}
+and \ion{Fe}{2} lines.  The detailed analysis in Appendix
+\ref{appendix:Errors} demonstrates that the typical uncertainties in
+temperature range from 20 to 200 K, in $\log g$ from 0.05 to 0.3 dex,
+and in microturbulence from $0.10$ to $0.35$ km s$^{-1}$.  These
+parameters are not independent, as demonstrated by the
+covariances in Table \ref{table:AppendixErrors}---however, the
+covariances are generally fairly small.
+
+
+%\clearpage
+
+\section{Chemical Abundances}\label{sec:Abunds}
+All abundances are determined in
+{\texttt{MOOG}}.  In general, lines with $\rm{REW}>-4.7$ are not
+utilized because of issues with damping and treatment of the outer
+layers of the atmosphere \citep{McWilliam1995}; some exceptions are
+made, and are noted below.  The line lists were generated with the
+{\tt linemake}
+code\footnote{\vspace{0.5in}\url{https://github.com/vmplacco/linemake}},
+and include hyperfine structure, isotopic splitting, and molecular
+lines from CH, C$_{2}$, and CN.  Abundances of Mg, Si, K, Ca, Sc, Ti,
+V, Cr, Mn, and Ni were determined from EWs (see Table
+\ref{table:EWs}), while abundances of Li, O, Na, Al, Cu, Zn, Sr, Y,
+Zr, Ba, La, Ce, Pr, Nd, Sm, Eu, Dy, Os, and Th were determined from
+spectrum syntheses (see Table \ref{table:SSs}), whenever the lines are
+sufficiently strong. Note that most of the stars will only have
+detectable lines from a handful of these latter elements.
+
+%\citet{Cowan2005}, \citet{Xu2007}, and \citet{Sneden2009}
+
+All [X/H] ratios are calculated line-by-line with respect to the Sun
+when the Solar line is sufficiently weak (REW$<-4.7$; see Table
+\ref{table:SSs}); otherwise, the Solar abundance from
+\citet{Asplund2009} is adopted. The Solar EWs from
+\citet{Fulbright2006,Fulbright2007} are adopted when EW analyses are
+used.  The use of ionization equilibrium to derive $\log g$ ensures
+that [\ion{Fe}{1}/H] and [\ion{Fe}{2}/H] are equal within the errors;
+regardless, [X/Fe] ratios for singly ionized species utilize
+\ion{Fe}{2}, while neutral species utilize \ion{Fe}{1}.  Systematic
+errors that occur as a result of uncertainties in the atmospheric
+parameters are discussed in Appendix \ref{appendix:Errors}.
+
+Table \ref{table:SrBaEuAbunds} shows the abundances of Sr, Ba, and Eu
+and the corresponding classifications, while the other abundances are
+given in Table \ref{table:Abunds}.  The stars are classified according
+to their $r$-process enhancement, where $[\rm{Ba/Eu}]<0$ defines stars
+without significant $s$-process contamination.  The $r$-I and $r$-II
+definitions ($+0.3\le[\rm{Eu/Fe}]\le+1$ and $[\rm{Eu/Fe}]>+1$,
+respectively) are from \citet{BeersChristlieb2005}, and the
+limited-$r$ definition ($[\rm{Eu/Fe}] < +0.3$, $[\rm{Sr/Ba}]>+0.5$) is
+from \citet{Frebel2018}.  The CEMP-$r$ definition has been expanded to
+include $r$-I stars, as in \citet{Hansen2018}.  Stars with
+$0~<~[\rm{Ba/Eu}]~<~+~0.5$ are classified as $r/s$, following the
+scheme from \citet{BeersChristlieb2005}. However, recent work by
+\citet{Hampel2016}  attributes the heavy-element abundance patterns in
+these stars to the $i$-process, a form of neutron-capture
+nucleosynthesis with neutron densities \textit{intermediate} between
+the $r$- and $s$-processes \citep{CowanRose1977,Herwig2011}.
+The stars with $[\rm{Eu/Fe}] < +0.3$, $[\rm{Ba/Eu}]~<~0$, and
+$[\rm{Sr/Ba}]<+0.5$ are not $r$-process-enhanced, and are classified
+as ``not-RPE.'' 
+
+Below, the abundances of the standard stars are compared with the
+literature values, the abundances of the target stars are introduced,
+and the abundances and $r$-process classifications of the target stars
+are presented.
+
+\subsection{Standard Stars: Comparison with Literature Values}\label{subsec:StandardAbunds}
+With the exception of Fe (for some stars), all literature abundances
+were determined only under assumptions of LTE; any offsets from
+previous analyses are thus likely driven by the differences in
+the atmospheric parameters (see Appendix \ref{appendix:Errors}).  The
+abundance offsets between this study and those in the literature are
+shown in Figure \ref{fig:CompAbunds_Teff}, utilizing the LTE
+abundances from \citet{Barklem2005}, \citet{Boesgaard2011},
+\citet{Hollek2011}, \citet{Ruchti2011}, \citet{Roederer2014}, and
+\citet{Thanathibodee2016}.  The abundances are given as a function of
+the difference in temperature, and are color-coded according to their
+[Fe/H] or [X/Fe] ratios.  Only the most important elements for this
+paper are shown: Fe, the proxy for metallicity; C, which is necessary
+to identify CEMP stars; Mg, a representative for the
+$\alpha$-abundance; and Sr, Ba, and Eu, which are used to characterize
+the $r$- and $s$-process enrichment.  Figure \ref{fig:CompAbunds_Teff}
+shows that there is a strong dependence on temperature for [Fe/H],
+with good agreement when the temperatures are similar.  There are
+fewer data points for the other elements, yet they show decent
+agreement even with large temperature offsets except for a few
+outliers.
+
+Despite slight differences in the abundance ratios, the Sr, Ba, and Eu
+ratios lead to $r$-process classifications (Table
+\ref{table:SrBaEuAbunds}) that agree with those from the literature:
+CS 31082-001, HE 1523$-$0901, and J2038$-$0023 are correctly identified as
+$r$-II stars, while TYC 75-1185-1 and BD$-$02 5957 are identified as
+$r$-I stars. Some of these stars have not had previous analyses of the
+neutron-capture elements, since \citet{Ruchti2011} only examined the
+$\alpha$-elements. This paper has therefore discovered three new
+$r$-I stars in the standard sample: TYC 5329-1927-1, TYC 6535-3183-1,
+and TYC 6900-414-1.  CS 22169$-$035, HE 1320$-$1339, and HD 122563 were
+correctly found to have ``limited-$r$'' signatures (see
+\citealt{Frebel2018}); BD$-$13 3442's abundances hint at a possible
+limited-$r$ signature as well, based on its [Sr/Ba] ratio.  This
+analysis has also re-identified a CEMP-$s$ star, BD$-$01 2582, and a
+number of metal-poor stars with $[\rm{Eu/Fe}]<+0.3$.
+
+\begin{figure}[h!]
+\begin{center}
+\centering
+\includegraphics[scale=0.65]{CompAbunds_Teff.eps}
+\caption{Offsets between the abundances in this paper and those from
+  the literature, as a function of offsets in the adopted effective
+  temperature.  Note that the literature atmospheric parameters are
+  all derived in slightly different ways.  With the
+    exception of some [Fe/H] ratios, all literature abundances were
+    determined under assumptions of LTE.  References for literature abundances are
+  given in the text.\label{fig:CompAbunds_Teff}} 
+\end{center}
+\end{figure}
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\clearpage
+
+\subsection{Abundances of Target Stars}\label{subsec:TargetAbunds}
+
+\subsubsection{$r$-Process Enhancement}\label{subsubsec:RPE}
+The ultimate goal of this paper is to identify $r$-process-enhanced
+metal-poor stars; particular emphasis is therefore placed on the
+elements used for this classification, Sr, Ba, and Eu, which are all
+determined via spectrum syntheses (see Figure \ref{fig:Synths}).  The
+\ion{Sr}{2} line at 4077 \AA \hspace{0.025in} is frequently too strong
+for a reliable abundance; conversely, the line at 4161
+\AA \hspace{0.025in} is frequently too weak.  The line at
+4215~\AA \hspace{0.025in} is generally the best of the three lines,
+though it is occasionally slightly stronger than the $\rm{REW}=-4.7$
+limit. In this case, the Y abundances provide additional constraints
+on the lighter neutron-capture elements.  Ba abundances are determined
+for all of the stars in the sample, from the \ion{Ba}{2} 4554, 5853,
+6141, and 6496 \AA \hspace{0.025in} lines.  The 4554
+\AA \hspace{0.025in} line is really only sufficiently weak in the
+hottest ($T\ga 6000$ K) or most barium-poor ($[\rm{Ba/H}] \la -3$)
+stars.  Note that the strong 4554 \AA \hspace{0.025in} \ion{Ba}{2} and
+4077 and 4215 \AA \hspace{0.025in} \ion{Sr}{2} lines may be affected
+by NLTE effects; however, \citet{ShortHauschildt2006} quote an offset
+in Ba of only $+0.14$ dex in red giant stars, with smaller effects on
+Sr.
+
+Eu abundances or upper limits are also provided for all stars,
+from the \ion{Eu}{2} 4129, 4205, 4435, and (only in certain cases)
+6645~\AA \hspace{0.025in} lines.  In some cases, the Eu upper limits
+may not be sufficient to determine if the star is
+$r$-process-enhanced, particularly if the star is hotter than 
+$\sim 5500$ K. Occasionally, the lower limits in [Ba/Eu] lie below the
+lower limit for the Solar $r$-process residual; in this case, a second
+set of limits is also provided in parentheses in Table
+\ref{table:SrBaEuAbunds}, assuming that $[\rm{Ba/Eu}]~>~-~0.89$
+\citep{Burris2000}.  Table \ref{table:SrBaEuAbunds} shows the
+classifications for the 20 standards and the 126 new targets.
+
+Seven of the target stars and three of the standards overlap with the
+Southern Hemisphere sample from \citet{Hansen2018}---Figure
+\ref{fig:CompAbunds_TH} shows the parameter and abundance comparison.
+The temperatures, [Fe/H], and [Eu/Fe] ratios are generally in good
+agreement; though Hansen et al. did not employ NLTE corrections, they
+did use the \citet{Frebel2013} correction to their spectroscopic
+temperatures.  The Sr abundances in this paper are slightly lower, on
+average, than Hansen et al., and there are occasional disagreements in
+[Ba/Fe]. Still, the $r$-I and $r$-II classifications match, with one
+exception: Hansen et al. classify CS 22169-035 as an $r$-I star while
+here it is classified as limited-$r$.
+
+
+
+\startlongtable
+\begin{deluxetable}{@{}lcDDDDD}
+\tabletypesize{\scriptsize}
+%\tablecolumns{2}
+\tablewidth{0pt}
+\tablecaption{$r$-Process-Enhancement Classifications and Sr, Ba, and Eu Abundance Ratios\label{table:SrBaEuAbunds}}
+%\centering
+%\hspace*{-4.5in}
+%\begin{center}
+%  \newcolumntype{d}[1]{D{,}{\pm}{#1}}
+%  \newcolumntype{e}[1]{D{.}{.}{#1}}
+%  \begin{tabular}{@{}lcccccccccd{3}@{}}
+\tablehead{
+Star       & Class      & \multicolumn{2}{c}{[Sr/Fe]} & \multicolumn{2}{c}{[Ba/Fe]} & \multicolumn{2}{c}{[Eu/Fe]} & \multicolumn{2}{c}{[Ba/Eu]} & \multicolumn{2}{c}{[Sr/Ba]} }
+\decimals
+\startdata
+{\bf Standards} & & \multicolumn{2}{c}{ } & \multicolumn{2}{c}{ } & \multicolumn{2}{c}{ } & \multicolumn{2}{c}{ } & \multicolumn{2}{c}{ } \\
+CS 31082-001 & $r$-II   &  0.27\pm0.10\;\;(1) &  1.22\pm0.05\;\;(3) & 1.72\pm0.05\;\;(4) & -0.50\pm0.07 & -0.95\pm0.11 \\ %20090723_0122
+TYC 5861-1732-1 & not-RPE  & -0.48\pm0.10\;\;(1) & -0.45\pm0.05\;\;(3) & \multicolumn{2}{c}{$<0.29$} & \multicolumn{2}{c}{$>-0.16$} & -0.03\pm0.11 \\ %20061101_0205
+CS 22169-035 & limited-$r$ & -0.07\pm0.20\;\;(1) & -1.44\pm0.10\;\;(2) & \multicolumn{2}{c}{$<0.01\;\; (<-0.55\tablenotemark{a})$} & \multicolumn{2}{c}{$>-1.45\;\;(>-0.89)$} & 1.51\pm0.22 \\ %20051022_0418
+TYC 75-1185-1   & $r$-I    & -0.28\pm0.07\;\;(2) &  0.0\pm0.05\;\;(3)  & 0.78\pm0.05\;\;(2) & -0.78\pm0.07 & -0.28\pm0.09 \\ %20080108_0426
+TYC 5911-452-1  & not-RPE  & -0.23\pm0.07\;\;(2) & -0.68\pm0.10\;\;(1) & \multicolumn{2}{c}{$<0.72\;\; (<-0.21\tablenotemark{a})$} & \multicolumn{2}{c}{$>-1.40\;\;(>-0.89)$} & 0.45\pm0.12 \\ %20051209_0456
+TYC 5329-1927-1 & $r$-I\tablenotemark{b}& -0.07\pm0.10\;\;(1) &  0.13\pm0.10\;\;(1) & 0.89\pm0.05\;\;(2) & -0.76\pm0.11 & -0.20\pm0.14 \\ %20061217_0515
+TYC 6535-3183-1 & $r$-I\tablenotemark{b}& -0.19\pm0.20\;\;(1) & -0.19\pm0.05\;\;(1) & 0.31\pm0.04\;\;(2) & -0.50\pm0.06 & 0.00\pm0.21   \\ %20080312_0659
+TYC 4924-33-1   & not-RPE  & -0.21\pm0.10\;\;(1) & -0.44\pm0.05\;\;(3) & 0.20\pm0.14\;\;(2) & -0.64\pm0.15 &  0.23\pm0.11 \\ %R105683
+HE 1116$-$0634  & not-RPE  & -2.06\pm0.07\;\;(2) & -2.03\pm0.20\;\;(1) & \multicolumn{2}{c}{$<0.67\;\; (<-1.14\tablenotemark{a})$} & \multicolumn{2}{c}{$>-2.70\;\;(>-0.89)$} & -0.03\pm0.21 \\ %R102003
+TYC 6088-1943-1 & not-RPE  & -0.20\pm0.20\;\;(1) & -0.48\pm0.06\;\;(3) & \multicolumn{2}{c}{$<0.06$} & \multicolumn{2}{c}{$>-0.54$} & 0.28\pm0.21 \\ %20060506_1122
+BD$-$13 3442   & limited-$r$?& 0.15\pm0.09\;\;(2) & -0.60\pm0.20\;\;(1) & \multicolumn{2}{c}{$<1.70\;\; (<0.29\tablenotemark{a})$} & \multicolumn{2}{c}{$>-2.30\;\;(>-0.89)$} & 0.75\pm0.22 \\ %20090323_1143
+BD$-$01 2582   & CEMP-$s$ &  0.48\pm0.15\;\;(1) &  1.28\pm0.05\;\;(3) & 0.74\pm0.05\;\;(3) &  0.54\pm0.06 & -0.80\pm0.16  \\ %20080504_1153
+HE1317$-$0407  & not-RPE   & -0.02\pm0.10\;\;(1) & -0.33\pm0.03\;\;(3) & 0.18\pm0.10\;\;(1) & -0.51\pm0.10 &  0.31\pm0.10  \\ %R106978
+HE1320$-$1339  & limited-$r$ &  0.50\pm0.14\;\;(2) & -0.51\pm0.04\;\;(2) & -0.08\pm0.10\;\;(1) & -0.43\pm0.11 & 1.01\pm0.15 \\ %20080331_1324
+HD 122563     & limited-$r$ & -0.13\pm0.10\;\;(1) & -0.92\pm0.03\;\;(3) & -0.32\pm0.05\;\;(2) & -0.60\pm0.06 & 0.79\pm0.10 \\ %R463876
+TYC 4995-333-1  & not-RPE   & -0.24\pm0.20\;\;(1) & -0.19\pm0.05\;\;(3) & 0.18\pm0.05\;\;(1) & -0.37\pm0.07 & -0.05\pm0.21  \\ %K003358
+HE 1523$-$0901  & $r$-II   &  0.57\pm0.20\;\;(1) &  1.27\pm0.05\;\;(1) & 1.82\pm0.05\;\;(1) & -0.55\pm0.07 & -0.70\pm0.21  \\ %R186005
+TYC 6900-414-1  & $r$-I\tablenotemark{b}& -0.68\pm0.10\;\;(1) &  0.08\pm0.07\;\;(2) & 0.49\pm0.07\;\;(2) & -0.41\pm0.10 & -0.76\pm0.12  \\ %20060507_1957
+J2038$-$0023   & $r$-II   &  0.82\pm0.10\;\;(1) &  0.69\pm0.05\;\;(1) & 1.42\pm0.10\;\;(1) & -0.73\pm0.11 &  0.13\pm0.11  \\ %R443130
+BD$-$02 5957   & $r$-I    &  0.45\pm0.20\;\;(1) &  0.40\pm0.04\;\;(3) &
+0.91\pm0.06\;\;(2) & -0.51\pm0.07 &  0.05\pm0.20  \\ %R206005
+ & & \multicolumn{2}{c}{ } & \multicolumn{2}{c}{ } & \multicolumn{2}{c}{ } & \multicolumn{2}{c}{ } & \multicolumn{2}{c}{ } \\
+{\bf Targets} & & \multicolumn{2}{c}{ } & \multicolumn{2}{c}{ } & \multicolumn{2}{c}{ } & \multicolumn{2}{c}{ } & \multicolumn{2}{c}{ } \\
+J0007$-$0345 & $r$-I      &  0.41\pm0.20\;\;(1) &  0.11\pm0.07\;\;(2) & 0.73\pm0.04\;\;(3) & -0.62\pm0.08 & 0.41\pm0.22 \\  %R328958
+J0012$-$1816 & not-RPE    & -0.51\pm0.10\;\;(1) & -0.63\pm0.05\;\;(3) & \multicolumn{2}{c}{$<-0.12$} & \multicolumn{2}{c}{$>-0.51$} &  0.12\pm0.12 \\  %20091024_0006
+J0022$-$1724 & CEMP-no    & -0.83\pm0.10\;\;(1) & -0.73\pm0.10\;\;(2) & \multicolumn{2}{c}{$<2.12\;\; (<0.16\tablenotemark{a})$} & \multicolumn{2}{c}{$>-2.85\;\;(>-0.89)$} & -0.10\pm0.14  \\  %20051010_0032
+J0030$-$1007 & limited-$r$   &  0.50\pm0.20\;\;(1) & -0.71\pm0.03\;\;(2) & 0.0\pm0.10\;\;(2)  & -0.71\pm0.10 & 1.21\pm0.20  \\  %20101004_0021
+J0053$-$0253 & $r$-I      & -0.05\pm0.10\;\;(1) & -0.24\pm0.03\;\;(2) & 0.39\pm0.02\;\;(3) & -0.63\pm0.04 & 0.19\pm0.10  \\  %K129514
+J0054$-$0611 & $r$-I      &  0.26\pm0.20\;\;(1) & -0.21\pm0.05\;\;(3) & 0.59\pm0.11\;\;(2) & -0.80\pm0.12 & 0.47\pm0.21 \\  %20060926_0100
+J0107$-$0524 & limited-$r$&  0.14\pm0.10\;\;(1) & -0.61\pm0.06\;\;(3) & \multicolumn{2}{c}{$<0.16$} & \multicolumn{2}{c}{$>-0.77$} & 0.75\pm0.12 \\  %20090919_0100
+J0145$-$2800 & limited-$r$& -0.02\pm0.20\;\;(1) & -1.05\pm0.06\;\;(2) & \multicolumn{2}{c}{$<0.10\;\; (<-0.16\tablenotemark{a})$} & \multicolumn{2}{c}{$>-1.15\;\;(>-0.89)$} & 1.03\pm0.21  \\  %20090909_0150
+J0156$-$1402 & $r$-I      &  0.10\pm0.20\;\;(1) & -0.11\pm0.10\;\;(1) & 0.76\pm0.06\;\;(3) & -0.87\pm0.12 & 0.21\pm0.22 \\  %20061208_0154
+J0213$-$0005 & not-RPE    & -0.54\pm0.06\;\;(2) &  0.05\pm0.07\;\;(2) & \multicolumn{2}{c}{$<0.16$} & \multicolumn{2}{c}{$>-0.11$} & -0.59\pm0.09 \\  %20110904_0219
+J0227$-$0519 & $r$-I      &  0.72\pm0.10\;\;(1) & -0.18\pm0.10\;\;(1) & 0.42\pm0.06\;\;(3) & -0.60\pm0.12 & 0.90\pm0.14 \\  %R146595
+J0229$-$1307 & ?          & -0.37\pm0.14\;\;(2) & -0.32\pm0.07\;\;(2) & \multicolumn{2}{c}{$<0.95\;\; (<0.57\tablenotemark{a})$} & \multicolumn{2}{c}{$>-1.27\;\;(>-0.89)$} & -0.05\pm0.16  \\ %20040902_0231
+J0236$-$1202 & not-RPE    & -0.41\pm0.10\;\;(1) & -0.29\pm0.08\;\;(3) & <0.30              & >-0.59       & -0.12\pm0.13 \\ %20090929_0232
+J0241$-$0427 & $r$-I      &  0.24\pm0.20\;\;(1) & -0.26\pm0.06\;\;(3) & 0.48\pm0.07\;\;(2) & -0.74\pm0.09 & 0.50\pm0.21 \\  %R198338
+J0242$-$0707 & ?          &  0.37\pm0.13\;\;(2) & -0.08\pm0.10\;\;(1) & \multicolumn{2}{c}{$<1.04$ ($<0.82$\tablenotemark{a})} & \multicolumn{2}{c}{$>-1.12$ ($>-0.89$)} & 0.45\pm0.16 \\  %20041202_0238
+J0243$-$3249 & not-RPE?   & \multicolumn{2}{c}{$<-0.59$} & -0.95\pm0.09\;\;(4) & \multicolumn{2}{c}{$<0.93$ ($<0.05$\tablenotemark{a})} & \multicolumn{2}{c}{$>-1.88$ ($>-0.89$)} & \multicolumn{2}{c}{$<0.36$} \\  %20070918_0235
+J0246$-$1518 & $r$-II     &  0.33\pm0.20\;\;(1) &  0.65\pm0.06\;\;(3) & 1.29\pm0.07\;\;(2) & -0.64\pm0.09 & -0.42\pm0.21 \\ %20110831_0243
+J0307$-$0534 & $r$-I      &  0.38\pm0.20\;\;(1) &  0.17\pm0.06\;\;(3) & 0.50\pm0.07\;\;(2) & -0.33\pm0.09 & 0.21\pm0.21 \\ %R210669
+J0313$-$1020 & $r$-I      & -0.17\pm0.20\;\;(1) & -0.12\pm0.06\;\;(3) & 0.42\pm0.07\;\;(2) & -0.54\pm0.09 & -0.05\pm0.21 \\ %20100902_0320
+J0343$-$0924 & $r$-I      & -0.02\pm0.20\;\;(1) & -0.07\pm0.10\;\;(1) & 0.38\pm0.07\;\;(2) & -0.45\pm0.12 &  0.05\pm0.22 \\ %R147175
+J0346$-$0730 & not-RPE    &  0.11\pm0.10\;\;(1) & -0.19\pm0.06\;\;(3) & 0.16\pm0.06\;\;(2) & -0.35\pm0.08 & 0.30\pm0.12 \\ %R339006
+J0355$-$0637 & limited-$r$&  0.50\pm0.15\;\;(1) & -0.28\pm0.07\;\;(2) & 0.25\pm0.07\;\;(2) & -0.53\pm0.10 &  0.78\pm0.17 \\ %R339027
+J0419$-$0517 & $r$-I      &  0.23\pm0.20\;\;(1) &  0.0\pm0.10\;\;(1)  & 0.40\pm0.07\;\;(2) & -0.40\pm0.12 & 0.23\pm0.22 \\ %R334021
+J0423$-$1315 & not-RPE    & -0.24\pm0.20\;\;(1) & -0.29\pm0.10\;\;(1) & 0.08\pm0.15\;\;(1) & -0.37\pm0.18 & 0.05\pm0.22 \\ %20070119_0430
+J0434$-$2325 & limited-$r$?& -0.42\pm0.07\;\;(2) & -2.27\pm0.11\;\;(2) & \multicolumn{2}{c}{$<-0.53$ ($<-1.38$\tablenotemark{a})} & \multicolumn{2}{c}{$>-1.74$ ($>-0.89$)} & 1.85\pm0.13 \\ %20071002_0427
+J0441$-$2303 & ?          & -0.22\pm0.20\;\;(1) & -0.41\pm0.13\;\;(2) & \multicolumn{2}{c}{$<0.55$ ($<0.48$\tablenotemark{a})} & \multicolumn{2}{c}{$>-0.96$ ($>-0.89$)} & 0.19\pm0.24 \\ %20091121_0445
+J0453$-$2437 & $r$-I      & -0.21\pm0.10\;\;(1) & -0.04\pm0.07\;\;(3) & 0.59\pm0.05\;\;(3) & -0.63\pm0.09 & -0.17\pm0.12 \\ %20061125_0452
+J0456$-$3115 & $r$-I      &  0.02\pm0.20\;\;(2) & -0.33\pm0.10\;\;(1) & 0.34\pm0.10\;\;(1) & -0.67\pm0.14 & 0.35\pm0.22 \\ %20090106_0457
+J0505$-$2145 & not-RPE    & -0.22\pm0.20\;\;(1) & -0.32\pm0.07\;\;(2) & 0.15\pm0.08\;\;(2) & -0.47\pm0.11 & 0.10\pm0.21 \\ %20051209_0456_2
+J0517$-$1342 & not-RPE    & -0.43\pm0.11\;\;(2) & -0.43\pm0.06\;\;(3) & 0.21\pm0.07\;\;(2) & -0.64\pm0.09 & 0.0\pm0.13 \\ %20091023_0515
+J0525$-$3049 & not-RPE    &  0.40\pm0.15\;\;(1) &  0.02\pm0.07\;\;(2) & 0.12\pm0.20\;\;(1) & -0.10\pm0.21 & 0.38\pm0.17 \\ %20050128_0535
+%20110129_0552
+J0610$-$3141 & limited-$r$?& -0.37\pm0.20\;\;(1) & -1.57\pm0.10\;\;(1) & \multicolumn{2}{c}{$<1.30$ ($<-0.68$\tablenotemark{a})} & \multicolumn{2}{c}{$>-2.87$ ($>-0.89$)} & 1.20\pm0.22 \\ %20121215_0612
+J0705$-$3343 & $r$-I      &  0.03\pm0.15\;\;(1) & -0.17\pm0.06\;\;(3) & 0.62\pm0.07\;\;(2) & -0.79\pm0.09 & 0.20\pm0.16 \\ %20061208_0709
+J0711$-$3432 & $r$-II     & $<0.24$             &  0.50\pm0.06\;\;(3) & 1.30\pm0.10\;\;(1) & -0.80\pm0.12 & $<-0.26$ \\ %20111202_0709
+%J0858-0809 & $r$-I      &  0.04\pm0.20\;\;(1) & -0.23\pm0.06\;\;(3) & 0.56\pm0.10\;\;(1) & -0.79\pm0.12 & 0.27\pm0.21 \\ %R229720
+J0910$-$1444 & limited-$r$   & -0.20\pm0.14\;\;(2) & -1.64\pm0.09\;\;(2) & \multicolumn{2}{c}{$<0.03$ ($<-0.78$\tablenotemark{a})} & \multicolumn{2}{c}{$>-1.67$ ($>-0.89$)} & 1.44\pm0.17 \\ %20111230_0914
+J0918$-$2311 & $r$-I      & -0.51\pm0.10\;\;(1) & -0.06\pm0.10\;\;(1) & 0.71\pm0.08\;\;(3) & -0.77\pm0.13 & -0.45\pm0.14 \\ %20070109_0923
+J0929$-$2905 & not-RPE    & -0.36\pm0.20\;\;(1) & -0.37\pm0.06\;\;(3) & 0.14\pm0.08\;\;(2) & -0.51\pm0.10 & 0.01\pm0.21 \\ %20060130_0932
+%20070213_0937????
+J0946$-$0626 & $r$-I      &  0.03\pm0.10\;\;(1) & -0.07\pm0.07\;\;(2) & 0.35\pm0.08\;\;(2) & -0.42\pm0.11 &  0.10\pm0.12 \\ %R165224
+J0949$-$1617 & CEMP-$r$/$s$\tablenotemark{c} &  0.16\pm0.15\;\;(1) &  0.61\pm0.10\;\;(1) & 0.36\pm0.07\;\;(2) &  0.25\pm0.12 & -0.45\pm0.18 \\ %20040408_0953
+J0950$-$2506 & not-RPE    & -0.42\pm0.20\;\;(1) & -0.57\pm0.07\;\;(2) & <0.10              & >-0.67       & 0.15\pm0.21 \\ %20110130_1002
+J0952$-$0855 & limited-$r$&  0.00\pm0.20\;\;(1)  & -1.05\pm0.05\;\;(3) & \multicolumn{2}{c}{$<0.24$ ($<-0.16$\tablenotemark{a})} & \multicolumn{2}{c}{$>-1.29$ ($>-0.89$)} & 1.05\pm0.21 \\ %R026509
+J0958$-$1446 & $r$-I      &  0.59\pm0.20\;\;(1) &  0.20\pm0.15\;\;(2) & 0.59\pm0.05\;\;(3) & -0.39\pm0.16 & 0.39\pm0.25 \\ %20070310_1004
+J1004$-$2706 & $r$-I      &  0.0\pm0.15\;\;(1)  & -0.38\pm0.06\;\;(3) & 0.41\pm0.07\;\;(2) & -0.79\pm0.09 & 0.38\pm0.16 \\ %20100418_1002
+J1022$-$3400 & $r$-I      &  0.35\pm0.20\;\;(1) & -0.29\pm0.06\;\;(3) & 0.37\pm0.06\;\;(3) & -0.66\pm0.08 & 0.64\pm0.21 \\ %20110117_1015
+J1031$-$0827 & not-RPE    &  0.24\pm0.20\;\;(1) & -0.23\pm0.06\;\;(3) & 0.26\pm0.22\;\;(2) & -0.49\pm0.23 & 0.47\pm0.21 \\ %R171577
+J1036$-$1934 & limited-$r$&  0.22\pm0.20\;\;(1) & -0.38\pm0.06\;\;(3) & 0.26\pm0.06\;\;(3) & -0.64\pm0.08 & 0.60\pm0.12 \\ %20080208_1035
+J1049$-$1154 & $r$-I      & -0.06\pm0.20\;\;(1) & -0.16\pm0.06\;\;(3) & 0.33\pm0.07\;\;(2) & -0.49\pm0.09 & 0.10\pm0.21 \\ %20050221\_1042
+J1051$-$2115 & $r$-I      &  0.03\pm0.20\;\;(1) & -0.27\pm0.07\;\;(2) & 0.32\pm0.07\;\;(2) & -0.59\pm0.10 & 0.30\pm0.21 \\ %20060312_1052
+J1059$-$2052 & $r$-I      &  0.26\pm0.07\;\;(2) & -0.07\pm0.06\;\;(3) & 0.35\pm0.06\;\;(3) & -0.42\pm0.08 & 0.33\pm0.09 \\ %20040403\_1052
+J1120$-$2406 & not-RPE    & -0.16\pm0.20\;\;(1) & -0.17\pm0.06\;\;(3) & \multicolumn{2}{c}{$<0.16$} & \multicolumn{2}{c}{$>-0.33$} & 0.01\pm0.21 \\ %20100122_1112
+J1124$-$2155 & not-RPE    &  0.20\pm0.10\;\;(1) & -0.17\pm0.06\;\;(3) & 0.22\pm0.07\;\;(2) & -0.39\pm0.09 & 0.37\pm0.12 \\ %20110423_1123
+J1130$-$1449 & $r$-I      &  0.08\pm0.07\;\;(2) & -0.12\pm0.06\;\;(3) & 0.50\pm0.07\;\;(1) & -0.62\pm0.09 & 0.20\pm0.09 \\ %20090222_1133
+J1139$-$0558 & not-RPE    & -0.10\pm0.20\;\;(1) & -0.30\pm0.06\;\;(3) & 0.29\pm0.07\;\;(2) & -0.59\pm0.09 & 0.20\pm0.21 \\ %R108176
+J1144$-$0409 & $r$-I      & -0.01\pm0.10\;\;(1) & -0.26\pm0.07\;\;(2) & 0.58\pm0.06\;\;(3) & -0.84\pm0.09 & 0.25\pm0.12 \\ %R352559
+2MJ1144$-$1128 & $r$-I    &  0.03\pm0.07\;\;(2) & -0.29\pm0.06\;\;(3) & 0.35\pm0.07\;\;(2) & -0.64\pm0.09 &  0.32\pm0.09 \\ %20050418\_1138 
+J1146$-$0422 & CEMP-$r$   & -0.28\pm0.25\;\;(1) &  0.32\pm0.10\;\;(1) & 0.62\pm0.06\;\;(3) & -0.30\pm0.12 & -0.60\pm0.27 \\ %R352561
+J1147$-$0521 & $r$-I      &  0.0\pm0.20\;\;(1)  & -0.22\pm0.06\;\;(3) & 0.31\pm0.06\;\;(3) & -0.53\pm0.08 & 0.22\pm0.21 \\ %R228908
+J1158$-$1522 & limited-$r$& -0.37\pm0.20\;\;(1) & -1.07\pm0.14\;\;(2) & \multicolumn{2}{c}{$<0.15$ ($<-0.18$\tablenotemark{a})} & \multicolumn{2}{c}{$>-1.22$ ($>-0.89$)} & 0.70\pm0.24 \\ %20040409_1200
+J1204$-$0759 & $r$-I      & -0.29\pm0.10\;\;(1) & -0.11\pm0.06\;\;(3) & 0.33\pm0.20\;\;(1) & -0.44\pm0.21 & -0.18\pm0.12 \\ %R464721
+2MJ1209$-$1415 & $r$-I    & -0.01\pm0.20\;\;(1) &  0.11\pm0.13\;\;(2) & 0.81\pm0.06\;\;(3) & -0.70\pm0.14 & -0.12\pm0.21 \\ %20070614_1202
+J1218$-$1610 & limited-$r$& -0.20\pm0.11\;\;(2) & -1.50\pm0.20\;\;(1) & \multicolumn{2}{c}{$<0.17$ ($<-0.61$\tablenotemark{a})} & \multicolumn{2}{c}{$>-1.67$ ($>-0.89$)} & 1.30\pm0.23 \\
+J1229$-$0442 & $r$-I      &  0.0\pm0.20\;\;(1)  & -0.22\pm0.06\;\;(3) & 0.46\pm0.04\;\;(4) & -0.68\pm0.07 & 0.22\pm0.21 \\ %R238261
+J1237$-$0949 & not-RPE    &  0.22\pm0.20\;\;(1) & -0.27\pm0.07\;\;(2) & 0.19\pm0.06\;\;(3) & -0.46\pm0.09 & 0.49\pm0.21 \\ %R052110
+J1250$-$0307 & $r$-I      & -0.57\pm0.14\;\;(2) &  0.10\pm0.06\;\;(3) & 0.45\pm0.12\;\;(2) & -0.35\pm0.13 & -0.67\pm0.15 \\ %20040629_1252
+J1256$-$0834 & $r$-I      &  0.32\pm0.15\;\;(1) & -0.28\pm0.07\;\;(2) & 0.45\pm0.06\;\;(3) & -0.73\pm0.09 & 0.60\pm0.17 \\ %R244844
+J1302$-$0843 & $r$/$s$\tablenotemark{c} & $<0.73$             &  0.55\pm0.07\;\;(1) & 0.41\pm0.07\;\;(2) &  0.14\pm0.09 & <0.18 \\ %R107576
+J1306$-$0947 & not-RPE    & -0.21\pm0.11\;\;(2) & -0.12\pm0.04\;\;(3) & 0.12\pm0.07\;\;(3) & -0.24\pm0.08 & -0.09\pm0.12 \\ %R291965
+2MJ1307$-$0931 & not-RPE  &  0.02\pm0.20\;\;(1) & -0.38\pm0.05\;\;(3) & 0.10\pm0.06\;\;(3) & -0.48\pm0.08 & 0.40\pm0.21 \\ %K088515
+J1321$-$1138 & not-RPE    & -0.03\pm0.15\;\;(1) & -0.36\pm0.06\;\;(3) & 0.08\pm0.07\;\;(2) & -0.44\pm0.09 & 0.33\pm0.16 \\ %20060617_1324
+2MJ1325$-$1747 & $r$-I    & -0.02\pm0.20\;\;(1) & -0.44\pm0.07\;\;(2) & 0.40\pm0.06\;\;(3) & -0.84\pm0.09 & 0.42\pm0.21 \\ %20080316_1318
+J1326$-$1525 & limited-$r$& -0.10\pm0.07\;\;(2) & -0.67\pm0.06\;\;(3) & -0.28\pm0.10\;\;(2) & -0.39\pm0.12 & 0.57\pm0.09 \\ %20060522_1332  STDS????
+J1328$-$1731 & not-RPE    & -0.02\pm0.20\;\;(1) & -0.08\pm0.06\;\;(3) & 0.20\pm0.11\;\;(1) & -0.28\pm0.13 & 0.06\pm0.21 \\ %20110307_1339
+J1333$-$2623 & limited-$r$&  0.11\pm0.12\;\;(2) & -0.55\pm0.06\;\;(3) & 0.20\pm0.08\;\;(3) & -0.75\pm0.10 & 0.66\pm0.13 \\ %20090505_1332_2
+J1335$-$0110 & $r$-I      & -0.39\pm0.20\;\;(1) & -0.22\pm0.05\;\;(3) & 0.53\pm0.07\;\;(2) & -0.75\pm0.09 & -0.17\pm0.21 \\ %R364883
+J1337$-$0826 & $r$-I      &  0.17\pm0.20\;\;(1) &  0.02\pm0.02\;\;(3) & 0.93\pm0.11\;\;(2) & -0.91\pm0.11 & 0.15\pm0.20 \\ %R088425
+J1339$-$1257 & not-RPE    &  0.08\pm0.20\;\;(1) & -0.42\pm0.06\;\;(3) & 0.10\pm0.20\;\;(1) & -0.52\pm0.21 & 0.27\pm0.21 \\  %20060727_1344
+2MJ1340$-$0016 & not-RPE  &  0.05\pm0.20\;\;(1) & -0.30\pm0.06\;\;(3) & 0.29\pm0.11\;\;(2) & -0.59\pm0.13 & 0.35\pm0.21 \\ %R176596
+J1342$-$0717 & $r$-I      &  0.04\pm0.20\;\;(1) & -0.26\pm0.06\;\;(3) & 0.44\pm0.06\;\;(3) & -0.70\pm0.08 & 0.30\pm0.21 \\ %R174836
+2MJ1343$-$2358 & CEMP-no  & -0.37\pm0.20\;\;(2) & -0.77\pm0.07\;\;(2) & \multicolumn{2}{c}{$<0.15$ ($<0.12$\tablenotemark{a})} & \multicolumn{2}{c}{$>-0.92$ ($>-0.89$)} & 0.40\pm0.21 \\ %20090505_1332_3 (formerly 1)
+J1403$-$3214 & not-RPE    & -0.60\pm0.20\;\;(1) & -0.08\pm0.06\;\;(2) & 0.12\pm0.10\;\;(1) & -0.20\pm0.12 & -0.52\pm0.21 \\ %20040627_1353
+2MJ1404$+$0011 & CEMP-$r$ &  0.43\pm0.20\;\;(1) &  0.38\pm0.07\;\;(2) & 0.58\pm0.06\;\;(3) & -0.28\pm0.09 & 0.05\pm0.21 \\ %HE1402
+J1410$-$0343 & $r$-I      & -0.15\pm0.14\;\;(2) & -0.12\pm0.06\;\;(3) & 0.67\pm0.07\;\;(2) & -0.79\pm0.09 & -0.03\pm0.15 \\ %R167703
+J1416$-$2422 & not-RPE    &  0.02\pm0.20\;\;(1) & -0.31\pm0.06\;\;(3) & 0.14\pm0.10\;\;(1) & -0.45\pm0.12 & 0.33\pm0.21 \\ %20040530_1408
+J1418$-$2842 & $r$-I      & -0.41\pm0.20\;\;(1) & -0.11\pm0.06\;\;(3) & 0.43\pm0.12\;\;(2) & -0.54\pm0.13 & -0.30\pm0.21 \\ %20080610_1410
+J1419$-$0844 & $r$-I      &  0.34\pm0.20\;\;(1) & -0.15\pm0.06\;\;(3) & 0.34\pm0.06\;\;(3) & -0.49\pm0.08 & 0.49\pm0.21 \\ %R365223
+J1500$-$0613 & $r$-I      &  0.12\pm0.09\;\;(2) & -0.10\pm0.06\;\;(3) & 0.39\pm0.06\;\;(3) & -0.49\pm0.08 & 0.32\pm0.11 \\ %R221040
+J1502$-$0528 & not-RPE    &  0.02\pm0.09\;\;(2) &  0.00\pm0.06\;\;(3) & 0.24\pm0.06\;\;(3) & -0.24\pm0.08 & 0.02\pm0.11 \\ %R117313
+J1507$-$0659 & $r$-I      &  0.12\pm0.07\;\;(2) & -0.10\pm0.06\;\;(3) & 0.36\pm0.06\;\;(3) & -0.46\pm0.08 & 0.22\pm0.09 \\ %R100565
+J1508$-$1459 & $r$-I      &  0.0\pm0.10\;\;(1)  & -0.10\pm0.06\;\;(3) & 0.49\pm0.07\;\;(3) & -0.59\pm0.09 & 0.10\pm0.12 \\ %20060327_1514
+J1511$+$0025 & $r$-I      &  0.02\pm0.20\;\;(1) & -0.18\pm0.06\;\;(3) & 0.41\pm0.06\;\;(3) & -0.59\pm0.08 & 0.20\pm0.21 \\ %R102720
+J1516$-$2122 & CEMP-no    & -0.03\pm0.20\;\;(1) & -0.48\pm0.06\;\;(3) & 0.09\pm0.07\;\;(2) & -0.59\pm0.09 &  0.45\pm0.09 \\ %20080303_1523
+2MJ1521$-$0607 & $r$-I    & -0.18\pm0.20\;\;(1) &  0.10\pm0.07\;\;(2) & 0.93\pm0.07\;\;(2) & -0.83\pm0.10 & -0.28\pm0.21 \\ %K030808
+J1527$-$2336 & ?          & -0.18\pm0.07\;\;(1) & -0.11\pm0.07\;\;(2) & <0.74             & >-0.85       & -0.07\pm0.10 \\ %20090317_1523
+J1534$-$0857 & limited-$r$& -0.33\pm0.07\;\;(2) & -1.22\pm0.05\;\;(3) & \multicolumn{2}{c}{$<-0.13$ ($<-0.33$\tablenotemark{a})} & \multicolumn{2}{c}{$>-1.09$ ($>-0.89$)} & 0.89\pm0.09 \\ %20080401_1523
+J1538$-$1804 & $r$-II     &  0.44\pm0.20\;\;(1) &  0.62\pm0.07\;\;(2) & 1.27\pm0.05\;\;(5) & -0.65\pm0.09 & -0.18\pm0.21 \\ %20070419_1539
+J1542$-$0131 & not-RPE    &  0.02\pm0.20\;\;(1) & -0.35\pm0.06\;\;(3) & 0.26\pm0.07\;\;(2) & -0.61\pm0.09 & 0.37\pm0.21 \\ %R102792
+J1547$-$0837 & limited-$r$&  0.78\pm0.20\;\;(1) & -0.50\pm0.06\;\;(3) & -0.10\pm0.14\;\;(2) & -0.40\pm0.15 & 1.28\pm0.21 \\ %R187967
+J1554$+$0021 & not-RPE    &  0.19\pm0.20\;\;(1) & -0.26\pm0.06\;\;(3) & -0.09\pm0.07\;\;(2) & -0.17\pm0.09 & 0.45\pm0.21 \\ %20080404_1551
+J1602$-$1521 & not-RPE    &  0.10\pm0.07\;\;(2) &  0.09\pm0.06\;\;(3) & 0.25\pm0.06\;\;(3) & -0.16\pm0.08 & 0.01\pm0.09 \\ %20070615_1554
+J1606$-$0400 & not-RPE    & -0.02\pm0.20\;\;(1) & -0.17\pm0.07\;\;(2) & 0.23\pm0.09\;\;(2) & -0.40\pm0.11 & 0.15\pm0.21 \\ %R190610
+J1606$-$1632 & limited-$r$&  0.01\pm0.20\;\;(1) & -0.57\pm0.07\;\;(2) & -0.27\pm0.10\;\;(1) & -0.30\pm0.12 & 0.58\pm0.21 \\ %20060318_1603
+J1609$-$0941 & $r$-I      & -0.06\pm0.15\;\;(1) & -0.30\pm0.05\;\;(3) & 0.41\pm0.06\;\;(3) & -0.71\pm0.08 & 0.24\pm0.16 \\ %R288480
+J1612$-$0541 & not-RPE    &  0.07\pm0.20\;\;(1) &  0.03\pm0.06\;\;(3) & 0.20\pm0.07\;\;(2) & -0.17\pm0.09 & 0.00\pm0.21 \\ %R237798
+J1612$-$0848 & $r$-I      &  0.29\pm0.20\;\;(1) &  0.04\pm0.06\;\;(3) & 0.58\pm0.05\;\;(4) & -0.54\pm0.08 & 0.25\pm0.21 \\ %R292117
+J1616$-$0401 & $r$-I      &  0.08\pm0.14\;\;(2) & -0.19\pm0.07\;\;(3) & 0.52\pm0.06\;\;(3) & -0.71\pm0.09 & 0.27\pm0.16 \\ %R287331
+J1618$-$0630 & not-RPE?   &  0.01\pm0.20\;\;(1) & -0.59\pm0.10\;\;(1) & <-0.27 & >-0.32 & 0.58\pm0.22 \\ %R105795
+J1627$-$0848 & not-RPE    &  0.00\pm0.20\;\;(1) &  0.10\pm0.06\;\;(3) & 0.12\pm0.20\;\;(1) & -0.02\pm0.21 & -0.10\pm0.21 \\ %R370376
+J1628$-$1014 & $r$-I      & -0.26\pm0.10\;\;(1) & -0.02\pm0.06\;\;(3) & 0.36\pm0.06\;\;(3) & -0.38\pm0.08 & -0.24\pm0.12 \\ %20060331_1625
+J1639$-$0522 & limited-$r$&  0.36\pm0.20\;\;(1) & -0.26\pm0.06\;\;(3) & -0.07\pm0.20\;\;(1) & -0.19\pm0.21 & 0.62\pm0.21 \\ %R091253
+J1645$-$0429 & limited-$r$&  0.38\pm0.30\;\;(1) & -0.37\pm0.06\;\;(3) & -0.15\pm0.10\;\;(1) & -0.22\pm0.12 & 0.75\pm0.31 \\ %R094476
+J1811$-$2126 & not-RPE    & -0.09\pm0.20\;\;(1) &  0.18\pm0.10\;\;(1) & 0.28\pm0.10\;\;(1) & -0.10\pm0.14 & -0.27\pm0.22 \\ %20061021_1813
+J1905$-$1949 & $r$-I      & -0.01\pm0.20\;\;(1) & -0.08\pm0.03\;\;(3) & 0.36\pm0.04\;\;(3) & -0.44\pm0.05 &  0.07\pm0.20 \\ %20110528_1904
+J2005$-$3057 & $r$-I      & -0.16\pm0.20\;\;(1) &  0.36\pm0.07\;\;(2) & 0.86\pm0.07\;\;(2) & -0.50\pm0.10 & -0.52\pm0.22 \\ %20080523_1959
+J2010$-$0826 & $r$-I      &  0.04\pm0.14\;\;(2) & -0.39\pm0.04\;\;(3) & 0.42\pm0.07\;\;(3) & -0.81\pm0.08 &  0.43\pm0.15 \\ %R394127
+J2032$+$0000 & not-RPE    &  0.16\pm0.20\;\;(1) & -0.29\pm0.07\;\;(2) & 0.26\pm0.06\;\;(3) & -0.55\pm0.10 & 0.45\pm0.21 \\ %R445705
+J2036$-$0714 & CEMP-$r$   &  0.02\pm0.20\;\;(1) & -0.57\pm0.10\;\;(1) & 0.48\pm0.10\;\;(1) & -0.87\pm0.12 & 0.59\pm0.22 \\ %R117839
+J2038$-$0252 & $r$-I      &  0.39\pm0.10\;\;(1) & -0.26\pm0.10\;\;(1) & 0.59\pm0.06\;\;(3) & -0.85\pm0.12 & 0.65\pm0.22 \\ %R065618
+J2054$-$0033 & CEMP-no/lim-$r$ & 0.63\pm0.14\;\;(2) & -0.27\pm0.06\;\;(3) & <-0.18        & >-0.14       &  0.90\pm0.15 \\ %R180534
+J2058$-$0354 & $r$-I      & -0.24\pm0.07\;\;(2) & -0.09\pm0.06\;\;(3) & 0.36\pm0.06\;\;(3) & -0.45\pm0.08 & -0.15\pm0.09 \\ %R142212
+J2116$-$0213 & $r$-I      & -0.41\pm0.20\;\;(1) & -0.31\pm0.10\;\;(1) & 0.60\pm0.07\;\;(2) & -0.91\pm0.12 & -0.10\pm0.22 \\ %R186236
+J2151$-$0543 & not-RPE    & -0.41\pm0.10\;\;(1) & -0.54\pm0.06\;\;(3) & 0.22\pm0.07\;\;(2) & -0.76\pm0.09 & 0.13\pm0.12 \\ %R192904
+2MJ2256$-$0719 & $r$-II   &  0.08\pm0.20\;\;(1) &  0.26\pm0.04\;\;(3) & 1.10\pm0.07\;\;(2) & -0.84\pm0.08 & -0.18\pm0.20 \\ %K041686
+J2256$-$0500 & not-RPE    & -0.10\pm0.20\;\;(1) & -0.46\pm0.06\;\;(3) & -0.06\pm0.07\;\;(2) & -0.40\pm0.09 & 0.36\pm0.21 \\ %R468251
+J2304$+$0155 & not-RPE    &  0.01\pm0.20\;\;(1) & -0.20\pm0.07\;\;(2) & 0.26\pm0.07\;\;(2) & -0.45\pm0.10 & 0.21\pm0.21 \\ %R142360
+J2325$-$0815 & $r$-I      & -0.42\pm0.20\;\;(1) & -0.33\pm0.07\;\;(2) & 0.55\pm0.07\;\;(2) & -0.88\pm0.10 & -0.09\pm0.10 \\ %R339816
+\enddata
+%\end{tabular}\\
+%\end{center}
+%\medskip
+\raggedright
+\tablenotetext{a}{This Eu upper limit can be lowered by assuming $[\rm{Ba/Eu}] > -0.89$, as required by the Solar $r$-process residual \citep{Burris2000}.}
+\tablenotetext{b}{\citet{Ruchti2011} did not determine abundances of
+  neutron-capture elements, and therefore did not detect the
+  $r$-process enhancement in these stars.}
+\tablenotetext{c}{The $r$/$s$ designation is based on the criteria
+  from \citet{BeersChristlieb2005}, though note that this category may
+  also contain stars with signatures of an intermediate, or $i$-,
+  process (e.g., \citealt{CowanRose1977,Hampel2016}).}
+\end{deluxetable}
+
+
+\begin{figure}[h!]
+\begin{center}
+\centering
+\includegraphics[scale=0.7,trim=0.3in 0.55in 0.2in 0.7in,clip]{Synths.eps}
+\caption{Syntheses of Sr, Ba, and Eu lines in four different stars,
+  one not-RPE, one limited-$r$, one $r$-I, and one $r$-II star.  The
+  dashed lines show the $\pm1\sigma$ errors for a single line.  The
+  lines marked with asterisks were not used to determine the
+  abundances, either because they were too strong or too weak in
+  that star; in this case, they are merely shown for illustrative
+  purposes.
+\label{fig:Synths}}
+\end{center}
+\end{figure}
+
+
+\begin{figure}[h!]
+\begin{center}
+\centering
+\includegraphics[scale=0.65]{CompAbunds_TH.eps}
+\caption{Offsets (this paper $-$ Hansen et al.) between the abundances
+  in this paper and those from \citet{Hansen2018}, as a function of
+  the surface gravity (the parameter which varies most between the
+  studies).\label{fig:CompAbunds_TH}}
+\end{center}
+\end{figure}
+
+
+
+\clearpage
+\subsubsection{Other Neutron-Capture Abundances}\label{subsec:NeutronCapture}
+Abundances of other neutron-capture elements are given in Table
+\ref{table:Abunds}.  Abundances of Y, La, Ce, and Nd are available for
+most of the stars, while Zr, Pr, Sm, Dy, and Os are only available in
+the stars with high S/N, higher [Fe/H], and/or high $r$-process
+enhancement.  Th is heavily blended, and was only detectable in a
+handful of stars.  Abundances of all these elements were determined
+with spectrum syntheses.
+
+
+%\vspace{2in}
+
+\begin{splitdeluxetable}{lccccccccBcccccccccBcccccccccc}
+\tabletypesize{\scriptsize}
+%\tablecolumns{6}
+%\tablewidth{10in}
+\tablecaption{Elemental Abundances\tablenotemark{a}\label{table:Abunds}}
+%\centering
+%\hspace*{-4in}
+\tablehead{
+Star     & [O/Fe] & [Na/Fe]    & [Mg/Fe] & [Si/Fe] & [K/Fe]  & [Ca/Fe] & [Sc/Fe] & [Ti I/Fe] & [Ti II/Fe] & 
+ [V/Fe]  & [Cr II/Fe] & [Mn/Fe] & [Co/Fe] & [Ni/Fe] & [Cu/Fe] & [Zn/Fe] & [Y/Fe]    & [Zr/Fe] &
+ [La/Fe] & [Ce/Fe]    & [Pr/Fe] & [Nd/Fe] & [Sm/Fe] & [Dy/Fe] & [Os/Fe]   & [Th/Fe]
+}
+\decimals
+\startdata
+CS 31082-001     & --- & ---               & $0.46\pm0.04$ (4) &  ---              & $0.17\pm0.10$ (1) & $0.44\pm0.01$ (23) & $-0.03\pm0.04$ (5) & $0.20\pm0.01$ (14) & $0.38\pm0.01$ (32) & 
+   ---            & $0.37\pm0.10$ (1) & ---               & $0.03\pm0.10$ (1) & $0.03\pm0.05$ (5) & ---                & $0.15\pm0.10$ (1)  & $0.45\pm0.05$ (6)  & $0.62\pm0.10$ (1) & 
+$1.23\pm0.05$ (3) & $1.04\pm0.05$ (6) & $1.24\pm0.06$ (4) & $1.29\pm0.05$ (8) & $1.42\pm0.05$ (1) & $1.22\pm0.10$ (1)  & $1.65\pm0.07$ (2)  & ---  \\  %BLANK
+T5861-1732-1     & ---  & $0.50\pm0.05$ (2) & $0.42\pm0.04$ (3) & $0.52\pm0.10$ (1) & $0.34\pm0.10$ (1) & $0.31\pm0.01$ (24) & $-0.15\pm0.02$ (10)& $0.07\pm0.01$ (17) & $0.21\pm0.01$ (29) & 
+   ---            &$-0.01\pm0.05$ (4) & ---               &$-0.20\pm0.11$ (2) &$-0.11\pm0.01$ (12)& ---                & $0.03\pm0.13$ (2)  &$-0.41\pm0.08$ (2)  & --- & 
+   ---            &  ---              &  ---              & ---               & ---               & ---                &  ---               & ---  \\  %BLANK
+CS 22169-035    & ---   &  ---              & $0.32\pm0.03$ (2) & ---               & $0.31\pm0.10$ (1) & $0.18\pm0.01$ (12) & $-0.25\pm0.03$ (5) & $-0.12\pm0.01$ (6) & $-0.17\pm0.02$ (18) & 
+   ---            &  ---              &$-0.27\pm0.10$ (1) & $0.22\pm0.06$ (2) & $0.10\pm0.03$ (5) & ---                & ---                & $-0.39\pm0.05$ (2) & --- &
+   ---            &  ---              &  ---              & ---               & ---               & ---                &  ---               & ---  \\  %BLANK
+T75-1185-1      & ---   &  ---              & $0.30\pm0.09$ (2) & ---               & $0.30\pm0.10$ (1) & $0.35\pm0.01$ (16) & $-0.10\pm0.04$ (5) & $0.27\pm0.02$ (15) & $0.27\pm0.01$ (30) & 
+   ---            & $0.22\pm0.10$ (1) &$-0.29\pm0.02$ (2) &$-0.04\pm0.02$ (3) & $0.17\pm0.02$ (5) & ---                & $0.10\pm0.10$ (1)  & $-0.20\pm0.07$ (3) & --- & 
+   ---            &  ---              &  ---              & ---               & ---               & ---                &  ---               & ---  \\  %BLANK
+T5911-452-1     & ---   &  ---              & $0.32\pm0.03$ (2) & ---               & $0.45\pm0.10$ (1) & $0.26\pm0.02$ (14) & $0.04\pm0.02$ (3)  & $0.39\pm0.04$ (5)  & $0.44\pm0.02$ (15) & 
+   ---            &  ---              &  ---              & ---               & $0.09\pm0.10$ (1) & ---                & ---                &  ---               &  --- & 
+   ---            &  ---              &  ---              & ---               & ---               & ---                &  ---               & ---  \\  %BLANK
+\enddata
+\tablenotetext{a}{Table \ref{table:Abunds} is published in
+its entirety in the electronic edition of \textit{The Astrophysical Journal}. A portion is shown here for
+guidance regarding its form and content.}
+\end{splitdeluxetable}
+
+%\clearpage
+
+
+
+
+
+
+\subsubsection{The $\alpha$-Elements and K}\label{subsec:Alpha}
+In most of the stars there are many clear \ion{Ca}{1}, \ion{Ti}{1},
+and \ion{Ti}{2} lines; the Ca and Ti abundances were therefore determined
+differentially with respect to a standard, similar to \ion{Fe}{1} and
+\ion{Fe}{2}.  Note that the Ti lines follow similar trends as the Fe
+lines when NLTE corrections are not applied, i.e., the \ion{Ti}{1}
+lines yield lower Ti abundances than the \ion{Ti}{2} abundances.
+Because the [\ion{Ti}{1}/H] ratios are likely to be too low, the
+average differential offsets in [\ion{Ti}{1}/H] and [\ion{Ti}{2}/H]
+are both applied relative to the [\ion{Ti}{2}/H] ratios in the
+standard stars.
+
+The other elements were not determined differentially. The \ion{Mg}{1}
+lines at 4057, 4167, 4703, 5528, and 5711 \AA $\;$ are generally
+detectable, though at the metal-rich end some become prohibitively
+strong.  The \ion{Si}{1} lines are generally very weak in metal-poor
+stars, and are occasionally difficult to detect even in high S/N
+spectra.  The \ion{K}{1} line at 7699 \AA $\;$ lies at the edge of a
+series of telluric absorption lines; when the K line is distinct from the
+telluric features a measurement is provided.  In a handful of stars,
+the O abundance can be determined from the 6300 and 6363 \AA $\;$
+forbidden lines.
+
+\subsubsection{Iron-peak Elements, Cu, and Zn}\label{subsec:FePeak}
+Abundances of \ion{Sc}{2}, \ion{V}{1}, \ion{Cr}{2}, \ion{Mn}{1},
+\ion{Co}{1}, and \ion{Ni}{1} were all determined from EWs,
+considering HFS when necessary.  Each species has a multitude of
+available lines.  Note that \ion{Cr}{1} lines are not included, as
+they are expected to suffer from NLTE effects
+\citep{BergemannCescutti2010}.   The Mn lines in these metal-poor
+stars may require NLTE corrections $\sim0.5-0.7$ dex
+\citep{BergemannGehren2008}, but they have not been applied here.
+
+Cu and Zn were determined via spectrum syntheses, using the 5105 and
+5782 \AA $\;$ \ion{Cu}{1} lines and the 4722 and 4810 \AA $\;$
+\ion{Zn}{1} lines.  Note that the \ion{Cu}{1} lines are likely to
+suffer from NLTE issues (e.g., \citealt{Shi2018}); these corrections
+are also not applied here.
+
+
+\subsubsection{Light Elements: Li and Na}\label{subsec:Light}
+In some stars, Na abundances can be determined from the \ion{Na}{1}
+doublet at 5682/5688~\AA.  In the most metal-poor stars, the
+\ion{Na}{1} doublet at 5889 and 5895 \AA $\;$ is weak enough for an
+abundance determination, but is only used if the interstellar
+contamination is either insignificant or is sufficiently offset from
+the stellar lines.  Note that the NaD lines may suffer from NLTE
+effects (e.g., \citealt{Andrievsky2007}), but the 5682/5688
+\AA \hspace{0.025in} lines are not likely to have significant NLTE
+corrections in this metallicity range \citep{Lind2011}.
+
+The \ion{Li}{1} line at 6707 \AA \hspace{0.025in} is detectable in
+nine stars, as listed in Table \ref{table:LiAbunds}.  These Li 
+abundances are typical for the evolutionary state of the stars; the
+main sequence stars have values that are consistent with the Spite
+plateau, while the giants show signs of Li depletion.  Two $r$-II,
+three $r$-I, and one limited-$r$ stars have Li detections.
+
+\begin{deluxetable}{@{}lcc}
+\tabletypesize{\scriptsize}
+\tablecolumns{3}
+\tablewidth{0pt}
+\tablecaption{Stars with Li Measurements\label{table:LiAbunds}}
+%\centering
+\hspace*{-4in}
+%\begin{center}
+%  \newcolumntype{d}[1]{D{,}{\pm}{#1}}
+%  \newcolumntype{e}[1]{D{.}{.}{#1}}
+%  \begin{tabular}{@{}lcccccccccd{3}@{}}
+\tablehead{
+Star       & $\log \epsilon$ (Li) & $T_{\rm{eff}}$ (K)}
+\startdata
+J0107$-$0524   & $1.20\pm0.05$ & 5225 \\ 
+2MJ0213$-$0005 & $2.42\pm0.05$ & 6225 \\
+J0517$-$1342   & $0.91\pm0.10$ & 4961 \\
+J0705$-$3343   & $0.81\pm0.10$ & 4757 \\
+J0711$-$3432   & $0.94\pm0.10$ & 4767 \\
+J1022$-$3400   & $0.79\pm0.05$ & 4831 \\
+J1333$-$2623   & $0.94\pm0.05$ & 4821 \\
+J1527$-$2336   & $2.46\pm0.10$ & 6260 \\
+J1538$-$1804   & $0.81\pm0.05$ & 4752 \\
+J2058$-$0354   & $0.89\pm0.05$ & 4831 \\
+\enddata
+%\end{tabular}\\
+%\end{center}
+%\medskip
+%\raggedright .\\
+\end{deluxetable}
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+
+\clearpage
+\section{Discussion}\label{sec:Discussion}
+
+\subsection{The $r$-process-Enhanced Stars}\label{subsec:RPEstars}
+Figure \ref{fig:XFe} shows [Eu/Fe], [Mg/Fe], [Ba/Eu], and [Sr/Ba] as a
+function of [Fe/H], grouped by their $r$-process enhancement.  This
+northern survey has discovered 4 new $r$-II stars, including
+J1538$-$1804 (published by \citealt{Sakari2018}), 60 new $r$-I stars
+(three of them CEMP-$r$), and 19 new limited-$r$ stars.  Combined with
+the results from \citet{Hansen2018}, \citet{Placco2017},
+\citet{Gull2018}, \citet{Holmbeck2018}, \citet{Cain2018},
+  and \citet{Roederer2018b}, the RPA has so far identified, in total,
+  18 new $r$-II, 101 new $r$-I (including 6 CEMP-$r$), 39 limited-$r$,
+  and 1 $r+s$ star.  The properties of the stars from this paper are
+discussed below.
+
+\begin{figure*}
+\begin{center}
+\centering
+\subfigure[]{\includegraphics[scale=0.53,trim=0.0in 0.1in 0.5in 0.45in,clip]{EuFe.eps}\label{fig:EuFe}}
+\subfigure[]{\includegraphics[scale=0.53,trim=0.0in 0.1in 0.5in 0.45in,clip]{MgFe.eps}\label{fig:MgFe}}
+\subfigure[]{\includegraphics[scale=0.53,trim=0.0in 0.1in 0.5in 0.45in,clip]{BaEuFe.eps}\label{fig:BaEuFe}}
+\subfigure[]{\includegraphics[scale=0.53,trim=0.0in 0.1in 0.5in 0.45in,clip]{SrBaFe.eps}\label{fig:SrBaFe}}
+\caption{Ratios of [Eu/Fe], [Mg/Fe], [Ba/Eu], and [Sr/Ba] as a
+  function of [Fe/H].  The standard and target stars are grouped by
+  $r$-process enhancement.  ``Other'' includes stars with $s$ and
+  $r/s$ classifications. For reference, the \citet{Hansen2018} stars
+  are shown as open circles, while MW field stars from
+\citet{Venn2004} and \citet{Reddy2006} are shown as gray dots.  In the
+top left plot, the $r$-I and $r$-II limits in [Eu/Fe] are shown with a dotted
+line.  The Solar $r$-process [Ba/Eu] ratio from \citet{Burris2000} is
+indicated in the bottom left plot.  Finally, in the bottom right
+panel, the limit for the limited-$r$ stars, [Sr/Ba]$>+0.5$, is shown.}\label{fig:XFe}
+\end{center}
+\end{figure*}
+
+\subsubsection{The Sub-populations of $r$-process-Enhanced Stars}\label{subsubsec:RPEnumbers}
+The metallicity distribution of the different $r$-process
+sub-populations is very similar to that found in \citet{Hansen2018}, as
+shown in Figure \ref{fig:FeHHist}. The $r$-I and $r$-II stars are
+found across the full [Fe/H] range; there is a hint that the
+limited-$r$ stars are only found at lower metallicities, but more
+stars are necessary to validate this.
+
+Figure \ref{fig:BaEuHist} shows the distribution of [Ba/Eu]
+values. The $r$-II stars and many of the $r$-I stars have low [Ba/Eu],
+consistent with little enrichment from the main $s$-process.  The
+not-RPE and limited-$r$ stars seem to extend to higher [Ba/Eu],
+indicating some amount of $s$-process contamination.  Figure
+\ref{fig:SrBaFe} also demonstrates that the $r$-II stars have 
+low [Sr/Ba].  As in the Hansen et al. sample, some $r$-I stars are
+found to have enhanced [Sr/Ba] and [Sr/Eu] ratios, similar to the
+stars in the limited-$r$ class.
+
+Note that the large spread in [Eu/Fe] at a given metallicity is not
+accompanied by a similar spread in [Mg/Fe] (see Figure \ref{fig:XFe}),
+which has been noted by many other authors.  With one exception, all
+the target stars have light, $\alpha$, and Fe-peak abundances that are
+consistent with normal MW halo stars, regardless of $r$-process
+enhancement. This places important constraints on the nucleosynthetic
+signature and site of the $r$-process.  For instance, the robust Mg
+abundances rule out traditional core-collapse supernovae as the only
+source of the heavy $r$-process elements (also see
+\citealt{MaciasRamirezRuiz2016}).
+
+\begin{figure}[h!]
+\begin{center}
+\centering
+\subfigure[]{\includegraphics[scale=0.55,trim=0.3in 0in 0.45in 0.3in,clip]{RPA_Hist.eps}\label{fig:FeHHist}}
+\subfigure[]{\includegraphics[scale=0.55,trim=0.3in 0in 0.6in 0.3in,clip]{RPA_BaEuHist.eps}\label{fig:BaEuHist}}
+\caption{Histograms showing the [Fe/H] (left) and [Ba/Eu] (right) distributions for the different groups of stars.  The stars with $s$- or $r$/$s$-process signatures have been removed.\label{fig:Hists}}
+\end{center}
+\end{figure}
+
+
+
+\subsubsection{Kinematics}\label{subsubsec:Toomre}
+All of these stars are {\it Gaia} DR2 targets; all but one have proper
+motions and parallaxes, though the parallax errors are occasionally
+too large to provide reliable distances \citep{BailerJones2018}.
+Figure \ref{fig:Toomre} shows a Toomre diagram for stars with parallax
+errors $<20$\%, generated with the \texttt{gal\_uvw}
+code.\footnote{\url{https://github.com/segasai/astrolibpy/blob/master/astrolib/gal_uvw.py}}
+This diagram distinguishes between disk and halo stars, and between
+retrograde and prograde halo stars.  The errors in Figure
+\ref{fig:Toomre} reflect the uncertainties in the parallax and proper
+motion.  The velocities have been corrected for the solar motion,
+according to the values from \citet{Coskunoglu2011}.
+
+In Figure \ref{fig:Toomre} the stars are grouped by their
+$r$-process-enhancement classification, and are compared with
+kinematically-selected MW halo stars from \citet{Koppelman2018}.
+Several of the non-RPE stars are consistent with membership in the
+metal-weak thick disk \citep{Kordopatis2013}. The majority of the
+$r$-process-enhanced stars are consistent with membership in the halo,
+and a large number are retrograde halo stars. All of the $r$-II stars
+and more than half of the $r$-I stars in this paper are
+retrograde, possibly indicating they originated in a
+satellite. The kinematics of three of the $r$-II stars
+  from \citet{Hansen2018} are presented in \citet{Roederer2018}; only
+  those three pass the stringent cut in parallax error, but note that
+  two of these stars are prograde halo stars.  The kinematics of
+$r$-process-enhanced stars will have important consequences for the
+birth sites of these stars.  Full orbital calculations will be even
+more useful \citep{Roederer2018}.
+
+
+\begin{figure}[h!]
+\begin{center}
+\centering
+\includegraphics[scale=0.75,trim=0.7in 0.4in 0.8in 0.5in,clip]{Toomre.eps}
+\caption{Toomre diagrams for the four main sub-populations in this
+  paper, where $T = \sqrt{U^2+W^2}$.  This plot helps distinguish halo
+  stars from disk stars and retrograde halo stars from prograde halo
+  stars.  The gray points show MW disk and halo stars within 1 kpc
+  from \citet{Koppelman2018}---the large circle shows their criterion for
+  halo membership; disk stars lie within the circle.  The colored points
+  use {\it Gaia} DR2 data; when radial velocities were not available, the
+  values from this paper were used.  Only stars with parallax
+  uncertainties $<20$\% are shown (see \citealt{BailerJones2018}). The
+  upper left panel shows the $r$-II stars, the upper right panel the
+  $r$-I stars, the lower left panel the limited-$r$ stars, and the
+  lower right panel the ``not-RPE'' stars.
+\label{fig:Toomre}}
+\end{center}
+\end{figure}
+
+
+\subsubsection{Detailed $r$-process Patterns}\label{subsubsec:Patterns}
+Figure \ref{fig:rIIPatterns} shows the detailed $r$-process patterns and
+residuals with respect to the scaled-Solar $r$-process pattern in three
+$r$-II stars (the pattern for J1538$-$1804 was presented in
+\citealt{Sakari2018}).  As has been found in numerous other studies,
+the abundance patterns are consistent with the scaled-Solar $r$-process
+pattern (but see below for Th).  Figure \ref{fig:rIPatterns} shows
+patterns for six of the $r$-I stars.  The top two panels show $r$-I
+stars with low [Ba/Eu] and [Sr/Ba]; as expected, their abundances are
+consistent with a pure $r$-process pattern.  The next two panels show
+$r$-I stars with low [Ba/Eu], but elevated [Sr/Ba].  These stars have
+elevated Sr, Y, and Zr compared to the scaled-Solar pattern, but the
+pattern of the lanthanides is consistent.  Finally, the last two
+panels show $r$-I stars with slightly sub-Solar [Ba/Eu], indicating
+some $s$-process contamination.  These stars have high Sr, Y, Zr, Ba,
+La, and Ce, relative to the Solar pattern.
+
+These detailed patterns support the classifications from the more
+general [Ba/Eu] and [Sr/Ba] ratios (e.g.,
+\citealt{Frebel2018,Spite2018}), and will be useful in identifying the
+nucleosynthetic signatures of the limited-$r$ and $r$-processes.
+Follow-up of the limited-$r$ and $r$-I stars with enhanced [Sr/Ba]
+will enable detailed comparisons between abundance patterns and model
+predictions, particularly in the 38~$\leq Z \leq$~47 range, which
+could distinguish between limited-$r$ and weak $s$-process scenarios
+(e.g.,
+\citealt{Chiappini2011,Frischknecht2012,Cescutti2013,Frischknecht2016}).
+
+
+\begin{figure}[h!]
+\begin{center}
+\centering
+\subfigure[$r$-II stars]{\includegraphics[scale=0.43,trim=0.35in 0.55in 0.9in 1.0in,clip]{rII.eps}\label{fig:rIIPatterns}}
+\subfigure[$r$-I stars]{\includegraphics[scale=0.43,trim=0.25in 0.55in 0.9in 1.0in,clip]{rIPatterns.eps}\label{fig:rIPatterns}}
+\caption{Detailed $r$-process patterns for new $r$-II (left) and
+  $r$-I (right) stars compared to the Solar $r$-process residual from
+  \citet{Arlandini1999}.  The points have been shifted to common
+  Eu abundances.  The $r$-I stars are grouped by [Ba/Eu] and [Sr/Ba],
+  demonstrating pure $r$-process enrichment in the top two panels,
+  limited-$r$ enhancement in Sr, Y, and Zr in the middle two panels,
+  and $s$-process enhancement in the bottom two panels.
+\label{fig:Patterns}}
+\end{center}
+\end{figure}
+
+
+\subsubsection{Cosmochronometric Ages}\label{subsubsec:Ages}
+The few $r$-I and $r$-II stars with Th detections enable
+determinations of 1) cosmo-chronometric ages and 2) the possible
+presence of an actinide boost.  Table \ref{table:Ages} shows the Th
+abundances relative to Eu and ages derived from Equation 1 in
+\citet{Placco2017}, using two different sets of production ratios:
+the \citet{Schatz2002} values, from waiting-point calculations, and
+the \citet{Hill2017} values, from a high-entropy wind.  Although the
+errors in age are quite large (due to high uncertainties in the Th
+abundance), all of the stars have Th/Eu ratios that are consistent
+with ancient $r$-process production; none appear to exhibit an
+actinide boost.  Several of the ages are quite old, comparable to the
+results found for Reticulum II \citep{JiFrebel2018}.  These old ages
+are consistent with recent results from simulations, which suggest
+that many of the most metal-poor MW halo stars should be ancient
+\citep{Starkenburg2017,ElBadry2018}.  These ages will be greatly
+improved through higher precision Th abundances and U detections,
+which require observations at higher resolution and higher S/N.
+
+
+\startlongtable
+\begin{deluxetable}{@{}lDDDD}
+\tabletypesize{\scriptsize}
+\tablecolumns{10}
+\tablewidth{0pt}
+\tablecaption{Th/Eu Abundance Ratios and Ages\label{table:Ages}}
+%\centering
+\hspace*{-4in}
+%\begin{center}
+%  \newcolumntype{d}[1]{D{,}{\pm}{#1}}
+%  \newcolumntype{e}[1]{D{.}{.}{#1}}
+%  \begin{tabular}{@{}lcccccccccd{3}@{}}
+\tablehead{
+           & \multicolumn{2}{c}{} & \multicolumn{2}{c}{} & \multicolumn{4}{c}{Age (Gyr)} \\
+Star       & \multicolumn{2}{c}{[Fe/H]} & \multicolumn{2}{r}{$\log \epsilon$ (Th/Eu)} & \multicolumn{2}{c}{\citet{Schatz2002}} & \multicolumn{2}{c}{\citet{Hill2017}}}
+\decimals
+\startdata
+J0053$-$0253   & -2.16\pm0.01 & -0.61\pm0.11 & 13.1\pm5.1 & 17.3\pm5.1 \\
+J0246$-$1518   & -2.45\pm0.03 & <-0.70       & >17.3      & >21.5 \\ 
+J0313$-$1020   & -2.05\pm0.02 & -0.58\pm0.21 & 11.2\pm9.8 & 15.9\pm9.8 \\
+J0343$-$0924   & -1.92\pm0.01 & -0.58\pm0.17 & 11.2\pm7.9 & 15.9\pm7.9 \\
+J1410$-$0343   & -2.06\pm0.02 & -0.65\pm0.21 & 14.9\pm9.8 & 19.1\pm9.8 \\
+2MJ1521$-$0607 & -2.00\pm0.01 & -0.75\pm0.17 & 19.6\pm7.9 & 23.8\pm7.9 \\
+2MJ2256$-$0719 & -2.26\pm0.01 & -0.76\pm0.20 & 20.1\pm9.3 & 24.3\pm9.3 \\
+\enddata
+%\end{tabular}\\
+%\end{center}
+%\medskip
+%\raggedright .\\
+\end{deluxetable}
+
+
+
+
+\subsection{J2116$-$0213: A Globular Cluster Star?}\label{subsec:GC}
+
+One of the $r$-I stars in this sample, J2116$-$0213, has elevated sodium
+($[\rm{Na/Fe}] = +0.68\pm0.07$) and has low magnesium
+($[\rm{Mg/Fe}]~=~+~0.03\pm0.05$; see Figure \ref{fig:NaMgSynths})
+coupled with normal Si, Ca, and Ti.  The Al lines at 6696 and
+6698 \AA $\;$ are too weak for a robust [Al/Fe] measurement.
+These abundances are not like typical halo stars; instead, this
+abundance pattern is a signature of multiple populations in globular
+clusters (GCs; e.g., \citealt{Carretta2009}).  This suggests that
+J2116$-$0213 may have originated in a GC and was later ejected into the
+Milky Way halo. Escaped GC stars have been identified from their
+unique abundance signatures in the MW halo \citep{Martell2016} and
+bulge \citep{Schiavon2017}.  J2116$-$0213 is an $r$-I star with
+$[\rm{Eu/Fe}]~\sim~+~0.6$---this is consistent with other metal-poor
+GCs, which contain large numbers of $r$-I stars \citep{Gratton2004}.
+However, J2116$-$0213 is more metal-poor ($[\rm{Fe/H}] \sim -2.6$) than
+the intact MW GCs.  Note that this star's location in the Toomre
+diagram is right between the thick halo/halo classification; a more
+detailed orbit for this star could potentially identify its birth
+environment more clearly.
+
+\begin{figure*}[h!]
+\begin{center}
+\includegraphics[scale=0.6,clip,trim=0.5in 0 0 0]{GCstarSpectra.eps}
+\caption{Syntheses to the 5688 \AA \hspace{0.025in} \ion{Na}{1} and 5528
+  \AA \hspace{0.025in} \ion{Mg}{1} lines in J2116$-$0213.  Uncertainties of $\pm0.1$ dex are shown.\label{fig:NaMgSynths}}
+\end{center}
+\end{figure*}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+
+\clearpage
+\section{Conclusions}\label{sec:Conclusion}
+This paper has presented high-resolution spectroscopic observations of
+126 new metal-poor stars and 20 previously observed standards, as part
+of the $R$-Process Alliance (also see \citealt{Hansen2018}).
+Atmospheric parameters and metallicities were derived differentially
+with respect to a set of standards, applying $<$3D$>$ NLTE
+corrections.  Abundances of a wide variety of elements were then
+determined.  Sr, Ba, and Eu were used to classify the stars according
+to their $r$-process enhancement, using [Eu/Fe] as the indicator of
+the main $r$-process, [Ba/Eu] as the indicator for the amount of
+main $s$-process contamination, and [Sr/Ba] as the indicator for the
+amount of limited-$r$ (or weak-$s$) contamination.  Proper motions and
+parallaxes from {\it Gaia} DR2 enabled the 3D kinematics of these
+stars to be probed.
+
+Out of the 126 metal-poor targets, four were discovered to be
+highly Eu-enhanced $r$-II stars.  All four are found to have
+$r$-process patterns that are consistent with the scaled Solar
+$r$-process residual, and all show no signs of significant
+contributions from the limited-$r$ or $s$-processes.  In other words,
+the $r$-II stars have retained a pure main $r$-process signature, even
+though they span a large range in metallicity.  All the $r$-II stars
+in this paper have retrograde halo orbits.  The 60 new $r$-I stars
+show more variation; some exhibit a limited-$r$ signature and some
+have contributions from the $s$-process, but many have low [Ba/Eu] and
+[Sr/Ba] ratios consistent with a pure $r$-process signal.  As with the
+$r$-II stars, the $r$-I stars span a wide range in [Fe/H].  The
+majority of the $r$-I stars are likely halo stars, many of them with
+retrograde orbits.  The smaller number of limited-$r$ stars prohibits
+making firm conclusions about them as a stellar population, but the 19
+in this paper are restricted to lower metallicities.
+
+A number of interesting individual stars were identified in this
+survey, most of which are being targeted for follow-up observations at
+higher spectral resolution.  Nine CEMP stars were discovered:
+three are $r$-I stars, four are CEMP-no, and two are CEMP-$r/s$.
+Another star was found to have an $r/s$ signature, but its corrected C
+abundance ratio, $[\rm{C/Fe}]~=~+~0.67$, lies slightly below the CEMP
+threshold. An $r$-I star, J2116$-$0213, is also found to have high
+[Na/Fe] and low [Mg/Fe], a characteristic sign
+of the ``intermediate'' or ``extreme'' populations in GCs
+\citep{Carretta2009}.  J2116$-$0213 may therefore have been accreted
+from a very metal-poor globular cluster.
+
+These results are part of an ongoing survey by the RPA to assess the
+$r$-process-enhancement phenomenon in MW halo stars.  The first two
+releases from the Northern (this paper) and Southern Hemisphere
+\citep{Hansen2018} observing campaigns have significantly increased
+the numbers of known $r$-I, $r$-II, and limited-$r$ stars. By
+incorporating the kinematic information from {\it Gaia}, these stars
+can start to be investigated as stellar populations rather than
+interesting anomalies.  Future releases from the RPA will continue to
+increase these numbers and identify more chemically interesting stars,
+ultimately placing essential constraints on the cosmic site(s) of the
+$r$-process.
+
+\acknowledgements
+The authors thank the anonymous referee for helpful comments which
+improved this manuscript. The authors also thank Anish Amarsi and
+Karin Lind for providing the NLTE grids and assisting with their
+usage.  C.M.S. thanks Brett Morris for observing some of the stars in
+this paper.  The authors thank the current and previous observing
+specialists on the 3.5-m telescope at Apache Point Observatory for
+their continued help and support. C.M.S. and G.W. acknowledge funding
+from the Kenilworth Fund of the New York Community Trust.
+V.M.P., T.C.B., A.F., E.M.H., and I.U.R. acknowledge partial support
+from grants PHY08-22648 and PHY 14-30152 (Physics Frontier
+Center/JINA/CEE), awarded by the US National Science Foundation.  
+C.C. acknowledges support from DFG Grant CH1188/2-1 and the "ChETEC"
+COST Action (CA16117), supported by COST (European Cooperation in
+Science and Technology).
+I.U.R. acknowledges funding from NSF grants AST~16-13536 and
+AST~18-15403.
+This research is based on observations obtained with the Apache Point
+Observatory 3.5-meter telescope, which is owned and operated by the
+Astrophysical Research Consortium.
+This research has made use of the SIMBAD database, operated at CDS,
+Strasbourg, France. This work has also made use of data from the
+European Space Agency (ESA) mission {\it Gaia}
+(\url{http://www.cosmos.esa.int/gaia}),  processed by the {\it Gaia}
+Data Processing and Analysis Consortium  (DPAC,
+\url{http://www.cosmos.esa.int/web/gaia/dpac/consortium}).  Funding
+for the DPAC has been provided by national institutions, in particular
+the institutions participating in the {\it Gaia} Multilateral
+Agreement.
+Funding for RAVE has been provided by: the Leibniz-Institut fuer
+Astrophysik Potsdam (AIP); the Australian Astronomical Observatory;
+the Australian National University; the Australian Research Council;
+the French National Research Agency; the German Research Foundation
+(SPP 1177 and SFB 881); the European Research Council (ERC-StG 240271
+Galactica); the Istituto Nazionale di Astrofisica at Padova; The Johns
+Hopkins University; the National Science Foundation of the USA
+(AST-0908326); the W. M. Keck foundation; the Macquarie University;
+the Netherlands Research School for Astronomy; the Natural Sciences
+and Engineering Research Council of Canada; the Slovenian Research
+Agency; the Swiss National Science Foundation; the Science \&
+Technology Facilities Council of the UK; Opticon; Strasbourg
+Observatory; and the Universities of Groningen, Heidelberg and
+Sydney. 
+The RAVE web site is at \url{https://www.rave-survey.org}.
+
+
+\software{IRAF (Tody 1986, Tody 1993), DAOSPEC
+  \citep{DAOSPECref}, MOOG (v2017; \citealt{Sneden,Sobeck2011}),
+  MULTI2.3 \citep{Carlsson1986,Carlsson1992}, linemake
+  (\url{https://github.com/vmplacco/linemake}), MARCS
+  \citep{Gustafsson2008}, gal\_uvw (\url{https://github.com/segasai/astrolibpy/blob/master/astrolib/gal_uvw.py})}
+
+\facilities{ARC 3.5m (ARCES), \textit{Gaia}}
+
+%\clearpage
+\footnotesize{
+\begin{thebibliography}{99}
+\bibitem[Abbott et al.(2017)] {Abbott2017} Abbott, B.P., Abbott, R.,
+  Abbott, T.D., et al. 2017, {\it PhRvL}, 119, 1101
+\bibitem[Abohalima et al.(2017)] {Abohalima2017} Abohalima, A. \&
+  Frebel, F. 2017, arXiv:1711.04410
+\bibitem[Amarsi et al. (2016)] {Amarsi2016} Amarsi, A.M., Lind, K.,
+  Asplund, M., Barklem, P.S., \& Collet, R. 2016, \mnras, 463, 1518
+\bibitem[Andrievsky et al.(2007)] {Andrievsky2007} Andrievsky, S.M.,
+  Spite, M., Korotin, S.A., et al. 2007, \aap, 464, 1081
+\bibitem[Arcones \& Thielemann (2013)] {ArconesThielemann2013}
+  Arcones, A., \& Thielemann, F.-K. 2013, {\it Journal of Physics G:
+    Nuclear and Particle Physics}, 40, 3201
+\bibitem[Arlandini et al.(1999)] {Arlandini1999} Arlandini, C.,
+  K\"{a}ppeler, F., Wisshak, K., Gallino, R., Lugaro, M., Busso, M.,
+  Straniero, O. 1999, \apj, 525, 886
+\bibitem[Asplund et al.(2009)] {Asplund2009} Asplund, M., Grevesse,
+N., Sauval, J.A., \& Scott, P. 2009, \araa, 47, 481
+\bibitem[Bailer-Jones et al.(2018)] {BailerJones2018} Bailer-Jones,
+  C.A.L., Rybizki, J., Fouesneau, M., Mantelet, G., \& Andrae,
+  R. 2018, arXiv:1804.10121
+\bibitem[Barklem et al.(2005)] {Barklem2005} Barklem, P.S.,
+  Christlieb, N., Beers, T.C., et al. 2005, \aap, 439, 129
+\bibitem[Barklem(2018)] {Barklem2018} Barklem, P.S. 2018, \aap, 612,
+  A90
+\bibitem[Battaglia et al.(2008)] {Battaglia2008} Battaglia, G., Irwin,
+  M., Tolstoy, E., et al. 2008, \mnras, 383, 183
+\bibitem[Beers et al.(1992)] {Beers1992} Beers, T.C., Preston, G.W.,
+  Shectman, S.A. 1992, \aj, 103, 1987
+\bibitem[Beers \& Christlieb(2005)] {BeersChristlieb2005} Beers,
+  T.C. \& Christlieb, N. 2005, \araa, 43, 531
+\bibitem[Beniamini et al.(2016)] {Beniamini2016} Beniamini, P.,
+  Hotokezaka, K., \& Piran, T. 2016, \apj, 832, 149
+\bibitem[Beniamini et al.(2018)] {Beniamini2018} Beniamini, P.,
+  Dvorkin, I., \& Silk, J. 2018, \mnras, 478, 1994
+\bibitem[Bergemann \& Gehren(2008)] {BergemannGehren2008} Bergemann,
+  M. \& Gehren, T., \aap, 492, 823
+\bibitem[Bergemann \& Cescutti(2010)] {BergemannCescutti2010}
+  Bergemann, M. \& Cescutti, G. 2010, \aap, 522, A9
+\bibitem[Bland-Hawthorn et al.(2015)] {BlandHawthorn2015}
+  Bland-Hawthorn, J., Sutherland, R., \& Webster, D. 2015, \apj, 807,
+  154
+\bibitem[Boesgaard et al.(2011)] {Boesgaard2011} Boesgaard, A.M.,
+  Rich, J.A., Levesque, E.M., \& Bowler, B.P. 2011, \apj, 743, 140
+\bibitem[Burris et al.(2000)] {Burris2000} Burris, D.L., Pilachowski,
+C.A., Armandroff, T.E., et al. 2000, \apj, 544, 302
+\bibitem[Caffau et al.(2011)] {Caffau2011} Caffau, E., Bonifacio, P.,
+  Fran\c{c}ois, P., et al. 2011, \nat, 477, 67
+\bibitem[Cain et al.(2018)] {Cain2018} Cain, M., Frebel, A., Gull, M.,
+  et al. 2018, arXiv:1807.03734
+\bibitem[Carlsson(1986)] {Carlsson1986} Carlsson, M. 1986, {\it
+  Uppsala Astronomical Observatory Reports}, 33
+\bibitem[Carlsson(1992)] {Carlsson1992} Carlsson, M. 1992, in {\it
+  Cool Stars, Stellar Systems, and the Sun}, eds. M.~S. Giampapa \&
+  J.A. Bookbinder, 26, 499
+\bibitem[Carretta et al.(2009)] {Carretta2009} Carretta, E.,
+Bragaglia, A., Gratton, R., \& Lucatello, S. 2009, \aap, 505, 139
+\bibitem[Casagrande et al.(2010)] {Casagrande2010} Casagrande, L.,
+  Ram\'{i}rez, I., Mel\'{e}ndez, J., Bessell, M., \& Asplund, M. 2010,
+  \aap, 512, 54
+\bibitem[Castelli \& Kurucz(2004)] {KuruczModelAtmRef} Castelli, F. \&
+Kurucz, R. L. 2004, in IAU Symp. 210, Modelling of Stellar
+Atmospheres, ed. N. Piskunov, W.W. Weiss, \& D. F. Gray (San
+Francisco: ASP), A20
+\bibitem[Cayrel et al.(2001)] {Cayrel2001} Cayrel, R., Hill, V.,
+  Beers, T.C., et al. 2001, \nat, 409, 691
+\bibitem[Cescutti et al.(2013)] {Cescutti2013} Cescutti, G.,
+  Chiappini, C., Hirschi, R., Meynet, G., \& Frischknecht, U. 2013,
+  \aap, 553, 51
+\bibitem[Cescutti et al.(2015)] {Cescutti2015} Cescutti, G., Romano,
+  D., Matteucci, F., Chiappini, C., \& Hirschi, R. 2015, \aap, 577,
+  A139 
+\bibitem[Chiappini et al.(2011)] {Chiappini2011} Chiappini, C.,
+  Frischknecht, U., Meynet, G., et al. 2011, \nat, 472, 454
+\bibitem[Chornock et al.(2017)] {Chornock2017} Chornock, R., Berger,
+  E., Kasen, D., et al. 2017, \apj, 848, L19
+\bibitem[Christlieb et al.(2002)] {Christlieb2002} Christlieb, N.,
+  Bessell, M.S., Beers, T.C., et al. 2002, \nat, 419, 904
+\bibitem[Christlieb et al.(2004)] {Christlieb2004} Christlieb, N.,
+  Beers, T.C., Barklem, P.S., et al. 2004, \aap, 428, 1027
+\bibitem[Christlieb et al.(2008)] {Christlieb2008} Christlieb, N.,
+  Sch\"{o}rck, T., Frebel, A., Beers, T.C., Wisotzki, L., \& Reimers,
+  D. 2008, \aap, 484, 721
+\bibitem[Co{\c s}kuno{\v g}lu et al.(2011)] {Coskunoglu2011} Co{\c
+  s}kuno{\v g}lu, B., Ak, S., Bilir, S. et al. 2011, \mnras, 412, 1237
+\bibitem[C\^{o}t\'{e} et al.(2017)] {Cote2017} C\^{o}t\'{e}, B.,
+  Fryer, C.L., Belczynski, K., et al. 2017, arXiv:1710.05875
+\bibitem[Cowan \& Rose(1977)] {CowanRose1977} Cowan, J.J. \& Rose,
+  W.K. 1977, \apj, 212, 149
+\bibitem[Drout et al.(2017)] {Drout2017} Drout, M.R., Piro, A.L.,
+  Shappee, B.J., et al. 2017, {\it Science}, 358, 1570
+\bibitem[Eichler et al.(2016)] {Eichler2016} Eichler, M., Arcones,
+A., K\"{a}ppeli, R., et al. 2016, {\it JPhCS}, 665, 2054
+\bibitem[El-Badry et al.(2018)] {ElBadry2018} El-Badry, K.,
+  Bland-Hawthorn, J., Wetzel, A., et al. 2018, \mnras, 480, 652
+\bibitem[Ezzeddine et al.(2016)] {Ezzeddine2016} Ezzeddine, R., Merle,
+  T., \& Plez, B. 2016, {\it Astronomische Nachrichten}, 337, 850
+\bibitem[Ezzeddine et al.(2017)] {Ezzeddine2017} Ezzeddine, R.,
+  Frebel, A., \& Plez, B. 2017, \apj, 847, 142
+\bibitem[Frebel et al.(2005)] {Frebel2005} Frebel, A., Aoki, W.,
+  Christlieb, N., et al. 2005, \nat, 434, 871
+\bibitem[Frebel et al.(2007)] {Frebel2007} Frebel, A., Christlieb, N.,
+  Norris, J.E., Thom, C., Beers, T.C., \& Rhee, J. 2007, \apj, 660,
+  117
+%\bibitem[Frebel(2010)] {Frebel2010} Frebel, A. 2010, {\it Astronomische Nachrichten}, 331, 474
+\bibitem[Frebel et al.(2013)] {Frebel2013} Frebel, A., Casey, A.R.,
+  Jacobson, H.R., \& Yu, Q. 2013, \apj, 769, 57
+\bibitem[Frebel \& Norris(2015)] {FrebelNorris2015} Frebel, A. \&
+  Norris, J.E. 2015, \araa, 53, 631
+\bibitem[Frebel(2018)] {Frebel2018} Frebel, A. 2018, arXiv:1806.08955
+\bibitem[Frischknecht et al.(2012)] {Frischknecht2012} Frischknecht,
+  U., Hirschi, R., \& Thielemann, F.-K. 2012, \aap, 538, 2
+\bibitem[Frischknecht et al.(2016)] {Frischknecht2016} Frischknecht,
+  U., Hirschi, R., Pignatari, M., et al. 2016, \mnras, 456, 1803
+\bibitem[Fulbright et al.(2006)] {Fulbright2006} Fulbright, J.P.,
+  McWilliam, A., \& Rich, R.M. 2006, \apj, 636, 821
+\bibitem[Fulbright et al.(2007)] {Fulbright2007} Fulbright, J.P.,
+  McWilliam, A., \& Rich, R.M. 2007, \apj, 661, 1152
+\bibitem[{\it Gaia} Collaboration et al.(2016)] {GaiaREF} {\it Gaia}
+  Collaboration, Prusti, T., de Bruijne, J.H.J., et a. 2016, \aap,
+  595, A1
+\bibitem[{\it Gaia} Collaboration et al.(2018)] {GaiaDR2REF} {\it Gaia}
+  Collaboration, Brown, A.G.A., Vallenari, A., Prusti, T., de Bruijne,
+  J.H.J., Babusiaux, C., \& Bailer-Jones, C.A.L. 2018, \aap,
+  arXiv:1804.09365
+\bibitem[Gratton et al.(2004)] {Gratton2004} Gratton, R., Sneden, C.,
+  \& Carretta, E. 2004, \araa, 42, 385
+\bibitem[Gull et al.(2018)] {Gull2018} Gull, M., Frebel, A., Cain,
+  M.G., et al. 2018, arXiv:1806.00645
+\bibitem[Gustafsson et al.(2008)] {Gustafsson2008} Gustafsson, B.,
+  Edvardsson, B., Eriksson, K., J{\o}rgensen, U.G., Nordlund, {\AA}.,
+  \& Plez, B. 2008, \aap, 486, 951
+\bibitem[Hampel et al.(2016)] {Hampel2016} Hampel, M., Stancliffe,
+  R.J., Lugaro, M., \& Meyer, B.S. 2016, \apj, 831, 171
+\bibitem[Hansen et al.(2013)] {Hansen2013} Hansen, C.J., Bergemann,
+  M., Cescutti, G., Fran\c{c}ois, P., Arcones, A., Karakas, A.I.,
+  Lind, K., and Chiappini, C. 2013, \aap, 551, A57
+\bibitem[Hansen et al.(2015)] {Hansen2015} Hansen, T.T., Andersen, J.,
+  Nordstr\"{o}m, B., Beers, T.C., Yoon, J., \& Buchhave, L.A. 2015,
+  \aap, 583, 49
+\bibitem[Hansen et al.(2017)] {Hansen2017} Hansen, T.T., Simon, J.D.,
+  Marshall, J.L., et al. 2017, \apj, 838, 44
+\bibitem[Hansen et al.(2018)] {Hansen2018} Hansen, T.T., Holmbeck,
+  E.M., Beers, T.C., et al. 2018, \apj, 858, 92
+\bibitem[Herwig et al.(2011)] {Herwig2011} Herwig, F., Pignatari, M.,
+  Woodward, P.R., et al. 2011, \apj, 727, 89
+\bibitem[Hill et al.(2002)] {Hill2002} Hill, V., Plez, B., Cayrel, R.,
+  et al. 2002, \aap, 387, 560
+\bibitem[Hill et al.(2017)] {Hill2017} Hill, V., Christlieb, N., \&
+  Beers, T. C., et al. 2017, \aap, 607, 91
+\bibitem[Hinkle et al.(2003)] {Hinkle2003} Hinkle, K., Wallace, L.,
+Livingston, W., Ayres, T., Harmer, D., \& Valenti, J. 2003, 	
+in \textit{The Future of Cool-Star Astrophysics: 12th Cambridge
+Workshop on Cool Stars, Stellar Systems, and the Sun (2001 July 30 -
+August 3)}, eds. A. Brown, G.M. Harper, and T.R. Ayres, (University of
+Colorado), 851
+\bibitem[Hollek et al.(2011)] {Hollek2011} Hollek, J.K., Frebel, A.,
+  Roederer, I.U., Sneden, C., Shetrone, M., Beers, T.C., Kang, S.-J.,
+  Thom, C. 2011, \apj, 742, 54
+\bibitem[Hollek et al.(2015)] {Hollek2015} Hollek, J.K., Frebel, A.,
+  Placco, V.M., Karakas, A.I., Shetrone, M., Sneden, C., \&
+  Christlieb, N. 2015, \apj, 814, 121
+\bibitem[Holmbeck et al.(2018a)] {Holmbeck2018} Holmbeck, E.M., Beers,
+  T.C., Roederer, I.U., et al. 2018a, \apj, 859, 24
+\bibitem[Holmbeck et al.(2018b)] {Holmbeck2018b} Holmbeck, E.M.,
+  Surman, R., Sprouse, T.M., Mumpower, M.R., Vassh, N., Beers, T.C.,
+  \& Kawano, T. 2018, arXiv:1807.06662
+\bibitem[Honda et al.(2006)] {Honda2006} Honda, S., Aoki, W.,
+  Ishimaru, Y., Wanajo, S., \& Ryan, S.G. 2006, \apj, 643, 1180
+\bibitem[Ito et al.(2009)] {Ito2009} Ito, H., Aoki, W., Honda, S., \&
+  Beers, T.C. 2009, \apjl, 698, L37
+\bibitem[Ji et al.(2016)] {Ji2016} Ji, A.P., Frebel, A., Simon, J.D.,
+  \& Chiti, A. 2016, \apj, 830, 93
+\bibitem[Ji \& Frebel(2018)] {JiFrebel2018} Ji, A.P. \& Frebel, A. 2018, \apj, 856, 138
+\bibitem[Keller et al.(2007)] {Keller2007} Keller, S.C., Schmidt,
+  B.P., Bessell, M.S., et al. 2007, \pasa, 24, 1
+\bibitem[Keller et al.(2014)] {Keller2014} Keller, S.C., Bessell,
+  M.S., Frebel, A., et al. 2014, \nat, 506, 463
+\bibitem[Koch \& McWilliam(2008)] {KochMcWilliam2008} Koch, A. \&
+  McWilliam, A. 2008, \aj, 135, 1551
+\bibitem[Koppelman et al.(2018)] {Koppelman2018} Koppleman, H., Helmi,
+  A., \& Veljanoski, J. 2018, \apjl, 860, L11 
+\bibitem[Kordopatis et al.(2013a)] {RAVEDR4ref} Kordopatis, G., Gilmore,
+  G., Steinmetz, M., et al. 2013a, \aj, 146, 134
+\bibitem[Kordopatis et al.(2013b)] {Kordopatis2013} Kordopatis, G.,
+  Gilmore, G., Wyse, R.F.G., et al. 2013b, \mnras, 436, 3231
+%\bibitem[Komiya(2011)] {Komiya2011} Komiya, Y. 2011, \apj, 735, 73
+\bibitem[Kraft \& Ivans(2003)] {KraftIvans2003} Kraft, R.P, \& Ivans,
+  I.I. 2003, \pasp, 115, 143
+\bibitem[Kunder et al.(2017)] {RAVEDR5ref} Kunder, A., Kordopatis, G.,
+  Steinmetz, M., et al. 2017, \aj, 153, 75
+\bibitem[Lattimer \& Schramm(1974)] {LattimerSchramm1974} Lattimer,
+  J. \& Schramm, D. 1974, \apjl, 192, L145
+\bibitem[Li et al.(2015)] {Li2015} Li, H.-N., Zhao, G., Christlieb,
+  N., et al. 2015, \apj, 798, 110
+\bibitem[Lind et al.(2011)] {Lind2011} Lind, K., Asplund, M., Barklem,
+  P.S., \& Belyaev, A.K. 2011, \aap, 528, A103
+\bibitem[Lind et al.(2012)] {Lind2012} Lind, K., Bergemann, M., \&
+  Asplund, M. 2012, \mnras, 427, 50
+\bibitem[Lippuner et al.(2017)] {Lippuner2017} Lippuner, J.,
+  Fern\'{a}ndez, R., Roberts, L.F., Foucart, F., Kasen, D., Metzger,
+  B.D., \& Ott, C.D. 2017, \mnras, 472, 904
+\bibitem[Macias \& Ramirez-Ruiz(2016)] {MaciasRamirezRuiz2016} Macias,
+  P. \& Ramirez-Ruiz, E. 2016, arXiv:1609.04826
+\bibitem[Martell et al.(2016)] {Martell2016} Martell, S.L., Shetrone,
+  M.D., Lucatello, S., et al. 2016, \apj, 825, 146
+\bibitem[Mashonkina et al.(2014)] {Mashonkina2014} Mashonkina, L.,
+  Christlieb, N., \& Eriksson, K. 2014, \aap, 569, A43
+\bibitem[Matijevi\u{c} et al.(2017)] {Matijevic2017} Matijevi\u{c},
+  G., Chiappini, C., Grebel, E.K., et al. 2017, \aap, 603, 19
+\bibitem[McCall(2004)] {McCall2004} McCall, M.L. 2004, \aj, 128, 2144
+\bibitem[McWilliam et al.(1995)] {McWilliam1995} McWilliam, A.,
+Preston, G.W., Sneden, C., \& Searle, L. 1995b, \aj, 109, 2757
+\bibitem[McWilliam \& Bernstein(2008)] {MB08} McWilliam, A. \&
+Bernstein, R. 2008, \apj, 684, 326
+\bibitem[McWilliam et al.(2013)] {McWilliam2013} McWilliam, A.,
+  Wallerstein, G., \& Mottini, M. 2013, \apj, 778, 149
+\bibitem[M{\"o}sta et al.(2017)] {Mosta2017} M{\"o}sta, P., Roberts,
+  L.F., Halevi, G., Ott, C.D., Lippuner, J., Haas, R., \& Schnetter,
+  E. 2017, arXiv:1712.09370
+\bibitem[Nissen \& Schuster(2010)] {NissenSchuster2010} Nissen,
+  P.E. \& Schuster, W.J. 2010, \aap, 511, 10
+\bibitem[Norris et al.(2007)] {Norris2007} Norris, J.E., Christlieb,
+  N., Korn, A.J., et al. 2007, \apj, 670, 774
+\bibitem[O'Malley et al.(2017)] {OMalley2017} O'Malley, E.M.,
+  McWilliam, A., Chaboyer, B., \& Thompson, I. 2017, \apj, 838, 90
+\bibitem[Pietrinferni et al.(2004)] {BaSTIref} Pietrinferni, A.,
+Cassisi, S., Salaris, M. \& Castelli, F. 2004, \apj, 612, 168 
+\bibitem[Placco et al.(2014a)] {Placco2014a} Placco, V.M., Beers,
+  T.C., Roederer, I.U., et al. 2014a, \apj, 790, 34
+\bibitem[Placco et al.(2014b)] {Placco2014} Placco, V.M., Frebel, A.,
+  Beers, T.C., \& Stancliffe, R.J. 2014b, \apj, 797, 21
+\bibitem[Placco et al.(2015)] {Placco2015} Placco, V.M., Frebel, A.,
+  Lee, Y.S., et al. 2015, \apj, 809, 136
+%\bibitem[Placco et al.(2016)] {Placco2016} Placco, V.M., Frebel, A.,
+%  Beers, T.C., et al. 2016, \apj, 833, 21
+\bibitem[Placco et al.(2017)] {Placco2017} Placco, V.M., Holmbeck,
+  E.M., Frebel, A., et al. 2017, \apj, 844, 18
+\bibitem[Placco et al.(2018)] {Placco2018} Placco, V.M., Beers, T.C.,
+  Santucci, R.M., et al. 2018, \apj, 155, 256
+\bibitem[Ram\'{i}rez \& Mel\'{e}ndez(2005)] {RamirezMelendez2005}
+  Ram\'{i}rez, I. \& Mel\'{e}ndez, J. 2005, \apj, 626, 465
+\bibitem[Reddy et al.(2006)] {Reddy2006} Reddy, B.E., Lambert, D.L.,
+\& Prieto, C.A. 2006, \mnras, 367, 1329
+\bibitem[Reggiani et al.(2016)] {Reggiani2016} Reggiani, H.,
+  Mel\'{e}ndez, J., Yong, D., Ram\'{i}rez, I., \& Asplund, M. 2016,
+  \aap, 586, 67
+\bibitem[Reggiani et al.(2017)] {Reggiani2017} Reggiani, H.,
+  Mel\'{e}ndez, J., Kobayashi, C., Karakas, A., \& Placco, V. 2017,
+  \aap, 608, 46
+%\bibitem[Roederer(2013)] {Roederer2013} Roederer, I.U. 2013, \aj, 145, 26
+\bibitem[Roederer et al.(2010)] {Roederer2010} Roederer, I.U., Cowan,
+  J.J., Karakas, A.I., et al. 2010, \apj, 724, 975
+\bibitem[Roederer et al.(2014a)] {Roederer2014} Roederer, I.U.,
+  Preston, G.W., Thompson, I.B., Shectman, S.A., Sneden, C., Burley,
+  G.S., \& Kelson, D.D. 2014a, \aj, 147, 136
+\bibitem[Roederer et al.(2014b)] {Roederer2014b} Roederer, I.U.,
+  Cowan, J.J., Preston, G.W., Shectman, S.A., Sneden, C., \& Thompson,
+  I.B. 2014b, \mnras, 445, 2946
+\bibitem[Roederer et al.(2016)] {Roederer2016} Roederer, I.U., Mateo,
+  M., Bailey, J.I., et  al. 2016, \aj, 151, 82
+%\bibitem[Roederer et al.(2016)] {Roederer2016} Roederer, I.U., Placco,
+%  V.M., \& Beers, T.C. 2016, \apjl, 824, L19
+\bibitem[Roederer et al.(2018a)] {Roederer2018} Roederer, I.U.,
+  Hattori, K., \& Valluri, M. 2018a, \aj, {\it in press},
+  arXiv:1808.09467
+\bibitem[Roederer et al.(2018b)] {Roederer2018b} Roederer, I.U.,
+  Sakari, C.M., Placco, V.M., Beers, T.C., Ezzeddine, R., Frebel, A.,
+  \& Hansen, T.T. 2018b, \apj, {\it in press}, arXiv:1808.09469
+\bibitem[Rosswog et al.(2014)] {Rosswog2014} Rosswog, S., Korobkin,
+  O., Arcones, A., Thielemann, F.-K., Piran, T. 2014, \mnras, 439, 744
+\bibitem[Ruchti et al.(2011)] {Ruchti2011} Ruchti, G.R., Fulbright,
+  J.P., Wyse, R.F.G., et al. 2011, \apj, 737, 9
+\bibitem[Ruchti et al.(2013)] {Ruchti2013} Ruchti, G.R., Bergemann,
+  M., Serenelli, A., Casagrande, L., \& Lind, K. 2013, \mnras, 429,
+  126
+\bibitem[Sakari et al.(2017)] {Sakari2017} Sakari, C.M., McWilliam,
+  A., \& Wallerstein, G. 2017, \mnras, 467, 1112
+\bibitem[Sakari et al.(2018)] {Sakari2018} Sakari, C.M., Placco, V.M.,
+  Hansen, T., et al. 2018, \apjl, 854, L20
+\bibitem[Schatz et al.(2002)] {Schatz2002} Schatz, H., Toenjes, R.,
+  Pfeiffer, B., Beers, T.C., Cowan, J.J., Hill, V., \& Kratz,
+  K.-L. 2002, \apj, 579, 626
+\bibitem[Schiavon et al.(2017)] {Schiavon2017} Schiavon, R.P., Zamora,
+  O., Carrera, R., et al. 2017, \mnras, 465, 501
+\bibitem[Schlafly \& Finkbeiner(2011)] {SchlaflyFinkbeiner2011}
+  Schlafly, E.F., \& Finkbeiner, D.P. 2011, \apj, 737, 103
+\bibitem[Schlaufman \& Casey(2014)] {BaBref} Schlaufman, K.C. \&
+  Casey, A.R. 2014, \apj, 797, 13
+\bibitem[Shappee et al.(2017)] {Shappee2017} Shappee, B.J., Simon,
+  J.D., Drout, M.R., et al. 2017, {\it Science}, 358, 1574
+\bibitem[Shi et al.(2018)] {Shi2018} Shi, J.R., Yan, H.L., Zhou, Z.M.,
+  \& Zhao, G. 2018, arXiv:1806.02225
+\bibitem[Short \& Hauschildt (2006)] {ShortHauschildt2006} Short,
+  C.I. \& Hauschildt, P.H. 2006, \apj, 641, 494
+\bibitem[Siqueira Mello et al.(2013)] {SiqueiraMello2013} Siqueira
+  Mello, C., Spite, M., Barbuy, B. 2013, \aap, 550, 122
+\bibitem[Siqueira Mello et al.(2014)] {SiqueiraMello2014} Siqueira
+  Mello, C., Hill, V., Barbuy, B., et al. 2014, \aap, 565, 93
+\bibitem[Skrutskie et al.(2006)] {2MASSref} Skrutskie, M.F., Cutri,
+  R.M., Stiening, R., et al. 2006, \aj, 131, 1163
+\bibitem[Sneden(1973)]{Sneden} Sneden, C. 1973, \apj, 184, 839
+\bibitem[Sneden et al.(1996)] {Sneden1996} Sneden, C., McWilliam, A.,
+  Preston, G.W., Cowan, J.J., Burris, D.L., \& Armosky, B.J. 1996,
+  \apj, 467, 819
+\bibitem[Sneden et al.(2008)] {Sneden2008} Sneden, C., Cowan, J.J., \&
+  Gallino, R. 2008, \araa, 46, 241
+\bibitem[Sneden et al.(2009)] {Sneden2009} Sneden, C., Lawler, J.E.,
+  Cowan, J.J., Ivans, I.I., \& Den Hartog, E.A. 2009, \apjs, 182, 80 
+\bibitem[Sobeck et al.(2011)] {Sobeck2011} Sobeck, J. S., Kraft,
+  R. P., Sneden, C., et al. 2011, \aj, 141, 175
+\bibitem[Spite et al.(2018)] {Spite2018} Spite, F., Spite, M., Barbuy,
+  B., Bonifacio, P., Caffau, E., \& Fran\c{c}ois, P. 2018, \aap, 611,
+  A30 
+\bibitem[Starkenburg et al.(2010)] {Starkenburg2010} Starkenburg, E.,
+  Hill, V., Tolstoy, E., et al. 2010, \aap, 513, 34 
+\bibitem[Starkenburg et al.(2017)] {Starkenburg2017} Starkenburg, E.,
+  Oman, K.A., Navarro, J.F., et al. 2017, \mnras, 465, 2212
+\bibitem[Steinmetz et al.(2006)] {RAVEref} Steinmetz, M., Zwitter, T.,
+  Siebert, A., et al. 2006, \aj, 132, 1645
+\bibitem[Stetson \& Pancino(2008)] {DAOSPECref} Stetson, P.B. \&
+Pancino, E. 2008, \pasp, 120, 1332
+\bibitem[Surman et al.(2017)] {Surman2017} Surman, R., Mumpower, M.,
+  \& McLaughlin, G. 2017, Proc. of the 14th International Symposium on
+  Nuclei in the Cosmos, ed. Kubono, S., Kajino, T., Nishimura, S.,
+  Isobe, T., Nagataki, S. Shima, T., \& Takeda, Y.
+\bibitem[Thanathibodee(2016)] {Thanathibodee2016} Thanathibodee,
+  T. 2016, ``Chemical abundance analysis of HE 2324-0215, an
+  r-process-enhanced metal-poor star,'' Massachusetts Institute of
+  Technology
+\bibitem[Tsujimoto \& Nishimura(2015)] {TsujimotoNishimura2015}
+  Tsujimoto, T. \& Nishimura, N. 2015, \apjl, 811, L10
+\bibitem[Tsujimoto et al.(2017)] {Tsujimoto2017} Tsujimoto, T.,
+  Matsuno, T., Aoki, W., Ishigaki, M.N., \& Shigeyama, T. 2017, \apjl,
+  850, L12
+\bibitem[van Leeuwen(2007)] {HIPref} van Leeuwen, F. 2007, \aap, 474, 653
+\bibitem[Venn et al.(2004)] {Venn2004} Venn, K.A., Irwin, M.,
+Shetrone, M.D., et al. 2004, \aj, 128, 1177
+\bibitem[Winteler et al.(2012)]{Winteler2012} Winteler, C.,
+  K\"{a}ppeli, R., Perego, A., Arcones, A., Vasset, N., Nishimura, N.,
+  Liebend\"{o}rfer, M., \& Thielemann, F.-K. 2012, \apjl, 750, L22
+\bibitem[Xu et al.(2007)] {Xu2007} Xu, H.L., Svanberg, S., Quinet, P., Palmeri, P., \& Bi\'{e}mont, \'{E}. 2007, {\it JQSRT}, 104, 52
+\end{thebibliography}
+}
+
+\clearpage
+\normalsize
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\appendix
+
+\section{Comparisons of Atmospheric Parameters with Independent Methods}\label{appendix:Comp}
+
+\subsection{Comparison of Spectroscopic vs. Photometric Temperatures}\label{subsec:CompRM05}
+Stellar temperatures can be predicted from their colors with
+1) empirically calibrated relationships between color, $T_{\rm{eff}}$,
+and metallicity (for dwarfs and giants), 2) accurate photometry, 3)
+estimates of the reddening, and 4) appropriate reddening laws.  To
+compare with the spectroscopic temperatures, photometric temperatures
+have been derived from the $(V-K)$ colors and the
+\citet{RamirezMelendez2005} color-$T_{\rm{eff}}$ relation, using the
+Johnson $V$ and 2MASS $K$ magnitudes from SIMBAD. Estimates of the
+reddening have been derived from the \citet{SchlaflyFinkbeiner2011}
+extinction
+maps,\footnote{\url{http://irsa.ipac.caltech.edu/applications/DUST/}}
+and have been converted to E(V-K) with the reddening law from
+\citet{McCall2004}. Comparisons of the photometric and spectroscopic
+temperatures (NLTE and LTE) are shown in Figure \ref{fig:CompRM05}.
+With some exceptions, the spectroscopic temperatures
+of the giants agree with the photometric temperatures within 200 K.
+On average, the NLTE temperatures are in slightly better agreement
+than the LTE temperatures, but there is a scatter of $\sim 150$ K.
+The points that lie below the average offset (with lower spectroscopic
+temperatures) may be due to uncertainties in the reddening.  The
+\citet{SchlaflyFinkbeiner2011} $E(B-V)$ values are determined from
+dust maps, and could be higher than the actual foreground
+reddening---a higher reddening would lead to a higher photometric
+temperature.  The offsets with the dwarfs could be due to issues with
+reddening, or could reflect insufficient NLTE corrections or problems
+in the adopted color-temperature relations at low metallicity.  Note
+that this offset is seen in the dwarfs regardless of whether the
+\citet{RamirezMelendez2005} or \citet{Casagrande2010} relation is
+used.
+
+
+\begin{figure}[h!]
+\begin{center}
+\centering
+\subfigure{\includegraphics[scale=0.55,trim=0.1in 0.1in 0.7in 0.4in,clip]{CompIRFM.eps}}
+\subfigure{\includegraphics[scale=0.55,trim=0.1in 0.1in 0.7in 0.4in,clip]{LTECompIRFM.eps}}
+\caption{Offsets in effective temperature (spectroscopic $-$
+  photometric) for the $<$3D$>$, NLTE temperatures (left) and the LTE
+  temperatures (right).  The points are color-coded by [Fe/H].
+  Average offsets are shown with a solid line, while the
+  $1\sigma$ dispersion is shown with a gray band.\label{fig:CompRM05}}
+\end{center}
+\end{figure}
+
+
+
+\subsection{Comparisons of $\log g$ with {\it Gaia} DR2 Results}\label{subsec:CompGAIA}
+All of the target stars have parallax measurements from {\it Gaia}
+DR2, though the errors are quite large in some cases. These
+parallax-based distances, combined with $V$ magnitudes and $E(B-V)$
+reddenings, give absolute $V$ magnitudes, $M_V$.  Only parallaxes with
+errors $<20\%$ are utilized to derive distances (see
+\citealt{BailerJones2018}).
+
+Absolute visual magnitudes can also be calculated from the
+spectroscopic surface gravities.  The spectroscopic surface gravities
+are converted into luminosities and bolometric absolute magnitudes via
+Equations 3 and 4 of \citet{MB08}.  These bolometric magnitudes are
+then converted into absolute $V$ magnitudes with the bolometric
+corrections from the Kurucz database, adopting the $T_{\rm{eff}}$,
+$\log g$, and [Fe/H] interpolation scheme from \citet{MB08}.  Figure
+\ref{fig:Mv} shows the differences between the spectroscopic (NLTE and
+LTE) and photometric absolute magnitudes for the subset of stars with
+sufficiently small errors in the parallax.  Both the NLTE
+  and LTE values lead to lower predicted $M_{\rm{V}}$ magnitudes, on
+  average, than predicted by {\it Gaia}; in other words, the
+  spectroscopic surface gravities indicate that the stars are slightly
+  brighter than predicted by {\it Gaia}, though the average offset and
+  dispersion are smaller when the NLTE corrections are
+  utilized. Although this also may reflect problems with the adopted
+  bolometric corrections, the assumed stellar mass, or the adopted
+  temperature, it may also indicate that additional NLTE corrections
+  are necessary.
+
+\begin{figure}[h!]
+\begin{center}
+\centering
+\subfigure[NMTD]{\includegraphics[scale=0.55,trim=0.1in 0.1in 0.7in 0.4in,clip]{Mv.eps}}
+\subfigure[LTE]{\includegraphics[scale=0.55,trim=0.1in 0.1in 0.7in 0.4in,clip]{LTEMv.eps}}
+\caption{Offsets in $M_V$ (the spectroscopic value derived from
+  $\log g$ and bolometric corrections minus the parallax-based
+  photometric value) for the $<$3D$>$, NLTE temperatures (left) and
+  the LTE temperatures (right).  The points are color-coded by
+  [Fe/H]. Average offsets are shown with a solid line, while the
+  $1\sigma$ dispersion is shown with a gray band.\label{fig:Mv}}
+\end{center}
+\end{figure}
+
+
+
+
+\clearpage
+\section{LTE Abundances and Atmospheric Parameters for the Target Stars}\label{appendix:LTE}
+Table \ref{table:LTEAtmParams} shows the spectroscopic parameters for
+the target stars if non-LTE corrections are not applied.
+
+
+\startlongtable
+\begin{deluxetable}{@{}ccccDDD}
+\tabletypesize{\scriptsize}
+\tablecolumns{8}
+\tablewidth{0pt}
+\tablecaption{LTE Atmospheric Parameters: Target Stars\tablenotemark{a}\label{table:LTEAtmParams}}
+%\centering
+\hspace*{-4in}
+%\begin{center}
+%  \newcolumntype{d}[1]{D{,}{\pm}{#1}}
+%  \newcolumntype{e}[1]{D{.}{.}{#1}}
+%  \begin{tabular}{@{}lcccccccccd{3}@{}}
+\tablehead{
+Star & $T_{\rm{eff}}$ (K) & $\log g$ & $\xi$ (km/s) & \multicolumn{2}{c}{[\ion{Fe}{1}/H]} & \multicolumn{2}{c}{[\ion{Fe}{2}/H]}
+}
+\decimals
+\startdata
+J001236.5$-$181631 & 4985 & 2.44 & 1.49 & -2.28\pm0.01 & -2.42\pm0.015 \\ 
+J000738.2$-$034551 & 4663 & 1.48 & 2.32 & -2.09\pm0.01 & -2.23\pm0.031 \\ 
+J002244.9$-$172429 & 4718 & 1.11 & 1.95 & -3.38\pm0.03 & -3.88\pm0.11 \\ 
+J003052.7$-$100704 & 4831 & 1.48 & 2.2 & -2.35\pm0.02 & -2.42\pm0.061 \\ 
+J005327.8$-$025317 & 4370 & 0.56 & 1.95 & -2.16\pm0.01 & -2.19\pm0.036 \\ 
+J005419.7$-$061155 & 4707 & 1.03 & 2.01 & -2.32\pm0.02 & -2.36\pm0.075 \\ 
+J010727.4$-$052401 & 5225 & 3.03 & 1.43 & -2.32\pm0.01 & -2.51\pm0.025 \\ 
+J014519.5$-$280058 & 4582 & 0.69 & 2.09 & -2.60\pm0.02 & -2.55\pm0.049 \\ 
+J015656.3$-$140211 & 4622 & 1.09 & 2.4 & -2.08\pm0.02 & -2.09\pm0.041 \\ 
+2MJ02134021$-$0005183 & 6175 & 4.47 & 2.6 & -1.96\pm0.03 & -2.17\pm0.08 \\ 
+%J022741.1-051923 & 4498 & 0.96 & 2.94 & -2.38\pm0.02 & -2.53\pm0.045 \\ 
+%J023610.8-120256 & 4947 & 1.68 & 1.7 & -2.13\pm0.03 & -2.09\pm0.053 \\ 
+%J024139.0-042735 & 4539 & 0.79 & 2.6 & -2.48\pm0.01 & -2.77\pm0.024 \\ 
+%J024236.8-070746 & 6590 & 4.24 & 1.14 & -2.04\pm0.02 & -2.3\pm0.058 \\ 
+%J024325.9-324902 & 4613 & 0.90 & 3.55 & -2.62\pm0.02 & -2.76\pm0.084 \\ 
+%J024620.1-151842 & 4948 & 1.93 & 1.81 & -2.45\pm0.03 & -2.82\pm0.049 \\ 
+%J030714.8-053455 & 4568 & 1.20 & 2.34 & -2.23\pm0.01 & -2.34\pm0.039 \\ 
+%J031337.3-102056 & 4757 & 1.47 & 1.96 & -2.05\pm0.02 & -2.05\pm0.032 \\ 
+%J034346.3-092417 & 4380 & 0.46 & 1.98 & -1.92\pm0.01 & -1.93\pm0.047 \\ 
+%J034621.6-073008 & 4707 & 1.33 & 1.93 & -1.99\pm0.01 & -1.98\pm0.031 \\ 
+%J035509.3-063711 & 5076 & 1.47 & 1.7 & -2.38\pm0.02 & -2.46\pm0.046 \\ 
+%J041929.7-051749 & 4568 & 1.30 & 2.3 & -2.02\pm0.01 & -2.18\pm0.041 \\ 
+%J042324.4-131506 & 4175 & 0.02 & 2.41 & -2.38\pm0.01 & -2.38\pm0.024 \\ 
+%J043422.5-232528 & 4235 & 0.76 & 2.08 & -1.89\pm0.02 & -1.9\pm0.043 \\ 
+%J044150.9-230348 & 5525 & 1.63 & 1.64 & -2.48\pm0.02 & -2.69\pm0.051 \\ 
+%J045301.7-243714 & 4672 & 1.08 & 2.28 & -2.44\pm0.01 & -2.4\pm0.038 \\ 
+%J045651.5-311543 & 4190 & 0.05 & 2.31 & -2.19\pm0.01 & -2.24\pm0.038 \\ 
+%J050550.5-214508 & 4465 & 0.33 & 1.82 & -2.16\pm0.02 & -2.17\pm0.039 \\ 
+%J051727.4-134235 & 4961 & 1.93 & 1.81 & -2.14\pm0.01 & -2.24\pm0.031 \\ 
+%J05254724-3049100 & 5195 & 1.37 & 1.93 & -2.18\pm0.02 & -2.36\pm0.081 \\ 
+%J061033.5-314107 & 4986 & 1.53 & 2.46 & -2.75\pm0.02 & -2.86\pm0.06 \\ 
+%J070520.3-334324 & 4757 & 1.27 & 1.96 & -2.24\pm0.02 & -2.25\pm0.044 \\ 
+%J071142.5-343237 & 4767 & 1.33 & 1.89 & -1.96\pm0.02 & -1.98\pm0.063 \\ 
+%J085805.9-080917 & 4666 & 0.90 & 3.38 & -2.97\pm0.01 & -3.3\pm0.032 \\ 
+%J091043.1-144419 & 4693 & 0.70 & 2.22 & -3.04\pm0.02 & -3.27\pm0.054 \\ 
+%J091858.9-231151 & 4662 & 1.05 & 2.22 & -2.05\pm0.01 & -2.06\pm0.029 \\ 
+%J092949.7-290559 & 4737 & 0.96 & 2.01 & -2.32\pm0.02 & -2.34\pm0.044 \\ 
+%J094634.8-062653 & 4370 & 0.56 & 2.05 & -1.99\pm0.02 & -2.04\pm0.035 \\ 
+%J094921.8-161722 & 4707 & 1.26 & 2.01 & -2.24\pm0.02 & -2.18\pm0.031 \\ 
+%J095036.7-250628 & 4815 & 1.56 & 1.93 & -2.56\pm0.02 & -2.72\pm0.077 \\ 
+%J095246.9-085554 & 4831 & 1.40 & 2.51 & -2.79\pm0.02 & -3.11\pm0.051 \\ 
+%J095801.8-144614 & 4756 & 1.48 & 2.12 & -2.33\pm0.02 & -2.4\pm0.055 \\ 
+%J100448.6-270650 & 4831 & 1.42 & 1.78 & -2.40\pm0.02 & -2.5\pm0.043 \\ 
+%J102237.8-340021 & 4831 & 1.72 & 1.72 & -2.14\pm0.02 & -2.27\pm0.039 \\ 
+%J103139.9-082759 & 5075 & 2.58 & 1.75 & -2.24\pm0.02 & -2.43\pm0.065 \\ 
+%J103634.4-193436 & 4707 & 1.26 & 2.04 & -2.00\pm0.02 & -2.0\pm0.051 \\ 
+%J104921.9-115417 & 4915 & 2.37 & 1.52 & -2.18\pm0.02 & -2.4\pm0.05 \\ 
+%J105136.9-211547 & 4430 & 0.33 & 2.09 & -1.73\pm0.01 & -1.79\pm0.039 \\ 
+%J105941.4-205225 & 4370 & 0.56 & 2.06 & -2.12\pm0.04 & -2.15\pm0.035 \\ 
+%J112034.0-240615 & 5045 & 1.48 & 2.2 & -2.53\pm0.02 & -2.8\pm0.042 \\ 
+%J112427.4-215510 & 4781 & 1.55 & 1.95 & -2.33\pm0.01 & -2.4\pm0.048 \\ 
+%J113017.1-144933 & 4985 & 2.44 & 1.64 & -2.45\pm0.01 & -2.58\pm0.033 \\ 
+%J113901.0-055814 & 4662 & 1.19 & 2.19 & -1.98\pm0.02 & -1.97\pm0.033 \\ 
+%J114440.9-040951 & 4614 & 1.03 & 2.45 & -2.52\pm0.01 & -2.76\pm0.02 \\ 
+%2MJ11444480-1128167 & 5006 & 2.46 & 1.51 & -2.42\pm0.01 & -2.59\pm0.017 \\ 
+%J114638.8-042240 & 4235 & 0.16 & 2.39 & -2.05\pm0.01 & -2.1\pm0.028 \\ 
+%J114729.9-052145 & 4707 & 1.26 & 1.88 & -2.00\pm0.01 & -2.0\pm0.026 \\ 
+%J115801.3-152218 & 4981 & 1.47 & 1.9 & -2.41\pm0.03 & -2.52\pm0.058 \\ 
+%J120456.3-075923 & 4530 & 0.83 & 3.49 & -2.72\pm0.02 & -3.0\pm0.048 \\ 
+%2MJ12091322-1415313 & 4370 & 0.56 & 2.01 & -2.11\pm0.01 & -2.13\pm0.015 \\ 
+%J121846.5-161051 & 4740 & 1.09 & 3.43 & -3.24\pm0.02 & -3.42\pm0.092 \\ 
+%J122927.0-044233 & 4523 & 1.13 & 2.43 & -2.23\pm0.01 & -2.36\pm0.033 \\ 
+%J123749.3-094930 & 4370 & 0.56 & 2.04 & -2.12\pm0.01 & -2.17\pm0.036 \\ 
+%J125039.9-030749 & 5060 & 2.35 & 1.67 & -2.15\pm0.02 & -2.36\pm0.035 \\ 
+%J125631.4-083410 & 4210 & 0.06 & 2.28 & -2.34\pm0.01 & -2.38\pm0.042 \\ 
+%J130200.0-084328 & 4567 & 0.46 & 2.85 & -1.95\pm0.01 & -1.97\pm0.026 \\ 
+%J130604.3-094730 & 4707 & 1.33 & 1.93 & -1.93\pm0.01 & -1.94\pm0.029 \\ 
+%2MJ13072823-0931148 & 4647 & 1.16 & 2.09 & -1.98\pm0.02 & -1.98\pm0.029 \\ 
+%J132139.3-113805 & 4568 & 1.20 & 2.69 & -2.44\pm0.01 & -2.54\pm0.033 \\ 
+%2MJ13254554-1747547 & 4588 & 0.83 & 2.8 & -2.32\pm0.01 & -2.43\pm0.055 \\ 
+%J132604.5-152502 & 4798 & 1.33 & 2.12 & -2.38\pm0.01 & -2.58\pm0.049 \\ 
+%J132846.9-173136 & 4495 & 0.67 & 1.86 & -2.20\pm0.02 & -2.24\pm0.068 \\ 
+%2MJ13431929-2358139 & 4777 & 1.13 & 1.75 & -2.47\pm0.02 & -2.46\pm0.06 \\ 
+%J133514.0-011052 & 4568 & 1.07 & 2.61 & -2.45\pm0.01 & -2.59\pm0.045 \\ 
+%J133748.9-082617 & 4365 & 0.25 & 2.61 & -2.62\pm0.01 & -2.62\pm0.061 \\ 
+%J133931.4-125721 & 4574 & 0.72 & 2.84 & -2.71\pm0.01 & -2.92\pm0.033 \\ 
+%2MJ13402720-0016031 & 4568 & 0.90 & 2.78 & -2.43\pm0.02 & -2.61\pm0.047 \\ 
+%J134254.1-071701 & 4568 & 0.90 & 2.94 & -2.51\pm0.01 & -2.68\pm0.041 \\ 
+%J133352.8-262354 & 4821 & 1.72 & 1.69 & -2.12\pm0.01 & -2.21\pm0.042 \\ 
+%J140308.6-321401 & 4513 & 1.13 & 2.43 & -2.41\pm0.01 & -2.54\pm0.038 \\ 
+%2MJ14043762+0011117 & 4370 & 0.26 & 2.14 & -1.87\pm0 & -1.92\pm0.046 \\ 
+%J141015.9-034355 & 4931 & 2.00 & 1.83 & -2.06\pm0 & -2.19\pm0.064 \\ 
+%J141640.8-242200 & 4647 & 0.86 & 2.27 & -2.57\pm0.01 & -2.57\pm0.045 \\ 
+%J141808.7-284208 & 4672 & 1.26 & 1.99 & -2.32\pm0.01 & -2.28\pm0.027 \\ 
+%J141914.0-084441 & 4831 & 1.72 & 1.79 & -2.08\pm0.01 & -2.2\pm0.045 \\ 
+%J150025.0-061337 & 4460 & 0.73 & 1.86 & -2.05\pm0.01 & -2.08\pm0.033 \\ 
+%J150203.0-052857 & 4370 & 0.56 & 1.82 & -1.82\pm0.01 & -1.87\pm0.034 \\ 
+%J150757.0-065959 & 4300 & 0.52 & 2.21 & -2.07\pm0.01 & -2.12\pm0.033 \\ 
+%J150833.9-145917 & 4543 & 1.13 & 2.53 & -2.29\pm0.01 & -2.42\pm0.039 \\ 
+%J151116.8+002525 & 4568 & 0.90 & 2.88 & -2.46\pm0.01 & -2.61\pm0.036 \\ 
+%20080303\_1523 & 4285 & 0.36 & 2.46 & -2.27\pm0.01 & -2.35\pm0.022 \\ 
+%2MJ15211026-0607566 & 4707 & 1.33 & 1.99 & -2.00\pm0.01 & -2.0\pm0.028 \\ 
+%20090317\_1523 & 6275 & 4.84 & 1.8 & -1.77\pm0.02 & -2.04\pm0.054 \\ 
+%20080401\_1523 & 4721 & 1.26 & 2.41 & -3.03\pm0.02 & -3.29\pm0.033 \\ 
+%20070419\_1539 & 4752 & 1.63 & 1.73 & -2.09\pm0.02 & -2.08\pm0.035 \\ 
+%R102792 & 4638 & 1.34 & 2.39 & -2.18\pm0.01 & -2.33\pm0.036 \\ 
+%J154755.2-083710 & 4285 & 0.25 & 2.48 & -2.48\pm0.01 & -2.49\pm0.032 \\ 
+%20080404\_1551 & 5210 & 1.24 & 1.95 & -2.18\pm0.02 & -2.32\pm0.028 \\ 
+%20070615\_1554 & 4977 & 2.57 & 1.3 & -1.87\pm0.01 & -1.8\pm0.037 \\ 
+%R190610 & 4060 & 0.02 & 2.31 & -2.09\pm0.01 & -2.1\pm0.026 \\ 
+%20060318\_1603 & 4225 & 0.19 & 2.21 & -2.38\pm0.01 & -2.31\pm0.021 \\ 
+%J160951.2-094118 & 4634 & 0.66 & 2.53 & -2.66\pm0.01 & -2.95\pm0.013 \\ 
+%R237798 & 4420 & 0.70 & 1.79 & -1.80\pm0.01 & -1.86\pm0.03 \\ 
+%R292117 & 4350 & 0.56 & 1.98 & -2.11\pm0.01 & -2.13\pm0.024 \\ 
+%R287331a & 4370 & 0.63 & 2.03 & -1.97\pm0.01 & -2.01\pm0.031 \\ 
+%R105795 & 5335 & 1.31 & 1.73 & -2.41\pm0.03 & -2.61\pm0.078 \\ 
+%R370376 & 4678 & 1.54 & 2.52 & -2.36\pm0.02 & -2.49\pm0.047 \\ 
+%20060331\_1625 & 4955 & 1.31 & 2.35 & -2.00\pm0.02 & -2.22\pm0.036 \\ 
+%R091253 & 4370 & 0.56 & 2.11 & -2.07\pm0.01 & -2.06\pm0.036 \\ 
+%R094476 & 4310 & 0.22 & 2.08 & -2.15\pm0.01 & -2.29\pm0.041 \\ 
+%20110528\_1904 & 4687 & 0.99 & 2.46 & -1.89\pm0.01 & -1.94\pm0.026 \\ 
+%20080523\_1959& 4624 & 0.96 & 2.38 & -2.75\pm0.02 & -3.02\pm0.051 \\ 
+%R394127 & 4195 & 0.22 & 2.23 & -2.02\pm0.01 & -2.09\pm0.025 \\ 
+%R445705 & 4612 & 0.79 & 2.22 & -2.24\pm0.02 & -2.22\pm0.034 \\ 
+%R117839 & 4283 & 0.07 & 3.2 & -2.41\pm0.02 & -2.77\pm0.047 \\ 
+%R065618 & 4280 & 0.06 & 2.26 & -2.15\pm0.01 & -2.3\pm0.034 \\ 
+%R180534 & 4345 & 0.13 & 2.99 & -2.66\pm0.01 & -2.97\pm0.028 \\ 
+%R142212 & 4831 & 1.65 & 1.75 & -2.36\pm0.02 & -2.4\pm0.039 \\ 
+%R186236 & 4248 & 0.40 & 3.17 & -2.58\pm0.01 & -2.7\pm0.029 \\ 
+%R192904 & 4568 & 0.90 & 2.7 & -2.47\pm0.01 & -2.59\pm0.027 \\ 
+%K041686 & 4558 & 1.20 & 2.63 & -2.26\pm0.01 & -2.37\pm0.035 \\ 
+%R468251 & 4465 & 0.80 & 1.89 & -1.97\pm0.01 & -2.0\pm0.035 \\ 
+%R142360 & 4613 & 1.24 & 2.63 & -2.46\pm0.02 & -2.6\pm0.043 \\ 
+%R339816 & 4995 & 1.54 & 1.97 & -2.30\pm0.20 & -2.43\pm0.039 \\ 
+\enddata
+%\end{tabular}\\
+%\end{center}
+\tablenotetext{a}{Only a portion of this table is shown here to
+  demonstrate its form and content. A machine-readable version of the
+  full table is available.}
+%\medskip
+%\raggedright .\\
+\end{deluxetable}
+
+
+
+
+
+
+\section{Systematic Errors}\label{appendix:Errors}
+The systematic errors in the abundances are quantified according to
+the uncertainties in the atmospheric parameters, using the techniques
+outlined in \citet{McWilliam2013} and \citet{Sakari2017}.  First, the
+variances and covariances in the atmospheric parameters were
+estimated, as shown in Table \ref{table:AppendixErrors}.  For the
+temperature and microturbulence, the uncertainties were determined
+based on the errors in the slopes of Fe abundance vs. EP and REW,
+respectively.  The uncertainty in gravity was based on the random error
+in the \ion{Fe}{2} abundance, while the uncertainty in the metallicity
+was based on the random error in the \ion{Fe}{1} abundance.  The
+covariances were calculated according to Equation A6 in
+\citet{McWilliam2013}.
+
+
+\begin{deluxetable}{@{}lccccccccc}
+\tabletypesize{\scriptsize}
+\tablecolumns{10}
+\tablewidth{0pt}
+\tablecaption{Variances and Covariances in Atmospheric Parameters for
+  Several Standard Stars\label{table:AppendixErrors}}
+%\centering
+\hspace*{-4in}
+%\begin{center}
+%  \newcolumntype{d}[1]{D{,}{\pm}{#1}}
+%  \newcolumntype{e}[1]{D{.}{.}{#1}}
+%  \begin{tabular}{@{}lcccccccccd{3}@{}}
+\tablehead{
+ & \multicolumn{1}{l}{[Fe/H] $\sim-3$} & & \multicolumn{3}{l}{[Fe/H] $\sim-2.5$} & & \multicolumn{3}{l}{[Fe/H] $\sim-2$} \\
+ & $\log g \sim 1$ & & $\log g \sim 1$ & $\log g \sim 2$ & $\log g \sim 4$ & & $\log g \sim 1$ & $\log g \sim 2$ & $\log g \sim 4$\\
+ & HE 1523$-$0901    & & J2038$-$0023      & CS 31082-001   & BD$-$13 3442      & & TYC 6535-3183-1 & TYC 4924-33-1   & TYC 5911-452-1
+}
+\startdata
+$\sigma_T$          & 30     & & 25   & 30   & 220    & & 55 & 40 & 95 \\
+$\sigma_g$          & 0.25   & & 0.05 & 0.15 & 0.30   & & 0.05 & 0.20 & 0.20\\
+$\sigma_\xi$         & 0.16   & & 0.20 & 0.14 & 0.35   & & 0.15 & 0.13 & 0.28\\
+$\sigma_{\rm{[M/H]}}$ & 0.02    & & 0.02 & 0.02 & 0.02   & & 0.02 & 0.01 & 0.02\\
+& & & & & & & & & \\
+$\sigma_{T\xi}$       & 0.08   & & 0.03  & 0.03  & 0.10   & & 0.0 & 2.4 & 8.07 \\
+$\sigma_{Tg}$        & 0.0     & & 0     & 0.0  & 0.0     & & 0.0 & 0.0 & 0.0\\
+$\sigma_{g\xi}$       & 0.08   & & 0.003 & 0.03  & -0.090 & & 0.0 & -0.012 & -0.015\\
+$\sigma_{T\rm{[M/H]}}$ & 0      & & 0.32  &       & 0.0     & & 0.0 & 0.48 & 0.90 \\
+\enddata
+%\tablenotetext{a}{.}
+\end{deluxetable}
+
+The uncertainties in the [Fe/H] and [X/Fe] abundance ratios were then
+calculated using Equation A1 in \citet{Sakari2017} and Equations A4
+and A5 in \citet{McWilliam2013}.  Table \ref{table:AppendixAbundErrors}
+shows the total errors (systematic and random) in the abundance ratios
+for the six representative standard stars.  Only the uncertainties in
+[X/Fe] are shown; note that the errors in the [X/Fe] ratios are often
+lower than the errors in the absolute $\log \epsilon$ abundances,
+since the abundances change together as the atmospheric parameters are
+varied.
+
+\begin{deluxetable}{@{}lccccccccc}
+\tabletypesize{\scriptsize}
+\tablecolumns{10}
+\tablewidth{0pt}
+\tablecaption{Total Errors (Systematic and Random) in the Abundance Ratios for Several Standard Stars\label{table:AppendixAbundErrors}}
+%\centering
+\hspace*{-4in}
+%\begin{center}
+%  \newcolumntype{d}[1]{D{,}{\pm}{#1}}
+%  \newcolumntype{e}[1]{D{.}{.}{#1}}
+%  \begin{tabular}{@{}lcccccccccd{3}@{}}
+\tablehead{
+ & \multicolumn{1}{l}{[Fe/H] $\sim-3$} & & \multicolumn{3}{l}{[Fe/H] $\sim-2.5$} & & \multicolumn{3}{l}{[Fe/H] $\sim-2$} \\
+ & $\log g \sim 1$ & & $\log g \sim 1$ & $\log g \sim 2$ & $\log g \sim 4$ & & $\log g \sim 1$ & $\log g \sim 2$ & $\log g \sim 4$\\
+ & HE 1523$-$0901    & & J2038$-$0023      & CS 31082-001 & BD$-$13 3442      & & TYC 6535-3183-1 & TYC 4924-33-1   & TYC 5911-452-1
+}
+\startdata
+$\sigma$[\ion{Fe}{1}/H]  & 0.03 & & 0.02 & 0.02 & 0.03 & & 0.02 & 0.02 & 0.03 \\
+$\sigma$[\ion{Fe}{2}/H]  & 0.07 & & 0.08 & 0.07 & 0.10 & & 0.10 & 0.07 & 0.09 \\
+$\sigma$[\ion{Li}{1}/Fe] &      & &      & 0.11 & 0.12 & & 0.09 & 0.11 & 0.11 \\
+$\sigma$[\ion{O}{1}/Fe]  &      & &      &      &      & & 0.12 &      &  \\
+$\sigma$[\ion{Na}{1}/Fe] &      & &      &      & 0.14 & & 0.16 &      &  \\
+$\sigma$[\ion{Mg}{1}/Fe] & 0.01 & & 0.06 & 0.05 & 0.12 & & 0.11 & 0.03 & 0.04 \\
+$\sigma$[\ion{Si}{1}/Fe] &      & &      &      &      & & 0.08 & 0.12 & 0.11 \\
+$\sigma$[\ion{K}{1}/Fe]  & 0.13 & & 0.11 & 0.11 &      & & 0.11 & 0.10 & 0.10 \\
+$\sigma$[\ion{Ca}{1}/Fe] & 0.02 & & 0.04 & 0.03 & 0.08 & & 0.04 & 0.02 & 0.03 \\
+$\sigma$[\ion{Sc}{2}/Fe] & 0.06 & & 0.07 & 0.07 & 0.14 & & 0.07 & 0.04 & 0.08 \\
+$\sigma$[\ion{Ti}{1}/Fe] & 0.02 & & 0.04 & 0.04 &      & & 0.04 & 0.03 & 0.05 \\
+$\sigma$[\ion{Ti}{2}/Fe] & 0.05 & & 0.06 & 0.08 & 0.07 & & 0.08 & 0.03 & 0.09 \\
+$\sigma$[\ion{V}{1}/Fe]  & 0.34 & & 0.18 & 0.11 &      & & 0.21 & 0.18 &  \\
+$\sigma$[\ion{Cr}{2}/Fe] & 0.30 & & 0.18 & 0.08 &      & & 0.12 & 0.08 &  \\
+$\sigma$[\ion{Mn}{1}/Fe] & 0.08 & & 0.11 & 0.11 &      & & 0.05 & 0.03 &  \\
+$\sigma$[\ion{Co}{1}/Fe] & 0.40 & & 0.19 & 0.11 &      & & 0.10 & 0.07 &  \\
+$\sigma$[\ion{Ni}{1}/Fe] & 0.05 & & 0.05 & 0.03 &      & & 0.02 & 0.05 &  \\
+$\sigma$[\ion{Cu}{1}/Fe] &      & &      &      &      & & 0.17 &      &  \\
+$\sigma$[\ion{Zn}{1}/Fe] & 0.15 & & 0.11 & 0.06 &      & & 0.12 & 0.15 &  \\
+$\sigma$[\ion{Sr}{2}/Fe] & 0.13 & & 0.12 & 0.10 & 0.24 & & 0.11 & 0.11 & 0.18 \\
+$\sigma$[\ion{Y}{2}/Fe]  & 0.06 & & 0.09 & 0.06 &      & & 0.06 & 0.08 &  \\
+$\sigma$[\ion{Zr}{2}/Fe] & 0.09 & & 0.13 & 0.12 &      & & 0.14 & 0.11 &  \\
+$\sigma$[\ion{Ba}{2}/Fe] & 0.18 & & 0.14 & 0.06 & 0.39 & & 0.12 & 0.05 & 0.14 \\
+$\sigma$[\ion{La}{2}/Fe] & 0.06 & & 0.08 & 0.08 &      & & 0.11 & 0.02 &  \\
+$\sigma$[\ion{Ce}{2}/Fe] & 0.05 & & 0.07 & 0.07 &      & & 0.06 &      &  \\
+$\sigma$[\ion{Pr}{2}/Fe] & 0.09 & & 0.08 & 0.12 &      & & 0.06 & 0.13 &  \\
+$\sigma$[\ion{Nd}{2}/Fe] & 0.06 & & 0.09 & 0.06 &      & & 0.07 & 0.12 &  \\
+$\sigma$[\ion{Sm}{2}/Fe] & 0.07 & & 0.13 & 0.12 &      & & 0.07 &      &  \\
+$\sigma$[\ion{Eu}{2}/Fe] & 0.11 & & 0.12 & 0.11 & 0.20 & & 0.18 & 0.06 & 0.13 \\
+$\sigma$[\ion{Dy}{2}/Fe] & 0.12 & &      & 0.12 &      & &      &      &  \\
+$\sigma$[\ion{Os}{1}/Fe] & 0.17 & &      & 0.12 &      & & 0.11 &      &  \\
+$\sigma$[\ion{Th}{2}/Fe] &      & & 0.12 & 0.12 &      & &      &      &  \\
+\enddata
+%\tablenotetext{a}{.}
+\end{deluxetable}
+
+
+
+
+\section{Equivalent Widths and Line Abundances}\label{appendix:EWs}
+Tables \ref{table:EWs} and \ref{table:SSs} show the EW measurements
+and abundances for the lines that were determined via EW techniques
+and spectrum syntheses, respectively.
+
+
+\begin{deluxetable}{@{}ccccccccc}
+\tabletypesize{\scriptsize}
+\tablecolumns{9}
+\tablewidth{0pt}
+\tablecaption{Equivalent Widths\tablenotemark{a}\label{table:EWs}}
+%\centering
+\hspace*{-4in}
+%\begin{center}
+%  \newcolumntype{d}[1]{D{,}{\pm}{#1}}
+%  \newcolumntype{e}[1]{D{.}{.}{#1}}
+%  \begin{tabular}{@{}lcccccccccd{3}@{}}
+\tablehead{
+Element & Wavelength & EP & $\log gf$ & J0007$-$0345 EW & J0012$-$1816 EW & J0022$-$1724 EW & J0030$-$1007 EW & J0053$-$0253 EW \\
+ & (\AA) &  (eV) &  & (m\AA) & (m\AA) & (m\AA) & (m\AA) & (m\AA) 
+}
+\startdata
+\ion{Fe}{1} & 4383.54 & 1.48 &  0.208 &  ---  &  ---  &  ---  &  ---  &  ---  \\
+\ion{Fe}{1} & 4401.44 & 2.83 & -1.650 &  85.1 &  39.2 &  ---  &  ---  &  ---  \\
+\ion{Fe}{1} & 4404.75 & 1.56 & -0.147 &  ---  &  ---  &  ---  &  ---  &  ---  \\
+\ion{Fe}{1} & 4408.42 & 2.20 & -1.775 &  ---  &  49.6 &  ---  &  ---  &  ---  \\
+\ion{Fe}{1} & 4415.12 & 1.61 & -0.621 &  ---  &  ---  &  ---  &  ---  &  ---  \\
+\ion{Fe}{1} & 4430.61 & 2.22 & -1.728 &  ---  &  50.5 &  20.8 &  43.3 &  ---  \\
+\ion{Fe}{1} & 4442.34 & 2.22 & -1.228 &  ---  &  62.4 &  ---  &  69.1 &  ---  \\
+\ion{Fe}{1} & 4443.19 & 2.86 & -1.043 &  76.9 &  38.4 &  ---  &  ---  &  87.5 \\
+\ion{Fe}{1} & 4447.72 & 2.22 & -1.339 &  ---  &  ---  &  ---  &  64.7 &  ---  \\
+\ion{Fe}{1} & 4466.55 & 2.83 & -0.600 &  ---  &  67.3 &  26.8 &  84.8 &  ---  \\
+\enddata
+\tablenotetext{a}{Only a portion of this table is shown here to
+  demonstrate its form and content. A machine-readable version of the
+  full table is available.}
+\end{deluxetable}
+
+\begin{deluxetable}{@{}ccccccccc}
+\tabletypesize{\scriptsize}
+\tablecolumns{9}
+\tablewidth{0pt}
+\tablecaption{Abundances from Synthesized Lines\tablenotemark{a}\label{table:SSs}}
+%\centering
+\hspace*{-4in}
+%\begin{center}
+%  \newcolumntype{d}[1]{D{,}{\pm}{#1}}
+%  \newcolumntype{e}[1]{D{.}{.}{#1}}
+%  \begin{tabular}{@{}lcccccccccd{3}@{}}
+\tablehead{
+Element & Wavelength & EP & $\log gf$ & J0007$-$0345 & J0012$-$1816 & J0022$-$1724 & J0030$-$1007 & J0053$-$0253 \\
+ & (\AA) &  (eV) &  & $\log \epsilon$ & $\log \epsilon$ & $\log \epsilon$ & $\log \epsilon$ & $\log \epsilon$ 
+}
+\startdata
+\ion{Li}{1} & 6707.3\tablenotemark{b} & 0.000 & 0.18 &  ---  &  ---  &  ---  &  --- &  ---  \\
+\ion{O}{1}  & 6300.304 & 0.000 & -9.82  &  --- &  ---  &  ---  &  --- &  ---  \\
+\ion{O}{1}  & 6363.776 & 0.020 & -10.30 &  --- &  ---  &  ---  &  --- &  ---  \\
+\ion{Na}{1} & 5682.633 & 2.101 & -0.70  & 4.25 &  ---  &  ---  &  --- & 4.03 \\
+\ion{Na}{1} & 5688.205 & 2.103 & -0.45  & 4.15 &  ---  &  ---  &  --- & 4.08 \\
+\ion{Na}{1} & 5889.951 & 0.000 &  0.12  &  ---  &  ---  &  ---  &  --- &  ---  \\
+\ion{Na}{1} & 5895.924 & 0.000 & -0.18  &  ---  &  ---  &  ---  &  --- &  ---  \\
+\ion{Cu}{1} & 5105.5\tablenotemark{b} & 1.388 & -1.52 & 1.43 &  --- &  ---  &  --- & 1.08 \\
+\ion{Cu}{1} & 5782.1\tablenotemark{b} & 1.641 & -1.72 &  --- &  --- &  ---  &  --- &  ---  \\
+\ion{Zn}{1} & 4722.153 & 4.027 & -0.340 & 2.57 & 2.68 &  ---  & 2.69 & 2.50 \\
+\ion{Zn}{1} & 4810.528 & 4.075 & -0.140 & 2.60 & 2.33 &  ---  &  --- & 2.45 \\
+\enddata
+\tablenotetext{a}{Only a portion of this table is shown here to
+  demonstrate its form and content. A machine-readable version of the
+  full table is available.}
+\tablenotetext{b}{This line has HFS and/or isotopic splitting.}
+\end{deluxetable}
+
+
+
+\end{document}

@@ -1,0 +1,8 @@
+Table 7 
+Photometry data for BD+44deg493
+
+
+	B_T	V_T	J	H	K_s	b - y	c_1	
+Results	9.745	9.167	7.659	7.269	7.202	0.451	0.239	
+Error	0.022	0.017	0.018	0.021	0.020	0.003^a	0.004^a	
+Note. ^a The errors on b - y and c_1 are random errors only, and do not include systematic errors.

@@ -1,0 +1,322 @@
+J/AJ/147/136 Stars of very low metal abundance. VI. Abundances (Roederer+, 2014)
+================================================================================
+A search for stars of very low metal abundance.
+VI. Detailed abundances of 313 metal-poor stars.
+    Roederer I.U., Preston G.W., Thompson I.B., Shectman S.A., Sneden C.,
+    Burley G.S., Kelson D.D.
+   <Astron. J., 147, 136 (2014)>
+   =2014AJ....147..136R
+================================================================================
+ADC_Keywords: Stars, population II ; Stars, metal-deficient ; Abundances ;
+              Radial velocities ; Equivalent widths ; Effective temperatures
+Keywords: Galaxy: halo - nuclear reactions, nucleosynthesis, abundances -
+          stars: abundances - stars: atmospheres - stars: Population II
+
+Abstract:
+    We present radial velocities, equivalent widths, model atmosphere
+    parameters, and abundances or upper limits for 53 species of 48
+    elements derived from high resolution optical spectroscopy of 313
+    metal-poor stars. A majority of these stars were selected from the
+    metal-poor candidates of the HK Survey of Beers, Preston, and
+    Shectman. We derive detailed abundances for 61% of these stars for the
+    first time. Spectra were obtained during a 10yr observing campaign
+    using the Magellan Inamori Kyocera Echelle spectrograph on the
+    Magellan Telescopes at Las Campanas Observatory, the Robert G. Tull
+    Coude Spectrograph on the Harlan J. Smith Telescope at McDonald
+    Observatory, and the High Resolution Spectrograph on the Hobby-Eberly
+    Telescope at McDonald Observatory. We perform a standard LTE abundance
+    analysis using MARCS model atmospheres, and we apply line-by-line
+    statistical corrections to minimize systematic abundance differences
+    arising when different sets of lines are available for analysis. We
+    identify several abundance correlations with effective temperature. A
+    comparison with previous abundance analyses reveals significant
+    differences in stellar parameters, which we investigate in detail. Our
+    metallicities are, on average, lower by {approx}0.25dex for red giants
+    and {approx}0.04dex for subgiants. Our sample contains 19 stars with
+    [Fe/H]<=-3.5, 84 stars with [Fe/H]<=-3.0, and 210 stars with
+    [Fe/H]<=-2.5. Detailed abundances are presented here or elsewhere for
+    91% of the 209 stars with [Fe/H]<=-2.5 as estimated from medium
+    resolution spectroscopy by Beers, Preston, and Shectman. We will
+    discuss the interpretation of these abundances in subsequent papers.
+
+Description:
+    Observations conducted at Las Campanas Observatory were made with the
+    Magellan Inamori Kyocera Echelle (MIKE) spectrograph. This instrument
+    is currently mounted on the f/11 Nasmyth platform at the 6.5m Landon
+    Clay Telescope (Magellan II). Early observations for our program were
+    taken while MIKE was mounted on the 6.5m Walter Baade Telescope
+    (Magellan I) in 2003. The MIKE spectra were taken with the 0.7''*5.0''
+    slit, yielding a resolving power of R~41000 in the blue and R~35000 in
+    the red.
+
+    Other observations were made with the Robert G. Tull Coude
+    Spectrograph on the 2.7m Harlan J. Smith Telescope at McDonald
+    Observatory. These spectra were taken with the 2.4''*8.0'' slit,
+    yielding a resolving power R~33000.
+
+    Additional observations were made with the High Resolution
+    Spectrograph (HRS) on the 9.2m Hobby-Eberly Telescope (HET) at
+    McDonald Observatory. Using the 1.0'' slit yields a resolving power
+    R~30000.
+
+    We have observed 250 stars with Magellan+MIKE, 52 stars with
+    Smith+Tull, and 19 stars with HET+HRS. After accounting for duplicate
+    observations of the same star and three double-lined spectroscopic
+    binaries whose abundances are not examined in this paper, we are left
+    with a total of 313 stars. These 532 individual observations account
+    for nearly 495hr of integration time. In Table2 we present a record of
+    all observations.
+
+File Summary:
+--------------------------------------------------------------------------------
+ FileName    Lrecl    Records Explanations
+--------------------------------------------------------------------------------
+ReadMe          80        .   This file
+table2.dat      78      532   Log of observations
+table3.dat      57      312   Observational stellar data
+table5.dat      45   148362   Sample table of equivalent width (EW) measurements
+table7.dat      78      313   Magnitudes, reddenings, colors, atmospheric
+                              parameters, and random uncertainties
+table8.dat      27      479   Atomic data
+table11.dat     39    67457   Abundances derived from individual lines
+table12.dat     57    16589   Mean abundances
+table15.dat     72      313   Non-Local Thermodynamic Equilibrium (non-LTE)
+                              abundance corrections
+table16.dat     57      229   Line abundance corrections and uncertainties
+refs.dat       236       90   References
+--------------------------------------------------------------------------------
+
+See also:
+ B/sb9 : 9th Catalogue of Spectroscopic Binary Orbits (Pourbaix+ 2004-2014)
+ V/130 : Geneva-Copenhagen Survey of Solar neighbourhood III (Holmberg+, 2009)
+ J/ApJ/762/26   : Most metal-poor stars. II. 190 Galactic halo stars
+                  (Yong+, 2013)
+ J/ApJ/762/25   : The most metal-poor stars in HES and SDSS. I. (Norris+, 2013)
+ J/AJ/145/13    : Metal-poor stars from SDSS/SEGUE. I. Abundances (Aoki+, 2013)
+ J/ApJ/742/54   : CASH project II. 14 extremely metal-poor stars (Hollek+, 2011)
+ J/A+A/509/A93  : Carbon-enhanced metal-poor stars (Masseron+, 2010)
+ J/A+A/522/A26  : Fe Abundances in metal-poor stars (Sbordone+ 2010)
+ J/A+A/501/519  : Extremely metal-poor turnoff stars abundances
+                  (Bonifacio+, 2009)
+ J/ApJ/681/1524 : Detailed abundances for 28 metal-poor stars (Lai+, 2008)
+ J/A+A/484/721  : HES survey. IV. Candidate metal-poor stars (Christlieb+, 2008)
+ J/AJ/135/196   : Radial velocities of 45 metal-poor field stars (Carney+, 2008)
+ J/ApJ/655/492  : Equivalent widths of 26 metal-poor stars (Aoki+, 2007)
+ J/ApJ/658/1203 : Nitrogen-enhanced metal-poor stars (Johnson+, 2007)
+ J/ApJS/168/128 : UBVRcIc photometry of FHB and metal-poor stars (Beers+, 2007)
+ J/AJ/132/85    : Equivalent width of 33 metal-poor RHB (Preston+, 2006)
+ J/AJ/132/137   : Abundances of extremely metal-poor carbon stars (Cohen+, 2006)
+ J/A+A/439/129  : HERES II. Spectroscopic analysis (Barklem+, 2005)
+ J/AJ/130/2804  : Carbon abundances in metal-poor stars (Rossi+, 2005)
+ J/AJ/128/2402  : Extremely metal-poor star candidates abundances (Lai+, 2004)
+ J/A+A/422/527  : Metal-poor star uvby-beta photometry. X. (Schuster+, 2004)
+ J/AJ/119/2866  : Proper motions of metal-poor stars (Beers+, 2000)
+ J/ApJS/123/639 : UBV photometry of metal-weak candidates (Norris+, 1999)
+ J/A+A/314/191  : Atmospheric parameters in metal-poor stars. I (Gratton+, 1996)
+ J/ApJS/96/175  : Kinematics of Metal-Poor Stars. I. (Beers+ 1995)
+ J/AJ/108/538   : Metal-poor MS stars UBV photometry (Preston+ 1994)
+ J/A+A/290/885  : Abundances of very metal-poor stars (Primas+, 1994)
+ J/AJ/103/1987  : Stars of very low metal abundance (Beers+ 1992)
+ J/AJ/90/2089   : Stars of very low metal abundance. I (Beers+, 1985)
+
+Byte-by-byte Description of file: table2.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1- 12  A12   ---     Name      Star identifier
+  14- 32  A19   ---     Tel       The Telescope/Instrument used (1)
+  34- 36  A3    ---     Obs       Observer code (2)
+  38- 42  I5    s       Exp       Exposure time
+  44- 53  A10   "Y:M:D" Obs.date  Date of the observation
+  55- 59  A5    "h:m"   Obs.time  UT time of mid exposure
+  61- 71  F11.3 d       HJD       Heliocentric Julian Date
+  73- 78  F6.1  km/s    HRV       ? Heliocentric radial velocity
+--------------------------------------------------------------------------------
+Note (1): Instruments used:
+ Magellan-Baade/MIKE = 6.5m Walter Baade Telescope (Magellan I)/Magellan Inamori
+                       Kyocera Echelle (MIKE) spectrograph;
+ Magellan-Clay/MIKE  = 6.5m Landon Clay Telescope (Magellan II)/Magellan Inamori
+                       Kyocera Echelle (MIKE) spectrograph;
+ McDonald-HET/HRS    = High Resolution Spectrograph (HRS) on the 9.2m
+                       Hobby-Eberly Telescope (HET) at McDonald Observatory;
+ McDonald-Smith/Tull = Robert G. Tull Coude Spectrograph on the 2.7m Harlan
+                       J. Smith Telescope at McDonald Observatory.
+Note (2): Observer codes are defined as follows:
+    GWP = George W. Preston;
+    IBT = Ian B. Thompson;
+    IUR = Ian U. Roederer;
+    SAS = Stephen A. Shectman.
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table3.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1- 12  A12   ---     Name      Star identifier
+  14- 19  F6.1  km/s    <RV>      ? Mean radial velocity
+      21  I1    ---     B         [0/3] Binarity flag: suspect if B>=2 (1)
+  23- 33  A11   ---   r_<RV>      Reference for <RV>; in refs.dat file
+  35- 39  I5    s       Exp       Total exposure time
+      41  I1    ---     No        Number of observations
+  43- 45  I3    ---     SN3950    Signal-to-noise at 3950{AA}
+  47- 49  I3    ---     SN4550    Signal-to-noise at 4550{AA}
+  51- 53  I3    ---     SN5200    Signal-to-noise at 5200{AA}
+  55- 57  I3    ---     SN6750    Signal-to-noise at 6750{AA}
+--------------------------------------------------------------------------------
+Note (1): Binary flags are defined as follows:
+ 0 = The star has only been observed during a single epoch;
+ 1 = No radial velocity variations detected in multiple epochs;
+ 2 = Radial velocity variations detected, suspected binary, 
+     no systemic velocity listed;
+ 3 = Spectroscopic binary confirmed by other studies, systemic velocity listed.
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table5.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1- 12  A12   ---     Name      Star identifier
+  14- 20  F7.2  0.1nm   lambda    Wavelength {lambda}; in {AA}
+  22- 26  A5    ---     Ion       Species identifier
+  28- 31  F4.2  eV      EP        Excitation Potential
+  33- 37  F5.2  [-]     loggf     Log of the oscillator strength
+  39- 43  F5.1  10-13m  EW        ? Equivalent width; in m{AA}
+      45  A1    ---   f_EW        [ls] Derived abundance (1)
+--------------------------------------------------------------------------------
+Note (1): Flag on EW as follows:
+ s = Abundance was derived from spectrum synthesis;
+ l = An upper limit on the abundance was derived from the line.
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table7.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units     Label  Explanations
+--------------------------------------------------------------------------------
+   1-  2  A2    ---       Cl     Star class (1)
+   4- 15  A12   ---       Name   Star identifier
+      17  A1    ---     f_Name   [c] Star with reliable parallax and E(B-V)<0.12
+  19- 23  F5.2  mag       Vmag   V-band magnitude
+  25- 29  F5.3  mag       E(B-V) Reddening
+  31- 34  F4.2  mag       (B-V)0 ? Dereddened (B-V) color index
+  36- 39  F4.2  mag       (V-K)0 ? Dereddened (V-K) color index
+  41- 44  I4    K         Teff   Effective temperature
+  46- 49  F4.2  [cm/s2]   logg   Log of surface gravity
+  51- 54  F4.2  km/s      Vt     Microturbulent velocity
+  56- 60  F5.2  [-]       [M/H]  Metallicity
+  62- 63  I2    K       e_Teff   1{sigma} uncertainty in Teff
+  65- 68  F4.2  [cm/s2] e_logg   1{sigma} uncertainty in logg
+  70- 73  F4.2  km/s    e_Vt     1{sigma} uncertainty in Vt
+  75- 78  F4.2  [-]     e_[M/H]  1{sigma} uncertainty in [M/H] (2)
+--------------------------------------------------------------------------------
+Note (1): Classification scheme is defined as follows:
+ BS = Blue Straggler-like stars warmer than the main sequence turnoff;
+ HB = stars on the Horizontal Branch;
+ MS = stars on the Main Sequence;
+ RG = stars on the Red Giant branch;
+ SG = stars on the SubGiant branch.
+Note (2): e_[M/H]_=e_FeI_.
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table8.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1-  7  F7.2  0.1nm   lambda    Wavelength {lambda}; in {AA}
+   9- 13  A5    ---     Ion       Species identifier
+  15- 18  F4.2  eV      EP        Excitation Potential
+  20- 24  F5.2  [-]     loggf     Log of the oscillator strength
+  26- 27  I2    ---     Ref       Reference; in refs.dat file (1)
+--------------------------------------------------------------------------------
+Note (1): The reference for the CH A^2^{Delta}-X^2^{Pi} G band is B. Plez
+     (2007, private communication) while the reference for the
+     NH A^3^{Pi}-X^3^{Sigma} and CN B^2^{Sigma}-X^2^{Sigma} bands is Kurucz &
+     Bell (1995KurCD..23.....K).
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table11.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1- 12  A12   ---     Name      Star identifier
+  14- 18  A5    ---     Ion       Species identifier
+  20- 26  F7.2  0.1nm   lambda    Wavelength {lambda}; in {AA}
+      28  A1    ---   l_log(e)    Limit flag on log(e)
+  30- 34  F5.2  [-]     log(e)    Log abundance (log{epsilon})
+  36- 39  F4.2  [-]   e_log(e)    ? The 1{sigma} error in log(e)
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table12.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1- 12  A12   ---     Name      Star identifier
+  14- 19  A6    ---     Ion       Species identifier
+  21- 23  I3    ---     Nl        Number of lines used
+      25  A1    ---   l_log(e)    Limit flag on log(e)
+  27- 31  F5.2  [-]     log(e)    ? Log mean abundance (log{epsilon})
+  33- 37  F5.2  [-]     [X/Fe]    ? Abundance relative to FeI and FeII
+  39- 42  F4.2  [-]   s_[X/Fe]    ? Statistical uncertainty in [X/Fe]
+  44- 47  F4.2  [-]   e_[X/Fe]    ? Total uncertainty in [X/Fe]
+  49- 52  F4.2  [-]  e2_[X/Fe]    ? Neutrals uncertainty in [X/Fe]
+  54- 57  F4.2  [-]  e3_[X/Fe]    ? Ions uncertainty in [X/Fe]
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table15.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1- 12  A12   ---     Name      Star identifier
+  14- 18  F5.2  ---     LiI-6707  ? LiI (6707{AA}) non-LTE abundance correction
+  20- 24  F5.2  ---     OI-7771   ? OI (7771{AA}) non-LTE abundance correction
+  26- 30  F5.2  ---     OI-7774   ? OI (7774{AA}) non-LTE abundance correction
+  32- 36  F5.2  ---     OI-7775   ? OI (7775{AA}) non-LTE abundance correction
+  38- 42  F5.2  ---     NaI-5682  ? NaI (5682{AA}) non-LTE abundance correction
+  44- 48  F5.2  ---     NaI-5688  ? NaI (5688{AA}) non-LTE abundance correction
+  50- 54  F5.2  ---     NaI-5889  ? NaI (5889{AA}) non-LTE abundance correction
+  56- 60  F5.2  ---     NaI-5895  ? NaI (5895{AA}) non-LTE abundance correction
+  62- 66  F5.2  ---     KI-7664   ? KI (7664{AA}) non-LTE abundance correction
+  68- 72  F5.2  ---     KI-7698   ? KI (7698{AA}) non-LTE abundance correction
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table16.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label   Explanations
+--------------------------------------------------------------------------------
+   1-  5  A5    ---     Ion     Species identifier
+   7- 13  F7.2  0.1nm   lambda  Wavelength {lambda}; in {AA}
+  15- 19  F5.2  [-]     RGcor   ? Abundance correction for stars on the Red
+                                  Giant branch
+  21- 24  F4.2  [-]   e_RGcor   ? Uncertainty in RGcor
+  26- 30  F5.2  [-]     SGcor   ? Abundance correction for stars on the Subgiant
+                                  branch
+  32- 35  F4.2  [-]   e_SGcor   ? Uncertainty in SGcor
+  37- 41  F5.2  [-]     HBcor   ? Abundance correction for stars on the
+                                  Horizontal Branch
+  43- 46  F4.2  [-]   e_HBcor   ? Uncertainty in HBcor
+  48- 52  F5.2  [-]     MScor   ? Abundance correction for stars on the Main
+                                  Sequence branch
+  54- 57  F4.2  [-]   e_MScor   ? Uncertainty in MScor
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: refs.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1-  2  I2    ---     Ref       Reference number
+   4- 22  A19   ---     BibCode   Bibliographic code
+  24- 41  A18   ---     Aut       Author's name
+  43-236  A194  ---     Com       Comments
+--------------------------------------------------------------------------------
+
+History:
+    From electronic version of the journal
+
+References:
+    Beers et al.,           Paper I,   1985AJ.....90.2089B,  Cat. J/AJ/90/2089
+    Beers et al.,           Paper II,  1992AJ....103.1987B,  Cat. J/AJ/103/1987
+    Norris et al.,          Paper III, 1999ApJS..123..639N,  Cat. J/ApJS/123/639
+    Anthony-Twarog et al.,  Paper IV,  2000AJ....119.2882A
+    Bonifacio et al.,       Paper V,   2000AJ....120.2065B
+
+================================================================================
+(End)                Greg Schwarz [AAS], Sylvain Guehenneux [CDS]    25-Sep-2014

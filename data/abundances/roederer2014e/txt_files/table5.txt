@@ -1,0 +1,21 @@
+Table 5 
+Atomic Data and Abundances for P I Lines Detected in HD 140283
+
+
+Wavelength	Upper	E_upper ^a	Lower	E_lower ^a	log gf	log Gamma_6/N_H ^b	log epsilon	
+(Aring)	level	(cm^-1)	level	(cm^-1)	(rad cm^3 s^-1)	HD 140283 ^c	
+2135.465	(^3P)4s^2P_3/2	58174.366	3p^3 ^2D^o_3/2	11361.02	-1.24	-7.42	2.67	
+2136.182	(^3P)4s^2P_3/2	58174.366	3p^3 ^2D^o_5/2	11376.63	-0.11	-7.42	2.58	
+2149.145	(^3P)4s^2P_1/2	57876.574	3p^3 ^2D^o_3/2	11361.02	-0.36	-7.42	 sdotsdotsdot 	
+2152.940	(^1D)4s^2D_3/2	65156.242	3p^3 ^2P^o_1/2	18722.71	-0.87	-7.22	2.49	
+2154.080	(^1D)4s^2D_5/2	65157.126	3p^3 ^2P^o_3/2	18748.01	-0.62	-7.22	2.46	
+2154.121	(^1D)4s^2D_3/2	65156.242	3p^3 ^2P^o_3/2	18748.01	-1.32	-7.22	 ^d	
+2533.976	(^3P)4s^2P_3/2	58174.366	3p^3 ^2P^o_1/2	18722.71	-1.11	-7.42	2.61	
+2535.603	(^3P)4s^2P_3/2	58174.366	3p^3 ^2P^o_3/2	18748.01	-0.44	-7.42	 sdotsdotsdot 	
+2553.262	(^3P)4s^2P_1/2	57876.574	3p^3 ^2P^o_1/2	18722.71	-0.86	-7.42	<or=2.76	
+2554.915	(^3P)4s^2P_1/2	57876.574	3p^3 ^2P^o_3/2	18748.01	-1.23	-7.42	2.49	
+Notes.
+a Svendenius (1980).
+b Calculated for T = 10^4 K.
+c Corrected for optical-NUV offset; see Section 6.1.
+d Line forms a blended, single feature with P I 2154.08 Aring line.

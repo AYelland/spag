@@ -115,7 +115,7 @@ def load_ufds(io=None, **kwargs):
         load_frebel2013c(),
         load_frebel2014(),
         load_frebel2016(),
-        load_gilmore2013(),
+        load_gilmore2013a(),
         load_hansent2017(),
         load_hansent2020a(),
         load_hansent2024(),
@@ -680,7 +680,7 @@ def load_lmc(jinabase=None, **kwargs):
     reggiani2021_df = load_reggiani2021()
     ji2026_df = load_ji2026()
     limberg2025a_df = load_limberg2025a()
-    lucey2026_df = load_lucey2026()
+    lucey2026_df = load_lucey2026b()
 
     ## Add filters for specific references
     reggiani2021_df = reggiani2021_df[reggiani2021_df['System'] == 'Large Magellanic Cloud']
@@ -1173,7 +1173,461 @@ def load_sass_stars(remove_dups_io=1, **kwargs):
 ################################################################################
 ## Reference Read-in (Abundance Data)
 
-### JINAbase Data Read-in
+### Base read-in functions...
+
+def transpose_abund_df(
+        abund_df: pd.DataFrame, 
+        solar_init: str, 
+        transpose_abund: str = '[X/Fe]',
+        transpose_err: str = 'e_[X/Fe]',
+    ) -> pd.DataFrame:
+
+    ## Pre-compute element/ion metadata for each abundance column (done once, not once per row)
+    fe_cols = [col for col in abund_df.columns if (col.startswith('[Fe') | col.startswith('e_[Fe')) & col.endswith('/H]')]
+    _val_col_getters = {
+        'logepsX': epscolnames,
+        '[X/H]':   XHcolnames,
+        '[X/Fe]':  XFecolnames,
+    }
+    _id_cols = {
+        'logepsX': ['Name'],
+        '[X/H]':   ['Name'],
+        '[X/Fe]':  ['Name'] + fe_cols,
+    }
+
+    val_cols = _val_col_getters[transpose_abund](abund_df)
+    err_cols = errcolnames(abund_df)
+    id_cols  = _id_cols[transpose_abund]
+    
+    col_meta = {}
+    for col in val_cols:
+        elem = getelem(col)             # element (e.g. 'Fe')
+        ion = element_to_ion(elem)      # ion (e.g. 'Fe II')
+        species = ion_to_species(ion)   # species (e.g. 26.1)
+        col_meta[col] = (species, ion, elem)
+
+    ## Reshape from wide to long format: one row per (star, element, error) trio    
+    abund_df_T = (
+        abund_df[id_cols + val_cols]
+        .melt(id_vars=id_cols, value_vars=val_cols, var_name='col', value_name='val')
+        .dropna(subset=['val'])
+        .reset_index(drop=True)
+    )
+    err_df_T = (
+        abund_df[['Name'] + err_cols]
+        .melt(id_vars=['Name'], value_vars=err_cols, var_name='err_col_name', value_name='err')
+        .assign(col=lambda df: df['err_col_name'].map(dict(zip(err_cols, val_cols))))
+        .drop(columns='err_col_name')
+        .reset_index(drop=True)
+    )
+    abund_df_T = abund_df_T.merge(err_df_T, on=['Name', 'col'], how='left')
+        
+    ## Attach species/ion/element metadata to the transposed dataframe
+    abund_df_T[['Species', 'Ion', 'Elem']] = pd.DataFrame(
+        abund_df_T['col'].map(col_meta).tolist(), index=abund_df_T.index
+    )
+    
+    ## Extract the upper-limit flags and numeric values from value column
+    val_str = abund_df_T['val'].astype(str)
+    abund_df_T['l_logepsX'] = val_str.str.extract(r'([<>])')[0]
+    abund_df_T['init_abund'] = val_str.str.replace(r'[<>]', '', regex=True).astype(float)
+
+    ## Extract limit flags and numeric values from Fe id columns
+    ## (these are carried through the melt unchanged, so may still contain '<'/'>' symbols)
+    if transpose_abund == '[X/Fe]':
+        value_fe_cols = [col for col in fe_cols if not col.startswith('e_')]
+        for col in value_fe_cols:
+            col_str = abund_df_T[col].astype(str)
+            abund_df_T[f'l_{col}'] = col_str.str.extract(r'([<>])')[0]   # '<', '>', or NaN
+            abund_df_T[col] = col_str.str.replace(r'[<>]', '', regex=True).astype(float)
+            
+            for idx, row in abund_df_T.iterrows():
+                if (row['l_logepsX'] == '<') & (row[f'l_{col}'] == '>'):
+                    warnings.warn(f"Star '{row['Name']}' has a lower limit on [Fe/H] and an upper limit on [{row['Elem']}/Fe]. We assume the upper limit comes from the [Fe/H] measurement, and set l_logepsX to NaN.")
+                    abund_df_T.loc[idx, 'l_logepsX'] = np.nan
+                elif (row['l_logepsX'] == '>') & (row[f'l_{col}'] == '<'):
+                    warnings.warn(f"Star '{row['Name']}' has an upper limit on [Fe/H] and a lower limit on [{row['Elem']}/Fe]. We assume the lower limit comes from the [Fe/H] measurement, and set l_logepsX to NaN.")
+                    abund_df_T.loc[idx, 'l_logepsX'] = np.nan
+                elif ((row['l_logepsX'] == '<') & (row[f'l_{col}'] == '<')) | ((row['l_logepsX'] == '>') & (row[f'l_{col}'] == '>')):
+                    raise ValueError(f"Star '{row['Name']}' has the same limit type on both [Fe/H] and [{row['Elem']}/Fe]. This is not possible and indicates a problem with the input data.")
+
+    ## Compute logepsX row-wise using the initial solar abundance scale
+    def _convert_to_logepsX(row):
+        if transpose_abund == 'logepsX': 
+            return row['init_abund']
+        elif transpose_abund == '[X/H]': 
+            return eps_from_XH(row['init_abund'], row['Elem'], version=solar_init)
+        elif transpose_abund == '[X/Fe]':
+            feh_col = next((col for col in fe_cols if ((col in row.index) & ('II' not in col) & ('2' not in col))), None)
+            if feh_col is None:
+                raise ValueError(f"None of the Fe columns {fe_cols} were found in the row.")
+            return eps_from_XFe(row['init_abund'], row[feh_col], row['Elem'], version=solar_init)
+        
+    abund_df_T['logepsX'] = abund_df_T.apply(lambda r: _convert_to_logepsX(r), axis=1)
+    abund_df_T[transpose_err] = abund_df_T.apply(lambda r: r['err'], axis=1)
+    
+    if transpose_abund == '[X/Fe]':
+        logepsFe_sun = get_solar('Fe', version=solar_init)
+        fe_rows = abund_df[['Name'] + fe_cols].copy()
+
+        for col in [col for col in fe_cols if 'e_' not in col]:
+            fe_ion = element_to_ion(getelem(col))
+
+            # Strip '<'/'>' from the original abund_df Fe column before arithmetic
+            col_str             = fe_rows[col].astype(str)
+            fe_rows[f'l_{col}'] = col_str.str.extract(r'([<>])')[0]
+            fe_rows[f'l_logepsX'] = col_str.str.extract(r'([<>])')[0]
+            fe_rows[col]        = col_str.str.replace(r'[<>]', '', regex=True).astype(float)
+
+            fe_rows['Species'] = ion_to_species(fe_ion)
+            fe_rows['Ion'] = fe_ion
+            fe_rows['Elem']    = getelem(col)
+            fe_rows['logepsX'] = fe_rows[col].apply(lambda feh: feh + logepsFe_sun).round(2)
+            fe_rows['e_[X/H]'] = fe_rows['e_' + col] if ('e_' + col) in fe_rows.columns else np.nan
+
+            abund_df_T = pd.concat([abund_df_T, fe_rows], ignore_index=True, sort=False)
+
+        abund_df_T = abund_df_T.drop(columns=fe_cols+('l_' + np.array(value_fe_cols)).tolist())
+
+    ## Sort by star name and atomic number, and drop intermediate columns
+    abund_df_T = (
+        abund_df_T
+            .sort_values(['Name', 'Species'])
+            .drop(columns=['col', 'val', 'err', 'Elem', 'init_abund'])
+            .reset_index(drop=True)
+    )
+
+    return abund_df_T
+
+def load_authorYYYYx(
+        author: str,
+        year: str,
+        shortname: str,
+        loc: str,
+        obs_table: str,
+        param_table: str,
+        abund_table: str,
+        solar_init: str = 'asplund2009',
+        solar_final: str = 'asplund2009',
+        init_abund: str = 'logepsX', # logepsX,[X/H],[X/Fe]
+        transpose: bool = False,
+        transpose_abund: str = '[X/Fe]',
+        transpose_err: str = 'e_[X/Fe]',
+    ) -> pd.DataFrame:
+    """
+    Load data for a given author and year,and return a dataframe in the standard format.
+    
+    Parameters:
+        author: str
+            The author's name,with the first letter capitalized (e.g.,'Yelland').
+        year: str
+            The year of the study,with a letter suffix if needed (e.g.,'2026b').
+        shortname: str
+            The combined short name for the reference using the first three letters 
+            of the author's last name captialized (and occationally the first letter of the 
+            author's first name lowercase) and the last two digits of the year and suffix (e.g.,'YEL26b' or 'YELa26b').
+        loc: str
+            The location of the collection of stars: ['HA','BU','DS','DW','UF','GC',''].
+             - 'HA' = halo
+             - 'BU' = bulge
+             - 'DS' = disk
+             - 'DW' = dwarf galaxy
+             - 'UF' = ultra-faint dwarf galaxy
+             - 'GC' = globular cluster
+             - 'MX' = mixed location (see obs_table)
+             - ''   = unknown
+        obs_table: str
+            The name of the observations table file. This table should contain the columns: Name,Simbad_Identifier,System,RA_hms,DEC_dms.
+        param_table: str
+            The name of the stellar parameters table file. This table should contain the columns: Name,Teff,logg,Fe/H,Vmic.
+        abund_table: str
+            The name of the abundance table file. This table should contain the columns: Name,Species,[abundance columns].
+            
+    Returns:
+        authorYYYYx_df: pandas.DataFrame
+            A dataframe containing the data for the given author and year,formatted according to the standard format.
+    """
+
+    # ---------------------------------------- #
+    # Read in the data tables
+    
+    _na = [""," ","nan","NaN","N/A","n/a"]
+    base_path = f"{data_dir}abundances/{author.lower()}{year}/"
+    obs_df   = pd.read_csv(f"{base_path}{obs_table}.csv",  comment="#",na_values=_na)
+    param_df = pd.read_csv(f"{base_path}{param_table}.csv",comment="#",na_values=_na)
+    abund_df = pd.read_csv(f"{base_path}{abund_table}.csv",comment="#",na_values=_na)
+
+    if transpose:
+        abund_df = transpose_abund_df(abund_df, solar_init, transpose_abund, transpose_err)
+    
+    # ---------------------------------------- #
+    # Prepare the abundance table for pivoting
+    
+    ## Map ions (e.g. 'Fe I') to species (e.g. 26.0) and elements (e.g. 'Fe')
+    if 'Ion' in abund_df.columns:
+        abund_df['species_i'] = abund_df['Ion'].map(ion_to_species)
+        abund_df['elem_i']    = abund_df['Ion'].map(ion_to_element)
+    elif 'Species' in abund_df.columns:
+        abund_df['Ion'] = abund_df['Species'].map(species_to_ion)
+        abund_df['species_i'] = abund_df['Species']
+        abund_df['elem_i']    = abund_df['Species'].map(species_to_element)
+    else:
+        raise ValueError("Abundance dataframe must contain either an 'Ion' or 'Species' column.")
+    species = list(dict.fromkeys(abund_df['species_i']))
+    
+    def _add_solar_col(_df: pd.DataFrame, _solar: str):
+        """
+        Add a column of solar abundances (logepsX_sun) for each element in the abundance dataframe.
+        
+        Args:
+            _df (pd.DataFrame): The abundance dataframe to which the solar abundance column will be added. Must contain an 'elem_i' column with element symbols.
+            _solar (str): The version of solar abundances to use. This will be passed to the get_solar function to retrieve the solar abundance values. Options include...
+                - 'anders1989'
+                - 'grevesse1998'
+                - 'asplund2005'
+                - 'asplund2009' (default)
+                - 'asplund2021'
+                - 'lodders2025'
+        """
+        solar_abund_map = {
+                elem: get_solar(elem, version=_solar).values[0]
+                for elem in _df['elem_i'].unique()
+            }
+        _df['logepsX_sun'] = _df['elem_i'].map(solar_abund_map)
+    
+    def _add_FeH_col(_df: pd.DataFrame, _solar: str):
+        """
+        Add a column of iron abundance ([Fe/H]) for each star in the abundance dataframe, calculated from the specified abundance form and solar abundances.
+
+        Args:
+            _df (pd.DataFrame): The abundance dataframe to which the [Fe/H] column will be added. Must contain 'Name', 'Ion', and the specified abundance form columns.
+            _abund_form (str): The form of abundance to use for calculating [Fe/H]. Options include:
+                - 'logepsX' (default)
+                - '[X/H]'
+                - '[X/Fe]'
+            _solar (str): The version of solar abundances to use for calculating [Fe/H]. This will be passed to the get_solar function to retrieve the solar abundance of Fe. Options include...
+                - 'anders1989'
+                - 'grevesse1998'
+                - 'asplund2005'
+                - 'asplund2009' (default)
+                - 'asplund2021'
+                - 'lodders2025'
+        """
+        logepsFe_sun = get_solar('Fe', version=_solar).values[0]
+        feh_map = {
+                name: _df.loc[(_df['Name'] == name) & (_df['Ion'] == 'Fe I'), 'logepsX'].values[0] - logepsFe_sun
+                for name in _df['Name'].unique()
+            }
+        _df['[Fe/H]'] = _df['Name'].map(feh_map)
+
+    def _find_logepsX_from_XH(df: pd.DataFrame, _solar_init: str, rows=slice(None)):
+        """
+        If the initial abundance form is in [X/H], calculate logepsX using the solar abundances.
+        """
+        if 'logepsX_sun' not in df.columns:
+            _add_solar_col(df, _solar_init) 
+        df.loc[rows, 'logepsX']   = df.loc[rows, '[X/H]'] + df.loc[rows, 'logepsX_sun']
+        df.loc[rows, 'l_logepsX'] = df.loc[rows, 'l_[X/H]']
+        return df
+            
+    def _find_logepsX_from_XFe(df: pd.DataFrame, _solar_init: str):
+        """
+        If the initial abundance form is in [X/Fe], calculate logepsX and [X/H] using the solar abundances and the [Fe/H] values.
+        """
+        ## For the Fe species
+        fe_rows = (df['Ion'] == 'Fe I') | (df['Ion'] == 'Fe II')
+        _find_logepsX_from_XH(df, _solar_init, rows=fe_rows)
+
+        ## For non-Fe species
+        ### If the [FeII/H] column was empty and abundances for [FeII/FeI] were provided instead, then we modify the `non_fe_rows` mask 
+        ### below to include the FeII rows in the [X/Fe] tp logepsX conversion.
+        ### This is checked by confirming that all logepsX values for Fe II rows are NaN, which would be the case if the [FeII/H] column 
+        ### was left empty and the Fe II abundances were represented as [FeII/FeI] in the [X/Fe] column.
+        feII_rows = (df['Ion'] == 'Fe II')
+        if any(feII_rows) and (df.loc[feII_rows, 'logepsX'].isna().sum() == len(df.loc[feII_rows, 'logepsX'])):
+            # print(f"WARNING: Check the [FeII/H] abundances in {author}+{year}; they are all NaN. Data is loaded with " \
+            #        "the assumption that the FeII abundances are represented in the [X/Fe] column (e.g. [FeII/FeI]).")
+            non_fe_rows = (df['Ion'] != 'Fe I')
+        else:
+            non_fe_rows = (df['Ion'] != 'Fe I') & (df['Ion'] != 'Fe II')
+        _add_FeH_col(df, _solar_init)
+        
+        if 'logepsX_sun' not in abund_df.columns:
+            _add_solar_col(abund_df[non_fe_rows], _solar_init) # use solar abundances referenced in literature source
+        abund_df.loc[non_fe_rows,'logepsX'] = abund_df.loc[non_fe_rows,'[X/Fe]'] + abund_df.loc[non_fe_rows,'[Fe/H]'] + abund_df.loc[non_fe_rows,'logepsX_sun']
+        abund_df['l_logepsX'] = abund_df['l_logepsX'].astype(object)
+        abund_df.loc[non_fe_rows,'l_logepsX'] = abund_df.loc[non_fe_rows,'l_[X/Fe]']
+        return df
+
+    ## Calculate the 'logepsX' column based on the initial abundance form provided (logepsX, [X/H], or [X/Fe])    
+    match init_abund:
+        case 'logepsX': pass
+        case '[X/H]':   abund_df = _find_logepsX_from_XH(abund_df, solar_init)
+        case '[X/Fe]':  abund_df = _find_logepsX_from_XFe(abund_df, solar_init)
+    
+    # update the solar abundance column and [Fe/H] column for desired version of the solar abundances
+    _add_solar_col(abund_df, solar_final) 
+    _add_FeH_col(abund_df, solar_final)
+    
+    ## Calculate [X/H] and [X/Fe] for each row
+    abund_df['XH_raw']  = abund_df['logepsX'] - abund_df['logepsX_sun']
+    abund_df['XFe_raw'] = abund_df['XH_raw']  - abund_df['[Fe/H]']
+    
+    ## Separate limits from measured abundances & round to 2 decimal places (rounding safe for NaN)
+    def _r2(series):
+        def round_or_nan(v):
+            if pd.notna(v):
+                return normal_round(v,2)
+            else:
+                return np.nan
+        return series.apply(round_or_nan)
+
+    ulmask_eps = abund_df['l_logepsX'].eq('<')
+    ulmask_XH  = abund_df['l_logepsX'].eq('<')
+    ulmask_XFe = abund_df['l_[X/Fe]'].eq('<') if 'l_[X/Fe]' in abund_df.columns else ulmask_eps
+    
+    llmask_eps = abund_df['l_logepsX'].eq('>')
+    llmask_XH  = abund_df['l_logepsX'].eq('>')
+    llmask_XFe = abund_df['l_[X/Fe]'].eq('>') if 'l_[X/Fe]' in abund_df.columns else llmask_eps
+    
+    ### Update the ulmask and create a NaN mask for [X/Fe] by propagating Fe I lower limits to non-Fe [X/Fe] abundances
+    ### - [X/H] is measured       --> [X/Fe] becomes an upper limit
+    ### - [X/H] is itself a limit --> [X/Fe] is undefined (NaN)
+
+    llFe_stars    = set(abund_df.loc[(abund_df['Ion'] == 'Fe I') & llmask_eps, 'Name'])
+    llFe_stars_mask  = abund_df['Name'].isin(llFe_stars)
+    ulFe_stars    = set(abund_df.loc[(abund_df['Ion'] == 'Fe I') & ulmask_eps, 'Name'])
+    ulFe_stars_mask  = abund_df['Name'].isin(ulFe_stars)
+    nonFe_abund_mask = ~abund_df['Ion'].isin(['Fe I', 'Fe II'])
+    
+    XH_measured_mask = ~ulmask_XH & ~llmask_XH
+    llFe_xh_measured = llFe_stars_mask & nonFe_abund_mask & XH_measured_mask  # [Fe/H] is a LL + [X/H] measured   --> [X/Fe] is UL
+    llFe_xh_limited  = llFe_stars_mask & nonFe_abund_mask & ~XH_measured_mask # [Fe/H] is a LL + [X/H] is a limit --> [X/Fe] is NaN
+    ulFe_xh_measured = ulFe_stars_mask & nonFe_abund_mask & XH_measured_mask  # [Fe/H] is a UL + [X/H] measured   --> [X/Fe] is LL
+    ulFe_xh_limited  = ulFe_stars_mask & nonFe_abund_mask & ~XH_measured_mask # [Fe/H] is a UL + [X/H] is a limit --> [X/Fe] is NaN
+    
+    ulmask_XFe = ulmask_XFe | llFe_xh_measured
+    llmask_XFe = llmask_XFe | ulFe_xh_measured
+    xfe_is_nan = llFe_xh_limited | ulFe_xh_limited
+
+    abund_df['epsX_ll']  = _r2(abund_df['logepsX'].where(llmask_eps))
+    abund_df['epsX_val'] = _r2(abund_df['logepsX'].where(~llmask_eps & ~ulmask_eps))
+    abund_df['epsX_ul']  = _r2(abund_df['logepsX'].where(ulmask_eps))
+    
+    abund_df['XH_ll']    = _r2(abund_df['XH_raw'] .where(llmask_XH))
+    abund_df['XH_val']   = _r2(abund_df['XH_raw'] .where(~llmask_XH & ~ulmask_XH))
+    abund_df['XH_ul']    = _r2(abund_df['XH_raw'] .where(ulmask_XH))
+    
+    abund_df['XFe_ll']  = _r2(abund_df['XFe_raw'].where(llmask_XFe))
+    abund_df['XFe_val'] = _r2(abund_df['XFe_raw'].where(~llmask_XFe & ~ulmask_XFe & ~xfe_is_nan))
+    abund_df['XFe_ul']  = _r2(abund_df['XFe_raw'].where(ulmask_XFe  & ~xfe_is_nan))
+
+    # ---------------------------------------- #
+    # Pivot the abundance table to wide format
+    
+    def _pivot_column(col):
+        """
+        Return a Name-indexed wide table (dataframe) for a single derived abundance column.
+        - Uses the numerical species_i for column labels,which will be renamed later via the standard column naming functions.
+        - If the column doesn't exist in the abundance table,returns an empty dataframe with the correct shape and column labels.
+        """
+        if col not in abund_df.columns:
+            return pd.DataFrame(index=abund_df['Name'].unique(),columns=species,dtype=float)
+        return abund_df.pivot_table(index='Name',columns='species_i',values=col,aggfunc='last').reindex(columns=species)
+
+    ## Create a dictionary of dataframes for each pivoted abundance column,using the helper function above
+    pivots = { 
+        'll':    _pivot_column('epsX_ll'),
+        'eps':   _pivot_column('epsX_val'),
+        'ul':    _pivot_column('epsX_ul'),
+        'llXH':  _pivot_column('XH_ll'),
+        'XH':    _pivot_column('XH_val'),
+        'ulXH':  _pivot_column('XH_ul'),
+        'llXFe': _pivot_column('XFe_ll'),
+        'XFe':   _pivot_column('XFe_val'),
+        'ulXFe': _pivot_column('XFe_ul'),
+        'e_eps': _pivot_column('e_logepsX'),
+        'e_XH':  _pivot_column('e_[X/H]'),
+        'e_XFe': _pivot_column('e_[X/Fe]'),
+    }
+
+    ## Create a dictionary of column naming functions for each pivoted abundance column
+    colname_functions = {
+        'eps':   make_epscol,
+        'll':    make_llcol,
+        'ul':    make_ulcol,
+        'XH':    make_XHcol,
+        'llXH':  make_llXHcol,
+        'ulXH':  make_ulXHcol,
+        'XFe':   make_XFecol,
+        'llXFe': make_llXFecol,
+        'ulXFe': make_ulXFecol,
+        'e_eps': lambda s: 'e_' + make_epscol(s),
+        'e_XH':  lambda s: 'e_' + make_XHcol(s),
+        'e_XFe': lambda s: 'e_' + make_XFecol(s),
+    }
+    
+    ## Apply the column naming functions to rename the columns of each pivoted dataframe
+    for key,piv_df in pivots.items():
+        piv_df.columns = [colname_functions[key](s) for s in species]
+    
+    # ---------------------------------------- #
+    # Prepare the final dataframe with standard SPAG format
+    
+    ## `obs_table`` and `param_table`` data merged into `base_df` with additional columns
+    base_df = obs_df.merge(param_df)
+    base_df['Reference'] = f'{author}+{year}'
+    base_df['Ref']       = shortname
+    base_df['I/O']       = 1
+    if loc in ['HA','BU','DS','DW','UF','GC','SS','']:
+        base_df['Loc']   = loc 
+    elif loc == 'MX':
+        base_df['Loc']   = base_df.get('Loc',pd.Series([np.nan]*len(base_df)))
+    else:
+        raise ValueError(
+            f"Invalid loc value: {loc}. Must be one of ['HA','BU','DS','DW','UF','GC','MX','']. \n" + 
+            " - 'HA' = halo \n" +
+            " - 'BU' = bulge \n" +
+            " - 'DS' = disk \n" +
+            " - 'DW' = dwarf galaxy \n" +
+            " - 'UF' = ultra-faint dwarf galaxy \n" +
+            " - 'GC' = globular cluster \n" +
+            " - 'SS' = stellar stream \n" +
+            " - 'MX' = mixed location (see obs_table) \n" +
+            " - ''   = unknown" 
+        )
+    if 'RA_hms' in base_df.columns and 'DEC_dms' in base_df.columns:
+        base_df['RA_deg']    = base_df['RA_hms'].apply(lambda x: scoord.ra_hms_to_deg(x,precision=6))
+        base_df['DEC_deg']   = base_df['DEC_dms'].apply(lambda x: scoord.dec_dms_to_deg(x,precision=6))
+    elif 'RA_deg' in base_df.columns and 'DEC_deg' in base_df.columns:
+        base_df['RA_hms']    = base_df['RA_deg'].apply(lambda x: scoord.ra_deg_to_hms(x,precision=2))
+        base_df['DEC_dms']   = base_df['DEC_deg'].apply(lambda x: scoord.dec_deg_to_dms(x,precision=2))
+
+    ## Join the base dataframe with the abundance dataframes
+    base_df = base_df.set_index('Name')
+    result_df = base_df.join(list(pivots.values())).reset_index()
+    
+    ## Retain only stars that appear in the abundance table
+    result_df = result_df[result_df['Name'].isin(abund_df['Name'].unique())]
+
+    ## Filter the columns to ensure a consistent order: fixed columns first,then abundance columns
+    fixed_cols = ['I/O','Name','Simbad_Identifier','Reference','Ref',
+                'Loc','System','RA_hms','RA_deg','DEC_dms','DEC_deg',
+                'Teff','logg','M/H','Vmic']
+    abund_cols = [col for piv in pivots.values() for col in piv.columns]
+    result_df  = result_df.reindex(columns=fixed_cols + abund_cols)
+    result_df  = result_df.reset_index(drop=True)
+    
+
+    ## Drop Fe/Fe artefact columns
+    result_df.drop(
+        columns=[c for c in result_df.columns if 'Fe/Fe' in c or 'Fe2/Fe' in c],
+        inplace=True,errors='ignore'
+    )
+
+    return result_df
+
+### To be fixed...
 
 def load_jinabase(sci_key=None, io=1, load_eps=True, load_ll=True, load_ul=True, load_XH=True, load_XFe=True, load_aux=True, name_as_index=False, feh_ulim=None, version="yelland"):
     """
@@ -1341,7 +1795,7 @@ def load_mardini2022a(io=None):
     Load the data from Mardini et al. (2022), Table 5, for stars in the Atari Disk (Atr) region.
     """
 
-    mardini2022a_df = pd.read_csv(data_dir+'abundances/mardini2022a/tab5_yelland.csv', comment='#')
+    mardini2022a_df = pd.read_csv(data_dir+'abundances/_incompleted/mardini2022a/table5_corrected.csv', comment='#')
 
     ## Add and rename the necessary columns
     # mardini2022a_df.rename(columns={'source_id':'Name', 'ra':'RA_hms', 'dec':'DEC_deg', 'teff':'Teff'}, inplace=True)
@@ -1429,7 +1883,7 @@ def load_mardini2022a(io=None):
     
     ## Save the processed data to a CSV file
     mardini2022a_df.sort_values(by='[Fe/H]', ascending=False, inplace=True)
-    mardini2022a_df.to_csv(data_dir+'abundances/mardini2022a/tab5_processed.csv', index=False)
+    mardini2022a_df.to_csv(data_dir+'abundances/_incompleted/mardini2022a/table5_corrected_processed.csv', index=False)
 
     return mardini2022a_df
 
@@ -1714,6 +2168,1631 @@ def load_placco2014c(remove_atari=True, remove_sass=True, remove_dups=True, use_
     
     return placco2014c_df
 
+### New reference functions...
+
+def load_cayrel2004() -> pd.DataFrame:
+    """
+    Loads the Cayrel et al. (2004) & Francois et al. (2007) data for Milky Way halo data. 
+    
+    Cayrel et al. (2004) contains the light element abundances for the "First Stars." 
+    series (First Stars. V.).
+      --> [published the logepsX abbundances]
+    
+    Francois et al. (2007) contains the heavy element abundances for the "First Stars." 
+    series (First Stars. VIII.).
+      --> [published the [X/Fe] abbundances, using 'grevesse1998' solar abundances]
+
+    Table 2 - Cayrel+2004 Observation Table
+    Table 4 - Cayrel+2004 Stellar Parameters
+    Table 8 - Cayrel+2004 Abundance Table (The [Fe/H] ([Fe/H]_c) values are the avg of Fe I and Fe II)
+    Table 3,4,5 - Francois+2007 Abundance Table
+    
+    Note: I combined the Cayrel+2004 and Francois+2007 abundance tables into a single table.
+    """
+    df = load_authorYYYYx(
+        author      = 'Cayrel',
+        year        = '2004',
+        shortname   = 'CAY04',
+        loc         = 'HA',
+        obs_table   = 'table2',
+        param_table = 'table4',
+        abund_table = 'abundances-c04_f07_combined'
+    )
+    return df
+
+def load_chiti2018a(data_subset='merged') -> pd.DataFrame:
+    """
+    Load the Chiti et al. (2018a) data for the Sculptor Dwarf Galaxy, for both the MagE and M2FS measurements.
+    
+    Table 5 - MagE Abundance and Observations Table
+    Table 6 - M2FS Abundance and Observations Table
+    
+    Note: Pending on the data_subset parameter, this function can load either the MagE data, the M2FS data, some merged version, or both combined into a single DataFrame.
+    Note: See information regarding an error in the solar abundances in the data storage location. (`important_note.txt`)
+    
+    data_subset: str, optional
+        Specifies which subset of the data to load. Options are:
+        - 'merged' (default): Load both MagE and M2FS data and combine them into a single DataFrame.
+        - 'm2fs': Load only the M2FS data (table6).
+        - 'mage': Load only the MagE data (table5).
+        - 'all': Load both MagE and M2FS data as separate DataFrames and concatenate them into a single DataFrame.
+    """
+    
+    match data_subset:
+        case 'merged':
+            obs_param_table = 'chiti2018a_merged_param'
+            abund_table     = 'chiti2018a_merged_abund'
+        case 'm2fs':
+            obs_param_table = 'chiti2018a_m2fs_param'
+            abund_table     = 'chiti2018a_m2fs_abund'
+        case 'mage':
+            obs_param_table = 'chiti2018a_mage_param'
+            abund_table     = 'chiti2018a_mage_abund'
+        case 'all':
+            df = pd.read_csv(data_dir + "abundances/chiti2018a/chiti2018a_alldata.csv", comment="#", na_values=["", " ", "nan", "NaN", "N/A", "n/a"])
+            return df
+        case _:
+            raise ValueError(f"Invalid data_subset value: {data_subset}. Must be one of ['merged', 'm2fs', 'mage', 'all'].")
+    
+    df = load_authorYYYYx(
+        author      = 'Chiti',
+        year        = '2018a',
+        shortname   = 'CHI18a',
+        loc         = 'DW',
+        obs_table   = obs_param_table,
+        param_table = obs_param_table,
+        abund_table = abund_table,
+        transpose   = True,
+        transpose_abund = '[X/Fe]',
+        transpose_err   = 'e_[X/Fe]'
+    )
+    return df
+
+def load_chiti2018b() -> pd.DataFrame:
+    """
+    Load the Chiti et al. (2018b) data for the Tucana II Ultra-Faint Dwarf Galaxy.
+
+    Table 1 - Observation Table
+    Table 2 - Stellar Parameters
+    Table 3 - Abundance Table
+    """
+    df = load_authorYYYYx(
+        author      = 'Chiti',
+        year        = '2018b',
+        shortname   = 'CHI18b',
+        loc         = 'UF',
+        obs_table   = 'table1',
+        param_table = 'table2',
+        abund_table = 'table3',
+        init_abund  = '[X/H]'
+    )
+    return df
+
+def load_chiti2023() -> pd.DataFrame:
+    """
+    Load the Chiti et al. (2023) data for the Tucana II Ultra-Faint Dwarf Galaxy.
+
+    Table 1 - Observation Table
+    Table 2 - Stellar Parameters
+    Table 3 - Abundance Table
+    """
+    df = load_authorYYYYx(
+        author      = 'Chiti',
+        year        = '2023',
+        shortname   = 'CHI23',
+        loc         = 'UF',
+        obs_table   = 'table1',
+        param_table = 'table2',
+        abund_table = 'table3',
+        init_abund  = '[X/H]'
+    )
+    return df
+
+def load_chiti2024() -> pd.DataFrame:
+    """
+    Load the Chiti et al. (2024) data for the Large Magellanic Cloud (LMC).
+
+    Table 1 - Observation Table
+    Table 2 - Stellar Parameters
+    Table 3 - Abundance Table
+    """
+    
+    df = load_authorYYYYx(
+        author      = 'Chiti',
+        year        = '2024',
+        shortname   = 'CHI24',
+        loc         = 'DW',
+        obs_table   = 'table_obs',
+        param_table = 'table_param',
+        abund_table = 'table_abund',
+    )
+    return df
+
+def load_chiti2025a() -> pd.DataFrame:
+    """
+    Load the Chiti et al. (2025) data for the Pictor II Ultra-Faint Dwarf Galaxy.
+
+    Table 0 - Observation Table & Stellar Parameters
+    Table 2 - Abundance Table
+    """
+    df = load_authorYYYYx(
+        author      = 'Chiti',
+        year        = '2025a',
+        shortname   = 'CHI25a',
+        loc         = 'DW',
+        obs_table   = 'table0',
+        param_table = 'table0',
+        abund_table = 'table2',
+        init_abund  = '[X/H]',
+    )
+    return df
+
+def load_cowan2002() -> pd.DataFrame:
+    """
+    Load the data from Cowan et al. (2002) for BD +17 3248.
+
+    Table 0 - Observation Table & Stellar Parameters Table
+    Table 1,3 - Abundance Table
+    """
+    
+    df = load_authorYYYYx(
+        author      = 'Cowan',
+        year        = '2002',
+        shortname   = 'COW02',
+        loc         = '',
+        obs_table   = 'table0',
+        param_table = 'table0',
+        abund_table = 'table1_3',
+    )
+    return df
+
+def load_feltzing2009() -> pd.DataFrame:
+    """
+    Load the Feltzing et al. (2009) data for the Bootes I Ultra-Faint Dwarf Galaxies.
+
+    Table 1a - Observations & Stellar Parameters
+    Table 1b - Abundance Table
+    """
+    df = load_authorYYYYx(
+        author      = 'Feltzing',
+        year        = '2009',
+        shortname   = 'FEL09',
+        loc         = 'UF',
+        obs_table   = 'table1a',
+        param_table = 'table1a',
+        abund_table = 'table1b',
+    )
+    return df
+
+def load_francois2007() -> pd.DataFrame:
+    """
+    Loads the Cayrel et al. (2004) & Francois et al. (2007) data for Milky Way halo data. 
+    
+    Cayrel et al. (2004) contains the light element abundances for the "First Stars." 
+    series (First Stars. V.).
+      --> [published the logepsX abbundances]
+    
+    Francois et al. (2007) contains the heavy element abundances for the "First Stars." 
+    series (First Stars. VIII.).
+      --> [published the [X/Fe] abbundances, using 'grevesse1998' solar abundances]
+
+    Table 2 - Cayrel+2004 Observation Table
+    Table 4 - Cayrel+2004 Stellar Parameters
+    Table 8 - Cayrel+2004 Abundance Table (The [Fe/H] ([Fe/H]_c) values are the avg of Fe I and Fe II)
+    Table 3,4,5 - Francois+2007 Abundance Table
+    
+    Note: I combined the Cayrel+2004 and Francois+2007 abundance tables into a single table.
+    """
+    df = load_authorYYYYx(
+        author      = 'Francois',
+        year        = '2007',
+        shortname   = 'FRA07',
+        loc         = 'HA',
+        obs_table   = 'table0',
+        param_table = 'table1',
+        abund_table = 'abundances-c04_f07_combined'
+    )
+    return df
+
+def load_francois2016() -> pd.DataFrame:
+    """
+    Load the Francois et al. (2016) data for the Bootes II, Leo IV, Cane Venatici I, Cane Venatici II, and Hercules Ultra-Faint Dwarf Galaxy.
+
+    Table 1 - Observation Table
+    Table 3 - Stellar Parameters
+    Table 6 - Abundance Table
+
+    Note: The paper used the Grevesse & Sauval (1998) solar abundances. -- Published in a book chapter in 2000.
+    """
+    df = load_authorYYYYx(
+        author      = 'Francois',
+        year        = '2016',
+        shortname   = 'FRA16',
+        loc         = 'HA',
+        obs_table   = 'table1',
+        param_table = 'table3',
+        abund_table = 'table6',
+        solar_init  = 'grevesse1998',
+        transpose   = True,
+        transpose_abund = '[X/Fe]',
+        transpose_err   = 'e_[X/Fe]'
+    )
+    return df
+
+def load_frebel2010a() -> pd.DataFrame:
+    """
+    Load the Frebel et al. (2010a) data for the Ursa Major II and Coma Berenices Ultra-Faint Dwarf Galaxies.
+
+    Table 1,2,5 - Observation and Stellar Parameters
+    Table 6,7 - Abundance Table
+    """
+    df = load_authorYYYYx(
+        author      = 'Frebel',
+        year        = '2010a',
+        shortname   = 'FRE10a',
+        loc         = 'UF',
+        obs_table   = 'table1_2_5',
+        param_table = 'table1_2_5',
+        abund_table = 'table6_7',
+    )
+    return df
+
+def load_frebel2010b() -> pd.DataFrame:
+    """
+    Load the Frebel et al. (2010b) data for a Sculptor Classical Dwarf Galaxy star, S1020549.
+
+    Table 0 - Observations
+    Table 0 - Stellar Parameters
+    Table 1 - Abundance Table
+    """
+    df = load_authorYYYYx(
+        author      = 'Frebel',
+        year        = '2010b',
+        shortname   = 'FRE10b',
+        loc         = 'DW',
+        obs_table   = 'table0',
+        param_table = 'table0',
+        abund_table = 'table1',
+    )
+    return df
+
+def load_frebel2013c() -> pd.DataFrame:
+    """
+    Load the Frebel et al. (2013c) data for a stars in the Segue 1 Ultra-Faint Dwarf Galaxy (300 km s^-1 stream),
+    in addition to three comparison stars.
+
+    Table 2 - Observations
+    Table 3 - Stellar Parameters
+    Table 4 - Abundance Table
+    """
+    df = load_authorYYYYx(
+        author      = 'Frebel',
+        year        = '2013c',
+        shortname   = 'FRE13c',
+        loc         = 'MX',
+        obs_table   = 'table2',
+        param_table = 'table3',
+        abund_table = 'table4_6',
+    )
+    return df
+
+def load_frebel2014() -> pd.DataFrame:
+    """
+    Load the Frebel et al. (2014) data for the Segue 1 Ultra-Faint Dwarf Galaxy.
+
+    Table 1 - Observation Table
+    Table 3 - Stellar Parameters
+    Table 4 - Abundance Table
+
+    Note: J100714+160154 is an s-process star.
+    """
+    df = load_authorYYYYx(
+        author      = 'Frebel',
+        year        = '2014',
+        shortname   = 'FRE14',
+        loc         = 'UF',
+        obs_table   = 'table1',
+        param_table = 'table3',
+        abund_table = 'table4',
+    )
+    return df
+
+def load_frebel2016() -> pd.DataFrame:
+    """
+    Load the Frebel et al. (2016) data for the Bootes I Ultra-Faint Dwarf Galaxies.
+
+    Table 1 - Observations & Stellar Parameters
+    Table 3 - Abundance Table
+    """
+    df = load_authorYYYYx(
+        author      = 'Frebel',
+        year        = '2016',
+        shortname   = 'FRE16',
+        loc         = 'UF',
+        obs_table   = 'table1',
+        param_table = 'table1',
+        abund_table = 'table3',
+    )
+    return df
+
+def load_gilmore2013a() -> pd.DataFrame:
+    """
+    Load the Gilmore et al. (2013) data for the Bootes I Ultra-Faint Dwarf Galaxy.
+
+    Table 1 - Observation Table
+    Table 3 - Stellar Parameters
+    Table 6 - Abundance Table
+    """
+    df = load_authorYYYYx(
+        author      = 'Gilmore',
+        year        = '2013a',
+        shortname   = 'GIL13a',
+        loc         = 'UF',
+        obs_table   = 'table1',
+        param_table = 'table3_mod',
+        abund_table = 'table6_mod',
+    )
+    return df
+
+def load_gull2021() -> pd.DataFrame:
+    """
+    Load the Gull et al. (2021) data for the Helmi debris stream,Helmi trail stream,and omega Centauri stream.
+    
+    Helmi debris stream (Helmi et al. 1999)
+        Helmi & White (1999) found 13 members of the now so-called debris stream.
+        Roederer et al. (2010) performed a detailed abundance analysis of 12 of those 13 members.
+        The Helmi debris stars manifest themselves in a well-defined stream,
+         with prominent negative vz motion (Myeong et al. 2019).
+    
+    Helmi trail stream (Helmi et al. 1999)
+        Chiba & Beers (2000) 9 stars apart of a secondary stream associated with the Helmi debris stream trail stream.
+        The Helmi trail stream distinguishes itself from the Helmi debris stream kinematically (Yuan et al. 2020). 
+         by displaying a positive vz (vertical velocity) motions,slightly higher energy,larger radial motions,
+         and are more diffuse without clear features on kinematic diagrams
+
+    Table 1 - Observations
+    Table 3 - Stellar Parameters
+    Table 5 - Abundance Table
+    """
+    df = load_authorYYYYx(
+        author      = 'Gull',
+        year        = '2021',
+        shortname   = 'GUL21',
+        loc         = 'SS',
+        obs_table   = 'table1',
+        param_table = 'table3',
+        abund_table = 'table5'
+    )
+    return df
+
+def load_hansent2017() -> pd.DataFrame:
+    """
+    Load the Hansen et al. (2017) data for the Tucana III Ultra-Faint Dwarf Galaxy.
+
+    Table 3a - Observations and Stellar Parameters
+    Table 3b - Abundance Table
+
+    Note: The paper used the Grevesse & Sauval (1998) solar abundances. -- Published in a book chapter in 2000.
+    """
+    df = load_authorYYYYx(
+        author      = 'HansenT',
+        year        = '2017',
+        shortname   = 'HANt17',
+        loc         = 'UF',
+        obs_table   = 'table3_a',
+        param_table = 'table3_a',
+        abund_table = 'table3_b',
+        transpose = True,
+        transpose_abund = '[X/Fe]',
+        transpose_err   = 'e_[X/Fe]',
+    )
+    return df
+
+def load_hansent2020a() -> pd.DataFrame:
+    """
+    Load the Hansen T. et al. (2020a) data for the Grus II Ultra-Faint Dwarf Galaxy.
+
+    Table 1 - Observation Table
+    Table 2 - Stellar Parameters
+    Table 5 - Abundance Table
+    """
+    df = load_authorYYYYx(
+        author      = 'HansenT',
+        year        = '2020a',
+        shortname   = 'HANt20a',
+        loc         = 'UF',
+        obs_table   = 'table1',
+        param_table = 'table2',
+        abund_table = 'table5',
+    )
+    return df
+
+def load_hansent2024() -> pd.DataFrame:
+    """
+    Load the Hansen T. et al. (2024) data for the Tucana V Ultra-Faint Dwarf Galaxy.
+
+    Table 1 - Observation Table
+    Table 2 - Stellar Parameters
+    Table 4 - Abundance Table
+    """
+    df = load_authorYYYYx(
+        author      = 'HansenT',
+        year        = '2024',
+        shortname   = 'HANt24',
+        loc         = 'UF',
+        obs_table   = 'table1',
+        param_table = 'table2',
+        abund_table = 'table4',
+    )
+    return df
+
+def load_hughes2026() -> pd.DataFrame:
+    """
+    Load the Hughes et al. (2025) data for the 10 SASS stars.
+
+    table_obs - Observations
+    table_param - Stellar Parameters
+    table_abund - Abundance Table
+    """
+    df = load_authorYYYYx(
+        author      = 'Hughes',
+        year        = '2026',
+        shortname   = 'HUG26',
+        loc         = 'HA',
+        obs_table   = 'table_obs',
+        param_table = 'table_param',
+        abund_table = 'table_abund',
+        init_abund  = '[X/H]'
+    )
+    return df
+
+def load_ishigaki2014() -> pd.DataFrame:
+    """
+    Load the Ishigaki et al. (2014) data for the Bootes I Ultra-Faint Dwarf Galaxy and two halo reference stars.
+
+    Table 1 - Observation Table
+    Table 3 - Stellar Parameters
+    Table 5 - Abundance Table
+    """
+    df = load_authorYYYYx(
+        author      = 'Ishigaki',
+        year        = '2014',
+        shortname   = 'ISH14',
+        loc         = 'UF',
+        obs_table   = 'table1',
+        param_table = 'table3',
+        abund_table = 'table5'
+    )
+    return df
+
+def load_ito2013() -> pd.DataFrame:
+    """
+    Load the data from Ito et al. (2013) for the star: BD+44 493
+
+    Table 0 - Observation Table
+    Table 9 - Stellar Parameters Table
+    Table 4 - Abundance Table
+    """
+    
+    df = load_authorYYYYx(
+        author      = 'Ito',
+        year        = '2013',
+        shortname   = 'ITO13',
+        loc         = '',
+        obs_table   = 'table0',
+        param_table = 'table9',
+        abund_table = 'table10',
+    )
+    return df
+
+def load_ji2016a() -> pd.DataFrame:
+    """
+    Load the Ji et al. (2016a) data for the Bootes II Ultra-Faint Dwarf Galaxies.
+
+    Table 1 - Observations
+    Table 3 - Stellar Parameters
+    Table 4 - Abundance Table
+    """
+    df = load_authorYYYYx(
+        author      = 'Ji',
+        year        = '2016a',
+        shortname   = 'JI16a',
+        loc         = 'UF',
+        obs_table   = 'table1',
+        param_table = 'table3',
+        abund_table = 'table4',
+    )
+    return df
+
+def load_ji2016b() -> pd.DataFrame:
+    """
+    Load the Ji et al. (2016b) data for the Reticulum II Ultra-Faint Dwarf Galaxy.
+
+    Table 1 - Observation and Stellar Parameters
+    Table 3 - Abundance Table
+    """
+    df = load_authorYYYYx(
+        author      = 'Ji',
+        year        = '2016b',
+        shortname   = 'JI16b',
+        loc         = 'UF',
+        obs_table   = 'table1',
+        param_table = 'table1',
+        abund_table = 'table3',
+    )
+    return df
+
+def load_ji2018() -> pd.DataFrame:
+    """
+    Load the Ji et al. (2018) data for the brightest star in Reticulum II.
+
+    Table 0 - Observations & Stellar Parameters
+    Table 2 - Abundance Table
+    """
+    df = load_authorYYYYx(
+        author      = 'Ji',
+        year        = '2018',
+        shortname   = 'JI18',
+        loc         = 'UF',
+        obs_table   = 'table0',
+        param_table = 'table0',
+        abund_table = 'table2_modified',
+    )
+    return df
+
+def load_ji2019a() -> pd.DataFrame:
+    """
+    Load the Ji et al. (2019a) data for the Grus I & Triangulum II Ultra-Faint Dwarf Galaxies.
+
+    Table 1 - Observations
+    Table 3 - Stellar Parameters
+    Table 4 - Abundance Table
+    """
+    df = load_authorYYYYx(
+        author      = 'Ji',
+        year        = '2019a',
+        shortname   = 'JI19a',
+        loc         = 'UF',
+        obs_table   = 'table1',
+        param_table = 'table3',
+        abund_table = 'table4',
+    )
+    return df
+
+def load_ji2020a() -> pd.DataFrame:
+    """
+    Load the Ji et al. (2020a) data for the Carina II and Carina III Ultra-Faint Dwarf Galaxies.
+
+    Table 1 - Observations
+    Table 3 - Stellar Parameters
+    Table 6 - Abundance Table
+    """
+    df = load_authorYYYYx(
+        author      = 'Ji',
+        year        = '2020a',
+        shortname   = 'JI20a',
+        loc         = 'UF',
+        obs_table   = 'table1',
+        param_table = 'table3',
+        abund_table = 'table6',
+    )
+    return df
+
+def load_ji2020b() -> pd.DataFrame:
+    """
+    Load the Ji et al. (2020) data for the 7 stellar streams in the Milky Way.
+    These streams include: ATLAS,Aliqa Uma,Chenab,Elqui,Indus,Jhelum,and Phoenix
+
+    Table 1 - Observations
+    Table 2 - Stellar Parameters
+    Table 6 - Abundance Table
+    """
+    df = load_authorYYYYx(
+        author      = 'Ji',
+        year        = '2020b',
+        shortname   = 'JI20b',
+        loc         = 'SS',
+        obs_table   = 'table1',
+        param_table = 'table2',
+        abund_table = 'table6'
+    )
+    return df
+
+def load_ji2026() -> pd.DataFrame:
+    """
+    Load the Ji et al. (2026) data for a Large Magellanic Cloud star.
+
+    Table 0 - Observations
+    Table 0 - Stellar Parameters
+    Table 1 - Abundance Table
+    """
+    df = load_authorYYYYx(
+        author      = 'Ji',
+        year        = '2026',
+        shortname   = 'JI26',
+        loc         = 'DW',
+        obs_table   = 'table0_mod',
+        param_table = 'table0_mod',
+        abund_table = 'table1_mod',
+    )
+    df.loc[df['Name'] == 'J0715-7334_NLTE','I/O'] = 0
+    return df
+
+def load_kirby2017b() -> pd.DataFrame:
+    """
+    Load the Kirby et al. (2017b) data for the Triangulum II Ultra-Faint Dwarf Galaxies.
+
+    Table 0 - Observations & Stellar Parameters
+    Table 6 - Abundance Table
+    """
+    df = load_authorYYYYx(
+        author      = 'Kirby',
+        year        = '2017b',
+        shortname   = 'KIR17b',
+        loc         = 'UF',
+        obs_table   = 'table0',
+        param_table = 'table0',
+        abund_table = 'table6',
+    )
+    return df
+
+def load_koch2008c() -> pd.DataFrame:
+    """
+    Load the Koch et al. (2008c) data for the Hercules Ultra-Faint Dwarf Galaxies.
+
+    Table 0 - Observations & Stellar Parameters
+    Table 1 - Abundance Table
+    """
+    df = load_authorYYYYx(
+        author      = 'Koch',
+        year        = '2008c',
+        shortname   = 'KOC08c',
+        loc         = 'UF',
+        obs_table   = 'table0',
+        param_table = 'table0',
+        abund_table = 'table1',
+        init_abund  = '[X/Fe]',
+        solar_init = 'asplund2005'
+    )
+    return df
+
+def load_koch2013b() -> pd.DataFrame:
+    """
+    Load the Koch et al. 2013b data for the Hercules Ultra-Faint Dwarf Galaxies.
+
+    Table 0 - Observations & Stellar Parameters (custom made table from the text and Aden+2011)
+    Table 1, modified - Abundance Table (chose to use the 3-sigma upper limits for Ba)
+    
+    Note: [Fe/H] and [Ca/H] are taken from Adén et al. (2011).
+    """
+    df = load_authorYYYYx(
+        author      = 'Koch',
+        year        = '2013b',
+        shortname   = 'KOC13b',
+        loc         = 'UF',
+        obs_table   = 'table0',
+        param_table = 'table0',
+        abund_table = 'table1_mod'
+    )
+    return df
+
+def load_lai2011b() -> pd.DataFrame:
+    """
+    Load the Lai et al. (2011b) data for the Bootes I Ultra-Faint Dwarf Galaxy.
+
+    Table 1a - Observations Table & Stellar Parameters
+    Table 1b - Abundance Table
+    """
+    df = load_authorYYYYx(
+        author      = 'Lai',
+        year        = '2011b',
+        shortname   = 'LAI11b',
+        loc         = 'UF',
+        obs_table   = 'table1a',
+        param_table = 'table1a',
+        abund_table = 'table1b',
+        init_abund  = '[X/Fe]'
+    )
+    return df
+
+def load_lemasle2012() -> pd.DataFrame:
+    """
+    Load the Lemasle et al. (2012) data for the Carina Classical Dwarf Galaxy.
+
+    Table 3 - Observations
+    Table 5 - Stellar Parameters
+    Table 7 & 8 - Abundance Tables
+    """
+    df = load_authorYYYYx(
+        author      = 'Lemasle',
+        year        = '2012',
+        shortname   = 'LEM12',
+        loc         = 'DW',
+        obs_table   = 'table3',
+        param_table = 'table5',
+        abund_table = 'table7_8',
+        transpose   = True,
+        transpose_abund = '[X/H]',
+        transpose_err   = 'e_[X/H]'
+    )
+    return df
+
+def load_lemasle2014() -> pd.DataFrame:
+    """
+    Load the Lemasle et al. (2014) data for the Fornax dwarf spheroidal galaxy.
+
+    Table A.3 - Observation Parameters
+    Table 3 - Stellar Parameters
+    Table A.5 - Abundance Table
+
+    Note: Which solar abundances used in this dataset is unclear/not mentioned in the paper. Assuming they follow Aslpund et al. 2009
+    """
+    df = load_authorYYYYx(
+        author      = 'Lemasle',
+        year        = '2014',
+        shortname   = 'LEM14',
+        loc         = 'DW',
+        obs_table   = 'tablea3',
+        param_table = 'table3',
+        abund_table = 'tablea5',
+        transpose   = True,
+        transpose_abund = '[X/H]',
+        transpose_err   = 'e_[X/H]'
+    )
+    return df
+
+def load_letarte2010() -> pd.DataFrame:
+    """
+    Load the Letarte et al. (2010) data for the Fornax Classical Dwarf Galaxy.
+
+    Table A.2 & A.3 - Observations & Stellar Parameters
+    Table A.5 - Abundance Table
+    """
+    df = load_authorYYYYx(
+        author      = 'Letarte',
+        year        = '2010',
+        shortname   = 'LET10',
+        loc         = 'DW',
+        obs_table   = 'tablea3',
+        param_table = 'tablea2',
+        abund_table = 'tablea5',
+        solar_init  = 'letarte2010',
+        transpose   = True,
+        transpose_abund = '[X/Fe]',
+        transpose_err   = 'e_[X/Fe]'
+    )
+    return df
+
+def load_limberg2025a() -> pd.DataFrame:
+    """
+    Load the Limberg et al. (2025a) data for a Large Magellanic Cloud star
+
+    Table 0 - Observations
+    Table 0 - Stellar Parameters
+    Table 2 - Abundance Table
+    """
+    df = load_authorYYYYx(
+        author      = 'Limberg',
+        year        = '2025a',
+        shortname   = 'LIM25a',
+        loc         = 'DW',
+        obs_table   = 'table0',
+        param_table = 'table0',
+        abund_table = 'table2',
+    )
+    return df
+
+def load_lucchesi2024() -> pd.DataFrame:
+    """
+    Load the Lucchesi et al. (2024) data for the Carina & Fornax dSph galaxies. There
+    are 4 stars in Carina and 2 stars in Fornax.
+
+    Table 0 - Observations & Stellar Parameters (created from Table 1,2,3)
+    Table A.4 - Abundance Table (restructured from the original Table A.4)
+    """
+    df = load_authorYYYYx(
+        author      = 'Lucchesi',
+        year        = '2024',
+        shortname   = 'LUC24',
+        loc         = 'DW',
+        obs_table   = 'table0',
+        param_table = 'table0',
+        abund_table = 'tablea4'
+    )
+    return df
+
+def load_lucey2026b() -> pd.DataFrame:
+    """
+    Load the Lucey et al. 2026 data for the first five CEMP stars in the Large Magellanic Cloud.
+    
+    Table 1, obs_param - Observations Table & Stellar Parameters
+    Table 1, abund - Abundance Table
+    """
+    df = load_authorYYYYx(
+        author      = 'Lucey',
+        year        = '2026b',
+        shortname   = 'LUCm26b',
+        loc         = 'DW',
+        obs_table   = 'table1_obs_param',
+        param_table = 'table1_obs_param',
+        abund_table = 'table1_abund',
+        transpose   = True,
+        transpose_abund = '[X/Fe]',
+        transpose_err   = 'e_[X/Fe]'
+    )
+    return df
+
+def load_mardini2022b() -> pd.DataFrame:
+    """
+    Load the Mardini et al. (2022b) data for a SASS star.
+
+    Table 0 - Observations & Stellar Parameters
+    Table 2 - Abundance Table
+    """
+    df = load_authorYYYYx(
+        author      = 'Mardini',
+        year        = '2022b',
+        shortname   = 'MARm22b',
+        loc         = 'HA',
+        obs_table   = 'table0',
+        param_table = 'table0',
+        abund_table = 'table2'
+    )
+    return df
+
+def load_mardini2024b() -> pd.DataFrame:
+    """
+    Load the Mardini et al. (2024b) data for a single Atari star.
+
+    Table 1 - Observations & Stellar Parameters
+    Table 2 - Abundance Table
+    """
+    df = load_authorYYYYx(
+        author      = 'Mardini',
+        year        = '2024b',
+        shortname   = 'MARm24b',
+        loc         = 'DS',
+        obs_table   = 'table1',
+        param_table = 'table1',
+        abund_table = 'table2'
+    )
+    return df
+
+def load_marshall2019() -> pd.DataFrame:
+    """
+    Load the Marshall et al. (2019) data for the Tucana III Ultra-Faint Dwarf Galaxy.
+
+    Table 1 - Observations
+    Table 2 - Stellar Parameters
+    Table 4 - Abundance Table
+    """
+    df = load_authorYYYYx(
+        author      = 'Marshall',
+        year        = '2019',
+        shortname   = 'MARj19',
+        loc         = 'UF',
+        obs_table   = 'table1',
+        param_table = 'table2',
+        abund_table = 'table4'
+    )
+    return df
+
+def load_martin2022a() -> pd.DataFrame:
+    """
+    Load the Martin et al. (2022a) data for the C-19 Stream.
+
+    Table 2 - Observations Table
+    Table 3 - Abundance Table 1, for Gemini/GRACES observations
+    Table 5 - Abundance Table 2, for OSIRIS observations
+    """
+    df = load_authorYYYYx(
+        author      = 'Martin',
+        year        = '2022a',
+        shortname   = 'MARn22a',
+        loc         = 'SS',
+        obs_table   = 'table2',
+        param_table = 'table3_5_param',
+        abund_table = 'table3_5_abund_xh',
+        transpose   = True,
+        transpose_abund = '[X/H]',
+        transpose_err   = 'e_[X/H]'
+    )
+    return df
+
+def load_nagasawa2018() -> pd.DataFrame:
+    """
+    Load the Nagasawa et al. (2018) data for the Horologium I Ultra-Faint Dwarf Galaxy.
+
+    Table 1 & Table 2 - Observations
+    Table 4 - Stellar Parameters
+    Table 5 - Abundance Table
+    """
+    df = load_authorYYYYx(
+        author      = 'Nagasawa',
+        year        = '2018',
+        shortname   = 'NAG18',
+        loc         = 'UF',
+        obs_table   = 'table1_2',
+        param_table = 'table4',
+        abund_table = 'table5'
+    )
+    return df
+
+def load_nordlander2019() -> pd.DataFrame:
+    """
+    Load the Nordlander et al. (2019) data for the halo/SASS star SMSS J160540.18-144323.1 (SMSS 1605-1443).
+
+    Table 0 - Observations
+    Table 0 - Stellar Parameters
+    Table 1 - Abundance Table
+    """
+    df = load_authorYYYYx(
+        author      = 'Nordlander',
+        year        = '2019',
+        shortname   = 'NORt19',
+        loc         = 'HA',
+        obs_table   = 'table0',
+        param_table = 'table0',
+        abund_table = 'table1'
+    )
+    return df
+
+def load_norris2010a() -> pd.DataFrame:
+    """
+    Load the Norris et al. (2010a) data for the Bootes I (Boo-1137) Ultra-Faint Dwarf Galaxy.
+
+    Table 0 - Observation and Stellar Parameters
+    Table 2 - Abundance Table
+
+    Note: The abundance ratios are using the Asplund+2005 solar abundances, not the Asplund+2009 solar abundances.
+    """
+    df = load_authorYYYYx(
+        author      = 'Norris',
+        year        = '2010a',
+        shortname   = 'NOR10a',
+        loc         = 'UF',
+        obs_table   = 'table0',
+        param_table = 'table0',
+        abund_table = 'table2',
+        solar_init = 'asplund2005'
+    )
+    return df
+
+def load_norris2010b() -> pd.DataFrame:
+    """
+    Load the Norris et al. (2010b) data for the Segue 1 (Seg 1-7) Ultra-Faint Dwarf Galaxy.
+
+    Table 0 - Observation and Stellar Parameters
+    Table 2 - Abundance Table
+
+    Note: Which solar abundances are used is not stated in the text, although I assume they are the Asplund+2005 solar abundances. Not the Asplund+2009 solar abundances.
+    """
+    df = load_authorYYYYx(
+        author      = 'Norris',
+        year        = '2010b',
+        shortname   = 'NOR10b',
+        loc         = 'UF',
+        obs_table   = 'table0',
+        param_table = 'table0',
+        abund_table = 'table2',
+        solar_init = 'asplund2005'
+    )
+    return df
+
+def load_norris2010c() -> pd.DataFrame:
+    """
+    Load the Norris et al. (2010c) data for the Bootes I and Segue 1 Ultra-Faint Dwarf Galaxies.
+
+    Table 1,2 - Observations Table
+    Table 3,4 - Stellar Parameters
+    Table 3,4 - Abundance Table
+
+    Note: Which solar abundances are used is not stated in the text, although I assume they are the Asplund+2005 solar 
+          abundances. Not the Asplund+2009 solar abundances.
+    """
+    df = load_authorYYYYx(
+        author      = 'Norris',
+        year        = '2010c',
+        shortname   = 'NOR10c',
+        loc         = 'UF',
+        obs_table   = 'table1_2',
+        param_table = 'table3_4_param',
+        abund_table = 'table3_4_abund',
+        solar_init  = 'asplund2005',
+        transpose   = True,
+        transpose_abund = '[X/H]',
+        transpose_err   = 'e_[X/H]'
+    )
+    return df
+
+def load_norris2017b() -> pd.DataFrame:
+    """
+    Load the Norris et al. (2017b) data for the Carina Classical Dwarf Spheroidal Galaxies.
+    Paper reports on 63 stars, but only 32 new stars are from this study. The other 31
+    stars are from Venn+2012, Shetrone+2003, and Lemasle+2012.
+
+    Table 1 - Observations
+    Table 5 - Stellar Parameters
+    Table 6 - Abundance Table
+    """
+    df = load_authorYYYYx(
+        author      = 'Norris',
+        year        = '2017b',
+        shortname   = 'NOR17b',
+        loc         = 'DW',
+        obs_table   = 'table1',
+        param_table = 'table5',
+        abund_table = 'table6',
+    )
+    return df
+
+def load_ou2024c() -> pd.DataFrame:
+    """
+    Load the Ou et al. (2024c) data for the Gaia Sausage Enceladus (GSE) Dwarf Galaxy star.
+    
+    obs_param - Observations Table & Stellar Parameters
+    xh_abund - Abundance Table
+    """
+    df = load_authorYYYYx(
+        author      = 'Ou',
+        year        = '2024c',
+        shortname   = 'OUx24c',
+        loc         = 'DW',
+        obs_table   = 'obs_param',
+        param_table = 'obs_param',
+        abund_table = 'xh_abund',
+        transpose   = True,
+        transpose_abund = '[X/H]',
+        transpose_err   = 'e_[X/H]'
+    )
+    return df
+
+def load_ou2025() -> pd.DataFrame:
+    """
+    Load the Ou et al. (2025) data for the Sagittarius Dwarf Galaxy.
+    
+    obs_param - Observations Table & Stellar Parameters
+    xh_abund - Abundance Table
+    """
+    df = load_authorYYYYx(
+        author      = 'Ou',
+        year        = '2025',
+        shortname   = 'OUx25',
+        loc         = 'DW',
+        obs_table   = 'obs_param',
+        param_table = 'obs_param',
+        abund_table = 'xh_abund',
+        transpose   = True,
+        transpose_abund = '[X/H]',
+        transpose_err   = 'e_[X/H]'
+    )
+    return df
+
+def load_reggiani2021() -> pd.DataFrame:
+    """
+    Load the Reggiani et al. (2021) data for the Small and Large Magellanic Clouds.
+
+    Table 1 - Observation Table
+    Table 3 - Stellar Parameters
+    Table 5 - Abundance Table
+    """
+    df = load_authorYYYYx(
+        author      = 'Reggiani',
+        year        = '2021',
+        shortname   = 'REG21',
+        loc         = 'DW',
+        obs_table   = 'table1',
+        param_table = 'table3',
+        abund_table = 'table5',
+    )
+    return df
+
+def load_roederer2010a() -> pd.DataFrame:
+    """
+    Load the Roederer et al. (2010a) data for the Helmi stellar stream.
+
+    Table 2 - Observations
+    Table 5 - Stellar Parameters
+    Table 7,8,9,10 - Abundance Table
+    """
+    df = load_authorYYYYx(
+        author      = 'Roederer',
+        year        = '2010a',
+        shortname   = 'ROE10a',
+        loc         = 'SS',
+        obs_table   = 'table2',
+        param_table = 'table5',
+        abund_table = 'table7-8-9-10'
+    )
+    return df
+
+def load_roederer2010b() -> pd.DataFrame:
+    """
+    Load the Roederer et al. (2010b) for the star: BD +17 3248
+
+    Table 0 - Observation Table
+    Table 0 - Stellar Parameters
+    Table 1b - Abundance Table
+    """
+    
+    df = load_authorYYYYx(
+        author      = 'Roederer',
+        year        = '2010b',
+        shortname   = 'ROE10b',
+        loc         = '',
+        obs_table   = 'table0',
+        param_table = 'table0',
+        abund_table = 'table1b',
+    )
+    return df
+
+def load_roederer2012a() -> pd.DataFrame:
+    """
+    Load the data from Roederer et al. (2012d) for three stars will Tellurium abundances.
+
+    Table 0 - Observation Table & Stellar Parameters Table
+    abund - Abundance Table, extracted from the text and concatenated with abundance tables from Roederer et al. (2012d) and Cowan et al. (2002).
+    """
+    
+    df = load_authorYYYYx(
+        author      = 'Roederer',
+        year        = '2012a',
+        shortname   = 'ROE12a',
+        loc         = '',
+        obs_table   = 'table0',
+        param_table = 'table0',
+        abund_table = 'abund',
+    )
+    return df
+
+def load_roederer2012b() -> pd.DataFrame:
+    """
+    Load the data from Roederer et al. (2012b) for HD 160617.
+
+    Table 0 - Observation Table & Stellar Parameters Table
+    Table 15 - Abundance Table
+    """
+    
+    df = load_authorYYYYx(
+        author      = 'Roederer',
+        year        = '2012b',
+        shortname   = 'ROE12b',
+        loc         = '',
+        obs_table   = 'table0',
+        param_table = 'table0',
+        abund_table = 'table15',
+    )
+    return df
+
+def load_roederer2012c() -> pd.DataFrame:
+    """
+    Load the data from Roederer et al. (2012c) for six stars with germanium, arsenic, and selenium.
+
+    Table 0 - Observation Table
+    Table 2 - Stellar Parameters Table
+    Table 4,5 - Abundance Table
+    """
+    
+    df = load_authorYYYYx(
+        author      = 'Roederer',
+        year        = '2012c',
+        shortname   = 'ROE12c',
+        loc         = '',
+        obs_table   = 'table0',
+        param_table = 'table2',
+        abund_table = 'table4_5',
+    )
+    return df
+
+def load_roederer2012d() -> pd.DataFrame:
+    """
+    Load the data from Roederer et al. (2012d) for four stars with heavy-element abundances.
+
+    Table 0 - Observation Table
+    Table 6 - Stellar Parameters Table
+    Table 7,8 - Abundance Table
+    """
+    
+    df = load_authorYYYYx(
+        author      = 'Roederer',
+        year        = '2012d',
+        shortname   = 'ROE12d',
+        loc         = '',
+        obs_table   = 'table0',
+        param_table = 'table6',
+        abund_table = 'table7_8',
+    )
+    return df
+
+def load_roederer2014a() -> pd.DataFrame:
+    """
+    Load the data from Roederer et al. (2014a) for 16 stars, including neutron-capture elements.
+    
+    Table 2 - Observation Table
+    Table 3 - Stellar Parameters Table
+    Table 5 through Table 20 - Abundance Table
+    """
+    
+    df = load_authorYYYYx(
+        author      = 'Roederer',
+        year        = '2014a',
+        shortname   = 'ROE14a',
+        loc         = 'MX',
+        obs_table   = 'table2_obs',
+        param_table = 'table3',
+        abund_table = 'table5-20',
+    )
+    return df
+
+def load_roederer2014b() -> pd.DataFrame:
+    """
+    Load the Roederer et al. (2014b) data for the Segue 2 Ultra-Faint Dwarf Galaxy.
+
+    Table 0 - Observations & Stellar Parameters
+    Table 3 - Abundance Table
+    """
+    df = load_authorYYYYx(
+        author      = 'Roederer',
+        year        = '2014b',
+        shortname   = 'ROE14b',
+        loc         = 'UF',
+        obs_table   = 'table0',
+        param_table = 'table0',
+        abund_table = 'table3'
+    )
+    return df
+
+def load_roederer2014c() -> pd.DataFrame:
+    """
+    Load the data from Roederer et al. (2014c) for 313 stars.
+
+    Table 3 - Observation Table
+    Table 7 - Stellar Parameters Table
+    Table 12 - Abundance Table
+    """
+    
+    df = load_authorYYYYx(
+        author      = 'Roederer',
+        year        = '2014c',
+        shortname   = 'ROE14c',
+        loc         = 'MX',
+        obs_table   = 'table3_obs',
+        param_table = 'table7',
+        abund_table = 'table12',
+    )
+    return df
+
+def load_roederer2014d() -> pd.DataFrame:
+    """
+    Load the data from Roederer et al. (2014d) for 2 stars: HD 108317 & HD 128279
+
+    Table 0 - Observation Table & Stellar Parameters Table
+    Table 4 - Abundance Table, in addition to concatenated abundances from Roederer et al. (2012d)
+    """
+    
+    df = load_authorYYYYx(
+        author      = 'Roederer',
+        year        = '2014d',
+        shortname   = 'ROE14d',
+        loc         = 'MX',
+        obs_table   = 'table0',
+        param_table = 'table0',
+        abund_table = 'table4_all_abund',
+    )
+    return df
+
+def load_roederer2014e() -> pd.DataFrame:
+    """
+    Load the data from Roederer et al. (2014e) for 14 stars with phosphorus abundances.
+
+    Table 0 - Observation Table
+    Table 0 - Stellar Parameters Table
+    Table 4 - Abundance Table, in addition to concatenated abundances from Roederer et al. (2012d)
+    """
+    
+    df = load_authorYYYYx(
+        author      = 'Roederer',
+        year        = '2014e',
+        shortname   = 'ROE14e',
+        loc         = 'MX',
+        obs_table   = 'table0',
+        param_table = 'table4',
+        abund_table = 'table6_7_T',
+    )
+    return df
+
+def load_roederer2016b() -> pd.DataFrame:
+    """
+    Load the Roederer et al. (2016b) data for stars in Reticulum II.
+
+    Table 1 - Observations
+    Table 4 - Stellar Parameters
+    Table 6,7 - Abundance Table
+    """
+    df = load_authorYYYYx(
+        author      = 'Roederer',
+        year        = '2016b',
+        shortname   = 'ROE16b',
+        loc         = 'UF',
+        obs_table   = 'table1',
+        param_table = 'table4',
+        abund_table = 'table67',
+    )
+    return df
+
+def load_roederer2019d() -> pd.DataFrame:
+    """
+    Load the Roederer et al. (2019d) data for the Sylgr stellar stream.
+
+    Table 1 - Observations & Stellar Parameters
+    Table 3 - Abundance Table
+    """
+    df = load_authorYYYYx(
+        author      = 'Roederer',
+        year        = '2019d',
+        shortname   = 'ROE19d',
+        loc         = 'SS',
+        obs_table   = 'table1',
+        param_table = 'table1',
+        abund_table = 'table3'
+    )
+    return df
+
+def load_roederer2023a() -> pd.DataFrame:
+    """
+    Load the Roederer et al. (2023a) data for Sextans stars.
+
+    Table 1 - Observations
+    Table 3 - Stellar Parameters
+    Table 5,6,7 - Abundance Table (There are two versions of the table. One has LTE abundances and the other has NLTE abundances.
+                  We use the LTE abundances for consistency with the rest of the literature.
+    """
+    df = load_authorYYYYx(
+        author      = 'Roederer',
+        year        = '2023a',
+        shortname   = 'ROE23a',
+        loc         = 'DW',
+        obs_table   = 'table1',
+        param_table = 'table3',
+        abund_table = 'table5_6_7_lte',
+    )
+    return df
+
+def load_ruchti2011a() -> pd.DataFrame:
+    """
+    Load the data from Ruchti et al. (2011a).
+    
+    Table 1 - Observation Table
+    Table 2 - Stellar Parameters Table
+    Table 2 - Abundance Table
+    
+    Note: To load the available data, we have made the assumption that [FeI/H] == [FeII/H], though we know this is not true.
+          The original paper does not report the [FeI/H] abundances, only the [FeII/H] abundances. However, the [X/Fe] abundances 
+          are reported for both FeI and FeII species, so we have assumed that the [FeI/H] abundances are equal to the [FeII/H] 
+          abundances in order to calculate the [X/Fe] abundances for all elements.
+    """
+    
+    df = load_authorYYYYx(
+        author      = 'Ruchti',
+        year        = '2011a',
+        shortname   = 'RUC11a',
+        loc         = 'MX',
+        obs_table   = 'table1',
+        param_table = 'table2_param',
+        abund_table = 'table2_abund_assumed_T',
+    )
+    return df
+
+def load_sakari2018b() -> pd.DataFrame:
+    """
+    Load the data from Sakari et al. (2018b) from the RPA paper: "The R-Process Alliance: First 
+    Release from the Northern Search for r-process-enhanced Metal-poor Stars in the Galactic Halo"
+    
+    Table 1 - Observation Table
+    Table 9 - Stellar Parameters Table
+    Table 3,5,6,7 - Abundance Table
+    
+    Note: The carbon abundances have already been corrected, following Placco et al. (2014c).
+    """
+    
+    df = load_authorYYYYx(
+        author      = 'Sakari',
+        year        = '2018b',
+        shortname   = 'SAK18b',
+        loc         = 'MX',
+        obs_table   = 'table1',
+        param_table = 'table9',
+        abund_table = 'table3_5_6_7_T',
+    )
+    return df
+
+def load_sbordone2007() -> pd.DataFrame:
+    """
+    Load the Sbordone et al. (2007) data for the Sagittarius dSph galaxy and Terzan 7 (globular cluster).
+
+    Table 1 - Observation and Stellar Parameters
+    Table 4,5,6 - Abundance Tables (merged into one table)
+    """
+    df = load_authorYYYYx(
+        author      = 'Sbordone',
+        year        = '2007',
+        shortname   = 'SBD07',
+        loc         = 'MX',
+        obs_table   = 'table1',
+        param_table = 'table1',
+        abund_table = 'table456a_long'
+    )
+    return df
+
+def load_sestito2024b() -> pd.DataFrame:
+    """
+    Load the data from Sestito et al. (2024b) for stars in the Sagittarius dwarf galaxy. 
+    This is from the PIGS IX survey.
+    
+    Table 1 - Observations Table
+    Table 2 - Stellar Parameters
+    XH Table - Abundance Table
+    """
+    df = load_authorYYYYx(
+        author      = 'Sestito',
+        year        = '2024b',
+        shortname   = 'SES24b',
+        loc         = 'DW',
+        obs_table   = 'table1',
+        param_table = 'table2',
+        abund_table = 'xh_abund',
+        transpose   = True,
+        transpose_abund = '[X/H]',
+        transpose_err   = 'e_[X/H]'
+    )
+    return df
+
+def load_sestito2024d() -> pd.DataFrame:
+    """
+    Load the data from Sestito et al. (2024d) for stars in the Sagittarius dwarf galaxy. 
+    This is low/med-resolution photometry from the PIGS X survey.
+    
+    obs_param_table - Observations Table
+    obs_param_table - Stellar Parameters
+    abund_table - Abundance Table
+    
+    Note: Using Asplund et al. (2009) solar abundances, following their usage in Sestito et al. (2024b).
+    """
+    df = load_authorYYYYx(
+        author      = 'Sestito',
+        year        = '2024d',
+        shortname   = 'SES24d',
+        loc         = 'DW',
+        obs_table   = 'obs_param_table',
+        param_table = 'obs_param_table',
+        abund_table = 'abund_table',
+        transpose   = True,
+        transpose_abund = '[X/Fe]',
+        transpose_err   = 'e_[X/Fe]'
+    )
+    return df
+
+def load_shetrone2003() -> pd.DataFrame:
+    """
+    Load the Shetrone et al. (2003) data for Carina, Fornax, Leo I, Sculptor, M30, M55, and M68.
+    
+    Note: M55-283 and M55-76 do not have coordinates in any of the referenced work. Thus, I
+    compared the image of M55 (NGC 6809) from Alcaino, G. 1975, "The Globular Cluster NGC 6809" 
+    (Figure 2) to the Aladin Sky Atlas to identify the Gaia and 2MASS observations and extract
+    the appropriate coordinates and identifiers for these two stars.
+
+    Table 0 - Observations
+    Table 5 - Stellar Parameters
+    Table 7,8,9,10 - Abundance Table
+    """
+    df = load_authorYYYYx(
+        author      = 'Shetrone',
+        year        = '2003',
+        shortname   = 'SHE03',
+        loc         = 'DW',
+        obs_table   = 'table0',
+        param_table = 'table5',
+        abund_table = 'table7_8_9_10',
+        init_abund  = '[X/Fe]'
+    )
+    return df
+
+def load_simon2010() -> pd.DataFrame:
+    """
+    Load the Simon et al. (2010) data for the Leo IV Ultra-Faint Dwarf Galaxies.
+
+    Table 0 - Observations & Stellar Parameters
+    Table 2 - Abundance Table
+    """
+    df = load_authorYYYYx(
+        author      = 'Simon',
+        year        = '2010',
+        shortname   = 'SIM10',
+        loc         = 'UF',
+        obs_table   = 'table0',
+        param_table = 'table0',
+        abund_table = 'table2'
+    )
+    return df
+
+def load_spite2018() -> pd.DataFrame:
+    """
+    Load the Spite et al. (2018) data for the Pisces II Ultra-Faint Dwarf Galaxy.
+
+    Table 0 - Observations & Stellar Parameters
+    Table 2 - Abundance Table
+    """
+    df = load_authorYYYYx(
+        author      = 'Spite',
+        year        = '2018',
+        shortname   = 'SPT18',
+        loc         = 'UF',
+        obs_table   = 'table0',
+        param_table = 'table0',
+        abund_table = 'table2'
+    )
+    return df
+
+def load_venn2012() -> pd.DataFrame:
+    """
+    Load the Venn et al. (2012) data for the Carina Classical Dwarf Spheroidal Galaxies.
+
+    Table 1 - Observations
+    Table 6 - Stellar Parameters
+    Table 10,11,12,13 - Abundance Table
+    
+    Note: [FeII/FeI] abundances are provided in the table, instead of [FeII/H].
+    """
+    df = load_authorYYYYx(
+        author      = 'Venn',
+        year        = '2012',
+        shortname   = 'VEN12',
+        loc         = 'DW',
+        obs_table   = 'table1',
+        param_table = 'table6',
+        abund_table = 'table10_11_12_13',
+        init_abund  = '[X/Fe]'
+    )
+    return df
+
+def load_waller2023() -> pd.DataFrame:
+    """
+    Load the Waller et al. (2023) data for the Segue 1 Ultra-Faint Dwarf Galaxy.
+
+    Table 1 - Observations
+    Table 3 - Stellar Parameters
+    Table 7 - Abundance Table
+    """
+    df = load_authorYYYYx(
+        author      = 'Waller',
+        year        = '2023',
+        shortname   = 'WAL23',
+        loc         = 'UF',
+        obs_table   = 'table1',
+        param_table = 'table3',
+        abund_table = 'table7',
+        init_abund  = '[X/Fe]',
+    )
+    return df
+
+def load_webber2023() -> pd.DataFrame:
+    """
+    Load the Webber et al. (2023) data for the Cetus II Ultra-Faint Dwarf Galaxy.
+
+    Table 1 - Observations
+    Table 3 - Stellar Parameters
+    Table 4 - Abundance Table
+    """
+    df = load_authorYYYYx(
+        author      = 'Webber',
+        year        = '2023',
+        shortname   = 'WEB23',
+        loc         = 'UF',
+        obs_table   = 'table1',
+        param_table = 'table3',
+        abund_table = 'table4'
+    )
+    return df
 
 ################################################################################
 ## Dataset Read-in (Abundance Data)

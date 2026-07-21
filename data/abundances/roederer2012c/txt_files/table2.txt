@@ -1,0 +1,13 @@
+Table 2 
+Model Atmosphere Parameters and Iron Abundances
+
+
+Star	T _eff	log g	v_t	[Fe I/H] +or- sigma	N	[Fe II/H] +or- sigma	N	
+	(K)		(km s^-1)					
+HD 2454	6050	4.04	1.20	-0.72 +or- 0.10	69	-0.44 +or- 0.21	7	
+HD 16220	6000	3.81	1.30	-0.56 +or- 0.14	51	-0.41 +or- 0.22	7	
+HD 76932	5680	4.11	1.00	-1.18 +or- 0.12	112	-0.92 +or- 0.12	11	
+HD 94028	5720	4.31	0.90	-1.75 +or- 0.09	44	-1.62 +or- 0.05	6	
+HD 107113	6060	3.99	1.25	-0.79 +or- 0.08	58	-0.53 +or- 0.07	5	
+HD 140283	5600	3.66	1.15	-2.71 +or- 0.05	111	-2.62 +or- 0.07	31	
+Note. We set the overall metal abundance of the model equal to [Fe II/H].

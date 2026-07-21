@@ -1,0 +1,10 @@
+Table 1 
+Atomic Transition Probabilities for Te I
+
+
+Wavenumber	lambda_air	E_upper	J_upper	E_lower	J_lower	Transition Probability	log (gf)	
+(cm^-1)	(Aring)	(cm^-1)		(cm^-1)		(10^6 s^-1)		
+46652.738	2142.8218	46652.738	1	0.000	2	231(37)	-0.32	
+41946.238	2383.2772	46652.738	1	4706.500	0	30(5)	-1.11	
+41902.026	2385.7920	46652.738	1	4750.712	1	60(10)	-0.81	
+36094.861	2769.6596	46652.738	1	10557.877	2	0.90(0.15)	-2.51	

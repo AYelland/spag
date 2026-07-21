@@ -95,7 +95,13 @@ common_isotope_colname_to_Z = {
     'Cr2': 24,
     'Mn2': 25,
     'Fe2': 26,
+    'Cu2': 29,
+    'Zn2': 30,
     'Sr1': 38,
+    'Mo2': 42,
+    'Cd2': 48,
+    'Os2': 76,
+    'Pb2': 82,
 }
 common_isotope_name_to_species = {
     'Ca II': 20.1,
@@ -105,7 +111,13 @@ common_isotope_name_to_species = {
     'Cr II': 24.1,
     'Mn II': 25.1,
     'Fe II': 26.1,
+    'Cu II': 29.1,
+    'Zn II': 30.1,
     'Sr I':  38.0,
+    'Mo II': 42.1,
+    'Cd II': 48.1,
+    'Os II': 76.1,
+    'Pb II': 82.1,
 }
 common_isotope_colname_to_species = {
     'Ca2': 20.1,
@@ -115,7 +127,13 @@ common_isotope_colname_to_species = {
     'Cr2': 24.1,
     'Mn2': 25.1,
     'Fe2': 26.1,
+    'Cu2': 29.1,
+    'Zn2': 30.1,
     'Sr1': 38.0,
+    'Mo2': 42.1,
+    'Cd2': 48.1,
+    'Os2': 76.1,
+    'Pb2': 82.1,
 }
 common_isotope_name_to_colname = {
     'Ca II': 'Ca2',
@@ -125,7 +143,13 @@ common_isotope_name_to_colname = {
     'Cr II': 'Cr2',
     'Mn II': 'Mn2',
     'Fe II': 'Fe2',
+    'Cu II': 'Cu2',
+    'Zn II': 'Zn2',
     'Sr I': 'Sr1',
+    'Mo II': 'Mo2',
+    'Cd II': 'Cd2',
+    'Os II': 'Os2',
+    'Pb II': 'Pb2',
 }
 common_isotope_colname_to_name = {
     v: k for k, v in common_isotope_name_to_colname.items()

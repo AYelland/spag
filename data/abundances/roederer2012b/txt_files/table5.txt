@@ -1,0 +1,12 @@
+Table 5 
+Transition Probabilities for Se I Lines of Interest
+
+
+Wavelength^a	E_upper	J_upper	E_lower	J_lower	A	log (gf)	
+(Aring)	(cm^-1)		(cm^-1)		(10^6 s^-1)		
+2074.7841	48182.420	2	0.00	2	1.70 +or- 0.10	-2.26	
+2062.7789	50997.161	1	2534.36	0	33 +or- 6	-1.20	
+2039.8420	50997.161	1	1989.497	1	98 +or- 17	-0.74	
+1960.8935	50997.161	1	0.00	2	213 +or- 37	-0.43	
+Note.
+a Air wavelengths are given for lambda > 2000 Aring and vacuum values below.

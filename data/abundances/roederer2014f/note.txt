@@ -1,0 +1,1 @@
+All of the abundance data in this paper are already read-in from Roederer+2012c (313 stars read-in total).

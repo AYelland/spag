@@ -335,6 +335,69 @@ def solar_asplund2021(Z=None, elem=None, return_error=False, isotopes=False, A=N
     else:
         raise ValueError("'isotopes' must be a boolean (i.e. either True or False).")
 
+def solar_grevesse1996(Z=None, elem=None, return_error=False):
+    """
+    Z: int or None
+        Atomic number of the element.
+    elem: str or None
+        Element symbol of the element.
+    return_error: bool
+        If True, the function will return the abundance and error of the solar
+        composition in a tuple.
+        
+    Returns a pandas table of the solar composition. If 'Z' or 'elem' is 
+    provided, it will return the photospheric abundances if available, 
+    otherwise it will use the meteoritic abundances.
+    
+    https://ui.adsabs.harvard.edu/abs/1996ASPC...99..117G/abstract
+    """
+    
+    datafile_path = data_dir+"solar/grevesse1996_table1.csv"
+    # load the datafile into a pandas dataframe and strip all whitespaces in the columns names and values
+    grevesse1996 = pd.read_csv(datafile_path, skipinitialspace=True)
+    for col in grevesse1996.columns:
+        if grevesse1996[col].dtype == "object":
+            grevesse1996[col] = grevesse1996[col].str.strip()
+        grevesse1996.rename(columns={col:col.strip()}, inplace=True)
+    # print("Loading Datafile: ", datafile_path)
+    
+    if (elem is None) and (Z is None):
+        return grevesse1996
+    
+    elif (elem is not None) and (Z is None):
+        if elem not in grevesse1996['elem'].values:
+            raise ValueError("Element symbol (elem) is invalid.")
+        abund = grevesse1996[grevesse1996['elem'] == elem]['photosphere_logeps'].values[0]
+        error = grevesse1996[grevesse1996['elem'] == elem]['photosphere_logeps_err'].values[0]
+        if np.isnan(abund):
+            abund = grevesse1996[grevesse1996['elem'] == elem]['meteorite_logeps'].values[0]
+            error = grevesse1996[grevesse1996['elem'] == elem]['meteorite_logeps_err'].values[0]
+        
+    elif (elem is None) and (Z is not None):
+        if Z not in grevesse1996['Z'].values:
+            raise ValueError("Atomic number (Z) is invalid.")
+        abund = grevesse1996[grevesse1996['Z'] == Z]['photosphere_logeps'].values[0]
+        error = grevesse1996[grevesse1996['Z'] == Z]['photosphere_logeps_err'].values[0]
+        if np.isnan(abund):
+            abund = grevesse1996[grevesse1996['Z'] == Z]['meteorite_logeps'].values[0]
+            error = grevesse1996[grevesse1996['Z'] == Z]['meteorite_logeps_err'].values[0]
+        
+    elif (elem is not None) and (Z is not None):
+        if not element_matches_atomic_number(elem, Z):
+            raise ValueError("The provided element symbol (elem) and atomic number (Z) do not match.")
+        abund = grevesse1996[grevesse1996['elem'] == elem]['photosphere_logeps'].values[0]
+        error = grevesse1996[grevesse1996['elem'] == elem]['photosphere_logeps_err'].values[0]
+        if np.isnan(abund):
+            abund = grevesse1996[grevesse1996['elem'] == elem]['meteorite_logeps'].values[0]
+            error = grevesse1996[grevesse1996['elem'] == elem]['meteorite_logeps_err'].values[0]
+    else:
+        raise AttributeError("Please check the function's input parameters.")
+    
+    if return_error:
+        return (abund, error)
+    else:
+        return abund
+    
 def solar_grevesse1998(Z=None, elem=None, return_error=False):
     """
     Z: int or None
@@ -472,6 +535,8 @@ def get_solar_abund_dict(version='asplund2009'):
         solar_abund = solar_asplund2009()
     elif version == 'asplund2021':
         solar_abund = solar_asplund2021()
+    elif version == 'grevesse1996':
+        solar_abund = solar_grevesse1996()
     elif version == 'grevesse1998':
         solar_abund = solar_grevesse1998()
     elif version == 'letarte2010':

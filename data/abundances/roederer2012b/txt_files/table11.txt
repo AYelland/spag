@@ -1,0 +1,9 @@
+Table 11 
+Transition Probabilities for Pt I Lines of Interest
+
+
+Air Wavelength	E_upper	J_upper	E_lower	J_lower	A	log (gf)	
+(Aring)	(cm^-1)		(cm^-1)		(10^6 s^-1)		
+2103.3441	48351.940	4	823.678	4	119 +or- 6	-0.15	
+2067.5090	48351.940	4	0.000	3	42.0 +or- 2.7	-0.62	
+2049.3914	48779.337	3	0.000	3	235 +or- 29	+0.02	

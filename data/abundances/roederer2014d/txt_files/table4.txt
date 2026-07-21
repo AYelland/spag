@@ -1,0 +1,24 @@
+Table 4 
+Mean Abundances of Species Examined in This Study
+
+
+Species	Z	log epsilon_sun	HD 108317					HD 128279					
+log epsilon	[X/Fe]	sigma_stat	sigma_total	N	log epsilon	[X/Fe]	sigma_stat	sigma_total	N	
+Cu II	29	4.19	+1.42	-0.40	0.22	0.28	4	+1.36	-0.37	0.23	0.29	3	
+Zn II	30	4.56	+2.50	+0.31	0.49	0.52	1	+2.38	+0.28	0.41	0.44	1	
+Ge I	32	3.65	+0.19	-0.93	0.14	0.18	4^a	-0.03	-1.20	0.25	0.28	3^a	
+As I	33	2.30	-0.30	-0.07	0.56	0.57	1	-0.49	-0.31	0.49	0.50	1	
+Se I	34	3.34	+1.28	+0.47	0.40	0.42	2	+0.55	-0.31	0.34	0.36	2	
+Mo II	42	1.88	-0.05	+0.44	0.28	0.33	3	-0.56	+0.02	0.22	0.28	3	
+Cd I	48	1.71	-1.21	-0.39	0.44	0.46	1	-1.34	-0.57	0.34	0.36	1	
+Cd II	48	1.71	-1.08	-0.42	0.49	0.52	1	-1.30	-0.55	0.40	0.43	1	
+Te I	52	2.18	+0.06	+0.41	0.28	0.30	2^a	-0.12	+0.18	0.27	0.30	2^a	
+Yb II	70	0.92	-1.13	+0.32	0.14	0.22	1^a	-1.69	-0.15	0.13	0.21	1^a	
+W II	74	0.65	< -0.80	< +0.92	 ... 	 ... 	2	< -0.68	< +1.13	 ... 	 ... 	2	
+Os II	76	1.40	-0.68	+0.29	0.32	0.36	2	< -1.28	< -0.22	 ... 	 ... 	2	
+Pt I	78	1.62	-0.40	+0.51	0.15	0.19	5^a	< -0.78	< +0.08	 ... 	 ... 	5^a	
+Hg II	80	1.17	< +0.30	< +1.50	 ... 	 ... 	1	< +0.53	< +1.82	 ... 	 ... 	1	
+Pb II	82	2.04	< +0.09	< +0.42	 ... 	 ... 	1	< +0.12	< +0.54	 ... 	 ... 	1	
+Bi I	83	0.65	< -1.02	< +0.86	 ... 	 ... 	1	 ... 	 ... 	 ... 	 ... 	 ... 	
+Notes. The [X/Fe] ratios, where X represents one of the heavy elements of interest, are calculated by comparing neutrals with neutrals and ions with ions.
+a The mean abundance or upper limit includes one or more lines from Roederer et al. (2012b).
