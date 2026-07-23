@@ -1,0 +1,212 @@
+J/ApJS/191/352  Abundances in stars of Milky Way dwarf satellites (Kirby+, 2010)
+================================================================================
+Multi-element abundance measurements from medium-resolution spectra.
+II. Catalog of stars in Milky Way dwarf satellite galaxies.
+    Kirby E.N., Guhathakurta P., Simon J.D., Geha M.C., Rockosi C.M.,
+    Sneden C., Cohen J.G., Sohn S.T., Majewski S.R., Siegel M.
+   <Astrophys. J. Suppl. Ser., 191, 352-375 (2010)>
+   =2010ApJS..191..352K
+================================================================================
+ADC_Keywords: Abundances, [Fe/H] ; Effective temperatures ; Galaxies, nearby ;
+              Milky Way ; Photometry, UBVRI ; Spectroscopy
+Keywords: galaxies: abundances - galaxies: dwarf - Galaxy: evolution -
+          Local Group
+
+Abstract:
+    We present a catalog of Fe, Mg, Si, Ca, and Ti abundances for 2961
+    stars in eight dwarf satellite galaxies of the Milky Way (MW):
+    Sculptor, Fornax, Leo I, Sextans, Leo II, Canes Venatici I, Ursa
+    Minor, and Draco. For the purposes of validating our measurements, we
+    also observed 445 red giants in MW globular clusters and 21 field red
+    giants in the MW halo. The measurements are based on Keck/DEIMOS
+    medium-resolution spectroscopy (MRS) combined with spectral synthesis.
+    We estimate uncertainties in [Fe/H] by quantifying the dispersion of
+    [Fe/H] measurements in a sample of stars in monometallic globular
+    clusters (GCs). We estimate uncertainties in Mg, Si, Ca, and Ti
+    abundances by comparing to high-resolution spectroscopic abundances of
+    the same stars. For this purpose, a sample of 132 stars with published
+    high-resolution spectroscopy in GCs, the MW halo field, and dwarf
+    galaxies has been observed with MRS. The standard deviations of the
+    differences in [Fe/H] and <[{alpha}/Fe]> (the average of [Mg/Fe],
+    [Si/Fe], [Ca/Fe], and [Ti/Fe]) between the two samples is 0.15 and
+    0.16, respectively.
+
+Description:
+    The medium-resolution abundances in this article depend on
+    spectroscopy obtained with the Deep Imaging Multi-Object Spectrograph
+    (DEIMOS) on the Keck II telescope, between 2003 Oct and 2010 Aug, and
+    photometry from a variety of sources.
+
+File Summary:
+--------------------------------------------------------------------------------
+ FileName   Lrecl  Records   Explanations
+--------------------------------------------------------------------------------
+ReadMe         80        .   This file
+table3.dat     26      630   Important atomic spectral lines
+table4.dat    175     2961   DEIMOS multi-element abundances catalog
+table6.dat    117     2961   Effect of errors in atmospheric parameters on
+                             abundances
+table7.dat    250      132   Comparison between high-resolution and DEIMOS
+                             abundances
+--------------------------------------------------------------------------------
+
+See also:
+ II/294 : The SDSS Photometric Catalog, Release 7 (Adelman-McCarthy+, 2009)
+ J/PASP/110/533  : BR photometry of Fornax bright stars (Stetson+ 1998)
+ J/AJ/124/3222   : VI photometry of Draco and UMi galaxies (Bellazzini+, 2002)
+ J/AJ/126/2840   : BVI CCD photometry of Sextans dSph galaxy (Lee+, 2003)
+ J/MNRAS/363/734 : Sculptor dSph variables metal abundances (Clementini+, 2005)
+ J/AJ/130/1065   : Members of the Sculptor dwarf spheroidal galaxy (Coleman+,
+                   2005)
+ J/A+A/459/423   : VI and [Fe/H] of Fornax dSph RGB stars (Battaglia+, 2006)
+ J/ApJ/663/960   : Radial velocities of Leo I stars (Sohn+, 2007)
+ J/ApJ/657/241   : Spectroscopy of Leo I red giants (Koch+, 2007)
+ J/AJ/133/270    : Metallicities and ages in Leo II dSph (Koch+, 2007)
+ J/MNRAS/378/318 : Chemical abundances in Leo I and II dSph (Bosler+, 2007)
+ J/MNRAS/375/831 : Draco MegaCam, INT and HST photometry (Segall+, 2007)
+ J/A+A/465/357   : Stroemgren photometry in the Draco dSph galaxy (Faria+, 2007)
+ J/ApJ/705/328   : Abundance measurements. I. Sculptor dSph (Kirby+, 2009)
+
+Byte-by-byte Description of file: table3.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1-  4  A4    ---     Ion       Element and ionization state
+   6- 13  F8.3  0.1nm   lambda    Wavelength in Angstroms
+  15- 19  F5.3  eV      EP        Excitation potential
+  21- 26  F6.3  [-]     loggf     Logarithm of oscillator strength
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table4.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units     Label   Explanations
+--------------------------------------------------------------------------------
+   1-  5  A5    ---       dSph    Dwarf spheroidal galaxy (1)
+   7- 16  A10   ---       Name    Object name
+  18- 19  I2    h         RAh     Hour of Right Ascension (J2000)
+  21- 22  I2    min       RAm     Minute of Right Ascension (J2000)
+  24- 28  F5.2  s         RAs     Second of Right Ascension (J2000)
+      30  A1    ---       DE-     Sign of the Declination (J2000)
+  31- 32  I2    deg       DEd     Degree of Declination (J2000)
+  34- 35  I2    arcmin    DEm     Arcminute of Declination (J2000)
+  37- 40  F4.1  arcsec    DEs     Arcsecond of Declination (J2000)
+  42- 47  F6.3  mag       Bmag    ? Extinction-corrected B magnitude
+  49- 53  F5.3  mag     e_Bmag    ? Uncertainty in Bmag
+  55- 60  F6.3  mag       Vmag    ? Extinction-corrected V magnitude
+  62- 66  F5.3  mag     e_Vmag    ? Uncertainty in Vmag
+  68- 73  F6.3  mag       Rmag    ? Extinction-corrected R magnitude
+  75- 79  F5.3  mag     e_Rmag    ? Uncertainty in Rmag
+  81- 86  F6.3  mag       Imag    ? Extinction-corrected I magnitude
+  88- 92  F5.3  mag     e_Imag    ? Uncertainty in Imag
+  94- 97  I4    K         Teff    Effective temperature
+  99-101  I3    K       e_Teff    Teff uncertainty from spectral fitting
+ 103-105  I3    K       e_Tph     Teff uncertainty from photometric error only
+ 107-110  F4.2  [cm/s2]   logg    Log of surface gravity
+ 112-115  F4.2  [cm/s2] e_logg    Uncertainty in log(g)
+ 117-120  F4.2  km/s      vt      Microturbulent velocity
+ 122-126  F5.2  [Sun]     [Fe/H]  Iron abundance relative to the Sun
+ 128-131  F4.2  [Sun]   e_[Fe/H]  Uncertainty in [Fe/H]
+ 133-137  F5.2  [Sun]     [Mg/Fe] ? Magnesium-to-iron ratio relative to the Sun
+ 139-142  F4.2  [Sun]   e_[Mg/Fe] ? Uncertainty in [Mg/Fe]
+ 144-148  F5.2  [Sun]     [Si/Fe] ? Silicon-to-iron ratio relative to the Sun
+ 150-153  F4.2  [Sun]   e_[Si/Fe] ? Uncertainty in [Si/Fe]
+ 155-159  F5.2  [Sun]     [Ca/Fe] ? Calcium-to-iron ratio relative to the Sun
+ 161-164  F4.2  [Sun]   e_[Ca/Fe] ? Uncertainty in [Ca/Fe]
+ 166-170  F5.2  [Sun]     [Ti/Fe] ? Titanium-to-iron ratio relative to the Sun
+ 172-175  F4.2  [Sun]   e_[Ti/Fe] ? Uncertainty in [Ti/Fe]
+--------------------------------------------------------------------------------
+Note (1): Photometry is given from the following sources:
+    Scl   = Sculptor, Westfall et al. (2006AJ....131..375W);
+    For   = Fornax, Stetson et al. (1998, Cat. J/PASP/110/533);
+    LeoI  = Sohn et al. (2007, Cat. J/ApJ/663/960);
+    Sex   = Sextans, Lee et al. (2003, Cat. J/AJ/126/2840);
+    LeoII = unpublished, but obtained in the same fashion as for Leo I;
+    CVnI  = Canes Venatici I, SDSS DR5 Adelman-McCarthy et al. (2007,
+            Cat. II/276, obsoleted by II/294);
+    UMi   = Ursa Minor, Bellazzini et al. (2002, Cat. J/AJ/124/3222);
+    Dra   = Draco, Segall et al. (2007, Cat. J/MNRAS/375/831).
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table6.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1-  5  A5    ---     dSph      Dwarf spheroidal galaxy
+   7- 16  A10   ---     Name      Object name
+  19- 22  F4.2  [-]    [Fe/H]125  ? Absolute change in [Fe/H] with Teff+125K
+  24- 27  F4.2  [-]    [Fe/H]250  ? Absolute change in [Fe/H] with Teff+250K
+  29- 32  F4.2  [-]    [Fe/H]0.3  ? Absolute change in [Fe/H] with logg+0.3
+  34- 37  F4.2  [-]    [Fe/H]0.6  ? Absolute change in [Fe/H] with logg+0.6
+  39- 42  F4.2  [-]   [Mg/Fe]125  Absolute change in [Mg/Fe] with Teff+125K
+  44- 47  F4.2  [-]   [Mg/Fe]250  Absolute change in [Mg/Fe] with Teff+250K
+  49- 52  F4.2  [-]   [Mg/Fe]0.3  Absolute change in [Mg/Fe] with logg+0.3
+  54- 57  F4.2  [-]   [Mg/Fe]0.6  Absolute change in [Mg/Fe] with logg+0.6
+  59- 62  F4.2  [-]   [Si/Fe]125  Absolute change in [Si/Fe] with Teff+125K
+  64- 67  F4.2  [-]   [Si/Fe]250  Absolute change in [Si/Fe] with Teff+250K
+  69- 72  F4.2  [-]   [Si/Fe]0.3  Absolute change in [Si/Fe] with logg+0.3
+  74- 77  F4.2  [-]   [Si/Fe]0.6  Absolute change in [Si/Fe] with logg+0.6
+  79- 82  F4.2  [-]   [Ca/Fe]125  ? Absolute change in [Ca/Fe] with Teff+125K
+  84- 87  F4.2  [-]   [Ca/Fe]250  ? Absolute change in [Ca/Fe] with Teff+250K
+  89- 92  F4.2  [-]   [Ca/Fe]0.3  ? Absolute change in [Ca/Fe] with logg+0.3
+  94- 97  F4.2  [-]   [Ca/Fe]0.6  ? Absolute change in [Ca/Fe] with logg+0.6
+  99-102  F4.2  [-]   [Ti/Fe]125  Absolute change in [Ti/Fe] with Teff+125K
+ 104-107  F4.2  [-]   [Ti/Fe]250  Absolute change in [Ti/Fe] with Teff+250K
+ 109-112  F4.2  [-]   [Ti/Fe]0.3  Absolute change in [Ti/Fe] with logg+0.3
+ 114-117  F4.2  [-]   [Ti/Fe]0.6  Absolute change in [Ti/Fe] with logg+0.6
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table7.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units    Label     Explanations
+--------------------------------------------------------------------------------
+   1- 14  A14   ---      System    Celestial body in which the star is found
+  16- 28  A13   ---      Name      Name of the star
+  30- 47  A18   ---      AutH      Author's name(s) for high-resolution
+                                   measurements (HRS) reference
+  49- 67  A19   ---      BibCode1  Bibcode for HRS reference
+  69- 87  A19   ---      BibCode2  2nd bibcode for HRS reference
+  89- 90  I2    h        RAh       Hour of Right Ascension (J2000)
+  92- 93  I2    min      RAm       Minute of Right Ascension (J2000)
+  95- 98  F4.1  s        RAs       Second of Right Ascension (J2000)
+     100  A1    ---      DE-       Sign of the Declination (J2000)
+ 101-102  I2    deg      DEd       Degree of Declination (J2000)
+ 104-105  I2    arcmin   DEm       Arcminute of Declination (J2000)
+ 107-110  F4.1  arcsec   DEs       Arcsecond of Declination (J2000)
+ 112-115  I4    K        TeffH     Effective temperature from HRS study
+ 117-120  F4.2  [cm/s2]  loggH     Log of surface gravity from HRS study
+ 122-125  F4.2  km/s     vtH       ? Microturbulent velocity from HRS study
+ 127-131  F5.2 [Sun]     [Fe/H]H   HRS iron abundance (1)
+ 133-136  F4.2 [Sun]   e_[Fe/H]H   Uncertainty in [Fe/H]HRS (1)
+ 138-142  F5.2 [Sun]     [Mg/Fe]H  ? HRS magnesium-to-iron ratio (1)
+ 144-147  F4.2 [Sun]   e_[Mg/Fe]H  ? Uncertainty in [Mg/Fe]HRS (1)
+ 149-153  F5.2 [Sun]     [Si/Fe]H  ? HRS silicon-to-iron ratio (1)
+ 155-158  F4.2 [Sun]   e_[Si/Fe]H  ? Uncertainty in [Si/Fe]HRS (1)
+ 160-164  F5.2 [Sun]     [Ca/Fe]H  ? HRS calcium-to-iron ratio (1)
+ 166-169  F4.2 [Sun]   e_[Ca/Fe]H  ? Uncertainty in [Ca/Fe]HRS (1)
+ 171-175  F5.2 [Sun]     [Ti/Fe]H  ? HRS titanium-to-iron ratio (1)
+ 177-180  F4.2 [Sun]   e_[Ti/Fe]H  ? Uncertainty in [Ti/Fe]HRS (1)
+ 182-185  I4    K        TeffM     Effective temperature from MRS study
+ 187-190  F4.2  [cm/s2]  loggM     Log of surface gravity from MRS study
+ 192-195  F4.2  km/s     vtM       Microturbulent velocity from MRS study
+ 197-201  F5.2 [Sun]     [Fe/H]M   MRS iron abundance (1)
+ 203-206  F4.2 [Sun]   e_[Fe/H]M   Uncertainty in [Fe/H]MRS (1)
+ 208-212  F5.2 [Sun]     [Mg/Fe]M  ? MRS magnesium-to-iron ratio (1)
+ 214-217  F4.2 [Sun]   e_[Mg/Fe]M  ? Uncertainty in [Mg/Fe]MRS (1)
+ 219-223  F5.2 [Sun]     [Si/Fe]M  ? MRS silicon-to-iron ratio (1)
+ 225-228  F4.2 [Sun]   e_[Si/Fe]M  ? Uncertainty in [Si/Fe]MRS (1)
+ 230-234  F5.2 [Sun]     [Ca/Fe]M  ? MRS calcium-to-iron ratio (1)
+ 236-239  F4.2 [Sun]   e_[Ca/Fe]M  ? Uncertainty in [Ca/Fe]MRS (1)
+ 241-245  F5.2 [Sun]     [Ti/Fe]M  ? MRS titanium-to-iron ratio (1)
+ 247-250  F4.2 [Sun]   e_[Ti/Fe]M  ? Uncertainty in [Ti/Fe]MRS (1)
+--------------------------------------------------------------------------------
+Note (1): Relative to the Sun.
+--------------------------------------------------------------------------------
+
+History:
+    From electronic version of the journal
+
+References:
+    Kirby et al. Paper I. 2009ApJ...705..328K Cat. J/ApJ/705/328
+
+================================================================================
+(End)                 Greg Schwarz [AAS], Emmanuelle Perret [CDS]    18-Jan-2011

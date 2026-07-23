@@ -1,0 +1,183 @@
+J/A+A/523/A17       Individual stars in Fornax dSph center   (Letarte+, 2010)
+================================================================================
+A high-resolution VLT/FLAMES study of individual stars in the centre of the
+Fornax dwarf spheroidal galaxy.
+    Letarte B., Hill V., Tolstoy E., Jablonka P., Shetrone M., Venn K.A.,
+    Spite M., Irwin M.J., Battaglia G., Helmi A., Primas F., Francois P.,
+    Kaufer A., Szeifert T., Arimoto N., Sadakane K.
+   <Astron. Astrophys., 523, A17-17 (2010)>
+   =2010A&A...523A..17L
+================================================================================
+ADC_Keywords: Galaxies, nearby ; Stars, giant ; Abundances ; Radial velocities
+Keywords: stars: abundances - galaxies: dwarf - galaxies: evolution -
+          galaxies: formation - galaxies: stellar content -
+          galaxies: individual: Fornax dwarf galaxy
+
+Abstract:
+    For the first time we show the detailed, late-stage, chemical
+    evolution history of a small nearby dwarf spheroidal galaxy in the
+    Local Group. We present the results of a high-resolution (R~20000,
+    {lambda}=5340-5620; 6120-6701) FLAMES/GIRAFFE abundance study at
+    ESO/VLT of 81 photometrically selected, red giant branch stars in the
+    central 25' of the Fornax dwarf spheroidal galaxy. We also carried
+    out a detailed comparison of the effects of recent developments in
+    abundance analysis (e.g., spherical models vs. plane-parallel) and the
+    automation that is required to efficiently deal with such large data
+    sets. We present abundances of alpha-elements (Mg, Si, Ca, and Ti),
+    iron-peak elements (Fe, Ni, and Cr), and heavy elements (Y, Ba, La,
+    Nd, and Eu).
+
+Description:
+    Observations were made in 12 runs, from 2003-09-29 to 2004-01-26.
+
+File Summary:
+--------------------------------------------------------------------------------
+ FileName   Lrecl  Records   Explanations
+--------------------------------------------------------------------------------
+ReadMe         80        .   This file
+tablea1.dat    20      107   Radial velocities and associated errors for
+                              our Fornax targets
+tablea2.dat    31       81   Stellar parameters of the model used for our
+                              sample of 81 stars, along with the minimum EW
+                              used for each star
+tablea3.dat    71      109   Coordinates and photometric temperatures in
+                              different colours, shifted on the Teff(V-I) scale
+tablea4.dat    36    11259   List of all the lines, their associated
+                              parameters and their measured equivalent width
+                              for our sample of 81 stars
+tablea5.dat   204       72  *Abundance ratio of the Fornax Field stars
+                              (from erratum, 2018, A&A, 613, C1)
+--------------------------------------------------------------------------------
+Note on tablea5.dat: The quoted error is the error on [element/H], not [X/Fe].
+--------------------------------------------------------------------------------
+
+See also:
+ J/AJ/127/840    : VRI photometry of Fornax red giants (Pont+, 2004)
+ J/AJ/131/912    : BR photometry of Fornax dSph center (Olszewski+, 2006)
+ J/AJ/131/2114   : Radial velocities in Fornax dSph (Walker+, 2006)
+ J/A+A/459/423   : VI and [Fe/H] of Fornax dSph RGB stars (Battaglia+, 2006)
+ J/A+A/467/1025  : JHK photometry of Fornax red giant branch (Gullieuszik+ 2007)
+ J/MNRAS/394/795 : AGB stars in Fornax dwarf spheroidal galaxy (Whitelock+ 2009)
+
+Byte-by-byte Description of file: tablea1.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1-  5  A5    ---     Star      Star name, BLNNN
+       6  A1    ---   n_Star      [*] Note on BL109 (1)
+   8- 13  F6.2  km/s    RV        Radial velocity
+  16- 20  F5.2  km/s  e_RV        rms uncertainty on RV
+--------------------------------------------------------------------------------
+Note (1): BL109 is a probable foreground star, since it falls outside the
+     range of Vrad for membership in Fornax (see Fig. 4). Struck-out stars
+     have been rejected because their September average velocity was
+     significantly different (>3km/s) to their January velocity. This
+     suggests the possibility that they are binary stars and they were
+     therefore rejected from further analysis.
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: tablea2.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1-  5  A5    ---     Star      Star name, BLNNN
+   7- 10  I4    K       Teff      Effective temperature
+  12- 15  F4.2  [cm/2]  logg      Surface gravity
+  17- 21  F5.2  [-]     [Fe/H]    Metallicity
+  23- 25  F3.1  km/s    vt        Microturbulent velocity
+  27- 31  F5.2  0.1nm   EWmin     Minimum equivalent width used for each star
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: tablea3.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1-  5  A5    ---     Star      Star name, BLNNN
+   7-  8  I2    h       RAh       Right ascension (J2000)
+  10- 11  I2    min     RAm       Right ascension (J2000)
+  13- 17  F5.2  s       RAs       Right ascension (J2000)
+      19  A1    ---     DE-       Declination sign (J2000)
+  20- 21  I2    deg     DEd       Declination (J2000)
+  23- 24  I2    arcmin  DEm       Declination (J2000)
+  26- 29  F4.1  arcsec  DEs       Declination (J2000)
+  31- 34  I4    K       T(V-I)    Temperature determined with V-I colour index
+  36- 39  I4    K       T(V-J)    Temperature determined with V-J colour index
+  41- 44  I4    K       T(V-H)    Temperature determined with V-H colour index
+  46- 49  I4    K       T(V-K)    Temperature determined with V-K colour index
+  51- 54  I4    K       Te        Average effective temperature of the four
+                                   different T(V-X)
+  56- 59  F4.2  [cm/s2] logg1     Surface gravity (from photometry)
+  61- 65  F5.2  mag     BC        Bolometric correction
+  67- 71  F5.2  mag     Mbol      Absolute bolometric magnitude
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: tablea4.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1-  5  A5    ---     Star      Star name, BLNNN
+   7- 13  F7.2  0.1nm   lambda    Wavelength
+  15- 19  A5    ---     Ion       Element (with ionization level)
+  21- 24  F4.2  ---     chi       Excitation potential
+  26- 30  F5.2  [-]     loggf     Oscillator strength
+  32- 36  F5.1  0.1pm   EW1       ? Equivalent width, measured by DAOSPEC
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: tablea5.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label      Explanations
+--------------------------------------------------------------------------------
+   1-  5  A5    ---     Star       Star name, BLNNN
+   7- 11  F5.2  [-]     [NaI/Fe]   ? Abundance ratio [NaI/Fe]
+  13- 16  F4.2  [-]   e_[NaI/Fe]   ? Error associated to [NaI/Fe]
+      18  I1    ---   o_[NaI/Fe]   Number of line used for [NaI/Fe]
+  20- 24  F5.2  [-]     [MgI/Fe]   Abundance ratio [MgI/Fe]
+  26- 29  F4.2  [-]   e_[MgI/Fe]   Error associated to [MgI/Fe]
+      31  I1    ---   o_[MgI/Fe]   Number of line used for [MgI/Fe]
+  33- 37  F5.2  [-]     [SiI/Fe]   ? Abundance ratio [SiI/Fe]
+  39- 42  F4.2  [-]   e_[SiI/Fe]   ? Error associated to [SiI/Fe]
+      44  I1    ---   o_[SiI/Fe]   Number of line used for [SiI/Fe]
+  46- 50  F5.2  [-]     [CaI/Fe]   Abundance ratio [CaI/Fe]
+  52- 55  F4.2  [-]   e_[CaI/Fe]   Error associated to [CaI/Fe]
+  57- 58  I2    ---   o_[CaI/Fe]   Number of line used for [CaI/Fe]
+  60- 64  F5.2  [-]     [TiI/Fe]   Abundance ratio [TiI/Fe]
+  66- 69  F4.2  [-]   e_[TiI/Fe]   Error associated to [TiI/Fe]
+  71- 72  I2    ---   o_[TiI/Fe]   Number of line used for [TiI/Fe]
+  74- 78  F5.2  [-]     [TiII/Fe]  Abundance ratio [TiII/Fe]
+  80- 83  F4.2  [-]   e_[TiII/Fe]  Error associated to [TiII/Fe]
+      85  I1    ---   o_[TiII/Fe]  Number of line used for [TiII/Fe]
+  87- 91  F5.2  [-]     [CrI/Fe]   ? Abundance ratio [CrI/Fe]
+  93- 96  F4.2  [-]   e_[CrI/Fe]   ? Error associated to [CrI/Fe]
+      98  I1    ---   o_[CrI/Fe]   Number of line used for [CrI/Fe]
+ 100-104  F5.2  [-]     [FeI/H]    Abundance ratio [FeI/H]
+ 106-109  F4.2  [-]   e_[FeI/H]    Error associated to [FeI/H]
+ 111-112  I2    ---   o_[FeI/H]    Number of line used for [FeI/H]
+ 114-118  F5.2  [-]     [FeII/H]   Abundance ratio [FeII/H]
+ 120-123  F4.2  [-]   e_[FeII/H]   Error associated to [FeII/H]
+     125  I1    ---   o_[FeII/H]   Number of line used for [FeII/H]
+ 127-131  F5.2  [-]     [NiI/Fe]   Abundance ratio [NiI/Fe]
+ 133-136  F4.2  [-]   e_[NiI/Fe]   Error associated to [NiI/Fe]
+ 138-139  I2    ---   o_[NiI/Fe]   Number of line used for [NiI/Fe]
+ 141-145  F5.2  [-]     [YII/Fe]   ? Abundance ratio [YII/Fe]
+ 147-150  F4.2  [-]   e_[YII/Fe]   ? Error associated to [YII/Fe]
+     152  I1    ---   o_[YII/Fe]   Number of line used for [YII/Fe]
+ 154-158  F5.2  [-]     [BaII/Fe]  ? Abundance ratio [BaII/Fe]
+ 160-163  F4.2  [-]   e_[BaII/Fe]  ? Error associated to [BaII/Fe]
+     165  I1    ---   o_[BaII/Fe]  Number of line used for [BaII/Fe]
+ 167-171  F5.2  [-]     [LaII/Fe]  ? Abundance ratio [LaII/Fe]
+ 173-176  F4.2  [-]   e_[LaII/Fe]  ? Error associated to [LaII/Fe]
+     178  I1    ---   o_[LaII/Fe]  Number of line used for [LaII/Fe]
+ 180-184  F5.2  [-]     [NdII/Fe]  ? Abundance ratio [NdII/Fe]
+ 186-189  F4.2  [-]   e_[NdII/Fe]  ? Error associated to [NdII/Fe]
+     191  I1    ---   o_[NdII/Fe]  Number of line used for [NdII/Fe]
+ 193-197  F5.2  [-]     [EuII/Fe]  ? Abundance ratio [EuII/Fe]
+ 199-202  F4.2  [-]   e_[EuII/Fe]  ? Error associated to [EuII/Fe]
+     204  I1    ---   o_[EuII/Fe]  Number of line used for [EuII/Fe]
+--------------------------------------------------------------------------------
+
+History:
+    * 15-Apr-2011: From electronic version of the journal
+    * 18-Jun-2018: tablea5 corrected (from erratum, 2018, A&A, 613, C1)
+
+================================================================================
+(End)                                      Patricia Vannier [CDS]    15-Mar-2011

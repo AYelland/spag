@@ -1,0 +1,296 @@
+J/AJ/160/181     Chemical abundances in red giants with Magellan     (Ji+, 2020)
+================================================================================
+The southern stellar stream spectroscopic survey (S5): chemical abundances of
+seven stellar streams.
+    Ji A.P., Li T.S., Hansen T.T., Casey A.R., Koposov S.E., Pace A.B.,
+    Mackey D., Lewis G.F., Simpson J.D., Bland-Hawthorn J., Cullinane L.R.,
+    Da Costa G.S., Hattori K., Martell S.L., Kuehn K., Erkal D., Shipp N.,
+    Wan Z., Zucker D.B.
+   <Astron. J., 160, 181 (2020)>
+   =2020AJ....160..181J
+================================================================================
+ADC_Keywords: Stars, giant; Abundances; Effective temperatures;
+              Spectra, optical;
+Keywords: Globular star clusters ; Stellar abundances ; Dwarf galaxies ;
+          Milky Way stellar halo
+
+Abstract:
+    We present high-resolution Magellan/MIKE spectroscopy of 42 red giant
+    stars in seven stellar streams confirmed by the Southern Stellar
+    Stream Spectroscopic Survey (S5): ATLAS, Aliqa Uma, Chenab, Elqui,
+    Indus, Jhelum, and Phoenix. Abundances of 30 elements have been
+    derived from over 10000 individual line measurements or upper limits
+    using photometric stellar parameters and a standard LTE analysis. This
+    is currently the most extensive set of element abundances for stars in
+    stellar streams. Three streams (ATLAS, Aliqa Uma, and Phoenix) are
+    disrupted metal-poor globular clusters, although only weak evidence is
+    seen for the light-element anticorrelations commonly observed in
+    globular clusters. Four streams (Chenab, Elqui, Indus, and Jhelum) are
+    disrupted dwarf galaxies, and their stars display abundance signatures
+    that suggest progenitors with stellar masses ranging from 106 to
+    107M{sun}. Extensive description is provided for the analysis methods,
+    including the derivation of a new method for including the effect of
+    stellar parameter correlations on each star's abundance and
+    uncertainty. This paper includes data gathered with the 6.5m Magellan
+    Telescopes located at Las Campanas Observatory, Chile.
+
+Description:
+    The stars were observed with the Magellan/MIKE spectrograph over four
+    separate runs in 2018-2019, though most stars were observed in 2018
+    November and 2019 July (See table1 for more details on the
+    observations). R~35k/28k and 28k/22k on the blue/red arms of MIKE,
+    respectively.
+
+File Summary:
+--------------------------------------------------------------------------------
+ FileName    Lrecl  Records  Explanations
+--------------------------------------------------------------------------------
+ReadMe          80        .  This file
+table1.dat     123       42  Observations
+table2.dat      45       42  Stellar parameters
+table3.dat      28      592  Atomic data
+table5.dat     111    10629  Line measurements
+table6.dat      80     1206  Stellar abundances
+--------------------------------------------------------------------------------
+
+See also:
+ B/simbad         : Simbad objects catalogue (M.Wenger 2000)
+ I/337            : Gaia DR1 (Gaia Collaboration, 2016)
+ II/357           : The Dark Energy Survey (DES): Data Release 1 (Abbott+, 2018)
+ I/345            : Gaia DR2 (Gaia Collaboration, 2018)
+ III/284          : APOGEE-2 data from DR16 (Johnsson+, 2020)
+ J/AJ/120/1841    : Abundances & Kinematics Halo & Disk Stars (Fulbright, 2000)
+ J/ApJ/612/447    : Draco 119 and HD 88609 equivalent widths (Fulbright+, 2004)
+ J/ApJ/617/1091   : La and Eu abundances in 85 stars (Simmerer+, 2004)
+ J/AJ/128/1177    : Galactic stellar abundances (Venn+, 2004)
+ J/A+A/439/129    : HERES II. Spectroscopic analysis (Barklem+, 2005)
+ J/AJ/130/2140    : Abundances & velocities in globular clusters (Pritzl+, 2005)
+ J/ApJS/167/292   : Laboratory transition proba. for GdII (Den Hartog+, 2006)
+ J/ApJS/162/227   : Transition probabilities for SmII (Lawler+, 2006)
+ J/A+A/464/201    : RGB stars in Sagittarius streams (Monaco+, 2007)
+ J/ApJ/667/1267   : CrI transition probabilities (Sobeck+, 2007)
+ J/A+A/490/625    : Abundances of NGC 6121 red giants (Marino+, 2008)
+ J/A+A/505/139    : Abund. of red giants 17 globular clusters (Carretta+, 2009)
+ J/A+A/505/117    : Abund. of red giants 15 globular clusters (Carretta+, 2009)
+ J/ApJ/701/1053   : Abundances of 8 stars in the Draco dSph (Cohen+, 2009)
+ J/ApJ/705/328    : Abundance measurements in Sculptor dSph (Kirby+, 2009)
+ J/ApJS/182/51    : Transition proba. of rare earth elements (Lawler+, 2009)
+ J/ApJS/182/80    : Rare earth abundances (Sneden+, 2009)
+ J/ApJ/708/1290   : A 2MASS view of the Sgr dSph. VI. (Chou+, 2010)
+ J/ApJ/719/931    : Chemical evolution of the UMi dSph (Cohen+, 2010)
+ J/A+A/523/A17    : Individual stars in Fornax dSph center (Letarte+, 2010)
+ J/ApJ/723/1632   : Abundance spreads in Bootes I and Segue 1 (Norris+, 2010)
+ J/ApJ/711/350    : Metal-poor giant Boo-1137 abundances (Norris+, 2010)
+ J/ApJ/711/573    : Detailed abundances in halo stellar stream (Roederer+, 2010)
+ J/ApJS/194/35    : Atomic transition probabilities of Mn (Den Hartog+, 2011)
+ J/ApJ/736/146    : Radial velocities of stars in Bootes I (Koposov+, 2011)
+ J/AJ/141/175     : Abundances in M15 RGB/RHB stars (Sobeck+, 2011)
+ J/ApJ/760/86     : Equivalent widths for 13 NGC2419 RGB stars (Cohen+, 2012)
+ J/AJ/144/168     : Spectroscopy of Scl 1019417 and UMi 20103 (Kirby+, 2012)
+ J/A+A/538/A100   : Abundances red giants in Carina dSph (Lemasle+, 2012)
+ J/ApJ/750/76     : R-process peaks elements in HD 160617 (Roederer+, 2012)
+ J/ApJ/751/102    : Equivalent widths of 9 RGB in Carina dSph (Venn+, 2012)
+ J/ApJ/778/56     : Hamburg/ESO Survey extremely metal-poor stars (Cohen+, 2013)
+ J/ApJ/769/57     : Equivalent widths of metal-poor stars (Frebel+, 2013)
+ J/ApJ/763/61     : Abundances of 7 red giant members of BootesI (Gilmore+,2013)
+ J/ApJ/778/149    : Abundances for 3 stars in Sgr dSph (McWilliam+, 2013)
+ J/ApJS/208/27    : Sun and HD 84937 TiII log(gf) and abundances (Wood+, 2013)
+ J/MNRAS/444/392  : Synthetic Stellar Photometry. I. (Casagrande+, 2014)
+ J/ApJ/784/19     : Orphan stream high-resolution spectro. study (Casey+, 2014)
+ J/ApJS/215/23    : FeI radiative lifetime & branching fract. (Den Hartog+,2014)
+ J/ApJ/786/74     : EW measurements of 6 Segue 1 red giants (Frebel+, 2014)
+ J/A+A/562/A146   : Chemical abundances of 8 metal-poor stars (Ishigaki+, 2014)
+ J/ApJ/797/15     : HST/WFC3 obs. in 4 metal-poor GCs of Fornax (Larsen+, 2014)
+ J/ApJS/215/20    : Vanadium log(gf) and transition probabilities (Lawler+,2014)
+ J/A+A/571/A47    : Extensive linelist of CH in stellar atmo. (Masseron+, 2014)
+ J/ApJ/797/21     : Carbon-enhanced metal-poor stars (Placco+, 2014)
+ J/AJ/147/136     : Stars very low metal abund. VI. Abundances (Roederer+, 2014)
+ J/MNRAS/441/3127 : FeI oscillator strengths for Gaia-ESO (Ruffoni+, 2014)
+ J/ApJS/214/26    : Line lists for CN isotopes transitions (Sneden+, 2014)
+ J/ApJS/214/18    : VII log(gf) values, and V abundance in HD 84937 (Wood+ 2014)
+ J/ApJS/211/20    : NiI transition probability measurements (Wood+, 2014)
+ J/ApJS/220/13    : Co I transition probabilities (Lawler+, 2015)
+ J/ApJS/221/24    : SDSS-III APOGEE H-band spectral line lists (Shetrone+, 2015)
+ J/ApJ/802/93     : Chemical abund. analysis 5 stars in Sculptor (Simon+, 2015)
+ J/A+A/574/A129   : The First CEMP star in the Sculptor dSph (Skuladottir+,2015)
+ J/MNRAS/449/761  : EWs of metal-poor stars in UMi I dSph galaxy (Ural+, 2015)
+ J/ApJ/826/110    : Boo-127 and Boo-980 high-resolution spectra (Frebel+, 2016)
+ J/AJ/151/144     : ASPCAP weights for 15 APOGEE chemic elements (Garcia+, 2016)
+ J/A+A/585/A86    : Fornax dSph H4 globular cluster stars (Hendricks+, 2016)
+ J/ApJ/830/93     : Abundances of Ret II brightest red giant memb. (Ji+, 2016)
+ J/AJ/151/82      : 4 brightest red giants in UFD galaxy Ret 2 (Roederer+, 2016)
+ J/ApJ/817/53     : Fe-group elemental abund. analysis in HD84937 (Sneden+,2016)
+ J/A+A/608/A145   : What is the Milky Way outer halo made of? (Battaglia+, 2017)
+ J/ApJ/847/142    : Ultra-metal-poor stars LTE & NLTE abund. (Ezzeddine+, 2017)
+ J/ApJS/228/10    : Transition proba. for 183 lines of Cr II (Lawler+, 2017)
+ J/AJ/154/94      : APOGEE-2 data from DR16 (Majewski+, 2017)
+ J/ApJS/230/28    : The populations of Carina. II. Abundances (Norris+, 2017)
+ J/ApJ/855/83     : Abund. very metal-poor stars in Sagittarius (Hansen+, 2018)
+ J/A+A/631/A80    : Mn lines 3D NLTE formation late-type stars (Bergemann+,2019)
+ J/A+A/626/A15    : Sculptor Red Giant Branch stars abundances (Hill+, 2019)
+ J/A+A/627/A177   : Non-LTE analysis of K I in late-type stars (Reggiani+, 2019)
+ J/ApJ/889/63     : Properties of Sgr Stars (Hayes+, 2020)
+
+Byte-by-byte Description of file: table1.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units     Label   Explanations
+--------------------------------------------------------------------------------
+   1- 11  A11   ---       Name    Star name
+  13- 31  I19   ---       Gaia    Gaia DR2 identification
+  33- 34  I2    h         RAh     [0/23] Hour of right ascension (J2000)
+  36- 37  I2    min       RAm     Minute of right ascension (J2000)
+  39- 43  F5.2  s         RAs     Second of right ascension (J2000)
+      45  A1    ---       DE-     [-] Sign of declination (J2000)
+  46- 47  I2    deg       DEd     [22/64] Degree of declination (J2000)
+  49- 50  I2    arcmin    DEm     Arcminute of declination (J2000)
+  52- 55  F4.1  arcsec    DEs     Arcsecond of declination (J2000)
+  57- 60  I4    yr        Obs.Y   [2018/2019] UT year of observation
+  62- 64  A3    "month"   Obs.M   UT month of observation
+  66- 67  I2    d         Obs.D   UT day of observation
+  69- 76  F8.2  d         MJD     [58391/58776] Modified Julian Date of
+                                   observation
+  78- 82  F5.2  mag       gmag    [15.4/17.8] g-band magnitude
+  84- 88  F5.2  mag       rmag    [14.7/17.2] r-band magnitude
+  90- 92  I3    min       Texp    [20/134] Exposure time
+  94- 96  F3.1  arcsec    Slit    [0.7/1] Slit
+  98- 99  I2    ---       S/N4500 [13/27] Signal-to-noise ratio at 4500{AA}
+ 101-102  I2    ---       S/N6500 [21/54] Signal-to-noise ratio at 6500{AA}
+ 104-109  F6.1  km/s      Vhel    [-160/64] Heliocentric velocity
+ 111-113  F3.1  km/s    e_Vhel    [0.2/0.7] Error on Vhel
+ 115-116  I2    ---       Nord    [10/35] Number of orders to calculate Vaat
+ 118-123  F6.1  km/s      Vaat    [-160/67] Final velocity (1)
+--------------------------------------------------------------------------------
+Note (1): The final velocity is an inverse-variance weighted mean of the
+           remaining order velocities.
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table2.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1- 11  A11   ---     Name      Star name
+  13- 16  I4    K       Teff      [4263/5292] Effective temperature
+  18- 19  I2    K     e_Teff      [39/75] Error on Teff
+  21- 24  F4.2  [-]     logg      [0.56/2.56] Surface gravity
+  26- 29  F4.2  [-]   e_logg      [0.16/0.17] Error on logg
+  31- 34  F4.2  km/s    Vt        [1.47/2.44] Turbulence velocity
+  36- 39  F4.2  km/s  e_Vt        [0.07/0.59] Error on Vt
+  41- 45  F5.2  [-]     [M/H]     [-2.93/-1.62] Metallicity (1)
+--------------------------------------------------------------------------------
+Note (1): All [M/H] errors are taken to be 0.2dex.
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table3.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units Label    Explanations
+--------------------------------------------------------------------------------
+   1-  5 A5     ---   Ion      Ion identifier (35 species)
+   7- 13 F7.2   0.1nm Wave     [3729.81/7788.93] Wavelength; Angstroms
+  15- 18 F4.2   eV    EP       [0/5.96]? Excitation potential
+  20- 25 F6.2   [-]   loggf    [-10.3/0.58]? log oscillator strength
+  27- 28 I2     ---   Ref      [1/33] Reference code (1)
+--------------------------------------------------------------------------------
+Note (1): References as follows:
+    1 = Masseron+, 2014A&A...571..A47M
+    2 = Sneden+, 2014, J/ApJS/214/26
+    3 = Caffau+, 2008A&A...488.1031C
+    4 = Kramida+, 2019
+    5 = Ryabchikova+, 2015PhyS...90e4005R
+    6 = Lawler & Dakin (1989), using hfs from Kurucz & Bell 1995KurCD..23.....K
+    7 = Lawler+, 2013ApJS..205...11L
+    8 = Wood+, 2013, J/ApJS/208/27
+    9 = Lawler+, 2014, J/ApJS/215/20
+   10 = Wood+, (2014a) [2014ApJS..214...18W];
+   11 = Sobeck+, 2007, J/ApJS/214/18
+   12 = Lawler+, 2017, J/ApJS/228/10
+   13 = Den Hartog+, 2011, J/ApJS/194/35
+   14 = Belmonte+, 2017ApJ...848..125B
+   15 = Den Hartog+, 2014, J/ApJS/215/23
+   16 = O'Brian+, 1991JOSAB...8.1185O
+   17 = Ruffoni+, 2014, J/MNRAS/441/3127
+   18 = Melendez & Barbuy 2009A&A...497..611M
+   19 = Den Hartog+, 2019ApJS..243...33D
+   20 = Lawler+, 2015, J/ApJS/220/13
+   21 = Wood+, 2014, J/ApJS/211/20
+   22 = Roederer & Lawler, 2012, J/ApJ/750/76
+   23 = Biemont+, 2011MNRAS.414.3350B
+   24 = Hannaford+, 1982ApJ...261..736H
+   25 = Ljung+, 2006A&A...456.1181L
+   26 = McWilliam+, 1998AJ....115.1640M
+   27 = Lawler+, 2001ApJ...556..452L
+   28 = Lawler+, 2009, J/ApJS/182/51
+   29 = Den Hartog+, 2003ApJS..148..543D
+   30 = Lawler+, 2006, J/ApJS/162/227
+   31 = Lawler+, 2001ApJ...563.1075L
+   32 = Den Hartog+, 2006, J/ApJS/167/292
+   33 = Sneden+, 2009, J/ApJS/182/80
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table5.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units    Label   Explanations
+--------------------------------------------------------------------------------
+  1- 11 A11    ---      Name     Star Name
+ 13- 19 F7.2   0.1nm    Wave     [3741/7789] Wavelength; Angstroms
+ 21- 25 F5.1   ---      Ion      [8.0/607.0] Species identifier (1)
+ 27- 30 F4.2   eV       EP       [0.0/5.08]? Excitation potential
+ 32- 37 F6.2   [-]      loggf    [-10.19/0.58]? log oscillator strength
+ 39- 43 F5.1   10-13m   EW       [8.7/571.8]? Equivalent width; milli-Angstroms
+ 45- 45 A1     ---    f_EW       [s] Flag on EW (2)
+ 47- 51 F5.1   10-13m e_EW       [0/267.1]? Uncertainty in EW
+ 53- 56 F4.2   ---      FWHM     [0/0.49]? Full-Width at Half-Maximum
+ 59- 59 A1     ---    l_logeps   Formal 5{sigma} upper limit flag
+ 61- 65 F5.2   [-]      logeps   [-2.22/8.91] log abundance
+ 67- 70 F4.2   [-]    e_logeps   [0.03/0.92]? Uncertainty in logeps
+ 72- 75 F4.2   [-]      ei       [0.0/0.86]? Statistical abundance uncertainty
+ 77- 80 F4.2   [-]      sX       [0.0/0.83]? Systematic abundance uncertainty
+ 82- 86 F5.2   [-]      delTeff  [-0.19/0.52]? Abundance difference from stellar
+                                  effective temperature uncertainty
+ 88- 92 F5.2   [-]      dellogg  [-0.87/0.44]? Abundance difference from stellar
+                                  surface gravity uncertainty
+ 94- 98 F5.2   [-]      delVt    [-0.48/0.1]? Abundance difference from stellar
+                                   microturbulence uncertainty
+100-104 F5.2   [-]      del[M/H] [-0.22/0.22]? Abundance difference from stellar
+                                  metallicity uncertainty
+106-111 F6.2   ---      wi       [-73.0/604.14]? Effective weight
+--------------------------------------------------------------------------------
+Note (1): In the format X.Y where X is the atomic number
+          and Y is the ionization.
+Note (2): Flag as follows:
+          s = the abundance and its uncertainty were derived from synthesized
+              lines (1797 occurrences).
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table6.dat
+--------------------------------------------------------------------------------
+ Bytes Format Units   Label  Explanations
+--------------------------------------------------------------------------------
+ 1- 11 A11    ---     Name   Star name
+13- 17 A5     ---     Ion    Ion identifier
+19- 21 I3     ---     Num    [1/130] Number of lines used
+    23 A1     ---   l_logeps Formal 5{sigma} upper limit flag
+25- 29 F5.2   [-]     logeps [-2.22/9.02] log abundance
+31- 35 F5.2   [-]     [X/H]  [-4.24/1.01] log abundance relative to H
+37- 40 F4.2   [-]   e_[X/H]  [0.04/0.63]? Uncertainty in [X/H]
+42- 46 F5.2   [-]     [X/Fe] [-1.63/3.66] log abundance relative to Fe [X/Fe]
+48- 51 F4.2   [-]   e_[X/Fe] [0.0/0.63]? Uncertainty in [X/Fe]
+53- 57 F5.2   [-]     deltaT [-0.1/0.18]? Weighted response of species X to
+                              effective temperature
+59- 63 F5.2   [-]     deltag [-0.28/0.16]? Weighted response of species X to
+                              log surface gravity
+65- 69 F5.2   [-]     deltaV [-0.38/0.06]? Weighted response of species X to
+                              microturbulence velocity
+71- 75 F5.2   [-]     deltaM [-0.14/0.18]? Weighted response of species X to
+                              metallicity
+77- 80 F4.2   [-]     sX     [0.0/0.83]? Systematic uncertainty
+--------------------------------------------------------------------------------
+
+History:
+    From electronic version of the journal
+
+References:
+
+   Li et al.      2019MNRAS.490.3508L
+
+================================================================================
+(End)                          Prepared by [AAS], Coralie Fix [CDS], 18-Nov-2020

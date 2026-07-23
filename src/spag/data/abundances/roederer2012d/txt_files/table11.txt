@@ -1,0 +1,9 @@
+Table 11 
+Hyperfine Structure Line Component Pattern for ^175Lu II lambda2615
+
+
+Wavenumber	lambda_air	F_upper	F_lower	Component Position	Component Position	Strength	
+(cm^-1)	(Aring)			(cm^-1)	(Aring)		
+38223.406	2615.4173	4.5	3.5	-0.11034	+0.007550	0.41667	
+38223.406	2615.4173	3.5	3.5	-0.02055	+0.001406	0.33333	
+38223.406	2615.4173	2.5	3.5	+0.21129	-0.014458	0.25000	

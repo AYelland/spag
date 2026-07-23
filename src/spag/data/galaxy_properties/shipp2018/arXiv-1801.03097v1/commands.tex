@@ -1,0 +1,282 @@
+\usepackage{soul} 
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{xspace}
+\usepackage{xifthen}
+% \usepackage{eso-pic}
+
+\definecolor{forestgreen}{HTML}{228B22}
+%\definecolor{urlblue}{HTML}{1E90FF}
+\definecolor{urlblue}{HTML}{000000}
+
+% General formatting
+\newcommand{\ie}{i.e.\xspace}
+\newcommand{\eg}{e.g.\xspace}
+\newcommand{\etc}{etc.\xspace}
+\newcommand{\etal}{et al.\xspace}
+\newcommand{\vs}{vs.\xspace}
+\newcommand{\super}[1]{\ensuremath{^{\textrm{#1}}}}
+\newcommand{\sub}[1]{\ensuremath{_{\textrm{#1}}}}
+%\newcommand{\FIXME}[1]{{\bf \textcolor{red}{#1}}}
+\newcommand{\FIXME}[1]{{#1}}
+%\newcommand{\CHECK}[1]{{\textcolor{orange}{#1}}}
+\newcommand{\CHECK}[1]{{#1}}
+\newcommand{\COMMENT}[1]{{\it \textcolor{blue}{(Comment: #1)}}}
+\newcommand{\NOTE}[1]{\textcolor{blue}{(#1)}}
+
+\newcommand{\highlight}[1]{\sethlcolor{yellow}\hl{#1}}
+%\newcommand{\response}[1]{{\bf \sethlcolor{yellow}\hl{#1}}}
+\newcommand{\response}[1]{{\bf \textcolor{red}{#1}}}
+\newcommand{\IT}{{I\&T}\xspace}
+
+% Numbers
+\newcommand{\NKNOWN}{\CHECK{four}\xspace}
+\newcommand{\NSTREAMS}{\CHECK{eleven}\xspace}
+\newcommand{\NCAND}{\CHECK{eleven}\xspace}
+\newcommand{\NGLOB}{\CHECK{four}\xspace}
+
+% LaTex
+\newcommand{\sectionfootnote}[2]{%
+  \renewcommand{\thefootnote}{\fnsymbol{footnote}}%
+  \section[#1]{#1${}^\dagger$}%
+  \footnotetext[2]{#2}%
+  \setcounter{footnote}{0}%
+  \renewcommand{\thefootnote}{\arabic{footnote}}%
+}
+
+%\newcommand{\reportnum}[2]{
+%  \AddToShipoutPictureBG*{%
+%    \AtPageUpperLeft{%
+%      \hspace{0.75\paperwidth}%
+%      \raisebox{#1\baselineskip}{%
+%        \makebox[0pt][l]{\textnormal{#2}}
+%  }}}%
+%}
+
+% Math
+\mathchardef\mhyphen="2D
+\newcommand{\vect}[1]{\boldsymbol{#1}}
+\newcommand{\roughly}{\ensuremath{ {\sim}\,} }
+\newcommand{\gtr}{\ensuremath{ {>}\,} }
+\newcommand{\less}{\ensuremath{ {<}\,} }
+\newlength{\dhatheight}
+\newcommand{\doublehat}[1]{%
+    \settoheight{\dhatheight}{\ensuremath{\hat{#1}}}%
+    \addtolength{\dhatheight}{-0.35ex}%
+    \hat{\vphantom{\rule{1pt}{\dhatheight}}%
+    \smash{\hat{#1}}}}
+\newcommand{\code}[1]{\texttt{#1}\xspace}
+\newcommand{\dd}{\ensuremath{\rm d}}
+%\newcommand{\var}[1]{\ensuremath{#1}\xspace}
+
+% Units
+\newcommand{\unit}[1]{\ensuremath{\mathrm{\,#1}}\xspace}
+\newcommand{\yr}{\unit{yr}}
+\newcommand{\Gyr}{\unit{Gyr}}
+\newcommand{\Myr}{\unit{Myr}}
+\newcommand{\eV}{\unit{eV}}
+\newcommand{\keV}{\unit{keV}}
+\newcommand{\MeV}{\unit{MeV}}
+\newcommand{\GeV}{\unit{GeV}}
+\newcommand{\TeV}{\unit{TeV}}
+\newcommand{\MB}{\unit{MB}}
+\newcommand{\GB}{\unit{GB}}
+\newcommand{\TB}{\unit{TB}}
+\newcommand{\degree}{\ensuremath{{}^{\circ}}\xspace}
+\newcommand{\degrees}{\degree}
+\newcommand{\mas}{\unit{mas}}
+\newcommand{\amin}{\unit{arcmin}}
+\newcommand{\asec}{\unit{arcsec}}
+\newcommand{\angstrom}{\unit{\AA}}
+\newcommand{\um}{\unit{$\mu$m}}
+\newcommand{\cm}{\unit{cm}}
+\newcommand{\km}{\unit{km}}
+\newcommand{\kms}{\km \second^{-1}}
+\newcommand{\pc}{\unit{pc}}
+\newcommand{\kpc}{\unit{kpc}}
+\newcommand{\second}{\unit{s}}
+\newcommand{\us}{\unit{$\mu$s}}
+\newcommand{\photons}{\unit{ph}}
+\newcommand{\photon}{\unit{ph}}
+\newcommand{\sr}{\unit{sr}}
+\newcommand{\Msolar}{\unit{M_\odot}}
+\newcommand{\Msun}{\unit{M_\odot}}
+\newcommand{\Mstar}{\unit{M_{*}}}
+\newcommand{\Lsolar}{\unit{L_\odot}}
+\newcommand{\Lsun}{\unit{L_\odot}}
+\newcommand{\Lstar}{\unit{L_{*}}}
+\newcommand{\Lum}{\ensuremath{ L }\xspace}
+\newcommand{\Dsun}{\unit{D_\odot}}
+\newcommand{\Rgc}{\ensuremath{R_{GC}}\xspace}
+\newcommand{\cmcubes}{\ensuremath{\cm^{3}\second^{-1}}\xspace}
+\newcommand{\magn}{\unit{mag}}
+\newcommand{\mmag}{\unit{mmag}}
+\newcommand{\e}{\unit{e^{-}}}
+\newcommand{\rms}{\unit{rms}}
+\newcommand{\pix}{\unit{pix}}
+\newcommand{\rmspix}{\unit{rms/pix}}
+\newcommand{\ermspix}{\e \rmspix}
+
+% Referencing 
+\newcommand{\secref}[1]{Section~\ref{sec:#1}}
+\newcommand{\appref}[1]{Appendix~\ref{app:#1}}
+\newcommand{\tabref}[1]{Table~\ref{tab:#1}}
+\newcommand{\tabrefs}[2]{Tables~\ref{tab:#1} and \ref{tab:#2}}
+\newcommand{\figref}[1]{Figure~\ref{fig:#1}}
+\newcommand{\figrefs}[2]{Figures~\ref{fig:#1} and \ref{fig:#2}}
+\newcommand{\eqnref}[1]{Equation~\eqref{eqn:#1}}
+
+% DES SExtractor quantities
+\newcommand{\bandvar}[2][]{%
+  \ifthenelse{\isempty{#1}}{\var{#2}}{\var{#2\_#1}}%
+}
+\newcommand{\spreadmodel}[1][]{\bandvar[#1]{spread\_model}}
+\newcommand{\spreaderrmodel}[1][]{\bandvar[#1]{spreaderr\_model}}
+\newcommand{\wavgspreadmodel}[1][]{\bandvar[#1]{wavg\_spread\_model}}
+\newcommand{\classstar}[1][]{\bandvar[#1]{class\_star}}
+\newcommand{\magauto}[1][]{\bandvar[#1]{mag\_auto}}
+\newcommand{\magpsf}[1][]{\bandvar[#1]{mag\_psf}}
+\newcommand{\magerrpsf}[1][]{\bandvar[#1]{magerr\_psf}}
+\newcommand{\flags}[1][]{\bandvar[#1]{flags}}
+
+% DES physics
+\newcommand{\LCDM}{\ensuremath{\rm \Lambda CDM}\xspace}
+\newcommand{\modulus}{\ensuremath{m - M}\xspace}
+\newcommand{\mM}{\modulus}
+\newcommand{\ra}{{\ensuremath{\alpha_{2000}}}\xspace}
+\newcommand{\dec}{{\ensuremath{\delta_{2000}}}\xspace}
+\newcommand{\age}{{\ensuremath{\tau}}\xspace}
+\newcommand{\metal}{{\ensuremath{Z}}\xspace}
+\newcommand{\major}{\ensuremath{a_h}\xspace}
+\newcommand{\nobjs}{{sixteen}\xspace}
+\newcommand{\feh}{{\ensuremath{\rm [Fe/H]}}\xspace}
+
+
+% DES software
+\newcommand{\ngmix}{\code{ngmix}}
+\newcommand{\SWARP}{\code{SWarp}}
+\newcommand{\swarp}{\SWARP}
+\newcommand{\SExtractor}{\code{SExtractor}}
+\newcommand{\sextractor}{\SExtractor}
+\newcommand{\PSFex}{\code{PSFex}}
+\newcommand{\Astromatic}{\code{Astromatic}}
+\newcommand{\HEALPix}{\code{HEALPix}}
+\newcommand{\healpix}{\HEALPix}
+\newcommand{\healpy}{\code{healpy}}
+\newcommand{\DAOPHOT}{\code{DAOPHOT}}
+\newcommand{\PARSEC}{\code{PARSEC}}
+\newcommand{\mangle}{\code{mangle}}
+\newcommand{\emcee}{\code{emcee}}
+\newcommand{\ugali}{\code{ugali}}
+\newcommand{\var}[1]{\ensuremath{\texttt{\MakeUppercase{#1}}}\xspace}
+\newcommand{\nside}{\code{nside}}
+
+% Likelihood Formalism
+\newcommand{\prior}{\ensuremath{\mathcal{P}}\xspace}
+\newcommand{\Prob}{\ensuremath{\mathcal{P}}\xspace}
+\newcommand{\ProbJ}{\ensuremath{\mathcal{P}(J)}\xspace}
+\newcommand{\like}{\ensuremath{\mathcal{L}}\xspace} % Full Liklihood
+\newcommand{\plike}{\like_p\xspace}                    % Profile Likelihood
+\newcommand{\jlike}{\ensuremath{L}\xspace}          % Joint Likelihood
+\newcommand{\pjlike}{\jlike_p\xspace}         % Profile Joint Likelihood
+\newcommand{\pseudolike}{ {\tilde{\like}} \xspace}   % Pseudo Likelihood
+\newcommand{\loglike}{\ensuremath{\log\like}\xspace}% Log-Likelihood
+\newcommand{\logpseudolike}{\ensuremath{\log\pseudolike}\xspace}% Log-Likelihood
+\newcommand{\lnlike}{\ensuremath{\ln\like}\xspace}% Log-Likelihood
+\newcommand{\lnpseudolike}{\ensuremath{\ln\pseudolike}\xspace}% Log-Likelihood
+\newcommand{\given}{\ensuremath{ \,|\, }\xspace}
+\newcommand{\likefn}[2]{\ensuremath{ \like(#1 \given #2) }\xspace}
+\newcommand{\plikefn}[2]{\ensuremath{ \plike(#1 \given #2) }\xspace}
+\newcommand{\jlikefn}[2]{\ensuremath{ \jlike(#1 \given #2) }\xspace}
+\newcommand{\data}{ \ensuremath{ \mathcal{D} }\xspace } % Full Liklihood
+%\newcommand{\astro}{ \ensuremath{\mathrm{astro}}\xspace } % Full Liklihood
+\newcommand{\param}{\ensuremath{{\theta}}\xspace}
+\newcommand{\params}{\ensuremath{\vect{\theta}}\xspace}
+\newcommand{\sig}{\ensuremath{\mu}\xspace}
+\newcommand{\bkg}{\ensuremath{\eta}\xspace}
+\newcommand{\interest}{\ensuremath{\vect{\sig}}\xspace}
+\newcommand{\nuisance}{\ensuremath{\vect{\bkg}}\xspace}
+\newcommand{\signal}{\sig}
+\newcommand{\pvalue}{\textit{p}-value\xspace}
+\newcommand{\pdf}{PDF\xspace}
+
+\newcommand{\uspatial}{\ensuremath{u_s}}
+\newcommand{\ucolor}{\ensuremath{u_c}}
+
+\newcommand{\Jlike}{\ensuremath{\like_{J}}\xspace}
+\newcommand{\Jsigma}{\ensuremath{\sigma_{i}}\xspace}
+\newcommand{\Jtrue}{\Ji}
+\newcommand{\Jobs}{\barJi}
+\newcommand{\logtenJtrue}{\logtenJi}
+\newcommand{\logtenJobs}{\barlogtenJi}
+
+\newcommand{\Ji}{\ensuremath{J_i}\xspace}
+\newcommand{\barJi}{\ensuremath{ {\overline{J_i}} }\xspace}
+\newcommand{\logJi}{\ensuremath{{\log{(J_i)}}}\xspace}
+\newcommand{\barlogJi}{\ensuremath{ {\overline{\log{(J_i)}}} }\xspace}
+\newcommand{\logtenJi}{\ensuremath{{\log_{10}{(J_i)}}}\xspace}
+\newcommand{\barlogtenJi}{\ensuremath{ {\overline{\log_{10}{(J_i)}}} }\xspace}
+
+
+% LAT code
+\newcommand{\ScienceTools}{\code{ScienceTools}}
+\newcommand{\Sourcelike}{\code{Sourcelike}}
+\newcommand{\gtlike}{\code{gtlike}}
+\newcommand{\pointlike}{\code{pointlike}}
+\newcommand{\Gtlike}{\code{Gtlike}}
+\newcommand{\gtobssim}{\code{gtobssim}}
+\newcommand{\DMFIT}{\code{DMFIT}}
+\newcommand{\Pythia}{\code{Pythia}}
+\newcommand{\GALPROP}{\code{GALPROP}}
+
+% Dark Matter (particle physics)
+\newcommand{\DM}{\ensuremath{\mathrm{DM}}}
+\newcommand{\mDM}{\ensuremath{m_\DM}\xspace}
+\newcommand{\mLSP}{\ensuremath{m_\LSP}\xspace}
+\newcommand{\mChi}{\ensuremath{m_\chi}\xspace}
+
+\newcommand{\sigmav}{\ensuremath{\langle \sigma v \rangle}\xspace}
+\newcommand{\sigmavmax}{\ensuremath{\sigmav_{\max}}\xspace}
+\newcommand{\sigmavT}{\ensuremath{\sigmav_{\rm T}}\xspace}
+\newcommand{\tsigmav}{\ensuremath{\sigmav R^{2}}\xspace}
+\newcommand{\LSP}{\ensuremath{\chi}\xspace}
+\newcommand{\PhiPP}{\ensuremath{\Phi_{\rm PP}}\xspace}
+\newcommand{\uubar}{\ensuremath{u \bar u}\xspace}
+\newcommand{\ddbar}{\ensuremath{d \bar d}\xspace}
+\newcommand{\ccbar}{\ensuremath{c \bar c}\xspace}
+\newcommand{\ssbar}{\ensuremath{s \bar s}\xspace}
+\newcommand{\bbbar}{\ensuremath{b \bar b}\xspace}
+\newcommand{\ttbar}{\ensuremath{t \bar t}\xspace}
+\newcommand{\ww}{\ensuremath{W^{+}W^{-}}\xspace}
+\newcommand{\zz}{\ensuremath{Z^{0}Z^{0}}\xspace}
+\newcommand{\gluglu}{\ensuremath{gg}\xspace}
+\newcommand{\ee}{\ensuremath{e^{+}e^{-}}\xspace}
+\newcommand{\mumu}{\ensuremath{\mu^{+}\mu^{-}}\xspace}
+\newcommand{\tautau}{\ensuremath{\tau^{+}\tau^{-}}\xspace}
+\newcommand{\relic}{\ensuremath{3\times10^{-26}\cm^{3}\second^{-1}}\xspace}
+
+% Dark Matter (astrophysics)
+\newcommand{\Jfactor}{J-factor\xspace}
+\newcommand{\Jfactors}{J-factors\xspace}
+\newcommand{\JFactor}{J-Factor\xspace}
+\newcommand{\Rmax}{\ensuremath{R_{V_{\rm max}}}\xspace}
+\newcommand{\Vmax}{\ensuremath{V_{\rm max}}\xspace}
+\newcommand{\rs}{\ensuremath{ r_{\rm s} }\xspace}
+\newcommand{\rhos}{\ensuremath{ \rho_0 }\xspace}
+\newcommand{\alphahalf}{\ensuremath{ \alpha_{\rm h} }\xspace}
+\newcommand{\ahalf}{ \alphahalf }
+\newcommand{\rhalf}{\ensuremath{ r_{\rm h} }\xspace}
+\newcommand{\Mhalf}{\ensuremath{ M_{\rm h} }\xspace}
+\newcommand{\Mtidal}{\ensuremath{M_{\rm tidal}}\xspace}
+\newcommand{\alphas}{\ensuremath{ \alpha_{\rm s} }\xspace}
+\newcommand{\boost}{\ensuremath{\mathcal{B}}\xspace}
+\newcommand{\vdisp}{\ensuremath{\sigma_\star}\xspace}
+
+%Journals
+\providecommand\physrep{\ref@jnl{Phys.~Rep.}}%
+          % Physics Reports
+\providecommand\apjs{\ref@jnl{ApJS}}%
+          % Astrophysical Journal, Supplement
+\providecommand{\jcap}{\ref@jnl{JCAP}}%
+          % Journal of Cosmology and Astroparticle Physics
+

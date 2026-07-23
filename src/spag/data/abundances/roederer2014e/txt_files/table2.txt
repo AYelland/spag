@@ -1,0 +1,24 @@
+Table 2 
+Characteristics of Archival Optical Spectra
+
+
+Star	lambda	R	S/N	S/N	Instrument	Program	P.I.	
+(Aring)	equiv lambda/Deltalambda	4500 Aring	6000 Aring	ID	
+G64-12	3420-9150	38,000	160	230	MIKE	 sdotsdotsdot 	Frebel	
+HD 2454	3780-6910	115,000	93	180	HARPS	074.C-0364(A)	Robichon	
+HD 16220	4350-6860	48,000	650	630	HIRES	H5aH	Stephens	
+HD 43318	3100-10426	74,000	465	370	UVES	266.D-5655(A)	^a	
+HD 76932	3100-6800^b	49,000	 sdotsdotsdot 	315	UVES	067.D-0439(A)	Primas	
+					UVES	076.B-0055(A)	Silva	
+					UVES	266.D-5655(A)	^a	
+HD 94028	3650-8000	30,000	430	250	Tull	 sdotsdotsdot 	Roederer	
+HD 107113	4350-6860	48,000	250	670	HIRES	H2aH	Boesgaard	
+HD 108317	3340-8000	38,000	570	390	MIKE	 sdotsdotsdot 	Roederer	
+HD 128279	3340-8000	38,000	880	750	MIKE	 sdotsdotsdot 	Roederer	
+HD 140283	3360-9400	38,000	390	260	MIKE	 sdotsdotsdot 	Frebel	
+HD 155646	5650-8090	48,000	 sdotsdotsdot 	650	HIRES	H47aH	Boesgaard	
+HD 160617	3100-6800^b	51,000	 sdotsdotsdot 	375	UVES	065.L-0507(A)	Primas	
+HD 211998	3100-6800^b	74,000	 sdotsdotsdot 	580	UVES	266.D-5655(A)	^a	
+Notes.
+a Observed for inclusion in "A High-Resolution Spectroscopic Atlas of Stars across the Hertzsprung-Russell Diagram".
+b Includes gaps in the spectrum.

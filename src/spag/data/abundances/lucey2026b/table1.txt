@@ -1,0 +1,12 @@
+Table 1 
+Sky Coordinates and Stellar Parameters of the Five CEMP Stars
+
+
+SDSS ID	R.A.	Decl.	SNR	RV	T_eff	log g	[Fe/H]	[C/Fe]	[C/Fe]_corr	
+	(deg)	(deg)	(pixel^-1)	(km s^-1)	(K)					
+92278782	53.88	-58.18	28.12	$17{5}_{-12}^{+12}$	$465{2}_{-42}^{+47}$	$1.1{0}_{-.09}^{+.10}$	-3.21 +or- 0.21	2.11  +or-  0.30	2.41  +or-  0.30	
+96041179	96.65	-65.10	20.93	$24{4}_{-28}^{+17}$	$486{1}_{-65}^{+71}$	$1.6{4}_{-.15}^{+.17}$	-2.39 +or- 0.21	1.71  +or-  0.14	1.85  +or-  0.14	
+98320880	90.49	-64.07	25.01	$29{1}_{-11}^{+11}$	$461{4}_{-52}^{+53}$	$1.1{7}_{-.12}^{+.12}$	-2.09 +or- 0.17	0.96  +or-  0.39	1.23  +or-  0.39	
+98332219	102.15	-61.90	20.46	$31{7}_{-9}^{+10}$	$469{2}_{-61}^{+110}$	$1.2{6}_{-.13}^{+.20}$	-2.68 +or- 0.23	1.69  +or-  0.11	2.05  +or-  0.11	
+98357416	94.57	-60.84	31.74	$29{5}_{-7}^{+8}$	$485{6}_{-53}^{+52}$	$1.4{7}_{-.11}^{+.10}$	-2.63 +or- 0.16	2.01  +or-  0.20	2.17  +or-  0.20	
+Note. The SDSS ID, R.A., decl., and SNR of the BOSS spectra. The effective temperature (T_eff), and surface gravity (log g) with associated uncertainties are from the BOSS-MINESweeper catalog. The derivations of the metallicity ([Fe/H], and carbon abundance ([C/Fe]) are described in Section 3.3 and 3.4, respectively.

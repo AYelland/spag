@@ -1,0 +1,8 @@
+In "First Stars. V.", the [Fe/H]_c value reported in the stellar 
+parameter table is the average of the measured Fe I and Fe II abundnaces.
+
+( [Fe I/H] + [Fe II/H] ) / 2 = [Fe/H]_c
+
+In "First Stars. VIII.", these [Fe/H]_c values are reported as
+the true values of iron abundance and used wen calculating [X/Fe]
+abundances (alongside Grevesse and Savaul 1998/2000 solar abundances.)

@@ -1,0 +1,128 @@
+J/A+A/465/815       Abundances of Sgr dSph stars             (Sbordone+, 2007)
+================================================================================
+The exotic chemical composition of the Sagittarius dwarf spheroidal galaxy.
+    Sbordone L., Bonifacio P., Buonanno R., Marconi G., Monaco L., Zaggia S.
+   <Astron. Astrophys., 465, 815-824 (2007)>
+   =2007A&A...465..815S
+================================================================================
+ADC_Keywords: Abundances, [Fe/H] ; Equivalent widths ; Clusters, globular ;
+              Stars, giant
+Keywords: stars: abundances - stars: atmospheres - galaxies: abundances -
+          galaxies: dwarf - galaxies: individual: Sgr dSph -
+          globular clusters: individual: Terzan 7
+
+Abstract:
+    The Sagittarius dwarf spheroidal galaxy is the nearest neighbor of the
+    Milky Way. Moving along a short period quasi-polar orbit within the
+    Halo, it is being destroyed by the tidal interaction with our Galaxy,
+    losing its stellar content along a huge stellar stream. We study the
+    detailed chemical composition of 12 giant stars in the Sagittarius
+    dwarf Spheroidal main body, together with 5 more in the associated
+    globular cluster Terzan 7, by means of high resolution VLT-UVES
+    spectra. Abundances are derived for up to 21 elements from O to Nd, by
+    fitting lines EW or line profiles against ATLAS 9 model atmospheres
+    and SYNTHE spectral syntheses calculated ad-hoc. Temperatures are
+    derived from (V-I)_0_ or (B-V)_0_ colors and gravities from
+    FeI-FeII ionization equilibrium. The metallicity of the observed stars
+    is between [Fe/H]=-0.9 and 0. We detected a highly peculiar "chemical
+    signature", with undersolar alpha elements, Na, Al , Sc, V, Co, Ni,
+    Cu, and Zn, among others, and overabundant La, Ce, and Nd. Many of
+    these abundance ratios (in particular light-odd elements and iron peak
+    ones) are strongly at odds with what is observed within the Milky Way,
+    so they may be a very useful tool for recognizing populations
+    originating within the Sagittarius dwarf. This can be clearly seen in
+    the case of the globular Palomar 12, which is believed to have been
+    stripped from Sagittarius: the cluster shows precisely the same
+    chemical "oddities", thus finally confirming its extragalactic
+    origin.
+
+Description:
+    Tables A1-A3 of the paper detailing wavelengths, loggf, reference for
+    the atomic data, measured equivalent widths and derived abundances
+    for the 12 Sgr dSph stars and the 5 Ter 7 stars in the paper.
+
+Objects:
+    ---------------------------------------------------------
+       RA   (2000)   DE    Designation(s)
+    ---------------------------------------------------------
+    18 55 03.1 -30 28 42   Sgr dSph = NAME SGR DWARF GALAXY
+    19 17 43.7 -34 39 27   Ter7 = Cl Terzan 7
+    ---------------------------------------------------------
+
+File Summary:
+--------------------------------------------------------------------------------
+ FileName   Lrecl  Records   Explanations
+--------------------------------------------------------------------------------
+ReadMe         80        .   This file
+table1.dat     41       17   Photometry and atmospheric parameters for the
+                              studied stars
+tablea.dat     41     2083   Equivalent widths and abundances
+refs.dat      119       25   References
+--------------------------------------------------------------------------------
+
+See also:
+   J/A+A/414/503 : Abundances in the Sgr dSph (Bonifacio+, 2004)
+
+Byte-by-byte Description of file: table1.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label    Explanations
+--------------------------------------------------------------------------------
+   1-  4  A4    ---     Parent   Sgr or Ter7
+   6-  9  I4    ---     Star     Star number (G1)
+  11- 16  F6.3  mag     Vmag     V magnitude
+  18- 22  F5.3  mag     (V-I)0   ? Dereddened V-I colour index (Sgr stars only)
+  24- 28  F5.3  mag     (B-V)0   ? Dereddened B-V colour index (Ter7 stars only)
+  29- 32  I4    K       Teff     Effective temperature
+  34- 36  F3.1  [cm/s2] logg     Surface gravity
+  38- 41  F4.2  km/s    xi       Turbulent velocity
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: tablea.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1-  4  I4    ---     Star      Star number (G1)
+   6-  9  A4    ---     Ion       Ion name
+  11- 18  F8.4  nm      Lambda    Line laboratory wavelength (2)
+  20- 25  F6.3  ---     loggf     line oscillator strength
+  27- 30  A4    ---   r_loggf     References for employed loggf
+  32- 36  F5.2  pm      EW        ?=0.0 Equivalent width (3)
+  38- 41  F4.2  ---     Abund     ?=0.0 Abundance
+--------------------------------------------------------------------------------
+Note (2): Where HFS has been taken into account, the wavelength is provided
+          with 0.01nm precision only, for the feature is actually not a
+          single line.
+Note (3): All "real" values are above 1.0pm here.
+     -- A value of 0.01 indicates that the abundance has been derived by
+        fitting agains a synthetic spectrum due to line blending.
+     -- A value of 0.02 indicates synthetic spectrum fitting taking into
+        account HFS.
+     -- A value of 0.0 indicates the line has not been measured for this
+        star. In this case the abundance is also put to 0.0.
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: refs.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1-  4  A4    ---     Ref       Reference code
+   6- 24  A19   ---     BibCode   BibCode
+  26- 45  A20   ---     Aut       Author's name
+  49-119  A71   ---     Com       Comments
+--------------------------------------------------------------------------------
+
+Blobal notes:
+Note (G1): Nomenclature:
+     Stars 439 to 927 are Sgr dSph stars, [MBC98a] Sgr1 NNN in Simbad.
+     Stars 1272 to 1708 are Terzan 7 stars, Cl* Terzan 7 BCP NNNN in Simbad.
+--------------------------------------------------------------------------------
+
+Acknowledgements:
+    Luca Sbordone, luca.sbordone(at)obspm.fr
+
+References:
+    Bonifacio et al., Paper I     2000A&A...359..663B
+    Sbordone et al.,  Paper II    2005A&A...437..905S
+    Bonifacio et al., Paper III   2004A&A...414..503B, Cat. <J/A+A/414/503>
+================================================================================
+(End)                                      Patricia Vannier [CDS]    12-Apr-2007

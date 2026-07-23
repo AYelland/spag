@@ -1,0 +1,36 @@
+Table 8 
+Abundance Sensitivities to Model Atmosphere Uncertainties
+
+
+Group	Abundance	$\Delta {T_{\rm eff}}=$	Deltalog  g =	Deltav_t =	
+or Ratio	+or-100 K	+or-0.3 dex	+or-0.2 km s^-1	
+Metal-rich,	[Na/Fe]	mnplus0.02	+or-0.03	mnplus0.03	
+R ~ 30,000^a	[Mg/Fe]	mnplus0.01	+or-0.01	mnplus0.02	
+	[Al/Fe]	mnplus0.04	+or-0.01	mnplus0.05	
+	[Si/Fe]	mnplus0.04	mnplus0.02	mnplus0.04	
+	[P/Fe]	mnplus0.01	mnplus0.02	mnplus0.02	
+	[Ca/Fe]	mnplus0.01	+or-0.03	mnplus0.01	
+	log epsilon(P)	+or-0.07	mnplus0.03	mnplus0.04	
+	log epsilon(Fe)	+or-0.08	mnplus0.03	mnplus0.06	
+					
+Metal-poor,	[Na/Fe]	mnplus0.01	+or-0.04	mnplus0.01	
+R ~ 30,000^b	[Mg/Fe]	mnplus0.02	+or-0.02	mnplus0.01	
+	[Al/Fe]	mnplus0.01	+or-0.03	+or-0.02	
+	[Si/Fe]	mnplus0.05	mnplus0.02	mnplus0.03	
+	[P/Fe]	mnplus0.05	+or-0.02	+or-0.03	
+	[Ca/Fe]	mnplus0.04	+or-0.01	mnplus0.02	
+	log epsilon(P)	+or-0.06	mnplus0.05	mnplus0.08	
+	log epsilon(Fe)	+or-0.11	mnplus0.03	mnplus0.05	
+					
+Metal-poor,	[Na/Fe]	mnplus0.02	+or-0.01	mnplus0.02	
+R ~ 110,000^c	[Mg/Fe]	mnplus0.02	+or-0.03	mnplus0.03	
+	[Al/Fe]	+or-0.01	+or-0.05	mnplus0.01	
+	[Si/Fe]	mnplus0.04	+or-0.01	mnplus0.03	
+	[P/Fe]	mnplus0.03	+or-0.01	mnplus0.01	
+	[Ca/Fe]	mnplus0.03	+or-0.01	mnplus0.01	
+	log epsilon(P)	+or-0.07	mnplus0.05	mnplus0.05	
+	log epsilon(Fe)	+or-0.10	mnplus0.04	mnplus 0.05	
+Notes.
+a HD 2454, HD 16220, HD 43318, HD 107113, HD 155646.
+b G64-12, HD 108317, HD 128279.
+c HD 76932, HD 94028, HD 140283, HD 160617, HD 211998.

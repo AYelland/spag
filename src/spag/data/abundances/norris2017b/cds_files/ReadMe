@@ -1,0 +1,525 @@
+J/ApJS/230/28     The populations of Carina. II. Abundances      (Norris+, 2017)
+================================================================================
+The populations of Carina.
+II. Chemical enrichment.
+    Norris J.E., Yong D., Venn K.A., Gilmore G., Casagrande L., Dotter A.
+   <Astrophys. J. Suppl. Ser., 230, 28-28 (2017)>
+   =2017ApJS..230...28N    (SIMBAD/NED BibCode)
+================================================================================
+ADC_Keywords: Abundances ; Stars, giant ; Equivalent widths ; Radial velocities
+              Photometry, UBVRI ; Photometry, infrared ; Cross identifications
+Keywords: galaxies: abundances; galaxies: dwarf;
+          galaxies: individual: Carina; stars: abundances
+
+Abstract:
+    Chemical abundances are presented for 19 elements in a sample of 63
+    red giants in the Carina dwarf spheroidal galaxy (dSph), based on
+    homogeneous 1D/LTE model atmosphere analyses of our own observations
+    (32 stars) and data available in the literature (a further 31
+    independent stars). The (Fe) metallicity and [{alpha}/Fe] distribution
+    functions have mean values and dispersions of -1.59 and 0.33dex
+    ([Fe/H] range: -2.68 to -0.64) and 0.07 and 0.13dex ([{alpha}/Fe]
+    range: -0.27 to 0.25), respectively. We confirm the finding of Venn+
+    (2012, J/ApJ/751/102) that a small percentage (some 10% in the present
+    investigation) of the sample shows clear evidence for significant
+    enrichment by Type Ia supernova (SN Ia) ejecta. Calcium, with the most
+    accurately determined abundance of the {alpha}-elements, shows an
+    asymmetric distribution toward smaller values of [Ca/Fe] at all
+    [Fe/H], most significantly over -2.0<[Fe/H]<-1.0, suggestive of
+    incomplete mixing of the ejecta of SNe Ia with the ambient medium of
+    each of Carina's generations. Approximate color-magnitude diagram age
+    estimates are presented for the sample, and together with our chemical
+    abundances, compared with the results of our previous synthetic
+    color-magnitude diagram analysis, which reported the details of
+    Carina's four well-defined populations. We searched for the Na-O
+    anticorrelation universally reported in the Galaxy's globular clusters
+    and confirm that this phenomenon does not exist in Carina. We also
+    found that one of the 32 stars in our sample has an extremely enhanced
+    lithium abundance-A(Li)_NLTE_=+3.36, consistent with membership of the
+    ~1% group of Li-rich stars in dSph described by
+    Kirby+ (2012ApJ...752L..16K).
+
+Description:
+    Our selection of objects is based on unpublished CCD V, I observations
+    that we have made of the Carina galaxy.
+
+    High-resolution, moderate-S/N spectra were obtained of 39 Carina red
+    giants, during 2007 November-2008 March, with the FLAMES system at the
+    8.2m Kueyen (VLT/UT2) telescope at Cerro Paranal. The spectra cover
+    the wavelength ranges 4800-5750{AA} and 5840-6800{AA}. The resolving
+    power was R=47000.
+
+    Photometry has been obtained from several sources: P. B. Stetson
+    provided us with homogenized BVI, M. J. Irwin furnished JHK from ESO
+    VISTA survey photometry, and M. Gullieuszik supplied BVIJHKs.
+
+File Summary:
+--------------------------------------------------------------------------------
+ FileName   Lrecl Records  Explanations
+--------------------------------------------------------------------------------
+ReadMe         80       .  This file
+table1.dat     78      32  Coordinates, photometry, and radial velocities
+                             for 32 Carina red giants
+ews.dat        46    6752  Atomic data and equivalent widths (m{AA})
+                             for 32 Carina red giants (tables 2, 3 and 4)
+table5.dat     31      32  Model atmosphere parameters for 32 Carina red giants
+table6.dat     47     672  Chemical abundances for 32 Carina red giants
+table8.dat    288      32  Summary of [Fe/H], [X/Fe], and total errors
+                             for 32 Carina red giants
+table9.dat     94      49  Coordinates, photometry, and atmospheric parameters
+                             for 49 Carina red giants from the literature
+table10.dat   282      14  Summary of [Fe/H], [X/Fe], and total errors
+                             for 14 literature (Venn+ (2012, J/ApJ/751/102) &
+                             Shetrone+ (2003AJ....125..684S)) Carina red giants
+table11.dat   139      35  Summary of [Fe/H], [X/Fe], and total errors
+                             for 35 Lemasle+ (2012, J/A+A/538/A100)
+                             Carina red giants
+table12.dat    83      30  alpha/Fe values and errors for 30 Carina red giants
+table13.dat    34      63  Fraction of Type Ia material, <d[Xi/Fe]>, and
+                             [Ba/Fe] in the Carina red giants
+table14.dat    52      63  Cross-identification and coordinates of program stars
+table15.dat   222      63  Average [Fe/H], [X/Fe], and errors
+                             for the 63 independent Carina red giants
+--------------------------------------------------------------------------------
+
+See also:
+ J/ApJS/99/637  : Equivalent widths for 54 red giants (Norris+ 1995)
+ J/A+AS/121/95  : Giant stars abundances in 24 clusters (Carretta+ 1997)
+ J/AJ/114/1458  : The Carina Dwarf (Mighell 1997)
+ J/AJ/115/1840  : BV photometry in Carina dwarf galaxy (Hurley-Keller+ 1998)
+ J/AJ/120/1841  : Abundances & Kinematics of Halo & Disk Stars (Fulbright 2000)
+ J/A+A/439/129  : HERES II. Spectroscopic analysis (Barklem+, 2005)
+ J/ApJ/626/446  : Effective temperature scale of FGK stars (Ramirez+, 2005)
+ J/MNRAS/373/13 : Lower main-sequence stars parameters (Casagrande+, 2006)
+ J/ApJ/649/201  : Velocities & Washington phot. in Carina dSph (Munoz+, 2006)
+ J/AJ/131/895   : Stars in the Carina dwarf spheroidal galaxy (Koch+, 2006)
+ J/MNRAS/383/183 : CaII triplet of RGB from VLT/FLAMES obs. (Battaglia+, 2008)
+ J/AJ/135/1580  : Element abundances in ten red giants of Car dSph (Koch+, 2008)
+ J/A+A/503/541  : Neutral Li in late-type stars (Lind+, 2009)
+ J/AJ/137/3100  : Radial velocities of 4 dSph galaxies (Walker+, 2009)
+ J/ApJ/711/350  : Metal-poor giant Boo-1137 abundances (Norris+, 2010)
+ J/ApJS/194/15  : CCCP: Carina's diffuse X-ray emission (Townsley+, 2011)
+ J/ApJ/736/146  : Radial velocities of stars in Bootes I (Koposov+, 2011)
+ J/A+A/534/A136 : Halo red giants from the SEGUE survey (Martell+, 2011)
+ J/ApJ/733/46   : Velocity measurements in Segue 1 (Simon+, 2011)
+ J/AJ/141/175   : Abundances in M15 RGB/RHB stars (Sobeck+, 2011)
+ J/PASP/124/519 : Iron abundances of red giants in Carina gal. (Fabrizio+, 2012)
+ J/A+A/538/A100 : Abundances red giants in Carina dSph (Lemasle+, 2012)
+ J/ApJ/757/164  : Oxygen abundances of dwarf stars (Ramirez+, 2012)
+ J/ApJ/751/102  : Equivalent widths of 9 RGB in Carina dSph (Venn+, 2012)
+ J/ApJ/763/61   : Abundances of 7 red giant members of BootesI (Gilmore+, 2013)
+ J/ApJ/778/149  : Abundances for 3 stars in Sgr dSph (McWilliam+, 2013)
+ J/ApJ/762/26   : Most metal-poor stars. II. Galactic halo stars (Yong+, 2013)
+ J/A+A/572/A10  : (BV) photometry in Carina dSph (de Boer+, 2014)
+ J/A+A/580/A18  : Carina Project VIII. {alpha}-element abund. (Fabrizio+, 2015)
+ J/ApJ/830/126  : The Carina project. X. Radial velocities (Fabrizio+, 2016)
+ J/ApJS/225/24  : NuGrid stellar data set I. Yields (Pignatari+, 2016)
+
+Byte-by-byte Description of file: table1.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label  Explanations
+--------------------------------------------------------------------------------
+   1-  7  A7    ---     Name   Object name
+   9- 10  I2    h       RAh    [06] Hour of Right Ascension (J2000)
+  12- 13  I2    min     RAm    [40/42] Minute of Right Ascension (J2000)
+  15- 19  F5.2  s       RAs    Second of Right Ascension (J2000)
+      21  A1    ---     DE-    [-] Sign of the Declination (J2000)
+  22- 23  I2    deg     DEd    [50/51] Degree of Declination (J2000)
+  25- 26  I2    arcmin  DEm    Arcminute of Declination (J2000)
+  28- 31  F4.1  arcsec  DEs    Arcsecond of Declination (J2000)
+  33- 37  F5.2  mag     Vmag   [17.6/18.7] V band magnitude,
+                                Johnson-Kron-Cousins system (G1)
+  39- 42  F4.2  mag     B-V    B-V color index, Johnson-Kron-Cousins system (G1)
+  44- 48  F5.2  mag     Imag   [16.1/17.5] I band magnitude,
+                                Johnson-Kron-Cousins system (G1)
+  50- 54  F5.2  mag     Jmag   [15/16.7] J band magnitude, 2MASS system (G2)
+  56- 60  F5.2  mag     Hmag   H band magnitude, 2MASS system (G2)
+  62- 66  F5.2  mag     Ksmag  Ks band magnitude, 2MASS system (G2)
+  68- 73  F6.2  km/s    RVel   [215/237] Derived Radial Velocity
+  75- 78  F4.2  km/s  e_RVel   [0.07/0.3] Uncertainty in RVel
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: ews.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label    Explanations
+--------------------------------------------------------------------------------
+   1-  7 A7     ---     Name     Object name
+   9- 13 A5     ---     Ion      Atomic species
+  15- 21 F7.2   0.1nm   lambda   [5302.3/6774.3] Wavelength in Angstroms
+  23- 26 F4.2   eV      ExPot    [0/5.8] Excitation Potential
+  28- 33 F6.3   ---     log(gf)  [-9.8/0.7] Log of oscillator strength
+  35- 35 A1     ---   l_EW       Limit flag on EW
+  36- 40 F5.1   0.1pm   EW       [10.5/238]? Equivalent width of star at lambda
+  42- 43 I2     ---     SNR      [7/23]? SNR for the star (1)
+  45- 46 I2     0.1pm   min      [14/34]? Minimum EW for the star
+--------------------------------------------------------------------------------
+Note (1): S/N per ~0.28{AA} pixel at 5300-5700{AA}.
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table5.dat
+--------------------------------------------------------------------------------
+  Bytes Format Units    Label  Explanations
+--------------------------------------------------------------------------------
+  1-  7 A7     ---      Name   Object name
+  9- 12 I4     K        Teff   [4230/4695] Derived surface effective temperature
+ 14- 16 I3     K      e_Teff   Uncertainty in Teff
+ 18- 21 F4.2   [cm/s2]  logg   [0.6/1.4] Derived surface gravity, cgs units
+ 23- 26 F4.1   [Sun]    [M/H]  [-2.3/-1.2] Log metallicity,
+                                eq. to iron abundance [Fe/H]
+ 28- 31 F4.2   km/s     Vturb  [1.8/2.5] Microturbulent velocity
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table6.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label    Explanations
+--------------------------------------------------------------------------------
+   1-  7 A7     ---     Name     Object name
+  10- 14 A5     ---     Ion      Atomic species
+  16- 16 A1     ---   l_loge(X)  Limit flag on loge(X)
+  17- 21 F5.2   [-]     loge(X)  [-1.4/8]? Mean absolute abundance (1)
+  23- 26 F4.2   [-]   e_loge(X)  ? Standard error of the mean, loge(X)
+  28- 29 I2     ---     Nl       [1/82]? Number of lines analyzed
+  31- 31 A1     ---   l_[X/Fe]   Limit flag on [X/Fe]
+  32- 37 F6.2   [Sun]   [X/Fe]   [-2.5/1.8]? Abundance relative to Fe (2)
+  39- 42 F4.2   [Sun] s_[X/Fe]   ? Systematic error, [X/Fe]
+  44- 47 F4.2   [Sun] e_[X/Fe]   ? Total error, [X/Fe]
+--------------------------------------------------------------------------------
+Note (1): loge(X)=log(NX/NH)+12.0
+Note (2): Abundance relative to Fe except for Fe atomic species which are
+          relative to hydrogen, [Fe/H]
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table8.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units     Label   Explanations
+--------------------------------------------------------------------------------
+   1-  7 A7     ---       Name    Object name
+  10- 14 F5.2   [Sun]     [Fe/H]  [-2.5/-1.2]? [Fe/H] abundance
+  16- 16 A1     ---     l_O       Limit flag on O
+  17- 21 F5.2   [Sun]     O       [0.1/1.3]? [O/Fe] abundance
+  23- 23 A1     ---     l_Na      Limit flag on Na
+  24- 29 F6.2   [Sun]     Na      [-0.8/0.8]? [Na/Fe] abundance
+  31- 35 F5.2   [Sun]     Mg      [-0.5/0.9]? [Mg/Fe] abundance
+  37- 37 A1     ---     l_Al      Limit flag on Al
+  38- 42 F5.2   [Sun]     Al      [0.06/1.8]? [Al/Fe] abundance
+  44- 47 F4.2   [Sun]     Si      [0.06/0.9]? [Si/Fe] abundance
+  49- 53 F5.2   [Sun]     Ca      [-0.4/0.3]? [Ca/Fe] abundance
+  55- 59 F5.2   [Sun]     Sc      [-0.9/0.5]? [Sc/Fe] abundance
+  61- 65 F5.2   [Sun]     TiI     [-0.4/0.7]? [TiI/Fe] abundance
+  67- 71 F5.2   [Sun]     TiII    [-0.2/0.6]? [TiII/Fe] abundance
+  73- 77 F5.2   [Sun]     V       ? [V/Fe] abundance
+  79- 83 F5.2   [Sun]     Cr      [-0.5/0.2]? [Cr/Fe] abundance
+  85- 89 F5.2   [Sun]     Mn      [-0.9/0.5]? [Mn/Fe] abundance
+  91- 95 F5.2   [Sun]     FeII    [-0.01/0.7]? [FeII/Fe] abundance
+  97-101 F5.2   [Sun]     Co      ? [Co/Fe] abundance
+ 103-107 F5.2   [Sun]     Ni      [-0.5/0.5]? [Ni/Fe] abundance
+ 109-113 F5.2   [Sun]     Cu      ? [Cu/Fe] abundance
+ 115-119 F5.2   [Sun]     Ba      [-1/0.6]? [Ba/Fe] abundance
+ 121-124 F4.2   [Sun]     La      ? [La/Fe] abundance
+ 126-130 F5.2   [Sun]     Nd      ? [Nd/Fe] abundance
+ 132-135 F4.2   [Sun]     Eu      ? [Eu/Fe] abundance
+ 137-140 F4.2   [Sun]   e_[Fe/H]  ? Total Error in [Fe/H]
+ 142-145 F4.2   [Sun]   e_O       ? Total Error in [O/Fe]
+ 147-150 F4.2   [Sun]   e_Na      ? Total Error in [Na/Fe]
+ 152-155 F4.2   [Sun]   e_Mg      ? Total Error in [Mg/Fe]
+ 157-160 F4.2   [Sun]   e_Al      ? Total Error in [Al/Fe]
+ 162-165 F4.2   [Sun]   e_Si      ? Total Error in [Si/Fe]
+ 167-170 F4.2   [Sun]   e_Ca      ? Total Error in [Ca/Fe]
+ 172-175 F4.2   [Sun]   e_Sc      ? Total Error in [Sc/Fe]
+ 177-180 F4.2   [Sun]   e_TiI     ? Total Error in [TiI/Fe]
+ 182-185 F4.2   [Sun]   e_TiII    ? Total Error in [TiII/Fe]
+ 187-190 F4.2   [Sun]   e_V       ? Total Error in [V/Fe]
+ 192-195 F4.2   [Sun]   e_Cr      ? Total Error in [Cr/Fe]
+ 197-200 F4.2   [Sun]   e_Mn      ? Total Error in [Mn/Fe]
+ 202-205 F4.2   [Sun]   e_FeII    ? Total Error in [FeII/Fe]
+ 207-210 F4.2   [Sun]   e_Co      ? Total Error in [Co/Fe]
+ 212-215 F4.2   [Sun]   e_Ni      ? Total Error in [Ni/Fe]
+ 217-220 F4.2   [Sun]   e_Cu      ? Total Error in [Cu/Fe]
+ 222-225 F4.2   [Sun]   e_Ba      ? Total Error in [Ba/Fe]
+ 227-230 F4.2   [Sun]   e_La      ? Total Error in [La/Fe]
+ 232-235 F4.2   [Sun]   e_Nd      ? Total Error in [Nd/Fe]
+ 237-240 F4.2   [Sun]   e_Eu      ? Total Error in [Eu/Fe]
+ 242-243 I2     ---     o_[Fe/H]  ? Number of Fe lines observed
+ 245-245 I1     ---     o_O       ? Number of O lines observed
+ 247-247 I1     ---     o_Na      ? Number of Na lines observed
+ 249-249 I1     ---     o_Mg      ? Number of Mg lines observed
+ 251-251 I1     ---     o_Al      ? Number of Al lines observed
+ 253-253 I1     ---     o_Si      ? Number of Si lines observed
+ 255-256 I2     ---     o_Ca      ? Number of Ca lines observed
+ 258-258 I1     ---     o_Sc      ? Number of Sc lines observed
+ 260-260 I1     ---     o_TiI     ? Number of TiI lines observed
+ 262-262 I1     ---     o_TiII    ? Number of TiII lines observed
+ 264-265 I2     ---     o_V       ? Number of V lines observed
+ 267-267 I1     ---     o_Cr      ? Number of Cr lines observed
+ 269-269 I1     ---     o_Mn      ? Number of Mn lines observed
+ 271-272 I2     ---     o_FeII    ? Number of FeII lines observed
+ 274-274 I1     ---     o_Co      ? Number of Co lines observed
+ 276-277 I2     ---     o_Ni      ? Number of Ni lines observed
+ 279-279 I1     ---     o_Cu      ? Number of Cu lines observed
+ 281-281 I1     ---     o_Ba      ? Number of Ba lines observed
+ 283-283 I1     ---     o_La      ? Number of La lines observed
+ 285-285 I1     ---     o_Nd      ? Number of Nd lines observed
+ 287-288 I2     ---     o_Eu      ? Number of Eu lines observed
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table9.dat
+--------------------------------------------------------------------------------
+  Bytes Format Units    Label Explanations
+--------------------------------------------------------------------------------
+  1-  8 A8     ---      ID    Object name
+ 10- 10 I1     ---      Ref   Literature sources (1)
+ 12- 13 I2     h        RAh   [06] Hour of Right Ascension (J2000)
+ 15- 16 I2     min      RAm   [40/42] Minute of Right Ascension (J2000)
+ 18- 22 F5.2   s        RAs   Second of Right Ascension (J2000)
+ 24- 24 A1     ---      DE-   [-] Sign of the Declination (J2000)
+ 25- 26 I2     deg      DEd   [50/51] Degree of Declination (J2000)
+ 28- 29 I2     arcmin   DEm   Arcminute of Declination (J2000)
+ 31- 34 F4.1   arcsec   DEs   Arcsecond of Declination (J2000)
+ 36- 40 F5.2   mag      Vmag  [17.6/19.3] V band magnitude,
+                               Johnson- Kron-Cousins system (G1)
+ 42- 45 F4.2   mag      B-V   B-V color index, Johnson- Kron-Cousins system (G1)
+ 47- 51 F5.2   mag      Imag  [16/18.2] I band magnitude,
+                                Johnson- Kron-Cousins system (G1)
+ 53- 57 F5.2   mag      Jmag  [15/17.4] J band magnitude, 2MASS system (G2)
+ 59- 63 F5.2   mag      Hmag  H band magnitude, 2MASS system (G2)
+ 65- 69 F5.2   mag      Kmag  K band magnitude, 2MASS system (G2)
+ 71- 74 I4     K        Teff  [4230/4832] Derived surface effective temperature
+ 76- 78 I3     K      e_Teff  Uncertainty in Teff
+ 80- 83 F4.2   [cm/s2]  logg  [0.6/1.7] Derived surface gravity, cgs units
+ 85- 89 F5.2   [Sun]    [M/H] [-2.8/-0.7] Log metallicity,
+                               eq. to iron abundance [Fe/H]
+ 91- 94 F4.2   km/s     Vturb [1.7/2.7] Microturbulent velocity
+--------------------------------------------------------------------------------
+Note (1): Literature Sources as follows:
+    1 = Venn et al. (2012, J/ApJ/751/102; <[VSI2012] Car-NNNN> in Simbad)
+    2 = Shetrone et al. (2003AJ....125..684S; <[MOP93] NN> in Simbad);
+    3 = Lemasle et al. (2012, J/A+A/538/A100; <[LHT2012] MKVNNNN> in Simbad)
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table10.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units     Label   Explanations
+--------------------------------------------------------------------------------
+   1-  9 A9     ---       ID      Object name, Venn+ (2012, J/ApJ/751/102)
+                                   or Shetrone+ (2003AJ....125..684S)
+  11- 15 F5.2   [Sun]     [Fe/H]  [-2.7/-1.3]? [Fe/H] abundance
+  17- 20 F4.2   [Sun]     O       [0.2/0.7]? [O/Fe] abundance
+  22- 26 F5.2   [Sun]     Na      [-0.5/0.01]? [Na/Fe] abundance
+  28- 32 F5.2   [Sun]     Mg      [-0.6/0.5]? [Mg/Fe] abundance
+  34- 38 F5.2   [Sun]     Al      [-0.02/0.2]? [Al/Fe] abundance
+  40- 43 F4.2   [Sun]     Si      [0.1/0.6]? [Si/Fe] abundance
+  45- 49 F5.2   [Sun]     Ca      [-0.5/0.2]? [Ca/Fe] abundance
+  51- 55 F5.2   [Sun]     Sc      [-0.5/0.3]? [Sc/Fe] abundance
+  57- 61 F5.2   [Sun]     TiI     [-0.4/0.4]? [TiI/Fe] abundance
+  63- 67 F5.2   [Sun]     TiII    [-0.2/0.6]? [TiII/Fe] abundance
+  69- 73 F5.2   [Sun]     V       ? [V/Fe] abundance
+  75- 79 F5.2   [Sun]     Cr      [-0.8/0.2]? [Cr/Fe] abundance
+  81- 85 F5.2   [Sun]     Mn      [-0.5/-0.1]? [Mn/Fe] abundance
+  87- 90 F4.2   [Sun]     FeII    [0.03/0.4]? [FeII/Fe] abundance
+  92- 96 F5.2   [Sun]     Co      ? [Co/Fe] abundance
+  98-102 F5.2   [Sun]     Ni      [-0.3/0.2]? [Ni/Fe] abundance
+ 104-108 F5.2   [Sun]     Cu      ? [Cu/Fe] abundance
+ 110-114 F5.2   [Sun]     Ba      [-1.1/0.5]? [Ba/Fe] abundance
+ 116-119 F4.2   [Sun]     La      ? [La/Fe] abundance
+ 121-125 F5.2   [Sun]     Nd      ? [Nd/Fe] abundance
+ 127-130 F4.2   [Sun]     Eu      ? [Eu/Fe] abundance
+ 132-135 F4.2   [Sun]   e_[Fe/H]  ? Total Error in [Fe/H]
+ 137-140 F4.2   [Sun]   e_O       ? Total Error in [O/Fe]
+ 142-145 F4.2   [Sun]   e_Na      ? Total Error in [Na/Fe]
+ 147-150 F4.2   [Sun]   e_Mg      ? Total Error in [Mg/Fe]
+ 152-155 F4.2   [Sun]   e_Al      ? Total Error in [Al/Fe]
+ 157-160 F4.2   [Sun]   e_Si      ? Total Error in [Si/Fe]
+ 162-165 F4.2   [Sun]   e_Ca      ? Total Error in [Ca/Fe]
+ 167-170 F4.2   [Sun]   e_Sc      ? Total Error in [Sc/Fe]
+ 172-175 F4.2   [Sun]   e_TiI     ? Total Error in [TiI/Fe]
+ 177-180 F4.2   [Sun]   e_TiII    ? Total Error in [TiII/Fe]
+ 182-185 F4.2   [Sun]   e_V       ? Total Error in [V/Fe]
+ 187-190 F4.2   [Sun]   e_Cr      ? Total Error in [Cr/Fe]
+ 192-195 F4.2   [Sun]   e_Mn      ? Total Error in [Mn/Fe]
+ 197-200 F4.2   [Sun]   e_FeII    ? Total Error in [FeII/Fe]
+ 202-205 F4.2   [Sun]   e_Co      ? Total Error in [Co/Fe]
+ 207-210 F4.2   [Sun]   e_Ni      ? Total Error in [Ni/Fe]
+ 212-215 F4.2   [Sun]   e_Cu      ? Total Error in [Cu/Fe]
+ 217-220 F4.2   [Sun]   e_Ba      ? Total Error in [Ba/Fe]
+ 222-225 F4.2   [Sun]   e_La      ? Total Error in [La/Fe]
+ 227-230 F4.2   [Sun]   e_Nd      ? Total Error in [Nd/Fe]
+ 232-235 F4.2   [Sun]   e_Eu      ? Total Error in [Eu/Fe]
+ 237-238 I2     ---     o_[Fe/H]  ? Number of Fe lines observed
+ 240-240 I1     ---     o_O       ? Number of O lines observed
+ 242-242 I1     ---     o_Na      ? Number of Na lines observed
+ 244-244 I1     ---     o_Mg      ? Number of Mg lines observed
+ 246-246 I1     ---     o_Al      ? Number of Al lines observed
+ 248-248 I1     ---     o_Si      ? Number of Si lines observed
+ 250-251 I2     ---     o_Ca      ? Number of Ca lines observed
+ 253-253 I1     ---     o_Sc      ? Number of Sc lines observed
+ 255-255 I1     ---     o_TiI     ? Number of TiI lines observed
+ 257-257 I1     ---     o_TiII    ? Number of TiII lines observed
+ 259-260 I2     ---     o_V       ? Number of V lines observed
+ 262-262 I1     ---     o_Cr      ? Number of Cr lines observed
+ 264-264 I1     ---     o_Mn      ? Number of Mn lines observed
+ 266-267 I2     ---     o_FeII    ? Number of FeII lines observed
+ 269-269 I1     ---     o_Co      ? Number of Co lines observed
+ 271-271 I1     ---     o_Ni      ? Number of Ni lines observed
+ 273-273 I1     ---     o_Cu      ? Number of Cu lines observed
+ 275-275 I1     ---     o_Ba      ? Number of Ba lines observed
+ 277-277 I1     ---     o_La      ? Number of La lines observed
+ 279-279 I1     ---     o_Nd      ? Number of Nd lines observed
+ 281-282 I2     ---     o_Eu      ? Number of Eu lines observed
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table11.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units     Label   Explanations
+--------------------------------------------------------------------------------
+   1-  8 A8     ---       ID      Object name, Lemasle+ (2012, J/A+A/538/A100)
+  10- 14 F5.2   [Sun]     [Fe/H]  [-2.4/-0.6]? [Fe/H] abundance
+  16- 20 F5.2   [Sun]     Mg      [-0.9/0.7]? [Mg/Fe] abundance
+  22- 26 F5.2   [Sun]     Ca      [-0.6/0.6]? [Ca/Fe] abundance
+  28- 32 F5.2   [Sun]     TiI     [-0.5/1.4]? [TiI/Fe] abundance
+  34- 38 F5.2   [Sun]     TiII    [-0.2/0.9]? [TiII/Fe] abundance
+  40- 44 F5.2   [Sun]     Cr      [-0.7/0.6]? [Cr/Fe] abundance
+  46- 50 F5.2   [Sun]     Mn      [-0.7/0.2]? [Mn/Fe] abundance
+  52- 56 F5.2   [Sun]     FeII    [-0.01/1]? [FeII/Fe] abundance
+  58- 61 F4.2   [Sun]     Ni      [0/0.6]? [Ni/Fe] abundance
+  63- 67 F5.2   [Sun]     Ba      [-1/0.6]? [Ba/Fe] abundance
+  69- 72 F4.2   [Sun]   e_[Fe/H]  ? Total Error in [[Fe/H]
+  74- 77 F4.2   [Sun]   e_Mg      ? Total Error in [Mg/Fe]
+  79- 82 F4.2   [Sun]   e_Ca      ? Total Error in [Ca/Fe]
+  84- 87 F4.2   [Sun]   e_TiI     ? Total Error in [TiI/Fe]
+  89- 92 F4.2   [Sun]   e_TiII    ? Total Error in [TiII/Fe]
+  94- 97 F4.2   [Sun]   e_Cr      ? Total Error in [Cr/Fe]
+  99-102 F4.2   [Sun]   e_Mn      ? Total Error in [Mn/Fe]
+ 104-107 F4.2   [Sun]   e_FeII    ? Total Error in [FeII/Fe]
+ 109-112 F4.2   [Sun]   e_Ni      ? Total Error in [Ni/Fe]
+ 114-117 F4.2   [Sun]   e_Ba      ? Total Error in [Ba/Fe]
+ 119-120 I2     ---     o_[Fe/H]  ? Number of [Fe/H] lines observed
+ 122-122 I1     ---     o_Mg      ? Number of Mg lines observed
+ 124-124 I1     ---     o_Ca      ? Number of Ca lines observed
+ 126-126 I1     ---     o_TiI     ? Number of TiI lines observed
+ 128-128 I1     ---     o_TiII    ? Number of TiII lines observed
+ 130-130 I1     ---     o_Cr      ? Number of Cr lines observed
+ 132-132 I1     ---     o_Mn      ? Number of Mn lines observed
+ 134-134 I1     ---     o_FeII    ? Number of FeII lines observed
+ 136-136 I1     ---     o_Ni      ? Number of Ni lines observed
+ 138-139 I2     ---     o_Ba      ? Number of Ba lines observed
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table12.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units     Label       Explanations
+--------------------------------------------------------------------------------
+   1-  7 A7     ---       Name        Object observed in this paper
+   9- 16 A8     ---       ID          Literature source
+  18- 22 F5.2   [Sun]     [Fe/H]      [-2.7/-1.2] Fe/H abundance
+  24- 27 F4.2   [Sun]   e_[Fe/H]      [0.09/0.2] Uncertainty in [Fe/H]
+  29- 33 F5.2   [Sun]     [Mg/Fe]     [-0.5/0.8] Mg/Fe abundance
+  35- 38 F4.2   [Sun]   e_[Mg/Fe]     Uncertainty in [Mg/H]
+  40- 43 F4.2   [Sun]     [Si/Fe]     [0.06/0.9]? Si/Fe abundance
+  45- 48 F4.2   [Sun]   e_[Si/Fe]     ? Uncertainty in [Si/H]
+  50- 54 F5.2   [Sun]     [Ca/Fe]     [-0.5/0.3] Ca/Fe abundance
+  56- 59 F4.2   [Sun]   e_[Ca/Fe]     Uncertainty in [Ca/H]
+  61- 65 F5.2   [Sun]     [Ti/Fe]     [-0.2/0.6] Ti/Fe abundance
+  67- 70 F4.2   [Sun]   e_[Ti/Fe]     Uncertainty in [Ti/H]
+  72- 77 F6.3   [Sun]     [alpha/Fe]  [-0.3/0.3] Alpha-to-iron abundance ratio
+  79- 83 F5.3   [Sun]   e_[alpha/Fe]  Uncertainty in [alpha/H]
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table13.dat
+--------------------------------------------------------------------------------
+  Bytes Format Units  Label     Explanations
+--------------------------------------------------------------------------------
+  1-  8  A8    ---    ID        Object Name
+     10  I1    ---  f_ID        ? 1=Insufficient information,
+                                 too few elements observable
+ 12- 17  A6    ---    Type      ? Iwamoto type (1)
+ 19- 22  F4.2  ---    Frac      [0/0.6]? Fraction of Type Ia material involved
+ 24- 28  F5.2  [Sun] <d[Xi/Fe]> [-0.6/0.3]? Mean difference, relative abundances
+ 30- 34  F5.2  [Sun]  d[Ba/Fe]  [-0.8/0.7]? Difference relative abundance, Ba
+--------------------------------------------------------------------------------
+Note (1): Iwamoto et al. (1999ApJS..125..439I) Type Ia model admixed in the
+          best-fitting model.
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table14.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1-  7  A7    ---     Name      Object name, this paper
+   9- 16  A8    ---    [VSI2012]  Venn+ (2012, J/ApJ/751/102) ID
+  18- 20  A3    ---    [MOP93]    Shetrone+ (2003AJ....125..684S) ID;
+                                   <[MOP93] NN> in Simbad
+  22- 28  A7    ---    [LHT2012]  Lemasle+ (2012, J/A+A/538/A100) ID
+  30- 31  I2    h       RAh       [06] Hour of Right Ascension (J2000)
+  33- 34  I2    min     RAm       [40/42] Minute of Right Ascension (J2000)
+  36- 40  F5.2  s       RAs       Second of Right Ascension (J2000)
+      42  A1    ---     DE-       [-] Sign of the Declination (J2000)
+  43- 44  I2    deg     DEd       [50/51] Degree of Declination (J2000)
+  46- 47  I2    arcmin  DEm       Arcminute of Declination (J2000)
+  49- 52  F4.1  arcsec  DEs       Arcsecond of Declination (J2000)
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table15.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units     Label      Explanations
+--------------------------------------------------------------------------------
+   1-  8 A8     ---       ID         Object name
+  10- 17 A8     ---       OName      Additional object name (1)
+  19- 23 F5.2   [Sun]     <[Fe/H]>   [-2.7/-0.6]? Average [Fe/H] abundance
+  25- 28 F4.2   [Sun]     <O>        ? Average [O/Fe] abundance
+  30- 34 F5.2   [Sun]     <Na>       ? Average [Na/Fe] abundance
+  36- 40 F5.2   [Sun]     <Mg>       [-0.9/0.8]? Average [Mg/Fe] abundance
+  42- 45 F4.2   [Sun]     <Si>       ? Average [Si/Fe] abundance
+  47- 51 F5.2   [Sun]     <Ca>       [-0.6/0.6]? Average [Ca/Fe] abundance
+  53- 57 F5.2   [Sun]     <Sc>       ? Average [Sc/Fe] abundance
+  59- 63 F5.2   [Sun]     <Ti>       [-0.3/0.9]? Average [Ti/Fe] abundance
+  65- 69 F5.2   [Sun]     <V>        ? Average [V/Fe] abundance
+  71- 75 F5.2   [Sun]     <Cr>       [-0.7/0.6]? Average [Cr/Fe] abundance
+  77- 81 F5.2   [Sun]     <Mn>       [-0.9/0.5]? Average [Mn/Fe] abundance
+  83- 87 F5.2   [Sun]     <FeII>     [-0.01/1]? Average [FeII/Fe] abundance
+  89- 93 F5.2   [Sun]     <Co>       ? Average [Co/Fe] abundance
+  95- 99 F5.2   [Sun]     <Ni>       [-0.4/0.6]? Average [Ni/Fe] abundance
+ 101-105 F5.2   [Sun]     <Cu>       ? Average [Cu/Fe] abundance
+ 107-111 F5.2   [Sun]     <Ba>       [-1.1/0.6]? Average [Ba/Fe] abundance
+ 113-116 F4.2   [Sun]     <La>       ? Average [La/Fe] abundance
+ 118-122 F5.2   [Sun]     <Nd>       ? Average [Nd/Fe] abundance
+ 124-127 F4.2   [Sun]     <Eu>       ? Average [Eu/Fe] abundance
+ 129-132 F4.2   [Sun]   e_<[Fe/H]>   ? Total uncertainty in <[Fe/H]>
+ 134-137 F4.2   [Sun]   e_<O>        ? Total uncertainty in <[O/Fe]>
+ 139-142 F4.2   [Sun]   e_<Na>       ? Total uncertainty in <[Na/Fe]>
+ 144-147 F4.2   [Sun]   e_<Mg>       ? Total uncertainty in <[Mg/Fe]>
+ 149-152 F4.2   [Sun]   e_<Si>       ? Total uncertainty in <[Si/Fe]>
+ 154-157 F4.2   [Sun]   e_<Ca>       ? Total uncertainty in <[Ca/Fe]>
+ 159-162 F4.2   [Sun]   e_<Sc>       ? Total uncertainty in <[Sc/Fe]>
+ 164-167 F4.2   [Sun]   e_<Ti>       ? Total uncertainty in <[Ti/Fe]>
+ 169-172 F4.2   [Sun]   e_<V>        ? Total uncertainty in <[V/Fe]>
+ 174-177 F4.2   [Sun]   e_<Cr>       ? Total uncertainty in <[Cr/Fe]>
+ 179-182 F4.2   [Sun]   e_<Mn>       ? Total uncertainty in <[Mn/Fe]>
+ 184-187 F4.2   [Sun]   e_<FeII>     ? Total uncertainty in <[FeII/Fe]>
+ 189-192 F4.2   [Sun]   e_<Co>       ? Total uncertainty in <[Co/Fe]>
+ 194-197 F4.2   [Sun]   e_<Ni>       ? Total uncertainty in <[Ni/Fe]>
+ 199-202 F4.2   [Sun]   e_<Cu>       ? Total uncertainty in <[Cu/Fe]>
+ 204-207 F4.2   [Sun]   e_<Ba>       ? Total uncertainty in <[Ba/Fe]>
+ 209-212 F4.2   [Sun]   e_<La>       ? Total uncertainty in <[La/Fe]>
+ 214-217 F4.2   [Sun]   e_<Nd>       ? Total uncertainty in <[Nd/Fe]>
+ 219-222 F4.2   [Sun]   e_<Eu>       ? Total uncertainty in <[Eu/Fe]>
+--------------------------------------------------------------------------------
+Note (1): If an object name is given for OName then two observations were
+          available for the calculation.
+--------------------------------------------------------------------------------
+
+Global notes:
+Note (G1): Homogenized BVI photometry from P.B. Stetson, M. Gullieuszik
+           corrected to be on the Johnson-Kron-Cousins system,
+           following Stetson (2005PASP..117..563S).
+Note (G2): JHK from ESO VISTA survey photometry from M.J. Irwin, and JHKs data
+           from  M. Gullieuszik corrected to be on the 2MASS system.
+--------------------------------------------------------------------------------
+
+History:
+    From electronic version of the journal
+
+References:
+    Norris et al.   Paper I.   2017ApJS..230...27N
+
+================================================================================
+(End)                 Prepared by [AAS], Emmanuelle Perret [CDS]    08-Aug-2017

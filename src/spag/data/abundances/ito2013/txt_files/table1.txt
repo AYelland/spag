@@ -1,0 +1,18 @@
+Table 1 
+Subaru/HDS Observations of BD+44deg493 and HD 12534
+
+
+Target	Universal Time^a	Wavelength^b	Resolving	CCD Binning	Total Time	
+(Aring)	Power	(pixels)	(s)	
+BD+44deg493	2008 Aug 22, 15:19	4030-5330, 5430-6730	60,000	2 x 2	600	
+BD+44deg493	2008 Oct 4, 09:00	4030-5330, 5430-6770	90,000	1 x 1	1200	
+BD+44deg493	2008 Oct 4, 09:28	6690-7960, 8080-9370^c	90,000	1 x 1	1500	
+BD+44deg493	2008 Oct 5, 10:06	3080-3900, 3960-4780	90,000	1 x 1	7200	
+BD+44deg493	2008 Nov 16, 05:37	3540-4350, 4420-5240	60,000	2 x 2	300	
+HD12534	2008 Oct 4, 08:53	4030-5330, 5430-6770	90,000	1 x 1	90	
+HD12534	2008 Oct 4, 09:57	6690-7960, 8080-9370^c	90,000	1 x 1	150	
+HD12534	2008 Oct 5, 09:58	3080-3900, 3960-4780	90,000	1 x 1	135	
+Notes.
+a UT shown is at the beginning of the observations.
+b The two wavelength regions correspond to the blue and red CCDs, respectively.
+c The wavelength region is not fully covered, due to the limited CCD size.

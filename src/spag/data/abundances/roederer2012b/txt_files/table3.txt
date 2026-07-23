@@ -1,0 +1,10 @@
+Table 3 
+Transition Probabilities for As I Lines of Interest
+
+
+Vacuum Wavelength	E_upper	J_upper	E_lower	J_lower	A	log (gf)	
+(Aring)	(cm^-1)		(cm^-1)		(10^6 s^-1)		
+1990.3552	60834.954	1.5	10592.666	1.5	220	-0.28	
+1972.6240	50693.897	0.5	0.000	1.5	202 +or- 22	-0.63	
+1937.5942	51610.393	1.5	0.000	1.5	219 +or- 25	-0.31	
+1890.4286	52898.056	2.5	0.000	1.5	200	-0.19	

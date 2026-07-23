@@ -1,0 +1,22 @@
+Table 10 
+Mean [X/Fe] for Different Studies
+
+
+	This Study				Yong et al. (2013a)				Cayrel et al. (2004)				Cohen et al. (2013)^a			
+[X/Fe]	Mean	N	sigma/$\sqrt{N}$		Mean	N	sigma/$\sqrt{N}$		Mean	N	sigma/$\sqrt{N}$		Mean	N	sigma/$\sqrt{N}$	
+	(dex)		(dex)		(dex)		(dex)		(dex)		(dex)		(dex)		(dex)	
+Na I	+0.44	83	0.03		+0.24	38	0.04		+0.28	35	0.01		+0.18	49	0.07	
+Mg I	+0.47	89	0.01		+0.30	60	0.02		+0.29	35	0.01		+0.39	59	0.03	
+Al I	-0.71	82	0.03		-0.62	54	0.02		-0.64	35	0.01		-0.78^b	47	0.04	
+Si I	+0.58	71	0.03		+0.57	14	0.07		+0.48	35	0.004		+0.42	47	0.06	
+Ca I	+0.38	89	0.01		+0.32	60	0.01		+0.35	35	0.003		+0.22	56	0.03	
+Sc II	-0.11	84	0.02		+0.15	44	0.02		+0.09	35	0.003		+0.13	46	0.03	
+Ti I	+0.21	88	0.01		+0.29	55	0.02		+0.28	35	0.003		+0.26	59	0.03	
+Ti II	+0.27	88	0.01		+0.32	60	0.02		+0.28	35	0.003		+0.26	59	0.03	
+Cr I	-0.31	88	0.01		-0.34	54	0.02		-0.33	35	0.002		-0.36	59	0.02	
+Mn I	-0.42	84	0.02		-0.66	37	0.03		-0.48	35	0.003		-0.63	51	0.05	
+Co I	+0.12	89	0.02		+0.13	54	0.03		+0.22	35	0.004		+0.36	41	0.05	
+Ni I	+0.03	86	0.01		+0.03	56	0.02		-0.002	35	0.003		-0.08	42	0.04	
+Zn I	+0.32	30	0.04		cdots	cdots	cdots		+0.33	35	0.005		cdots	cdots	cdots	
+^a These numbers were taken from Table 16 in Cohen et al. (2013) for their "Inner Halo" sample that have distances $4\lt D\lt 15$ kpc, which more likely overlaps with the distances spanned by this SkyMapper sample.
+^b Here we have removed the 0.6 dex NLTE correction Cohen et al. (2013) applied to their Al abundances in order to compare them to the LTE abundances of the other studies.

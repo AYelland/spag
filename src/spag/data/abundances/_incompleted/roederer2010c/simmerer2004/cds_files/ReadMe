@@ -1,0 +1,79 @@
+J/ApJ/617/1091        La and Eu abundances in 85 stars        (Simmerer+, 2004)
+================================================================================
+The rise of the s-process in the Galaxy.
+    Simmerer J., Sneden C., Cowan J.J., Collier J., Woolf V.M., Lawler J.E.
+   <Astrophys. J., 617, 1091-1114 (2004)>
+   =2004ApJ...617.1091S
+================================================================================
+ADC_Keywords: Abundances ; Stars, population II
+Keywords: Galaxy: disk - Galaxy: evolution - Galaxy: halo - stars: abundances -
+          stars: kinematics - stars: Population II
+
+Abstract:
+    From newly obtained high-resolution, high signal-to-noise ratio
+    spectra the abundances of the elements La and Eu have been determined
+    over the stellar metallicity range -3<[Fe/H]<+0.3 in 159 giant and
+    dwarf stars. Lanthanum is predominantly made by the s-process in the
+    solar system, while Eu owes most of its solar system abundance to the
+    r-process. The changing ratio of these elements in stars over a wide
+    metallicity range traces the changing contributions of these two
+    processes to the Galactic abundance mix.
+
+Description:
+    Spectra were obtained with the McDonald Observatory 2.7m telescope,
+    using the "2d coude" cross-dispersed echelle spectrograph configured
+    to a 2 pixel resolving power of R~60,000 and a Tektronix 2048x2048
+    CCD.
+
+File Summary:
+--------------------------------------------------------------------------------
+ FileName   Lrecl  Records   Explanations
+--------------------------------------------------------------------------------
+ReadMe         80        .   This file
+table3.dat     81       85   La abundances
+table4.dat     63       85   Eu abundances
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table3.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units    Label    Explanations
+--------------------------------------------------------------------------------
+   1- 10  A10   ---      Name     Star name
+  12- 16  F5.2  [---]    A3988    ? Log of the 3988{AA} La line abundance (G1)
+  18- 22  F5.2  [---]    A3995    ? Log of the 3995{AA} La line abundance (G1)
+  24- 28  F5.2  [---]    A4086    ? Log of the 4086{AA} La line abundance (G1)
+  30- 34  F5.2  [---]    A4123    ? Log of the 4123{AA} La line abundance (G1)
+  36- 40  F5.2  [---]    A4333    ? Log of the 4333{AA} La line abundance (G1)
+  42- 46  F5.2  [---]    A4662    ? Log of the 4662{AA} La line abundance (G1)
+  48- 52  F5.2  [---]    A5122    ? Log of the 5122{AA} La line abundance (G1)
+  54- 58  F5.2  [---]    A5303    ? Log of the 5303{AA} La line abundance (G1)
+  60- 64  F5.2  [---]    A5797    ? Log of the 5797{AA} La line abundance (G1)
+  66- 70  F5.2  [---]    A6930    ? Log of the 6930{AA} La line abundance (G1)
+  72- 76  F5.2  [---]    Avg(La)  Log of the average La abundance (G1)
+  78- 81  F4.2  [---]  e_Avg(La)  The 1{sigma} error in Avg(La)
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table4.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units    Label    Explanations
+--------------------------------------------------------------------------------
+   1- 10  A10   ---      Name     Star name
+  12- 16  F5.2  [---]    A3918    ? Log of the 3918{AA} Eu line abundance (G1)
+  18- 22  F5.2  [---]    A3907    ? Log of the 3907{AA} Eu line abundance (G1)
+  24- 28  F5.2  [---]    A4129    ? Log of the 4129{AA} Eu line abundance (G1)
+  30- 34  F5.2  [---]    A4205    ? Log of the 4205{AA} Eu line abundance (G1)
+  36- 40  F5.2  [---]    A6437    ? Log of the 6437{AA} Eu line abundance (G1)
+  42- 46  F5.2  [---]    A6645    ? Log of the 6645{AA} Eu line abundance (G1)
+  48- 52  F5.2  [---]    A7217    ? Log of the 7217{AA} Eu line abundance (G1)
+  54- 58  F5.2  [---]    Avg(Eu)  ? Log of the average Eu abundance (G1)
+  60- 63  F4.2  [---]  e_Avg(Eu)  ? The 1{sigma} error in Avg(Eu)
+--------------------------------------------------------------------------------
+
+Global Notes:
+Note (G1): Where the abundance is log_10_(N_X_/N_H_)+12 (scale H=12).
+--------------------------------------------------------------------------------
+
+History:
+    From electronic version of the journal
+================================================================================
+(End)                   Greg Schwarz [AAS], Marianne Brouty [CDS]    24-Aug-2005

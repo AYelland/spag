@@ -1,0 +1,17 @@
+# Note by XO 06/24/2022: reduced_v1.moog contains the same lines as mergeS5ryde.moog, except for some of the FeI/II lines removed based on the first round of line selection. See google sheet shared by Alex as of 06/23/2022. 
+# Note by XO 07/13/2022: I forgot to remove FeI 4602.94 and it was left in v1 and v2. The balancing went alright with the line and it's actually a decent line for most stars. It's saturated for the cool stars so taken away by the quality control cut anyway. I will just leave it in.
+# Note by XO 06/28/2022: reduced_v2.moog differs from reduced_v1 by additional 4 weak FeI lines at 5855, 6012, 6027, 6120. They are added back to help with balancing vt for cool stars. Mg lines are also removed to only two lines left: 5528 and 5711. Log gf values for these two lines are updated from -0.498 and -1.724 to -0.547 and -1.742 based on values from Bergemann+2017, which took values from Pehlivan Rhodin+2017. They are noted with PEH17.
+# Note by XO 07/13/2022: reduced_v3.moog differs from reduced_v2 with lines of all other elements listed in the google sheet adjusted accordingly, also deleted a duplicate Ca line. See the sheet status as of 07/13/2022.
+# Note by XO 11/02/2022: reduced_v4.moog differs from reduced_v3 with many FeI and FeII lines, and two Mg lines added back. Check daily log for reasons. Also, removed FeII lines 4923 and 5018 since they tend to give lower FeII values than other lines.
+# MgI: 4702 and 6318
+# FeI: 4547.847, 4592.651, 4602, 4602.941, 4625.045, 4630.12, 4637.503, 4678.846, 4733.591, 4736.773, 4772.804, 4871.318, 4889.002, 4903.31, 4966.089, 4973.102, 5001.864, 5012.068, 5014.943, 5022.236, 5194.942, 5225.525, 5250.646, 5254.956, 5283.621, 5302.303, 5332.9, 5393.168, 5397.128, 5506.779, 5572.842, 5624.542, 5662.516, 5778.4533, 6151.6173, 6165.3598, 6271.2779, 6322.685, 6518.3657, 6581.2092, 6609.1097, 6739.5204, 6810.2622, 6828.5912, 6837.0056, 6843.6554
+# FeII: 4491.4, 4576.328, 4582.835, 4629.332, 5264.801, 5325.543, 5534.834, 5991.3721, 6084.103, 6113.3192, 6149.2459, 6247.559
+# Note by XO 11/04/2022: reduced_v5.moog differs from reduced_v4 with many non-Fe elements weak lines added back. Check daily log for reasons. These lines are not guaranteed to be good and measurable in all stars, like the ones originally chosen in v3. They are intentionally to selected to cover a wider range in Teff and metallicity and thus may be only good in a subset of stars and require inspection.
+# Si: 5701.105
+# K: 6938.767
+# Ca: 5349.465
+# Ti I: 4474.851, 4512.734, 4548.764, 4555.483, 4617.269, 4623.097, 4645.188, 4675.117, 4805.414, 4870.125, 4885.079, 4913.613, 4921.764, 4975.343, 4997.097, 5009.645, 5016.161, 5022.868, 5024.844, 5043.584, 5065.985, 5087.058, 5113.44, 5120.415, 5145.46, 5219.702, 5252.1, 5490.148, 5644.134, 5866.451
+# Ti II: 4161.529, 4316.794, 4395.839, 4399.765, 4411.073, 4411.93, 4418.331, 4421.938, 4432.096, 4518.332, 4545.133, 4657.201, 4708.663, 4849.168, 4874.009, 4911.194, 5005.167, 5129.156, 5211.53, 5336.786, 5396.247
+# Cr I: 4580.048, 4646.162, 5230.219, 5247.565, 5287.235
+# Cr II: 4592.053, 4634.073, 4864.329
+# Ni: 4331.642, 4470.477, 4604.988, 4648.652, 4686.213, 4714.417, 4756.515, 4831.176, 4866.271, 4873.442, 4980.173, 4998.224, 5017.576, 5035.362, 5080.533, 5587.858, 5892.872, 6177.242, 6191.169, 6223.984, 6378.25

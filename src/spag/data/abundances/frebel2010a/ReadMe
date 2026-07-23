@@ -1,0 +1,196 @@
+J/ApJ/708/560           Spectroscopy of UMa II and Coma Ber     (Frebel+, 2010)
+================================================================================
+High-resolution spectroscopy of extremely metal-poor stars in the least evolved
+galaxies: Ursa Major II and Coma Berenices.
+    Frebel A., Simon J.D., Geha M., Willman B.
+   <Astrophys. J., 708, 560-583 (2010)>
+   =2010ApJ...708..560F
+================================================================================
+ADC_Keywords: Equivalent widths ; Abundances ; Stars, metal-deficient ;
+              Spectroscopy ; Galaxies, nearby
+Keywords: early universe - galaxies: dwarf - Galaxy: halo - Local Group -
+          stars: abundances - stars: Population II
+
+Abstract:
+    We present spectra of six metal-poor stars in two of the ultra-faint
+    dwarf galaxies orbiting the Milky Way (MW), Ursa Major II, and Coma
+    Berenices obtained with the Keck/High Resolution Echelle Spectrometer
+    (HIRES). These observations include the first high-resolution
+    spectroscopic observations of extremely metal-poor ([Fe/H]<-3.0) stars
+    not belonging to the MW halo field star population. We obtain
+    abundance measurements and upper limits for 26 elements between carbon
+    and europium. The entire sample of stars spans a range of
+    -3.2<[Fe/H]<-2.3, and we confirm that each galaxy contains a large
+    intrinsic spread of Fe abundances. A comparison with MW halo stars of
+    similar metallicities reveals substantial agreement between the
+    abundance patterns of the ultra-faint dwarf galaxies and the MW halo
+    for the light, {alpha}, and iron-peak elements (C to Zn). The
+    abundances of neutron-capture elements (Sr to Eu) in the ultra-faint
+    dwarf galaxies are extremely low, consistent with the most metal-poor
+    halo stars, but not with the typical halo abundance pattern at
+    [Fe/H]>~-3.0. Not only are our results broadly consistent with a
+    galaxy formation model that predicts that massive dwarf galaxies are
+    the source of the metal-rich component ([Fe/H]>-2.5) of the MW halo,
+    but they also suggest that the faintest known dwarfs may be the
+    primary contributors to the metal-poor end of the MW halo metallicity
+    distribution.
+
+Description:
+    We observed the target stars (see table 1) with the HIRES spectrograph
+    on the Keck I telescope on 2008 February 22-24. We used a 7.0"x1.15"
+    slit, producing a spectral resolution of R=37000 over the wavelength
+    range from 4100 to 7200{AA} on the blue and green CCDs. Additional
+    observing details are summarized in Table 2.
+    We use two of the strong Mgb lines in the green part of the HIRES
+    spectra as well as three other Mg lines for our radial velocity
+    measurements. The standard deviation of the individual line
+    measurements is typically <0.5km/s.
+
+File Summary:
+--------------------------------------------------------------------------------
+ FileName   Lrecl  Records   Explanations
+--------------------------------------------------------------------------------
+ReadMe         80        .   This file
+stars.dat      88        8   Photometry and other stellar parameters (table 1
+                             and 5 of the paper)
+table2.dat     92        8   Observing details
+ew.dat         52     2191   Equivalent width measurements (table 4)
+table6.dat     47       84   HIRES abundances of the UMa II stars
+table7.dat     47       84   HIRES abundances of the Coma Ber stars
+table9.dat     54       54   HIRES abundances of standard star HD 122563
+--------------------------------------------------------------------------------
+
+See also:
+   J/ApJS/191/352  : Abundances in stars of Milky Way dwarf satellites (Kirby+,
+                     2010)
+   J/MNRAS/380/281 : Faint galactic satellites spectroscopic survey (Martin+,
+                     2007)
+
+Byte-by-byte Description of file: stars.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units    Label     Explanations
+--------------------------------------------------------------------------------
+   1- 14  A14   ---      Gal       Dwarf galaxy name (Coma Berenices or
+                                   Ursa Major II)
+  16- 19  A4    ---      ---       [SDSS]
+  21- 34  A14   ---      SDSS      Star SDSS designation (JHHMMSS+DDMMSS)
+  36- 44  A9    ---      Name      Star name
+      46  A1    ---    f_Name      [f] Non-member star (1)
+  48- 52  F5.2  mag      Vmag      ? V-band magnitude (2)
+  54- 58  F5.2  mag      rmag      ? SDSS-DR7 r-band magnitude (2)
+  60- 63  F4.2  mag      g-r       ? SDSS-DR7 g-r color index (2)
+  65- 69  F5.2  mag      rMag      ? Absolute r-band magnitude (2)
+  71- 74  I4    K        Teff      Effective temperature (3)
+  76- 78  F3.1  [cm/s2]  logg      Surface gravity
+  80- 84  F5.2  [-]      [Fe/H]    Fe/H abundance
+  86- 88  F3.1  km/s     Vt        Microturbulent velocity {xi}
+--------------------------------------------------------------------------------
+Note (1):
+  f = UMa II-NM was observed but was later determined not to be a member of
+      UMa II.
+Note (2): The r magnitudes and g-r colors were obtained from the updated SDSS
+          DR7 (Abazajian et al. 2009, Cat. II/294), while the V magnitudes were
+          determined from g and r using the conversions given by Smith et al.
+          (2002AJ....123.2121S).
+Note (3): Temperature are rounded to the nearest 10K.
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table2.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units    Label     Explanations
+--------------------------------------------------------------------------------
+   1-  9  A9    ---      Name      Star name
+  11- 12  I2    h        RAh       Hour of right ascension (J2000)
+  14- 15  I2    min      RAm       Minute of right ascension (J2000)
+  17- 21  F5.2  s        RAs       Second of right ascension (J2000)
+      23  A1    ---      DE-       Sign of declination (J2000)
+  24- 25  I2    deg      DEd       Degree of declination (J2000)
+  27- 28  I2    arcmin   DEm       Arcminute of declination (J2000)
+  30- 34  F5.2  arcsec   DEs       Arcsecond of declination (J2000)
+  36- 44  F9.1  d        JD        Julian Date of observation
+  46- 49  F4.2  h        Exp       Exposure time
+  51- 53  I3    ---      S/N5      5000{AA} signal to noise ratio (4)
+  55- 57  I3    ---      S/N6      6000{AA} signal to noise ratio (4)
+  59- 61  I3    ---      S/N65     6500{AA} signal to noise ratio (4)
+  63- 68  F6.1  km/s     RVH       HIRES radial velocity
+  70- 72  F3.1  km/s   e_RVH       RVH uncertainty
+  74- 79  F6.1  km/s     RVD       ? DEIMOS radial velocity
+  81- 83  F3.1  km/s   e_RVD       ? RVD uncertainty
+  85- 92  A8    ---      Comm      Comment
+--------------------------------------------------------------------------------
+Note (4): The S/N measurements are for ~22m{AA} ("blue" CCD), ~26m{AA}
+     ("green" CCD), and ~28m{AA} ("green" CCD) pixel sizes, respectively.
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: ew.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units  Label   Explanations
+--------------------------------------------------------------------------------
+   1-  9  A9    ---    Name    Star name
+  11- 14  A4    ---    Ion     Species identification
+  16- 22  F7.2  0.1nm  lambda  Wavelength in Angstroms
+  24- 27  F4.2  eV     ExPot   ? Excitation potential
+  29- 35  F7.3  [-]    log(gf) ? Log of the oscillator strength
+      37  A1    ---  l_EW      Limit flag on EW
+  38- 42  F5.1  0.1pm  EW      ? Equivalent width in milli-Angstroms
+      44  A1    ---  f_EW      [s] s: indicates a spectrum synthesis measurement
+      46  A1    ---  l_log(e)  Limit flag on log(e)
+  47- 52  F6.2  [-]    log(e)  ? log{epsilon} abundance (H=12)
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table6.dat table7.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1-  9  A9    ---     Name      Star name
+  11- 15  A5    ---     Ion       Species identification
+      17  A1    ---   l_log(e)    Limit flag on loge
+  18- 22  F5.2  [-]     log(e)    log{epsilon} abundance (X)
+      24  A1    ---   f_log(e)    [a] distorted lines (1)
+      26  A1    ---   l_[X/H]     Limit flag on [X/H]
+  27- 31  F5.2  [Sun]   [X/H]     X/H abundance
+      33  A1    ---   l_[X/Fe]    Limit flag on [X/Fe]
+  34- 38  F5.2  [Sun]   [X/Fe]    ? X/Fe abundance (G1)
+  40- 42  I3    ---     N         Number of spectra used
+  44- 47  F4.2  [-]     Sig       ? Abundance uncertainty
+--------------------------------------------------------------------------------
+Note (1):
+   a = The Zn lines are somewhat distorted; this may lead to an overestimated
+       Zn abundance.
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table9.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1-  9  A9    ---     Name      Star name
+  11- 15  A5    ---     Ion       Species identification
+  17- 20  F4.2  [-]     log(e)X0  ? Log {epsilon} abundance (X)_0_
+      22  A1    ---   l_log(e)    Limit flag on loge
+  23- 27  F5.2  [-]     log(e)    ? Log {epsilon} abundance (X)
+      29  A1    ---   f_log(e)    [b] neutron capture element (1)
+      31  A1    ---   l_[X/H]     Limit flag on [X/H]
+  32- 36  F5.2  [Sun]   [X/H]     ? X/H abundance
+      38  A1    ---   l_[X/Fe]    Limit flag on [X/Fe]
+  39- 43  F5.2  [Sun]   [X/Fe]    ? X/Fe abundance (G1)
+  45- 47  I3    ---     N         ? Number of spectra used
+  49- 52  F4.2  [-]     Sig       ? Abundance uncertainty
+      54  A1    ---     ref       [cd] source of the data: c=this paper,
+                                  d=Aoki et al. (2007ApJ...660..747A)
+--------------------------------------------------------------------------------
+Note (1): b = Neutron-capture abundances are taken from Honda et al.
+       (2006ApJ...643.1180H).
+--------------------------------------------------------------------------------
+
+Global notes:
+Note (G1): [X/Fe] ratios are computed with [FeI/H] abundances of the
+     respective stars. Solar abundances have been taken from Asplund et al.
+     (2005ASPC..336...25A). For abundances measured from only one line, we
+     adopt a nominal uncertainty of 0.20dex.
+--------------------------------------------------------------------------------
+
+History:
+    From electronic version of the journal
+
+================================================================================
+(End)                 Greg Schwarz [AAS], Emmanuelle Perret [CDS]    02-Feb-2012

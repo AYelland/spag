@@ -1,0 +1,2 @@
+Found,JINA_ID,Query_ID,RA_input,DEC_input,main_id,ra,dec,coo_err_maj,coo_err_min,coo_err_angle,coo_wavelength,coo_bibcode,H,I,J,R,U,V,B,K,rvz_nature,pmdec,otype,pmra,rvz_qual,plx_value,sp_bibcode,sp_type,sp_qual,matched_id
+True,,BD+44 493,,,BD+44   493,36.70724598067999,44.96292326976,0.0188,0.0154,90,O,2020yCat.1350....0G,7.269000053405762,,7.658999919891357,9.072999954223633,,9.109999656677246,9.630000114440918,7.202000141143799,s,-32.068,Pe*,118.221,A,4.8661,2019A&A...623A.128H,CEMP-no,C,BD+44   493

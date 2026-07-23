@@ -1,0 +1,6 @@
+Star	3918A	3907A	4129A 	4205A	6437A	6645A	7217A	logeps(Eu)_avg	e_logeps(Eu)_avg
+HR 0235	\ldots	\ldots	0.36	0.38	\ldots	0.33	\ldots	0.36	0.03
+HR 0458	\ldots	0.33	0.33	0.38	\ldots	0.43	\ldots	0.37	0.05
+HR 0646	\ldots	0.22	0.17	0.25	\ldots	0.12	\ldots	0.19	0.06
+HR 8354	-0.21	-0.21	-0.11	-0.08	\ldots	\ldots	\ldots	-0.15	0.07
+HR 8969	\ldots	0.46	0.40	0.43	\ldots	0.43	\ldots	0.43	0.02

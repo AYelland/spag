@@ -1,0 +1,124 @@
+J/A+A/439/129         HERES II. Spectroscopic analysis          (Barklem+, 2005)
+================================================================================
+The Hamburg/ESO R-process enhanced star survey (HERES).
+II. Spectroscopic analysis of the survey sample.
+    Barklem P.S., Christlieb N., Beers T.C., Hill V., Bessell M.S., Holmberg J.,
+    Marsteller B., Rossi S., Zickgraf F.-J., Reimers D.
+   <Astron. Astrophys., 439, 129-151 (2005)>
+   =2005A&A...439..129B
+================================================================================
+ADC_Keywords: Stars, metal-deficient ; Abundances, peculiar ;
+              Spectra, ultraviolet
+Keywords: stars: abundances - stars: population II - Galaxy: abundances -
+          Galaxy: evolution - Galaxy: halo
+
+Abstract:
+    We present the results of analysis of "snapshot" spectra of 253
+    metal-poor halo stars -3.8<=[Fe/H]<=-1.5 obtained in the HERES survey.
+    The snapshot spectra have been obtained with VLT/UVES and have
+    typically S/N~54 per pixel (ranging from 17 to 308), R~20000,
+    lambda=3760-4980{AA}. This sample represents the major part of the
+    complete HERES sample of 373 stars; however, the CH strong content of
+    the sample is not dealt with here.
+
+Description:
+    The spectra are analysed using an automated line profile analysis
+    method based on the Spectroscopy Made Easy (SME) codes of Valenti &
+    Piskunov (1996A&AS..118..595V). Elemental abundances of moderate
+    precision (absolute rms errors of order 0.25dex, relative rms errors
+    of order 0.15dex) have been obtained for 22 elements, C, Mg, Al, Ca,
+    Sc, Ti, V, Cr, Mn, Fe, Co, Ni, Zn, Sr, Y, Zr, Ba, La, Ce, Nd, Sm, and
+    Eu, where detectable. Of these elements, 14 are usually detectable at
+    the 3sigma confidence level for our typical spectra. The remainder can
+    be detected in the least metal-poor stars of the sample, spectra with
+    higher than average S/N, or when the abundance is enhanced.
+
+File Summary:
+--------------------------------------------------------------------------------
+ FileName   Lrecl  Records   Explanations
+--------------------------------------------------------------------------------
+ReadMe         80        .   This file
+table1.dat     41      253   The sample
+table2a.dat    72      253   Derived stellar atmosphere parameters for
+                              the sample
+table2b.dat    54     5566   Elemental abundances for the sample
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table1.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1- 13  A13   ---     Name      Star name (1)
+  15- 16  I2    h       RAh       Right ascension (J2000)
+  18- 19  I2    min     RAm       Right ascension (J2000)
+  21- 24  F4.1  s       RAs       Right ascension (J2000)
+      26  A1    ---     DE-       Declination sign (J2000)
+  27- 28  I2    deg     DEd       Declination (J2000)
+  30- 31  I2    arcmin  DEm       Declination (J2000)
+  33- 34  I2    arcsec  DEs       Declination (J2000)
+  36- 41  F6.1  km/s    RV        Barycentric radial velocity (2)
+--------------------------------------------------------------------------------
+Note (1): Coordinates of the HES stars (prefix HE) have been derived
+          from the Digitized Sky Survey I and are accurate to 1".
+     Coordinates of the HK survey stars (prefix CS, BPS CS NNNN in Simbad)
+     are from identifications of the sources in the 2MASS All Sky Release,
+     Cat. <II/246>.
+Note (2): Barycentric radial velocities were measured from the snapshot
+          spectra and are accurate to a few km/s.
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table2a.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units     Label     Explanations
+--------------------------------------------------------------------------------
+   1- 13  A13   ---       Name      Star name
+  15- 17  I3    ---       S/N       Average signal-to-noise ratio per pixel for
+                                     the whole observed spectrum
+  19- 22  I4    K         Teff      Effective temperature
+  24- 26  I3    K       e_Teff      rms uncertainty on Teff
+  28- 31  F4.2 [cm/s+2]   logg      Surfave gravity
+  33- 36  F4.2 [cm/s+2] e_logg      Relative rms error estimate on logg
+  38- 41  F4.2 [cm/s+2] E_logg      Absolute rms error estimate on logg
+  43- 47  F5.2 [Sun]      [Fe/H]    Abundance [Fe/H]
+  49- 52  F4.2 [Sun]    e_[Fe/H]    Relative rms error estimate on [Fe/H]
+  54- 57  F4.2 [Sun]    E_[Fe/H]    Absolute rms error estimate on [Fe/H]
+  59- 62  F4.2  km/s      Vt        Microturbulence velocity
+  64- 67  F4.2  km/s    e_Vt        Relative rms error estimate on Vt
+  69- 72  F4.2  km/s    E_Vt        Absolute rms error estimate on Vt
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table2b.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1- 13  A13   ---     Name      Star name
+  15- 16  A2    ---     El        Element
+  18- 22  F5.2 [---]    logEpsX   ?=-9.99 log of abundance for the element
+  24- 27  F4.2 [---]  e_logEpsX   ?=0.00  Relative rms error estimate on logEpsX
+  29- 32  F4.2 [---]  E_logEpsX   ?=0.00  Absolute rms error estimate on logEpsX
+  34- 38  F5.2 [---]    [X/Fe]    ?=-9.99 Abundance [X/Fe]
+  40- 43  F4.2 [---]  e_[X/Fe]    ?=0.00 Relative rms error estimate on [X/Fe]
+  45- 48  F4.2 [---]  E_[X/Fe]    ?=0.00 Absolute rms error estimate on [X/Fe]
+  50- 51  I2    ---     N         Number of features of the element used (1)
+  53- 54  I2    ---     N3        Number of features of the element used
+                                   classified as 3sigma detections (2)
+--------------------------------------------------------------------------------
+Note (1): Number of features of the element used in each star, noting that
+     this varies from star to star as certain features may be automatically
+     rejected if the star has a strong G band, if the feature is near a
+     Balmer line in warmer stars (see Sect. 3.2), or if they are determined
+     to be affected by a cosmic ray hit or bad pixel.
+Note (2): Number of the features used, classified as 3sigma detections.
+    In the case of CH bands we simply classify detections and
+    non-detections with 1 and 0 respectively.
+--------------------------------------------------------------------------------
+
+History:
+  * 27-Jul-2006: From electronic version of the journal
+    In table1, HE 0249-0126, that was in the original version of the table,
+    was suppressed, and HE 1237-3103 was added (From author).
+
+References:
+    Christlieb et al., Paper I         2004A&A...428.1027C
+================================================================================
+(End)                                       Patricia Vannier [CDS]   27-Jul-2006

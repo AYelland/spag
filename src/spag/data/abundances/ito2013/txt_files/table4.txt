@@ -1,0 +1,8 @@
+Table 4 
+Interstellar Na I D lines for BD+44deg493
+
+
+Component	lambda_obs	lambda_rest	v_helio	EW	
+(Aring)	(Aring)	(km s^-1)	(mAring)	
+Na I D1	5895.58	5895.92	-1.44	97.8	
+Na I D2	5889.61	5889.92	-1.31	133.1	

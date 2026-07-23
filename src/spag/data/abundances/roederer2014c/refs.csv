@@ -1,0 +1,91 @@
+Ref,BibCode,Aut,Com
+1,2001PASP..113..519G,Giridhar et al.,
+2,2009A&A...501..519B,Bonifacio et al.,Cat. J/A+A/501/519
+3,2005A&A...439..129B,Barklem et al.,Cat. J/A+A/439/129
+4,2004ApJS..152..113H,Honda et al.,
+5,1995AJ....109.2736M,McWilliam et al.,
+6,2008ApJ...681.1524L,Lai et al.,Cat. J/ApJ/681/1524
+7,2002ApJ...567.1166A,Aoki et al.,
+8,2004MmSAI..75..772T,Tsangarides et al.,
+9,2002AJ....124..470C,Cohen et al.,
+10,2004AJ....128.2402L,Lai et al.,Cat. J/AJ/128/2402
+11,2009PASA...26..372P,Preston,
+12,2006AJ....132...85P,Preston et al.,Cat. J/AJ/132/85
+13,2011ApJ...742...54H,Hollek et al.,Cat. J/ApJ/742/54
+14,2001AJ....122.1545P,Preston & Sneden,
+15,1994A&A...290..885P,Primas et al.,Cat. J/A+A/290/885
+16,2001ApJ...561.1034N,Norris et al.,
+17,2002A&A...390..187D,Depagne et al.,
+18,2000AJ....120.1014P,Preston & Sneden,
+19,1997ApJ...489L.169N,Norris et al.,
+20,1998A&A...332..672B,Bonifacio et al.,
+21,2014ApJ...784..158R,Roederer et al.,
+22,2006A&A...459..125S,Sivarani et al.,
+23,2007ApJ...655..492A,Aoki et al.,Cat. J/ApJ/655/492
+24,2003ApJ...592..504S,Sneden et al.,
+25,2002ApJ...576L.141A,Aoki et al.,
+26,2010A&A...522A..26S,Sbordone et al.,Cat. J/A+A/522/A26
+27,2009ApJ...698.1803A,Aoki et al.,
+28,2002A&A...387..560H,Hill et al.,
+29,2003AJ....125..293C,Carney et al.,
+30,2009ApJ...706.1095Z,Zhang et al.,Cat. J/ApJ/706/1095
+31,2002AJ....124.1144L,Latham et al.,Cat. J/AJ/124/1144
+32,1991AJ....101..625L,Latham et al.,
+33,2013ApJ...773...33I,Ito et al.,
+34,2008AJ....135..196C,Carney et al.,Cat. J/AJ/135/196
+35,2004A&A...424..727P,Pourbaix et al.,Cat. B/sb9
+36,1999MNRAS.309..533B,Bonifacio et al.,
+37,1986ApJS...61..667N,Norris,Cat. J/ApJS/61/667
+38,2004A&A...418..989N,Nordstrom et al.,Cat. V/117 (obsoleted by cat. V/130)
+39,1994A&A...287..927G,Gratton & Sneden,Cat. J/A+A/287/927
+40,2008ApJ...675..723R,Roederer et al.,
+41,1991AJ....101.1835R,Ryan & Norris,
+42,2002ApJ...580.1149A,Aoki et al.,
+43,2003A&A...404..291V,Van Eck et al.,
+44,2005ApJ...625..825L,Lucatello et al.,
+45,2008ApJ...672..320C,Cohen et al.,
+46,2002AJ....123..404F,Fulbright,
+53,1998ApJ...506..405S,Smith et al.,
+54,...................,Fuhr & Wiese,"2009, Atomic Transition Probabilities, CRC Handbook of Chemistry and Physics, ed. D. R. Lide (90th ed.; Boca Raton, FL: CRC), 10"
+55,1990JQSRT..43..207C,Chang & Tang,
+56,2007A&A...461..767A,Aldenius et al.,
+57,2009A&A...502..989A,Aldenius et al.,
+58,1989JOSAB...6.1457L,Lawler & Dakin,Using hfs from Kurucz & Bell (1995KurCD..23.....K)
+59,2013ApJS..205...11L,Lawler et al.,
+60,2013ApJS..208...27W,Wood et al.,Cat. J/ApJS/208/27
+61,2001ApJS..132..403P,Pickering et al.,With corrections given in Pickering et al. (2002ApJS..138..247P)
+62,1985JQSRT..33...55D,Doerr et al.,Using hfs from Kurucz & Bell (1995KurCD..23.....K)
+63,1989A&A...209..391B,Biemont et al.,
+64,2007ApJ...667.1267S,Sobeck et al.,Cat. J/ApJ/667/1267
+65,2006A&A...445.1165N,Nilsson et al.,
+66,2011ApJS..194...35D,Den Hartog et al.,Cat. J/ApJS/194/35. For both log(gf) value and hfs
+67,1991JOSAB...8.1185O,O'Brian et al.,
+68,2009A&A...497..611M,Melendez & Barbuy,
+69,1982ApJ...260..395C,Cardon et al.,Using hfs from Kurucz & Bell (1995KurCD..23.....K)
+70,1999ApJS..122..557N,Nitz et al.,Using hfs from Kurucz & Bell (1995KurCD..23.....K)
+71,...................,Fuhr & Wiese,"2009, Atomic Transition Probabilities, CRC Handbook of Chemistry and Physics, ed. D. R. Lide (90th ed.; Boca Raton, FL: CRC), 10. Using hfs from Kurucz & Bell (1995KurCD..23.....K)"
+72,2012ApJ...750...76R,Roederer & Lawler,Cat. J/ApJ/750/76
+73,2011MNRAS.414.3350B,Biemont et al.,
+74,2006A&A...456.1181L,Ljung et al.,
+75,2010A&A...511A..16N,Nilsson et al.,
+76,1988PhyS...38..707W,Whaling & Brault,
+77,2005MNRAS.363..452P,Palmeri et al.,
+78,1994JQSRT..51..545W,Wickliffe et al.,
+79,...................,Fuhr & Wiese,"2009, Atomic Transition Probabilities, CRC Handbook of Chemistry and Physics, ed. D. R. Lide (90th ed.; Boca Raton, FL: CRC), 10. Using hfs/IS from McWilliam (1998AJ....115.1640M) when available"
+80,2001ApJ...556..452L,Lawler et al.,"Using hfs from Ivans et al. (2006, cat. J/ApJ/645/613)"
+81,2009ApJS..182...51L,Lawler et al.,Cat. J/ApJS/182/51
+82,2007PhyS...76..577L,Li et al.,"Using hfs from Sneden et al. (2009, cat. J/ApJS/182/80)"
+83,2003ApJS..148..543D,Den Hartog et al.,Using hfs/IS from Roederer et al. (2008ApJ...675..723R) when available
+84,2006ApJS..162..227L,Lawler et al.,Cat. J/ApJS/162/227. Using hfs/IS from Roederer et al. (2008ApJ...675..723R) when available
+85,2001ApJ...563.1075L,Lawler et al.,"Using hfs/IS from Ivans et al. (2006, cat. J/ApJ/645/613)"
+86,2006ApJS..167..292D,Den Hartog et al.,Cat. J/ApJS/167/292
+87,2001ApJS..137..341L,Lawler et al.,Using hfs from Lawler et al. (2001ApJS..137..351L) when available
+88,2000JQSRT..66..363W,Wickliffe et al.,
+89,2004ApJ...604..850L,Lawler et al.,For both log(gf) value and hfs
+90,2008ApJS..178...71L,Lawler et al.,
+91,1997JOSAB..14..737W,Wickliffe & Lawler,
+92,2009ApJS..182...80S,Sneden et al.,Cat. J/ApJS/182/80 for both log(gf) value and hfs/IS
+93,2007ApJS..169..120L,Lawler et al.,Cat. J/ApJS/169/120
+94,2003A&A...409.1141I,Ivarsson et al.,Using hfs/IS from Cowan et al. (2005ApJ...627..238C); see note on log(gf) values there
+95,2000MNRAS.312..116B,Biemont et al.,Using hfs/IS from Roederer et al. (2012ApJS..203...27R)
+96,2002A&A...382..368N,Nilsson et al.,

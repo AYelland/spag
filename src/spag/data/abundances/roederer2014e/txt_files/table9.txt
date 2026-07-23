@@ -1,0 +1,14 @@
+Table 9 
+Mean Fe I Abundances Derived from Optical and NUV Lines
+
+
+Star	angl0log epsilon(Fe I)angr0_opt	N_lines	angl0log epsilon(Fe I)angr0_NUV	N_lines	Delta(Fe I)_opt-NUV	angl0log epsilon(Fe II)angr0_opt	N_lines	angl0log epsilon(Fe II)angr0_NUV	N_lines	Delta(Fe II)_opt-NUV	Delta(Fe I-Fe II)	
+HD 2454	7.08	172	6.69	16	+0.39	7.09	18	6.75	12	+0.34	+0.05	
+HD 16220	7.19	121	6.94	11	+0.25	7.20	13	6.88	7	+0.32	-0.07	
+HD 43318	7.26	189	6.99	13	+0.27	7.26	20	7.05	7	+0.21	+0.06	
+HD 108317	5.06	243	4.73	17	+0.33	5.07	25	4.81	13	+0.26	+0.07	
+HD 140283	4.85	170	4.58	5	+0.27	4.87	15	4.78	5	+0.09	+0.18	
+HD 155646	7.34	65	7.02	11	+0.32	7.35	5	7.15	7	+0.20	+0.12	
+												
+				angl0Deltaangr0 =	+0.30				angl0Deltaangr0 =	+0.23	+0.07	
+				s.e.m. =	0.02				s.e.m. =	0.03	0.03	

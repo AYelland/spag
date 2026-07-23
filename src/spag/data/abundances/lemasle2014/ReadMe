@@ -1,0 +1,210 @@
+J/A+A/572/A88   Measured equivalent widths for Fornax RGB stars (Lemasle+, 2014)
+================================================================================
+VLT/FLAMES spectroscopy of red giant branch stars in the Fornax dwarf
+spheroidal galaxy.
+    Lemasle B., de Boer T., Hill V., Tolstoy E., Irwin M., Jablonka P.,
+    Venn K., Battaglia G., Starkenburg E., Shetrone M., Letarte B., Francois P.,
+    Helmi A., Primas F., Kaufer A., Szeifert T.
+   <Astron. Astrophys. 572, A88 (2014)>
+   =2014A&A...572A..88L
+================================================================================
+ADC_Keywords: Abundances ; Galaxies, nearby ; Stars, late-type ;
+              Equivalent widths
+Keywords: stars: abundances - galaxies: individual: Fornax - galaxies: evolution
+
+Abstract:
+    Fornax is one of the most massive dwarf spheroidal galaxies in the
+    Local Group. The Fornax field star population is dominated by
+    intermediate age stars but star formation was going on over almost its
+    entire history. It has been proposed that Fornax experienced a minor
+    merger event. Despite recent progress, only the high metallicity end
+    of Fornax field stars ([Fe/H]>-1.2dex) has been sampled in larger
+    number via high resolution spectroscopy. We want to better understand
+    the full chemical evolution of this galaxy by better sampling the
+    whole metallicity range, including more metal poor stars. We use the
+    VLT-FLAMES multi-fibre spectrograph in high-resolution mode to
+    determine the abundances of several alpha, iron-peak and
+    neutron-capture elements in a sample of 47 individual Red Giant Branch
+    stars in the Fornax dwarf spheroidal galaxy. We combine these
+    abundances with accurate age estimates derived from the age
+    probability distribution from the colour-magnitude diagram of Fornax.
+    Similar to other dwarf spheroidal galaxies, the old, metal-poor stars
+    of Fornax are typically alpha-rich while the young metal-rich stars
+    are alpha-poor. In the classical scenario of the time delay between
+    Type II (SNe II) and Type Ia Supernovae (SNe Ia), we confirm that SNe
+    Ia started to contribute to the chemical enrichment at [Fe/H] between
+    -2.0 and -1.8dex. We find that the onset of SNe Ia took place between
+    12-10Gyrs ago. The high values of [Ba/Fe], [La/Fe] reflect the
+    influence of SNe Ia and AGB stars in the abundance pattern of the
+    younger stellar population of Fornax. Our findings of low [alpha/Fe]
+    and enhanced [Eu/Mg] are compatible with an initial mass function that
+    lacks the most massive stars and with star formation that kept going
+    on throughout the whole history of Fornax. We find that massive stars
+    kept enriching the interstellar medium in alpha-elements, although
+    they were not the main contributor to the iron enrichment.
+
+Description:
+    List of all the absorption lines (Wavelength, element), their atomic
+    parameters (excitation potential, log gf) and their measured
+    equivalent widths (EW, in mAngstroms), measured by DAOSPEC in 47
+    Fornax RGB stars.
+
+File Summary:
+--------------------------------------------------------------------------------
+ FileName   Lrecl  Records   Explanations
+--------------------------------------------------------------------------------
+ReadMe         80        .   This file
+tablea3.dat    93       58   Positional, photometric and kinematic data for
+                              our targets
+table7.dat    307      154   Equivalent widths for 37 stars
+table3.dat     53       47   Atmospheric parameters Teff, logg, Vt and [Fe/H]
+                              for stars in our sample
+tablea5.dat    91      141   Individual abundances for the RGB stars in our
+                              sample
+--------------------------------------------------------------------------------
+
+See also:
+ J/AJ/127/840    : VRI photometry of Fornax red giants (Pont+, 2004)
+ J/A+A/459/423   : VI and [Fe/H] of Fornax dSph RGB stars (Battaglia+, 2006)
+ J/A+A/467/1025  : JHK photometry of Fornax red giant branch (Gullieuszik+ 2007)
+ J/A+A/572/A82   : Abundances in outer parts of Fornax dSph (Hendricks+, 2014)
+ J/MNRAS/394/795 : AGB stars in Fornax dwarf spheroidal galaxy (Whitelock+ 2009)
+
+Byte-by-byte Description of file: tablea3.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1-  4  A4    ---     ---       [Fnx-]
+   5- 11  A7    ---     Name      Name (rgbNNNN or Fnx-memNNNN, for
+                                        RGB Fornax members or other members)
+      13  I1    h       RAh       Right ascension (J2000)
+  15- 16  I2    min     RAm       Right ascension (J2000)
+  18- 22  F5.2  s       RAs       Right ascension (J2000)
+      24  A1    ---     DE-       Declination sign (J2000)
+  25- 26  I2    deg     DEd       Declination (J2000)
+  28- 29  I2    arcmin  DEm       Declination (J2000)
+  31- 35  F5.2  arcsec  DEs       Declination (J2000)
+  37- 42  F6.3  mag     Bmag      ?=- CTIO/MOSAIC B magnitude
+  44- 49  F6.3  mag     Vmag      [18.1/18.9] CTIO/MOSAIC V magnitude
+  51- 56  F6.3  mag     Imag      ?=- CTIO/MOSAIC (or ESO/WFI) I magnitude
+  58- 63  F6.3  mag     Jmag      ?=- ESO VISTA J magnitude
+  65- 70  F6.3  mag     Hmag      ?=- ESO VISTA H magnitude
+  72- 77  F6.3  mag     Kmag      ?=- ESO VISTA Ks magnitude
+  79- 82  F4.1  km/s    RV        [4/84] Radial velocity
+  84- 87  F4.2  km/s  e_RV        rms uncertainty on RV
+  89- 93  A5    ---     EW        Name of the column in table7 with
+                                   equivalent widths for this source
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table7.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   2-  8  F7.2  0.1nm   lambda    Wavelength
+  10- 12  A3    ---     El        Element
+  14- 18  F5.3  eV      EP        Excitation potential
+  20- 25  F6.3  ---     loggf     Oscillator strength
+  27- 31  F5.1  0.1pm   m0514     ? Equivalent width (m{AA}) for Fnx-mem0514
+  33- 37  F5.1  0.1pm   m0522     ? Equivalent width (m{AA}) for Fnx-mem0522
+  39- 43  F5.1  0.1pm   m0532     ? Equivalent width (m{AA}) for Fnx-mem0532
+  45- 49  F5.1  0.1pm   m0539     ? Equivalent width (m{AA}) for Fnx-mem0539
+  51- 55  F5.1  0.1pm   m0543     ? Equivalent width (m{AA}) for Fnx-mem0543
+  57- 61  F5.1  0.1pm   m0556     ? Equivalent width (m{AA}) for Fnx-mem0556
+  63- 67  F5.1  0.1pm   m0572     ? Equivalent width (m{AA}) for Fnx-mem0572
+  69- 73  F5.1  0.1pm   m0574     ? Equivalent width (m{AA}) for Fnx-mem0574
+  75- 79  F5.1  0.1pm   m0584     ? Equivalent width (m{AA}) for Fnx-mem0584
+  81- 85  F5.1  0.1pm   m0595     ? Equivalent width (m{AA}) for Fnx-mem0595
+  87- 91  F5.1  0.1pm   m0598     ? Equivalent width (m{AA}) for Fnx-mem0598
+  93- 97  F5.1  0.1pm   m0604     ? Equivalent width (m{AA}) for Fnx-mem0604
+  99-103  F5.1  0.1pm   m0606     ? Equivalent width (m{AA}) for Fnx-mem0606
+ 105-109  F5.1  0.1pm   m0607     ? Equivalent width (m{AA}) for Fnx-mem0607
+ 111-115  F5.1  0.1pm   m0612     ? Equivalent width (m{AA}) for Fnx-mem0612
+ 117-121  F5.1  0.1pm   m0613     ? Equivalent width (m{AA}) for Fnx-mem0613
+ 123-127  F5.1  0.1pm   m0626     ? Equivalent width (m{AA}) for Fnx-mem0626
+ 129-133  F5.1  0.1pm   m0629     ? Equivalent width (m{AA}) for Fnx-mem0629
+ 135-139  F5.1  0.1pm   m0631     ? Equivalent width (m{AA}) for Fnx-mem0631
+ 141-145  F5.1  0.1pm   m0633     ? Equivalent width (m{AA}) for Fnx-mem0633
+ 147-151  F5.1  0.1pm   m0634     ? Equivalent width (m{AA}) for Fnx-mem0634
+ 153-157  F5.1  0.1pm   m0638     ? Equivalent width (m{AA}) for Fnx-mem0638
+ 159-163  F5.1  0.1pm   m0647     ? Equivalent width (m{AA}) for Fnx-mem0647
+ 165-169  F5.1  0.1pm   m0654     ? Equivalent width (m{AA}) for Fnx-mem0654
+ 171-175  F5.1  0.1pm   m0664     ? Equivalent width (m{AA}) for Fnx-mem0664
+ 177-181  F5.1  0.1pm   m0675     ? Equivalent width (m{AA}) for Fnx-mem0675
+ 183-187  F5.1  0.1pm   m0678     ? Equivalent width (m{AA}) for Fnx-mem0678
+ 189-193  F5.1  0.1pm   m0682     ? Equivalent width (m{AA}) for Fnx-mem0682
+ 195-199  F5.1  0.1pm   m0704     ? Equivalent width (m{AA}) for Fnx-mem0704
+ 201-205  F5.1  0.1pm   m0712     ? Equivalent width (m{AA}) for Fnx-mem0712
+ 207-211  F5.1  0.1pm   m0714     ? Equivalent width (m{AA}) for Fnx-mem0714
+ 213-217  F5.1  0.1pm   m0715     ? Equivalent width (m{AA}) for Fnx-mem0715
+ 219-223  F5.1  0.1pm   m0717     ? Equivalent width (m{AA}) for Fnx-mem0717
+ 225-229  F5.1  0.1pm   m0732     ? Equivalent width (m{AA}) for Fnx-mem0732
+ 231-235  F5.1  0.1pm   m0747     ? Equivalent width (m{AA}) for Fnx-mem0747
+ 237-241  F5.1  0.1pm   m0754     ? Equivalent width (m{AA}) for Fnx-mem0754
+ 243-247  F5.1  0.1pm   m0779     ? Equivalent width (m{AA}) for Fnx-mem0779
+ 249-253  F5.1  0.1pm   r0507     ? Equivalent width (m{AA}) for Fnx-rgb0507
+ 255-259  F5.1  0.1pm   r0509     ? Equivalent width (m{AA}) for Fnx-rgb0509
+ 261-265  F5.1  0.1pm   r0522     ? Equivalent width (m{AA}) for Fnx-rgb0522
+ 267-271  F5.1  0.1pm   r0539     ? Equivalent width (m{AA}) for Fnx-rgb0539
+ 273-277  F5.1  0.1pm   r0553     ? Equivalent width (m{AA}) for Fnx-rgb0553
+ 279-283  F5.1  0.1pm   r0556     ? Equivalent width (m{AA}) for Fnx-rgb0556
+ 285-289  F5.1  0.1pm   r0561     ? Equivalent width (m{AA}) for Fnx-rgb0561
+ 291-295  F5.1  0.1pm   r0574     ? Equivalent width (m{AA}) for Fnx-rgb0574
+ 297-301  F5.1  0.1pm   r0590     ? Equivalent width (m{AA}) for Fnx-rgb0590
+ 303-307  F5.1  0.1pm   r0596     ? Equivalent width (m{AA}) for Fnx-rgb0596
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table3.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1-  4  A4    ---     ---       [Fnx-]
+   5- 11  A7    ---     Name      Name (rgbNNNN or Fnx-memNNNN, for
+                                         RGB Fornax members or other members)
+  13- 16  I4    K       Teff      Effective temperature
+  18- 21  F4.2  [cm/s2] logg      Surface gravity
+  23- 26  F4.2  km/s    Vt        Microturbulent velocity
+  28- 32  F5.2  [-]     [Fe/H]    Metallicity
+      34  A1    ---   l_Age       Limt flag on  Age
+  35- 39  F5.2  Gyr     Age       Age
+  41- 44  F4.2  Gyr   e_Age       ? rms uncertainty on Age
+  46- 47  I2    ---     S/NH10    Signal-to-noise ratio (HR10 grating)
+  49- 50  I2    ---     S/NH13    Signal-to-noise ratio (HR13 grating)
+  52- 53  I2    ---     S/NH14    Signal-to-noise ratio (HR14 grating)
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: tablea5.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1-  4  A4    ---     ---       [Fnx-]
+   5- 11  A7    ---     Name      Name (rgbNNNN or Fnx-memNNNN, for
+                                         RGB Fornax members or other members)
+  13- 17  F5.2  [-]     [FeI/H]   Abundance [FeI/H]
+  19- 22  F4.2  [-]   e_[FeI/H]   rms uncertainty on [FeI/H]
+  24- 25  I2    ---   o_[FeI/H]   Number of lines used for [FeI/H]
+  27- 31  F5.2  [-]     [FeII/H]  ? Abundance [FeII/H]
+  33- 36  F4.2  [-]   e_[FeII/H]  ? rms uncertainty on [FeII/H]
+      38  I1    ---   o_[FeII/H]  ? Number of lines used for [FeII/H]
+  40- 44  F5.2  [-]     [Na/H]    ? Abundance [Na/H]
+  46- 49  F4.2  [-]   e_[Na/H]    ? rms uncertainty on [Na/H]
+      51  I1    ---   o_[Na/H]    ? Number of lines used for [Na/H]
+  53- 57  F5.2  [-]     [Mg/H]    ? Abundance [Mg/H]
+  59- 62  F4.2  [-]   e_[Mg/H]    ? rms uncertainty on [Mg/H]
+      64  I1    ---   o_[Mg/H]    ? Number of lines used for [Mg/H]
+  66- 70  F5.2  [-]     [Si/H]    ? Abundance [Si/H]
+  72- 75  F4.2  [-]   e_[Si/H]    ? rms uncertainty on [Si/H]
+      77  I1    ---   o_[Si/H]    ? Number of lines used for [Si/H]
+  79- 83  F5.2  [-]     [Ca/H]    ? Abundance [Ca/H]
+  85- 88  F4.2  [-]   e_[Ca/H]    ? rms uncertainty on [Ca/H]
+  90- 91  I2    ---   o_[Ca/H]    ? Number of lines used for [Ca/H]
+--------------------------------------------------------------------------------
+
+Acknowledgements:
+    Bertrand Lemasle, b.j.p.lemasle(at)uva.nl
+
+History:
+    02-Dec-2014: First only-line version
+    15-Jan-2016: tables 3 and A5 added (from electronic version)
+
+================================================================================
+(End)   B. Lemasle [API-UvA, The Netherlands], P. Vannier [CDS]      28-Oct-2014

@@ -1,0 +1,33 @@
+System,Name,Vmag,(B-V)_o,(V-I)_o,RV_helio,ref
+Sculptor,H400,18.30,0.89,1.04,109,1,2,11,12
+Sculptor,H459,18.14,1.03,1.16,116,
+Sculptor,H461,17.56,1.17,1.35,104,
+Sculptor,H479,17.23,1.20,1.31,98,
+Sculptor,H482,17.65,1.21,1.41,107,
+Fornax,M12,18.43,1.33,1.50,54,3,11,12
+Fornax,M25,18.59,1.49,1.53,49,
+Fornax,M21,18.37,1.59,1.66,53,
+Carina,M2,17.68,1.325,,221,4,11,12
+Carina,M3,17.75,1.415,1.32,227,
+Carina,M4,17.81,1.285,1.28,221,
+Carina,M10,18.09,1.255,,210,
+Carina,M12,18.08,1.185,1.19,217,
+Leo I,M2,19.37,,1.34,292,5,11,12
+Leo I,M5,19.37,,1.44,304,
+MW-M55,76,12.55,0.85,,175,6,7,8
+MW-M55,283,12.75,1.01,,172,6,7,8
+MW-M30,D,12.81,1.00,,-186,6,9
+MW-M68,53,12.76,1.22,,-96,10
+
+# 1. Hodge 1965
+# 2. Queloz,Dubath,,Pasquini 1995
+# 3. Mateo et al. 1991
+# 4. Mateo et al. 1993
+# 5. Mateo et al. 1998
+# 6. Harris 1996
+# 7. Harris 1975
+# 8. Alcaino 1975
+# 9. Alcaino,Liller 1980
+# 10. Alcaino 1977
+# 11. Tolstoy et al (in prep)
+# 12. E(V-I) from Dean,Warren,Cousins 1978

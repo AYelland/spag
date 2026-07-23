@@ -1,0 +1,69 @@
+# References from the R-Process Alliance (RPA)
+
+## List of References with ADS links
+
+1. The R-process Alliance: First Release from the Southern Search for R-process-enhanced Stars in the Galactic Halo
+ --> Hansen T. et al 2018 - https://ui.adsabs.harvard.edu/abs/2018ApJ...858...92H/abstract
+
+2. The R-Process Alliance: 2MASS J09544277+5246414, the Most Actinide-enhanced R-II Star Known
+ --> Holmbeck et al. 2018 - https://ui.adsabs.harvard.edu/abs/2018ApJ...859L..24H/abstract
+
+3. The R-Process Alliance: Discovery of the First Metal-poor Star with a Combined r- and s-process Element Signature
+ --> Gull et al. 2018 - https://ui.adsabs.harvard.edu/abs/2018ApJ...862..174G/abstract
+
+4. The R-Process Alliance: Chemical Abundances for a Trio of r-process-enhanced Stars—One Strong, One Moderate, and One Mild
+ --> Cain et al. 2018 - https://ui.adsabs.harvard.edu/abs/2018ApJ...864...43C/abstract
+
+5. The R-Process Alliance: A Comprehensive Abundance Analysis of HD 222925, a Metal-poor Star with an Extreme R-process Enhancement of [Eu/H] = -0.14
+ --> Roederer et al. 2018 - https://ui.adsabs.harvard.edu/abs/2018ApJ...865..129R/abstract
+
+6. The R-Process Alliance: First Release from the Northern Search for r-process-enhanced Metal-poor Stars in the Galactic Halo
+ --> Sakari et al. 2018 - https://ui.adsabs.harvard.edu/abs/2018ApJ...868..110S/abstract
+
+7. The R-Process Alliance: Spectroscopic Follow-up of Low-metallicity Star Candidates from the Best & Brightest Survey
+ --> Placco et al. 2019 - https://ui.adsabs.harvard.edu/abs/2019ApJ...870..122P/abstract
+
+8. The R-Process Alliance: Discovery of a Low-α, r-process-enhanced Metal-poor Star in the Galactic Halo
+ --> Sakari et al. 2019 - https://ui.adsabs.harvard.edu/abs/2019ApJ...874..148S/abstract
+
+9. The R-process Alliance: The Peculiar Chemical Abundance Pattern of RAVE J183013.5-455510
+ --> Placco et al. 2020 - https://ui.adsabs.harvard.edu/abs/2020ApJ...897...78P/abstract
+
+10. The R-Process Alliance: A Very Metal-poor, Extremely r-process-enhanced Star with [Eu/Fe] = + 2.2, and the Class of r-III Stars
+ --> Cain et al. 2020 - https://ui.adsabs.harvard.edu/abs/2020ApJ...898...40C/abstract
+
+11. The R-Process Alliance: First Magellan/MIKE Release from the Southern Search for R-process-enhanced Stars
+ --> Ezzeddine et al. 2020 - https://ui.adsabs.harvard.edu/abs/2020ApJ...898..150E/abstract
+
+12. The R-Process Alliance: Fourth Data Release from the Search for R-process-enhanced Stars in the Galactic Halo
+ --> Holmbeck et al. 2020 - https://ui.adsabs.harvard.edu/abs/2020ApJS..249...30H/abstract
+
+13. The R-Process Alliance: Chemodynamically Tagged Groups of Halo r-process-enhanced Stars Reveal a Shared Chemical-evolution History
+ --> Gudin et al. 2021 - https://ui.adsabs.harvard.edu/abs/2021ApJ...908...79G/abstract
+
+14. The R-process Alliance: A Nearly Complete R-process Abundance Template Derived from Ultraviolet Spectroscopy of the R-process-enhanced Metal-poor Star HD 222925
+ --> Roederer et al. 2022 - https://ui.adsabs.harvard.edu/abs/2022ApJS..260...27R/abstract
+
+15. The R-Process Alliance: Abundance Universality among Some Elements at and between the First and Second R-Process Peaks
+ --> Roederer et al. 2022 - https://ui.adsabs.harvard.edu/abs/2022ApJ...936...84R/abstract
+
+16. The R-Process Alliance: Chemodynamically Tagged Groups. II. An Extended Sample of Halo r-process-enhanced Stars
+ --> Shank et al. 2023 - https://ui.adsabs.harvard.edu/abs/2023ApJ...943...23S/abstract
+
+17. The R-Process Alliance: detailed chemical composition of an r-process enhanced star with UV and optical spectroscopy
+ --> Shah et al. 2024 - https://ui.adsabs.harvard.edu/abs/2024MNRAS.529.1917S/abstract
+
+18. The R-Process Alliance: Analysis of limited-r stars
+ --> Xylakis-Dornbusch et al. 2024 - https://ui.adsabs.harvard.edu/abs/2024A%26A...688A.123X/abstract
+
+19. The R-Process Alliance: 2MASS J22132050–5137385, the Star with the Highest-known r-process Enhancement at [Eu/Fe] = +2.45
+ --> Roederer et al. 2024 - https://ui.adsabs.harvard.edu/abs/2024ApJ...971..158R/abstract
+
+20. The R-process Alliance: Fifth Data Release from the Search for R-process-enhanced Metal-poor Stars in the Galactic Halo with the GTC
+ --> Bandyopadhyay et al. 2024 - https://ui.adsabs.harvard.edu/abs/2024ApJS..274...39B/abstract
+
+21. The R-Process Alliance: Hunting for gold in the near-UV spectrum of 2MASS J05383296–5904280
+ --> Hansen T. et al. 2025 - https://ui.adsabs.harvard.edu/abs/2025A%26A...697A.127H/abstract
+
+22. The R-process Alliance: Enrichment of r-process Elements in a Simulated Milky Way–like Galaxy
+ --> Hirai et al. 2025 - https://ui.adsabs.harvard.edu/abs/2025ApJ...990..125H/abstract

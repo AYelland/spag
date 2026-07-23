@@ -1,0 +1,235 @@
+J/ApJ/751/102      Equivalent widths of 9 RGB in Carina dSph      (Venn+, 2012)
+================================================================================
+Nucleosynthesis and the inhomogeneous chemical evolution of the Carina dwarf
+galaxy.
+    Venn K.A., Shetrone M.D., Irwin M.J., Hill V., Jablonka P., Tolstoy E.,
+    Lemasle B., Divell M., Starkenburg E., Letarte B., Baldner C.,
+    Battaglia G., Helmi A., Kaufer A., Primas F.
+   <Astrophys. J., 751, 102 (2012)>
+   =2012ApJ...751..102V
+================================================================================
+ADC_Keywords: Equivalent widths ; Stars, giant ; Galaxies, nearby ;
+              Radial velocities ; Photometry, VRI ; Photometry, infrared
+Keywords: galaxies: abundances - galaxies: dwarf - galaxies: evolution -
+          galaxies: individual: Carina dwarf galaxy - Local Group
+
+Abstract:
+    The detailed abundances of 23 chemical elements in nine bright red
+    giant branch stars in the Carina dwarf spheroidal galaxy are presented
+    based on high-resolution spectra gathered at the Very Large Telescope
+    (VLT) and Magellan telescopes. A spherical model atmospheres analysis
+    is applied using standard methods (local thermodynamic equilibrium and
+    plane-parallel radiative transfer) to spectra ranging from 380 to
+    680nm. Stellar parameters are found to be consistent between
+    photometric and spectroscopic analyses, both at moderate and high
+    resolution. The stars in this analysis range in metallicity from
+    -2.9<[Fe/H]<-1.3, and adopting the ages determined by Lemasle et al.
+    (Cat. J/A+A/538/A100), we are able to examine the chemical evolution
+    of Carina's old and intermediate-aged populations.
+
+Description:
+    The data presented in this paper were acquired at two observatories -
+    FLAMES (Fibre Large Array Multi Element Spectrograph) multiobject
+    spectrograph at the 8.2m UT2 (Kueyen) at the Very Large Telescope
+    (VLT) of the European Southern Observatory (ESO) and MIKE (Magellan
+    Inamori Kyocera Echelle) spectrograph at the Magellan Landon 6.5m
+    Clay Telescope at the Las Campanas Observatory - during separate time
+    allocations in 2005 January.
+
+    Target selection for the Magellan run was from low-resolution spectra
+    of the CaII 8600{AA} feature (=CaT) for hundreds of stars in the
+    Carina dSph in the ESO archive (Koch et al. 2006, Cat. J/AJ/131/895;
+    Helmi et al. 2006ApJ...651L.121H). The feature was used to ascertain
+    membership from radial velocities, as well as estimate an initial
+    metallicity for each target based on the CaT-metallicity calibration
+    available at that time (Battaglia et al. 2008, Cat. J/MNRAS/383/183).
+    On the red side, the double echelle design covers 4850-9400{AA}, and
+    on the blue side, 3800-5050{AA}. Using a 1.0" slit, a spectral
+    resolution R=28000 (blue) to R=22000 (red) was obtained.
+
+    Observations with the multi-object FLAMES spectrograph at the UT2
+    Kueyen ESO-VLT were carried out for nine targets in the central region
+    of Carina. On the red side, the double echelle design covers
+    5840-6815{AA}, and on the blue, 4800-5760{AA}. A 1.0" slit yields a
+    spectral resolution R=47000.
+
+    For the Carina members, VI magnitudes are from the ESO 2.2m WFI
+    photometry; initial calibrations were on the default ESO zero-point
+    values, but have been updated to the Johnson-Kron-Cousins scale with
+    Stetson's database and Gullieuszik's photometry (M. Gullieuszik 2009,
+    private communication).
+
+File Summary:
+--------------------------------------------------------------------------------
+ FileName   Lrecl  Records   Explanations
+--------------------------------------------------------------------------------
+ReadMe         80        .   This file
+table1.dat    104       15   Observing information
+table2.dat     71      316   Line list from FLAMES spectrograph (ESO/VLT)
+table3.dat     81      329   Line list from MIKE spectrograph (Magellan)
+table4.dat     90       15   Target information
+table5.dat     54       15   Photometric parameters
+--------------------------------------------------------------------------------
+
+See also:
+ J/A+A/538/A100 : Abundances red giants in Carina dSph (Lemasle+, 2012)
+ J/AJ/135/1580  : Element abundances in ten red giants of Car dSph (Koch+, 2008)
+ J/MNRAS/383/183 : CaII triplet of RGB from VLT/FLAMES obs. (Battaglia+, 2008)
+ J/ApJ/649/201  : Velocities & Washington phot. in Carina dSph (Munoz+, 2006)
+ J/AJ/131/895   : Stars in the Carina dwarf spheroidal galaxy (Koch+, 2006)
+ J/AJ/130/2677  : Stars in the Carina dSph galaxy field (Majewski+, 2005)
+ J/AJ/126/197   : The Carina projects. I. Variables stars (Dall'Ora+, 2003)
+ J/AJ/115/1856  : Dwarf Cepheids in Carina (Mateo+, 1998)
+ J/AJ/115/1840  : BV photometry in Carina dwarf galaxy (Hurley-Keller+ 1998)
+ J/AJ/114/1458  : The Carina Dwarf (Mighell 1997)
+ http://cadcwww.hia.nrc.ca/stetson : Peter Stetson's homogeneous photometry
+
+Byte-by-byte Description of file: table1.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label   Explanations
+--------------------------------------------------------------------------------
+   1-  8  A8    ---     Name    Star name
+      10  A1    ---     Sp      [MF] Spectrograph used (1)
+  12- 41  A30   ---     OName   Other designation(s)
+  43- 45  A3    ---     Rem     [KSCnX, ] Remarks (2)
+  47- 48  I2    h       RAh     Hour of right ascension (J2000)
+  50- 51  I2    min     RAm     Minute of right ascension (J2000)
+  53- 56  F4.1  s       RAs     Second of right ascension (J2000)
+      58  A1    ---     DE-     Sign of declination (J2000)
+  59- 60  I2    deg     DEd     Degree of declination (J2000)
+  62- 63  I2    arcmin  DEm     Arcminute of declination (J2000)
+  65- 66  I2    arcsec  DEs     Arcsecond of declination (J2000)
+  68- 71  F4.1  arcmin  Rell    [3.3/11.4]? Elliptical radius from the center
+                                  of Carina
+  73- 79  A7    s       Exp     Exposure time
+  81- 85  F5.1  km/s    RV1     [213/237]? Radial velocity from
+                                 Koch et al. 2006, Cat. J/AJ/131/895
+  87- 91  F5.1  km/s    RV      [-97/230]? High-resolution radial velocity
+                                 from this paper
+  93- 95  F3.1  km/s  e_RV      [0.6/4.1]? RV uncertainty
+  97- 98  I2    ---     S/N4    [18/60]? Signal-to-noise ratio per pixel at
+                                 {lambda}=4200{AA}
+ 100-101  I2    ---     S/N5    [11/73] Signal-to-noise ratios per pixel at
+                                 {lambda}=5200{AA}
+ 103-104  I2    ---     S/N6    [15/75] Signal-to-noise ratios per pixel at
+                                 {lambda}=6200{AA}
+--------------------------------------------------------------------------------
+Note (1): Flag as follows:
+   M = data from the Magellan MIKE spectrograph
+   F = data from the FLAMES spectrograph at the VLT
+Note (2): Flag as follows:
+   K = Stars partially analyzed by Koch et al. (2008, Cat. J/AJ/135/1580)
+   S = The S# target names are from P.B. Stetson's online database of
+       homogeneous photometry (at http://cadcwww.hia.nrc.ca/stetson).
+   C = C-star
+   n = non-member
+   X = Car-X is a bright target right next to Car-909, which was the actual
+       target.
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table2.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1-  5 A5     ---      Ion     Ion identification
+   7- 14 F8.3   0.1nm    lambda  [4798/6775] Wavelength ({AA})
+  16- 19 F4.2   eV       ExPot   Excitation potential
+  21- 26 F6.3   [-]      log(gf) Log of the oscillator strength
+  28- 32 F5.1   0.1pm    Car484  ? Equivalent width of Car 484 (m{AA})
+      34 A1     ---    l_Car524  Limit flag on Car524
+  35- 39 F5.1   0.1pm    Car524  ? Equivalent width of Car 524 (m{AA})
+      41 A1     ---    l_Car612  Limit flag on Car612
+  42- 46 F5.1   0.1pm    Car612  ? Equivalent width of Car 612 (m{AA})
+      48 A1     ---    f_Car612  [S] spectrum syntheses used for abundance
+      50 A1     ---    l_Car705  Limit flag on Car705
+  51- 55 F5.1   0.1pm    Car705  ? Equivalent width of Car 705 (m{AA})
+      57 A1     ---    l_Car769  Limit flag on Car769
+  58- 62 F5.1   0.1pm    Car769  ? Equivalent width of Car 769 (m{AA})
+      64 A1     ---    l_Car1013 Limit flag on Car1013
+  65- 69 F5.1   0.1pm    Car1013 ? Equivalent width of Car 1013 (m{AA})
+      71 A1     ---    f_Car1013 [S] spectrum syntheses used for abundance
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table3.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label    Explanations
+--------------------------------------------------------------------------------
+   1-  5 A5     ---      Ion     Ion identification
+   7- 14 F8.3   0.1nm    lambda  [3807/6775] Wavelength ({AA})
+  16- 19 F4.2   eV       ExPot   Excitation potential
+  22- 27 F6.3   [-]      log(gf) Log of the oscillator strength
+      29 A1     ---    l_M686022 Limit flag on M686022
+  30- 34 F5.1   0.1pm    M686022 ? Equivalent width of M68 6022 (m{AA})
+      36 A1     ---    f_M686022 [S] spectrum syntheses used for abundance
+      38 A1     ---    l_M686023 Limit flag on M686023
+  39- 43 F5.1   0.1pm    M686023 ? Equivalent width of M68 6023 (m{AA})
+      45 A1     ---    f_M686023 [S] spectrum syntheses used for abundance
+      47 A1     ---    l_M686024 Limit flag on M686024
+  48- 52 F5.1   0.1pm    M686024 ? Equivalent width of M68 6024 (m{AA})
+      54 A1     ---    f_M686024 [S] spectrum syntheses used for abundance
+      56 A1     ---    l_Car1087 Limit flag on Car1087
+  57- 61 F5.1   0.1pm    Car1087 ? Equivalent width of Car 1087 (m{AA})
+      63 A1     ---    f_Car1087 [S] spectrum syntheses used for abundance
+      65 A1     ---    l_Car5070 Limit flag on Car5070
+  66- 70 F5.1   0.1pm    Car5070 ? Equivalent width of Car 5070 (m{AA})
+      72 A1     ---    f_Car5070 [S] spectrum syntheses used for abundance
+      74 A1     ---    l_Car7002 Limit flag on Car7002
+  75- 79 F5.1   0.1pm    Car7002 ? Equivalent width of Car 7002 (m{AA})
+      81 A1     ---    f_Car7002 [S] spectrum syntheses used for abundance
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table4.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1-  8  A8    ---     Name      Star name
+  10- 15  F6.3  mag     Bmag1     ? B-band magnitude from P.B. Stetson (1)
+  17- 22  F6.3  mag     Vmag1     ? V-band magnitude from P.B. Stetson (1)
+  24- 29  F6.3  mag     Imag1     ? I-band magnitude from P.B. Stetson (1)
+  31- 35  F5.2  mag     Vmag      [17.5/18.4]? Our WFI V-band magnitude
+  37- 41  F5.2  mag     Imag      [16.1/17.2]? Our WFI I-band magnitude
+  43- 48  F6.3  mag     Jmag      [12.3/16.3] 2MASS J-band magnitude
+  50- 55  F6.3  mag     Ksmag     [11.6/15.6] 2MASS Ks-band magnitude
+  57- 62  F6.3  mag     Bmag2     ? B-band magnitude from M. Gullieuszik (2)
+  64- 69  F6.3  mag     Vmag2     ? V-band magnitude from M. Gullieuszik (2)
+  71- 76  F6.3  mag     Imag2     ? I-band magnitude from M. Gullieuszik (2)
+  78- 83  F6.3  mag     Jmag2     ? J-band magnitude from M. Gullieuszik (2)
+  85- 90  F6.3  mag     Kmag2     ? K-band magnitude from M. Gullieuszik (2)
+--------------------------------------------------------------------------------
+Note (1): BVI from P.B. Stetson's Web site of homogeneous photometry
+          (http://cadcwww.hia.nrc.ca/stetson).
+Note (2): BVIJK from M. Gullieuszik (2009, private communication).
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table5.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1-  8  A8    ---     Name      Star name
+  10- 13  I4    K       T1        [4073/4741]? Temperature determined from the
+                                    (B-V) color index (1)
+  15- 18  I4    K       T2        [4245/4732]? Temperature determined from the
+                                    (V-I) color index (1)
+  20- 23  I4    K       T3        [4221/4722]? Temperature determined from the
+                                    (V-J) color index (1)
+  25- 28  I4    K       T4        [4224/4701]? Temperature determined from the
+                                    (V-K) color index (1)
+  30- 33  I4    K       <T>       [4252/4724]? Average of the four color
+                                    temperatures
+  35- 37  I3    K     e_<T>       [13/134]? Standard deviation in <T>
+  39- 42  F4.2 [cm/s2]  logg      [0.6/1.7]? Surface gravity
+  44- 48  F5.2  mag     VMag      [-2.5/-0.8]? Absolute V-band magnitude
+  50- 54  F5.2  mag     Mbol      [-3.2/-1.2]? Bolometric absolute magnitude
+--------------------------------------------------------------------------------
+Note (1): Photometric temperatures are from the Ramirez & Melendez
+          (2005ApJ...626..465R) calibration.
+--------------------------------------------------------------------------------
+
+History:
+    From electronic version of the journal
+
+References:
+   Lemasle et al.  Companion paper.  2012A&A...538A.100L  Cat. J/A+A/538/A100
+
+================================================================================
+(End)                 Greg Schwarz [AAS], Emmanuelle Perret [CDS]    18-Dec-2013

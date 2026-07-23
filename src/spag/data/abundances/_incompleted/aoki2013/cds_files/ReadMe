@@ -1,0 +1,266 @@
+J/AJ/145/13     Metal-poor stars from SDSS/SEGUE. I. Abundances    (Aoki+, 2013)
+================================================================================
+High-resolution spectroscopy of extremely metal-poor stars from SDSS/SEGUE.
+I. Atmospheric parameters and chemical compositions.
+    Aoki W., Beers T.C., Lee Y.S., Honda S., Ito H., Takada-hidai M.,
+    Frebel A., Suda T., Fujimoto M.Y., Carollo D., Sivarani T.
+   <Astron. J., 145, 13 (2013)>
+   =2013AJ....145...13A
+================================================================================
+ADC_Keywords: Stars, metal-deficient ; Radial velocities ; Abundances ;
+              Effective temperatures ; Stars, population II
+Keywords: Galaxy: halo - stars: abundances - stars: atmospheres -
+          stars: Population II
+
+Abstract:
+    Chemical compositions are determined based on high-resolution
+    spectroscopy for 137 candidate extremely metal-poor (EMP) stars
+    selected from the Sloan Digital Sky Survey (SDSS) and its first
+    stellar extension, the Sloan Extension for Galactic Understanding and
+    Exploration (SEGUE). High-resolution spectra with moderate
+    signal-to-noise (S/N) ratios were obtained with the High Dispersion
+    Spectrograph of the Subaru Telescope. Most of the sample
+    (approximately 80%) are main-sequence turnoff stars, including dwarfs
+    and subgiants. Four cool main-sequence stars, the most metal-deficient
+    such stars known, are included in the remaining sample. Good agreement
+    is found between effective temperatures estimated by the SEGUE stellar
+    parameter pipeline, based on the SDSS/SEGUE medium-resolution spectra,
+    and those estimated from the broadband (V - K)_0_ and (g -
+    r)_0_colors. Our abundance measurements reveal that 70 stars in our
+    sample have [Fe/H] < -3, adding a significant number of EMP stars to
+    the currently known sample. Our analyses determine the abundances of
+    eight elements (C, Na, Mg, Ca, Ti, Cr, Sr, and Ba) in addition to Fe.
+    The fraction of carbon-enhanced metal-poor stars ([C/Fe] > +0.7) among
+    the 25 giants in our sample is as high as 36%, while only a lower
+    limit on the fraction (9%) is estimated for turnoff stars. This paper
+    is the first of a series of papers based on these observational
+    results. The following papers in this series will discuss the
+    higher-resolution and higher-S/N observations of a subset of this
+    sample, the metallicity distribution function, binarity, and
+    correlations between the chemical composition and kinematics of
+    extremely metal-poor stars.
+
+Description:
+    Acceptable quality high-resolution snapshot spectra for the 137 target
+    stars selected were obtained with the Subaru Telescope High Dispersion
+    Spectrograph (HDS) in four observing runs in 2008 (March, May, July,
+    and October). The spectra cover 4000-6800{AA}, with a gap of
+    5330-5430{AA} due to the separation of the two EEV-CCDs used in the
+    spectrograph. The resolving power R=36000 is obtained with the slit of
+    1.0arcsec width and 2*2 CCD on-chip binning. The observing log is
+    listed in Table 2.
+
+File Summary:
+--------------------------------------------------------------------------------
+ FileName   Lrecl   Records   Explanations
+--------------------------------------------------------------------------------
+ReadMe         80         .   This file
+table1.dat     92       137   Object list
+table2.dat     78       137   Observing log
+table3.dat     30       249   Spectral line data
+table4.dat     60       137   Steller parameters
+table5a.dat    66       137   Chemical abundances relative to H
+table5b.dat    73       137   Chemical abundances relative to Fe
+table5c.dat    64       137   Uncertainties in chemical abundances
+table5d.dat    40       137   Number of lines used
+refs.dat       61        24   References
+--------------------------------------------------------------------------------
+
+See also:
+ V/139   : The SDSS Photometric Catalog, Release 9 (Adelman-McCarthy+, 2012)
+ VII/233 : The 2MASS Extended sources (IPAC/UMass, 2003-2006)
+ J/ApJ/742/54    : CASH project II. 14 metal-poor stars (Hollek+, 2011)
+ J/A+A/526/A99   : Metal-poor solar-type stars spectros. & masses (Sousa+, 2011)
+ J/AJ/141/90     : SEGUE stellar parameter pipeline. V. (Lee+, 2011)
+ J/MNRAS/412/843 : SAGA extremely metal-poor stars (Suda+, 2011)
+ J/AJ/137/4377   : List of SEGUE plate pairs (Yanny+, 2009)
+ J/A+A/501/519   : Metal-poor turnoff stars abundances (Bonifacio+, 2009)
+ J/A+A/484/721   : HES. IV. Candidate metal-poor stars (Christlieb+, 2008)
+ J/ApJ/681/1524  : Detailed abundances for 28 metal-poor stars (Lai+, 2008)
+ J/ApJ/655/492   : Equivalent widths of 26 metal-poor stars (Aoki+, 2007)
+ J/AJ/132/137    : Abundances of metal-poor carbon stars (Cohen+, 2006)
+ J/ApJ/652/1585  : Bright metal-poor stars from HES survey (Frebel+, 2006)
+ J/A+A/439/129   : HERES II. Spectroscopic analysis (Barklem+, 2005)
+ J/A+A/440/321   : Chemical abundances in 43 metal-poor stars (Jonsell+, 2005)
+ J/AJ/130/2804   : Carbon abundances in metal-poor stars (Rossi+, 2005)
+ J/ApJS/155/651  : Evolution of extremely metal-poor stars (Herwig+, 2004)
+ J/AJ/128/2402   : Extremely metal-poor star candidates abundances (Lai+, 2004)
+ J/A+A/403/1105  : Extremely metal-poor giants EWs (Francois+, 2003)
+ J/A+A/354/169   : Metal-poor field stars abundances (Gratton+, 2000)
+ J/A+A/300/751   : Metal-poor stars spectroscopy. II (Axer+, 1995)
+ J/AJ/103/1987   : Stars of very low metal abundance (Beers+ 1992)
+ J/AJ/90/2089    : Stars of very low metal abundance. I (Beers+, 1985)
+
+Byte-by-byte Description of file: table1.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units  Label   Explanations
+--------------------------------------------------------------------------------
+   1-  3  I3    ---    Seq     [1/137] Running sequence number
+   5-  8  A4    ---    ---     [SDSS]
+  10- 19  A10   ---    SDSS    SDSS short name (JHHMM+DDMM)
+  21- 24  A4    ---    ---     [SDSS]
+  26- 44  A19   ---    SDSS2   SDSS name (JHHMMSS.ss+DDMMSS.s)
+  46- 59  A14   ---    Name    Object identifier
+  61- 66  F6.3  mag    gmag    SDSS dereddened g magnitude (g_0_)
+  68- 72  F5.3  mag    g-r     SDSS dereddened (g-r) color index (g-r)_0_
+  74- 79  F6.3  mag    Vmag    Dereddened V magnitude (V_0_) (1)
+  81- 85  F5.3  mag    E(B-V)  The (B-V) color excess (2)
+  87- 92  F6.3  mag    Kmag    2MASS Ks magnitude (from cat. VII/233)
+--------------------------------------------------------------------------------
+Note (1): Derived by the transform of Zhao & Newberg (2006astro.ph.12034Z).
+Note (2): Estimated from Schlegel et al. (1998ApJ...500..525S).
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table2.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units  Label      Explanations
+--------------------------------------------------------------------------------
+   1-  3  I3    ---    Seq        [1/137] Running sequence number
+   5-  8  A4    ---    ---        [SDSS]
+  10- 19  A10   ---    SDSS       SDSS short name (JHHMM+DDMM)
+      20  A1    ---  f_SDSS       [a] Object that was later observed at higher
+                                   resolution and higher signal-to-noise ratio
+  22- 36  A15  "date"  Date1      Date of observation
+  38- 49  A12  "date"  Date2      Second date of observation
+  51- 52  I2    min    Exp        Exposure time
+  54- 55  I2    ---    S/N1       Signal-to-noise ratio at 4300{AA}
+  57- 58  I2    ---    S/N2       Signal-to-noise ratio at 5180{AA}
+  60- 66  F7.2  km/s   HRV1       Heliocentric radial velocity from Subaru
+                                   Spectra
+  68- 71  F4.2  km/s e_HRV1       Error in HRV1
+  73- 78  F6.1  km/s   HRV2       Heliocentric radial velocity from SDSS
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table3.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1-  2  A2    ---     El        Element identification
+   4-  5  A2    ---     Ion       Ionization state (I=neutral, II=ionized)
+   7- 14  F8.3  0.1nm   lambda    Wavelength {lambda}; in {AA}
+  16- 21  F6.3  [-]     loggf     Log of the oscillator strength
+  23- 27  F5.3  eV      LEP       Lower excitation potential
+  29- 30  I2    ---     Ref       Reference; in refs.dat file
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table4.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1-  3  I3    ---     Seq       [1/137] Running Sequence number
+   5-  8  A4    ---     ---       [SDSS]
+  10- 19  A10   ---     SDSS      SDSS short name (JHHMM+DDMM)
+  21- 24  I4    K       Teff1     SSPP estimate of effective temperature (3)
+  26- 29  F4.2 [cm/s2]  logg1     ? SSPP estimate of surface gravity (3)
+  31- 35  F5.2  [Sun]   [Fe/H]1   ? SSPP estimate of metallicity (3)
+  37- 40  I4    K       Teff2     Estimate of effective temperature based
+                                   on (V-K)_0_ color
+  42- 45  I4    K       Teff3     Estimate of effective temperature based
+                                   on (g-r)_0_ color
+  47- 50  I4    K       Teff      Adopted effective temperature
+  52- 54  F3.1 [cm/s2]  logg      Adopted surface gravity
+  56- 60  F5.2  [Sun]   [Fe/H]    Adopted metallicity
+--------------------------------------------------------------------------------
+Note (3): SSPP = SEGUE Stellar Parameter Pipeline (Lee et al., 2011,
+     cat. J/AJ/141/90).
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table5a.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units Label    Explanations
+--------------------------------------------------------------------------------
+   1-  3  I3    ---   Seq      [1/137] Running sequence number
+   5-  8  A4    ---   ---      [SDSS]
+  10- 19  A10   ---   SDSS     SDSS short name (JHHMM+DDMM)
+  21- 24  F4.2  [-]   A(Fe1)   Fe abundance from FeI lines log{epsilon}(FeI) (4)
+  26- 29  F4.2  [-]   A(Fe2)   ? Fe abun. from FeII lines log{epsilon}(FeII) (4)
+  31- 34  F4.2  [-]   A(Na)    ? Na abundance log{epsilon}(Na) (4)
+  36- 39  F4.2  [-]   A(Mg)    ? Mg abundance log{epsilon}(Mg) (4)
+  41- 44  F4.2  [-]   A(Ca)    ? Ca abundance log{epsilon}(Ca) (4)
+  46- 49  F4.2  [-]   A(Ti)    ? Ti abundance log{epsilon}(Ti) (4)
+  51- 55  F5.2  [-]   A(Dr)    ? Sr abundance log{epsilon}(Sr) (4)
+  57- 61  F5.2  [-]   A(Ba)    ? Ba abundance log{epsilon}(Ba) (4)
+  63- 66  F4.2  [-]   A(C)     ? C abundance log{epsilon}(C) (4)
+--------------------------------------------------------------------------------
+Note (4): Abundance relative to H in logarithmic scale
+     (log({epsilon}(H))=12).
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table5b.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units  Label  Explanations
+--------------------------------------------------------------------------------
+   1-  3  I3    ---    Seq       [1/137] Running sequence number
+   5-  8  A4    ---    ---       [SDSS]
+  10- 19  A10   ---    SDSS      SDSS short name (JHHMM+DDMM)
+  21- 25  F5.2  [Sun]  [Fe1/H]   Adopted metallicity (5)
+  27- 31  F5.2  [Sun]  [Fe2/H]   ? The Fe abundance from FeII lines (5)
+  33- 37  F5.2  [Sun]  [Na/Fe]   ? The Na abundance (5)
+  39- 43  F5.2  [Sun]  [Mg/Fe]   ? The Mg abundance (5)
+  45- 49  F5.2  [Sun]  [Ca/Fe]   ? The Ca abundance (5)
+  51- 55  F5.2  [Sun]  [Ti/Fe]   ? The Ti abundance (5)
+  57- 61  F5.2  [Sun]  [Sr/Fe]   ? The Sr abundance (5)
+  63- 67  F5.2  [Sun]  [Ba/Fe]   ? The Ba abundance (5)
+  69- 73  F5.2  [Sun]  [C/Fe]    ? The C abundance (5)
+--------------------------------------------------------------------------------
+Note (5): Abundance relative to Fe normalized to the solar value in logarithmic
+     scale.
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table5c.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units  Label   Explanations
+--------------------------------------------------------------------------------
+   1-  3  I3    ---    Seq     [1/137] Running sequence number
+   5-  8  A4    ---    ---     [SDSS]
+  10- 19  A10   ---    SDSS    SDSS short name (JHHMM+DDMM)
+  21- 24  F4.2  [Sun]  eFe1    Uncertainty in Fe abundance from FeI lines (6)
+  26- 29  F4.2  [Sun]  eFe2    ? Uncertainty in Fe abundance from FeII lines (6)
+  31- 34  F4.2  [Sun]  eNa     ? Uncertainty in Na abundance (6)
+  36- 39  F4.2  [Sun]  eMg     ? Uncertainty in Mg abundance (6)
+  41- 44  F4.2  [Sun]  eCa     ? Uncertainty in Ca abundance (6)
+  46- 49  F4.2  [Sun]  eTi     ? Uncertainty in Ti abundance (6)
+  51- 54  F4.2  [Sun]  eSr     ? Uncertainty in Sr abundance (6)
+  56- 59  F4.2  [Sun]  eBa     ? Uncertainty in Ba abundance (6)
+  61- 64  F4.2  [Sun]  eC      ? Uncertainty in C abundance (6)
+--------------------------------------------------------------------------------
+Note (6): Total uncertainty ({sigma}_tot_) including random errors and those due
+     to uncertainties of atmospheric parameters. See Section 4.3 for details.
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table5d.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units  Label   Explanations
+--------------------------------------------------------------------------------
+   1-  3  I3    ---    Seq     [1/137] Running sequence number
+   5-  8  A4    ---    ---     [SDSS]
+  10- 19  A10   ---    SDSS    SDSS short name (JHHMM+DDMM)
+  21- 23  I3    ---    nFe1    Number of lines used for Fe (from FeI lines)
+  25- 26  I2    ---    nFe2    ? Number of lines used for Fe (from FeII lines)
+      28  I1    ---    nNa     ? Number of lines used for Na
+      30  I1    ---    nMg     ? Number of lines used for Mg
+  32- 33  I2    ---    nCa     ? Number of lines used for Ca
+  35- 36  I2    ---    nTi     ? Number of lines used for Ti
+      38  I1    ---    nDr     ? Number of lines used for Sr
+      40  I1    ---    nBa     ? Number of lines used for Ba
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: refs.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1-  2  I2    ---     Ref       Reference number
+   4- 22  A19   ---     BibCode   Bibliographic code
+  24- 42  A19   ---     Aut       Author's name
+  44- 61  A18   ---     Com       Comments
+--------------------------------------------------------------------------------
+
+History:
+    From electronic version of the journal
+
+References:
+    Aoki et al.,     Paper II      2015AJ....149...39A
+    Matsuno et al.,  Paper III     2017AJ....154...52M,  Cat. J/AJ/154/52
+
+================================================================================
+(End)                Greg Schwarz [AAS], Sylvain Guehenneux [CDS]    21-Feb-2014

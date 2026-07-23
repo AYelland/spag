@@ -1,0 +1,299 @@
+J/ApJ/912/52      Abundances of 22 metal-poor stars in the MW      (Gull+, 2021)
+================================================================================
+R-process-rich stellar streams in the Milky Way.
+    Gull M., Frebel A., Hinojosa K., Roederer I.U., Ji A.P., Brauer K.
+   <Astrophys. J., 912, 52 (2021)>
+   =2021ApJ...912...52G
+================================================================================
+ADC_Keywords: Abundances; Equivalent widths; Radial velocities;
+              Spectra, optical; Stars, metal-deficient; Stars, halo; Milky Way
+Keywords: Halo stars ; Milky Way stellar halo ; Population II stars ;
+          Dwarf galaxies
+
+Abstract:
+    We present high-resolution Magellan/MIKE spectra of 22 bright
+    (9<V<13.5) metal-poor stars (-3.18<[Fe/H]{<}-1.37) in three different
+    stellar streams, the Helmi debris stream, the Helmi trail stream, and
+    the {omega} Centauri progenitor stream. We augment our Helmi debris
+    sample with results for 10 stars by Roederer+ (2010, J/ApJ/711/573)
+    for a total of 32 stars. Detailed chemical abundances of light
+    elements as well as heavy neutron-capture elements have been
+    determined for our 22 stars. All three streams contain carbon-enhanced
+    stars. For 13 stars, neutron-capture element lines were detectable,
+    and they all show signatures in agreement with the scaled solar
+    r-process pattern, albeit with a large spread of -0.5<[Eu/Fe]<+1.3.
+    Eight of these stars show an additional small s-process contribution
+    superposed onto their r-process pattern. This could be discerned
+    because of the relatively high signal-to-noise ratio of the spectra
+    given that the stars are close by in the halo. Our results suggest
+    that the progenitors of these streams experienced one or more
+    r-process events early on, such as a neutron star merger or another
+    prolific r-process source. This widely enriched these host systems
+    before their accretion by the Milky Way. The small s-process
+    contribution suggests the presence of asymptotic giant branch stars
+    and associated local (inhomogeneous) enrichment as part of the ongoing
+    chemical evolution by low-mass stars. Stars in stellar streams may
+    thus be a promising avenue for studying the detailed history of large
+    dwarf galaxies and their role in halo assembly with easily accessible
+    targets for high-quality spectra of many stars.
+
+Description:
+    We observed 23 stars from Beers+ (B17; 2017, J/ApJ/835/81). We did not
+    observe one star in the B17 list of Helmi debris stream stars
+    (HE2215-3842), and we exclude one star (HE1120-0153) in the {omega}
+    Cen progenitor stream from further analysis given its status as a
+    double-lined spectroscopic binary. Of the 22 stars analyzed further,
+    5 are Helmi trail stars, 7 are Helmi debris stars, and 10 are
+    {omega} Cen progenitor stream stars. We note that two of the seven
+    debris stars had already been analyzed by Roederer+ (2010, J/ApJ/711/573),
+    but we carried out our own analysis based on our spectra.
+
+    Spectroscopic observations were taken over the span of nine years at
+    the Magellan-Clay telescope at Las Campanas Observatory as part of our
+    continuous follow-up of bright metal-poor stars
+    (Frebel+ 2006, J/ApJ/652/1585), many of which turned out to be part of
+    the streams investigated here. With the Magellan Inamori Kyocera
+    Echelle (MIKE) spectrograph, high-resolution spectra covering
+    ~3500{AA} to ~9000{AA} were obtained using the 07 slit for all but
+    three stars, for which a 10 slit was employed. The 07 slit yields a
+    nominal spectral resolving power ranging from R~28000 in the red and
+    R~35000 in the blue wavelength regime. The 10 slit yields a resolving
+    power of R~22000 in the red and R~28000 in the blue wavelength regime.
+
+File Summary:
+--------------------------------------------------------------------------------
+ FileName    Lrecl  Records   Explanations
+--------------------------------------------------------------------------------
+ReadMe          80        .   This file
+table1.dat     101       23   Observing details
+table2.dat     203      837   Equivalent width measurements
+table5.dat      52      802   Abundances
+table6.dat      97       32   Ba, Eu, and C abundances and r-process
+                               classifications
+--------------------------------------------------------------------------------
+
+See also:
+ I/345 : Gaia DR2 (Gaia Collaboration, 2018)
+ J/A+A/350/955    : Atmospheric param. in metal-poor stars. II (Gratton+, 1999)
+ J/ApJ/530/783    : The r-process enriched giant HD 115444 (Westin+, 2000)
+ J/ApJ/612/447    : Draco 119 and HD 88609 equivalent widths (Fulbright+, 2004)
+ J/ApJ/652/1585   : Bright metal-poor stars from HES survey (Frebel+, 2006)
+ J/ApJ/645/613    : Abundances of HD 221170 (Ivans+, 2006)
+ J/ApJ/655/492    : Equivalent widths of 26 metal-poor stars (Aoki+, 2007)
+ J/ApJ/658/1203   : Nitrogen-enhanced metal-poor stars (Johnson+, 2007)
+ J/AJ/134/1579    : Halo stars in solar neighborhood (Kepley+, 2007)
+ J/ApJ/679/1549   : Sp. of metal-poor star CS 17435-00532 (Roederer+, 2008)
+ J/A+A/505/139    : Abundances of red giants in 17 GCs (Carretta+, 2009)
+ J/A+A/505/117    : Abundances of red giants in 15 GCs (Carretta+, 2009)
+ J/ApJ/701/1053   : Abundances of 8 stars in the Draco dSph (Cohen+, 2009)
+ J/ApJ/698/865    : Halo streams in the SDSS-DR7 (Klement+, 2009)
+ J/ApJS/182/80    : Rare earth abundances (Sneden+, 2009)
+ J/A+A/520/A95    : Abundances of red giants in M54 & Sgr dSph (Carretta+, 2010)
+ J/ApJ/719/931    : Chemical evolution of the UMi dSph (Cohen+, 2010)
+ J/AN/331/474     : Abundances of metal-poor stars (Frebel, 2010)
+ J/ApJ/708/560    : Spectroscopy of UMa II and Coma Ber (Frebel+, 2010)
+ J/ApJ/722/1373   : {omega} Centauri giants abundances (Johnson+, 2010)
+ J/MNRAS/403/1413 : Updated stellar yields from AGB models (Karakas, 2010)
+ J/A+A/516/A46    : HE 2327-5642 abundance analysis (Mashonkina+, 2010)
+ J/ApJ/711/573    : Detailed abund. in a halo stellar stream (Roederer+, 2010)
+ J/ApJ/731/64     : Spectroscopy of 300 RGBs in {omega} Cen (Marino+, 2011)
+ J/A+A/534/A53    : EWs of 18 subgiant of {omega} Cen (Pancino+, 2011)
+ J/AJ/141/175     : Abundances in M15 RGB/RHB stars (Sobeck+, 2011)
+ J/AJ/144/168     : Spectroscopy of Scl 1019417 and UMi 20103 (Kirby+, 2012)
+ J/AJ/144/4       : Dwarf galaxies in the Local Group (McConnachie+, 2012)
+ J/ApJ/751/102    : Equivalent widths of 9 RGB in Carina dSph (Venn+, 2012)
+ J/ApJ/769/57     : Equivalent widths of metal-poor stars (Frebel+, 2013)
+ J/ApJ/779/102    : Metallicities of RGB stars in dwarf galaxies (Kirby+, 2013)
+ J/ApJ/762/26     : Most metal-poor stars. II. Galactic halo stars (Yong+, 2013)
+ J/ApJ/794/58     : Metal-poor stars in the thick disk of the MW (Beers+, 2014)
+ J/ApJS/215/23    : FeI radiative lifetimes (Den Hartog+, 2014)
+ J/A+A/569/A43    : HE 2252-4225 abundance analysis (Mashonkina+, 2014)
+ J/ApJ/797/21     : Carbon-enhanced metal-poor stars (Placco+, 2014)
+ J/MNRAS/441/3127 : FeI oscillator strengths for Gaia-ESO (Ruffoni+, 2014)
+ J/ApJS/214/26    : Line lists for CN isotopes transitions (Sneden+, 2014)
+ J/ApJ/805/189    : Highly likely members of the Sgr stream (Hyde+, 2015)
+ J/ApJ/807/171    : SkyMapper Survey metal-poor star sp. (Jacobson+, 2015)
+ J/ApJ/802/93     : Abundance analysis of 5 stars in Sculptor (Simon+, 2015)
+ J/ApJ/817/41     : Abundances of 4 metal-poor red giants in BooII (Ji+, 2016)
+ J/AJ/151/82      : 4 brightest red giants in Ret 2 (Roederer+, 2016)
+ J/ApJ/817/53     : Fe-group elemental abundances in HD84937 (Sneden+, 2016)
+ J/ApJ/835/81     : Bright metal-poor stars from HES Survey. II. (Beers+, 2017)
+ J/ApJ/844/164    : HST astro-phot. analysis of NGC5139. III. (Bellini+, 2017)
+ J/ApJ/838/44     : Abund. of the brightest member of Tuc III (Hansen+, 2017)
+ J/A+A/607/A91    : CS 29497-004 abundances (Hill+, 2017)
+ J/ApJS/230/28    : The populations of Carina. II. Abundances (Norris+, 2017)
+ J/ApJ/856/142    : Abundances of metal-poor stars in Sculptor (Chiti+, 2018)
+ J/ApJ/862/174    : Spectroscopy obs. of RAVE J094921.8-161722 (Gull+, 2018)
+ J/AJ/156/179     : r-process-enhanced field stars kinematics (Roederer+, 2018)
+ J/ApJ/882/177    : Abundances of 4 member stars of Tucana III (Marshall+, 2019)
+ J/ApJ/883/84     : MIKE obs. of 2 stars in Sylgr stream (Roederer+, 2019)
+ J/ApJ/874/148    : RAVE J093730.5-062655 abundances (Sakari+, 2019)
+ J/ApJ/890/119    : Iron abundances in 3 very metal-poor stars (Cowan+, 2020)
+ J/AJ/160/181     : Chemical abundances in red giants with Magellan (Ji+, 2020)
+ J/ApJ/889/27     : Abundances of 11 stars in Carina II and III (Ji+, 2020)
+ J/AJ/159/254     : Metal-poor stars in NGC5139 (Johnson+, 2020)
+ J/ApJ/900/106    : Vanadium abundances for 255 metal-poor stars (Ou+, 2020)
+ J/other/Nat/583.768 : 2050 red giants CaII EWs (Wan+, 2020)
+ J/ApJ/891/39     : LAMOST DR3 metal-poor stars of the Gal. halo (Yuan+, 2020)
+
+Byte-by-byte Description of file: table1.dat
+--------------------------------------------------------------------------------
+  Bytes Format Units     Label    Explanations
+--------------------------------------------------------------------------------
+  1- 20 A20    ---       Stream   Stream identifier
+ 22- 32 A11    ---       Name     Star identifier (G1)
+     34 A1     ---     n_Name     Note on HE1120-0153 (added by CDS) (1)
+ 36- 37 I2     h         RAh      Hour of right ascension (J2000) (2)
+ 39- 40 I2     min       RAm      Minute of right ascension (J2000)
+ 42- 45 F4.1   s         RAs      Second of right ascension (J2000)
+     47 A1     ---       DE-      Sign of declination (J2000)
+ 48- 49 I2     deg       DEd      Degree of declination (J2000) (2)
+ 51- 52 I2     arcmin    DEm      Arcminute of declination (J2000) (2)
+ 54- 57 F4.1   arcsec    DEs      Arcsecond of declination (J2000)
+ 59- 68 A10    "Y/M/D"   Date     Date of observation (UT)
+ 70- 72 F3.1   arcsec    Slit     [0.7/1] Slit
+ 74- 75 I2     min       Texp     [3/30] Exposure time
+ 77- 81 F5.2   mag       Vmag     [8.02/13.51] V magnitude
+ 83- 86 F4.2   mag       B-V      [0.37/1.16] B-V color index
+ 88- 90 I3     ---       S/N4500  [30/350] Signal to noise 4500{AA} ratio
+ 92- 94 I3     ---       S/N6000  [40/500] Signal to noise 6000{AA} ratio
+ 96-101 F6.1   km/s      HRV      [-373/387.7] Heliocentric-corrected
+                                    radial velocity (3)
+--------------------------------------------------------------------------------
+Note (1): Note as follows:
+ e = We exclude one star (HE 1120-0153) in the {omega} Cen progenitor stream 
+     from further analysis given its status as a double-lined spectroscopic
+     binary. See Section 2.
+Note (2): Beers+ (B17; 2017, J/ApJ/835/81) coordinates for HE0012-5643 are
+    00 15 17.1 -56 26 27 (J2000); not "10 56 17.9 -30 57 49.3" as given in this
+    table. Coordinates have been corrected here by CDS.
+Note (3): Radial velocities were obtained from cross-correlating the Ca triplet
+    region with a template metal-poor star of similar stellar parameters.
+    Typical uncertainties in radial velocity measurements obtained with
+    MIKE are ~1-2km/s. See Section 2.
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table2.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label        Explanations
+--------------------------------------------------------------------------------
+  1-   5 A5     --      Sp           Atomic species
+  7-  13 F7.2   0.1nm   lambda       [3383.76/8824.22] Rest wavelength
+ 15-  18 F4.2   eV      chi          [0/5.1]? Excitation potential
+ 20-  27 F8.2   [-]     loggf        [0/0.8]? Log statistical weight*oscillator
+                                      strength
+ 29-  35 F7.1   0.1nm   BM235        [4/262]? Measured equivalent width for
+                                      BM235
+ 37-  43 F7.1   0.1nm   HE0033-2141  [5/179]? Measured equivalent width for
+                                      HE0033-2141
+ 45-  51 F7.1   0.1nm   HE0050-0918  [4.8/367]? Measured equivalent width for
+                                      HE0050-0918
+ 53-  59 F7.1   0.1nm   HE1210-2729  [3.5/204]? Measured equivalent width for
+                                      HE2234-4757
+ 61-  67 F7.1   0.1nm   HE2234-4757  [4/245.2]? Measured equivalent width for
+                                      HE2234-4757
+ 69-  75 F7.1   0.1nm   BM028        [3/276.3]? Measured equivalent width for
+                                      BM028
+ 77-  83 F7.1   0.1nm   BM201        [3/258]? Measured equivalent width for
+                                      BM201
+ 85-  91 F7.1   0.1nm   BM308        [2/273]? Measured equivalent width for
+                                      BM308
+ 93-  99 F7.1   0.1nm   HE0012-5643  [1.9/91]? Measured equivalent width for
+                                      HE0012-5643
+101- 107 F7.1   0.1nm   HE0017-3646  [3.7/196]? Measured equivalent width for
+                                      HE0017-3646
+109- 115 F7.1   0.1nm   HE0048-1109  [1/136]? Measured equivalent width for
+                                      E0048-1109
+117- 123 F7.1   0.1nm   HE0324-0122  [3.9/240]? Measured equivalent width for
+                                      HE0324-0122
+125- 131 F7.1   0.1nm   BM056        [0/229]? Measured equivalent width for
+                                      BM056
+133- 139 F7.1   0.1nm   BM121        [3.7/291]? Measured equivalent width for
+                                      BM121
+141- 147 F7.1   0.1nm   HE0007-1752  [2/206]? Measured equivalent width for
+                                      HE0007-1752
+149- 155 F7.1   0.1nm   HE0039-0216  [1.6/123]? Measured equivalent width for
+                                      HE0039-0216
+157- 163 F7.1   0.1nm   HE0429-4620  [2/226.1]? Measured equivalent width for
+                                      HE0429-4620
+165- 171 F7.1   0.1nm   HE1401-0010  [1/128.4]? Measured equivalent width for
+                                      HE1401-0010
+173- 179 F7.1   0.1nm   HE2138-0314  [2/133]? Measured equivalent width for
+                                      HE2138-0314
+181- 187 F7.1   0.1nm   HE2315-4306  [3.8/248.4]? Measured equivalent width for
+                                      HE2315-4306
+189- 195 F7.1   0.1nm   HE2319-5228  [3/233]? Measured equivalent width for
+                                      HE2319-5228
+197- 203 F7.1   0.1nm   HE2322-6125  [6.6/220]? Measured equivalent width for
+                                      HE2322-6125
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table5.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label   Explanations
+--------------------------------------------------------------------------------
+   1-  1 I1     ---     Loc     [1/3] Location (1)
+   3- 13 A11    ---     Name    Stellar identifier (G1)
+  15- 19 A5     ---     Sp      Species identifier
+  21- 21 A1     ---   l_logAbd  Limit flag on logAbd
+  23- 27 F5.2   [-]     logAbd  [-2.95/7.8]? log number abundance
+  29- 29 A1     ---   l_[X/H]   Limit flag on [X/H]
+  31- 35 F5.2   [-]     [X/H]   [-4.1/-0.46]? log abundance relative to hydrogen
+  37- 37 A1     ---   l_[X/Fe]  Limit flag on [X/Fe]
+  39- 43 F5.2   [-]     [X/Fe]  [-1.21/2.6]? log abundance relative to iron (2)
+  45- 47 I3     ---     N       [1/291]? Number of lines use to
+                                 derived abundances (3)
+  49- 52 F4.2   [-]     sigma   [0.06/0.3]? Uncertainty in the abundances (3)
+--------------------------------------------------------------------------------
+Note (1): Location as follows:
+    1 = the Helmi trail stream.
+    2 = the Helmi Debris Stream.
+    3 = the {omega} Cen progenitor stream.
+Note (2): [X/Fe] ratios are computed with [FeI/H] abundances of the
+          respective stars. Solar abundances have been taken from
+          Asplund+ (2009ARA&A..47..481A).
+Note (3): For abundances measured from only one line, we adopt a nominal
+          uncertainty of 0.10dex.
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table6.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1- 20 A20    ---     Stream   Stream identifier
+  22- 33 A12    ---     Name     Star identifier (G1)
+  35- 39 F5.2   Sun     [Fe/H]   [-3.36/-1.37] Log of Fe/H abundance
+      41 A1     ---   l_[Eu/Fe]  Limit flag on [Eu/Fe]
+  43- 47 F5.2   Sun     [Eu/Fe]  [-0.46/1.91] Log of Eu/Fe abundance
+      49 A1     ---   l_[Ba/Fe]  Limit flag on [Ba/Fe]
+  51- 55 F5.2   Sun     [Ba/Fe]  [-1.74/0.76] Log of Ba/Fe abundance
+      57 A1     ---   l_[Ba/Eu]  Limit flag on [Ba/Eu]
+  59- 63 F5.2   Sun     [Ba/Eu]  [-1.7/0.37]? Log of Ba/Eu abundance (1)
+      65 A1     ---   l_[C/Fe]c  Limit flag on [C/Fe]c
+  67- 71 F5.2   ---     [C/Fe]c  [-0.72/1.72] lof of C/Fe corrected abundance
+  73- 80 A8     ---     Class    r-process classification
+  82- 84 A3     ---     R10      R10 = also in Roederer+, 2010, J/ApJ/711/573
+  86- 97 A12    ---     Comm     Comment (2)
+--------------------------------------------------------------------------------
+Note (1): For reference, the pure r-process ratio is [Ba/Eu]=-0.71
+    (Sneden+ 2008ARA&A..46..241S). We consider -0.8<[Ba/Eu]{<}-0.45 as the
+    range covered by a pure main r-process signature
+    (Frebel 2018ARNPS..68..237F). Higher values reflect an additional
+    s-process contribution, provided the neutron-capture pattern
+    principally follows the pattern for combined r+s enrichment, as shown
+    in Figure 5.
+Note (2): "AB" denotes actinide-boost stars. Stellar ages and other star names
+          are given where available.
+--------------------------------------------------------------------------------
+
+Global notes:
+Note (G1): "BM209" in text and tables is a misprint for "BM201" (HD 128279);
+           corrected at CDS. The misprint comes from Beers+ 2017ApJ...835...81B
+           (Table 7).
+--------------------------------------------------------------------------------
+
+History:
+    From electronic version of the journal
+
+================================================================================
+(End)                    Prepared by [AAS], Emmanuelle Perret [CDS]  27-Oct-2022

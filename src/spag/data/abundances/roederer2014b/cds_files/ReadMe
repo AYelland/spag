@@ -1,0 +1,155 @@
+J/MNRAS/440/2665    SDSS J021933.13+200830.2 spectroscopy    (Roederer+, 2014)
+================================================================================
+Detailed abundance analysis of the brightest star in Segue 2,
+the least massive galaxy.
+    Roederer I.U., Kirby E.N.
+   <Mon. Not. R. Astron. Soc., 440, 2665-2675 (2014)>
+   =2014MNRAS.440.2665R    (SIMBAD/NED BibCode)
+================================================================================
+ADC_Keywords: Stars, giant ; Spectroscopy
+Keywords: nuclear reactions, nucleosynthesis, abundances - stars: abundances -
+          stars: individual: SDSS J021933.13+200830.2 -
+          galaxies: individual: Segue 2
+
+Abstract:
+    We present the first high-resolution spectroscopic observations of one
+    red giant star in the ultra-faint dwarf galaxy Segue 2, which has the
+    lowest total mass (including dark matter) estimated for any known
+    galaxy. These observations were made using the Magellan Inamori
+    Kyocera Echelle (MIKE) spectrograph on the Magellan II Telescope at
+    Las Campanas Observatory. We perform a standard abundance analysis of
+    this star, SDSS J021933.13+200830.2, and present abundances of 21
+    species of 18 elements as well as upper limits for 25 additional
+    species. We derive [Fe/H]=-2.9, in excellent agreement with previous
+    estimates from medium-resolution spectroscopy. Our main result is that
+    this star bears the chemical signatures commonly found in field stars
+    of similar metallicity. The heavy elements produced by neutron-capture
+    reactions are present, but they are deficient at levels characteristic
+    of stars in other ultra-faint dwarf galaxies and a few luminous dwarf
+    galaxies. The otherwise normal abundance patterns suggest that the gas
+    from which this star formed was enriched by metals from multiple Type
+    II supernovae reflecting a relatively well-sampled IMF. This adds to
+    the growing body of evidence indicating that Segue 2 may have been
+    substantially more massive in the past.
+
+Description:
+    Observations were made with the Magellan Inamori Kyocera Echelle
+    (MIKE) spectrograph on the 6.5 m Landon Clay Telescope (Magellan II)
+    at Las Campanas Observatory.
+
+Objects:
+   ----------------------------------------------------------------------------
+      RA   (ICRS)   DE       Designation(s)
+   ----------------------------------------------------------------------------
+   02 19 33.14  +20 08 30.3  SDSS J021933.13+200830.2 = 2MASS J02193313+2008303
+   ----------------------------------------------------------------------------
+
+File Summary:
+--------------------------------------------------------------------------------
+ FileName      Lrecl  Records   Explanations
+--------------------------------------------------------------------------------
+ReadMe            80        .   This file
+table2.dat        46      257   Atomic data, equivalent widths, and derived
+                                 abundances
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table2.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1-  5  A5    ---     ID        Species (1)
+   7- 13  F7.2  0.1nm   Wave      Wavelength
+  15- 18  F4.2  eV      ExPot     Excitation potential
+  20- 24  F5.2  ---     loggf     Log of degeneracy times oscillator strength
+  26- 27  I2    ---     Ref       Literature reference for loggf (2)
+  29- 33  F5.1  10-13m  EW        ? Equivalent width
+      35  A1    ---   l_logeps    ? Upper limit flag on logeps
+  37- 41  F5.2  [-]     logeps    Log epsilon abundance
+  43- 46  F4.2  [-]   e_logeps    ? Error on log epsilon abundance
+--------------------------------------------------------------------------------
+Note (1): Entries for CH and CN molecules have been omitted from this
+           machine-readable table and are hereafter (from printed version):
+          ------------------------------------------------------------------
+          Species             Band                    Ref   logeps
+          ------------------------------------------------------------------
+          C (CH)  A^2^{Delta}-X^2^{Pi} G band          2    4.85+/-0.20
+          N (CN)  B^2^{Sigma}-X^2^{Sigma} violet band  3   <6.85
+          N (CN)  A^2^{Sigma}-X^2^{Sigma} red band     3   <9.00
+          ------------------------------------------------------------------
+Note (2): References as follows:
+    1 = Smith, Lambert, & Nissen (1998ApJ...506..405S) for both log gf value
+         and 7Li hfs
+    2 = B. Plez 2007, private communication
+    3 = Kurucz & Bell (1995, Kurucz CD-ROM. Smithsonian Astrophysical
+         Observatory. Cambridge, MA)
+    4 = Fuhr & Wiese (2009, Atomic Transition Probabilities. Handbook of
+         Chemistry and Physics. 90th edn. Lide D. R., editor. Boca Raton, FL:
+              CRC Press, Inc., p. 10)
+    5 = Chang & Tang (1990, J. Quant. Spectrosc. Rad. Trans., 43, 207)
+    6 = Aldenius et al. (2007A&A...461..767A)
+    7 = Aldenius, Lundberg, & Blackwell-Whitehead (2009A&A...502..989A)
+    8 = Lawler & Dakin (1989, J., Opt., Soc., Am., B Optical Phys., 6, 1457),
+         using hfs from Kurucz & Bell (1995, Kurucz CD-ROM. Smithsonian
+         Astrophysical Observatory. Cambridge, MA)
+    9 = Lawler et al. (2013ApJS..205...11L)
+   10 = Pickering, Thorne, & Perez (2001ApJS..132..403P), with corrections given
+         in Pickering, Thorne, & Perez (2002, ApJS, 138, 247)
+   11 = Wood et al. (2013, Cat. J/ApJS/208/27)
+   12 = Doerr et al. (1985, J. Quant. Spectrosc. Rad. Trans., 33,55), using hfs
+         from Kurucz & Bell (1995, Kurucz CD-ROM. Smithsonian Astrophysical
+         Observatory. Cambridge, MA)
+   13 = Biemont et al. (1989A&A...209..391B)
+   14 = Sobeck, Lawler, & Sneden (2007, Cat. J/ApJ/667/1267)
+   15 = Nilsson et al. (2006A&A...445.1165N)
+   16 = Den Hartog et al. (2011. Cat. J/ApJS/194/35) for both log gf value
+         and hfs
+   17 = O'Brian et al. (1991, J., Opt., Soc., Am., B Optical Phys, 8, 1185)
+   18 = Nitz et al. (1999ApJS..122..557N), using hfs from Kurucz & Bell (1995,
+         Kurucz CD-ROM. Smithsonian Astrophysical Observatory. Cambridge, MA)
+   19 = Fuhr & Wiese (2009, Atomic Transition Probabilities. Handbook of
+         Chemistry and Physics. 90th edn. Lide D. R., editor. Boca Raton, FL:
+         CRC Press, Inc., p. 10), using hfs from Kurucz & Bell (1995,
+         Kurucz CD-ROM. Smithsonian Astrophysical Observatory. Cambridge, MA)
+   20 = Roederer & Lawler (2012, Cat. J/ApJ/750/76)
+   21 = Biemont et al. (2011MNRAS.414.3350B)
+   22 = Ljung et al. (2006A&A...456.1181L)
+   23 = Palmeri et al. (2005MNRAS.363..452P)
+   24 = Fuhr & Wiese (2009, Atomic Transition Probabilities. Handbook of
+         Chemistry and Physics. 90th edn. Lide D. R., editor. Boca Raton, FL:
+         CRC Press, Inc., p. 10), using hfs/IS from
+         McWilliam (1998AJ....115.1640M) when available
+   25 = Lawler, Bonvallet, & Sneden (2001ApJ...556..452L), using hfs from
+          Ivans et al. (2006, Cat. J/ApJ/645/613)
+   26 = Lawler et al. (2009, Cat. J/ApJS/182/51)
+   27 = Li et al. (2007, J. Phys. Scr., 76, 577) using hfs from
+         Sneden et al. (2009, Cat. J/ApJS/182/80)
+   28 = Den Hartog et al. (2003ApJS..148..543D), using hfs/IS from
+         Roederer et al. (2008ApJ...675..723R)  when available
+   29 = Lawler et al. (2006, Cat. J/ApJS/162/227) using hfs/IS from
+         Roederer et al. (2008ApJ...675..723R)  when available
+   30 = Lawler et al. (2001ApJ...556..452L), using hfs/IS from
+         Ivans et al. (2006, Cat. J/ApJ/645/613)
+   31 = Den Hartog et al. (2006 , Cat. J/ApJS/167/292)
+   32 = Roederer et al. (2012ApJS..203...27R)
+   33 = Lawler et al. (2001ApJS..137..351L), using hfs from Lawler, Wyart, &
+         Blaise (2001ApJS..137..351L) when available
+   34 = Wickliffe, Lawler, & Nave (2000, J. Quant. Spectrosc. Rad. Trans.,
+         66, 363)
+   35 = Lawler, Sneden, & Cowan (2004ApJ...604..850L) for both log gf value
+         and hfs
+   36 = Lawler et al. (2008ApJS..178...71L)
+   37 = Wickliffe & Lawler (1997, J., Opt., Soc., Am., B Optical Phys., 14, 737)
+   38 = Sneden et al. (2009, Cat. J/ApJS/182/80) for both log gf value
+         and hfs/IS
+   39 = Lawler et al. (2007, Cat. J/ApJS/169/120)
+   40 = Ivarsson et al. (2003A&A...409.1141I), using hfs/IS from Cowan et al.
+         (2005ApJ...627..238C), see note on log gf values there
+   41 = Biemont et al. (2000MNRAS.312..116B), using hfs/IS from
+         Roederer et al. (2012, Cat. J/ApJ/750/76)
+--------------------------------------------------------------------------------
+
+History:
+    From electronic version of the journal
+
+================================================================================
+(End)                                      Patricia Vannier [CDS]    31-Jul-2015

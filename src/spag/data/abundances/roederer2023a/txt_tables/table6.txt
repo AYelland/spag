@@ -1,0 +1,42 @@
+Table 6 
+Derived Abundances (Part 2 of 3)
+
+
+			J1015-0238						J1018-0155					
+Species	Z	$\mathrm{log}{\varepsilon }_{\odot }$	$\mathrm{log}\varepsilon $(X)	[X/Fe]	sigma($\mathrm{log}\varepsilon $(X))	sigma([X/Fe])	N		$\mathrm{log}\varepsilon $(X)	[X/Fe]	sigma($\mathrm{log}\varepsilon $(X))	sigma([X/Fe])	N	
+Li I	3	cdots	<0.21	cdots	cdots	cdots	1		<0.51	cdots	cdots	cdots	1	
+C (CH)	6	8.43	5.77	-0.22	0.20	0.20	1		5.37	-0.25	0.20	0.20	1	
+N (CN)	7	7.83	cdots	cdots	cdots	cdots	0		cdots	cdots	cdots	cdots	0	
+O I	8	8.69	<6.70	< +0.65	cdots	cdots	1		<6.80	< +0.92	cdots	cdots	1	
+Na I	11	6.24	3.62	+0.02	0.38	0.16	2		3.50	+0.07	0.35	0.15	2	
+Mg I	12	7.60	5.19	+0.23	0.18	0.17	3		5.11	+0.32	0.14	0.14	2	
+Al I	13	6.45	3.92	+0.11	0.39	0.25	1		4.38	+0.74	0.38	0.24	1	
+Si I	14	7.51	5.07	+0.20	0.43	0.37	1		4.71	+0.01	0.40	0.36	1	
+K I	19	5.03	2.42	+0.03	0.21	0.07	2		2.40	+0.18	0.20	0.07	2	
+Ca I	20	6.34	3.82	+0.12	0.17	0.09	15		3.65	+0.12	0.16	0.10	12	
+Sc II	21	3.15	0.31	-0.20	0.11	0.11	9		0.17	-0.17	0.11	0.10	9	
+Ti I	22	4.95	2.35	+0.04	0.29	0.07	16		2.08	-0.06	0.29	0.09	10	
+Ti II	22	4.95	2.58	+0.27	0.11	0.09	25		2.27	+0.13	0.09	0.09	20	
+V I	23	3.93	0.94	-0.35	0.31	0.11	3		0.87	-0.25	0.32	0.16	3	
+V II	23	3.93	1.22	-0.07	0.17	0.17	2		1.05	-0.07	0.30	0.29	1	
+Cr I	24	5.64	2.77	-0.23	0.27	0.07	7		2.45	-0.38	0.25	0.06	8	
+Cr II	24	5.64	3.07	+0.07	0.15	0.12	2		2.67	-0.16	0.28	0.27	1	
+Mn I	25	5.43	2.38	-0.41	0.23	0.09	3		2.08	-0.54	0.22	0.10	3	
+Fe I	26	7.50	4.86	-2.64	0.24	0.24	115		4.69	-2.81	0.24	0.24	107	
+Fe II	26	7.50	4.77	-2.73	0.11	0.11	10		4.61	-2.89	0.11	0.11	11	
+Co I	27	4.99	2.06	-0.29	0.34	0.16	1		1.84	-0.34	0.31	0.14	1	
+Ni I	28	6.22	3.56	-0.02	0.21	0.08	6		3.30	-0.11	0.23	0.13	5	
+Zn I	30	4.56	2.24	+0.32	0.11	0.24	2		1.83	+0.08	0.17	0.27	2	
+Sr II	38	2.87	0.31	+0.08	0.18	0.19	2		-0.72	-0.78	0.25	0.25	2	
+Y II	39	2.21	-0.80	-0.37	0.12	0.13	3		-1.39	-0.79	0.16	0.17	2	
+Zr II	40	2.58	0.01	+0.07	0.15	0.15	3		-0.52	-0.29	0.21	0.21	3	
+Ba II	56	2.18	-1.59	-1.13	0.15	0.16	4		-0.94	-0.31	0.15	0.15	4	
+La II	57	1.10	cdots	cdots	cdots	cdots	0		-1.71	+0.00	0.23	0.24	5	
+Ce II	58	1.58	cdots	cdots	cdots	cdots	0		-1.20	+0.03	0.26	0.27	2	
+Pr II	59	0.72	cdots	cdots	cdots	cdots	0		-1.62	+0.47	0.27	0.28	1	
+Nd II	60	1.42	cdots	cdots	cdots	cdots	0		-1.15	+0.24	0.20	0.20	3	
+Sm II	62	0.96	cdots	cdots	cdots	cdots	0		-1.73	+0.12	0.45	0.45	1	
+Eu II	63	0.52	< -2.70	< -0.58	cdots	cdots	2		-1.96	+0.33	0.15	0.15	3	
+Dy II	66	1.10	cdots	cdots	cdots	cdots	0		-1.06	+0.65	0.43	0.44	1	
+Pb I	82	2.04	<0.10	< +0.70	cdots	cdots	1		<0.05	< +0.82	cdots	cdots	1	
+Notes. [Fe/H] is given instead of [X/Fe] for Fe. The C abundances have been corrected (by +0.77 and +0.76 dex) to the natal abundances according to the stellar evolution corrections presented by Placco et al. (2014). A single C abundance is derived by spectrum synthesis of the region from 4290-4330 Aring. NLTE corrections have been applied to the Li, Na, Mg, Al, Si, K, Fe I, and Pb abundances; see Table 4 for corrections and the text for references.
