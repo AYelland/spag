@@ -1,5 +1,0 @@
-# NLTE chemical abundances for the Gemini/GRACES spectra
-Name,[FeI/H],e_[FeI/H],[NaI/FeII],e_[NaI/FeII],[MgI/FeII],e_[MgI/FeII],[NaI/MgI],e_[NaI/MgI],[CaI/FeII],e_[CaI/FeII]
-C19-01984,-3.03,0.17,+0.34,0.18,+0.33,0.17,+0.01,0.18,+0.56,0.20
-C19-99008,-3.12,0.15,+0.37,0.17,+0.39,0.14,-0.02,0.16,+0.56,0.08
-C19-00352,-2.97,0.17,+0.05,0.15,+0.42,0.14,-0.39,0.15,+0.48,0.13

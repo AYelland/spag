@@ -1,8 +1,0 @@
-Table 5 
-Parallax and Proper Motion data for BD+44deg493
-
-
-	Parallax	Proper Motion	Proper Motion	
-	(mas)	in R.A. (mas yr^-1)	in Decl. (mas yr^-1)	
-Results	4.88	117.03	-33.12	
-Error	1.06	1.33	0.87	

@@ -1,9 +1,0 @@
-This paper does not report the Fe I abundance of the stars. It only reports:
- - [FeII/H]
- - [Mg/FeI] 
- - [Si/FeI] 
- - [Ca/FeI] 
- - [TiI/FeI]
- - [TiII/FeII]
-
-Thus, we can only convert the Ti II abundance to logepsX values.

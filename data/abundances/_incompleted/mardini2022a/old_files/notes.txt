@@ -1,8 +1,0 @@
-Ruchti+2011a (2011ApJ...737....9R) does not have Fe I or C-H abundances.
-Therefore, the following stars [Fe/H] abundances are actually [FeII/H] abundances.
- - UCAC4 223-060458
- - CD-26 16470
- - CD-49 506
- - TYC 6393-564-1
- - TYC 7602-1143-1
-

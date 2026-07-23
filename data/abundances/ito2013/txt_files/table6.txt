@@ -1,7 +1,0 @@
-Table 6 
-Derived Kinematics for BD+44deg493
-
-
-U	V	W	V_phi	e	Z_max	
-(km s^-1)	(km s^-1)	(km s^-1)	(km s^-1)		(kpc)	
--42.63	-169.13	57.18	51.49	0.739	1.138	

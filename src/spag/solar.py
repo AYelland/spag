@@ -18,7 +18,7 @@ from spag.utils import identify_prefix, element_matches_atomic_number
 
 # script_dir = "/".join(IPython.extract_module_locals()[1]["__vsc_ipynb_file__"].split("/")[:-1]) + "/" # use this if in ipython
 script_dir = os.path.dirname(os.path.realpath(__file__))+"/" # use this if not in ipython (i.e. terminal script)
-data_dir = script_dir+"../../data/"
+data_dir = script_dir+"data/"
 
 ################################################################################
 ## Solar Composition Functions

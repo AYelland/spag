@@ -1,7 +1,0 @@
-Table 9 
-Adopted Stellar Parameters for BD+44deg493
-
-
-T_eff	log g	v_micro	[Fe/H]	
-(K)	(cgs)	(km s^-1)	
-5430 +or- 150	3.4 +or- 0.3	1.3 +or- 0.3	-3.8	

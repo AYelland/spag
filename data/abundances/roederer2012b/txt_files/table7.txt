@@ -1,8 +1,0 @@
-Table 7 
-Transition Probabilities for Cd II Lines of Interest
-
-
-Air Wavelength	E_upper	J_upper	E_lower	J_lower	A	log (gf)	
-(Aring)	(cm^-1)		(cm^-1)		(10^6 s^-1)		
-2265.0145	44136.173	0.5	0.00	0.5	317.7 +or- 1.1	-0.311	
-2144.3943	46618.532	1.5	0.00	0.5	377.8 +or- 1.4	+0.018	

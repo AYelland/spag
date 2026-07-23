@@ -1,338 +1,0 @@
-SIMPLE  =                    T / Standard FITS Format                           BITPIX  =                    8 / Character data                                 NAXIS   =                    0 / No Image --- just extension(s)                 EXTEND  =                    T / There are standard extensions                  ORIGIN  = 'xml2fits_v1.95'     / Converted from XML-Astrores to FITS                                     e-mail: question@simbad.u-strasbg.fr                   COMMENT  ARG='-rm'                                                              LONGSTRN= 'OGIP 1.0'           / Long string convention (&/CONTINUE) may be usedDATE    = '2020-04-22'         / Written on 2020-04-22:23:18:27 (GMT)                                        by: apache@vizier.u-strasbg.fr                              **********************************************************                          EXCERPT from catalogues stored in VizieR (CDS)                                             with the following conditions:                                   **********************************************************                                                                                                      VizieR Astronomical Server vizier.u-strasbg.fr                                  Date: 2020-04-22T23:18:27 [V1.99+ (14-Oct-2013)]                                Explanations and Statistics of UCDs: See LINK below                             In case of problem, please report to: cds-question@unistra.fr                                                                                          INFO    = 'votable-version=1.99+ (14-Oct-2013)' / #                             INFO    = '-ref=VIZ5ea0d0b279e2' / #                                            INFO    = '-out.max=unlimited' / #                                              Q-PARAMS=                   57 / Number of queryParameters (followed by list)            -oc.form=dec                                                                    -out.max=unlimited                                                              #out.form=FITS (binary) Table                                                   -out.all=2                                                                      -nav=cat:J/A+A/523/A17&tab:{J/A+A/523/A17/tablea5}&key:source=J/A+A/523         /A17/tablea5&HTTPPRM:&                                                          -source=J/A+A/523/A17/tablea5                                                   -order=I                                                                        -out=Star                                                                       -out=[NaI/Fe]                                                                   -out=e_[NaI/Fe]                                                                 -out=o_[NaI/Fe]                                                                 -out=[MgI/Fe]                                                                   -out=e_[MgI/Fe]                                                                 -out=o_[MgI/Fe]                                                                 -out=[SiI/Fe]                                                                   -out=e_[SiI/Fe]                                                                 -out=o_[SiI/Fe]                                                                 -out.all=2                                                                      -out=[CaI/Fe]                                                                   -out=e_[CaI/Fe]                                                                 -out=o_[CaI/Fe]                                                                 -out=[TiI/Fe]                                                                   -out=e_[TiI/Fe]                                                                 -out=o_[TiI/Fe]                                                                 -out=[TiII/Fe]                                                                  -out=e_[TiII/Fe]                                                                -out=o_[TiII/Fe]                                                                -out=[CrI/Fe]                                                                   -out=e_[CrI/Fe]                                                                 -out=o_[CrI/Fe]                                                                 -out=[FeI/H]                                                                    -out.all=2                                                                      -out=e_[FeI/H]                                                                  -out=o_[FeI/H]                                                                  -out=[FeII/H]                                                                   -out=e_[FeII/H]                                                                 -out=o_[FeII/H]                                                                 -out=[NiI/Fe]                                                                   -out=e_[NiI/Fe]                                                                 -out=o_[NiI/Fe]                                                                 -out=[YII/Fe]                                                                   -out=e_[YII/Fe]                                                                 -out=o_[YII/Fe]                                                                 -out=[BaII/Fe]                                                                  -out=e_[BaII/Fe]                                                                -out.all=2                                                                      -out=o_[BaII/Fe]                                                                -out=[LaII/Fe]                                                                  -out=e_[LaII/Fe]                                                                -out=o_[LaII/Fe]                                                                -out=[NdII/Fe]                                                                  -out=e_[NdII/Fe]                                                                -out=o_[NdII/Fe]                                                                -out=[EuII/Fe]                                                                  -out=e_[EuII/Fe]                                                                -out=o_[EuII/Fe]                                                                -out.all=2                                                                      #                                                                               #RESOURCE=yCat_35230017                                                         #Name: J/A+A/523/A17                                                            #Title: Individual stars in Fornax dSph center (Letarte+, 2010)        END                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             XTENSION= 'BINTABLE'           / Binary Table Extension                         BITPIX  =                    8 / binary data                                    NAXIS   =                    2 / Simple 2-D matrix                              NAXIS1  =                  144 / Number of bytes per record                     NAXIS2  =                   72 / Number of records                              PCOUNT  =                    0 / Get rid of random parameters                   GCOUNT  =                    1 / Only one group (isn't it obvious?)             TFIELDS =                   46 / Number of data fields (columns)                CDS-CAT = 'J/A+A/523/A17'      / Catalogue designation in CDS nomenclature               Individual stars in Fornax dSph center (Letarte+, 2010)                EXTNAME = 'J_A_A_523_A17_tablea5' / Identification of the table                 CDS-NAME= 'J/A+A/523/A17/tablea5' / Table name in METAtab                                *Abundance ratio of the Fornax Field stars (from erratum, 2018, A&A,            613, C1)                                                               UCD__1  = 'meta.id;meta.main'  / ................................byte#0         TDISP1  = 'A5      '           / Display Fortran Format                         TFORM1  = '5A      '           / Ascii string                                   TTYPE1  = 'Star    '           / Star name, BLNNN (link)                        UCD__2  = 'phys.abund;arith.ratio' / ............................byte#5         TDISP2  = 'F5.2    '           / Display Fortran Format                         TFORM2  = 'E       '           / 32-bit floating-point (simple precision)       TTYPE2  = '__NaI_Fe_'          / ? Abundance ratio [NaI/Fe]                     TUNIT2  = '[-]     '           / log[ ]                                         UCD__3  = 'stat.error;phys.abund' / .............................byte#9         TDISP3  = 'F5.2    '           / Display Fortran Format                         TFORM3  = 'E       '           / 32-bit floating-point (simple precision)       TTYPE3  = 'e__NaI_Fe_'         / ? Error associated to [NaI/Fe]                 TUNIT3  = '[-]     '           / log[ ]                                         UCD__4  = 'meta.number'        / ................................byte#13        TDISP4  = 'I1      '           / Display Fortran Format                         TFORM4  = 'B       '           / unsigned 8-bit integer                         TTYPE4  = 'o__NaI_Fe_'         / Number of line used for [NaI/Fe]               UCD__5  = 'phys.abund;arith.ratio' / ............................byte#14        TDISP5  = 'F5.2    '           / Display Fortran Format                         TFORM5  = 'E       '           / 32-bit floating-point (simple precision)       TTYPE5  = '__MgI_Fe_'          / Abundance ratio [MgI/Fe]                       TUNIT5  = '[-]     '           / log[ ]                                         UCD__6  = 'stat.error;phys.abund' / .............................byte#18        TDISP6  = 'F5.2    '           / Display Fortran Format                         TFORM6  = 'E       '           / 32-bit floating-point (simple precision)       TTYPE6  = 'e__MgI_Fe_'         / Error associated to [MgI/Fe]                   TUNIT6  = '[-]     '           / log[ ]                                         UCD__7  = 'meta.number'        / ................................byte#22        TDISP7  = 'I1      '           / Display Fortran Format                         TFORM7  = 'B       '           / unsigned 8-bit integer                         TTYPE7  = 'o__MgI_Fe_'         / Number of line used for [MgI/Fe]               UCD__8  = 'phys.abund;arith.ratio' / ............................byte#23        TDISP8  = 'F5.2    '           / Display Fortran Format                         TFORM8  = 'E       '           / 32-bit floating-point (simple precision)       TTYPE8  = '__SiI_Fe_'          / ? Abundance ratio [SiI/Fe]                     TUNIT8  = '[-]     '           / log[ ]                                         UCD__9  = 'stat.error;phys.abund' / .............................byte#27        TDISP9  = 'F5.2    '           / Display Fortran Format                         TFORM9  = 'E       '           / 32-bit floating-point (simple precision)       TTYPE9  = 'e__SiI_Fe_'         / ? Error associated to [SiI/Fe]                 TUNIT9  = '[-]     '           / log[ ]                                         UCD__10 = 'meta.number'        / ................................byte#31        TDISP10 = 'I1      '           / Display Fortran Format                         TFORM10 = 'B       '           / unsigned 8-bit integer                         TTYPE10 = 'o__SiI_Fe_'         / Number of line used for [SiI/Fe]               UCD__11 = 'phys.abund;arith.ratio' / ............................byte#32        TDISP11 = 'F5.2    '           / Display Fortran Format                         TFORM11 = 'E       '           / 32-bit floating-point (simple precision)       TTYPE11 = '__CaI_Fe_'          / Abundance ratio [CaI/Fe]                       TUNIT11 = '[-]     '           / log[ ]                                         UCD__12 = 'stat.error;phys.abund' / .............................byte#36        TDISP12 = 'F5.2    '           / Display Fortran Format                         TFORM12 = 'E       '           / 32-bit floating-point (simple precision)       TTYPE12 = 'e__CaI_Fe_'         / Error associated to [CaI/Fe]                   TUNIT12 = '[-]     '           / log[ ]                                         UCD__13 = 'meta.number'        / ................................byte#40        TDISP13 = 'I2      '           / Display Fortran Format                         TFORM13 = 'I       '           / 16-bit (short) integer                         TTYPE13 = 'o__CaI_Fe_'         / Number of line used for [CaI/Fe]               UCD__14 = 'phys.abund;arith.ratio' / ............................byte#42        TDISP14 = 'F5.2    '           / Display Fortran Format                         TFORM14 = 'E       '           / 32-bit floating-point (simple precision)       TTYPE14 = '__TiI_Fe_'          / Abundance ratio [TiI/Fe]                       TUNIT14 = '[-]     '           / log[ ]                                         UCD__15 = 'stat.error;phys.abund' / .............................byte#46        TDISP15 = 'F5.2    '           / Display Fortran Format                         TFORM15 = 'E       '           / 32-bit floating-point (simple precision)       TTYPE15 = 'e__TiI_Fe_'         / Error associated to [TiI/Fe]                   TUNIT15 = '[-]     '           / log[ ]                                         UCD__16 = 'meta.number'        / ................................byte#50        TDISP16 = 'I2      '           / Display Fortran Format                         TFORM16 = 'I       '           / 16-bit (short) integer                         TTYPE16 = 'o__TiI_Fe_'         / Number of line used for [TiI/Fe]               UCD__17 = 'phys.abund;arith.ratio' / ............................byte#52        TDISP17 = 'F5.2    '           / Display Fortran Format                         TFORM17 = 'E       '           / 32-bit floating-point (simple precision)       TTYPE17 = '__TiII_Fe_'         / Abundance ratio [TiII/Fe]                      TUNIT17 = '[-]     '           / log[ ]                                         UCD__18 = 'stat.error;phys.abund' / .............................byte#56        TDISP18 = 'F5.2    '           / Display Fortran Format                         TFORM18 = 'E       '           / 32-bit floating-point (simple precision)       TTYPE18 = 'e__TiII_Fe_'        / Error associated to [TiII/Fe]                  TUNIT18 = '[-]     '           / log[ ]                                         UCD__19 = 'meta.number'        / ................................byte#60        TDISP19 = 'I1      '           / Display Fortran Format                         TFORM19 = 'B       '           / unsigned 8-bit integer                         TTYPE19 = 'o__TiII_Fe_'        / Number of line used for [TiII/Fe]              UCD__20 = 'phys.abund;arith.ratio' / ............................byte#61        TDISP20 = 'F5.2    '           / Display Fortran Format                         TFORM20 = 'E       '           / 32-bit floating-point (simple precision)       TTYPE20 = '__CrI_Fe_'          / ? Abundance ratio [CrI/Fe]                     TUNIT20 = '[-]     '           / log[ ]                                         UCD__21 = 'stat.error;phys.abund' / .............................byte#65        TDISP21 = 'F5.2    '           / Display Fortran Format                         TFORM21 = 'E       '           / 32-bit floating-point (simple precision)       TTYPE21 = 'e__CrI_Fe_'         / ? Error associated to [CrI/Fe]                 TUNIT21 = '[-]     '           / log[ ]                                         UCD__22 = 'meta.number'        / ................................byte#69        TDISP22 = 'I1      '           / Display Fortran Format                         TFORM22 = 'B       '           / unsigned 8-bit integer                         TTYPE22 = 'o__CrI_Fe_'         / Number of line used for [CrI/Fe]               UCD__23 = 'phys.abund;arith.ratio' / ............................byte#70        TDISP23 = 'F5.2    '           / Display Fortran Format                         TFORM23 = 'E       '           / 32-bit floating-point (simple precision)       TTYPE23 = '__FeI_H_'           / Abundance ratio [FeI/H]                        TUNIT23 = '[-]     '           / log[ ]                                         UCD__24 = 'stat.error;phys.abund' / .............................byte#74        TDISP24 = 'F5.2    '           / Display Fortran Format                         TFORM24 = 'E       '           / 32-bit floating-point (simple precision)       TTYPE24 = 'e__FeI_H_'          / Error associated to [FeI/H]                    TUNIT24 = '[-]     '           / log[ ]                                         UCD__25 = 'meta.number'        / ................................byte#78        TDISP25 = 'I2      '           / Display Fortran Format                         TFORM25 = 'I       '           / 16-bit (short) integer                         TTYPE25 = 'o__FeI_H_'          / Number of line used for [FeI/H]                UCD__26 = 'phys.abund;arith.ratio' / ............................byte#80        TDISP26 = 'F5.2    '           / Display Fortran Format                         TFORM26 = 'E       '           / 32-bit floating-point (simple precision)       TTYPE26 = '__FeII_H_'          / Abundance ratio [FeII/H]                       TUNIT26 = '[-]     '           / log[ ]                                         UCD__27 = 'stat.error;phys.abund' / .............................byte#84        TDISP27 = 'F5.2    '           / Display Fortran Format                         TFORM27 = 'E       '           / 32-bit floating-point (simple precision)       TTYPE27 = 'e__FeII_H_'         / Error associated to [FeII/H]                   TUNIT27 = '[-]     '           / log[ ]                                         UCD__28 = 'meta.number'        / ................................byte#88        TDISP28 = 'I1      '           / Display Fortran Format                         TFORM28 = 'B       '           / unsigned 8-bit integer                         TTYPE28 = 'o__FeII_H_'         / Number of line used for [FeII/H]               UCD__29 = 'phys.abund;arith.ratio' / ............................byte#89        TDISP29 = 'F5.2    '           / Display Fortran Format                         TFORM29 = 'E       '           / 32-bit floating-point (simple precision)       TTYPE29 = '__NiI_Fe_'          / Abundance ratio [NiI/Fe]                       TUNIT29 = '[-]     '           / log[ ]                                         UCD__30 = 'stat.error;phys.abund' / .............................byte#93        TDISP30 = 'F5.2    '           / Display Fortran Format                         TFORM30 = 'E       '           / 32-bit floating-point (simple precision)       TTYPE30 = 'e__NiI_Fe_'         / Error associated to [NiI/Fe]                   TUNIT30 = '[-]     '           / log[ ]                                         UCD__31 = 'meta.number'        / ................................byte#97        TDISP31 = 'I2      '           / Display Fortran Format                         TFORM31 = 'I       '           / 16-bit (short) integer                         TTYPE31 = 'o__NiI_Fe_'         / Number of line used for [NiI/Fe]               UCD__32 = 'phys.abund;arith.ratio' / ............................byte#99        TDISP32 = 'F5.2    '           / Display Fortran Format                         TFORM32 = 'E       '           / 32-bit floating-point (simple precision)       TTYPE32 = '__YII_Fe_'          / ? Abundance ratio [YII/Fe]                     TUNIT32 = '[-]     '           / log[ ]                                         UCD__33 = 'stat.error;phys.abund' / .............................byte#103       TDISP33 = 'F5.2    '           / Display Fortran Format                         TFORM33 = 'E       '           / 32-bit floating-point (simple precision)       TTYPE33 = 'e__YII_Fe_'         / ? Error associated to [YII/Fe]                 TUNIT33 = '[-]     '           / log[ ]                                         UCD__34 = 'meta.number'        / ................................byte#107       TDISP34 = 'I1      '           / Display Fortran Format                         TFORM34 = 'B       '           / unsigned 8-bit integer                         TTYPE34 = 'o__YII_Fe_'         / Number of line used for [YII/Fe]               UCD__35 = 'phys.abund;arith.ratio' / ............................byte#108       TDISP35 = 'F5.2    '           / Display Fortran Format                         TFORM35 = 'E       '           / 32-bit floating-point (simple precision)       TTYPE35 = '__BaII_Fe_'         / ? Abundance ratio [BaII/Fe]                    TUNIT35 = '[-]     '           / log[ ]                                         UCD__36 = 'stat.error;phys.abund' / .............................byte#112       TDISP36 = 'F5.2    '           / Display Fortran Format                         TFORM36 = 'E       '           / 32-bit floating-point (simple precision)       TTYPE36 = 'e__BaII_Fe_'        / ? Error associated to [BaII/Fe]                TUNIT36 = '[-]     '           / log[ ]                                         UCD__37 = 'meta.number'        / ................................byte#116       TDISP37 = 'I1      '           / Display Fortran Format                         TFORM37 = 'B       '           / unsigned 8-bit integer                         TTYPE37 = 'o__BaII_Fe_'        / Number of line used for [BaII/Fe]              UCD__38 = 'phys.abund;arith.ratio' / ............................byte#117       TDISP38 = 'F5.2    '           / Display Fortran Format                         TFORM38 = 'E       '           / 32-bit floating-point (simple precision)       TTYPE38 = '__LaII_Fe_'         / ? Abundance ratio [LaII/Fe]                    TUNIT38 = '[-]     '           / log[ ]                                         UCD__39 = 'stat.error;phys.abund' / .............................byte#121       TDISP39 = 'F5.2    '           / Display Fortran Format                         TFORM39 = 'E       '           / 32-bit floating-point (simple precision)       TTYPE39 = 'e__LaII_Fe_'        / ? Error associated to [LaII/Fe]                TUNIT39 = '[-]     '           / log[ ]                                         UCD__40 = 'meta.number'        / ................................byte#125       TDISP40 = 'I1      '           / Display Fortran Format                         TFORM40 = 'B       '           / unsigned 8-bit integer                         TTYPE40 = 'o__LaII_Fe_'        / Number of line used for [LaII/Fe]              UCD__41 = 'phys.abund;arith.ratio' / ............................byte#126       TDISP41 = 'F5.2    '           / Display Fortran Format                         TFORM41 = 'E       '           / 32-bit floating-point (simple precision)       TTYPE41 = '__NdII_Fe_'         / ? Abundance ratio [NdII/Fe]                    TUNIT41 = '[-]     '           / log[ ]                                         UCD__42 = 'stat.error;phys.abund' / .............................byte#130       TDISP42 = 'F5.2    '           / Display Fortran Format                         TFORM42 = 'E       '           / 32-bit floating-point (simple precision)       TTYPE42 = 'e__NdII_Fe_'        / ? Error associated to [NdII/Fe]                TUNIT42 = '[-]     '           / log[ ]                                         UCD__43 = 'meta.number'        / ................................byte#134       TDISP43 = 'I1      '           / Display Fortran Format                         TFORM43 = 'B       '           / unsigned 8-bit integer                         TTYPE43 = 'o__NdII_Fe_'        / Number of line used for [NdII/Fe]              UCD__44 = 'phys.abund;arith.ratio' / ............................byte#135       TDISP44 = 'F5.2    '           / Display Fortran Format                         TFORM44 = 'E       '           / 32-bit floating-point (simple precision)       TTYPE44 = '__EuII_Fe_'         / ? Abundance ratio [EuII/Fe]                    TUNIT44 = '[-]     '           / log[ ]                                         UCD__45 = 'stat.error;phys.abund' / .............................byte#139       TDISP45 = 'F5.2    '           / Display Fortran Format                         TFORM45 = 'E       '           / 32-bit floating-point (simple precision)       TTYPE45 = 'e__EuII_Fe_'        / ? Error associated to [EuII/Fe]                TUNIT45 = '[-]     '           / log[ ]                                         UCD__46 = 'meta.number'        / ................................byte#143       TDISP46 = 'I1      '           / Display Fortran Format                         TFORM46 = 'B       '           / unsigned 8-bit integer                         TTYPE46 = 'o__EuII_Fe_'        / Number of line used for [EuII/Fe]              END                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             BL038¾Ü(ö>.{=#×
->.{>³33>\)¾aG®=ÌÌÍ ½¸Qì=ÌÌÍ >W
-=>\)½¸Qì>uÂ¿hõÃ=\) +¿5Â=£×
-½õÂ=uÂ =õÂ>uÂ?\>.{?®>uÂ>€  >.{?hõÃ>uÂBL045ÿÿÿÿÿÿÿÿ ½uÂ=õÂ>k…>#×
-¾¨õÃ=uÂ ¾€  =LÌÍ 
-¼õÂ=ÌÌÍ¾.{>#×
-¿†ff=LÌÍ 0¿B\=£×
-¾W
-==\) ÿÿÿÿÿÿÿÿ ½LÌÍ>\)>#×
->#×
-½¸Qì>#×
->LÌÍ>#×
-BL065ÿÿÿÿÿÿÿÿ ¼£×
->8Qì>¸Qì>#×
-½LÌÍ=õÂ 	¾.{=\) >”zá=õÂ¾™™š>8Qì¿¸Qì=uÂ *¿‡®>™š¾™š=\) ÿÿÿÿÿÿÿÿ >¸>¸ÿÿÿÿÿÿÿÿ ?   >8Qì>½p¤>8QìBL076¿(õÃ>¸¾8Qì>¸¾™š=áG®¾LÌÍ=\) ¾k…=uÂ 	=ÌÌÍ>™š¾aG®>B\¿\(ö=LÌÍ +¾Ü(ö=õÂ¾€  =£×
- ÿÿÿÿÿÿÿÿ >\)>¸ÿÿÿÿÿÿÿÿ >W
-==õÂ>ë…>B\BL077¿G®>\)¾™™š=£×
-½¸Qì=ÌÌÍ¾æff=LÌÍ ¾½p¤=uÂ 
-¼£×
-=áG®¾Ü(ö>\)¿J=q=LÌÍ '¾ÌÌÍ>W
-=¾uÂ=uÂ ÿÿÿÿÿÿÿÿ =õÂ=ÌÌÍ½õÂ>\)>k…=áG®>Ç®>\)BL081¿0£×>¸¾³33>¸¾áG®>¸¾¨õÃ=uÂ 	¾8Qì=\) 
-½¸Qì>¸¾£×
->B\¿!G®=uÂ (¾áG®>.{¾uÂ=uÂ ¾¨õÃ>B\?\>¸>Ñë…>B\>…¸>\)>Ñë…>B\BL084ÿÿÿÿÿÿÿÿ ¾¸>8Qì½¸Qì>.{¾€  =uÂ 	¾¨õÃ=uÂ 	>€  >#×
-¾¸Qì>8Qì¿^¸R=LÌÍ '¿+…=¸Qì¾W
-==uÂ ¾Ñë…>8Qì>ÌÌÍ>¸>B\>8Qì>W
-=>\)?
-=>8QìBL085ÿÿÿÿÿÿÿÿ >Â\>™š?Y™š>™š>®{=uÂ 	?ë…>™š ?
-=q>aG®ÿÿÿÿÿÿÿÿ À%Â=LÌÍ À £×=ÌÌÍ?8Qì>aG® ÿÿÿÿÿÿÿÿ =LÌÍ=áG®?5Â>™š?¾¸R>™šÿÿÿÿÿÿÿÿ BL091¾æff=õÂ½#×
-=õÂ¼õÂ>™š½£×
-=uÂ ¾k…=uÂ 	>Š=q>.{½õÂ>.{¿záH=uÂ .¿¸R>B\½¸Qì=\) ¾”zá>.{>½p¤=õÂ>ž¸R>.{>æff=ÌÌÍ?(õÃ>.{BL092¿záH>™š    =õÂ½ÌÌÍ=ÌÌÍ¾aG®=\) 	¾uÂ=£×
- 	>¨õÃ>#×
-¾k…>W
-=¿k…=\) ,¿
-=q=¸Qì¾W
-==¸Qì >LÌÍ>W
-=>áG®>™š>Š=q>W
-=>\)=õÂ?.{>W
-=BL096¿Që…>8Qì¼£×
->\)½ÌÌÍ>8Qì¾8Qì=ÌÌÍ ¾LÌÍ=¸Qì =£×
->\)¾ž¸R>€  ¿5Â=£×
- *¿hõÃ>8Qì¾ž¸R=£×
- ¾®{>€  >æff>8Qì>³33>€  >”zá>8Qì?B\>€  BL097¿!G®=õÂ    >.{½£×
-=áG®¾W
-==£×
- 	¾B\=LÌÍ 
->W
-==ÌÌÍ¾³33>.{¿k…=LÌÍ +¿
-=q>W
-=½£×
-=uÂ ½uÂ>.{>¸Qì=õÂ>W
-=>.{>™™š=ÌÌÍ?¸R>.{BL100ÿÿÿÿÿÿÿÿ     >\)½£×
->¸¾õÂ=£×
- ¾×
-==\) >ž¸R>™š¾”zá>B\¿p£×=uÂ 0¿.{=õÂ¾…¸=\) ¾ÌÌÍ>B\=áG®>#×
-=\)>B\>ž¸R>¸ÿÿÿÿÿÿÿÿ BL104¿E¸>W
-=¼õÂ>™š?   >8Qì¾.{=\) 	½áG®=\) 	>aG®=õÂ¿®>W
-=¿záH=uÂ +¾®{>LÌÍ¾\)=\) =uÂ>W
-=>Â\>™š>ð£×>W
-=>¸Qì=õÂ?aG®>W
-=BL113¾³33>\)½¸Qì>LÌÍ<#×
-=ÌÌÍ½LÌÍ=¸Qì 	¾8Qì=£×
- >k…>\)¾W
-=>LÌÍ¿B\=uÂ *¿&ff=ÌÌÍ¾k…=uÂ ¾8Qì>LÌÍ?zá>LÌÍ?\>LÌÍ>€  >™š?&ff>LÌÍBL115ÿÿÿÿÿÿÿÿ <õÂ=ÌÌÍ¼#×
->#×
-¾uÂ=uÂ ¾aG®=£×
- <õÂ>¸¾®{>#×
-¿¼(ö=uÂ (¿s33=ÌÌÍ¾#×
-=\) 
-ÿÿÿÿÿÿÿÿ ½\)=áG®½uÂ>#×
->Ü(ö>#×
-=\)>#×
-BL123¿:áH>.{½uÂ=õÂ<£×
-=ÌÌÍ¾\)=uÂ ¾8Qì=uÂ 	½¸Qì>.{¾B\>.{¿záH=LÌÍ )¿Që…=\)¾#×
-=LÌÍ ½£×
->.{>uÂ=õÂ>½p¤>.{>£×
-=ÌÌÍ?®>.{BL125¿
-=q>.{¼£×
->.{½õÂ=õÂ¾B\=£×
- ½\)=£×
- 	>¸Qì>#×
-¾³33>uÂ¿@  =uÂ ,¿(ö=ÌÌÍ¾ž¸R=uÂ <#×
->uÂ?®>.{?n{>uÂ>ÌÌÍ>\)?B\>uÂBL132¿k…>¸½áG®=áG®<£×
-=õÂ¾Â\=\) ¾³33=£×
- =uÂ>¸¾\)>B\¿k…=uÂ +¿333=ÌÌÍ¾LÌÍ=\) ÿÿÿÿÿÿÿÿ <#×
->¸¼£×
->B\>\)>¸>¨õÃ>B\BL138ÿÿÿÿÿÿÿÿ ½ÌÌÍ=ÌÌÍ>”zá>.{¾¸=£×
- 	½áG®=uÂ >.{=õÂ¾\)>.{¿G®=uÂ +¿zá>¸½ÌÌÍ=£×
- ¾™š>.{>ž¸R=õÂ>×
-=>.{>k…>\)?:áH>.{BL140¿Y™š>.{¼õÂ=õÂ¾.{=ÌÌÍ¾ž¸R=uÂ 	¾uÂ=uÂ 	>#×
-=õÂ¾#×
->.{¿Tzá=\) (>B\>uÂ¾™š=£×
- =uÂ>.{>ð£×=õÂ>ð£×>.{>ž¸R>W
-=?\(ö>.{BL141¿c×
->™š½ÌÌÍ>™š¾B\>™š¾ž¸R=£×
- ¾¸Qì=\) 	½£×
-=¸Qì¾…¸>W
-=¿W
-==uÂ .¾Ü(ö=ÌÌÍ¾uÂ=uÂ ¾Ü(ö>W
-=>¸>™š>\)>W
-=>Š=q=õÂ?
-=q>W
-=BL146¿5Â=áG®¾\)=¸Qì=#×
-=£×
-¾k…=\) ¾\)=LÌÍ 	¾\)>#×
-¾B\>#×
-¿n{=uÂ '¿&ff=\)¾8Qì=uÂ ½£×
->#×
->½p¤=áG®>ÌÌÍ>#×
->\)=ÌÌÍ?®>#×
-BL149¿
-=q>€  ½ÌÌÍ>8Qì>k…>\)¾”zá=¸Qì ¾Ç®=¸Qì >×
-=>\)¾ž¸R>€  ¿k…=\) -¿O\)>™š¾…¸=£×
- <õÂ>€  >ÌÌÍ>8Qì>™™š>€  =uÂ>€  ?ÌÍ>€  BL150¿(ö>#×
-¼£×
->#×
-<£×
->¸¾LÌÍ=£×
- ¾#×
-=£×
- ½uÂ>\)¾B\>aG®¿Që…=uÂ *¾Ñë…=õÂ¾™™š=£×
- ÿÿÿÿÿÿÿÿ >#×
->#×
->ž¸R>aG®>ÌÌÍ>#×
-?(õÃ>aG®BL151¿¸R>¸½uÂ=ÌÌÍ    >\)¾uÂ=\) ½ÌÌÍ=uÂ 	>\)=ÌÌÍ½õÂ>8Qì¿aG®=\) -¿(ö=¸Qì¾8Qì=LÌÍ ÿÿÿÿÿÿÿÿ >ð£×>¸>½p¤>8Qì>¨õÃ=ÌÌÍ?¸R>8QìBL155¿¸R>#×
-½uÂ>W
-=½£×
->¸¾\)=£×
- 	½LÌÍ=\) 	>¸=áG®¾B\>aG®¿5Â=\) (¾úáH>.{½õÂ=¸Qì >™š>aG®?¸>#×
-?#×
->aG®?!G®>…¸?®>aG®BL156ÿÿÿÿÿÿÿÿ ¼£×
->¸<õÂ=áG®¾€  =\) ¾Ñë…=\) >³33>\)¾aG®>B\¿“33=\) -¿!G®>.{½\)=£×
- ÿÿÿÿÿÿÿÿ >½p¤>¸?®>B\>×
-=>k…?O\)>B\BL158¿(ö>#×
-=#×
->¸=uÂ=õÂ¾¸Qì=£×
- 	¾ÌÌÍ=£×
- >³33=õÂ¾Š=q>k…¿Y™š=\) +¾³33>™š¾.{=£×
- ¾\)>k…?8Qì>k…?G®>k…>úáH>k…?Y™š>k…BL160¿+…>\)¾W
-==ÌÌÍ¼õÂ=¸Qì¾Š=q=LÌÍ ¾\)=uÂ >€  =ÌÌÍ¾ÌÌÍ>\)¿^¸R=uÂ %¿™š=\)¾€  =uÂ ½áG®>\)>½p¤=ÌÌÍ>ÌÌÍ>\)>Â\=¸Qì?ÌÍ>\)BL163¾ë…>\)¾#×
->\)¾W
-=>\)½£×
-=£×
- ¼£×
->\) >Ç®>#×
-¼£×
->LÌÍ¿=p¤=\) )¿
-==õÂ¾#×
-=uÂ ½#×
->LÌÍ?
-=>LÌÍ?
-=>LÌÍ>æff=õÂ?333>LÌÍBL166¿ë…>#×
-½áG®>¸½¸Qì>\)¾uÂ=£×
- ½áG®=\) 
->\)>8Qì¾Ç®>aG®¿c×
-=\) *¿
-=q>LÌÍ¾8Qì=\)     >aG®>õÂ>#×
-?zá>aG®>úáH>¸?ÌÍ>aG®BL168¾æff>LÌÍ½ÌÌÍ>\)    >#×
-½\)=£×
- <õÂ=\) <£×
-=õÂ½¸Qì>LÌÍ¿fff=\) *¿ë…>.{¾#×
-=uÂ ¾™™š>LÌÍ>³33>\)?\)>LÌÍ>™™š=õÂ?:áH>LÌÍBL171ÿÿÿÿÿÿÿÿ ½uÂ=ÌÌÍÿÿÿÿÿÿÿÿ ¾aG®=\) ¾W
-==uÂ >Ç®>\)½uÂ>8Qì¿k…=uÂ (¾B\=õÂ¾.{=\) ¾k…>8Qì=¸Qì>¸>¸Qì>8Qì>™™š>.{?
-=>8QìBL173¿   >\)½\)=õÂ>8Qì>LÌÍ¾ž¸R=£×
- ¾\)=\) 	>¸Qì>.{¾£×
->LÌÍ¿^¸R=\) )¿@  >¸¾€  =£×
- ¾€  >LÌÍ>Š=q>\)>×
-=>LÌÍ>×
-=>W
-=?   >LÌÍBL185¾Ü(ö>#×
-¼õÂ>¸<õÂ=õÂ½¸Qì=£×
- ¼£×
-=£×
- 
-=uÂ=õÂ=ÌÌÍ>k…¿E¸=\) '¿G®=õÂ¾B\=£×
- ½\)>k…?™š>#×
-?J=q>k…>ë…>#×
-?(ö>k…BL190ÿÿÿÿÿÿÿÿ ¾¸Qì>¸¾aG®>¸¾ð£×=uÂ ¾ÌÌÍ=uÂ 	=áG®=õÂ¾ð£×>8Qì¿J=q=LÌÍ +¿™š=ÌÌÍ¾ž¸R=\) ¿   >k…½LÌÍ>¸¾\)>8Qì>Š=q>aG®?
-=q>8QìBL195¿™š>¸½¸Qì>¸¼#×
->¸¾aG®=\) ¾#×
-=uÂ >uÂ>¸¾aG®>8Qì¿záH=uÂ 0¿:áH=£×
-¾W
-==uÂ ÿÿÿÿÿÿÿÿ =\)>#×
-ÿÿÿÿÿÿÿÿ =#×
-=áG®?
-=q>8QìBL196¿k…>.{¾8Qì>.{<#×
->.{¾ž¸R=uÂ 	¾…¸=uÂ 	½uÂ=õÂ¾.{>.{¿…¸=uÂ +¿Y™š=¸Qì¾\)=uÂ ½ÌÌÍ>.{>™š=õÂ>Ç®>.{>Š=q=ÌÌÍ?™š>.{BL197¿333>.{<£×
->\)¼õÂ>.{¾Ç®=¸Qì ¾”zá=¸Qì >£×
->k…¾Â\>uÂ¿c×
-=uÂ '¿J=q>¸¾¸=\) >¸>uÂ?   >.{>®{>uÂ>uÂ>.{?B\>uÂBL203¿ÌÍ>8Qì½£×
->™š½#×
->LÌÍ¾LÌÍ=¸Qì ¾8Qì=¸Qì 	>k…>k…¾…¸>…¸¿W
-==\) +¿ÌÍ=ÌÌÍ¾W
-==£×
- ¾Š=q>…¸>®{>8Qì>³33>…¸>ž¸R>B\?333>…¸BL205¾ë…>¸½£×
->¸¼#×
-=áG®¾LÌÍ=áG® ¾B\=¸Qì 	>8Qì=ÌÌÍ¾LÌÍ>B\¿5Â=uÂ +¿&ff=\)¾aG®=uÂ ½õÂ>B\>úáH>¸>ë…>B\>Ü(ö>W
-=>ë…>B\BL208¿®>#×
-½\)>¸½áG®=õÂ½uÂ=¸Qì 	½¸Qì=£×
- <£×
->W
-=¾®{>aG®¿.{=uÂ +¿=p¤=uÂ¾”zá=uÂ ¿®>aG®?®>#×
-?™š>aG®>Â\>¸>½p¤>aG®BL210¿™š>#×
-<£×
->#×
-¾LÌÍ>#×
-¾¨õÃ=£×
- ¾8Qì=\) 	>™š>¸¾®{>aG®¿B\=\) +¾³33>LÌÍ½õÂ=\) ½£×
->aG®?
-=q>#×
-?   >aG®?   >¸?+…>aG®BL211¿&ff>#×
-¾LÌÍ>¸>³33>k…¾LÌÍ=\) 	½#×
-=£×
- =¸Qì>\)<#×
->aG®¿¸R=\) +¿k…>™š¾B\=\) <£×
->aG®?ë…>#×
->úáH>aG®>\)>¸?
-=>aG®BL213¿™š>aG®¾.{>#×
-<#×
-=ÌÌÍ¾Š=q=\) 	½áG®=\) 	½£×
->\)¾™™š>aG®¿p£×=uÂ +¿G®=ÌÌÍ¾Š=q=uÂ =ÌÌÍ>aG®>³33>#×
->Ç®>aG®>ž¸R>#×
-?&ff>aG®BL216¾ë…>.{¼#×
->\)½£×
->\)¾¸=¸Qì <£×
-=ÌÌÍ ¾\)>.{½\)>uÂ¿J=q=uÂ #¿‡®>.{½áG®=\) <õÂ>uÂ?ÌÍ>.{?™š>uÂ>ž¸R>\)?E¸>uÂBL218¿J=q>B\½áG®>#×
-½LÌÍ>B\¾uÂ=ÌÌÍ ¾8Qì=ÌÌÍ ¾\)>\)¾#×
->Š=q¿!G®=¸Qì )¿
-=>8Qì¾#×
-=£×
- ¼£×
->Š=q?¸R>Š=q?ë…>Š=q>Š=q>#×
-?   >Š=qBL221¿fff>W
-=¾\)>™š¾\)>™š¾uÂ=\) ¾\)=\) 	>ë…>\)¾.{>W
-=¿Tzá=uÂ +¿=p¤>8Qì¾…¸=£×
- ½£×
->W
-=?\)>™š?¸>W
-=>õÂ>#×
-?p£×>W
-=BL227¿   >8Qì¾™š>8Qì=õÂ=ÌÌÍ¾€  =£×
- 	¾W
-==¸Qì >#×
->B\½uÂ>€  ¿^¸R=£×
- +¿&ff>\)¾k…=\) >™š>€  ?\)>8Qì>ž¸R>€  >Ç®>€  ?^¸R>€  BL228¿aG®=áG®¾8Qì=áG®½uÂ=ÌÌÍ¾Ç®=\) 	¾LÌÍ=LÌÍ 	=áG®>.{¾B\>#×
-¿^¸R=LÌÍ *¾áG®>\)¾…¸=\) ¾ž¸R>.{¾™š=áG®<#×
->#×
->Ñë…>#×
->ÌÌÍ>#×
-BL229¿=p¤>.{¾LÌÍ>.{½LÌÍ=ÌÌÍ¾Š=q=áG® ¾k…=¸Qì =uÂ=õÂ¾¸Qì>uÂ¿.{=uÂ '¾áG®>¸¾Š=q=¸Qì ¾ð£×>uÂ?   >.{?ë…>uÂ>Ç®>\)?8Qì>uÂBL233¿zá>#×
-¾8Qì>¸¾LÌÍ=áG®¾Ñë…=£×
- ¾aG®=\) 	>.{=áG®¾×
-=>aG®¿&ff=\) ,¾Ü(ö=ÌÌÍ¾uÂ=£×
- =ÌÌÍ>aG®>Ü(ö>#×
->Ñë…>aG®>uÂ>¸?¸>aG®BL239¿.{>aG®¾¸>#×
-¾LÌÍ>¸¾.{=£×
- ¾Š=q=\) 	½õÂ>B\¾…¸>aG®¿p£×=uÂ +¿J=q=ÌÌÍ¾€  =£×
- ÿÿÿÿÿÿÿÿ >×
-=>#×
-¼õÂ>aG®=áG®>¸>\)>aG®BL242¿ÌÍ>LÌÍ>LÌÍ>\)=áG®>\)¾¸Qì=¸Qì 	¾.{=\) =õÂ>8Qì¾¸>LÌÍ¿‘ë…=\) +¿n{>8Qì¾¸=uÂ ½áG®>LÌÍ>Ç®>\)>™š>LÌÍ>”zá>k…?\>LÌÍBL247¿
-=q=áG®=\)>8Qì>#×
->¸¾€  =ÌÌÍ 	¾W
-==£×
- 
->8Qì>™š¾#×
->™š¿W
-==¸Qì %¿™š=õÂ½LÌÍ=£×
- >áG®>™š>™™š=áG®?®>™š?s33=áG®?(õÃ>™šBL250¾Ñë…>8Qì½áG®>™š>™š>™š¾¸=ÌÌÍ =#×
-=¸Qì ¾”zá>8Qì=LÌÍ>…¸¿#×
-=¸Qì &¾ë…>™™š¾™š=ÌÌÍ ¾\)>…¸ÿÿÿÿÿÿÿÿ >¨õÃ>…¸>¸Qì>8Qì>Â\>…¸BL253¿
-=q>¸¾8Qì=ÌÌÍ¾™š=áG®¾…¸=áG® ¾8Qì=\) ½áG®=ÌÌÍ¾Š=q>8Qì¿333=uÂ &¿=p¤=ÌÌÍ¾aG®=\) ¾k…>8Qì?\>¸>Ç®>8Qì>£×
->.{?zá>8QìBL257¿B\>.{¾LÌÍ>\)½uÂ>¸¾™™š=£×
- ¾W
-==ÌÌÍ 	<õÂ>8Qì¾€  >uÂ¿
-=q=\) )¿ˆõÃ=õÂ¾W
-==\) <£×
->uÂ?ë…>uÂ?LÌÍ>uÂ>”zá>\)?¸>uÂBL258¿#×
->#×
-¾”zá>#×
-¾k…>\)¾¸=õÂ 	¾uÂ=áG® 	=áG®>™š½áG®>k…¿zá=£×
- '¿¸R=£×
-¾LÌÍ=\) =uÂ>k…?zá>k…?(ö>k…>æff>\)?@  >k…BL260¿LÌÍ>B\¾”zá>¸>”zá>k…¾ž¸R=£×
- 	¾LÌÍ=\) ½£×
-=ÌÌÍ¾ž¸R>B\¿\(ö=uÂ '¾Ç®=áG®¾”zá=\) ¾k…>B\½#×
->¸>.{>B\>®{=õÂ>Ñë…>B\BL261¿J=q>™š½ÌÌÍ>™š¾áG®>W
-=¾™™š=£×
- ¾Š=q=\) 	<£×
-=¸Qì¾ž¸R>W
-=¿G®=¸Qì +¾æff>aG®¾ž¸R=ÌÌÍ ½áG®>W
-=>k…>™š>€  >W
-=>³33=õÂ?ÌÍ>W
-=BL266ÿÿÿÿÿÿÿÿ =LÌÍ>#×
->Ñë…>B\¾.{=¸Qì 
-½¸Qì=£×
- 	?\=ÌÌÍ¾\)>B\¿ºáH=uÂ +¿•Â>8Qì¾.{=\) 
-=£×
->B\=õÂ>¸¼£×
->B\ÿÿÿÿÿÿÿÿ ?   >B\BL267¾Ñë…>¸¼£×
-=ÌÌÍ½£×
-=ÌÌÍ¾#×
-=ÌÌÍ 	¾™š=uÂ >£×
-=õÂ½ÌÌÍ>8Qì¿=p¤=\) ,¿&ff=áG®¾8Qì=¸Qì ½#×
->8Qì>½p¤>¸?ë…>8Qì=¸Qì>8Qì?
-=q>8QìBL269¿!G®>W
-=½õÂ>.{>…¸>.{¾uÂ=ÌÌÍ 	¾\)=¸Qì 
-=#×
->€  ¾¸Qì>™™š¿LÌÍ=\) -¾õÂ>\)¾uÂ=ÌÌÍ ¾…¸>™™š?
-=q>W
-=>™™š>™™š>…¸>.{?^¸R>™™šBL278¾8Qì>8Qì½LÌÍ>8Qì½#×
-=õÂ½uÂ=ÌÌÍ >™š=£×
- 	=ÌÌÍ=õÂ=£×
->€  ¿:áH=\) &¿\(ö>¸¾¸=\) =ÌÌÍ>€  ÿÿÿÿÿÿÿÿ ?¸R>€  ?   >\)?!G®>€  BL279=LÌÍ>LÌÍ>™š>LÌÍ>³33=õÂ¼#×
-=ÌÌÍ 	¾aG®=áG® ?.{=õÂ¾ž¸R>LÌÍ¿Â\=£×
- ,¿§®>#×
-¼£×
-=ÌÌÍ ÿÿÿÿÿÿÿÿ >³33>\)>uÂ>LÌÍ?+…>LÌÍ?333>LÌÍBL295¿¸>8Qì½£×
->™š<£×
->Š=q½£×
-=õÂ ½õÂ=¸Qì >W
-=>uÂ¾aG®>…¸¿(õÃ=£×
- &¾k…>aG®¾B\=\) =\)>…¸ÿÿÿÿÿÿÿÿ ?\(ö>…¸>”zá>8Qì?.{>…¸BL300¾ð£×=õÂ>\)=ÌÌÍ¼£×
-=ÌÌÍ¾#×
-=¸Qì ½#×
-=uÂ =¸Qì=áG®½¸Qì>.{¿k…=\) '¿zá=¸Qì¾#×
-=\) ¼õÂ>.{?5Â=õÂ?hõÃ>.{>úáH=ÌÌÍ?(ö>.{BL304¿8Qì>¸¼õÂ>¸=õÂ>¸¾\)=\) ¾.{=\) ¾.{=õÂ¾³33>B\¿xQì=uÂ *¿W
-==ÌÌÍ¾B\=\) ¾½p¤>B\>”zá>¸>ž¸R>B\>8Qì=áG®>õÂ>B\BL315¿aG®>W
-=½¸Qì>W
-=½\)=õÂ¾³33=¸Qì ¾®{=\) 	>Š=q=õÂ¾™™š>W
-=¿G®=¸Qì -¿\)>#×
-¾Ç®=áG® ÿÿÿÿÿÿÿÿ >¸Qì>™š>£×
->W
-=>£×
->W
-=?fff>W
-=BL323¿8Qì>€  ¾8Qì>\)>¸>8Qì¿!G®>¸ ¾ž¸R=¸Qì =#×
->\)¾\)>€  ¿k…=uÂ *¿J=q>#×
-¾aG®=\) =#×
->€  >Š=q>8Qì=¸Qì>€  >\)>B\?
-=>€                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  

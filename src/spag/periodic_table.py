@@ -72,7 +72,7 @@ for i, elem in enumerate(pt_list):
 
 # Database Setup
 spag_dir = os.path.abspath(os.path.dirname(__file__))
-index = os.path.join(spag_dir, '../../data/periodic_table/table.db')
+index = os.path.join(spag_dir, 'data/periodic_table/table.db')
 engine = sqlalchemy.create_engine(f'sqlite:///{index}')
 Session = sessionmaker(bind=engine)
 session = Session()
