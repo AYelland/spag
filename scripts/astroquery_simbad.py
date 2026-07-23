@@ -43,7 +43,7 @@ query_id_column = args.id_column
 
 ## Input File.
 base_path = f"/Users/ayelland/Research/metal-poor-stars/spag/data/abundances/{reference}"
-# base_path = "/Users/ayelland/Research/metal-poor-stars/project/2025_cemp_stars/duplicates/"
+# base_path = "/Users/ayelland/Research/metal-poor-stars/project/yelland2026a/duplicates/"
 input_file = os.path.join(base_path, "astroquery.csv")
 
 ## Collect results.
