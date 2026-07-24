@@ -1906,7 +1906,7 @@ def load_placco2014c(remove_atari=True, remove_sass=True, remove_dups=True, use_
     original data-set (616 stars) as well or versions of the data-set with only some of the filters applied.
     """
 
-    placco2014c_df = pd.read_csv(data_dir+"abundances/placco2014c/cds_files/table3_mod.csv") # using modified table for correct reference labeling
+    placco2014c_df = pd.read_csv(data_dir+"abundances/placco2014c/raw/table3_mod.csv") # using modified table for correct reference labeling
 
     ## Rename, Clean-up, and Add-to Reference Columns
     placco2014c_df.rename(columns={"Ref": "Reference"}, inplace=True)
