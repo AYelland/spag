@@ -4,13 +4,13 @@ build-backend = "uv_build"
 
 [project]
 name = "spag"
-version = "0.0.2"
+version = "0.0.1"
 description = "Stellar Patterns and Abundances in Galaxies: a toolkit adn database for stellar and galactic archaeology research."
 keywords = ["astronomy", "astrophysics", "stellar abundances", "metal-poor stars", "stellar archaeology"]
 readme = "README.md"
 license = { file = "LICENSE" }
 authors = [
-    { name = "AYelland", email = "ayelland@mit.edu" }
+    { name = "Alexander Yelland", email = "ayelland@mit.edu" }
 ]
 requires-python = ">=3.14"
 dependencies = [

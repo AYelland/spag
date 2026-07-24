@@ -112,7 +112,7 @@ def load_ufds(io=None, **kwargs):
         load_feltzing2009(),
         load_francois2016(),
         load_frebel2010a(),
-        load_frebel2013c(),
+        load_frebel2013c()[load_frebel2013c()['System'] == 'Segue 1'], ## only include Segue 1 stars from Frebel+2013c
         load_frebel2014(),
         load_frebel2016(),
         load_gilmore2013a(),
@@ -233,7 +233,7 @@ def load_ufds(io=None, **kwargs):
         ('Francois+2016' , 'LeoIV-S1'),
         ('Francois+2016' , 'BooII-7'),
         ('Francois+2016' , 'BooII-15'),
-        ('Gilmore+2013'  , 'BooI-127'),
+        ('Gilmore+2013a' , 'BooI-127'),
         ('Ishigaki+2014' , 'BooI-094'),
         ('Ishigaki+2014' , 'BooI-117'),
         ('Ishigaki+2014' , 'BooI-127'),
@@ -2302,9 +2302,9 @@ def load_chiti2024() -> pd.DataFrame:
         year        = '2024',
         shortname   = 'CHI24',
         loc         = 'DW',
-        obs_table   = 'table_obs',
-        param_table = 'table_param',
-        abund_table = 'table_abund',
+        obs_table   = 'obs_et1',
+        param_table = 'param_t1_et2',
+        abund_table = 'abund_merged',
     )
     return df
 
