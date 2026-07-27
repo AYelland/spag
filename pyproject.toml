@@ -4,7 +4,7 @@ build-backend = "uv_build"
 
 [project]
 name = "spag"
-version = "0.0.1"
+version = "0.1.0"
 description = "Stellar Patterns and Abundances in Galaxies: a toolkit adn database for stellar and galactic archaeology research."
 keywords = ["astronomy", "astrophysics", "stellar abundances", "metal-poor stars", "stellar archaeology"]
 readme = "README.md"

@@ -3020,6 +3020,8 @@ def load_lucey2026b() -> pd.DataFrame:
         transpose_abund = '[X/Fe]',
         transpose_err   = 'e_[X/Fe]'
     )
+    df['C_key'] = 'CE'
+    df['Ncap_key'] = 'S'
     return df
 
 def load_mardini2022b() -> pd.DataFrame:
